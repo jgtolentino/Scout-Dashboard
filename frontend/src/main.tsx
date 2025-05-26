@@ -10,19 +10,22 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import App from './App'
 import { store } from './store'
 import { theme } from './theme'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <App />
-          </LocalizationProvider>
-        </ThemeProvider>
-      </BrowserRouter>
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <App />
+            </LocalizationProvider>
+          </ThemeProvider>
+        </BrowserRouter>
+      </Provider>
+    </ErrorBoundary>
   </React.StrictMode>
 )

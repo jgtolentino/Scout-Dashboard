@@ -2,6 +2,15 @@ import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/fu
 import { query } from '../shared/database'
 import { requireAuth } from '../shared/auth'
 import { validateRequest, dateRangeSchema, paginationSchema } from '../shared/validation'
+import {
+  getSecurityHeaders,
+  getCorsHeaders,
+  checkRateLimit,
+  sanitizeInput,
+  createErrorResponse,
+  logRequest,
+  withTimeout
+} from '../shared/middleware'
 
 interface BrandQuery {
   startDate: string
@@ -15,12 +24,22 @@ export async function GetBrands(
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
+    // Log request
+    logRequest(request, context)
+    
+    // Check rate limit
+    const clientId = request.headers.get('x-forwarded-for') || 'anonymous'
+    if (!checkRateLimit(clientId)) {
+      return createErrorResponse(429, 'Too many requests')
+    }
+    
     // Authenticate user
     const user = requireAuth(request)
     
     // Parse and validate query parameters
     const params = Object.fromEntries(request.query.entries())
-    const validated = validateRequest<BrandQuery>(params, 
+    const sanitizedParams = sanitizeInput(params)
+    const validated = validateRequest<BrandQuery>(sanitizedParams, 
       dateRangeSchema.concat(paginationSchema)
     )
 
@@ -54,12 +73,15 @@ export async function GetBrands(
       FETCH NEXT @limit ROWS ONLY
     `
 
-    const result = await query(sqlQuery, {
-      startDate: validated.startDate,
-      endDate: validated.endDate,
-      offset,
-      limit: validated.limit,
-    })
+    const result = await withTimeout(
+      query(sqlQuery, {
+        startDate: validated.startDate,
+        endDate: validated.endDate,
+        offset,
+        limit: validated.limit,
+      }),
+      30000 // 30 second timeout
+    )
 
     const brands = result.recordset
     const totalCount = brands[0]?.totalCount || 0
@@ -68,6 +90,8 @@ export async function GetBrands(
       status: 200,
       headers: {
         'Content-Type': 'application/json',
+        ...getSecurityHeaders(),
+        ...getCorsHeaders(request.headers.get('origin'))
       },
       body: JSON.stringify({
         success: true,
@@ -93,13 +117,15 @@ export async function GetBrands(
   } catch (error) {
     context.error('Error in GetBrands:', error)
     
-    return {
-      status: error.message === 'Unauthorized' ? 401 : 500,
-      body: JSON.stringify({
-        success: false,
-        error: error.message || 'Internal server error',
-      }),
-    }
+    const status = error.message === 'Unauthorized' ? 401 : 
+                   error.message === 'Forbidden: Insufficient permissions' ? 403 :
+                   error.message === 'Request timeout' ? 504 : 500
+    
+    return createErrorResponse(
+      status,
+      error.message || 'Internal server error',
+      error
+    )
   }
 }
 
