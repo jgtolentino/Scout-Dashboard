@@ -1,138 +1,189 @@
-# Scout Dashboard
+# Scout Analytics Dashboard
 
-A modern, Power BI-style React dashboard for visualizing retail transaction data from sari-sari stores (SSS). Built with React, TypeScript, and Azure services.
+A comprehensive real-time analytics solution for retail businesses, providing insights into sales, product mix, consumer behavior, and AI-driven recommendations.
 
-## 🚀 Features
+## Features
 
-- **Real-time Analytics**: Live data visualization with sub-second response times
-- **Multi-dimensional Analysis**: Sales, brand performance, store metrics, and product insights
-- **AI-Powered Insights**: Machine learning-driven recommendations and anomaly detection
-- **Responsive Design**: Mobile-first approach with adaptive layouts
-- **Enterprise Security**: Azure AD B2C authentication and role-based access control
-- **Scalable Architecture**: Serverless backend with Azure Functions and SQL Database
+- **Real-time Sales Analytics**: Track sales performance across stores, regions, and time periods
+- **Product Performance Tracking**: Monitor top-selling products, category performance, and inventory levels
+- **Geographic Visualization**: Analyze sales data by region, city, and barangay
+- **Store Management**: Manage store information and track individual store performance
+- **AI-Powered Insights**: Get intelligent recommendations for inventory optimization and sales forecasting
+- **Multi-tier Filtering System**: Drill down into data with hierarchical filters
 
-## 📊 Dashboard Modules
-
-1. **Overview Dashboard**: Key metrics and KPIs at a glance
-2. **Sales Analytics**: Detailed sales trends and performance analysis
-3. **Brand Performance**: Brand comparison and market share visualization
-4. **Store Metrics**: Geographic distribution and store performance heatmaps
-5. **Product Insights**: Product category analysis and inventory optimization
-6. **AI Recommendations**: Predictive analytics and optimization suggestions
-
-## 🛠️ Technology Stack
+## Tech Stack
 
 ### Frontend
 - React 18 with TypeScript
-- Redux Toolkit for state management
-- Material-UI (MUI) for UI components
-- Recharts & D3.js for data visualization
 - Vite for fast development and building
+- Zustand for state management
+- Tailwind CSS for styling
+- Recharts for data visualization
+- React Query for server state management
 
 ### Backend
-- Azure Functions (Serverless)
-- Azure SQL Database
-- Azure Databricks for ETL
-- Azure AD B2C for authentication
+- Node.js with Express
+- TypeScript
+- MySQL 8.0 for data storage
+- Docker for containerization
 
-### Infrastructure
-- Azure Static Web Apps for hosting
-- Azure Front Door for CDN
-- GitHub Actions for CI/CD
-- Terraform for infrastructure as code
+## Prerequisites
 
-## 🚦 Getting Started
+- Node.js 18+
+- MySQL 8.0
+- Docker and Docker Compose (optional)
 
-### Prerequisites
+## Installation
 
-- Node.js 18+ and npm 9+
-- Azure subscription
-- Azure CLI installed
-- Git
+### Using Docker (Recommended)
 
-### Installation
-
-1. Clone the repository:
+1. Clone the repository
 ```bash
-git clone https://github.com/your-org/scout-dashboard.git
+git clone https://github.com/yourusername/scout-dashboard.git
 cd scout-dashboard
 ```
 
-2. Install dependencies:
+2. Create environment files
+```bash
+# Backend environment
+cp server/.env.example server/.env
+# Update the .env file with your credentials
+
+# Frontend environment
+cp client/.env.example client/.env
+# Update with your API URL
+```
+
+3. Start the application
+```bash
+docker-compose up -d
+```
+
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
+
+### Manual Installation
+
+#### Backend Setup
+
+1. Navigate to server directory
+```bash
+cd server
+```
+
+2. Install dependencies
 ```bash
 npm install
 ```
 
-3. Set up environment variables:
+3. Set up MySQL database
 ```bash
-# Frontend
-cp frontend/.env.example frontend/.env
-
-# Backend
-cp backend/local.settings.example.json backend/local.settings.json
+mysql -u root -p < sql/init.sql
 ```
 
-4. Configure your Azure resources and update the environment files with your credentials.
+4. Update `.env` file with your database credentials
 
-### Development
-
-Run the frontend development server:
-```bash
-npm run dev
-```
-
-Run the backend locally:
-```bash
-cd backend
-npm run dev
-```
-
-### Building for Production
-
+5. Build and start the server
 ```bash
 npm run build
+npm start
 ```
 
-## 📁 Project Structure
+#### Frontend Setup
 
-```
-scout-dashboard/
-├── frontend/           # React application
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── store/      # Redux store
-│   │   └── services/   # API services
-├── backend/            # Azure Functions
-│   ├── functions/
-│   └── shared/
-├── infrastructure/     # Terraform configs
-├── database/          # SQL scripts
-└── docs/              # Documentation
+1. Navigate to client directory
+```bash
+cd client
 ```
 
-## 🔐 Security
+2. Install dependencies
+```bash
+npm install
+```
 
-- All API endpoints require authentication
-- Data is encrypted in transit and at rest
-- Regular security audits with automated scanning
-- RBAC implementation for fine-grained access control
+3. Update `.env` file with API URL
 
-## 📈 Performance
+4. Start development server
+```bash
+npm run dev
+```
 
-- Optimized for 1000+ concurrent users
-- Sub-second response times for most queries
-- Efficient caching strategies
-- Progressive web app capabilities
+## Deployment
 
-## 🤝 Contributing
+### Frontend (Vercel)
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+1. Install Vercel CLI
+```bash
+npm i -g vercel
+```
 
-## 📄 License
+2. Deploy frontend
+```bash
+cd client
+vercel
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+3. Follow the prompts to complete deployment
 
-## 🆘 Support
+### Backend (Render)
 
-For support, email support@scout-dashboard.com or create an issue in this repository.
+1. Create a new Web Service on Render
+2. Connect your GitHub repository
+3. Set the following:
+   - Build Command: `npm install && npm run build`
+   - Start Command: `npm start`
+   - Environment Variables: Add your database credentials
+
+## API Documentation
+
+### Endpoints
+
+#### Sales
+- `GET /api/sales` - Get sales data with filters
+- `GET /api/sales/summary` - Get sales summary
+- `GET /api/sales/trends` - Get sales trends
+
+#### Products
+- `GET /api/products` - Get product list
+- `GET /api/products/performance` - Get product performance metrics
+- `GET /api/products/top` - Get top-selling products
+
+#### Stores
+- `GET /api/stores` - Get store list
+- `GET /api/stores/:id` - Get store details
+- `GET /api/stores/:id/performance` - Get store performance
+
+#### Analytics
+- `GET /api/analytics/dashboard` - Get dashboard data
+- `GET /api/analytics/geographic` - Get geographic analytics
+- `GET /api/analytics/customers` - Get customer analytics
+
+## Database Schema
+
+The application uses a MySQL database with the following main tables:
+- `geography` - Location hierarchy (region, city, barangay)
+- `stores` - Store information
+- `products` - Product catalog
+- `categories` - Product categories
+- `customers` - Customer data
+- `sales_transactions` - Sales records
+- `sales_details` - Transaction line items
+- `inventory` - Stock levels
+- `ai_insights` - AI-generated insights
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For support, email support@scoutanalytics.ph or join our Slack channel.

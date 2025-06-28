@@ -3,14 +3,15 @@ node_modules/
 .pnp
 .pnp.js
 
+# Testing
+coverage/
+*.lcov
+.nyc_output
+
 # Production
 build/
 dist/
 out/
-
-# Testing
-coverage/
-.nyc_output
 
 # Environment
 .env
@@ -26,32 +27,28 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
-# OS
-.DS_Store
-Thumbs.db
-
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*.swn
-*.bak
+*~
+.DS_Store
 
-# Azure
-local.settings.json
-.azure/
+# TypeScript
+*.tsbuildinfo
 
-# Terraform
-*.tfstate
-*.tfstate.*
-.terraform/
-.terraform.lock.hcl
-
-# Misc
+# Docker
 *.log
-.cache/
-temp/
-tmp/
-.eslintcache
-.stylelintcache
+
+# Database
+mysql-data/
+
+# Redis
+dump.rdb
+
+# Vercel
+.vercel
+
+# Render
+render.yaml
