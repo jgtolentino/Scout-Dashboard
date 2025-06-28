@@ -2,11 +2,10 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "env": {
+    "VITE_API_URL": "https://scout-dashboard-backend.onrender.com/api"
+  },
   "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://scout-dashboard-backend.onrender.com/api/:path*"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
