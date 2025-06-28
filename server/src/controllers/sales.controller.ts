@@ -24,29 +24,29 @@ export const getSalesData = async (req: Request, res: Response) => {
     const params: any[] = [];
     
     if (startDate) {
-      query += ' AND st.transaction_date >= ?';
+      query += ' AND st.transaction_date >= $' + (params.length + 1);
       params.push(startDate);
     }
     
     if (endDate) {
-      query += ' AND st.transaction_date <= ?';
+      query += ' AND st.transaction_date <= $' + (params.length + 1);
       params.push(endDate);
     }
     
     if (storeId) {
-      query += ' AND st.store_id = ?';
+      query += ' AND st.store_id = $' + (params.length + 1);
       params.push(storeId);
     }
     
     if (region) {
-      query += ' AND g.region = ?';
+      query += ' AND g.region = $' + (params.length + 1);
       params.push(region);
     }
     
     query += ' GROUP BY DATE(st.transaction_date), s.id ORDER BY date DESC';
     
-    const [rows] = await pool.query(query, params);
-    res.json(rows);
+    const result = await pool.query(query, params);
+    res.json(result.rows);
   } catch (error) {
     console.error('Error fetching sales data:', error);
     res.status(500).json({ error: 'Failed to fetch sales data' });
@@ -55,7 +55,7 @@ export const getSalesData = async (req: Request, res: Response) => {
 
 export const getSalesSummary = async (_req: Request, res: Response) => {
   try {
-    const [summary] = await pool.query(`
+    const summary = await pool.query(`
       SELECT 
         COUNT(DISTINCT DATE(transaction_date)) as days_active,
         COUNT(id) as total_transactions,
@@ -64,10 +64,10 @@ export const getSalesSummary = async (_req: Request, res: Response) => {
         COUNT(DISTINCT customer_id) as unique_customers,
         COUNT(DISTINCT store_id) as active_stores
       FROM sales_transactions
-      WHERE transaction_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY)
+      WHERE transaction_date >= CURRENT_DATE - INTERVAL '30 days'
     `);
     
-    res.json((summary as any)[0]);
+    res.json(summary.rows[0]);
   } catch (error) {
     console.error('Error fetching sales summary:', error);
     res.status(500).json({ error: 'Failed to fetch sales summary' });
@@ -78,19 +78,19 @@ export const getSalesTrends = async (req: Request, res: Response) => {
   try {
     const { period = '7' } = req.query;
     
-    const [trends] = await pool.query(`
+    const trends = await pool.query(`
       SELECT 
         DATE(transaction_date) as date,
         COUNT(id) as transactions,
         SUM(total_amount) as revenue,
         COUNT(DISTINCT customer_id) as customers
       FROM sales_transactions
-      WHERE transaction_date >= DATE_SUB(CURRENT_DATE, INTERVAL ? DAY)
+      WHERE transaction_date >= CURRENT_DATE - INTERVAL '1 day' * $1
       GROUP BY DATE(transaction_date)
       ORDER BY date ASC
     `, [period]);
     
-    res.json(trends);
+    res.json(trends.rows);
   } catch (error) {
     console.error('Error fetching sales trends:', error);
     res.status(500).json({ error: 'Failed to fetch sales trends' });

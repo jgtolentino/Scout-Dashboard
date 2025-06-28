@@ -38,8 +38,8 @@ export const getProducts = async (req: Request, res: Response) => {
     
     query += ' ORDER BY p.product_name';
     
-    const [rows] = await pool.query(query, params);
-    res.json(rows);
+    const result = await pool.query(query, params);
+    res.json(result.rows);
   } catch (error) {
     console.error('Error fetching products:', error);
     res.status(500).json({ error: 'Failed to fetch products' });
@@ -50,7 +50,7 @@ export const getProductPerformance = async (req: Request, res: Response) => {
   try {
     const { period = '30' } = req.query;
     
-    const [performance] = await pool.query(`
+    const performance = await pool.query(`
       SELECT 
         p.sku,
         p.product_name,
@@ -70,7 +70,7 @@ export const getProductPerformance = async (req: Request, res: Response) => {
       ORDER BY revenue DESC
     `, [period]);
     
-    res.json(performance);
+    res.json(performance.rows);
   } catch (error) {
     console.error('Error fetching product performance:', error);
     res.status(500).json({ error: 'Failed to fetch product performance' });
@@ -85,7 +85,7 @@ export const getTopProducts = async (req: Request, res: Response) => {
     if (metric === 'quantity') orderBy = 'units_sold';
     if (metric === 'transactions') orderBy = 'transaction_count';
     
-    const [topProducts] = await pool.query(`
+    const topProducts = await pool.query(`
       SELECT 
         p.sku,
         p.product_name,
@@ -101,10 +101,10 @@ export const getTopProducts = async (req: Request, res: Response) => {
       WHERE st.transaction_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY)
       GROUP BY p.id
       ORDER BY ${orderBy} DESC
-      LIMIT ?
+      LIMIT $1
     `, [parseInt(limit as string)]);
     
-    res.json(topProducts);
+    res.json(topProducts.rows);
   } catch (error) {
     console.error('Error fetching top products:', error);
     res.status(500).json({ error: 'Failed to fetch top products' });

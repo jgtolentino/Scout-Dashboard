@@ -4,7 +4,7 @@ import pool from '../config/database';
 export const getDashboardData = async (_req: Request, res: Response) => {
   try {
     // Get key metrics
-    const [metrics] = await pool.query(`
+    const metrics = await pool.query(`
       SELECT 
         (SELECT SUM(total_amount) FROM sales_transactions WHERE DATE(transaction_date) = CURRENT_DATE) as today_sales,
         (SELECT SUM(total_amount) FROM sales_transactions WHERE YEARWEEK(transaction_date) = YEARWEEK(CURRENT_DATE)) as week_sales,
@@ -15,7 +15,7 @@ export const getDashboardData = async (_req: Request, res: Response) => {
     `);
     
     // Get sales trend for last 7 days
-    const [salesTrend] = await pool.query(`
+    const salesTrend = await pool.query(`
       SELECT 
         DATE(transaction_date) as date,
         SUM(total_amount) as revenue,
@@ -27,7 +27,7 @@ export const getDashboardData = async (_req: Request, res: Response) => {
     `);
     
     // Get top performing stores
-    const [topStores] = await pool.query(`
+    const topStores = await pool.query(`
       SELECT 
         s.store_name,
         s.store_type,
@@ -44,7 +44,7 @@ export const getDashboardData = async (_req: Request, res: Response) => {
     `);
     
     // Get category distribution
-    const [categoryDistribution] = await pool.query(`
+    const categoryDistribution = await pool.query(`
       SELECT 
         c.category_name,
         COUNT(DISTINCT p.id) as product_count,
@@ -60,10 +60,10 @@ export const getDashboardData = async (_req: Request, res: Response) => {
     `);
     
     res.json({
-      metrics: (metrics as any)[0],
-      salesTrend,
-      topStores,
-      categoryDistribution
+      metrics: metrics.rows[0],
+      salesTrend: salesTrend.rows,
+      topStores: topStores.rows,
+      categoryDistribution: categoryDistribution.rows
     });
   } catch (error) {
     console.error('Error fetching dashboard data:', error);
@@ -79,7 +79,7 @@ export const getGeographicAnalytics = async (req: Request, res: Response) => {
     if (level === 'city') groupBy = 'g.region, g.city_municipality';
     if (level === 'barangay') groupBy = 'g.region, g.city_municipality, g.barangay';
     
-    const [geographic] = await pool.query(`
+    const geographic = await pool.query(`
       SELECT 
         g.region,
         ${level !== 'region' ? 'g.city_municipality,' : ''}
@@ -97,7 +97,7 @@ export const getGeographicAnalytics = async (req: Request, res: Response) => {
       ORDER BY total_revenue DESC
     `);
     
-    res.json(geographic);
+    res.json(geographic.rows);
   } catch (error) {
     console.error('Error fetching geographic analytics:', error);
     res.status(500).json({ error: 'Failed to fetch geographic analytics' });
@@ -107,7 +107,7 @@ export const getGeographicAnalytics = async (req: Request, res: Response) => {
 export const getCustomerAnalytics = async (_req: Request, res: Response) => {
   try {
     // Customer segments
-    const [segments] = await pool.query(`
+    const segments = await pool.query(`
       SELECT 
         CASE 
           WHEN total_spent >= 10000 THEN 'High Value'
@@ -132,7 +132,7 @@ export const getCustomerAnalytics = async (_req: Request, res: Response) => {
     `);
     
     // Repeat purchase rate
-    const [repeatRate] = await pool.query(`
+    const repeatRate = await pool.query(`
       SELECT 
         COUNT(CASE WHEN transaction_count > 1 THEN 1 END) as repeat_customers,
         COUNT(*) as total_customers,
@@ -146,8 +146,8 @@ export const getCustomerAnalytics = async (_req: Request, res: Response) => {
     `);
     
     res.json({
-      segments,
-      repeatRate: (repeatRate as any)[0]
+      segments: segments.rows,
+      repeatRate: repeatRate.rows[0]
     });
   } catch (error) {
     console.error('Error fetching customer analytics:', error);

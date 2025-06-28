@@ -40,8 +40,8 @@ export const getStores = async (req: Request, res: Response) => {
     
     query += ' ORDER BY s.store_name';
     
-    const [rows] = await pool.query(query, params);
-    res.json(rows);
+    const result = await pool.query(query, params);
+    res.json(result.rows);
   } catch (error) {
     console.error('Error fetching stores:', error);
     res.status(500).json({ error: 'Failed to fetch stores' });
@@ -52,7 +52,7 @@ export const getStoreDetails = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     
-    const [store] = await pool.query(`
+    const store = await pool.query(`
       SELECT 
         s.*,
         g.region,
@@ -65,12 +65,11 @@ export const getStoreDetails = async (req: Request, res: Response) => {
       WHERE s.id = ?
     `, [id]);
     
-    const storeArray = store as any[];
-    if (!storeArray[0]) {
+    if (!store.rows[0]) {
       return res.status(404).json({ error: 'Store not found' });
     }
     
-    return res.json(storeArray[0]);
+    return res.json(store.rows[0]);
   } catch (error) {
     console.error('Error fetching store details:', error);
     return res.status(500).json({ error: 'Failed to fetch store details' });
@@ -82,7 +81,7 @@ export const getStorePerformance = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { period = '30' } = req.query;
     
-    const [performance] = await pool.query(`
+    const performance = await pool.query(`
       SELECT 
         DATE(st.transaction_date) as date,
         COUNT(st.id) as transactions,
@@ -96,7 +95,7 @@ export const getStorePerformance = async (req: Request, res: Response) => {
       ORDER BY date DESC
     `, [id, period]);
     
-    const [topProducts] = await pool.query(`
+    const topProducts = await pool.query(`
       SELECT 
         p.product_name,
         p.brand,
@@ -113,8 +112,8 @@ export const getStorePerformance = async (req: Request, res: Response) => {
     `, [id, period]);
     
     res.json({
-      dailyPerformance: performance,
-      topProducts
+      dailyPerformance: performance.rows,
+      topProducts: topProducts.rows
     });
   } catch (error) {
     console.error('Error fetching store performance:', error);
