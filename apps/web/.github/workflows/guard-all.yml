@@ -1,0 +1,95 @@
+name: Guard-All
+on: [pull_request, workflow_dispatch]
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      
+      # ---- SuperClaude registry/config drift
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'apps/web/package-lock.json'
+      
+      - name: Install dependencies
+        working-directory: apps/web
+        run: npm ci
+      
+      - name: Validate SuperClaude framework
+        working-directory: apps/web
+        run: |
+          if [ -f "scripts/validate-superclaude.ts" ]; then
+            node scripts/validate-superclaude.ts
+          else
+            echo "SuperClaude validator not found - skipping"
+          fi
+
+      # ---- Scout v6 validator
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install Python dependencies
+        working-directory: apps/web
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -r validators/requirements.txt
+      
+      - name: Run Scout v6 validator
+        working-directory: apps/web
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          APP_URL: ${{ secrets.APP_URL }}
+          CSV_DIR: ${{ secrets.CSV_DIR }}
+        run: |
+          source .venv/bin/activate
+          python validators/validate_scout_v6.py
+
+      # ---- Pixel parity (uses Playwright 1.55.0+ setup)
+      - name: Install Playwright
+        working-directory: apps/web
+        run: npx playwright install --with-deps
+      
+      - name: Fetch Figma refs
+        working-directory: apps/web
+        env:
+          FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+        run: |
+          if [ -n "$FIGMA_TOKEN" ] && [ -n "$FIGMA_FILE_KEY" ]; then
+            if [ -f "package.json" ] && npm run | grep -q "figma:pull"; then
+              npm run figma:pull
+            else
+              echo "figma:pull script not found - skipping"
+            fi
+          else
+            echo "Figma credentials not set - skipping figma:pull"
+          fi
+      
+      - name: Pixel parity tests
+        working-directory: apps/web
+        run: |
+          if npm run | grep -q "test:visual"; then
+            npm run test:visual
+          else
+            echo "Visual tests not configured - running basic E2E instead"
+            npm run test:e2e
+          fi
+
+      - name: Upload validation reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scout-v6-validation
+          path: |
+            apps/web/validators/logs/*
+            apps/web/playwright-report/
+            apps/web/test-results/
+          retention-days: 30

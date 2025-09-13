@@ -1,0 +1,96 @@
+<\!DOCTYPE html>
+<html lang="en" data-theme="tbwa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client360 Dashboard</title>
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body class="tbwa-branded">
+  <div class="theme-selector">
+    <label for="theme-select">Theme:</label>
+    <select id="theme-select" data-theme-selector>
+      <option value="tbwa">TBWA</option>
+      <option value="sarisari">Sari Sari</option>
+      <option value="client-custom">Client Custom</option>
+    </select>
+  </div>
+
+  <header class="header">
+    <div class="header-container">
+      <div class="header-logo"></div>
+      <h1 class="header-title">Client360 Dashboard</h1>
+      <div class="header-controls">
+        <div class="data-source-toggle">
+          <span class="toggle-label">Data source:</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="data-source-toggle">
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="toggle-value" id="data-source-value">Live</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="data-freshness">Data refreshed: <span id="data-refresh-time">Today at 09:15 AM</span></div>
+    
+    <\!-- Dashboard content goes here -->
+    <section class="kpi-section">
+      <h2 class="section-title">Key Performance Indicators</h2>
+      <div class="kpi-grid">
+        <\!-- KPI cards will be populated dynamically -->
+      </div>
+    </section>
+
+    <\!-- Rollback dashboard component -->
+    <section class="rollback-dashboard">
+      <div class="rollback-dashboard-header">
+        <h3>System Rollback</h3>
+        <div class="status-indicator active">System Ready</div>
+      </div>
+      <div class="rollback-dashboard-content">
+        <p>You can safely rollback the system to a previous known stable version if needed.</p>
+        
+        <div class="version-info">
+          <div class="version-label">Current Version:</div>
+          <div class="version-value">v2.3.1-20250519-prod</div>
+        </div>
+        
+        <div class="version-info">
+          <div class="version-label">Rollback Target:</div>
+          <div class="version-value">v2.2.0-20250415-stable</div>
+        </div>
+      </div>
+      <div class="rollback-dashboard-actions">
+        <button class="btn-rollback">Rollback System</button>
+        <button class="btn-verify">Verify Current State</button>
+      </div>
+      <div class="rollback-dashboard-log">
+        <pre>[2025-05-19 14:22:15] System verification complete
+[2025-05-19 14:22:10] All services operational
+[2025-05-19 14:21:58] Checking system state...</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <p>&copy; 2025 TBWA Client360</p>
+        <p>Version 2.3.1</p>
+      </div>
+      <div class="data-disclaimer">
+        Data provided for demonstration purposes.
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/theme-switcher.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
+EOL < /dev/null

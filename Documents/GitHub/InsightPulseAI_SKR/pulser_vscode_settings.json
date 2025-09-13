@@ -1,0 +1,16 @@
+{
+    "// Pulser AI Assistant Settings": "",
+    "// Add these to your VS Code settings (Cmd+, to open)": "",
+    
+    "pulser.apiEndpoints": [
+        "http://127.0.0.1:11434/api/generate"
+    ],
+    "pulser.model": "deepseek-coder:6.7b-instruct-q4_K_M",
+    "pulser.timeout": 30000,
+    "pulser.maxTokens": 2048,
+    
+    "// Alternative model options": "",
+    "// pulser.model": "deepseek-coder:33b",
+    "// pulser.model": "codellama:7b-code",
+    "// pulser.model": "mistral:latest"
+}

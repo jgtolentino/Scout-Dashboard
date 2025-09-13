@@ -1,0 +1,45 @@
+# SKR Metadata for Unified Developer Deployment SOP
+document_id: sop_deployment_v1_20250514
+title: "InsightPulseAI: Unified Developer Deployment SOP v1.0"
+author: "InsightPulseAI Dev Team"
+date_created: "2025-05-14"
+date_updated: "2025-05-14"
+status: "approved"
+version: "1.0"
+category: "standard_operating_procedure"
+tags:
+  - deployment
+  - azure
+  - sop
+  - dashboard
+  - powerbi
+  - style
+  - scout
+  - pulser
+summary: >
+  Standard Operating Procedure for consistent deployment of dashboards, 
+  code, and AI agent updates across environments (local, Azure, Vercel),
+  with a focus on visual integrity and deployment safety.
+related_documents:
+  - path: "tools/js/final-locked-dashboard/docs/SOP_DEPLOYMENT.md"
+    type: "primary_sop"
+  - path: "tools/js/final-locked-dashboard/docs/QA_GUIDELINES_POWERBI_PARITY.md"
+    type: "qa_guideline"
+  - path: "tools/js/final-locked-dashboard/POWER_BI_STYLE_GUIDE.md"
+    type: "style_guide"
+  - path: "tools/js/final-locked-dashboard/README_DESKTOP.md"
+    type: "deployment_guide"
+agents:
+  - agent_id: "Basher"
+    role: "Deployment executor"
+  - agent_id: "Caca"
+    role: "QA verification"
+  - agent_id: "Echo"
+    role: "Monitoring"
+  - agent_id: "Claudia"
+    role: "Task orchestration"
+workflows:
+  - workflow_id: "deploy_and_monitor"
+    description: "Full dashboard deployment and monitoring workflow"
+  - workflow_id: "qa_validate"
+    description: "QA validation workflow without deployment"

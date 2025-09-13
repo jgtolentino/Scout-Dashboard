@@ -1,0 +1,164 @@
+{
+  "title": "Retail Advisor Dashboard",
+  "description": "Key performance indicators for retail store performance",
+  "theme": "tbwa_retail",
+  "layout": [
+    {
+      "type": "header",
+      "content": {
+        "title": "Retail Advisor Dashboard",
+        "subtitle": "Performance Metrics for Retail Operations",
+        "filters": ["date_range", "region", "store"]
+      }
+    },
+    {
+      "type": "row",
+      "content": [
+        {
+          "type": "kpi_card",
+          "title": "Average Loyalty Score",
+          "metric": "loyalty_index",
+          "format": "number",
+          "comparison": {
+            "field": "loyalty_change_percent",
+            "format": "percent",
+            "direction": "higher_is_better"
+          },
+          "width": 4
+        },
+        {
+          "type": "kpi_card",
+          "title": "Total Sales",
+          "metric": "total_sales",
+          "format": "currency",
+          "comparison": {
+            "type": "vs_previous_period",
+            "format": "percent",
+            "direction": "higher_is_better"
+          },
+          "width": 4
+        },
+        {
+          "type": "kpi_card",
+          "title": "Current Sentiment",
+          "metric": "sentiment_score",
+          "format": "number",
+          "comparison": {
+            "type": "vs_target",
+            "target": 75,
+            "format": "difference",
+            "direction": "higher_is_better"
+          },
+          "width": 4
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "Brand Loyalty by Store",
+      "chart_type": "bar",
+      "data": {
+        "source": "Brand_Loyalty",
+        "x_axis": "store_name",
+        "y_axis": "loyalty_index",
+        "color": "loyalty_change_percent"
+      },
+      "options": {
+        "sort_by": "loyalty_index",
+        "sort_order": "desc",
+        "limit": 10,
+        "color_scale": {
+          "type": "diverging",
+          "negative": "#ff9e9e",
+          "positive": "#a1d99b"
+        }
+      },
+      "width": 6
+    },
+    {
+      "type": "table",
+      "title": "Top-Selling SKUs",
+      "data": {
+        "source": "Top_Selling_SKUs",
+        "columns": [
+          {"field": "sku", "label": "SKU"},
+          {"field": "product_name", "label": "Product"},
+          {"field": "brand", "label": "Brand"},
+          {"field": "units_sold", "label": "Units", "format": "number"},
+          {"field": "total_sales", "label": "Sales", "format": "currency"},
+          {"field": "profit_margin", "label": "Margin", "format": "percent"}
+        ]
+      },
+      "options": {
+        "pagination": true,
+        "page_size": 5,
+        "sort_enabled": true,
+        "default_sort": {"field": "total_sales", "order": "desc"},
+        "search_enabled": true
+      },
+      "width": 6
+    },
+    {
+      "type": "chart",
+      "title": "Customer Sentiment Over Time",
+      "chart_type": "line",
+      "data": {
+        "source": "Customer_Sentiment",
+        "x_axis": "timestamp",
+        "y_axis": "sentiment_score",
+        "series": [
+          {"field": "sentiment_score", "label": "Overall Sentiment", "color": "#4e79a7"}
+        ],
+        "reference_lines": [
+          {"type": "average", "label": "Average", "style": "dashed"},
+          {"type": "threshold", "value": 75, "label": "Target", "style": "dotted"}
+        ]
+      },
+      "options": {
+        "time_granularity": "daily",
+        "show_points": true,
+        "y_axis_min": 0,
+        "y_axis_max": 100
+      },
+      "width": 12
+    }
+  ],
+  "interactions": [
+    {
+      "source": {
+        "component": "Brand_Loyalty",
+        "selection": "store_id"
+      },
+      "target": {
+        "component": "Top_Selling_SKUs",
+        "action": "filter",
+        "parameter": "store"
+      }
+    },
+    {
+      "source": {
+        "component": "Brand_Loyalty",
+        "selection": "store_id"
+      },
+      "target": {
+        "component": "Customer_Sentiment",
+        "action": "filter",
+        "parameter": "store"
+      }
+    }
+  ],
+  "mobile_adjustments": {
+    "breakpoints": {
+      "xs": 576,
+      "sm": 768,
+      "md": 992,
+      "lg": 1200
+    },
+    "stacking": {
+      "xs": "vertical",
+      "sm": "vertical",
+      "md": "mixed",
+      "lg": "horizontal"
+    }
+  }
+}

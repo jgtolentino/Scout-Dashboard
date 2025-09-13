@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Retail Advisor dashboard providing retail market intelligence and store performance metrics">
+  <title>Retail Advisor</title>
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/shared-theme.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="m-0 d-flex align-items-center">
+            <img src="https://via.placeholder.com/40x40?text=RA" alt="Dashboard Logo" class="logo me-2">
+            <span>Retail Advisor</span>
+          </h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="d-flex justify-content-end align-items-center">
+            <span class="me-2">Dark Mode</span>
+            <label class="dark-mode-switch mb-0">
+              <input type="checkbox" id="darkModeToggle">
+              <span class="dark-mode-slider"></span>
+            </label>
+            <button class="btn btn-outline-light ms-3">
+              <i class="fas fa-sync-alt me-1"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <!-- Dashboard Navigation -->
+    <div class="text-center dashboard-nav mb-4">
+      <a href="../qa.html" class="btn btn-outline-primary me-2">
+        <i class="fas fa-chart-line me-1"></i> System Architecture & QA
+      </a>
+      <a href="../insights_dashboard.html" class="btn btn-outline-primary me-2">
+        <i class="fas fa-external-link-alt me-1"></i> Scout Advanced Analytics
+      </a>
+      <a href="sql_data_explorer.html" class="btn btn-outline-primary me-2">
+        <i class="fas fa-database me-1"></i> SQL Data Explorer
+      </a>
+    </div>
+
+    <!-- Filters and Controls -->
+    <div class="filter-bar mb-4">
+      <div class="row">
+        <div class="col-md-3">
+          <label for="timeRange" class="form-label">Time Range</label>
+          <select class="form-select" id="timeRange">
+            <option value="7">Last 7 days</option>
+            <option value="14">Last 14 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="regionFilter" class="form-label">Region</label>
+          <select class="form-select" id="regionFilter">
+            <option value="all" selected>All Regions</option>
+            <option value="north">North</option>
+            <option value="south">South</option>
+            <option value="east">East</option>
+            <option value="west">West</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="storeType" class="form-label">Store Type</label>
+          <select class="form-select" id="storeType">
+            <option value="all" selected>All Types</option>
+            <option value="flagship">Flagship</option>
+            <option value="standard">Standard</option>
+            <option value="express">Express</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="dataSource" class="form-label">Data Source</label>
+          <select class="form-select" id="dataSource">
+            <option value="all" selected>All Sources</option>
+            <option value="pos">POS System</option>
+            <option value="crm">CRM</option>
+            <option value="surveys">Customer Surveys</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number">$1.24M</h5>
+            <p class="stats-label">Total Revenue</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up"></i> 12% from last period
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number">15,872</h5>
+            <p class="stats-label">Transactions</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up"></i> 8% from last period
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number">$78.42</h5>
+            <p class="stats-label">Average Order Value</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up"></i> 3% from last period
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number">22%</h5>
+            <p class="stats-label">Profit Margin</p>
+            <p class="trend-indicator trend-down">
+              <i class="fas fa-arrow-down"></i> 1% from last period
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Store Performance Cards -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h4 class="mb-3"><i class="fas fa-store text-primary me-2"></i>Store Performance</h4>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="totalStores">156</h5>
+            <p class="stats-label">Total Stores</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-check-circle text-success"></i> All reporting
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="topPerformer">Store #112</h5>
+            <p class="stats-label">Top Performer</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-trophy text-warning"></i> $248K revenue
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="storeEfficiency">94.3%</h5>
+            <p class="stats-label">Average Efficiency</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up text-success"></i> +2.1% from last month
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="stockAccuracy">98.7%</h5>
+            <p class="stats-label">Stock Accuracy</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up text-success"></i> +0.5% from last check
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Revenue by Store Type</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" id="revenueChart">
+              <!-- Chart will be rendered here -->
+              <canvas id="revenueByStoreChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Sales by Category</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" id="categoryChart">
+              <!-- Chart will be rendered here -->
+              <canvas id="salesByCategoryChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- GenAI Insights Section -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">
+              <i class="fas fa-lightbulb text-warning me-2"></i>
+              AI-Powered Retail Insights
+            </h5>
+          </div>
+          <div class="card-body">
+            <div id="genai-insights-container">
+              <div class="row" id="insightsCardsContainer">
+                <!-- Insights cards will be dynamically inserted here -->
+                <div class="col-md-6 mb-3">
+                  <div class="card card-insight-general">
+                    <div class="card-header" style="background-color: var(--insight-general); color: white;">
+                      <span class="badge bg-light text-dark me-2">General</span>
+                      Increasing focus on value meals across all demographics
+                      <span class="badge bg-success float-end">85% confidence</span>
+                    </div>
+                    <div class="card-body">
+                      <p>Analysis of 327 transcripts reveals that 64% of customers mention value when discussing meal options. This represents an increasing trend compared to previous periods.</p>
+                      <div class="text-end">
+                        <small class="text-muted">Generated by AI • May 2, 2025</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="card card-insight-brand">
+                    <div class="card-header" style="background-color: var(--insight-brand); color: white;">
+                      <span class="badge bg-light text-dark me-2">Brand</span>
+                      Brand loyalty stronger for customers using rewards programs
+                      <span class="badge bg-success float-end">92% confidence</span>
+                    </div>
+                    <div class="card-body">
+                      <p>Data from recent interactions shows frequent association with loyalty programs, with 78% of mentions having positive sentiment.</p>
+                      <div class="text-end">
+                        <small class="text-muted">Generated by AI • May 3, 2025</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center mt-3">
+                <button class="btn btn-outline-primary" id="loadMoreInsightsBtn">
+                  <i class="fas fa-sync-alt me-1"></i> Load More Insights
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Products -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Top Selling Products</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Units Sold</th>
+                    <th scope="col">Revenue</th>
+                    <th scope="col">Profit Margin</th>
+                    <th scope="col">Trend</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Premium Coffee Bundle</td>
+                    <td>Beverages</td>
+                    <td>24,567</td>
+                    <td>$122,835</td>
+                    <td>28%</td>
+                    <td><i class="fas fa-arrow-up text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Family Meal Deal</td>
+                    <td>Combos</td>
+                    <td>15,432</td>
+                    <td>$115,740</td>
+                    <td>22%</td>
+                    <td><i class="fas fa-arrow-up text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Value Breakfast Sandwich</td>
+                    <td>Breakfast</td>
+                    <td>28,901</td>
+                    <td>$101,153</td>
+                    <td>19%</td>
+                    <td><i class="fas fa-arrow-up text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>Premium Chicken Sandwich</td>
+                    <td>Entrees</td>
+                    <td>18,432</td>
+                    <td>$92,160</td>
+                    <td>25%</td>
+                    <td><i class="fas fa-minus text-warning"></i></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Signature Dessert Box</td>
+                    <td>Desserts</td>
+                    <td>12,854</td>
+                    <td>$77,124</td>
+                    <td>32%</td>
+                    <td><i class="fas fa-arrow-up text-success"></i></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 Retail Advisor</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="analytics-powered">
+            <span>Powered by DLab</span>
+            <span class="analytics-version">2.1.2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/insights_visualizer.js"></script>
+  
+  <script>
+    // Dark mode toggle with localStorage persistence
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    // Check localStorage on page load
+    const darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
+    darkModeToggle.checked = darkModeEnabled;
+    document.body.classList.toggle('dark-mode', darkModeEnabled);
+
+    // Update localStorage on toggle change
+    darkModeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+      localStorage.setItem('darkModeEnabled', darkModeToggle.checked);
+    });
+    
+    // Initialize insights visualizer
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof InsightsVisualizer !== 'undefined') {
+        new InsightsVisualizer({
+          apiEndpoint: '../assets/data/insights_data.json',
+          refreshInterval: 300000, // 5 minutes
+          container: '#insightsCardsContainer',
+          maxCards: 4, // Show only 4 cards in the widget
+          theme: document.body.classList.contains('dark-mode') ? 'dark' : 'light'
+        });
+      }
+      
+      // Revenue by Store Chart
+      const revenueCtx = document.getElementById('revenueByStoreChart').getContext('2d');
+      const revenueChart = new Chart(revenueCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Flagship', 'Standard', 'Express', 'Kiosk', 'Drive-Thru'],
+          datasets: [
+            {
+              label: 'Revenue ($K)',
+              data: [420, 350, 280, 150, 210],
+              backgroundColor: '#00a3e0',
+              borderWidth: 0
+            },
+            {
+              label: 'Profit Margin (%)',
+              data: [25, 22, 18, 15, 20],
+              backgroundColor: '#ff3300',
+              borderWidth: 0,
+              type: 'line',
+              yAxisID: 'y1'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Revenue ($K)'
+              }
+            },
+            y1: {
+              position: 'right',
+              beginAtZero: true,
+              max: 40,
+              title: {
+                display: true,
+                text: 'Profit Margin (%)'
+              },
+              grid: {
+                drawOnChartArea: false
+              }
+            }
+          }
+        }
+      });
+      
+      // Sales by Category Chart
+      const categoryCtx = document.getElementById('salesByCategoryChart').getContext('2d');
+      const categoryChart = new Chart(categoryCtx, {
+        type: 'pie',
+        data: {
+          labels: ['Beverages', 'Entrees', 'Combos', 'Desserts', 'Breakfast', 'Sides'],
+          datasets: [
+            {
+              data: [30, 22, 25, 10, 18, 5],
+              backgroundColor: [
+                '#00a3e0',
+                '#ff3300',
+                '#ffc107',
+                '#8a4fff',
+                '#00c389',
+                '#6c757d'
+              ],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right'
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.label}: ${context.raw}%`;
+                }
+              }
+            }
+          }
+        }
+      });
+      
+      // Filter event handlers
+      document.getElementById('timeRange').addEventListener('change', updateDashboard);
+      document.getElementById('regionFilter').addEventListener('change', updateDashboard);
+      document.getElementById('storeType').addEventListener('change', updateDashboard);
+      document.getElementById('dataSource').addEventListener('change', updateDashboard);
+      
+      function updateDashboard() {
+        // In a real application, this would fetch new data based on filters
+        console.log('Updating dashboard with new filters...');
+        // Simulate loading
+        const refreshBtn = document.querySelector('.btn-outline-light');
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Refreshing...';
+        setTimeout(() => {
+          refreshBtn.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Refresh';
+        }, 1000);
+      }
+      
+      // Load more insights button
+      document.getElementById('loadMoreInsightsBtn').addEventListener('click', function() {
+        window.location.href = '../insights_dashboard.html';
+      });
+    });
+  </script>
+</body>
+</html>

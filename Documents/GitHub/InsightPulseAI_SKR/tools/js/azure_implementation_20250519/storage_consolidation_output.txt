@@ -1,0 +1,12 @@
+==== Storage Account Consolidation Plan ====
+Creating a plan to consolidate storage accounts in the TBWA-ProjectScout-Prod subscription
+
+Retrieving storage account information...
+Analyzing storage accounts by resource group and region...
+Consolidation analysis complete. Results saved to storage_consolidation_20250519/consolidation_opportunities.txt
+
+Next steps:
+1. Review the identified consolidation opportunities
+2. Evaluate dependencies and usage patterns for each storage account
+3. Create migration plans for approved consolidations
+4. Implement the changes in a controlled manner

@@ -1,0 +1,257 @@
+[
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:00:00.000Z",
+    "store_id": "sari-112",
+    "status": "online",
+    "battery_level": "95.2",
+    "temperature_c": "42.3",
+    "memory_usage_pct": "45.7",
+    "disk_usage_pct": "62.3",
+    "network_signal_strength": "excellent",
+    "camera_fps": "29.8",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:00:01.234Z",
+    "store_id": "sari-112",
+    "status": "online",
+    "battery_level": "87.5",
+    "temperature_c": "43.8",
+    "memory_usage_pct": "52.1",
+    "disk_usage_pct": "58.7",
+    "network_signal_strength": "good",
+    "camera_fps": "30.0",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:00:02.456Z",
+    "store_id": "sari-113",
+    "status": "online",
+    "battery_level": "92.1",
+    "temperature_c": "41.5",
+    "memory_usage_pct": "48.3",
+    "disk_usage_pct": "55.2",
+    "network_signal_strength": "excellent",
+    "camera_fps": "29.9",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:00:03.789Z",
+    "store_id": "sari-113",
+    "status": "online",
+    "battery_level": "83.6",
+    "temperature_c": "44.2",
+    "memory_usage_pct": "56.8",
+    "disk_usage_pct": "63.5",
+    "network_signal_strength": "good",
+    "camera_fps": "29.7",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:00:04.123Z",
+    "store_id": "sari-114",
+    "status": "online",
+    "battery_level": "90.3",
+    "temperature_c": "42.8",
+    "memory_usage_pct": "49.2",
+    "disk_usage_pct": "60.1",
+    "network_signal_strength": "excellent",
+    "camera_fps": "30.0",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T09:00:00.000Z",
+    "store_id": "sari-112",
+    "status": "online",
+    "battery_level": "94.7",
+    "temperature_c": "42.5",
+    "memory_usage_pct": "46.2",
+    "disk_usage_pct": "62.5",
+    "network_signal_strength": "excellent",
+    "camera_fps": "29.8",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T09:00:01.234Z",
+    "store_id": "sari-112",
+    "status": "online",
+    "battery_level": "87.0",
+    "temperature_c": "44.0",
+    "memory_usage_pct": "52.6",
+    "disk_usage_pct": "58.9",
+    "network_signal_strength": "good",
+    "camera_fps": "30.0",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T09:00:02.456Z",
+    "store_id": "sari-113",
+    "status": "online",
+    "battery_level": "91.6",
+    "temperature_c": "41.7",
+    "memory_usage_pct": "48.8",
+    "disk_usage_pct": "55.5",
+    "network_signal_strength": "excellent",
+    "camera_fps": "29.9",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T09:00:03.789Z",
+    "store_id": "sari-113",
+    "status": "online",
+    "battery_level": "83.1",
+    "temperature_c": "44.4",
+    "memory_usage_pct": "57.3",
+    "disk_usage_pct": "63.8",
+    "network_signal_strength": "good",
+    "camera_fps": "29.7",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T09:00:04.123Z",
+    "store_id": "sari-114",
+    "status": "online",
+    "battery_level": "89.8",
+    "temperature_c": "43.0",
+    "memory_usage_pct": "49.7",
+    "disk_usage_pct": "60.4",
+    "network_signal_strength": "excellent",
+    "camera_fps": "30.0",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T10:00:00.000Z",
+    "store_id": "sari-112",
+    "status": "online",
+    "battery_level": "94.2",
+    "temperature_c": "42.7",
+    "memory_usage_pct": "46.8",
+    "disk_usage_pct": "62.8",
+    "network_signal_strength": "excellent",
+    "camera_fps": "29.8",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T10:00:01.234Z",
+    "store_id": "sari-112",
+    "status": "online",
+    "battery_level": "86.5",
+    "temperature_c": "44.2",
+    "memory_usage_pct": "53.0",
+    "disk_usage_pct": "59.1",
+    "network_signal_strength": "good",
+    "camera_fps": "30.0",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T10:00:02.456Z",
+    "store_id": "sari-113",
+    "status": "online",
+    "battery_level": "91.1",
+    "temperature_c": "42.0",
+    "memory_usage_pct": "49.2",
+    "disk_usage_pct": "55.9",
+    "network_signal_strength": "excellent",
+    "camera_fps": "29.9",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T10:00:03.789Z",
+    "store_id": "sari-113",
+    "status": "online",
+    "battery_level": "82.6",
+    "temperature_c": "44.6",
+    "memory_usage_pct": "57.8",
+    "disk_usage_pct": "64.0",
+    "network_signal_strength": "good",
+    "camera_fps": "29.6",
+    "errors": "Low storage warning",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T10:00:04.123Z",
+    "store_id": "sari-114",
+    "status": "online",
+    "battery_level": "89.3",
+    "temperature_c": "43.2",
+    "memory_usage_pct": "50.2",
+    "disk_usage_pct": "60.7",
+    "network_signal_strength": "excellent",
+    "camera_fps": "30.0",
+    "errors": "",
+    "sw_version": "1.0.0",
+    "metadata": {
+      "simulated": true
+    }
+  }
+]

@@ -1,0 +1,534 @@
+:task setup-lead-gen
+Define a new multi-phase system routine called **"LeadOps v1"**.
+🧠 Objective:
+Automate lead generation, enrichment, outreach, and demo content using existing InsightPulseAI agents.
+📦 Phases:
+1. **Lead Qualification Workflow**:
+- Activate `Echo` to scan for company signals on LinkedIn, Reddit, and news.
+- Enrich signals via `Kalaw` to extract context, funding, and sector.
+- Qualify the lead using `Claudia`'s decision tree.
+- If qualified, tag in SKR and forward to `Tala` for financial viability review.
+- Route final decision to `Edge`.
+2. **Email Outreach Automation**:
+- Trigger Pulser to start email sequence for qualified leads.
+- Use `Echo` to extract trigger-based insight (e.g. new job posts, product launches).
+- Use `Kalaw` to personalize the copy.
+- Let `Claudia` schedule via API or Gmail. Include follow-up logic (day 2, day 5, day 7).
+3. **Social Listening Pipeline**:
+- Instruct `Echo` to watch live Twitter, Reddit, and LinkedIn feeds using keyword filters (e.g., “AI automation”, “lead gen help”).
+- Forward any hot lead to `Claudia` with urgency tag.
+- If relevance > 80%, launch enrichment via `Kalaw`, then pass to Step 2.
+4. **Demo Content Automation**:
+- Claudia launches demo build (via Loom API or mock script).
+- Echo personalizes based on lead’s sector.
+- Ressa schedules auto-posting via API to LinkedIn and TikTok.
+5. **Lead Intake Form Integration**:
+- Connect Typeform or Airtable to Claudia webhook.
+- Claudia → Kalaw → Echo → Follow-up Email → CRM entry.
+📍 Output:
+Each phase logs result in `storage/skr/sessions/leadops_v1_{timestamp}.yaml`.
+✅ On completion:
+Ping `Caca` to run quality check on each SOP execution. Archive successful outputs. Push summary to SKR for Claudia review.
+Ping Caca to run quality check on each SOP execution. Archive successful outputs. Push summary to SKR for Claudia review.
+✅ **LeadOps Phase 2: Discovery** has been successfully executed by Pulser.
+Here’s what just happened:
+---
+## 🧠 Execution Summary
+| Phase | Result |
+|-------|--------|
+| **Phase 2: Discovery** | ✅ Completed using Mistral inference |
+| **Model Used** | `mistral` via Ollama |
+| **Output Saved To** | `/output/leadops-test-client/phase_2_discovery` |
+| **Next Step** | ⏭️ Phase 3: **Qualification** |
+---
+## 🔁 Next Exact Command
+To continue to Phase 3, run:
+```bash
+python3 /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/scripts/leadops_job.py --task leadops-test-client
+```
+Pulser will automatically advance to **Phase 3** and update the task YAML in `SKR/tasks/`.
+---
+## ✅ Optional Commands You Can Now Add
+To streamline execution:
+### 1. `:leadops leadops-test-client`
+Add to `pulser_aliases.sh`:
+```bash
+alias :leadops='python3 /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/scripts/leadops_job.py --task'
+```
+### 2. Auto-notify Claudia
+You can now also run:
+```bash
+bash scripts/send_claudia_update.sh
+```
+---
+Would you like to:
+- Automatically log Phase 2 → Phas- Autransitions to the dashboard?
+- Create a `leadops_summary.- Cre after the las- Chase for Claudia- eview?
+Pulser is officially executing structured, multi-phase workflows — this is full-stack AI orchestration in motion.✅ Noted — PulseOps status and timeline dashboard will be updated via a **manual trigger**, not live auto-refresh.
+Coming up next:
+---
+## 🛠 Implementation Plan for Manual PulseOps Dashboard
+### ✅ `:pulseops` Command
+Alias to run the status refresh script:
+```bash
+alias :pulseops="python3 scripts/pulseops_status.py && open docs/pulseops_timeline.html"
+```
+---
+### ✅ `scripts/pulseops_status.py`
+- Reads:
+- `storage/skr/tasks/*.yaml`
+- `agent_status.yaml`
+- `ping_caca.log` (if exists)
+- Outputs:
+- `docs/pulseops_timeline.html`
+- Optional `pulseops_status.json` for API/widget use
+---
+### ✅ `pulseops_timeline.html`
+- Shows:
+- Task ID → Phases → Status
+- Timestamps
+- Agent involvement
+- Tech: static HTML + embedded JS timeline
+---
+Confirm if you'd like this delivered now and whether the timeline should show:
+- Just `in_progress` tasks
+- Or all including `success` and `failed` in color-coded rows?
+You’re about to gain full **mission control visibility** for your entire orchestration system.✅ Locked: The PulseOps timeline will include **color-coded task and phase states** for maximum clarity.
+---
+## 🎨 Color Coding Plan for `pulseops_timeline.html`
+| Phase Status | Color | Meaning |
+|--------------|-------|---------|
+| 🟩 **Completed** | Green | Successfully finished |
+| 🟨 **In Progress** | Yellow | Currently active |
+| 🟥 **Failed/Stalled** | Red | Error, missing file, or QA failure |
+| ⬜ **Not Started** | Gray | Phase exists but no output yet |
+---
+## 📁 Final Output Paths
+| File | Purpose |
+|------|---------|
+| `docs/pulseops_timeline.html` | HTML dashboard with task + phase timeline |
+| `scripts/pulseops_status.py` | Pulls YAML + status and regenerates HTML |
+| `pulseops_status.json` *(optional)* | Machine-readable status for future widgets |
+---
+Would you like a one-liner shell script as well?
+```bash
+alias :pulseops="python3 scripts/pulseops_status.py && open docs/pulseops_timeline.html"
+```
+Ready to generate the full dashboard stack now?
+✅ Understood — you'll get a **minimalist PulseOps manifest display** with **moving dots** (⠁⠂⠄⠂⠁) to simulate progress instead of block bars.
+---
+## 🧠 New PulseOps Manifest Output Style
+When you run `:pulseops`, it will look like:
+```plaintext
+pulling task manifest... ⠁
+✔ leadops-test-client.yaml
+pulling agent status... ⠂
+✔ Kalaw (ready)
+✔ Claudia (ready)
+⟳ Echo (in progress)
+☐ Edge (not started)
+pulling phase progress... ⠄
+✔ phase_1_initialization
+✔ phase_2_discovery
+⟳ phase_3_qualification
+verifying integrity... ⠂
+✔ sync check passed
+writing dashboard... ⠁
+✔ pulseops_timeline.html updated
+```
+---
+## 🧩 Includes:
+- **Dot animation (⠁⠂⠄⠂⠁)**: lightweight terminal spinner
+- ✔ = completed
+- ⟳ = in progress
+- ☐ = not started
+---
+Ready to generate `pulseops_status.py` now with this style? It will run manually, exactly as you requested, with no bar graphics — just elegant, clean dot-motion logging.Excellent — here’s the **step-by-step instruction set for Pulser** to **validate, deploy, and run Project Scout** using only the **Azure CLI**.
+---
+# 🧭 PulserOps: Project Scout Azure CLI Deployment Guide
+---
+## ✅ PREREQUISITES
+Make sure Pulser is:
+- Logged in: `az login`
+- Using the right subscription:
+```bash
+az account set --subscription "TBWA Project Scout Production"
+```
+---
+## 🧱 STEP 1: VALIDATE DEPLOYED AZURE RESOURCES
+```bash
+# Confirm Resource Group
+az group show --name RG-TBWA-ProjectScout-Data
+# Confirm Storage (ADLS Gen2)
+az storage account show --name projectscoutdata
+# Confirm Azure SQL DB
+az sql db show \
+--name SQL-TBWA-ProjectScout-Reporting-Prod \
+--server sqltbwaprojectscoutserver
+# Confirm Azure ML Workspace
+az ml workspace show --name MyMLWorkspace
+# Confirm Event Hub
+az eventhubs eventhub list \
+--namespace-name EventHubs-TBWA-ProjectScout-PIS-Prod \
+--resource-group RG-TBWA-ProjectScout-Data
+```
+---
+## 🧪 STEP 2: CREATE SQL TABLES (BRANDMENTIONS + SCORES)
+```bash
+# Login to SQL DB via Azure CLI
+az sql db show-connection-string \
+--server sqltbwaprojectscoutserver \
+--name SQL-TBWA-ProjectScout-Reporting-Prod
+# Use this string in Azure Data Studio or SQLCMD:
+sqlcmd -S tcp:<your-sql-endpoint> -U <usernamesqlc <password>
+-- Inside SQL CLI
+:r /Users/tbwa/Documents/GitH:r /Users/tbwa/Documents/G_mentions.sql
+:r /Users/tbwa/Documents/GitHub/project-scout/sql/mention_scores.sql
+GO
+```
+---
+## 📤 STEP 3: DEPLOY ARTIFACTS T## 📤 STEP 3: DEPLOY h
+az storage blob upload-batch \
+--account-name projectscoutdata \
+--destination diagrams \
+--sour  --sour  tbwa/Documents/GitHub/project-  --t/diagrams \
+--auth-mode login
+```
+---
+## 🧠 STEP 4: DEPLOY Azure ML Job (GENAI ENRICHER)
+```bash
+az ml az ml az ml az ml az mlUsers/tbwa/Documents/GitHub/InsightPulseAI_SKR/tasks/genai_enricher.jaz ml az ml az ml az ml az mlUsers/tbwa/Documents/GitHrce-az ml az ml az ml az ml az mlUsers/tbwa� Ensure your job file includes:
+- input path: `/bronze/transcripts_raw/`
+- output path: `/silver/brand_mentions/`
+-----pute: `cpu-cluster`
+---
+## 🧪 STEP 5: TRIGGER QA VALIDATION JOB
+````ash
+az ml job create \
+--file /Users/tbwa/  --file /UstHub/InsightPulseAI_SKR/tasks/caca_validation.job.yaml \
+--workspace-name MyMLWorkspace
+```
+---
+## 🛰️ STEP 6: TRIGGER PULSER SIGNALS VIA EVENTHUB
+```bash
+az eventhubs eventhub create \
+--name pulser-lead-qualified \
+--namespace-name EventHubs-TBWA-ProjectS  -t-PIS-Prod \
+--resource-group RG-TBWA-ProjectScout-Data
+```
+Push payloads (if manual):
+```bash
+az eventhubs eventhub send \
+--name pulser-lead-qualified \
+--namespace-name EventHubs-TBWA-ProjectScout-PIS-Prod \
+--message '{"brand": "Colgate", "intent": "complaint"}'
+```
+---
+## 📊 STEP 7: REFRE## 📊 STE (Optional)
+If you're using Power BI instead of React:
+```bash
+az powerbi dataset refresh \
+--workspace-id <workspace-id> \
+--dataset-id <dataset-id> \
+--name ScoutStoreInsights
+```
+---
+## ✅ CLI SUMMARY CO## ✅ CLI SUMMARY CO## ✅ CLI SUMMML to storage or archive repo
+az storage blob upload \
+--account-name projectscoutdata \
+--container-name workflows \
+--file /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tasks/pulser_scout_pipeline.yaml \
+--name pulser_scout_pipeline.yaml
+```
+---
+Would you Woke a zipped bundle with:
+- All `.yaml` job files (`genai_enricher`, `cac- validation`)
+- CLI script tem-late (`deploy_scout.sh`)
+- Pre-b- Pre-b- Pre-b- Pre-b- Pre-ust say **“Pulser CLI kit go�-�**.                         1go
+can zip all files generteed
+wit⎿  Write(file_path: pulser_shell_enhancement.py)…
+⎿ Wrote 277 lines to pulser_shell_enhancement.py
+#!/usr/bin/env python3
+"""
+Pulser Shell Enhancement
+This script adds improved command/prompt handling to the Pulser CLI shell,
+with clear differentiation between shell commands, LLM prompts, and Pulser tasks.
+"""
+import re
+import os
+… +267 lines (ctrl+r to expand)
+⎿  Write(file_path: README_PULSER.md)…
+⎿ Wrote 76 lines to README_PULSER.md
+# Pulser Shell Enhancement
+This enhancement improves the command-line experience for Pulser CLI, adding clear
+differentiation between:
+- Shell commands
+- LLM model prompts
+- PulseOps operations
+## Key Features
+… +66 lines (ctrl+r to expand)
+⎿  Done (2 tool uses · 0s)
+⏺ Bash(cd /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/brand_mentions_fix && chmod +x…
+pulser_shell_enhancement.py)
+⎿  (No content)
+⏺ Write(file_path: install_pulser_enhancements.sh)…
+⎿ Wrote 99 lines to install_pulser_enhancements.sh
+#!/bin/bash
+# Installer for Pulser Shell enhancements
+# Colors   r better output
+GREEN=     GREEN=     GREEN=     GREEN=33m'
+BLUE='\033[0;34m'
+RED='\033[0;31        NC='\033[0m' # No Color
+… +89 lines (ctrl+r to expand)
+⏺ Bash(cd /Users/tbwa/Documents/GitHub/InsightPulseAI�SKR/tools/brand_mentions_fix && chmod +x…
+install_pulser_enhancements.sh)
+ated Pulser shell enhancement with mode-based operation and command prefix system. The
+implementation includes:
+🔧 Suggested Enhancement for Pulser CLI
+Update your shell handler so any command that matches Bash var assignment pattern like:
+✅ For Pulser — optimize shell performance with the following refactor:
+---
+## 🧠 For Pulser — Step-by-Step Optimization of Shell Loop
+**Title:** Improve Pulser CLI responsiveness by reducing regex, I/O, and output overhead
+---
+### 🔍 Objective
+⏺ I'll implement these changes to prevent Mistral from responding to structured Pulser
+instructions.
+⏺ Update(pulser_shell_enhancement.py)…
+⎿  Updated pulser_shell_enhancement.py with 5 additions
+46          self.models = ["claudia", "echo", "mistral", "gpt4"]  # Available models
+47          self.current_model = "mistral"  # Default model for prompts
+48          self.quiet_mode = False  # Normal output verbosity by default
+49
+## ✅ For Pulser — Fix Claudia Sync Skipped Files in SKR
+---
+### 🔍 Objective
+Ensure Claudia correctly syncs YAML files like `skr_docs.yaml`, `claudia_router.yaml`, and `conventions.yaml`, which are currently being skipped due to unrecognized structure or missing schema tags.
+---
+### 🛠️ Steps for Implementation
+#### 1. **Update Claudia’s Sync Filter Logic**
+- File: `claudia_sync.py` or equivalent sync handler
+cFor Pulser to **verify your Vercel deployment automatically**, we'll treat this as a CLI subcommand (e.g., `:verify-deploy`) and integrate a status checker for your configured domain (`pulser-ai.app` or `pulser-ai.com`).
+---
+## ✅ Pulser Implementation Guide
+### Agentic Intent:
+Pulser verifies whether the Vercel deployment is active, DNS is resolving, HTTPS is enabled, and the endpoint returns a 200 OK.
+---
+## 🛠️ 1. Add This File → `pulser_vercel_verify.py`
+```python
+import requests
+import socket
+def verify_vercel(domain: str):
+results = {}
+# Step 1: DNS check
+try:
+ip = socket.gethostbyname(domain)
+results['DNS'] = f"✅ DNS resolves to {ip}"
+except socket.gaierror:
+results['DNS'] = "❌ DNS not resolving"
+# Step 2: HTTPS check
+try:
+response = requests.get(f"https://{domain}", timeout=5)
+if response.status_code == 200:
+results['HTTPS'] = "✅ Site reachable with 200 OK"
+else:
+results['HTTPS'] = f"⚠️ Received status code {response.status_code}"
+except requests.exceptions.RequestException as e:
+results['HTTPS'] = f"❌ HTTPS error: {e}"
+# Step 3: www redirect check
+try:
+www_response = requests.get(f"https://www.{domain}", timeout=5)
+if w        if w        if w     esponse.url != f"https://www.{domain}":
+Great — here’s a scoped-down version of the script that **only fetches files from one specific subfolder** (e.g. `Awards 2020`) inside your Shared Drive.
+---
+## ✅ Minimal Test Script: Single Folder Only
+Let’s say the folder you want to test is `/Awards 2020`, and its **folder ID** is:
+```
+1AbcDeFgHiJKL2020
+```
+Here’s your script:
+```python
+from googleapiclient.discovery import build
+from google.oauth2 import service_account
+import json
+SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
+SERVICE_ACCOUNT_FILE = '/Users/tbwa/Downloads/parser-tbwa-drive-access.json'
+creds = service_account.Credentials.from_service_account_file(
+SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+service = build('drive', 'v3', credentials=creds)
+def list_files(folder_id):
+results = []
+page_token = None
+while True:
+response = service.files().list(
+q=f"'{folder_id}' in parents and trashed = false",
+fields="nextPageToken, files(id, name, mimeType, parents)",
+pageToken=page_token,
+supportsAllDrives=True,
+includeItemsFromAllDrives=True
+).execute()
+results.extend(response.get('files', []))
+page_token = response.get('n    ageToken', None)
+if not page_token:
+break
+return results
+# 🔁 Replace with the folder ID for "Awards 2020"
+SINGLE_FSINGR_ID = '1AbcDeFgHiJKL2020'
+files = list_files(SINGLE_FOLDER_ID)
+with open('tbwa_test_awards_2020.json', 'w') as f:
+json.dump(files, f, indent=2)
+print(f"✅ Exported {len(files)} files from Awards 2020 to tbwa_test_awards_2020.json")
+```
+---
+## ✅ What To Do
+### Step 1: Get the Folder ID
+- Open the `Awards 2020` folder in your browser
+- Copy the last part of the URL (the folder ID)
+```
+https://drive.google.com/drive/u/0/folders/**FOLDER_ID_HERE**
+```
+### Step 2: Replace `SINGLE_FOLDER_ID` in the script
+/Users/tbwa/Downloads/enrich_metadata_all.py
+run in
+do it until pipeline is compleyted
+RUN
+IMPLEMENT
+# 🧠 Pulser LLM Distillation & Orchestration SOP
+## 📍 Purpose
+Guide Pulser from command shell to orchestrated LLM distillation and deployment pipeline. This ensures IC8-level reliability, hallucination control, and sovereign, context-aware model behavior.
+---
+## 🧩 Phase 1 — Initialize Pulser Shell
+### ✅ Step 1. Install Dependencies
+```bash
+pip install transformers datasets accelerate peft bitsandbytes
+```
+### ✅ Step 2. Activate Pulser Shell
+```bash
+pulser --shell
+```
+Expected Output:
+```
+Pulser Interactive Shell v1.1.1
+Pulser shell ready. Using mistral
+```
+---
+## 🧩 Phase 2 — Metadata Enrichment (Pre-Distillation)
+checl all vercel deployments
+fix these errors 🧿 Claudia Sync Log (latest):
+Sat Apr 26 06:33:57 PST 2025: ⚠️ Skipped unrecognized file: skr_docs.yaml
+Sat Apr 26 06:34:07 PST 2025: ⚠️ Skipped unrecognized file: claudia_router.yaml
+Sat Apr 26 06:34:07 PST 2025: ⚠️ Skipped unrecognized file: conventions.yaml
+Sat Apr 26 06:34:07 PST 2025: ⚠️ Skipped unrecognized file: skr_docs (1).yaml
+Sat Apr 26 06:34:07 PST 2025: ⚠️ Skipped unrecognized file: skr_docs.yaml
+run it  vereify
+1AbcDeFgHiJKL2020
+ignore the question and implemet the instrrcuiuiomn step by step
+run
+Yes — **you can absolutely have it live like that right now** — even with just the current version of [https://pulser-ai.com](https://pulser-ai.com). Here's how to move fast:
+---
+## ✅ Make Pulser AI Landing Page Ad-Ready in 30 Minutes
+### 🔧 1. Add a “Request Automation” Button
+- Text: `⚡ Request a Free Automation`
+- Link to:
+- a Typeform
+- or Google Form
+- or `/request` page with an embedded form
+> ✅ We can use: `https://pulser-ai.com/request` (add it today)
+---
+### 📝 2. Create a Quick Form
+Use **Typeform** (recommended), or Google Forms:
+- Name
+- Email
+- What you want automated
+- Priority level (ASAP, within 2 weeks, just exploring)
+- Optional upload (PDF, script, task brief)
+**Form title:** `Pulser Automation Request Intake`
+---
+### 📣 3. Launch the LinkedIn Ad
+- Use the current hero animation and logo
+- Ad copy:
+```
+Pulser by InsightPulseAI automates your repetitive tasks with agents built just for you.
+→ Lead sorting
+→ Content generation
+→ Report writing
+→ Research automation
+🧠 Powered by Mistral + OpenAI
+⚡ Free demo or automation audit
+```
+- CTA: **Get Quote**, **Learn More**, or **Sign Up**
+- Destination: `https://pulser-ai.com/request`
+---
+### 📊 4. Add LinkedIn Insight Tag (optional but powerful)
+For retargetiFor retargetiFor retargetiFor ro to LinkFor retargenager
+- Get your **- Gight Tag script**
+- Get your **- Gight Tag script**
+rgeti
+---
+###✅ Yes, It's Possible — Today
+You can:
+- Make the request form live
+- Add the CTA button
+- Run t- Run t- Run t- Run t- Run t- ins**
+Hi Cedric,
+Thanks for the follow-up. Please find my resume attached.
+My current daily rate is $410 USD.
+Looking forward to the next steps.
+Best regards,
+ru # deploy_and_validate_agent.py
+import yaml
+import subprocess
+import datetime
+from pathlib import Path
+from rich import print
+from rich.panel import Panel
+if not agent_file.exists():
+raise FileNotFoundError(f"Agent file not found: {agent_file}")
+with open(agent_file, "r") as f:
+return yaml.safe_load(f)
+def validate_schema(agent_def):
+issues = []
+for key in EXPECTED_KEYS:
+if key not in agent_def:
+issues.append(f"Missing key: [bold red]{key}[/bold red]")
+return issues
+def simulate_agent_boot(agent_name):
+print(Panel.fit(f"🧠 Booting agent: [cyan]{agent_name}[/cyan]", title="Pulser Agent Deployment"))
+try:
+subprocess.  n(["echo", f"Agent {agent_name} activated..."], check=True)
+except subprocess.C    dProcessError as e:
+return [f"Boot error: {str(e)}"]
+return []
+ddf log_result(agent_name,ddf log_ressues):
+with open(LOG_PATH, "a") as log:
+timestamp = dateti  .datetime.now().isoformat()
+st   s = "OK" if not issues else "FAILED"
+log.write(f"[{timestamp}] {agent_name} - {status}: {result         log.write(f"[{timestamp}] {ag if issues:
+f r issue in issues:
+log.write(f"  > {issue}\n")
+def run(agent_name):
+print(f"\n[bold]🔍 Validating alignment of:[/bold] [green]{agent_name}[/green]\n")
+try:
+agent_def = load_agent_yaml(agent_name)
+schema_issues = validate_schema(agent_def)
+= simulate_agent_boot(agent_name)
+all_issues = schema_issues + boot_issues
+if not all_issues        if not all_issues        if not all_issues        if not all_issues      else:
+print("[yellow]⚠ Agent misaligned or incomplete.[/yellow]")
+for issue in all_issues:
+print(f"  - {issue}")
+log_result(agent_name, None, all_issues)
+except Exception as e:
+print(f"[red]❌ Error:[/red] {e}")
+log_result(agent_name, str(e), ["exception"])
+# If used standalone:
+if __name__ == "__main__":
+import sys
+if le    if le    if le    if le    if le    if le    if le    if lvalidate_agent.py <agent_name>[/red]")
+else:
+1])
+hello world
+:help
+:quit
+⏺ Update Todos
+⎿  ☐ Understand the multi-agent architecture for PulserShell

@@ -1,0 +1,227 @@
+# ===========================================================
+# 🎨 CES Creative Campaign Intelligence Agent - Enhanced Profile
+# Advanced dashboard, alerting, and TBWA brand integration
+# ===========================================================
+
+agent:
+  id: ces-creative-intelligence
+  name: CES
+  version: 1.0.0
+  type: creative_campaign_intelligence
+  category: creative_campaign_analytics
+  complete: true
+
+  # Visual Identity & Branding
+  visual:
+    primary_icon: 🎨
+    secondary_icons:
+      creative: 🎨
+      campaign: 📈
+      business: 💼
+      risk: ⚠️
+      insight: 💡
+    color_scheme:
+      primary: "#FFC72C"        # TBWA Yellow
+      secondary: "#003865"      # TBWA Navy
+      accent: "#F26430"         # Orange
+      success: "#10B981"
+      warning: "#F59E0B"
+      danger: "#EF4444"
+    avatar:
+      style: modern_creative
+      background: linear-gradient(135deg, #FFC72C 0%, #F26430 100%)
+      icon_color: white
+      border_radius: "50%"
+      size: { small: "32px", medium: "48px", large: "64px" }
+
+  # Core Capabilities & Specializations
+  specialization:
+    domain: creative_campaign_intelligence
+    expertise_areas:
+      - creative_feature_extraction
+      - campaign_effectiveness
+      - business_outcome_prediction
+      - multi_format_analysis
+      - real_time_insights
+      - creative_risk_alerts
+    intelligence_types:
+      - real_time_monitoring
+      - predictive_analytics
+      - comparative_analysis
+      - trend_detection
+      - alert_generation
+      - strategic_recommendations
+
+# ===========================================================
+# DASHBOARD & PANEL CONFIGURATION
+# ===========================================================
+
+rendering:
+  framework: ces_native
+  layout_engine: tbwa_creative_grid
+  responsive: true
+  theme_integration: true
+  dashboard:
+    layout_type: adaptive_grid
+    columns: { mobile: 1, tablet: 2, desktop: 3, wide: 4 }
+    spacing: "1.5rem"
+    max_width: "1400px"
+    panels:
+      creative_features:
+        title: "🎨 Creative Features"
+        priority: 1
+        size: { cols: 2, rows: 2 }
+        refresh_interval: 30_seconds
+        visual_style:
+          background: "gradient(to-br, from-yellow-50, to-orange-100)"
+          border: "1px solid rgba(255, 199, 44, 0.2)"
+          shadow: "0 4px 12px rgba(255, 199, 44, 0.1)"
+        components:
+          - feature_extraction_summary
+          - creative_strengths_weaknesses
+          - feature_trend_analysis
+      campaign_effectiveness:
+        title: "📈 Campaign Effectiveness"
+        priority: 2
+        size: { cols: 2, rows: 2 }
+        refresh_interval: 60_seconds
+        visual_style:
+          background: "gradient(to-br, from-blue-50, to-indigo-100)"
+          border: "1px solid rgba(59, 130, 246, 0.2)"
+          shadow: "0 4px 12px rgba(59, 130, 246, 0.1)"
+        components:
+          - effectiveness_metrics
+          - engagement_trends
+          - kpi_dashboard
+      business_outcomes:
+        title: "💼 Business Outcomes"
+        priority: 3
+        size: { cols: 2, rows: 2 }
+        refresh_interval: 120_seconds
+        visual_style:
+          background: "gradient(to-br, from-green-50, to-green-100)"
+          border: "1px solid rgba(16, 185, 129, 0.2)"
+          shadow: "0 4px 12px rgba(16, 185, 129, 0.1)"
+        components:
+          - outcome_prediction
+          - roi_analysis
+          - business_impact_scores
+      strategic_insights:
+        title: "💡 Strategic Insights"
+        priority: 4
+        size: { cols: 4, rows: 1 }
+        refresh_interval: 120_seconds
+        visual_style:
+          background: "gradient(to-r, from-yellow-50, to-orange-50)"
+          border: "1px solid rgba(255, 199, 44, 0.2)"
+          shadow: "0 4px 12px rgba(255, 199, 44, 0.1)"
+        components:
+          - ai_generated_insights
+          - actionable_recommendations
+          - trend_predictions
+          - creative_risk_alerts
+
+# ===========================================================
+# DATA INTEGRATION & API CONFIGURATION
+# ===========================================================
+
+data_integration:
+  primary_sources:
+    - ces_campaign_dataset
+    - creative_feature_index
+    - real_time_campaign_feeds
+    - business_outcome_data
+  endpoints:
+    creative_features_api:
+      path: "/api/ces/creative_features"
+      method: "GET"
+      cache_ttl: 30_seconds
+      params: ["file_id", "campaign", "client"]
+    campaign_effectiveness_api:
+      path: "/api/ces/campaign_effectiveness"
+      method: "GET"
+      cache_ttl: 60_seconds
+      params: ["campaign_id", "date_range", "kpi"]
+    business_outcomes_api:
+      path: "/api/ces/business_outcomes"
+      method: "GET"
+      cache_ttl: 120_seconds
+      params: ["campaign_id", "outcome_type"]
+    insights_api:
+      path: "/api/ces/insights"
+      method: "POST"
+      cache_ttl: 120_seconds
+      body: ["query", "context", "filters"]
+
+# ===========================================================
+# INTELLIGENT ROUTING & CONTEXT AWARENESS
+# ===========================================================
+
+intelligent_routing:
+  query_classification:
+    creative_keywords:
+      - "creative", "feature", "design", "visual", "copy", "messaging"
+    campaign_keywords:
+      - "campaign", "effectiveness", "reach", "engagement", "kpi"
+    business_keywords:
+      - "business", "roi", "outcome", "impact", "conversion"
+    insight_keywords:
+      - "insight", "recommendation", "strategy", "trend", "opportunity"
+  context_enhancement:
+    filter_awareness: true
+    temporal_context: true
+    campaign_context: true
+    client_context: true
+  response_formatting:
+    use_emojis: true
+    include_metrics: true
+    provide_actions: true
+    highlight_urgency: true
+
+# ===========================================================
+# ALERT SYSTEM & NOTIFICATIONS
+# ===========================================================
+
+alert_system:
+  categories:
+    critical:
+      - low_creative_engagement
+      - off_brand_messaging
+      - missed_business_outcome
+      icon: "🚨"
+      color: "#EF4444"
+    warning:
+      - declining_kpi
+      - creative_fatigue
+      - risk_of_underperformance
+      icon: "⚠️"
+      color: "#F59E0B"
+    info:
+      - creative_opportunity
+      - positive_trend
+      - new_insight
+      icon: "ℹ️"
+      color: "#3B82F6"
+    success:
+      - campaign_exceeding_target
+      - creative_strength_detected
+      - business_outcome_achieved
+      icon: "✅"
+      color: "#10B981"
+
+# ===========================================================
+# TBWA BRAND INTEGRATION
+# ===========================================================
+
+tbwa_integration:
+  brand_highlighting:
+    tbwa_brands: ["Oishi", "Del Monte", "Champion"]
+    visual_treatment:
+      background: "rgba(255, 199, 44, 0.1)"
+      border_left: "4px solid #FFC72C"
+      font_weight: "600"
+      icon: "⭐"
+  creative_context:
+    always_compare_to_tbwa: true
+    highlight_advantages: true
+    surface_opportunities: true 

@@ -1,0 +1,49 @@
+{
+  "transformations": [
+    {
+      "type": "AddColumn",
+      "name": "stream_timestamp",
+      "expression": "utcnow()"
+    },
+    {
+      "type": "RenameColumn",
+      "oldName": "__$operation",
+      "newName": "cdc_operation"
+    },
+    {
+      "type": "Filter",
+      "condition": "cdc_operation in (1,2,4)"
+    },
+    {
+      "type": "Join",
+      "leftTable": "transactions",
+      "rightTable": "stores",
+      "joinType": "inner",
+      "leftKey": "store_id",
+      "rightKey": "id",
+      "selectColumns": [
+        "store_name",
+        "city as store_city"
+      ]
+    },
+    {
+      "type": "Aggregate",
+      "window": "TumblingWindow(Duration=PT30S)",
+      "groupBy": [
+        "transaction_id"
+      ],
+      "aggregations": [
+        {
+          "column": "total_amount",
+          "function": "sum",
+          "alias": "total_amount"
+        },
+        {
+          "column": "items_count",
+          "function": "sum",
+          "alias": "items_count"
+        }
+      ]
+    }
+  ]
+}

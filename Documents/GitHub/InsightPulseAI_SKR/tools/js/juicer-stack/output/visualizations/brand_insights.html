@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juicer Insights Visualization</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #212529;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .chart-container {
+      height: 500px;
+      margin-bottom: 20px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Juicer Insights Visualization</h1>
+      <p>Generated on May 12, 2025</p>
+    </div>
+    
+    <div class="chart-container">
+      <canvas id="insightsChart"></canvas>
+    </div>
+    
+    <div class="footer">
+      <p>Powered by Juicer GenAI Insights</p>
+    </div>
+  </div>
+  
+  <script>
+    // Sample data - in a real implementation, this would be data from the Platinum layer
+    const ctx = document.getElementById('insightsChart').getContext('2d');
+    
+    // Create appropriate chart based on type and grouping
+    const chartType = 'bar';
+    
+    let chart;
+    
+    if (chartType === 'bar') {
+      // Bar chart for brand grouping
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Jollibee', 'McDonald\'s', 'KFC', 'Burger King', 'Wendy\'s', 'Pizza Hut'],
+          datasets: [
+            {
+              label: 'General Insights',
+              data: [12, 10, 8, 6, 4, 3],
+              backgroundColor: '#8a4fff'
+            },
+            {
+              label: 'Brand Insights',
+              data: [15, 12, 10, 8, 6, 4],
+              backgroundColor: '#00a3e0'
+            },
+            {
+              label: 'Sentiment Insights',
+              data: [10, 8, 6, 5, 3, 2],
+              backgroundColor: '#ff7e47'
+            },
+            {
+              label: 'Trend Insights',
+              data: [8, 7, 5, 4, 2, 1],
+              backgroundColor: '#00c389'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Insights by Brand (Last 30 days)',
+              color: '#212529'
+            },
+            legend: {
+              labels: {
+                color: '#212529'
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: '#212529'
+              },
+              grid: {
+                color: 'rgba(0,0,0,0.1)'
+              }
+            },
+            y: {
+              ticks: {
+                color: '#212529'
+              },
+              grid: {
+                color: 'rgba(0,0,0,0.1)'
+              }
+            }
+          }
+        }
+      });
+    } else if (chartType === 'line') {
+      // Line chart for time-based grouping
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+          datasets: [
+            {
+              label: 'Jollibee',
+              data: [72, 75, 78, 82],
+              borderColor: '#ff3300',
+              backgroundColor: 'rgba(255, 51, 0, 0.1)',
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'McDonald\'s',
+              data: [68, 70, 69, 71],
+              borderColor: '#ffcc00',
+              backgroundColor: 'rgba(255, 204, 0, 0.1)',
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'KFC',
+              data: [65, 68, 67, 70],
+              borderColor: '#00a3e0',
+              backgroundColor: 'rgba(0, 163, 224, 0.1)',
+              tension: 0.4,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Sentiment Trends by Week (Last 30 days)',
+              color: '#212529'
+            },
+            legend: {
+              labels: {
+                color: '#212529'
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: '#212529'
+              },
+              grid: {
+                color: 'rgba(0,0,0,0.1)'
+              }
+            },
+            y: {
+              ticks: {
+                color: '#212529'
+              },
+              grid: {
+                color: 'rgba(0,0,0,0.1)'
+              }
+            }
+          }
+        }
+      });
+    } else if (chartType === 'heatmap') {
+      // Simple fallback for heatmap (not directly supported by Chart.js core)
+      alert('Heatmap visualization requires additional plugins. Falling back to bar chart.');
+      
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Jollibee', 'McDonald\'s', 'KFC', 'Burger King', 'Wendy\'s', 'Pizza Hut'],
+          datasets: [
+            {
+              label: 'General Insights',
+              data: [12, 10, 8, 6, 4, 3],
+              backgroundColor: '#8a4fff'
+            },
+            {
+              label: 'Brand Insights',
+              data: [15, 12, 10, 8, 6, 4],
+              backgroundColor: '#00a3e0'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      });
+    } else {
+      // Default fallback
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Jollibee', 'McDonald\'s', 'KFC', 'Burger King', 'Wendy\'s', 'Pizza Hut'],
+          datasets: [
+            {
+              label: 'Total Insights',
+              data: [45, 37, 29, 23, 15, 10],
+              backgroundColor: '#ff3300'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Total Insights by Brand (Last 30 days)',
+              color: '#212529'
+            },
+            legend: {
+              labels: {
+                color: '#212529'
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: '#212529'
+              },
+              grid: {
+                color: 'rgba(0,0,0,0.1)'
+              }
+            },
+            y: {
+              ticks: {
+                color: '#212529'
+              },
+              grid: {
+                color: 'rgba(0,0,0,0.1)'
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+[
+  {
+    "insight_id": "insight-001",
+    "insight_text": "Rising demand for sustainable packaging with 40% increase in EcoPack mentions over the past week.",
+    "insight_type": "trend",
+    "confidence_score": 0.92,
+    "metric_id": "metric-012",
+    "time_window": "weekly",
+    "tags": ["sustainability", "packaging", "ecopack", "brand_mentions"],
+    "generated_at": "2025-05-15T19:15:10Z"
+  },
+  {
+    "insight_id": "insight-002",
+    "insight_text": "EcoPack has 25% higher positive sentiment compared to last week, outperforming competitors in sustainability messaging.",
+    "insight_type": "trend",
+    "confidence_score": 0.89,
+    "metric_id": "metric-013",
+    "time_window": "weekly",
+    "tags": ["sentiment", "ecopack", "sustainability", "competitive_advantage"],
+    "generated_at": "2025-05-15T19:15:15Z"
+  },
+  {
+    "insight_id": "insight-003",
+    "insight_text": "CompetitorX brand mentions have negative sentiment (-0.05), primarily in comparison to EcoPack solutions.",
+    "insight_type": "brand",
+    "confidence_score": 0.86,
+    "metric_id": "metric-006",
+    "time_window": "daily",
+    "tags": ["competitor_analysis", "competitorx", "sentiment", "comparison"],
+    "generated_at": "2025-05-15T19:15:20Z"
+  },
+  {
+    "insight_id": "insight-004",
+    "insight_text": "GreenWrap mentions frequently appear alongside EcoPack, but with lower sentiment scores, indicating competitive advantage.",
+    "insight_type": "brand",
+    "confidence_score": 0.91,
+    "metric_id": "metric-007",
+    "time_window": "daily",
+    "tags": ["competitor_analysis", "greenwrap", "ecopack", "sentiment", "comparison"],
+    "generated_at": "2025-05-15T19:15:25Z"
+  },
+  {
+    "insight_id": "insight-005",
+    "insight_text": "Desktop conversion rates (4.2%) exceed mobile (2.8%) and tablet (3.1%), suggesting potential for mobile UX optimization.",
+    "insight_type": "opportunity",
+    "confidence_score": 0.93,
+    "metric_id": "metric-008",
+    "time_window": "daily",
+    "tags": ["conversion_optimization", "mobile", "ux", "device_comparison"],
+    "generated_at": "2025-05-15T19:15:30Z"
+  },
+  {
+    "insight_id": "insight-006",
+    "insight_text": "Increasing interest in financial products from small businesses, with 12 explicit mentions in customer interactions this week.",
+    "insight_type": "opportunity",
+    "confidence_score": 0.85,
+    "metric_id": "metric-014",
+    "time_window": "weekly",
+    "tags": ["smb", "financial_services", "product_opportunity", "customer_requests"],
+    "generated_at": "2025-05-15T19:15:35Z"
+  },
+  {
+    "insight_id": "insight-007",
+    "insight_text": "Supply chain disruption due to semiconductor shortages impacting product availability, with 8 customer inquiries this week.",
+    "insight_type": "risk",
+    "confidence_score": 0.93,
+    "metric_id": "metric-015",
+    "time_window": "weekly",
+    "tags": ["supply_chain", "semiconductors", "product_availability", "customer_concerns"],
+    "generated_at": "2025-05-15T19:15:40Z"
+  },
+  {
+    "insight_id": "insight-008",
+    "insight_text": "Premium desk organizer with EcoPack packaging generating sustained positive sentiment (0.85) and strong conversion rates.",
+    "insight_type": "brand",
+    "confidence_score": 0.90,
+    "metric_id": "metric-005",
+    "time_window": "daily",
+    "tags": ["product_performance", "ecopack", "office_products", "sentiment"],
+    "generated_at": "2025-05-15T19:15:45Z"
+  },
+  {
+    "insight_id": "insight-009",
+    "insight_text": "Non-electronic office products with EcoPack packaging show higher conversion rates than electronic products affected by supply chain issues.",
+    "insight_type": "correlation",
+    "confidence_score": 0.83,
+    "metric_id": null,
+    "time_window": "weekly",
+    "tags": ["product_comparison", "supply_chain", "conversion_rates", "ecopack"],
+    "generated_at": "2025-05-15T19:15:50Z"
+  },
+  {
+    "insight_id": "insight-010",
+    "insight_text": "Promotional business account offers generating 50% higher conversion rates for small business segment compared to standard pricing.",
+    "insight_type": "recommendation",
+    "confidence_score": 0.87,
+    "metric_id": null,
+    "time_window": "weekly",
+    "tags": ["promotions", "business_accounts", "conversion_optimization", "pricing_strategy"],
+    "generated_at": "2025-05-15T19:15:55Z"
+  }
+]

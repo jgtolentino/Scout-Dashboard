@@ -1,0 +1,38 @@
+# Differences between v2.3.3 and v2.4.0
+# Generated: Thu 22 May 2025 03:03:49 PST
+
+## New files in v2.4.0
+
+- version.json
+- js/config.js
+- js/components/user/preferences.js
+- js/components/user/saved_filters.js
+- js/components/user/export_templates.js
+- js/components/user/recent_views.js
+- js/components/user/dashboard_layouts.js
+- js/components/map/region_selector.js
+- js/components/map/map_engine.js
+- js/components/map/heat_visualization.js
+- js/components/map/location_search.js
+- js/components/map/geo_layers.js
+- js/components/ai/ai_engine.js
+- js/components/ai/embeddings_service.js
+- js/components/ai/streaming_client.js
+- js/components/ai/model_registry.js
+- js/components/ai/engine/ai_engine.js
+- js/components/ai/engine/model_router.js
+- js/components/ai/engine/embeddings_service.js
+- js/components/ai/engine/streaming_client.js
+- js/components/ai/engine/model_registry.js
+- docs/CLIENT360_V2.4.0_FEATURES.md
+- docs/RELEASE_2.4.0.md
+- docs/DEPLOYMENT_CHECKLIST_2.4.0.md
+- verification_report.html
+- data/simulated/ai/insights/sample_insights.json
+- data/live/ai/insights/latest_insights.json
+
+## Modified files
+
+- index.html
+- js/dashboard.js
+- staticwebapp.config.json

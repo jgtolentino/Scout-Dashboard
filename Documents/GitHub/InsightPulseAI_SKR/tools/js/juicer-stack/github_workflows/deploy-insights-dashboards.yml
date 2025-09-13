@@ -1,0 +1,57 @@
+name: Deploy GenAI Insights Dashboards
+
+on:
+  push:
+    paths:
+      - 'tools/js/juicer-stack/dashboards/**'
+      - 'tools/js/juicer-stack/tools/deploy_insights_all_dashboards.js'
+      - 'tools/js/juicer-stack/github_workflows/deploy-insights-dashboards.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: |
+          npm install -g http-server
+
+      - name: Deploy GenAI Insights Integration
+        run: |
+          cd tools/js/juicer-stack
+          node tools/deploy_insights_all_dashboards.js --env ${{ github.event.inputs.environment || 'dev' }}
+          
+      - name: Deploy to Azure Static Web Apps
+        id: deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "tools/js/deploy"
+          skip_app_build: true
+          output_location: ""
+          
+      - name: Display deployed URL
+        run: |
+          echo "Deployed to: https://${{ steps.deploy.outputs.static_web_app_url }}"

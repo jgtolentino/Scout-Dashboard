@@ -1,0 +1,46 @@
+name: Scout ETL
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # every 10 minutes
+  workflow_dispatch:
+
+jobs:
+  etl:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Load Bronze from Storage (Edge Function)
+        run: |
+          curl -sS -X POST \
+           -H "Content-Type: application/json" \
+           -d "{\"date\":\"$(date -u +%F)\"}" \
+           "${{ secrets.SUPABASE_FUNCTIONS_BASE }}/load-bronze-from-storage"
+
+      - name: dbt deps/run
+        uses: datamie/dbt-action@v1
+        with:
+          profiles-dir: platform/dbt
+          project-dir: platform/dbt
+          commands: |
+            dbt run --select silver+
+            dbt test --select silver+
+            dbt run --select gold+
+
+      - name: Publish datasets to Storage
+        run: |
+          npm ci
+          node scripts/publish-datasets.ts
+
+      # Optional: warm Superset
+      - name: Warm Superset (optional)
+        if: ${{ env.SUPERSET_URL && env.SUPERSET_TOKEN }}
+        env:
+          SUPERSET_URL: ${{ secrets.SUPERSET_URL }}
+          SUPERSET_TOKEN: ${{ secrets.SUPERSET_TOKEN }}
+        run: |
+          ./scripts/cache_warm_superset.sh platform/superset/critical_dash_ids.txt || true

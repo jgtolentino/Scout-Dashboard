@@ -1,0 +1,288 @@
+id: visualsynth
+name: VisualSynth
+description: >
+  Orchestrates dashboard visualization pipeline from schema ingestion to  production-ready interfaces with analytics-driven KPI displays and data storytelling capabilities aligned with TBWA visualization standards. Now with 21st Magic enhanced visualization capabilities for 3D charts and animations.
+
+version: 2.3.0
+tasks:
+  - requirement_parsing
+  - schema_mapping
+  - layout_planning
+  - component_generation
+  - magic_enhancement
+  - qa_validation
+  - deployment
+model: claude-3-opus
+output_format: html + js + deploy
+dependencies:
+  - reqparser
+  - schemainfer
+  - vizplanner
+  - vizbuilder
+  - magicrenderer
+  - qaenforcer
+  - deployer
+role:
+  primary: Dashboard Generation & Deployment
+  secondary: Visual Analytics & Insights
+capabilities:
+  - Parses natural language requirements into structured KPIs
+  - Maps dashboard elements to database schema
+  - Generates responsive UI layouts with Power BI parity
+  - Builds interactive dashboards with WCAG 2.1 AA compliance
+  - Creates 3D visualizations and animated transitions with 21st Magic
+  - Validates against baseline visuals with screenshot diffing
+  - Deploys to Azure Static Web Apps with GitHub Actions
+commands:
+  - name: visualsynth
+    description: Generate and deploy dashboards from requirements
+    subcommands:
+      - name: gather
+        description: Parse requirements into structured KPI definitions
+        arguments:
+          - name: input
+            description: Natural language requirements or path to requirements file
+            required: true
+          - name: output
+            description: Output path for structured KPI JSON
+            required: false
+            default: "./output/structured_kpi.json"
+      - name: map-schema
+        description: Map KPIs to database schema
+        arguments:
+          - name: input
+            description: Path to structured KPI JSON
+            required: false
+            default: "./output/structured_kpi.json"
+          - name: output
+            description: Output path for schema mapping
+            required: false
+            default: "./output/kpi_table_mapping.yaml"
+      - name: plan-ui
+        description: Generate dashboard layout wireframe
+        arguments:
+          - name: input
+            description: Path to schema mapping
+            required: false
+            default: "./output/kpi_table_mapping.yaml"
+          - name: template
+            description: Layout template to use
+            required: false
+            default: "retail"
+          - name: output
+            description: Output path for wireframe JSON
+            required: false
+            default: "./output/dashboard_wireframe.json"
+      - name: generate-code
+        description: Generate dashboard HTML, CSS, and JavaScript
+        arguments:
+          - name: input
+            description: Path to wireframe JSON
+            required: false
+            default: "./output/dashboard_wireframe.json"
+          - name: theme
+            description: Visual theme to apply
+            required: false
+            default: "tbwa"
+          - name: output
+            description: Output path for dashboard HTML
+            required: false
+            default: "./output/retail_dashboard.html"
+      - name: enhance-with-magic
+        description: Add 21st Magic 3D and animation capabilities to dashboard
+        arguments:
+          - name: input
+            description: Path to standard dashboard HTML
+            required: true
+          - name: theme
+            description: 21st Magic theme to apply
+            required: false
+            default: "tbwa_magic_dark"
+          - name: animation
+            description: Animation level (subtle, moderate, immersive)
+            required: false
+            default: "moderate"
+          - name: enable_3d
+            description: Enable 3D visualizations
+            required: false
+            default: "true"
+          - name: output
+            description: Output path for enhanced dashboard HTML
+            required: false
+            default: "./output/magic_dashboard.html"
+      - name: generate-magic
+        description: Generate dashboard with 21st Magic capabilities in one step
+        arguments:
+          - name: input
+            description: Natural language requirements or path to requirements file
+            required: true
+          - name: theme
+            description: 21st Magic theme to apply
+            required: false
+            default: "tbwa_magic_dark"
+          - name: animation
+            description: Animation level (subtle, moderate, immersive)
+            required: false
+            default: "moderate"
+          - name: enable_3d
+            description: Enable 3D visualizations
+            required: false
+            default: "true"
+          - name: output
+            description: Output path for Magic dashboard HTML
+            required: false
+            default: "./output/magic_dashboard.html"
+      - name: qa
+        description: Run QA validation on generated dashboard
+        arguments:
+          - name: input
+            description: Path to dashboard HTML
+            required: false
+            default: "./output/retail_dashboard.html"
+          - name: baseline
+            description: Path to baseline screenshot
+            required: false
+            default: "./qa/baselines/retail_dashboard.png"
+          - name: output
+            description: Output path for QA report
+            required: false
+            default: "./output/qa_report.json"
+      - name: deploy
+        description: Deploy dashboard to Azure Static Web App
+        arguments:
+          - name: input
+            description: Path to dashboard HTML
+            required: false
+            default: "./output/retail_dashboard.html"
+          - name: target
+            description: Deployment target (azure, github, local)
+            required: false
+            default: "azure"
+          - name: output
+            description: Output path for deployment log
+            required: false
+            default: "./output/deployment_log.json"
+dependencies:
+  agents:
+    - stacey # For deployment coordination
+    - caca # For QA validation
+    - prompt_engineer # For prompt improvement integration
+    - dash_21st_magic # For 21st Magic visualization
+  tools:
+    - visualsynth.sh
+    - azure_deployment_verification.sh
+    - dashboard_qa.js
+    - visualsynth_code_generator.js
+    - visualsynth_deployment.js
+    - visualsynth_21st_magic.js
+    - magic_21st_dashboard.sh
+    - magic_21st_dashboard_scripts.js
+config:
+  default_theme: "tbwa"
+  default_magic_theme: "tbwa_magic_dark"
+  baseline_path: "./qa/baselines/"
+  templates_path: "./templates/dashboards/"
+  deployment_config_path: "./config/deployment.json"
+  magic_config_path: "./config/21st_magic.json"
+  qa_thresholds:
+    visual_diff_threshold: 0.05
+    performance_score_min: 90
+    accessibility_level: "AA"
+  magic_thresholds:
+    frame_rate_min: 30
+    animation_smoothness: 0.8
+    3d_complexity_limit: "medium"
+hooks:
+  pre_generate:
+    - "verify_schema_access.sh"
+  post_deploy:
+    - "verify_azure_deployment.sh"
+  pre_magic_enhance:
+    - "check_browser_compatibility.sh"
+  post_magic_generate:
+    - "verify_3d_performance.sh"
+integration:
+  # Pulser 2.3.0 Integration with 21st Magic
+  prompt_engineer:
+    enabled: true
+    chaining_mode: pipeline
+    input_transform: "structured_requirements"
+    output_transform: "dashboard_requirements"
+  dash_21st_magic:
+    enabled: true
+    mode: "enhanced_visualization"
+    default_theme: "tbwa_magic_dark"
+    fallback_enabled: true
+  claudia:
+    memory_tagging:
+      - "clarity-checked"
+      - "ab-tested"
+      - "persona-matched"
+      - "magic-enhanced"
+  kalaw:
+    store_path: "VisualSynth > Dash Output Log"
+    metadata:
+      - trace_id
+      - source_schema
+      - export_target
+      - magic_capabilities
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+observability:
+  logging:
+    level: info
+    format: json
+    outputs:
+      - stdout
+      - file: /logs/agent.log
+  tracing:
+    enabled: true
+    provider: opentelemetry
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    provider: prometheus
+    endpoint: /metrics
+integrations:
+  - pulser_core
+  - external_api
+interactions:
+  - pulser_core
+  - visual_extractor

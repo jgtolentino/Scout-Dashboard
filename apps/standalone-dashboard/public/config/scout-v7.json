@@ -1,0 +1,72 @@
+{
+  "brand": { "title": "Scout Dashboard v7", "logo": "/logo.svg", "theme": "amazon" },
+  "navigation": [
+    { "id": "overview", "title": "Executive Overview", "icon": "BarChart3" },
+    { "id": "trends", "title": "Transaction Trends", "icon": "TrendingUp" },
+    { "id": "product", "title": "Product Mix & SKU", "icon": "Package" },
+    { "id": "behavior", "title": "Consumer Behavior", "icon": "Users" },
+    { "id": "profiling", "title": "Consumer Profiling", "icon": "UserCheck" },
+    { "id": "compete", "title": "Competitive Intelligence", "icon": "Target" },
+    { "id": "geo", "title": "Geographic Intelligence", "icon": "Map" }
+  ],
+  "flow": {
+    "max_visuals": 7
+  },
+  "pages": {
+    "overview": {
+      "title": "Executive Overview",
+      "story": "purchase_overview",
+      "layout": [
+        { "w": 12, "h": 1, "widget": "scorecard-list", "props": { "title": "KPIs" }, "data": { "rpc": "scout_ai_executive", "path": "kpi" } },
+        { "w": 12, "h": 3, "widget": "line-chart",     "props": { "title": "Revenue Trend" }, "data": { "rpc": "scout_ai_executive", "path": "trends" } }
+      ]
+    },
+    "trends": {
+      "title": "Transaction Trends",
+      "story": "purchase_overview",
+      "layout": [
+        { "w": 3, "h": 1, "widget": "region-selector", "props": { "title": "Region" } },
+        { "w": 9, "h": 3, "widget": "line-chart", "props": { "title": "Orders Trend" }, "data": { "rpc": "get_sales_trend" } }
+      ]
+    },
+    "product": {
+      "title": "Product Mix & SKU",
+      "story": "purchase_overview",
+      "layout": [
+        { "w": 5, "h": 3, "widget": "donut", "props": { "title": "Category Mix" }, "data": { "rpc": "get_category_mix" } },
+        { "w": 7, "h": 3, "widget": "table", "props": { "title": "Top SKUs" },      "data": { "rpc": "get_top_skus" } }
+      ]
+    },
+    "behavior": {
+      "title": "Consumer Behavior & Preferences",
+      "story": "demographics",
+      "layout": [
+        { "w": 6, "h": 3, "widget": "heatmap", "props": { "title": "Time-of-Day Spend" }, "data": { "rpc": "get_time_of_day" } },
+        { "w": 6, "h": 3, "widget": "bar-chart", "props": { "title": "Preference Signals" }, "data": { "rpc": "get_preferences" } }
+      ]
+    },
+    "profiling": {
+      "title": "Consumer Profiling",
+      "story": "demographics",
+      "layout": [
+        { "w": 12, "h": 3, "widget": "table", "props": { "title": "Persona Distribution" }, "data": { "rpc": "get_personas" } }
+      ]
+    },
+    "compete": {
+      "title": "Competitive Intelligence",
+      "story": "competition",
+      "layout": [
+        { "w": 6, "h": 3, "widget": "bar-chart", "props": { "title": "Market Share" },   "data": { "rpc": "get_brand_share" } },
+        { "w": 6, "h": 3, "widget": "table",     "props": { "title": "Substitution" },   "data": { "rpc": "get_substitution" } }
+      ]
+    },
+    "geo": {
+      "title": "Geographic Intelligence",
+      "story": "geography",
+      "layout": [
+        { "w": 3, "h": 1, "widget": "region-selector" },
+        { "w": 9, "h": 3, "widget": "map", "props": { "title": "Revenue Heat" }, "data": { "rpc": "get_geo_heat" } }
+      ]
+    }
+  }
+}

@@ -1,0 +1,167 @@
+[
+  {
+    "metric_id": "metric-001",
+    "metric_name": "brand_mention_count",
+    "metric_value": 12.0,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "brand_name",
+    "dimension_value": "all",
+    "updated_at": "2025-05-15T19:00:05Z"
+  },
+  {
+    "metric_id": "metric-002",
+    "metric_name": "brand_mention_count",
+    "metric_value": 5.0,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "brand_name",
+    "dimension_value": "EcoPack",
+    "updated_at": "2025-05-15T19:00:10Z"
+  },
+  {
+    "metric_id": "metric-003",
+    "metric_name": "brand_mention_count",
+    "metric_value": 2.0,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "brand_name",
+    "dimension_value": "CompetitorX",
+    "updated_at": "2025-05-15T19:00:15Z"
+  },
+  {
+    "metric_id": "metric-004",
+    "metric_name": "brand_mention_count",
+    "metric_value": 3.0,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "brand_name",
+    "dimension_value": "GreenWrap",
+    "updated_at": "2025-05-15T19:00:20Z"
+  },
+  {
+    "metric_id": "metric-005",
+    "metric_name": "brand_sentiment_score",
+    "metric_value": 0.85,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "brand_name",
+    "dimension_value": "EcoPack",
+    "updated_at": "2025-05-15T19:00:25Z"
+  },
+  {
+    "metric_id": "metric-006",
+    "metric_name": "brand_sentiment_score",
+    "metric_value": -0.05,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "brand_name",
+    "dimension_value": "CompetitorX",
+    "updated_at": "2025-05-15T19:00:30Z"
+  },
+  {
+    "metric_id": "metric-007",
+    "metric_name": "brand_sentiment_score",
+    "metric_value": -0.15,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "brand_name",
+    "dimension_value": "GreenWrap",
+    "updated_at": "2025-05-15T19:00:35Z"
+  },
+  {
+    "metric_id": "metric-008",
+    "metric_name": "ecommerce_conversion_rate",
+    "metric_value": 3.5,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "device_type",
+    "dimension_value": "all",
+    "updated_at": "2025-05-15T19:00:40Z"
+  },
+  {
+    "metric_id": "metric-009",
+    "metric_name": "ecommerce_conversion_rate",
+    "metric_value": 4.2,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "device_type",
+    "dimension_value": "desktop",
+    "updated_at": "2025-05-15T19:00:45Z"
+  },
+  {
+    "metric_id": "metric-010",
+    "metric_name": "ecommerce_conversion_rate",
+    "metric_value": 2.8,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "device_type",
+    "dimension_value": "mobile",
+    "updated_at": "2025-05-15T19:00:50Z"
+  },
+  {
+    "metric_id": "metric-011",
+    "metric_name": "ecommerce_conversion_rate",
+    "metric_value": 3.1,
+    "time_window": "daily",
+    "start_time": "2025-05-15T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "device_type",
+    "dimension_value": "tablet",
+    "updated_at": "2025-05-15T19:00:55Z"
+  },
+  {
+    "metric_id": "metric-012",
+    "metric_name": "brand_mention_delta",
+    "metric_value": 40.0,
+    "time_window": "weekly",
+    "start_time": "2025-05-09T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "brand_name",
+    "dimension_value": "EcoPack",
+    "updated_at": "2025-05-15T19:01:00Z"
+  },
+  {
+    "metric_id": "metric-013",
+    "metric_name": "brand_sentiment_delta",
+    "metric_value": 0.25,
+    "time_window": "weekly",
+    "start_time": "2025-05-09T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "brand_name",
+    "dimension_value": "EcoPack",
+    "updated_at": "2025-05-15T19:01:05Z"
+  },
+  {
+    "metric_id": "metric-014",
+    "metric_name": "smb_financial_interest",
+    "metric_value": 12.0,
+    "time_window": "weekly",
+    "start_time": "2025-05-09T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "segment",
+    "dimension_value": "small_business",
+    "updated_at": "2025-05-15T19:01:10Z"
+  },
+  {
+    "metric_id": "metric-015",
+    "metric_name": "supply_chain_disruption",
+    "metric_value": 8.0,
+    "time_window": "weekly",
+    "start_time": "2025-05-09T00:00:00Z",
+    "end_time": "2025-05-15T23:59:59Z",
+    "dimension": "category",
+    "dimension_value": "electronics",
+    "updated_at": "2025-05-15T19:01:15Z"
+  }
+]

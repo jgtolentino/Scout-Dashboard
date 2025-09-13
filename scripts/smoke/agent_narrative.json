@@ -1,0 +1,44 @@
+{
+  "data_insights": [
+    {
+      "type": "trend",
+      "title": "Alaska Revenue Growth",
+      "description": "Alaska brand revenue increased 8.4% compared to previous quarter",
+      "confidence": 0.9,
+      "impact_level": "high",
+      "data_source": "query_agent",
+      "metrics": {
+        "primary_value": 8.4,
+        "secondary_value": "125000",
+        "change_percentage": 8.4,
+        "trend_direction": "up"
+      },
+      "context": {
+        "time_period": "Q2 2025",
+        "entities": ["Alaska", "NCR"],
+        "dimensions": ["revenue", "brand"]
+      }
+    }
+  ],
+  "narrative_style": {
+    "audience": "executive",
+    "tone": "formal",
+    "length": "brief",
+    "language": "en"
+  },
+  "business_context": {
+    "current_period": {
+      "start": "2025-04-01",
+      "end": "2025-06-30"
+    },
+    "comparison_period": {
+      "start": "2025-01-01", 
+      "end": "2025-03-31"
+    },
+    "strategic_focus": ["revenue growth", "brand performance"]
+  },
+  "user_context": {
+    "tenant_id": "demo-tenant",
+    "role": "executive"
+  }
+}

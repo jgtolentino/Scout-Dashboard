@@ -1,0 +1,106 @@
+name: Edge ZIP Auto-Process
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"  # Every 10 minutes
+  workflow_dispatch:
+    inputs:
+      prefix:
+        description: "Prefix under scout-ingest to scan"
+        required: true
+        default: "edge-inbox/"
+      bucket:
+        description: "Storage bucket name"
+        required: true
+        default: "scout-ingest"
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      FUNCTIONS_BASE: ${{ secrets.SUPABASE_FUNCTIONS_BASE }}
+    steps:
+      - name: Find newest ZIP
+        id: list
+        run: |
+          PREFIX="${{ github.event.inputs.prefix || 'edge-inbox/' }}"
+          BUCKET="${{ github.event.inputs.bucket || 'scout-ingest' }}"
+          API="$SUPABASE_URL/storage/v1/object/list/$BUCKET"
+          
+          echo "Scanning $BUCKET with prefix: $PREFIX"
+          
+          LIST=$(curl -fsSL \
+            -H "apikey: $SUPABASE_SERVICE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+            --get "$API" \
+            --data-urlencode "prefix=$PREFIX" || echo "[]")
+          
+          echo "Found files:"
+          echo "$LIST" | jq '.'
+          
+          KEY=$(echo "$LIST" | jq -r '[.[] | select(.name | endswith(".zip")) | .name] | sort | last // empty')
+          
+          echo "Latest ZIP: $KEY"
+          echo "key=$KEY" >> "$GITHUB_OUTPUT"
+          echo "bucket=$BUCKET" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger ingest-zip
+        if: steps.list.outputs.key != ''
+        run: |
+          OBJ="${{ steps.list.outputs.key }}"
+          BUCKET="${{ steps.list.outputs.bucket }}"
+          
+          echo "Processing: $BUCKET/$OBJ"
+          
+          RESPONSE=$(curl -fsS -X POST "$FUNCTIONS_BASE/ingest-zip" \
+            -H "Content-Type: application/json" \
+            -H "apikey: $SUPABASE_SERVICE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+            -d "{\"bucket\":\"$BUCKET\",\"object\":\"$OBJ\"}")
+          
+          echo "Response:"
+          echo "$RESPONSE" | jq '.'
+          
+          # Check if processing was successful
+          SUCCESS=$(echo "$RESPONSE" | jq -r '.success // false')
+          if [ "$SUCCESS" = "true" ]; then
+            echo "✅ Successfully processed ZIP file"
+            STAGED=$(echo "$RESPONSE" | jq -r '.staged // 0')
+            INSERTED=$(echo "$RESPONSE" | jq -r '.bronze_inserted // 0') 
+            SILVER=$(echo "$RESPONSE" | jq -r '.silver_processed // 0')
+            echo "📊 Results: $STAGED staged → $INSERTED bronze → $SILVER silver"
+          else
+            echo "❌ Processing failed"
+            exit 1
+          fi
+
+      - name: Archive processed ZIP
+        if: steps.list.outputs.key != '' && success()
+        run: |
+          OBJ="${{ steps.list.outputs.key }}"
+          BUCKET="${{ steps.list.outputs.bucket }}"
+          DATE=$(date +%Y-%m-%d)
+          DEST="processed/$DATE/$(basename "$OBJ")"
+          
+          echo "Archiving $OBJ → $DEST"
+          
+          # Copy to processed folder
+          curl -fsS -X POST "$SUPABASE_URL/storage/v1/object/copy" \
+            -H "apikey: $SUPABASE_SERVICE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"bucketId\":\"$BUCKET\",\"sourceKey\":\"$OBJ\",\"destinationKey\":\"$DEST\"}"
+          
+          # Remove from edge-inbox
+          curl -fsS -X DELETE "$SUPABASE_URL/storage/v1/object/$BUCKET/$OBJ" \
+            -H "apikey: $SUPABASE_SERVICE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_KEY"
+          
+          echo "✅ Archived to processed folder"
+
+      - name: No ZIP files found
+        if: steps.list.outputs.key == ''
+        run: |
+          echo "ℹ️ No ZIP files found in edge-inbox/ - nothing to process"

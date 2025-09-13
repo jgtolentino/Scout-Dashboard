@@ -1,0 +1,73 @@
+/* StatusBar.css */
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: 0 16px;
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+.status-section {
+  display: flex;
+  align-items: center;
+}
+
+.mode-info {
+  flex: 1;
+  opacity: 0.7;
+}
+
+.status-message {
+  display: flex;
+  align-items: center;
+  margin: 0 16px;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-ready .status-indicator {
+  background-color: #4caf50;
+}
+
+.status-loading .status-indicator,
+.status-spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+.version-info {
+  opacity: 0.7;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mode-specific status bar styling */
+.deck-status {
+  border-top-color: rgba(104, 76, 180, 0.3);
+}
+
+.webapp-status {
+  border-top-color: rgba(25, 118, 210, 0.3);
+}
+
+.mobile-status {
+  border-top-color: rgba(46, 125, 50, 0.3);
+}

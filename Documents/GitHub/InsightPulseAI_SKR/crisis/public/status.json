@@ -1,0 +1,88 @@
+{
+  "protocol": "RED2025",
+  "phase": "2.5",
+  "status": "active",
+  "last_updated": "2025-05-03T17:45:23Z",
+  "uptime_streak": {
+    "green_hours": 6.9,
+    "remaining_for_phase3": 5.1,
+    "started_at": "2025-05-03T10:51:23Z"
+  },
+  "metrics": {
+    "cognitive_load": {
+      "current": 2.1,
+      "target": 2.1,
+      "status": "complete",
+      "trend": "improving",
+      "progress_percent": 100,
+      "eta_hours": 0,
+      "confidence": 98
+    },
+    "3g_success_rate": {
+      "current": 91.6,
+      "target": 95,
+      "status": "in_progress",
+      "trend": "improving",
+      "progress_percent": 96,
+      "eta_hours": 8.3,
+      "confidence": 91
+    },
+    "silent_failures": {
+      "current": 1,
+      "target": 1,
+      "status": "complete",
+      "trend": "improving",
+      "progress_percent": 100,
+      "eta_hours": 0,
+      "confidence": 97
+    },
+    "wcag_issues": {
+      "current": 0,
+      "target": 0,
+      "status": "complete",
+      "trend": "improving",
+      "progress_percent": 100,
+      "eta_hours": 0,
+      "confidence": 95
+    }
+  },
+  "telemetry": {
+    "nasa_tlx_score": 2.1,
+    "3g_test_results": {
+      "tests_run": 8,
+      "tests_passed": 7,
+      "success_rate": 87.5,
+      "last_run": "2025-05-03T17:30:00Z"
+    },
+    "task_escape_rate": 1.2,
+    "rage_clicks_last_hour": 3,
+    "average_recovery_time_ms": 842
+  },
+  "overall": {
+    "progress_percent": 99,
+    "eta_complete_hours": 8.3,
+    "target_completion": "2025-05-04T02:03:23Z",
+    "confidence": 95
+  },
+  "next_milestone": {
+    "name": "3G Victory",
+    "target_hour": 36,
+    "status": "pending",
+    "description": "95% success rate on 3G networks",
+    "eta_hours": 8.3
+  },
+  "contingency": {
+    "minimal_ui": {
+      "status": "armed",
+      "description": "1.9 CL, Core Features Only"
+    },
+    "text_only": {
+      "status": "active",
+      "description": "12kbps, WCAG AAA+"
+    },
+    "safe_mode": {
+      "status": "standby",
+      "description": "100% Uptime"
+    }
+  }
+}

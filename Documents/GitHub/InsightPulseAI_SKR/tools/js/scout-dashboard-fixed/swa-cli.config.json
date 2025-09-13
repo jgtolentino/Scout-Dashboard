@@ -1,0 +1,10 @@
+{
+  "configurations": {
+    "production": {
+      "appLocation": "./",
+      "outputLocation": "./",
+      "appName": "scout-advisor-dashboard",
+      "pwaEnabled": false
+    }
+  }
+}

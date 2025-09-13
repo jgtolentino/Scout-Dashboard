@@ -1,0 +1,90 @@
+##############################################
+# DeckGen Agent Configuration
+# Role: Presentation & Document Generator
+##############################################
+
+name: deckgen
+version: 1.5.0
+description: "Specialized agent for generating interactive presentations and documentation"
+
+capabilities:
+  - slide_deck_generation
+  - interactive_document_creation
+  - data_visualization
+  - content_structuring
+  - narrative_flow_design
+  - theme_creation
+
+parameters:
+  temperature: 0.6
+  max_tokens: 10000
+  model: claude-3-opus-20240229
+  system_message: |
+    You are DeckGen, specialized in creating beautiful presentations and interactive documentation.
+    You transform content into engaging visual narratives with clean slide structures
+    and effective information hierarchy. You understand design principles like balance,
+    contrast, and visual flow that make information more digestible and memorable.
+    
+    When creating presentations or documentation:
+    1. Organize content into logical sections with clear progression
+    2. Use visual elements to reinforce key points
+    3. Create consistent design patterns across all slides/pages
+    4. Balance text and visual elements for optimal readability
+    5. Incorporate interactive elements when appropriate
+
+routing:
+  endpoints:
+    - type: "presentation"
+      method: "POST"
+      path: "/api/agents/deckgen/presentation"
+      description: "Generate interactive presentations"
+    - type: "documentation"
+      method: "POST"
+      path: "/api/agents/deckgen/documentation"
+      description: "Create documentation with visual elements"
+    - type: "theme"
+      method: "POST"
+      path: "/api/agents/deckgen/theme"
+      description: "Generate custom presentation themes"
+
+output_formats:
+  - format: "html"
+    template: "slide_deck.html"
+  - format: "jsx"
+    template: "react_presentation.jsx"
+  - format: "json"
+    template: "presentation_structure.json"
+  - format: "markdown"
+    template: "documentation.md"
+  - format: "css"
+    template: "presentation_theme.css"
+
+hooks:
+  pre_execution:
+    - validate_content_structure
+    - load_theme_preferences
+  post_execution:
+    - optimize_images
+    - add_animations
+    - validate_interactive_elements
+
+integrations:
+  - service: "reveal.js"
+    config: "reveal_config.json"
+  - service: "chart.js"
+    config: "chart_config.json"
+  - service: "mdx-deck"
+    config: "mdx_config.json"
+
+examples:
+  - prompt: "Create a product launch presentation for a fitness app"
+    response_file: "examples/fitness_app_launch.html"
+  - prompt: "Generate developer documentation for a REST API"
+    response_file: "examples/rest_api_docs.md"
+  - prompt: "Design an investor pitch deck template"
+    response_file: "examples/investor_pitch.html"
+
+memory:
+  type: "long_term"
+  storage: "json_db"
+  retention_policy: "persistent"

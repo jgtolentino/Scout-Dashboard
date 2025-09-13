@@ -1,0 +1,472 @@
+[
+  {
+    "product_id": "ml001",
+    "product_name": "Milo",
+    "variant": "Sachet",
+    "category": "Beverages",
+    "subcategory": "Chocolate Drinks",
+    "brand": "Nestlé",
+    "unit_price": 10.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "pm001",
+    "product_name": "Palmolive",
+    "variant": "Sachet",
+    "category": "Personal Care",
+    "subcategory": "Shampoo",
+    "brand": "Colgate-Palmolive",
+    "unit_price": 8.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "cc001",
+    "product_name": "Coca-Cola",
+    "variant": "Can",
+    "category": "Beverages",
+    "subcategory": "Carbonated Drinks",
+    "brand": "Coca-Cola",
+    "unit_price": 35.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "sg001",
+    "product_name": "Safeguard",
+    "variant": "Regular",
+    "category": "Personal Care",
+    "subcategory": "Soap",
+    "brand": "Procter & Gamble",
+    "unit_price": 25.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "bb001",
+    "product_name": "Bear Brand",
+    "variant": "Sachet",
+    "category": "Beverages",
+    "subcategory": "Milk",
+    "brand": "Nestlé",
+    "unit_price": 12.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "td001",
+    "product_name": "Tide",
+    "variant": "Sachet",
+    "category": "Home Care",
+    "subcategory": "Laundry Detergent",
+    "brand": "Procter & Gamble",
+    "unit_price": 8.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "sm001",
+    "product_name": "Smart Load",
+    "variant": "Prepaid Card 500",
+    "category": "Mobile Services",
+    "subcategory": "Prepaid Load",
+    "brand": "Smart Communications",
+    "unit_price": 500.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "nc001",
+    "product_name": "Nestlé Cream",
+    "variant": "Regular",
+    "category": "Grocery",
+    "subcategory": "Dairy",
+    "brand": "Nestlé",
+    "unit_price": 45.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "kp001",
+    "product_name": "Kopiko",
+    "variant": "3-in-1",
+    "category": "Beverages",
+    "subcategory": "Coffee",
+    "brand": "Kopiko",
+    "unit_price": 8.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "cg001",
+    "product_name": "Colgate",
+    "variant": "Regular",
+    "category": "Personal Care",
+    "subcategory": "Toothpaste",
+    "brand": "Colgate-Palmolive",
+    "unit_price": 30.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "gt001",
+    "product_name": "Great Taste White",
+    "variant": "Sachet",
+    "category": "Beverages",
+    "subcategory": "Coffee",
+    "brand": "Great Taste",
+    "unit_price": 7.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "lm001",
+    "product_name": "Lucky Me Pancit Canton",
+    "variant": "Regular",
+    "category": "Food",
+    "subcategory": "Instant Noodles",
+    "brand": "Lucky Me",
+    "unit_price": 15.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "sp001",
+    "product_name": "Sprite",
+    "variant": "250ml",
+    "category": "Beverages",
+    "subcategory": "Carbonated Drinks",
+    "brand": "Coca-Cola",
+    "unit_price": 18.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "cl001",
+    "product_name": "Clover Chips",
+    "variant": "Regular",
+    "category": "Snacks",
+    "subcategory": "Chips",
+    "brand": "Liwayway",
+    "unit_price": 10.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "nf001",
+    "product_name": "Nescafé",
+    "variant": "3-in-1 Box",
+    "category": "Beverages",
+    "subcategory": "Coffee",
+    "brand": "Nestlé",
+    "unit_price": 95.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "gd001",
+    "product_name": "Gardenia",
+    "variant": "Loaf Bread",
+    "category": "Food",
+    "subcategory": "Bread",
+    "brand": "Gardenia",
+    "unit_price": 65.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "ed001",
+    "product_name": "Eden Cheese",
+    "variant": "Regular",
+    "category": "Grocery",
+    "subcategory": "Dairy",
+    "brand": "Mondelez",
+    "unit_price": 55.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "md001",
+    "product_name": "Modess",
+    "variant": "Panty Liners",
+    "category": "Personal Care",
+    "subcategory": "Feminine Care",
+    "brand": "Johnson & Johnson",
+    "unit_price": 40.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "c2001",
+    "product_name": "C2",
+    "variant": "Apple",
+    "category": "Beverages",
+    "subcategory": "Ready-to-Drink Tea",
+    "brand": "Universal Robina",
+    "unit_price": 25.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "rc001",
+    "product_name": "Rice",
+    "variant": "Regular",
+    "category": "Grocery",
+    "subcategory": "Grains",
+    "brand": "Generic",
+    "unit_price": 50.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "sg001",
+    "product_name": "Sugar",
+    "variant": "Regular",
+    "category": "Grocery",
+    "subcategory": "Baking",
+    "brand": "Generic",
+    "unit_price": 30.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "yk001",
+    "product_name": "Yakult",
+    "variant": "Regular",
+    "category": "Beverages",
+    "subcategory": "Probiotic Drink",
+    "brand": "Yakult",
+    "unit_price": 16.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "mt001",
+    "product_name": "Mang Tomas",
+    "variant": "Siga",
+    "category": "Grocery",
+    "subcategory": "Condiments",
+    "brand": "Mang Tomas",
+    "unit_price": 35.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "ms001",
+    "product_name": "Magic Sarap",
+    "variant": "Regular",
+    "category": "Grocery",
+    "subcategory": "Seasonings",
+    "brand": "Maggi",
+    "unit_price": 10.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "cu001",
+    "product_name": "Close Up",
+    "variant": "Red",
+    "category": "Personal Care",
+    "subcategory": "Toothpaste",
+    "brand": "Unilever",
+    "unit_price": 35.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "kn001",
+    "product_name": "Knorr Cubes",
+    "variant": "Regular",
+    "category": "Grocery",
+    "subcategory": "Seasonings",
+    "brand": "Knorr",
+    "unit_price": 8.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "dv001",
+    "product_name": "Dove",
+    "variant": "Shampoo Sachet",
+    "category": "Personal Care",
+    "subcategory": "Shampoo",
+    "brand": "Unilever",
+    "unit_price": 9.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "rx001",
+    "product_name": "Rexona",
+    "variant": "Deodorant",
+    "category": "Personal Care",
+    "subcategory": "Deodorant",
+    "brand": "Unilever",
+    "unit_price": 45.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "gl001",
+    "product_name": "Globe Load",
+    "variant": "Regular",
+    "category": "Mobile Services",
+    "subcategory": "Prepaid Load",
+    "brand": "Globe Telecom",
+    "unit_price": 50.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "cp001",
+    "product_name": "Chippy",
+    "variant": "Regular",
+    "category": "Snacks",
+    "subcategory": "Chips",
+    "brand": "Jack 'n Jill",
+    "unit_price": 9.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "nv001",
+    "product_name": "Nova",
+    "variant": "Regular",
+    "category": "Snacks",
+    "subcategory": "Chips",
+    "brand": "Jack 'n Jill",
+    "unit_price": 9.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "en001",
+    "product_name": "Energen",
+    "variant": "Regular",
+    "category": "Beverages",
+    "subcategory": "Cereal Drink",
+    "brand": "Energen",
+    "unit_price": 12.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "dn001",
+    "product_name": "Downy",
+    "variant": "Sachet",
+    "category": "Home Care",
+    "subcategory": "Fabric Conditioner",
+    "brand": "Procter & Gamble",
+    "unit_price": 7.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "co001",
+    "product_name": "Cream-O",
+    "variant": "Regular",
+    "category": "Snacks",
+    "subcategory": "Biscuits",
+    "brand": "Jack 'n Jill",
+    "unit_price": 10.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "hn001",
+    "product_name": "Hansel",
+    "variant": "Regular",
+    "category": "Snacks",
+    "subcategory": "Biscuits",
+    "brand": "Jack 'n Jill",
+    "unit_price": 8.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "al001",
+    "product_name": "Alaska",
+    "variant": "Evaporated Milk",
+    "category": "Grocery",
+    "subcategory": "Dairy",
+    "brand": "Alaska",
+    "unit_price": 35.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "sk001",
+    "product_name": "Skyflakes",
+    "variant": "Regular",
+    "category": "Snacks",
+    "subcategory": "Crackers",
+    "brand": "Monde Nissin",
+    "unit_price": 8.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "ab001",
+    "product_name": "Absolute",
+    "variant": "Mineral Water",
+    "category": "Beverages",
+    "subcategory": "Water",
+    "brand": "Absolute",
+    "unit_price": 15.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "sl001",
+    "product_name": "Selecta",
+    "variant": "Ice Cream Gallon",
+    "category": "Frozen",
+    "subcategory": "Ice Cream",
+    "brand": "Selecta",
+    "unit_price": 300.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "cn001",
+    "product_name": "Candles",
+    "variant": "Regular",
+    "category": "Household",
+    "subcategory": "Emergency",
+    "brand": "Generic",
+    "unit_price": 5.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "ps001",
+    "product_name": "Posporo",
+    "variant": "Regular",
+    "category": "Household",
+    "subcategory": "Emergency",
+    "brand": "Generic",
+    "unit_price": 3.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "zx001",
+    "product_name": "Zonrox",
+    "variant": "Small",
+    "category": "Household",
+    "subcategory": "Cleaning",
+    "brand": "Zonrox",
+    "unit_price": 20.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "bg001",
+    "product_name": "Biogesic",
+    "variant": "Tablet",
+    "category": "Medicine",
+    "subcategory": "Pain Reliever",
+    "brand": "Unilab",
+    "unit_price": 5.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "nz001",
+    "product_name": "Neozep",
+    "variant": "Tablet",
+    "category": "Medicine",
+    "subcategory": "Cold Medicine",
+    "brand": "Unilab",
+    "unit_price": 6.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "cc002",
+    "product_name": "Coca-Cola",
+    "variant": "1 Liter",
+    "category": "Beverages",
+    "subcategory": "Carbonated Drinks",
+    "brand": "Coca-Cola",
+    "unit_price": 60.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "nd001",
+    "product_name": "Nido",
+    "variant": "Regular",
+    "category": "Beverages",
+    "subcategory": "Milk",
+    "brand": "Nestlé",
+    "unit_price": 120.00,
+    "currency": "PHP"
+  },
+  {
+    "product_id": "eg001",
+    "product_name": "Egg",
+    "variant": "Regular",
+    "category": "Grocery",
+    "subcategory": "Poultry",
+    "brand": "Generic",
+    "unit_price": 8.00,
+    "currency": "PHP"
+  }
+]

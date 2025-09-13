@@ -1,0 +1,344 @@
+# codex_guardrails_sop_registry.yaml
+# InsightPulseAI Codex Guardrails SOP Registry
+# Version: 1.0.0
+# This registry tracks all Standard Operating Procedures (SOPs) for Codex guardrails in the Pulser SKR system
+
+sop_registry:
+  name: "Codex Guardrails SOP Registry"
+  version: "1.0.0"
+  maintainer: "InsightPulseAI Dev Team"
+  last_updated: "2025-05-18"
+  description: >
+    Comprehensive registry of Standard Operating Procedures for Codex guardrails implementation,
+    including dash integration, golden baselines, Maya telemetry, PR deploy triggers,
+    and other code quality, security, and reliability enforcement mechanisms.
+
+  # Core Guardrail SOPs
+  guardrail_sops:
+    - id: "codex-dash-integration"
+      name: "Codex-Dash Integration SOP"
+      version: "1.0"
+      description: "Procedures for integrating Dash dashboards with Codex guardrails"
+      config_files:
+        - path: "agents/codex_dash.yaml"
+          description: "Configuration for Dash integration with Codex"
+        - path: "agents/dash.yaml"
+          description: "Dash agent configuration"
+      scripts:
+        - path: "utils/codex_dash_integration.js"
+          description: "Validation script for Codex-Dash integration"
+        - path: "scripts/codex_dash_connector.js"
+          description: "Connector script for Codex-Dash integration"
+      documentation:
+        - path: "CLAUDE.md"
+          description: "Primary documentation for Claudia integration and prompt engineering"
+      status: "active"
+      owner: "Claudia"
+      
+    - id: "golden-baselines"
+      name: "Golden Baselines Management SOP"
+      version: "1.0"
+      description: "Procedures for maintaining known-good versions of the codebase for rollback"
+      scripts:
+        - path: "scripts/create-golden-baseline.sh"
+          description: "Creates a golden baseline of the current codebase state"
+        - path: "scripts/verify-against-golden.sh"
+          description: "Verifies changes against a golden baseline"
+        - path: "scripts/rollback-to-golden.sh"
+          description: "Rolls back to a golden baseline"
+      config_files:
+        - path: "agents/codex_guardrails.yml"
+          section: "golden_baselines"
+          description: "Golden baseline configuration"
+      documentation:
+        - path: "README_GUARDRAILS.md"
+          section: "5. Immutable Golden Baselines"
+          description: "Documentation for golden baselines usage"
+      status: "active"
+      owner: "Basher"
+      
+    - id: "maya-telemetry"
+      name: "Maya Telemetry Integration SOP"
+      version: "1.0"
+      description: "Procedures for integrating and utilizing Maya telemetry for monitoring"
+      scripts:
+        - path: "scripts/initialize-maya-telemetry.js"
+          description: "Initializes Maya telemetry integration"
+        - path: "scripts/setup-azure-alerts.js"
+          description: "Sets up Azure monitoring alerts"
+      config_files:
+        - path: "config/telemetry.json"
+          description: "Telemetry configuration"
+        - path: "agents/codex_guardrails.yml"
+          section: "telemetry"
+          description: "Telemetry configuration in guardrails"
+      status: "active"
+      owner: "Echo"
+      
+    - id: "pr-deploy-triggers"
+      name: "PR Deploy Triggers SOP"
+      version: "1.0"
+      description: "Procedures for managing deployment triggers from PRs"
+      scripts:
+        - path: "scripts/deploy-canary.sh"
+          description: "Deploys to canary environment"
+        - path: "scripts/promote-to-production.sh"
+          description: "Promotes from canary to production"
+      config_files:
+        - path: "agents/codex_guardrails.yml"
+          section: "deployment"
+          description: "Deployment configuration in guardrails"
+      status: "active"
+      owner: "Basher"
+      
+    - id: "schema-validation"
+      name: "Schema & Contract Validation SOP"
+      version: "1.0"
+      description: "Procedures for validating configuration files against schemas"
+      schemas:
+        - path: "schemas/staticwebapp.schema.json"
+          description: "Azure Static Web Apps configuration schema"
+          targets: ["**/staticwebapp.config.json"]
+        - path: "schemas/dlt.schema.json"
+          description: "Data Lake Transfer pipeline schema"
+          targets: ["**/*.dlt.json"]
+        - path: "schemas/dashboard.schema.json"
+          description: "Dashboard configuration schema"
+          targets: ["**/dashboards/config.json", "**/deploy-*/config.json"]
+      config_files:
+        - path: "agents/codex_guardrails.yml"
+          section: "schemas"
+          description: "Schema validation configuration"
+      documentation:
+        - path: "README_GUARDRAILS.md"
+          section: "2. Schema & Contract Validation"
+          description: "Documentation for schema validation"
+      status: "active"
+      owner: "Caca"
+      
+    - id: "feature-flags"
+      name: "Feature Flag Management SOP"
+      version: "1.0"
+      description: "Procedures for managing feature flags and canary deployments"
+      scripts:
+        - path: "scripts/codex_feature_flag_patch.js"
+          description: "Patch script for feature flags"
+      config_files:
+        - path: "config/features.json"
+          description: "Feature flags configuration"
+        - path: "agents/codex_guardrails.yml"
+          section: "feature_flags"
+          description: "Feature flags configuration in guardrails"
+      utils:
+        - path: "utils/feature-flags.js"
+          description: "Feature flags module"
+        - path: "utils/feature_flag_validator.js"
+          description: "Feature flag validator"
+      tests:
+        - path: "tests/codex_feature_flags.test.js"
+          description: "Feature flag tests"
+      documentation:
+        - path: "README_GUARDRAILS.md"
+          section: "4. Canary & Feature-Flag Deployments"
+          description: "Documentation for feature flag usage"
+        - path: "FEATURE_FLAG_COMPATIBILITY.md"
+          description: "Feature flag compatibility documentation"
+      status: "active"
+      owner: "Claudia"
+      
+    - id: "prompt-engineering"
+      name: "Prompt Templates & Guard Prompting SOP"
+      version: "1.0"
+      description: "Procedures for managing structured AI prompts with built-in verification"
+      scripts:
+        - path: "scripts/apply-prompt-template.js"
+          description: "Applies a prompt template"
+        - path: "scripts/verify-prompts.js"
+          description: "Verifies prompts against templates"
+      templates:
+        - path: "prompts/patch-template.md"
+          description: "Template for small, focused code changes"
+        - path: "prompts/feature-template.md"
+          description: "Template for implementing new features"
+        - path: "prompts/refactor-template.md"
+          description: "Template for code refactoring"
+        - path: "prompts/bug-fix-template.md"
+          description: "Template for fixing bugs"
+      config_files:
+        - path: "agents/codex_guardrails.yml"
+          section: "prompt_templates"
+          description: "Prompt templates configuration"
+      documentation:
+        - path: "README_GUARDRAILS.md"
+          section: "6. Prompt Templates & Guard Prompting"
+          description: "Documentation for prompt templates"
+        - path: "PROMPT_ENGINEERING.md"
+          description: "Prompt engineering guidelines"
+      status: "active"
+      owner: "Claudia"
+      
+    - id: "ai-test-loop"
+      name: "Prompt-to-Test Feedback Loop SOP"
+      version: "1.0" 
+      description: "Procedures for automatically running tests and feeding failures back to AI"
+      scripts:
+        - path: "scripts/ai-test-loop.js"
+          description: "AI test loop script"
+      hooks:
+        - path: ".husky/pre-commit-ai-test"
+          description: "Pre-commit hook for AI test loop"
+      config_files:
+        - path: "agents/codex_guardrails.yml"
+          section: "testing"
+          description: "Testing configuration"
+      documentation:
+        - path: "README_GUARDRAILS.md"
+          section: "1. Prompt-to-Test Feedback Loop"
+          description: "Documentation for AI test loop"
+      status: "active"
+      owner: "Caca"
+      
+    - id: "linting-enforcement"
+      name: "Static Analysis & Linters SOP"
+      version: "1.0"
+      description: "Procedures for enforcing code quality checks"
+      configs:
+        - path: ".eslintrc.json"
+          description: "ESLint configuration"
+        - path: ".prettierrc"
+          description: "Prettier configuration" 
+        - path: ".stylelintrc.json"
+          description: "StyleLint configuration"
+      config_files:
+        - path: "agents/codex_guardrails.yml"
+          section: "linting"
+          description: "Linting configuration"
+      documentation:
+        - path: "README_GUARDRAILS.md"
+          section: "3. Static Analysis & Linters"
+          description: "Documentation for linters"
+      status: "active"
+      owner: "Caca"
+      
+  # Dashboard SOPs  
+  dashboard_sops:
+    - id: "scout-dashboard-deployment"
+      name: "Scout Dashboard Deployment SOP"
+      version: "1.0"
+      description: "Standard Operating Procedure for deploying Scout Dashboard to Azure Static Web Apps"
+      scripts:
+        - path: "fix_scout_dashboard_404.sh"
+          description: "Fixes Scout Dashboard 404 errors"
+        - path: "deploy_fixed_scout_dashboard.sh"
+          description: "Deploys fixed Scout Dashboard"
+      config_files:
+        - path: "scout-dashboard-fixed/staticwebapp.config.json"
+          description: "Static Web App configuration for Scout Dashboard"
+      documentation:
+        - path: "SCOUT_DASHBOARD_DEPLOYMENT_SOP.md"
+          description: "Scout Dashboard Deployment SOP documentation"
+        - path: "README_SCOUT_URL_STRUCTURE.md"
+          description: "Scout Dashboard URL structure documentation"
+        - path: "README_FIXING_404_ERRORS.md"
+          description: "Documentation for fixing 404 errors"
+      status: "active"
+      owner: "Basher"
+      
+  # Integration protocols
+  integration_protocols:
+    - id: "claudia-integration"
+      name: "Claudia Integration Protocol"
+      version: "1.0"
+      description: "Protocol for integrating with Claudia"
+      docs: 
+        - path: "CLAUDE.md"
+          description: "Claude integration documentation"
+      scripts:
+        - path: "mcp/pulsedev/run_claude_bridge.sh"
+          description: "Runs Claude bridge"
+      status: "active"
+      owner: "Claudia"
+      
+    - id: "dash-integration"
+      name: "Dash Integration Protocol"
+      version: "1.0" 
+      description: "Protocol for integrating with Dash"
+      agent_configs:
+        - path: "agents/dash.agent.yaml"
+          description: "Dash agent configuration"
+        - path: "agents/dash.yaml"
+          description: "Dash configuration"
+        - path: "agents/dash_prompt.txt"
+          description: "Dash prompt template"
+      status: "active"
+      owner: "Dash"
+
+  # Pulser SKR Integration
+  skr_integration:
+    archive_path: "SKR/archives/codex_guardrails/{date}/IMPLEMENTATION_PROTOCOLS.md"
+    metadata_path: "SKR/archives/codex_guardrails/{date}/metadata.yaml"
+    document_id_format: "sop_codex_guardrails_v1_{date}"
+    metadata_template:
+      title: "InsightPulseAI: Codex Guardrails SOP Registry v1.0"
+      category: "standard_operating_procedure"
+      tags:
+        - "guardrails"
+        - "sop"
+        - "codex"
+        - "pulser"
+        - "dash"
+        - "golden_baselines"
+        - "maya_telemetry"
+        - "pr_deploy"
+      summary: "Standard Operating Procedures for Codex guardrails implementation"
+      agents:
+        - agent_id: "Basher"
+          role: "Deployment executor"
+        - agent_id: "Caca"
+          role: "QA verification"
+        - agent_id: "Echo"
+          role: "Monitoring"
+        - agent_id: "Claudia"
+          role: "Task orchestration"
+        - agent_id: "Dash"
+          role: "Dashboard generation"
+
+  # Required governance practices
+  governance:
+    - id: "guardrail-approval-process"
+      name: "Guardrail Approval Process"
+      description: "Process for approving changes to guardrails"
+      approvers:
+        - "Claudia"
+        - "DevOps Lead"
+      documentation: "Each change to guardrails must have explicit approval from at least one approver"
+      
+    - id: "golden-baseline-governance"
+      name: "Golden Baseline Governance"
+      description: "Process for managing golden baselines"
+      retention: "3 months"
+      approval_required: true
+      documentation: "Golden baselines must be retained for 3 months and require approval to create or roll back"
+      
+    - id: "pr-deploy-governance"
+      name: "PR Deploy Governance"
+      description: "Process for PR deployments"
+      canary_requirement: true
+      monitoring_duration: "24h"
+      documentation: "All PR deployments must go through canary environment with 24h monitoring before production"
+
+# Instructions for updating this registry
+update_instructions: |
+  To update this SOP registry:
+  
+  1. Review existing SOPs for completeness and accuracy.
+  2. Add new SOPs using the established format in this registry.
+  3. Update version numbers for modified SOPs.
+  4. Update the registry version if there are major changes.
+  5. Update the last_updated date.
+  6. Document changes in git commit message.
+  7. Register the updated registry with the Pulser system:
+     ```bash
+     pulser register sop --registry codex_guardrails_sop_registry.yaml
+     ```
+  8. Create an SKR archive entry documenting the registry update.

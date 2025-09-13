@@ -1,0 +1,268 @@
+name: AppGenie
+version: 1.0.0
+description: AI-native mobile app generator using Claude and modular agent workflows
+
+# MCP server configuration
+server:
+  host: localhost
+  port: 3333
+  api_prefix: /api/v1
+  cors_origins: ["*"]
+  log_level: info
+
+# AI configuration
+ai:
+  default_model: claude-3-opus
+  timeout: 60
+  max_tokens: 4000
+  temperature: 0.3
+
+# Agent configuration
+agents:
+  # NLP Parser Agent
+  nlp-parser:
+    path: ../agents/nlp-parser.yaml
+    model: claude-3-opus
+    description: Converts natural language prompts into structured app schema
+    input:
+      prompt: string
+      app_type: string?
+      complexity: string?
+    output:
+      app_name: string
+      app_description: string
+      screens: array
+      theme: object
+      data_model: array
+  
+  # Template Manager Agent
+  template-manager:
+    path: ../agents/template-manager.yaml
+    description: Provides customizable app templates based on app schema
+    input:
+      schema_path: string
+      template_name: string?
+      customizations: object?
+    output:
+      app_name: string
+      template_name: string
+      output_path: string
+      screens: array
+  
+  # UI Editor Agent
+  ui-editor:
+    path: ../agents/ui-editor.yaml
+    description: Drag-and-drop interface for screen layout and component editing
+    input:
+      app_name: string
+      screens_dir: string
+      template_name: string?
+      mode: string?
+    output:
+      app_name: string
+      editor_url: string
+      screens: array
+      save_path: string
+  
+  # Preview Engine Agent
+  preview-engine:
+    path: ../agents/preview-engine.yaml
+    description: Real-time preview in device frames for mobile apps
+    input:
+      app_name: string
+      editor_url: string?
+      screens: array
+      device: string?
+      theme: string?
+    output:
+      app_name: string
+      preview_url: string
+      screens: array
+      qr_code_url: string?
+  
+  # Deployer Agent
+  deployer:
+    path: ../agents/deployer.yaml
+    description: Deploys generated app to Expo, PWA, or native app stores
+    input:
+      app_name: string
+      preview_url: string?
+      screens: array
+      target: string?
+      config: object?
+    output:
+      app_name: string
+      target: string
+      status: string
+      deployed_url: string
+      build_logs: string?
+      qr_code: string?
+      app_store_links: object?
+
+# Workflow definitions
+workflows:
+  # Full app generation workflow
+  generate_app:
+    description: Generate an app from natural language to deployment
+    steps:
+      - agent: nlp-parser
+        name: parse_intent
+        input:
+          prompt: "{{ user_prompt }}"
+          app_type: "{{ app_type }}"
+          complexity: "{{ complexity }}"
+      
+      - agent: template-manager
+        name: apply_template
+        input:
+          schema_path: "./data/app_schema.json"
+          template_name: "{{ template_name }}"
+      
+      - agent: ui-editor
+        name: customize_ui
+        input:
+          app_name: "{{ parse_intent.app_name }}"
+          screens_dir: "{{ apply_template.output_path }}"
+          template_name: "{{ apply_template.template_name }}"
+      
+      - agent: preview-engine
+        name: preview_app
+        input:
+          app_name: "{{ parse_intent.app_name }}"
+          editor_url: "{{ customize_ui.editor_url }}"
+          screens: "{{ customize_ui.screens }}"
+          device: "{{ device }}"
+      
+      - agent: deployer
+        name: deploy_app
+        input:
+          app_name: "{{ parse_intent.app_name }}"
+          preview_url: "{{ preview_app.preview_url }}"
+          screens: "{{ preview_app.screens }}"
+          target: "{{ target }}"
+  
+  # Quick app generation (skip UI editor)
+  quick_generate:
+    description: Generate an app from natural language directly to preview
+    steps:
+      - agent: nlp-parser
+        name: parse_intent
+        input:
+          prompt: "{{ user_prompt }}"
+          app_type: "{{ app_type }}"
+          complexity: "{{ complexity }}"
+      
+      - agent: template-manager
+        name: apply_template
+        input:
+          schema_path: "./data/app_schema.json"
+          template_name: "{{ template_name }}"
+      
+      - agent: preview-engine
+        name: preview_app
+        input:
+          app_name: "{{ parse_intent.app_name }}"
+          screens: "{{ apply_template.screens }}"
+          device: "{{ device }}"
+      
+      - agent: deployer
+        name: deploy_app
+        input:
+          app_name: "{{ parse_intent.app_name }}"
+          preview_url: "{{ preview_app.preview_url }}"
+          screens: "{{ preview_app.screens }}"
+          target: "pwa"
+
+# API endpoints
+api:
+  # Generate app from prompt
+  /generate:
+    post:
+      description: Generate an app from natural language prompt
+      workflow: generate_app
+      params:
+        - name: user_prompt
+          type: string
+          required: true
+          description: Natural language description of the app
+        - name: app_type
+          type: string
+          required: false
+          enum: [utility, game, social, e-commerce, educational, fitness, productivity]
+          description: Type of app to generate
+        - name: complexity
+          type: string
+          required: false
+          enum: [simple, medium, complex]
+          default: medium
+          description: Complexity level of the app
+        - name: template_name
+          type: string
+          required: false
+          enum: [default, material, ios, fluent, minimal]
+          default: default
+          description: UI template to use
+        - name: device
+          type: string
+          required: false
+          enum: [iphone, android, tablet, desktop]
+          default: iphone
+          description: Default device for preview
+        - name: target
+          type: string
+          required: false
+          enum: [pwa, expo, native]
+          default: pwa
+          description: Deployment target
+  
+  # Quick generate app
+  /quick-generate:
+    post:
+      description: Quickly generate an app from prompt to preview
+      workflow: quick_generate
+      params:
+        - name: user_prompt
+          type: string
+          required: true
+          description: Natural language description of the app
+        - name: app_type
+          type: string
+          required: false
+          enum: [utility, game, social, e-commerce, educational, fitness, productivity]
+          description: Type of app to generate
+        - name: complexity
+          type: string
+          required: false
+          enum: [simple, medium, complex]
+          default: simple
+          description: Complexity level of the app
+        - name: template_name
+          type: string
+          required: false
+          enum: [default, material, ios, fluent, minimal]
+          default: default
+          description: UI template to use
+        - name: device
+          type: string
+          required: false
+          enum: [iphone, android, tablet, desktop]
+          default: iphone
+          description: Default device for preview
+
+# Storage configuration
+storage:
+  data_dir: ./data
+  templates_dir: ./templates
+  output_dir: ./dist
+  logs_dir: ./logs
+
+# Hooks for automatic actions
+hooks:
+  post_generation:
+    - action: save_schema
+      path: "data/apps/{{ app_name }}_schema.json"
+      data: "{{ output }}"
+  
+  post_deployment:
+    - action: notify
+      message: "App {{ app_name }} deployed to {{ deployed_url }}"

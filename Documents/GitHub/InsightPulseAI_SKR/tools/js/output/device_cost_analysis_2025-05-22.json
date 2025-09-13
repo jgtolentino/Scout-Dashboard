@@ -1,0 +1,294 @@
+{
+  "deviceProfile": {
+    "hardware": {
+      "cpu": "4-core ARM Cortex-A76",
+      "ram": "8GB LPDDR4X",
+      "storage": "64GB microSD",
+      "connectivity": "WiFi 6, Bluetooth 5.0, Ethernet",
+      "sensors": [
+        "Camera",
+        "Temperature",
+        "Humidity",
+        "Motion",
+        "Audio"
+      ]
+    },
+    "dataGeneration": {
+      "sensorReadings": 86400,
+      "imageCaptures": 720,
+      "audioSamples": 480,
+      "transactionEvents": 150,
+      "customerInteractions": 200,
+      "sensorDataSize": 256,
+      "imageSize": 2048000,
+      "audioSize": 1024000,
+      "transactionSize": 1024,
+      "interactionSize": 512
+    },
+    "processing": {
+      "edgeProcessing": 0.3,
+      "realTimeProcessing": 0.4,
+      "batchProcessing": 0.6,
+      "aiInference": 0.2,
+      "streamingLatency": 100,
+      "batchWindow": 3600
+    }
+  },
+  "dailyDataPerDevice": {
+    "sensorData": 21.09375,
+    "imageData": 1406.25,
+    "audioData": 468.75,
+    "transactionData": 0.146484375,
+    "interactionData": 0.09765625,
+    "total": 1896.337890625,
+    "totalGB": 1.8518924713134766
+  },
+  "scenarios": [
+    {
+      "deviceCount": 20,
+      "processingType": "batch",
+      "pattern": {
+        "azureMultiplier": 0.7,
+        "openSourceMultiplier": 0.5,
+        "latency": "1-4 hours",
+        "description": "Process data in hourly batches"
+      },
+      "azure": {
+        "perDevice": 115.32777956855773,
+        "total": 2306.5555913711546,
+        "breakdown": {
+          "iotHub": 2170,
+          "eventHub": 11.588,
+          "storage": 13.911416244506835,
+          "streamAnalytics": 79.2,
+          "databricks": 36,
+          "sqlDatabase": 19.56,
+          "imageProcessing": 864,
+          "audioProcessing": 80,
+          "aiInference": 20.82
+        }
+      },
+      "openSource": {
+        "perDevice": 13.888930320739746,
+        "total": 277.7786064147949,
+        "breakdown": {
+          "cluster": 200,
+          "storage": 55.5567741394043,
+          "network": 20.000438690185547,
+          "services": 170,
+          "operations": 110
+        }
+      },
+      "savings": {
+        "perDevice": 101.43884924781798,
+        "total": 2028.7769849563597,
+        "percentage": 87.95699494718588
+      }
+    },
+    {
+      "deviceCount": 20,
+      "processingType": "streaming",
+      "pattern": {
+        "azureMultiplier": 1.3,
+        "openSourceMultiplier": 1.2,
+        "latency": "< 100ms",
+        "description": "Real-time event processing"
+      },
+      "azure": {
+        "perDevice": 214.18016205589294,
+        "total": 4283.603241117859,
+        "breakdown": {
+          "iotHub": 2170,
+          "eventHub": 11.588,
+          "storage": 13.911416244506835,
+          "streamAnalytics": 79.2,
+          "databricks": 36,
+          "sqlDatabase": 19.56,
+          "imageProcessing": 864,
+          "audioProcessing": 80,
+          "aiInference": 20.82
+        }
+      },
+      "openSource": {
+        "perDevice": 33.33343276977539,
+        "total": 666.6686553955078,
+        "breakdown": {
+          "cluster": 200,
+          "storage": 55.5567741394043,
+          "network": 20.000438690185547,
+          "services": 170,
+          "operations": 110
+        }
+      },
+      "savings": {
+        "perDevice": 180.84672928611755,
+        "total": 3616.9345857223516,
+        "percentage": 84.4367319317479
+      }
+    },
+    {
+      "deviceCount": 20,
+      "processingType": "hybrid",
+      "pattern": {
+        "azureMultiplier": 1,
+        "openSourceMultiplier": 0.8,
+        "latency": "100ms - 1 hour",
+        "description": "Critical events real-time, analytics batch"
+      },
+      "azure": {
+        "perDevice": 164.75397081222533,
+        "total": 3295.079416244507,
+        "breakdown": {
+          "iotHub": 2170,
+          "eventHub": 11.588,
+          "storage": 13.911416244506835,
+          "streamAnalytics": 79.2,
+          "databricks": 36,
+          "sqlDatabase": 19.56,
+          "imageProcessing": 864,
+          "audioProcessing": 80,
+          "aiInference": 20.82
+        }
+      },
+      "openSource": {
+        "perDevice": 22.222288513183596,
+        "total": 444.4457702636719,
+        "breakdown": {
+          "cluster": 200,
+          "storage": 55.5567741394043,
+          "network": 20.000438690185547,
+          "services": 170,
+          "operations": 110
+        }
+      },
+      "savings": {
+        "perDevice": 142.53168229904173,
+        "total": 2850.633645980835,
+        "percentage": 86.51183434084818
+      }
+    },
+    {
+      "deviceCount": 200,
+      "processingType": "batch",
+      "pattern": {
+        "azureMultiplier": 0.7,
+        "openSourceMultiplier": 0.5,
+        "latency": "1-4 hours",
+        "description": "Process data in hourly batches"
+      },
+      "azure": {
+        "perDevice": 110.70124156855775,
+        "total": 22140.24831371155,
+        "breakdown": {
+          "iotHub": 21690,
+          "eventHub": 16.852,
+          "storage": 139.11416244506836,
+          "streamAnalytics": 79.2,
+          "databricks": 36,
+          "sqlDatabase": 19.56,
+          "imageProcessing": 8640,
+          "audioProcessing": 800,
+          "aiInference": 208.20000000000002
+        }
+      },
+      "openSource": {
+        "perDevice": 3.888930320739746,
+        "total": 777.7860641479492,
+        "breakdown": {
+          "cluster": 410,
+          "storage": 555.567741394043,
+          "network": 200.00438690185547,
+          "services": 170,
+          "operations": 220
+        }
+      },
+      "savings": {
+        "perDevice": 106.812311247818,
+        "total": 21362.4622495636,
+        "percentage": 96.48700388032114
+      }
+    },
+    {
+      "deviceCount": 200,
+      "processingType": "streaming",
+      "pattern": {
+        "azureMultiplier": 1.3,
+        "openSourceMultiplier": 1.2,
+        "latency": "< 100ms",
+        "description": "Real-time event processing"
+      },
+      "azure": {
+        "perDevice": 205.58802005589297,
+        "total": 41117.60401117859,
+        "breakdown": {
+          "iotHub": 21690,
+          "eventHub": 16.852,
+          "storage": 139.11416244506836,
+          "streamAnalytics": 79.2,
+          "databricks": 36,
+          "sqlDatabase": 19.56,
+          "imageProcessing": 8640,
+          "audioProcessing": 800,
+          "aiInference": 208.20000000000002
+        }
+      },
+      "openSource": {
+        "perDevice": 9.33343276977539,
+        "total": 1866.6865539550781,
+        "breakdown": {
+          "cluster": 410,
+          "storage": 555.567741394043,
+          "network": 200.00438690185547,
+          "services": 170,
+          "operations": 220
+        }
+      },
+      "savings": {
+        "perDevice": 196.25458728611758,
+        "total": 39250.91745722351,
+        "percentage": 95.46012809149195
+      }
+    },
+    {
+      "deviceCount": 200,
+      "processingType": "hybrid",
+      "pattern": {
+        "azureMultiplier": 1,
+        "openSourceMultiplier": 0.8,
+        "latency": "100ms - 1 hour",
+        "description": "Critical events real-time, analytics batch"
+      },
+      "azure": {
+        "perDevice": 158.14463081222536,
+        "total": 31628.92616244507,
+        "breakdown": {
+          "iotHub": 21690,
+          "eventHub": 16.852,
+          "storage": 139.11416244506836,
+          "streamAnalytics": 79.2,
+          "databricks": 36,
+          "sqlDatabase": 19.56,
+          "imageProcessing": 8640,
+          "audioProcessing": 800,
+          "aiInference": 208.20000000000002
+        }
+      },
+      "openSource": {
+        "perDevice": 6.222288513183594,
+        "total": 1244.4577026367188,
+        "breakdown": {
+          "cluster": 410,
+          "storage": 555.567741394043,
+          "network": 200.00438690185547,
+          "services": 170,
+          "operations": 220
+        }
+      },
+      "savings": {
+        "perDevice": 151.92234229904176,
+        "total": 30384.46845980835,
+        "percentage": 96.06544434595968
+      }
+    }
+  ]
+}

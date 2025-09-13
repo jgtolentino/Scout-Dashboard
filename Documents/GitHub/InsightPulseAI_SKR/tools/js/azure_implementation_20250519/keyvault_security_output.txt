@@ -1,0 +1,372 @@
+==== Key Vault Security Enhancement ====
+Implementing security best practices for Azure Key Vaults in TBWA-ProjectScout-Prod subscription
+
+Retrieving Key Vault information...
+Processing Key Vault: kv-projectscout-prod in resource group: RG-TBWA-ProjectScout-Data...
+Checking soft delete and purge protection...
+Setting up Key Vault diagnostic logging...
+Creating diagnostic setting KeyVaultAuditLogs-20250519...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/kv-projectscout-prod/providers/microsoft.insights/diagnosticSettings/KeyVaultAuditLogs-20250519",
+  "logs": [
+    {
+      "category": "AuditEvent",
+      "enabled": true,
+      "retentionPolicy": {
+        "days": 0,
+        "enabled": false
+      }
+    },
+    {
+      "category": "AzurePolicyEvaluationDetails",
+      "enabled": true,
+      "retentionPolicy": {
+        "days": 0,
+        "enabled": false
+      }
+    }
+  ],
+  "metrics": [],
+  "name": "KeyVaultAuditLogs-20250519",
+  "resourceGroup": "rg-tbwa-projectscout-data",
+  "type": "Microsoft.Insights/diagnosticSettings",
+  "workspaceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.OperationalInsights/workspaces/juicer-log-analytics"
+}
+Enabling Azure Defender for Key Vault...
+{
+  "deprecated": null,
+  "enablementTime": "2025-03-05T11:05:35.635635+00:00",
+  "extensions": null,
+  "freeTrialRemainingTime": "0:00:00",
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Security/pricings/KeyVaults",
+  "name": "KeyVaults",
+  "pricingTier": "Standard",
+  "replacedBy": null,
+  "subPlan": "PerKeyVault",
+  "type": "Microsoft.Security/pricings"
+}
+Checking network access policies...
+Retrieving access policies...
+Processing Key Vault: mymlworkkeyvault3441b156 in resource group: RG-TBWA-ProjectScout-Data...
+Checking soft delete and purge protection...
+Enabling purge protection...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Data/providers/Microsoft.KeyVault/vaults/mymlworkkeyvault3441b156",
+  "location": "eastus",
+  "name": "mymlworkkeyvault3441b156",
+  "properties": {
+    "accessPolicies": [
+      {
+        "applicationId": null,
+        "objectId": "0a4c4776-3e6f-4261-a149-c6b96be44ce3",
+        "permissions": {
+          "certificates": [
+            "all"
+          ],
+          "keys": [
+            "all"
+          ],
+          "secrets": [
+            "all"
+          ],
+          "storage": []
+        },
+        "tenantId": "e56592a9-7582-4ce4-ac69-8e53c4b39b44"
+      }
+    ],
+    "createMode": null,
+    "enablePurgeProtection": true,
+    "enableRbacAuthorization": true,
+    "enableSoftDelete": true,
+    "enabledForDeployment": false,
+    "enabledForDiskEncryption": null,
+    "enabledForTemplateDeployment": null,
+    "hsmPoolResourceId": null,
+    "networkAcls": null,
+    "privateEndpointConnections": null,
+    "provisioningState": "Succeeded",
+    "publicNetworkAccess": "Enabled",
+    "sku": {
+      "family": "A",
+      "name": "standard"
+    },
+    "softDeleteRetentionInDays": 90,
+    "tenantId": "e56592a9-7582-4ce4-ac69-8e53c4b39b44",
+    "vaultUri": "https://mymlworkkeyvault3441b156.vault.azure.net/"
+  },
+  "resourceGroup": "RG-TBWA-ProjectScout-Data",
+  "systemData": {
+    "createdAt": "2025-03-15T04:51:25.244000+00:00",
+    "createdBy": "s224670304@deakin.edu.au",
+    "createdByType": "User",
+    "lastModifiedAt": "2025-05-19T15:34:15.533000+00:00",
+    "lastModifiedBy": "s224670304@deakin.edu.au",
+    "lastModifiedByType": "User"
+  },
+  "tags": {
+    "createdByToolkit": "cli-v2-1.26.0"
+  },
+  "type": "Microsoft.KeyVault/vaults"
+}
+Setting up Key Vault diagnostic logging...
+Creating diagnostic setting KeyVaultAuditLogs-20250519...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/mymlworkkeyvault3441b156/providers/microsoft.insights/diagnosticSettings/KeyVaultAuditLogs-20250519",
+  "logs": [
+    {
+      "category": "AuditEvent",
+      "enabled": true,
+      "retentionPolicy": {
+        "days": 0,
+        "enabled": false
+      }
+    },
+    {
+      "category": "AzurePolicyEvaluationDetails",
+      "enabled": true,
+      "retentionPolicy": {
+        "days": 0,
+        "enabled": false
+      }
+    }
+  ],
+  "metrics": [],
+  "name": "KeyVaultAuditLogs-20250519",
+  "resourceGroup": "rg-tbwa-projectscout-data",
+  "type": "Microsoft.Insights/diagnosticSettings",
+  "workspaceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.OperationalInsights/workspaces/juicer-log-analytics"
+}
+Enabling Azure Defender for Key Vault...
+{
+  "deprecated": null,
+  "enablementTime": "2025-03-05T11:05:35.635635+00:00",
+  "extensions": null,
+  "freeTrialRemainingTime": "0:00:00",
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Security/pricings/KeyVaults",
+  "name": "KeyVaults",
+  "pricingTier": "Standard",
+  "replacedBy": null,
+  "subPlan": "PerKeyVault",
+  "type": "Microsoft.Security/pricings"
+}
+Checking network access policies...
+Retrieving access policies...
+Processing Key Vault: mymlworkkeyvault47ce10d1 in resource group: RG-Scout-BrandDetect-Prod-AUE...
+Checking soft delete and purge protection...
+Enabling purge protection...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-Scout-BrandDetect-Prod-AUE/providers/Microsoft.KeyVault/vaults/mymlworkkeyvault47ce10d1",
+  "location": "eastus",
+  "name": "mymlworkkeyvault47ce10d1",
+  "properties": {
+    "accessPolicies": [
+      {
+        "applicationId": null,
+        "objectId": "cf4926e1-0ce2-40a7-a521-9dca6d7a79d3",
+        "permissions": {
+          "certificates": [
+            "all"
+          ],
+          "keys": [
+            "all"
+          ],
+          "secrets": [
+            "all"
+          ],
+          "storage": []
+        },
+        "tenantId": "e56592a9-7582-4ce4-ac69-8e53c4b39b44"
+      }
+    ],
+    "createMode": null,
+    "enablePurgeProtection": true,
+    "enableRbacAuthorization": true,
+    "enableSoftDelete": true,
+    "enabledForDeployment": false,
+    "enabledForDiskEncryption": null,
+    "enabledForTemplateDeployment": null,
+    "hsmPoolResourceId": null,
+    "networkAcls": null,
+    "privateEndpointConnections": null,
+    "provisioningState": "Succeeded",
+    "publicNetworkAccess": "Enabled",
+    "sku": {
+      "family": "A",
+      "name": "standard"
+    },
+    "softDeleteRetentionInDays": 90,
+    "tenantId": "e56592a9-7582-4ce4-ac69-8e53c4b39b44",
+    "vaultUri": "https://mymlworkkeyvault47ce10d1.vault.azure.net/"
+  },
+  "resourceGroup": "RG-Scout-BrandDetect-Prod-AUE",
+  "systemData": {
+    "createdAt": "2025-03-15T05:00:53.213000+00:00",
+    "createdBy": "s224670304@deakin.edu.au",
+    "createdByType": "User",
+    "lastModifiedAt": "2025-05-19T15:34:34.897000+00:00",
+    "lastModifiedBy": "s224670304@deakin.edu.au",
+    "lastModifiedByType": "User"
+  },
+  "tags": {
+    "createdByToolkit": "cli-v2-1.26.0"
+  },
+  "type": "Microsoft.KeyVault/vaults"
+}
+Setting up Key Vault diagnostic logging...
+Creating diagnostic setting KeyVaultAuditLogs-20250519...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.keyvault/vaults/mymlworkkeyvault47ce10d1/providers/microsoft.insights/diagnosticSettings/KeyVaultAuditLogs-20250519",
+  "logs": [
+    {
+      "category": "AuditEvent",
+      "enabled": true,
+      "retentionPolicy": {
+        "days": 0,
+        "enabled": false
+      }
+    },
+    {
+      "category": "AzurePolicyEvaluationDetails",
+      "enabled": true,
+      "retentionPolicy": {
+        "days": 0,
+        "enabled": false
+      }
+    }
+  ],
+  "metrics": [],
+  "name": "KeyVaultAuditLogs-20250519",
+  "resourceGroup": "rg-scout-branddetect-prod-aue",
+  "type": "Microsoft.Insights/diagnosticSettings",
+  "workspaceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.OperationalInsights/workspaces/juicer-log-analytics"
+}
+Enabling Azure Defender for Key Vault...
+{
+  "deprecated": null,
+  "enablementTime": "2025-03-05T11:05:35.635635+00:00",
+  "extensions": null,
+  "freeTrialRemainingTime": "0:00:00",
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Security/pricings/KeyVaults",
+  "name": "KeyVaults",
+  "pricingTier": "Standard",
+  "replacedBy": null,
+  "subPlan": "PerKeyVault",
+  "type": "Microsoft.Security/pricings"
+}
+Checking network access policies...
+Retrieving access policies...
+Processing Key Vault: kv-tbwa-juicer-insights2 in resource group: RG-TBWA-ProjectScout-Juicer...
+Checking soft delete and purge protection...
+Enabling purge protection...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.KeyVault/vaults/kv-tbwa-juicer-insights2",
+  "location": "eastus2",
+  "name": "kv-tbwa-juicer-insights2",
+  "properties": {
+    "accessPolicies": [
+      {
+        "applicationId": null,
+        "objectId": "6b8dc14a-c98d-43bf-8eb9-fa138ca997da",
+        "permissions": {
+          "certificates": [
+            "all"
+          ],
+          "keys": [
+            "all"
+          ],
+          "secrets": [
+            "all"
+          ],
+          "storage": [
+            "all"
+          ]
+        },
+        "tenantId": "e56592a9-7582-4ce4-ac69-8e53c4b39b44"
+      }
+    ],
+    "createMode": null,
+    "enablePurgeProtection": true,
+    "enableRbacAuthorization": false,
+    "enableSoftDelete": true,
+    "enabledForDeployment": false,
+    "enabledForDiskEncryption": null,
+    "enabledForTemplateDeployment": null,
+    "hsmPoolResourceId": null,
+    "networkAcls": null,
+    "privateEndpointConnections": null,
+    "provisioningState": "Succeeded",
+    "publicNetworkAccess": "Enabled",
+    "sku": {
+      "family": "A",
+      "name": "standard"
+    },
+    "softDeleteRetentionInDays": 90,
+    "tenantId": "e56592a9-7582-4ce4-ac69-8e53c4b39b44",
+    "vaultUri": "https://kv-tbwa-juicer-insights2.vault.azure.net/"
+  },
+  "resourceGroup": "RG-TBWA-ProjectScout-Juicer",
+  "systemData": {
+    "createdAt": "2025-05-12T11:43:26.473000+00:00",
+    "createdBy": "s224670304@deakin.edu.au",
+    "createdByType": "User",
+    "lastModifiedAt": "2025-05-19T15:35:11.573000+00:00",
+    "lastModifiedBy": "s224670304@deakin.edu.au",
+    "lastModifiedByType": "User"
+  },
+  "tags": {},
+  "type": "Microsoft.KeyVault/vaults"
+}
+Setting up Key Vault diagnostic logging...
+Creating diagnostic setting KeyVaultAuditLogs-20250519...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2/providers/microsoft.insights/diagnosticSettings/KeyVaultAuditLogs-20250519",
+  "logs": [
+    {
+      "category": "AuditEvent",
+      "enabled": true,
+      "retentionPolicy": {
+        "days": 0,
+        "enabled": false
+      }
+    },
+    {
+      "category": "AzurePolicyEvaluationDetails",
+      "enabled": true,
+      "retentionPolicy": {
+        "days": 0,
+        "enabled": false
+      }
+    }
+  ],
+  "metrics": [],
+  "name": "KeyVaultAuditLogs-20250519",
+  "resourceGroup": "rg-tbwa-projectscout-juicer",
+  "type": "Microsoft.Insights/diagnosticSettings",
+  "workspaceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.OperationalInsights/workspaces/juicer-log-analytics"
+}
+Enabling Azure Defender for Key Vault...
+{
+  "deprecated": null,
+  "enablementTime": "2025-03-05T11:05:35.635635+00:00",
+  "extensions": null,
+  "freeTrialRemainingTime": "0:00:00",
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Security/pricings/KeyVaults",
+  "name": "KeyVaults",
+  "pricingTier": "Standard",
+  "replacedBy": null,
+  "subPlan": "PerKeyVault",
+  "type": "Microsoft.Security/pricings"
+}
+Checking network access policies...
+Retrieving access policies...
+Key Vault security enhancement complete. Results saved to keyvault_security_20250519/keyvault_security_results.txt
+
+Implemented enhancements:
+1. Enabled soft delete and purge protection when possible
+2. Set up diagnostic logging to Log Analytics
+3. Enabled Azure Defender for Key Vault where permissions allowed
+
+Manual review required for:
+1. Access policies - review keyvault_security_20250519/<vault-name>_access_policies.json files
+2. Network access restrictions - consider implementing for all vaults
+3. Key rotation and expiration policies

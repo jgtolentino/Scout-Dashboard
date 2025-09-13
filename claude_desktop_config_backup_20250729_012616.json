@@ -1,0 +1,102 @@
+{
+  "mcpServers": {
+    "supabase_primary": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--project-ref=cxzllzyxwpyptfretryc"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "sbp_c4c5fa81cc1fde770145ace4e79a33572748b25f"
+      }
+    },
+    "supabase_alternate": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--project-ref=texxwmlroefdisgxpszc"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "sbp_c4c5fa81cc1fde770145ace4e79a33572748b25f"
+      }
+    },
+    "tbwa_hr_intelligence": {
+      "command": "npx",
+      "args": [
+        "@supabase/mcp-server-supabase@latest"
+      ],
+      "env": {
+        "SUPABASE_PROJECT_REF": "cxzllzyxwpyptfretryc",
+        "SUPABASE_ACCESS_TOKEN": "sbp_c4c5fa81cc1fde770145ace4e79a33572748b25f",
+        "SUPABASE_ROLE": "hr_manager",
+        "ALLOWED_SCHEMAS": "hris,onboarding,analytics",
+        "USER_CONTEXT": "hr_manager"
+      }
+    },
+    "tbwa_finance_operations": {
+      "command": "npx",
+      "args": [
+        "@supabase/mcp-server-supabase@latest"
+      ],
+      "env": {
+        "SUPABASE_PROJECT_REF": "cxzllzyxwpyptfretryc",
+        "SUPABASE_ACCESS_TOKEN": "sbp_c4c5fa81cc1fde770145ace4e79a33572748b25f",
+        "SUPABASE_ROLE": "finance_manager",
+        "ALLOWED_SCHEMAS": "expense,approval,audit",
+        "USER_CONTEXT": "finance_manager"
+      }
+    },
+    "tbwa_executive_dashboard": {
+      "command": "npx",
+      "args": [
+        "@supabase/mcp-server-supabase@latest"
+      ],
+      "env": {
+        "SUPABASE_PROJECT_REF": "cxzllzyxwpyptfretryc",
+        "SUPABASE_ACCESS_TOKEN": "sbp_c4c5fa81cc1fde770145ace4e79a33572748b25f",
+        "SUPABASE_ROLE": "executive",
+        "ALLOWED_SCHEMAS": "hris,expense,service_desk,approval,office_ops,audit,analytics,onboarding,agentic,knowledge,security,integration",
+        "USER_CONTEXT": "executive"
+      }
+    },
+    "tbwa_scout_dashboard": {
+      "command": "npx",
+      "args": [
+        "@supabase/mcp-server-supabase@latest"
+      ],
+      "env": {
+        "SUPABASE_PROJECT_REF": "cxzllzyxwpyptfretryc",
+        "SUPABASE_ACCESS_TOKEN": "sbp_c4c5fa81cc1fde770145ace4e79a33572748b25f",
+        "SUPABASE_ROLE": "scout_analyst",
+        "ALLOWED_SCHEMAS": "hris,expense,service_desk,operations,corporate,creative_insights,analytics",
+        "USER_CONTEXT": "scout_dashboard",
+        "ANALYTICS_MODE": "advanced",
+        "CROSS_DOMAIN": "true"
+      }
+    },
+    "supabase_agents": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--project-ref=qaebjxwbquclaalbeluju"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "sbp_96f5bb0a80f2cb1cc0048450bde0720adec93d2b"
+      }
+    },
+    "supabase_full_access": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest"
+      ],
+      "env": {
+        "SUPABASE_PROJECT_REF": "cxzllzyxwpyptfretryc",
+        "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN4emxsenl4d3B5cHRmcmV0cnljIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MjM3NjE4MCwiZXhwIjoyMDY3OTUyMTgwfQ.bHZu_tPiiFVM7fZksLA1lIvflwKENz1t2jowGkx23QI"
+      }
+    }
+  }
+}

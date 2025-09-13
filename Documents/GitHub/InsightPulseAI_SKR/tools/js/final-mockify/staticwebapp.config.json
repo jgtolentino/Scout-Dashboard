@@ -1,0 +1,19 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "serve": "/index.html"
+    },
+    {
+      "route": "/advisor",
+      "serve": "/index.html"
+    },
+    {
+      "route": "/insights_dashboard.html",
+      "serve": "/index.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  }
+}

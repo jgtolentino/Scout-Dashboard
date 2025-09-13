@@ -1,0 +1,371 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base colors */
+  --color-background: #1e1e1e;
+  --color-foreground: #f0f0f0;
+  --color-primary: #0078d4;
+  --color-secondary: #2b2b2b;
+  --color-accent: #3794ff;
+  
+  /* UI elements */
+  --color-sidebar: #252526;
+  --color-panel: #1e1e1e;
+  --color-border: #3e3e42;
+  
+  /* Text colors */
+  --color-text-primary: #cccccc;
+  --color-text-secondary: #8a8a8a;
+  --color-text-accent: #3794ff;
+
+  /* Status colors */
+  --color-success: #4caf50;
+  --color-warning: #ff9800;
+  --color-error: #f44336;
+  --color-info: #2196f3;
+  
+  /* PulseDev specific variables */
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #252526;
+  --bg-tertiary: #333333;
+  --bg-quaternary: #2d2d2d;
+  --bg-hover: #3c3c3c;
+  --border-color: #3c3c3c;
+  --text-primary: #e5e5e5;
+  --text-secondary: #cccccc;
+  --text-muted: #bbbbbb;
+  --accent-color: #0e639c;
+  --accent-hover: #1177bb;
+  --error-color: #f14c4c;
+  --success-color: #89d185;
+  --warning-color: #cca700;
+}
+
+/* Basic reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, 'Courier New',
+    monospace;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* Layout classes */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--color-sidebar);
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.workspace-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.workspace-top {
+  display: flex;
+  flex: 7;
+  overflow: hidden;
+}
+
+.workspace-bottom {
+  display: flex;
+  flex: 3;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+}
+
+.file-explorer-panel {
+  width: 220px;
+  background-color: var(--color-panel);
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+}
+
+.editor-panel {
+  flex: 1;
+  overflow: hidden;
+}
+
+.ai-assistant-panel {
+  width: 300px;
+  background-color: var(--color-panel);
+  border-left: 1px solid var(--color-border);
+  overflow-y: auto;
+}
+
+.terminal-panel {
+  flex: 1;
+  overflow: hidden;
+  background-color: var(--color-panel);
+  border-right: 1px solid var(--color-border);
+}
+
+.preview-panel {
+  flex: 1;
+  overflow: hidden;
+  background-color: var(--color-panel);
+}
+
+/* Loading spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left-color: var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-left-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Monaco editor container */
+.monaco-editor-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* Terminal container */
+.terminal-container {
+  height: 100%;
+  width: 100%;
+  padding: 8px;
+}
+
+/* Preview container */
+.preview-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-header {
+  padding: 4px 8px;
+  background-color: var(--color-secondary);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preview-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.preview-iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+/* Split layouts */
+.split-horizontal, .split-vertical {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.split-horizontal {
+  flex-direction: row;
+}
+
+.split-vertical {
+  flex-direction: column;
+}
+
+.gutter {
+  background-color: var(--border-color);
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+  cursor: col-resize;
+  width: 8px !important;
+}
+
+.gutter.gutter-vertical {
+  cursor: row-resize;
+  height: 8px !important;
+}
+
+/* Utility classes */
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-error {
+  color: var(--error-color);
+}
+
+.text-success {
+  color: var(--success-color);
+}
+
+.text-warning {
+  color: var(--warning-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+  max-height: 90%;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.modal-body {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

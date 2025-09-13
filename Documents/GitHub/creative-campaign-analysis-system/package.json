@@ -1,0 +1,49 @@
+{
+  "name": "@tbwa/creative-campaign-analysis-system",
+  "version": "1.0.0",
+  "description": "TBWA Creative Campaign Analysis System with ColPali-style PageIndex",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "db:migrate": "npm run db:migrate --workspace=@tbwa/database",
+    "db:seed": "npm run db:seed --workspace=@tbwa/database",
+    "db:status": "npm run db:status --workspace=@tbwa/database",
+    "pageindex:process": "npm run process --workspace=@tbwa/pageindex-agent",
+    "pageindex:search": "npm run search --workspace=@tbwa/pageindex-agent",
+    "audit:run": "npm run audit --workspace=@tbwa/audit-tools",
+    "deploy:dev": "npm run deploy:dev --workspace=@tbwa/web-dashboard",
+    "deploy:prod": "npm run deploy:prod --workspace=@tbwa/web-dashboard"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.10",
+    "@types/node": "^20.10.0",
+    "autoprefixer": "^10.4.21",
+    "js-yaml": "^4.1.0",
+    "playwright": "^1.53.0",
+    "postcss": "^8.5.5",
+    "prettier": "^3.1.0",
+    "turbo": "^1.11.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tbwa/creative-campaign-analysis-system.git"
+  },
+  "author": "TBWA Philippines",
+  "license": "MIT"
+}

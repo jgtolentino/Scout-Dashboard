@@ -1,0 +1,181 @@
+# UAT Rollback Configuration for Client360 Dashboard
+# This configuration file defines the unified settings for rollback functionality
+
+version: "1.0.0"
+updated: "2025-05-21"
+status: "production-ready"
+
+# Azure Key Vault integration
+azure:
+  key_vault:
+    name: "kv-projectscout-prod"
+    resource_group: "scout-dashboard"
+    secrets:
+      - name: "STATIC-WEBAPP-DEPLOY-KEY"
+        description: "Deployment key for Azure Static Web Apps"
+        permissions:
+          - "ServicePrincipal:ScoutDeploymentApp"
+          - "Group:Client360Developers"
+      - name: "GOLDEN-BASELINE-HASH"
+        description: "Hash of the current golden baseline for verification"
+        permissions:
+          - "ServicePrincipal:ScoutDeploymentApp"
+          - "Group:Client360Developers"
+          - "Group:Client360QATeam"
+      - name: "ROLLBACK-AUTH-TOKEN"
+        description: "Authentication token for rollback actions"
+        permissions:
+          - "ServicePrincipal:ScoutDeploymentApp"
+          - "Group:Client360Administrators"
+
+# Environment configuration
+environments:
+  production:
+    app_name: "tbwa-client360-dashboard-production"
+    resource_group: "scout-dashboard"
+    url: "https://blue-coast-0acb6880f-preview.eastus2.6.azurestaticapps.net"
+    golden_tags:
+      - name: "golden-20250519"
+        description: "Initial production-ready release"
+        verified: true
+      - name: "golden-20250520"
+        description: "Geospatial map integration"
+        verified: true
+  
+  staging:
+    app_name: "tbwa-client360-dashboard-staging"
+    resource_group: "scout-dashboard-dev"
+    url: "https://client360-staging.azurestaticapps.net"
+    golden_tags:
+      - name: "golden-20250519-rc1"
+        description: "Release candidate 1"
+        verified: true
+
+# Rollback configuration
+rollback:
+  # Scripts for rollback process
+  scripts:
+    generate_uat: "scripts/generate_rollback_uat.sh"
+    verify_theme: "scripts/verify_tbwa_theme.sh"
+    rollback_dashboard: "scripts/rollback_dashboard.sh"
+    verify_deployment: "scripts/verify_deployment.sh"
+  
+  # Templates for UAT process
+  templates:
+    uat_rollback: "templates/ROLLBACK_UAT_TEMPLATE.md"
+  
+  # Required components for rollback functionality
+  required_components:
+    - name: "TBWA Theme"
+      files:
+        - "src/styles/variables-tbwa.scss"
+        - "src/themes/tbwa.scss"
+      verification: "scripts/verify_tbwa_theme.sh"
+    
+    - name: "Rollback UI Component"
+      files:
+        - "src/components/rollback_dashboard.js"
+      css_classes:
+        - ".rollback-dashboard"
+        - ".rollback-dashboard-header"
+        - ".rollback-dashboard-actions"
+        - ".btn-rollback"
+        - ".btn-verify"
+    
+    - name: "Geospatial Map"
+      files:
+        - "src/components/store_map.js"
+        - "data/philippines_outline.geojson"
+      verification: "scripts/verify_map_component.sh"
+
+# Workflow integration with Pulser
+pulser_integration:
+  sop_profile: "pulser_sop_profile.yaml"
+  task_routing:
+    - task: "rollback_dashboard"
+      agent: "DevOpsEngineer"
+      priority: "high"
+    - task: "verify_rollback"
+      agent: "QASpecialist"
+      priority: "high"
+    - task: "approve_rollback"
+      agent: "ProductOwner"
+      priority: "critical"
+
+# Testing framework integration
+testing:
+  uat_checklist: "UAT_CHECKLIST.md"
+  verification_report: "ROLLBACK_VERIFICATION.md"
+  test_approach:
+    - smoke_tests
+    - visual_regression
+    - performance_validation
+    - security_verification
+
+# Integration with etl-deploy-kit
+etl_deploy_integration:
+  reference: "etl-deploy-kit.yaml"
+  webapp:
+    rollback_enabled: true
+    verification_required: true
+  
+  governance:
+    key_vault:
+      store:
+        - "STATIC_WEBAPP_DEPLOY_KEY"
+        - "ROLLBACK_AUTH_TOKEN"
+        - "GOLDEN_BASELINE_HASH"
+    
+    rbac:
+      roles:
+        - name: "Client360Administrators"
+          permissions: ["read", "write", "execute", "approve"]
+        - name: "Client360Developers"
+          permissions: ["read", "write", "execute"]
+        - name: "Client360QATeam"
+          permissions: ["read", "verify"]
+        - name: "Client360Viewers"
+          permissions: ["read"]
+
+# CI/CD pipeline integration
+cicd_integration:
+  github_actions:
+    workflow: ".github/workflows/rollback-automation.yml"
+    triggers:
+      - event: "workflow_dispatch"
+        inputs:
+          - name: "golden_tag"
+            description: "Tag to roll back to"
+            required: true
+          - name: "environment"
+            description: "Target environment"
+            required: true
+            default: "staging"
+          - name: "reason"
+            description: "Reason for rollback"
+            required: true
+  
+  azure_devops:
+    pipeline: "azure-pipelines-rollback.yml"
+    service_connection: "scout-dashboard-service-connection"
+
+# Notifications configuration
+notifications:
+  success:
+    - channel: "email"
+      recipients: ["devops@tbwa.com", "qa@tbwa.com"]
+    - channel: "teams"
+      webhook: "key-vault:TEAMS_WEBHOOK_URL" 
+  
+  failure:
+    - channel: "email"
+      recipients: ["devops@tbwa.com", "qa@tbwa.com", "oncall@tbwa.com"]
+    - channel: "teams"
+      webhook: "key-vault:TEAMS_ALERT_WEBHOOK_URL"
+      mention: "@ScoutDevOpsTeam"
+
+# Documentation references
+documentation:
+  uat_process: "ROLLBACK_UAT_GUIDE.md"
+  implementation: "ROLLBACK_UAT_IMPLEMENTATION.md"
+  troubleshooting: "ROLLBACK_TROUBLESHOOTING.md"

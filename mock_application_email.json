@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "fromAddress": "sarah.chen@example.com",
+      "fromName": "Sarah Chen",
+      "subject": "Human x Agent — Growth Pairing",
+      "receivedTime": "2025-05-10T09:30:15Z",
+      "messageId": "mock_app_20250510093015",
+      "content": "Dear InsightPulseAI Team,\n\nI'm excited to apply for the Business Development Specialist role at InsightPulseAI. Your approach to creating a constellation of AI agents working together with humans aligns perfectly with my vision for the future of business.\n\nMy background combines 5+ years in business development with a passion for AI and automation. In my previous role at TechFuture Inc., I helped design and implement AI-driven lead generation systems that increased qualified leads by 47% in just three months.\n\nWhat excites me most about InsightPulseAI is the opportunity to shape how humans and AI collaborate in a practical business context. I'm particularly interested in working with Edge to co-create agent-enabled consulting offers.\n\nAttached, you'll find my resume and a link to a short Loom video where I explain my approach to human-AI partnership (https://loom.com/example).\n\nI look forward to the possibility of joining your innovative team.\n\nBest regards,\nSarah Chen\nLinkedIn: linkedin.com/in/sarahchen-example\nPhone: (555) 123-4567",
+      "hasAttachment": true,
+      "attachments": [
+        {
+          "name": "Sarah_Chen_Resume.pdf",
+          "size": 2456789
+        },
+        {
+          "name": "InsightPulseAI_Cover_Letter.pdf",
+          "size": 1234567
+        }
+      ],
+      "flags": ["UNSEEN"]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "name": "scout-dashboard-v5",
+  "framework": "nextjs",
+  "buildCommand": "pnpm build",
+  "outputDirectory": ".next",
+  "installCommand": "pnpm install",
+  "regions": ["iad1", "sin1"],
+  
+  "functions": {
+    "apps/web/src/app/api/ai/chat/route.ts": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 30
+    },
+    "apps/web/src/app/api/ai/nl-to-sql/route.ts": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 30
+    },
+    "apps/web/src/app/api/health/route.ts": {
+      "runtime": "edge",
+      "maxDuration": 10
+    },
+    "apps/web/src/app/api/*/route.ts": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 10
+    }
+  },
+  
+  "rewrites": [
+    {
+      "source": "/api/v5/:path*",
+      "destination": "/api/:path*"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/api/robots"
+    }
+  ],
+  
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-DNS-Prefetch-Control",
+          "value": "on"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), browsing-topics=()"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "require-corp"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, proxy-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(ico|png|jpg|jpeg|gif|svg|woff|woff2))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "@scout-supabase-url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@scout-supabase-anon-key",
+    "SUPABASE_SERVICE_ROLE_KEY": "@scout-supabase-service-key",
+    "OPENAI_API_KEY": "@scout-openai-key",
+    "REDIS_URL": "@scout-redis-url",
+    "AUTH_SECRET": "@scout-auth-secret",
+    "AUTH_JWKS_URL": "@scout-auth-jwks-url",
+    "SENTRY_DSN": "@scout-sentry-dsn",
+    "NEXT_PUBLIC_HCAPTCHA_SITE_KEY": "@scout-hcaptcha-site-key",
+    "HCAPTCHA_SECRET_KEY": "@scout-hcaptcha-secret-key",
+    "ALLOWED_ORIGINS": "@scout-allowed-origins",
+    "ENABLE_AI_CHAT": "true",
+    "ENABLE_SQL_GENERATION": "true",
+    "ENABLE_CACHE": "true",
+    "ENABLE_CAPTCHA": "true"
+  },
+  
+  "crons": [
+    {
+      "path": "/api/cron/refresh-cache",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/cleanup",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/security-scan",
+      "schedule": "0 0 * * 0"
+    }
+  ]
+}

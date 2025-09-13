@@ -1,0 +1,19 @@
+Add Zoho Mail configuration for insightpulseai.com
+
+• DNS configs: Added MX, SPF, DKIM, and verification records
+• Aliases: Created info@, business@, ceo@, and team@ aliases
+• Catch-all: Configured to forward to info@
+• Documentation: Added SOP for Zoho Mail setup and alias management
+• Registry: Updated SKR docs registry with new entries
+• Email Signatures: Added HTML and plain text templates for all addresses
+• Verification: Added email alias verification script
+
+This commit completes the email infrastructure setup for the InsightPulseAI domain, providing:
+1. Complete DNS configuration for Zoho Mail
+2. Email alias structure for organization functions
+3. Technical documentation and SOPs for maintenance
+4. Integration with the SKR registry system
+
+Co-authored-by: Enrico <dns-agent@insightpulseai.com>
+Co-authored-by: Kath <copywriting-agent@insightpulseai.com>
+Co-authored-by: Claudia <orchestration-agent@insightpulseai.com>

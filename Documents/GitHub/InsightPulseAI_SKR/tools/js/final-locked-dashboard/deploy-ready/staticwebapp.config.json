@@ -1,0 +1,41 @@
+{
+  "routes": [
+    { 
+      "route": "/advisor", 
+      "rewrite": "/advisor.html" 
+    },
+    { 
+      "route": "/edge", 
+      "rewrite": "/edge.html" 
+    },
+    { 
+      "route": "/ops", 
+      "rewrite": "/ops.html" 
+    },
+    {
+      "route": "/retail_edge/retail_edge_dashboard.html",
+      "redirect": "/edge",
+      "statusCode": 301
+    },
+    {
+      "route": "/insights_dashboard.html",
+      "redirect": "/advisor",
+      "statusCode": 301
+    },
+    {
+      "route": "/qa.html",
+      "redirect": "/ops",
+      "statusCode": 301
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*", "/css/*", "/js/*", "/images/*"]
+  },
+  "globalHeaders": {
+    "X-Dashboard-Tag": "scout_dashboards_clean_urls",
+    "X-Patch-ID": "dashboard-url-structure-v1-pulser",
+    "X-Client-Context": "TBWA-direct-only",
+    "X-Generated-By": "Pulser-CLI-Claude"
+  }
+}

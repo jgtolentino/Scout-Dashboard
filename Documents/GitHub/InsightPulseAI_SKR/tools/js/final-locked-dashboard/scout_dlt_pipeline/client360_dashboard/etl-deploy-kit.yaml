@@ -1,0 +1,226 @@
+# Project Scout - Client360 Dashboard ETL Deploy Kit
+# Version: 2.3.1
+# Last updated: 2025-05-21
+
+azure_deploy:
+  event_hubs:
+    # Real-time data streams from edge devices (Raspberry Pi)
+    - name: eh-pi-stt-raw
+      description: "Speech-to-text raw data from Raspberry Pi devices"
+      throughput_units: 2
+      retention_time_in_days: 7
+      
+    - name: eh-pi-visual-stream
+      description: "Computer vision detection stream from Raspberry Pi OpenCV"
+      throughput_units: 2
+      retention_time_in_days: 7
+      
+    - name: eh-pi-annotated-events
+      description: "Pre-annotated interaction events from edge devices"
+      throughput_units: 1
+      retention_time_in_days: 7
+      
+    - name: eh-device-heartbeat
+      description: "Device health and diagnostic data"
+      throughput_units: 1
+      retention_time_in_days: 3
+      
+    - name: eh-insight-feedback
+      description: "Feedback on generated insights for AI improvement"
+      throughput_units: 1
+      retention_time_in_days: 14
+
+  blob_storage:
+    account: scoutdatastore
+    container: client360-raw-ingest
+    use_for:
+      - backup_metadata_json
+      - geojson_files
+      - reference_data
+      - sample_data
+
+  databricks:
+    workspace: tbwa-scout-workspace
+    pipelines:
+      - name: client360_dlt_pipeline
+        schedule: "0 */2 * * *"  # Every 2 hours
+        
+        modules:
+          - name: scout_bronze_dlt.py
+            description: "Ingest raw data from Event Hubs into Bronze tables"
+            
+          - name: scout_silver_dlt.py
+            description: "Transform and cleanse data for Silver layer"
+            
+          - name: scout_gold_dlt.py
+            description: "Aggregate and derive metrics for Gold layer"
+            
+        bronze_tables:
+          - bronze_stt_raw
+          - bronze_visual_stream
+          - bronze_raw_events
+          
+        silver_tables:
+          - silver_annotated_events
+          - silver_device_heartbeat
+          - silver_multimodal_aligned
+          
+        gold_tables:
+          - gold_insight_feedback
+          - gold_store_interaction_metrics
+          - gold_device_health_summary
+          - gold_transcript_sentiment_analysis
+          
+        transforms:
+          - script: nlp/brand_mention_detector.py
+            description: "NLP model to detect brand mentions in transcripts"
+            
+          - script: session/session_correlation.py
+            description: "Correlates visual and audio sessions by timestamp and location"
+            
+          - script: insights/feature_engineering.py
+            description: "Derives features for ML model training from interaction data"
+            
+          - script: insights/sentiment_analyzer.py
+            description: "Analyzes customer sentiment from transcript and visual cues"
+          
+        autoloader_sources:
+          - eventhub: eh-pi-stt-raw
+            format: json
+            schema: stt_schema
+            
+          - eventhub: eh-pi-visual-stream
+            format: json
+            schema: visual_schema
+            
+          - eventhub: eh-device-heartbeat
+            format: json
+            schema: heartbeat_schema
+            
+          - eventhub: eh-insight-feedback
+            format: json
+            schema: feedback_schema
+
+  sql_endpoint:
+    name: client360-sql-endpoint
+    auto_stop_mins: 30
+    min_num_clusters: 1
+    max_num_clusters: 3
+    warehouse_size: medium
+    
+    views:
+      - name: vw_store_performance
+        source: gold_store_interaction_metrics
+        refresh: daily
+        
+      - name: vw_device_health
+        source: gold_device_health_summary
+        refresh: hourly
+        
+      - name: vw_brand_sentiment
+        source: gold_transcript_sentiment_analysis
+        refresh: daily
+
+  webapp:
+    dashboard:
+      name: client360-dashboard
+      type: Azure Static Web App
+      source_dir: ./deploy
+      output_dir: ./output
+      
+      data_sources:
+        - type: API
+          source: Databricks SQL Endpoint
+          connection: client360-sql-endpoint
+          
+        - type: GeoJSON
+          source: philippines_outline.geojson
+          category: map_data
+          
+        - type: GeoJSON
+          source: stores.geojson
+          category: map_data
+      
+      features:
+        - High-Level KPI Visualization
+        - Geospatial Store Map
+        - Brand Performance Analytics
+        - Transaction Metrics Module
+        - AI-Powered Insights
+        - TBWA Theme Integration
+        - Rollback Component
+
+  functions:
+    - name: client360-api
+      runtime: node
+      deployment_slots: 2
+      triggers:
+        - type: http
+          route: /api/dashboard
+        - type: http
+          route: /api/stores
+        - type: http
+          route: /api/transactions
+      identity:
+        type: system_assigned
+      permissions:
+        - keyvault-get
+        - sql-endpoint-query
+
+  governance:
+    unity_catalog:
+      enabled: true
+      catalog: client360_catalog
+      pii_tags:
+        - silver_annotated_events.transcript
+        - silver_multimodal_aligned.transcript
+        - gold_transcript_sentiment_analysis.total_transcripts
+      rbac_enabled: true
+      
+    keyvault:
+      name: kv-client360
+      store:
+        - EVENT_HUB_CONNECTION_STRING
+        - STORAGE_ACCOUNT_KEY
+        - DATABRICKS_TOKEN
+        - SQL_ENDPOINT_TOKEN
+        - STATIC_WEBAPP_DEPLOY_TOKEN
+
+deployment:
+  ci_cd:
+    github_actions:
+      workflow: deploy-client360.yml
+      triggers:
+        - push:
+            branches: [main, production]
+      environment_checks:
+        - lint
+        - build
+        - test
+      notifications:
+        - type: email
+          recipients: [ops@tbwa.com, data-team@tbwa.com]
+        - type: teams
+          webhook: TEAMS_WEBHOOK_URL
+          
+  rollback:
+    strategy: blue_green
+    validation_tests:
+      - check_kpi_freshness
+      - verify_map_loads
+      - check_api_response_times
+    retain_previous_versions: 3
+
+notes:
+  - All Event Hub connections require Azure managed identity for security
+  - AudioURL field is DEPRECATED and not included in the data model
+  - Sample data mode is available for local development and demo purposes
+  - TBWA theme integration is mandatory for all dashboard components
+  - Full Databricks SQL endpoint authentication is managed via Key Vault
+
+status: ready_for_deployment
+
+# Update History
+# 2025-05-19: Initial schema created
+# 2025-05-20: Added insight_feedback Event Hub
+# 2025-05-21: Updated for v2.3.1 release with geospatial improvements

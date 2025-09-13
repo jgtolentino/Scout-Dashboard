@@ -1,0 +1,240 @@
+# Crisis Automation Rules
+# Phase 2.5 RED2025 Protocol
+# 
+# These rules define automated actions that trigger based on metric thresholds
+# Part of the Final Push Protocol to ensure 72h deadline is met
+
+version: 2.5.0
+protocol: RED2025
+enabled: true
+
+# Global settings
+settings:
+  check_interval_seconds: 300  # Check metrics every 5 minutes
+  max_actions_per_hour: 10     # Limit automation to prevent overreaction
+  notification_level: high     # Send notifications for all automated actions
+  dry_run: false               # Set to true to log but not execute actions
+
+# Metric thresholds and actions
+rules:
+  # Cognitive Load Rules
+  - name: cognitive_load_emergency
+    description: Emergency UI simplification when cognitive load is critically high
+    metric: cognitive_load
+    condition: ">= 3.5"
+    action: deploy_hotfix
+    params:
+      type: "attention-optimizer-emergency"
+      level: "maximum"
+      description: "Emergency UI simplification to drastically reduce cognitive load"
+    cooldown_minutes: 120
+    priority: critical
+  
+  - name: cognitive_load_high
+    description: Moderate UI simplification when cognitive load is high
+    metric: cognitive_load
+    condition: ">= 2.3"
+    action: deploy_hotfix
+    params:
+      type: "attention-optimizer-v2.5"
+      level: "moderate"
+      description: "Moderate UI simplification to reduce cognitive load"
+    cooldown_minutes: 60
+    priority: high
+  
+  - name: cognitive_load_improving
+    description: Track when cognitive load is improving
+    metric: cognitive_load
+    condition: "trending_down"
+    period_minutes: 30
+    threshold_percent: 5
+    action: log_improvement
+    params:
+      metric: "cognitive_load"
+      description: "Cognitive load improving by at least 5% over 30 minutes"
+    priority: low
+  
+  # Network Success Rate Rules
+  - name: network_critical
+    description: Activate ultra lite mode when 3G success rate is critically low
+    metric: 3g_success_rate
+    condition: "< 50"
+    action: network_emergency
+    params:
+      mode: "ultra_lite"
+      description: "Ultra lite mode deployed for extreme network conditions"
+    cooldown_minutes: 120
+    priority: critical
+  
+  - name: network_degraded
+    description: Optimize for network degradation when 3G success rate is below target
+    metric: 3g_success_rate
+    condition: "< 85"
+    action: enable_network_degradation_mode
+    params:
+      mode: "ultra_lite"
+      cache_strategy: "aggressive"
+      description: "Network degradation mode enabled for improved success rate"
+    cooldown_minutes: 60
+    priority: high
+  
+  - name: network_improving
+    description: Track when network success rate is improving
+    metric: 3g_success_rate
+    condition: "trending_up"
+    period_minutes: 30
+    threshold_percent: 10
+    action: log_improvement
+    params:
+      metric: "3g_success_rate"
+      description: "3G success rate improving by at least 10% over 30 minutes"
+    priority: low
+  
+  # Silent Failures Rules
+  - name: silent_failures_critical
+    description: Activate maximum error handling when failures are critically high
+    metric: silent_failures
+    condition: "> 15"
+    action: emergency_error_handling
+    params:
+      level: "maximum"
+      description: "Emergency error handling protocol activated"
+    cooldown_minutes: 120
+    priority: critical
+  
+  - name: silent_failures_high
+    description: Enhance error handling when failures are high
+    metric: silent_failures
+    condition: "> 3"
+    action: activate_forensic_logging
+    params:
+      level: "max_level"
+      description: "Forensic logging activated to detect and recover silent failures"
+    cooldown_minutes: 60
+    priority: high
+  
+  - name: silent_failures_improving
+    description: Track when silent failures are decreasing
+    metric: silent_failures
+    condition: "trending_down"
+    period_minutes: 30
+    threshold_percent: 15
+    action: log_improvement
+    params:
+      metric: "silent_failures"
+      description: "Silent failures decreasing by at least 15% over 30 minutes"
+    priority: low
+  
+  # WCAG Issues Rules
+  - name: wcag_critical
+    description: Activate maximum accessibility mode when issues are critically high
+    metric: wcag_issues
+    condition: "> 20"
+    action: emergency_accessibility
+    params:
+      mode: "maximum_compliance"
+      description: "Emergency accessibility mode activated"
+    cooldown_minutes: 120
+    priority: critical
+  
+  - name: wcag_high
+    description: Enhance accessibility when WCAG issues are high
+    metric: wcag_issues
+    condition: "> 5"
+    action: boost_accessibility
+    params:
+      apply_all: true
+      description: "Accessibility boost applied across all interfaces"
+    cooldown_minutes: 60
+    priority: high
+  
+  - name: wcag_improving
+    description: Track when WCAG issues are decreasing
+    metric: wcag_issues
+    condition: "trending_down"
+    period_minutes: 30
+    threshold_number: 2
+    action: log_improvement
+    params:
+      metric: "wcag_issues"
+      description: "WCAG issues decreased by at least 2 over 30 minutes"
+    priority: low
+
+# Combined rules across multiple metrics
+  - name: overall_crisis_detected
+    description: Activate Plan B level 1 when multiple metrics are critical
+    condition: "any_critical >= 2"
+    action: activate_plan_b
+    params:
+      level: 1
+      description: "Plan B contingency level 1 activated due to multiple critical metrics"
+    cooldown_minutes: 240
+    priority: critical
+  
+  - name: success_detected
+    description: Log when all metrics are trending toward targets
+    condition: "all_improving"
+    period_minutes: 60
+    action: log_success
+    params:
+      description: "All metrics trending positively for at least 60 minutes"
+    priority: medium
+
+# Action definitions
+actions:
+  deploy_hotfix:
+    description: "Deploys a hotfix to address specific metrics"
+    script: "./deploy_hotfix.js"
+    
+  enable_network_degradation_mode:
+    description: "Enables network degradation mode with specified parameters"
+    script: "./network_degradation.js"
+    
+  activate_forensic_logging:
+    description: "Activates forensic logging to detect and recover silent failures"
+    script: "./forensic_logging.js"
+    
+  emergency_error_handling:
+    description: "Activates emergency error handling protocol"
+    script: "./error_handling.js"
+    
+  boost_accessibility:
+    description: "Enhances accessibility compliance"
+    script: "./boost_accessibility.js"
+    
+  network_emergency:
+    description: "Activates emergency network protocol"
+    script: "./network_emergency.js"
+    
+  emergency_accessibility:
+    description: "Activates emergency accessibility protocol"
+    script: "./accessibility_emergency.js"
+    
+  activate_plan_b:
+    description: "Activates Plan B contingency at specified level"
+    script: "./activate_plan_b.js"
+    
+  log_improvement:
+    description: "Logs improvement in metrics"
+    script: "./log_improvement.js"
+    
+  log_success:
+    description: "Logs success when all metrics are improving"
+    script: "./log_success.js"
+
+# Notification targets
+notifications:
+  slack:
+    channel: "#crisis-response"
+    username: "RED2025 Protocol"
+    icon: ":red_circle:"
+  
+  email:
+    to: 
+      - "crisis-team@example.com"
+      - "stakeholders@example.com"
+    subject_prefix: "[RED2025 CRISIS]"
+    
+  dashboard:
+    url: "http://skr-crisis.skr/dashboard"
+    update_interval_seconds: 30

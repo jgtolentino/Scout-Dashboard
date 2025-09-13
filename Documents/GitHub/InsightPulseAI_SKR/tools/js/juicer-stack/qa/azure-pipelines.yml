@@ -1,0 +1,68 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - 'tools/js/juicer-stack/dashboards/**'
+      - 'tools/js/juicer-stack/qa/**'
+
+pr:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - 'tools/js/juicer-stack/dashboards/**'
+      - 'tools/js/juicer-stack/qa/**'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Test
+  displayName: 'QA Testing'
+  jobs:
+  - job: DashboardQA
+    displayName: 'Dashboard QA Tests'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '20.x'
+      displayName: 'Install Node.js'
+
+    - script: |
+        cd $(Build.SourcesDirectory)/tools/js/juicer-stack/qa
+        npm ci
+      displayName: 'Install dependencies'
+
+    - script: |
+        cd $(Build.SourcesDirectory)/tools/js/juicer-stack/qa
+        ./run_qa.sh test:visual
+      displayName: 'Run visual parity tests'
+
+    - script: |
+        cd $(Build.SourcesDirectory)/tools/js/juicer-stack/qa
+        ./run_qa.sh test:behavior
+      displayName: 'Run behavior parity tests'
+
+    - script: |
+        cd $(Build.SourcesDirectory)/tools/js/juicer-stack/qa
+        ./run_qa.sh test:accessibility
+      displayName: 'Run accessibility tests'
+
+    - script: |
+        cd $(Build.SourcesDirectory)/tools/js/juicer-stack/qa
+        ./run_qa.sh test:performance
+      displayName: 'Run performance tests'
+      continueOnError: true  # Performance tests only warn, don't block
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.SourcesDirectory)/tools/js/juicer-stack/qa/reports'
+        artifact: 'qa-reports'
+        publishLocation: 'pipeline'
+      displayName: 'Publish QA reports'
+      condition: always()  # Always publish reports, even if tests fail

@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client360 Dashboard | v2.4.0</title>
+  <meta name="description" content="Client360 Dashboard provides comprehensive retail analytics with AI-powered insights">
+  <meta name="version" content="2.4.0">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  
+  <!-- Open Graph tags -->
+  <meta property="og:title" content="Client360 Dashboard">
+  <meta property="og:description" content="Comprehensive retail analytics with AI-powered insights">
+  <meta property="og:image" content="og-image.png">
+  <meta property="og:url" content="https://client360.tbwa.com">
+  
+  <!-- TBWA Styling -->
+  <link rel="stylesheet" href="css/theme-tbwa.css">
+  <link rel="stylesheet" href="css/analytics-dashboard.css">
+  
+  <!-- Mapbox CSS for map components -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Dashboard-specific styles -->
+  <style>
+    :root {
+      --primary-color: #0067b1;
+      --secondary-color: #e31937;
+      --accent-color: #ffd100;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --background-light: #f8f9fa;
+      --background-card: #ffffff;
+      --border-color: #e1e4e8;
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+      --info-color: #17a2b8;
+    }
+    
+    /* Dark mode variables */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-primary: #f0f0f0;
+        --text-secondary: #b0b0b0;
+        --background-light: #1e1e1e;
+        --background-card: #2a2a2a;
+        --border-color: #444444;
+      }
+    }
+    
+    body {
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--background-light);
+      color: var(--text-primary);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    /* Dashboard Layout */
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+    
+    /* Header styles */
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      height: 40px;
+      margin-right: 1rem;
+    }
+    
+    .header-title {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    /* Main content area */
+    main {
+      padding: 1rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* Sidebar and Content Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .sidebar {
+      background-color: var(--background-card);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .sidebar-nav li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: 0.25rem;
+      transition: background-color 0.2s;
+    }
+    
+    .sidebar-nav a:hover {
+      background-color: rgba(0, 103, 177, 0.1);
+    }
+    
+    .sidebar-nav a.active {
+      background-color: rgba(0, 103, 177, 0.2);
+      font-weight: 500;
+    }
+    
+    .sidebar-nav i {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* Content area */
+    .content {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 1rem;
+    }
+    
+    /* Dashboard title and controls */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .dashboard-title {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    
+    .dashboard-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    /* Grid layout for dashboard widgets */
+    .widget-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: minmax(100px, auto);
+      gap: 1rem;
+    }
+    
+    /* Widget styling */
+    .widget {
+      background-color: var(--background-card);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .widget-title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    .widget-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .widget-content {
+      flex: 1;
+      overflow: auto;
+    }
+    
+    /* Widget sizes */
+    .widget-full {
+      grid-column: span 12;
+    }
+    
+    .widget-half {
+      grid-column: span 6;
+    }
+    
+    .widget-third {
+      grid-column: span 4;
+    }
+    
+    .widget-quarter {
+      grid-column: span 3;
+    }
+    
+    @media (max-width: 1200px) {
+      .widget-quarter {
+        grid-column: span 6;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .widget-half, .widget-third {
+        grid-column: span 12;
+      }
+    }
+    
+    /* Footer styles */
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+    
+    /* Map container */
+    .map-container {
+      height: 400px;
+      width: 100%;
+      border-radius: 0.25rem;
+      overflow: hidden;
+    }
+    
+    /* AI Insights panel */
+    .ai-insights-panel {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .insight-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    .insight-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .insight-item:last-child {
+      border-bottom: none;
+    }
+    
+    .insight-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .insight-title {
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    .insight-category {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
+      background-color: rgba(0, 103, 177, 0.1);
+    }
+    
+    .insight-body {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    
+    /* User personalization panel */
+    .personalization-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 300px;
+      background-color: var(--background-card);
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .personalization-panel.open {
+      transform: translateX(0);
+    }
+    
+    .personalization-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .personalization-content {
+      padding: 1rem;
+      overflow-y: auto;
+      height: calc(100% - 60px);
+    }
+    
+    /* Buttons and controls */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      border: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border-radius: 50%;
+    }
+    
+    .btn i {
+      margin-right: 0.5rem;
+    }
+    
+    .btn-icon i {
+      margin-right: 0;
+    }
+    
+    /* Version tag */
+    .version-tag {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <header>
+      <div class="header-content">
+        <div class="logo-container">
+          <img src="assets/tbwa-logo.png" alt="TBWA Logo" class="logo">
+          <h1 class="header-title">Client360 Dashboard</h1>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-secondary btn-icon" id="personalize-btn" title="Personalize Dashboard">
+            <i class="fas fa-sliders"></i>
+          </button>
+          <button class="btn btn-secondary btn-icon" id="theme-toggle" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="btn btn-primary">
+            <i class="fas fa-download"></i>
+            Export
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    <main>
+      <div class="dashboard-grid">
+        <aside class="sidebar">
+          <nav>
+            <ul class="sidebar-nav">
+              <li><a href="#" class="active"><i class="fas fa-chart-line"></i> Overview</a></li>
+              <li><a href="#"><i class="fas fa-map-marker-alt"></i> Regional Analysis</a></li>
+              <li><a href="#"><i class="fas fa-store"></i> Store Performance</a></li>
+              <li><a href="#"><i class="fas fa-tags"></i> Product Analytics</a></li>
+              <li><a href="#"><i class="fas fa-robot"></i> AI Insights</a></li>
+              <li><a href="#"><i class="fas fa-chart-pie"></i> Sales Reports</a></li>
+              <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
+            </ul>
+          </nav>
+        </aside>
+        
+        <div class="content">
+          <div class="dashboard-header">
+            <h2 class="dashboard-title">Retail Performance Overview</h2>
+            <div class="dashboard-controls">
+              <button class="btn btn-secondary">
+                <i class="fas fa-calendar"></i>
+                Last 30 Days
+              </button>
+              <button class="btn btn-secondary">
+                <i class="fas fa-filter"></i>
+                Filters
+              </button>
+              <button class="btn btn-secondary">
+                <i class="fas fa-redo"></i>
+                Refresh
+              </button>
+            </div>
+          </div>
+          
+          <div class="widget-grid" id="dashboard-grid">
+            <!-- KPI Summary Widget -->
+            <div class="widget widget-full" id="sales-overview">
+              <div class="widget-header">
+                <h3 class="widget-title">Sales Performance Summary</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div style="display: flex; justify-content: space-between; gap: 1rem;">
+                  <div style="flex: 1; padding: 1rem; background-color: rgba(0, 103, 177, 0.1); border-radius: 0.5rem; text-align: center;">
+                    <h4>Total Sales</h4>
+                    <div style="font-size: 1.5rem; font-weight: bold;">₱8.2M</div>
+                    <div style="color: var(--success-color);"><i class="fas fa-arrow-up"></i> 12.5%</div>
+                  </div>
+                  <div style="flex: 1; padding: 1rem; background-color: rgba(227, 25, 55, 0.1); border-radius: 0.5rem; text-align: center;">
+                    <h4>Transactions</h4>
+                    <div style="font-size: 1.5rem; font-weight: bold;">24,631</div>
+                    <div style="color: var(--success-color);"><i class="fas fa-arrow-up"></i> 8.2%</div>
+                  </div>
+                  <div style="flex: 1; padding: 1rem; background-color: rgba(255, 209, 0, 0.1); border-radius: 0.5rem; text-align: center;">
+                    <h4>Avg. Order Value</h4>
+                    <div style="font-size: 1.5rem; font-weight: bold;">₱332.91</div>
+                    <div style="color: var(--success-color);"><i class="fas fa-arrow-up"></i> 4.1%</div>
+                  </div>
+                  <div style="flex: 1; padding: 1rem; background-color: rgba(23, 162, 184, 0.1); border-radius: 0.5rem; text-align: center;">
+                    <h4>Active Stores</h4>
+                    <div style="font-size: 1.5rem; font-weight: bold;">342</div>
+                    <div style="color: var(--success-color);"><i class="fas fa-arrow-up"></i> 2.1%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Map Widget -->
+            <div class="widget widget-half" id="store-map" style="grid-row: span 2;">
+              <div class="widget-header">
+                <h3 class="widget-title">Store Performance Map</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon map-view-toggle" title="Change Map View">
+                    <i class="fas fa-layer-group"></i>
+                  </button>
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div class="map-container" id="performance-map">
+                  <!-- Map will be rendered here by MapEngine -->
+                </div>
+              </div>
+            </div>
+            
+            <!-- AI Insights Widget -->
+            <div class="widget widget-half" id="ai-insights">
+              <div class="widget-header">
+                <h3 class="widget-title">AI-Powered Insights</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon" title="Refresh Insights">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div class="ai-insights-panel">
+                  <div class="insight-list">
+                    <div class="insight-item">
+                      <div class="insight-header">
+                        <h4 class="insight-title">Sales Trend Detected</h4>
+                        <span class="insight-category">Trend</span>
+                      </div>
+                      <div class="insight-body">
+                        <p>Sales are showing a consistent upward trend every Tuesday and Wednesday across all regions, with an average increase of 18% compared to other weekdays.</p>
+                      </div>
+                    </div>
+                    <div class="insight-item">
+                      <div class="insight-header">
+                        <h4 class="insight-title">Product Performance Anomaly</h4>
+                        <span class="insight-category">Anomaly</span>
+                      </div>
+                      <div class="insight-body">
+                        <p>Product category "Beverages" is showing unusually high performance in the NCR region, outperforming historical averages by 32% this month.</p>
+                      </div>
+                    </div>
+                    <div class="insight-item">
+                      <div class="insight-header">
+                        <h4 class="insight-title">Regional Opportunity</h4>
+                        <span class="insight-category">Opportunity</span>
+                      </div>
+                      <div class="insight-body">
+                        <p>Western Visayas region shows potential for 15% growth in "Personal Care" product category based on recent consumer purchase patterns and competitor activity.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="padding: 0.75rem; border-top: 1px solid var(--border-color);">
+                    <button class="btn btn-primary" style="width: 100%;">
+                      <i class="fas fa-lightbulb"></i>
+                      Generate New Insights
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Regional Performance Widget -->
+            <div class="widget widget-third" id="region-performance">
+              <div class="widget-header">
+                <h3 class="widget-title">Regional Performance</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div style="height: 100%; display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>NCR</div>
+                    <div>₱2.1M</div>
+                    <div style="color: var(--success-color);">+16.4%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Calabarzon</div>
+                    <div>₱1.8M</div>
+                    <div style="color: var(--success-color);">+12.1%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Central Luzon</div>
+                    <div>₱1.5M</div>
+                    <div style="color: var(--success-color);">+9.8%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Western Visayas</div>
+                    <div>₱1.2M</div>
+                    <div style="color: var(--success-color);">+7.5%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Central Visayas</div>
+                    <div>₱0.9M</div>
+                    <div style="color: var(--warning-color);">+2.3%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem;">
+                    <div>Davao Region</div>
+                    <div>₱0.7M</div>
+                    <div style="color: var(--danger-color);">-3.2%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Brand Performance Widget -->
+            <div class="widget widget-third" id="brand-performance">
+              <div class="widget-header">
+                <h3 class="widget-title">Brand Performance</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div style="height: 100%; display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Brand A</div>
+                    <div>₱2.4M</div>
+                    <div style="color: var(--success-color);">+18.2%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Brand B</div>
+                    <div>₱1.9M</div>
+                    <div style="color: var(--success-color);">+14.7%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Brand C</div>
+                    <div>₱1.6M</div>
+                    <div style="color: var(--success-color);">+9.3%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Brand D</div>
+                    <div>₱1.1M</div>
+                    <div style="color: var(--warning-color);">+3.5%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Brand E</div>
+                    <div>₱0.8M</div>
+                    <div style="color: var(--warning-color);">+1.8%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem;">
+                    <div>Brand F</div>
+                    <div>₱0.4M</div>
+                    <div style="color: var(--danger-color);">-5.2%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Top Products Widget -->
+            <div class="widget widget-third" id="top-products">
+              <div class="widget-header">
+                <h3 class="widget-title">Top Products</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div style="height: 100%; display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product X</div>
+                    <div>₱520K</div>
+                    <div style="color: var(--success-color);">+22.1%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product Y</div>
+                    <div>₱480K</div>
+                    <div style="color: var(--success-color);">+19.4%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product Z</div>
+                    <div>₱410K</div>
+                    <div style="color: var(--success-color);">+16.8%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product W</div>
+                    <div>₱380K</div>
+                    <div style="color: var(--success-color);">+11.2%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product V</div>
+                    <div>₱350K</div>
+                    <div style="color: var(--warning-color);">+4.7%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem;">
+                    <div>Product U</div>
+                    <div>₱320K</div>
+                    <div style="color: var(--warning-color);">+2.1%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Recent Activity Widget -->
+            <div class="widget widget-quarter" id="recent-activity">
+              <div class="widget-header">
+                <h3 class="widget-title">Recent Activity</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div style="height: 100%; display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="font-size: 0.875rem; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div style="font-weight: 500;">Data refresh completed</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75rem;">5 minutes ago</div>
+                  </div>
+                  <div style="font-size: 0.875rem; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div style="font-weight: 500;">Sales forecast updated</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75rem;">1 hour ago</div>
+                  </div>
+                  <div style="font-size: 0.875rem; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div style="font-weight: 500;">New AI insight generated</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75rem;">2 hours ago</div>
+                  </div>
+                  <div style="font-size: 0.875rem; padding: 0.5rem;">
+                    <div style="font-weight: 500;">Region filter updated</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75rem;">3 hours ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <footer>
+      <div>© 2025 TBWA Technology Group. All Rights Reserved.</div>
+    </footer>
+    
+    <!-- Personalization Panel -->
+    <div class="personalization-panel" id="personalization-panel">
+      <div class="personalization-header">
+        <h3>Personalize Dashboard</h3>
+        <button class="btn btn-secondary btn-icon" id="close-personalize">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="personalization-content">
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Layout Templates</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+            <button class="btn btn-secondary" style="flex: 1;">Default</button>
+            <button class="btn btn-secondary" style="flex: 1;">Compact</button>
+            <button class="btn btn-secondary" style="flex: 1;">Analytics</button>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Edit Mode</h4>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+            <i class="fas fa-edit"></i>
+            Enable Edit Mode
+          </button>
+          <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Edit mode allows you to drag, resize, and customize widgets.
+          </p>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Saved Views</h4>
+          <select style="width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid var(--border-color); background-color: var(--background-light); color: var(--text-primary); margin-top: 0.5rem;">
+            <option>Default View</option>
+            <option>Sales Focus</option>
+            <option>Regional Analysis</option>
+            <option>Executive Summary</option>
+          </select>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <button class="btn btn-secondary" style="flex: 1;">Save Current</button>
+            <button class="btn btn-secondary" style="flex: 1;">Delete</button>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Color Theme</h4>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <button class="btn btn-secondary" style="flex: 1;">Light</button>
+            <button class="btn btn-secondary" style="flex: 1;">Dark</button>
+            <button class="btn btn-secondary" style="flex: 1;">System</button>
+          </div>
+        </div>
+        
+        <div>
+          <h4>Reset Dashboard</h4>
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">
+            <i class="fas fa-undo"></i>
+            Reset to Default
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Version tag -->
+    <div class="version-tag">v2.4.0</div>
+  </div>
+  
+  <!-- Core dashboard scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/dashboard.js"></script>
+  
+  <!-- Load AI components -->
+  <script src="js/components/ai/model_registry.js"></script>
+  <script src="js/components/ai/embeddings_service.js"></script>
+  <script src="js/components/ai/streaming_client.js"></script>
+  <script src="js/components/ai/ai_engine.js"></script>
+  
+  <!-- Load Map components -->
+  <script src="js/components/map/map_engine.js"></script>
+  
+  <!-- Load User Personalization components -->
+  <script src="js/components/user/preferences.js"></script>
+  <script src="js/components/user/dashboard_layouts.js"></script>
+  
+  <!-- Initialization script -->
+  <script>
+    // Initialize components when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize personalization panel
+      const personalizationPanel = document.getElementById('personalization-panel');
+      const personalizeBtn = document.getElementById('personalize-btn');
+      const closePersonalizeBtn = document.getElementById('close-personalize');
+      
+      personalizeBtn.addEventListener('click', function() {
+        personalizationPanel.classList.add('open');
+      });
+      
+      closePersonalizeBtn.addEventListener('click', function() {
+        personalizationPanel.classList.remove('open');
+      });
+      
+      // Initialize theme toggle
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      const themeIcon = themeToggleBtn.querySelector('i');
+      
+      themeToggleBtn.addEventListener('click', function() {
+        document.body.classList.toggle('dark-theme');
+        themeIcon.classList.toggle('fa-moon');
+        themeIcon.classList.toggle('fa-sun');
+      });
+      
+      // Initialize User Preferences
+      if (window.UserPreferences) {
+        window.userPreferences = new UserPreferences();
+      }
+      
+      // Initialize Dashboard Layouts
+      if (window.DashboardLayouts) {
+        window.dashboardLayouts = new DashboardLayouts({
+          containerSelector: '#dashboard-grid'
+        });
+      }
+      
+      // Initialize Map Engine
+      if (window.MapEngine) {
+        window.mapEngine = new MapEngine({
+          containerId: 'performance-map',
+          mapboxToken: window.config?.mapbox?.accessToken || 'pk.placeholder.token'
+        });
+      }
+      
+      // Initialize AI Engine
+      if (window.AIEngine) {
+        window.aiEngine = new AIEngine({
+          defaultModel: 'azure-openai',
+          enableStreaming: true,
+          enableCaching: true
+        });
+      }
+      
+      console.log('Client360 Dashboard v2.4.0 initialized');
+    });
+  </script>
+</body>
+</html>

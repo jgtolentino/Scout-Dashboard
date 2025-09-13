@@ -1,0 +1,11 @@
+flowchart TD
+    User([Client Exec / Ops]) --> Browser[Web Browser]
+    Browser --> StaticApp[Azure Static Web App ("Client 360")]
+    StaticApp -->|REST / GraphQL| APIGW[Azure API Management]
+    APIGW --> FastAPI[Analytics API (FastAPI + Auth)]
+
+    Edge[Edge Devices (Pi 5)] -->|JSON events| IoTHub[Azure IoT Hub / Event Hubs]
+    IoTHub --> AutoLoader[Databricks Autoloader (Structured Streaming)]
+    AutoLoader --> Lakehouse[(Delta Lakehouse)]
+    Lakehouse --> FastAPI
+    FastAPI --> APIGW

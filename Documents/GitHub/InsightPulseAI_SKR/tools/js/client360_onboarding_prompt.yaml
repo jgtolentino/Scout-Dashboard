@@ -1,0 +1,268 @@
+name: client360_dashboard_onboarding
+description: Comprehensive onboarding guide for the Client360 Dashboard codebase
+prompt: |
+  # Client360 Dashboard Developer Onboarding Guide
+  
+  ## Overview
+  
+  The Client360 Dashboard is a comprehensive analytics platform designed to provide retail insights for TBWA clients. It displays KPIs, store performance data, geographical visualizations, brand insights, and sales analytics. The dashboard supports multiple themes (TBWA and SariSari) and includes features like interactive filtering, data source toggling, and a rollback system.
+  
+  This guide will help you understand the architecture, codebase organization, key features, and development workflow for the Client360 Dashboard.
+  
+  ## Architecture
+  
+  The dashboard follows a multi-tier architecture:
+  
+  1. **Frontend**: Azure Static Web App serving HTML/CSS/JS 
+  2. **API Layer**: Azure API Management + FastAPI backend
+  3. **Data Plane**: Delta Lakehouse with Bronze/Silver/Gold medallion architecture
+  4. **Edge Devices**: Pi 5 devices sending data via Azure IoT Hub
+  
+  ### Data Flow
+  
+  ```
+  Edge Devices → IoT Hub → Databricks Autoloader → Delta Lakehouse (Bronze/Silver/Gold) → FastAPI → Dashboard
+  ```
+  
+  ## Codebase Organization
+  
+  The main repository is structured as follows:
+  
+  ```
+  client360_dashboard/
+  ├── js/                         # JavaScript source files
+  │   ├── dashboard.js            # Main dashboard application
+  │   └── components/             # Reusable components (map, charts, etc.)
+  ├── src/                        # Source files for preprocessing
+  │   ├── styles/                 # SCSS files 
+  │   │   └── variables-tbwa.scss # TBWA theme variables
+  │   └── components/             # Component source files
+  ├── scripts/                    # Build and deployment scripts
+  │   ├── build-tbwa-theme.sh     # Theme build script
+  │   └── deploy-*.sh             # Various deployment scripts
+  ├── deploy/                     # Production-ready files
+  │   ├── css/                    # Compiled CSS
+  │   ├── js/                     # Minified JavaScript
+  │   └── index.html              # Main dashboard HTML
+  ├── docs/                       # Documentation
+  ├── tests/                      # Test files
+  └── staticwebapp.config.json    # Azure Static Web App configuration
+  ```
+  
+  ## Key Features
+  
+  ### 1. Theme System
+  
+  The dashboard supports multiple themes:
+  
+  - **TBWA**: Corporate theme (blue/yellow)
+  - **SariSari**: Retail-focused theme (vibrant colors)
+  
+  Themes are implemented through a token-based system:
+  
+  - `variables-tbwa.scss`: Contains all design tokens as CSS variables
+  - `tbwa-theme.css`: Applies these variables consistently across components
+  - Theme switching: Controlled via `<html data-theme="tbwa">` attribute
+  
+  ### 2. Data Connections
+  
+  The dashboard can connect to data from multiple sources:
+  
+  - **Databricks SQL**: Production data from Delta Lake Gold tables
+  - **Simulation Mode**: Sample data for development/demo purposes
+  
+  The SQL connector (`databricks_sql_connector.js`) handles:
+  - Secure authentication via Azure Key Vault
+  - Connection pooling and query optimizations
+  - Automatic fallback to simulation mode when needed
+  
+  ### 3. Interactive Components
+  
+  The dashboard includes several interactive components:
+  
+  - **Filter Bar**: Unified filtering across all visualizations
+  - **Time Selector**: For selecting date ranges
+  - **Interactive Map**: Geospatial view of store performance
+  - **KPI Tiles**: With click-to-drill functionality
+  - **AI Insights Panel**: Provides data-driven recommendations
+  
+  ### 4. Rollback System
+  
+  A critical feature of the dashboard is its rollback capability:
+  
+  - Allows reverting to a previous known-good state
+  - Accessible via the rollback component in the UI
+  - Backed by version-specific deployment packages
+  - Includes verification steps to ensure successful rollback
+  
+  ## Development Environment Setup
+  
+  ### Prerequisites
+  
+  - Node.js (v18+)
+  - npm or yarn
+  - Azure CLI (for deployments)
+  - Databricks CLI (optional, for data access)
+  
+  ### Local Development
+  
+  1. Clone the repository:
+     ```bash
+     git clone <repository-url>
+     cd client360_dashboard
+     ```
+  
+  2. Install dependencies:
+     ```bash
+     npm install
+     ```
+  
+  3. Build themes and assets:
+     ```bash
+     npm run build:dev
+     ```
+  
+  4. For live development with auto-reloading:
+     ```bash
+     npm run watch
+     ```
+  
+  5. Run tests:
+     ```bash
+     npm test
+     ```
+  
+  ### Environment Variables
+  
+  Create a `.env.local` file with the following variables:
+  
+  ```
+  # Databricks Connection
+  DATABRICKS_SQL_HOST=adb-123456789012345.6.azuredatabricks.net
+  DATABRICKS_SQL_PATH=/sql/1.0/warehouses/abcdefg1234567890
+  DATABRICKS_CATALOG=client360_catalog
+  DATABRICKS_SCHEMA=client360
+  
+  # Azure Configuration
+  KEY_VAULT_NAME=kv-client360
+  USE_MANAGED_IDENTITY=true
+  
+  # Development Options
+  SIMULATION_MODE=true  # Set to false for production data
+  LOG_LEVEL=debug       # Set to info for production
+  ```
+  
+  ## Build & Deployment
+  
+  ### Building for Production
+  
+  ```bash
+  # Build all themes and minify assets
+  npm run build:themes
+  
+  # Create deployment package
+  ./scripts/package_dashboard.sh
+  ```
+  
+  ### Deploying to Azure
+  
+  The project uses Azure Static Web Apps for hosting. Two deployment methods are available:
+  
+  #### 1. Manual Deployment (Recommended for controlled releases)
+  
+  ```bash
+  # Deploy to Azure Static Web App
+  ./deploy_to_azure.sh
+  ```
+  
+  #### 2. CI/CD Pipeline
+  
+  Push to the `feature-dashboard` branch to trigger the CI/CD pipeline, which:
+  - Builds the dashboard
+  - Runs tests
+  - Deploys to the QA environment
+  - (After approval) Deploys to production
+  
+  ### URL Structure
+  
+  The dashboard is accessible at the following paths:
+  
+  - Landing Page: `https://<app-url>/`
+  - Dashboard: `https://<app-url>/360/`
+  
+  ## Testing
+  
+  The project includes several types of tests:
+  
+  - **Unit Tests**: For individual components
+  - **Integration Tests**: For data connections
+  - **E2E Tests**: Using Cypress for full dashboard testing
+  
+  Run tests with:
+  ```bash
+  npm test             # Run all tests
+  npm run test:open    # Open Cypress for interactive testing
+  ```
+  
+  ## Troubleshooting
+  
+  ### Common Issues
+  
+  1. **CSS Not Loading**: Ensure the staticwebapp.config.json has proper MIME type mappings
+  2. **Data Connection Fails**: Try enabling SIMULATION_MODE for local development
+  3. **Incorrect Theme**: Check that theme CSS files are included in the correct order
+  4. **Deployment Failed**: Verify that the package contains all necessary files
+  
+  ### Debugging
+  
+  - Use browser dev tools to inspect element styling
+  - Check network requests for CSS loading issues
+  - Enable debug logging with LOG_LEVEL=debug
+  
+  ## Further Documentation
+  
+  Additional documentation can be found in the `docs/` directory:
+  
+  - `DATABRICKS_SQL_CONNECTOR.md`: Documentation for data connections
+  - `THEME_SYSTEM_INTEGRATION_GUIDE.md`: Comprehensive theme system guide
+  - `DEPLOYMENT_SUMMARY.md`: Details about the deployment process
+  - `ROLLBACK_IMPLEMENTATION_SUMMARY.md`: Information about the rollback system
+  
+  ## Architecture Diagrams
+  
+  Architecture diagrams are available in the `docs/architecture/` directory:
+  
+  - `context.mmd`: System context diagram
+  - `hld.mmd`: High-level design diagram
+  - `erd.mmd`: Entity-relationship diagram
+  - `medallion.mmd`: Medallion architecture diagram
+  
+  These diagrams are in Mermaid format and can be visualized with tools like Mermaid Live Editor or GitHub's Mermaid renderer.
+  
+  ## Best Practices
+  
+  1. **Theme Development**: Always use CSS variables from variables.scss
+  2. **Data Access**: Use the FMCGSQLConnector for consistent data access
+  3. **Deployment**: Test thoroughly in QA before production release
+  4. **Rollback**: Create backup packages before major changes
+  5. **Documentation**: Update relevant docs when making changes
+  
+  By following this guide, you should have a solid understanding of the Client360 Dashboard codebase and be ready to contribute to its development.
+versions:
+  - v1.0.0
+tags:
+  - onboarding
+  - dashboard
+  - client360
+  - developer
+target_users:
+  - new_developer
+  - frontend_developer
+  - data_engineer
+  - devops_engineer
+sample_questions:
+  - "How is the theme system implemented in the Client360 dashboard?"
+  - "What's the process for deploying the dashboard to production?"
+  - "How do I connect to the Databricks SQL data source?"
+  - "How does the rollback system work?"
+  - "What's the directory structure of the Client360 codebase?"

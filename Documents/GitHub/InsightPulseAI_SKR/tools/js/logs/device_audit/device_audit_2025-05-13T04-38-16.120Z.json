@@ -1,0 +1,105 @@
+{
+  "timestamp": "2025-05-13T04:38:16.120Z",
+  "totalDevices": 50,
+  "activeDevices": 33,
+  "silentDevices": 17,
+  "byType": {
+    "sensor": {
+      "total": 10,
+      "active": 6,
+      "silent": 4
+    },
+    "camera": {
+      "total": 10,
+      "active": 6,
+      "silent": 4
+    },
+    "gateway": {
+      "total": 10,
+      "active": 7,
+      "silent": 3
+    },
+    "display": {
+      "total": 10,
+      "active": 9,
+      "silent": 1
+    },
+    "kiosk": {
+      "total": 10,
+      "active": 5,
+      "silent": 5
+    }
+  },
+  "byLocation": {
+    "store-east": {
+      "total": 7,
+      "active": 5,
+      "silent": 2
+    },
+    "store-north": {
+      "total": 6,
+      "active": 5,
+      "silent": 1
+    },
+    "store-west": {
+      "total": 8,
+      "active": 6,
+      "silent": 2
+    },
+    "store-south": {
+      "total": 12,
+      "active": 8,
+      "silent": 4
+    },
+    "distribution-center": {
+      "total": 9,
+      "active": 6,
+      "silent": 3
+    },
+    "warehouse": {
+      "total": 8,
+      "active": 3,
+      "silent": 5
+    }
+  },
+  "byFirmware": {
+    "1.2.0": {
+      "total": 13,
+      "active": 11,
+      "silent": 2
+    },
+    "1.3.2": {
+      "total": 11,
+      "active": 8,
+      "silent": 3
+    },
+    "2.1.0": {
+      "total": 14,
+      "active": 11,
+      "silent": 3
+    },
+    "2.0.1": {
+      "total": 12,
+      "active": 3,
+      "silent": 9
+    }
+  },
+  "topSilentLocations": [
+    {
+      "location": "warehouse",
+      "silentCount": 5,
+      "silentPercentage": "62.50"
+    },
+    {
+      "location": "store-south",
+      "silentCount": 4,
+      "silentPercentage": "33.33"
+    },
+    {
+      "location": "distribution-center",
+      "silentCount": 3,
+      "silentPercentage": "33.33"
+    }
+  ],
+  "activePercentage": "66.00"
+}

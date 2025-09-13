@@ -1,0 +1,21 @@
+name: "Caca QA Core"
+description: "Global QA audit for InsightPulseAI projects"
+inputs:
+  prd_path:
+    description: "Path to PRD markdown or YAML"
+    required: true
+  target_path:
+    description: "Built HTML or dashboard folder"
+    required: true
+  out_path:
+    description: "Path to store QA results"
+    required: false
+    default: "qa_reports/"
+
+runs:
+  using: "node16"
+  steps:
+    - run: node qa/scripts/validate_ui.js ${{ inputs.target_path }}
+    - run: node qa/scripts/compare_prd.ts ${{ inputs.prd_path }} ${{ inputs.target_path }}
+    - run: mkdir -p ${{ inputs.out_path }}
+    - run: cp qa/tmp/report.yaml ${{ inputs.out_path }}/qa_report.yaml

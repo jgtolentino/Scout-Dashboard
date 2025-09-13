@@ -1,0 +1,53 @@
+{
+  "name": "filipino-elements-analyzer",
+  "version": "1.1.0",
+  "description": "Tool for analyzing and visualizing Filipino cultural elements in advertising campaigns",
+  "main": "analyze_filipino_elements.js",
+  "bin": {
+    "analyze-filipino-elements": "./analyze_filipino_elements.js"
+  },
+  "scripts": {
+    "start": "node analyze_filipino_elements.js",
+    "analyze": "node analyze_filipino_elements.js analyze",
+    "visualize": "node analyze_filipino_elements.js visualize",
+    "usage": "node analyze_filipino_elements.js usage",
+    "correlations": "node analyze_filipino_elements.js correlations",
+    "top-campaigns": "node analyze_filipino_elements.js top-campaigns",
+    "vector-build": "python vector_embedding_addon.py --build",
+    "vector-analyze": "python vector_embedding_addon.py --analyze",
+    "vector-search": "python vector_embedding_addon.py --search"
+  },
+  "keywords": [
+    "filipino",
+    "analysis",
+    "advertising",
+    "cultural",
+    "elements",
+    "visualization",
+    "sqlite",
+    "tbwa",
+    "vector",
+    "embeddings"
+  ],
+  "author": "InsightPulseAI Team - TBWA\\",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "canvas": "^2.11.0",
+    "chart.js": "^4.0.0",
+    "commander": "^11.0.0",
+    "sqlite3": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "python": {
+    "dependencies": [
+      "numpy",
+      "matplotlib",
+      "scikit-learn",
+      "sentence-transformers",
+      "faiss-cpu"
+    ]
+  }
+}

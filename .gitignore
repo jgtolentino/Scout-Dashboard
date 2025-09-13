@@ -1,0 +1,88 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# testing
+coverage/
+
+# next.js
+.next/
+out/
+build/
+dist/
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+*.env
+!.env.example
+!.env.*.example
+
+# turbo
+.turbo
+
+# vercel
+.vercel
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Security
+.gitleaks.toml
+.secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+
+# Build artifacts
+*.tsbuildinfo
+
+# Temporary files
+.tmp/
+tmp/
+temp/
+
+# Sentry
+.sentryclirc
+.sentryrc
+sentry.properties
+.sentry-env
+next.config.original.js# Large Files
+*.dmg
+*.app/
+Electron Framework

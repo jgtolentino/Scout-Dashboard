@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBWA Client360 Dashboard</title>
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/css/tbwa-theme.css">
+  <style>
+    /* Emergency inline styles in case CSS loading fails */
+    .rollback-dashboard {
+      background-color: #FFFFFF;
+      border: 3px solid #00C3EC;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    }
+    .rollback-dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .rollback-dashboard-header h3 {
+      color: #002B80;
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .rollback-dashboard-content {
+      margin-bottom: 16px;
+    }
+    .rollback-dashboard-content p {
+      color: #777777;
+      margin-bottom: 8px;
+    }
+    .rollback-dashboard-actions {
+      display: flex;
+      gap: 16px;
+    }
+    .btn-rollback {
+      background-color: #002B80;
+      color: white;
+      border: none;
+      padding: 8px 24px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-verify {
+      background-color: #00C3EC;
+      color: #002B80;
+      border: none;
+      padding: 8px 24px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #002B80;
+      color: white;
+      padding: 1rem;
+      height: 64px;
+      border-bottom: 3px solid #00C3EC;
+    }
+    .header-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .header-logo {
+      background: url('/assets/logos/tbwasmp-logo.webp') no-repeat center/contain;
+      width: 120px;
+      height: 40px;
+      margin-right: 1rem;
+    }
+    .header-title {
+      color: white;
+      font-weight: bold;
+      margin: 0;
+    }
+    .main-content {
+      padding: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      min-height: calc(100vh - 64px - 48px);
+    }
+    .footer {
+      background-color: #002B80;
+      color: white;
+      padding: 1rem;
+      height: 48px;
+    }
+    .footer-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="tbwa-branded">
+  <header class="header">
+    <div class="header-container">
+      <div class="header-logo"></div>
+      <h1 class="header-title">Client360 Dashboard</h1>
+    </div>
+  </header>
+  
+  <main class="main-content">
+    <section class="rollback-dashboard">
+      <div class="rollback-dashboard-header">
+        <h3>Dashboard Rollback System</h3>
+        <div class="status-indicator active">System Ready</div>
+      </div>
+      <div class="rollback-dashboard-content">
+        <p>This is the official TBWA Client360 Dashboard. You can safely rollback to a previous version if needed.</p>
+        <div class="version-info">
+          <span class="version-label">Current Version:</span>
+          <span class="version-value">v2.3.0</span>
+        </div>
+        <div class="version-info">
+          <span class="version-label">Previous Version:</span>
+          <span class="version-value">v2.2.1</span>
+        </div>
+      </div>
+      <div class="rollback-dashboard-actions">
+        <button class="btn-rollback">Rollback to Previous Version</button>
+        <button class="btn-verify">Verify Current System</button>
+      </div>
+    </section>
+    
+    <section>
+      <h2>Client360 Dashboard</h2>
+      <p>Welcome to the official TBWA Client360 Dashboard. This dashboard provides real-time analytics and insights for our clients.</p>
+      <p>The system includes:</p>
+      <ul>
+        <li>Real-time performance metrics</li>
+        <li>Sales and conversion analytics</li>
+        <li>Geographical store performance data</li>
+        <li>Customer behavior tracking</li>
+        <li>Marketing campaign effectiveness</li>
+      </ul>
+      <p>Current deployment provides:</p>
+      <ul>
+        <li>TBWA branding and styling</li>
+        <li>Rollback capability to previous versions</li>
+        <li>Simplified deployment for immediate access</li>
+      </ul>
+    </section>
+  </main>
+  
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <p>&copy; 2025 TBWA\SMP. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

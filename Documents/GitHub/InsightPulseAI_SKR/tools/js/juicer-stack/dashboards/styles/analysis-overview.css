@@ -1,0 +1,166 @@
+/* Analysis Overview Component Styles 
+ * For Project Scout dashboard integration
+ * Uses TBWA design tokens from tbwa-theme.css
+ */
+
+.analysis-overview-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: calc(var(--grid-unit) * 2);
+  margin-bottom: calc(var(--grid-unit) * 3);
+}
+
+.analysis-overview-card {
+  background: #FFF;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: calc(var(--grid-unit) * 2);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.analysis-overview-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+}
+
+.analysis-overview-card.quality::before {
+  background-color: var(--viz-accent-0); /* navy */
+}
+
+.analysis-overview-card.volume::before {
+  background-color: var(--viz-accent-1); /* yellow */
+}
+
+.analysis-overview-card.impact::before {
+  background-color: var(--viz-accent-2); /* cyan */
+}
+
+.analysis-overview-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tbwa-grey-900);
+  margin-bottom: calc(var(--grid-unit));
+}
+
+.analysis-overview-score {
+  font-size: 32px;
+  font-weight: 700;
+  margin: calc(var(--grid-unit)) 0;
+  color: var(--tbwa-grey-900);
+}
+
+.analysis-overview-change {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: calc(var(--grid-unit));
+}
+
+.analysis-overview-label {
+  color: var(--tbwa-grey-700);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.analysis-overview-progress {
+  width: 100%;
+  height: 6px;
+  background-color: var(--tbwa-grey-100);
+  border-radius: 3px;
+  margin-top: auto;
+}
+
+.analysis-overview-progress-bar {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.analysis-overview-progress-bar.quality {
+  background-color: var(--viz-accent-0);
+}
+
+.analysis-overview-progress-bar.volume {
+  background-color: var(--viz-accent-1);
+}
+
+.analysis-overview-progress-bar.impact {
+  background-color: var(--viz-accent-2);
+}
+
+.analysis-breakdown {
+  background: #FFF;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: calc(var(--grid-unit) * 2);
+  margin-bottom: calc(var(--grid-unit) * 3);
+}
+
+.analysis-breakdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: calc(var(--grid-unit) * 2);
+}
+
+.analysis-breakdown-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tbwa-grey-900);
+  margin: 0;
+}
+
+.analysis-breakdown-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: calc(var(--grid-unit) * 2);
+}
+
+.breakdown-card {
+  padding: calc(var(--grid-unit) * 1.5);
+  border-radius: var(--card-radius);
+  background-color: var(--tbwa-grey-100);
+}
+
+.breakdown-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tbwa-grey-900);
+  margin-bottom: calc(var(--grid-unit));
+  display: flex;
+  align-items: center;
+}
+
+.breakdown-card-title span {
+  margin-left: 8px;
+}
+
+.breakdown-card-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--tbwa-grey-900);
+  margin-bottom: 4px;
+}
+
+.breakdown-card-description {
+  font-size: 12px;
+  color: var(--tbwa-grey-700);
+}
+
+@media (max-width: 992px) {
+  .analysis-overview-container {
+    grid-template-columns: 1fr;
+    gap: calc(var(--grid-unit));
+  }
+  
+  .analysis-breakdown-content {
+    grid-template-columns: 1fr;
+    gap: calc(var(--grid-unit));
+  }
+}

@@ -1,0 +1,415 @@
+/**
+ * TBWA Scout Advisor Dashboard Theme
+ * Power BI-aligned visual styling with TBWA brand colors
+ * 
+ * @version 1.0.0
+ * @compatible Bootstrap 5.2.3, Tailwind CSS
+ */
+
+:root {
+  /* TBWA Brand Colors */
+  --tbwa-yellow: #FFCF00;
+  --tbwa-yellow-light: rgba(255, 207, 0, 0.15);
+  --tbwa-yellow-hover: rgba(255, 207, 0, 0.9);
+  --tbwa-darkBlue: #000000;
+  --tbwa-darkBlue-light: rgba(0, 0, 0, 0.1);
+  
+  /* Power BI Style Colors */
+  --azure-blue: #3B82F6;
+  --azure-background: #f7f9fc;
+  --azure-red: #EF4444;
+  --azure-orange: #FFCF00;
+  --azure-green: #107C10;
+  --azure-gray: #9CA3AF;
+  --azure-grayLight: #D2D2D2;
+  
+  /* Dashboard-specific styling */
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --card-radius: 0.5rem;
+  --transition-standard: all 0.2s ease-in-out;
+}
+
+/* TBWA-Specific Button Styling */
+.btn-tbwa-primary {
+  background-color: var(--tbwa-yellow) !important;
+  color: var(--tbwa-darkBlue) !important;
+  border: none !important;
+  font-weight: 500 !important;
+  transition: var(--transition-standard) !important;
+}
+
+.btn-tbwa-primary:hover {
+  background-color: var(--tbwa-yellow-hover) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-tbwa-secondary {
+  background-color: transparent !important;
+  color: var(--tbwa-darkBlue) !important;
+  border: 1px solid var(--tbwa-yellow) !important;
+  font-weight: 500 !important;
+  transition: var(--transition-standard) !important;
+}
+
+.btn-tbwa-secondary:hover {
+  background-color: var(--tbwa-yellow-light) !important;
+}
+
+/* KPI Card Enhancements - Power BI Style */
+.dashboard-card {
+  transition: var(--transition-standard) !important;
+  box-shadow: var(--card-shadow) !important;
+  background-color: white !important;
+  border-radius: var(--card-radius) !important;
+  overflow: hidden !important;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.dashboard-card[data-status="good"] {
+  border-left: 4px solid var(--azure-green) !important;
+}
+
+.dashboard-card[data-status="warning"] {
+  border-left: 4px solid var(--azure-orange) !important;
+}
+
+.dashboard-card[data-status="critical"] {
+  border-left: 4px solid var(--azure-red) !important;
+}
+
+/* Chart Containers - Power BI Style */
+.bg-white.rounded-lg {
+  border-radius: var(--card-radius) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: var(--card-shadow) !important;
+  overflow: hidden !important;
+  transition: var(--transition-standard) !important;
+}
+
+.bg-white.rounded-lg:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Insight Cards - Power BI Style */
+.insight-card {
+  border-radius: var(--card-radius) !important;
+  box-shadow: var(--card-shadow) !important;
+  transition: var(--transition-standard) !important;
+  overflow: hidden !important;
+}
+
+.insight-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.insight-card.border-l-4.border-azure-red {
+  border-left-color: var(--azure-red) !important;
+}
+
+.insight-card.border-l-4.border-azure-orange {
+  border-left-color: var(--azure-orange) !important;
+}
+
+/* Status Badges - Power BI Style */
+.status-badge {
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 9999px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.status-badge-active {
+  color: var(--azure-green) !important;
+  background: rgba(16, 124, 16, 0.1) !important;
+}
+
+.status-badge-warning {
+  color: var(--azure-orange) !important;
+  background: rgba(255, 140, 0, 0.1) !important;
+}
+
+.status-badge-error {
+  color: var(--azure-red) !important;
+  background: rgba(232, 17, 35, 0.1) !important;
+}
+
+/* Navigation Styling - Power BI Style */
+nav.bg-white {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 30 !important;
+}
+
+/* Filter Bar - Power BI Style */
+.filter-bar {
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  background-color: white !important;
+  border-radius: var(--card-radius) !important;
+  margin-bottom: 1.5rem !important;
+  position: sticky !important;
+  top: 60px !important; /* Adjusted for nav height */
+  z-index: 20 !important;
+}
+
+.filter-pill {
+  background-color: #f3f4f6 !important;
+  border-radius: 9999px !important;
+  padding: 0.375rem 0.75rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.375rem !important;
+  font-size: 0.875rem !important;
+  transition: var(--transition-standard) !important;
+}
+
+.filter-pill button {
+  color: #6B7280 !important;
+  font-size: 0.75rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.125rem !important;
+  transition: var(--transition-standard) !important;
+}
+
+.filter-pill button:hover {
+  color: var(--azure-red) !important;
+}
+
+/* Assistant Card - Power BI Style */
+.assistant-card {
+  border-left: 4px solid var(--azure-blue) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: var(--card-radius) !important;
+  background-color: white !important;
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+  transition: var(--transition-standard) !important;
+}
+
+.assistant-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Chart Tooltip Enhancements */
+.chartjs-tooltip {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  border-radius: 4px !important;
+  color: #ffffff !important;
+  padding: 8px 12px !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  transform: translate(-50%, 0) !important;
+  transition: opacity 0.1s ease !important;
+  z-index: 100 !important;
+  max-width: 200px !important;
+  border-left: 3px solid var(--tbwa-yellow) !important;
+}
+
+/* Modal Enhancements - Power BI Style */
+.modal-content {
+  border: none !important;
+  border-radius: var(--card-radius) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+.modal-content h2 {
+  color: var(--tbwa-darkBlue) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  padding-bottom: 0.75rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* AI Banner - TBWA Style */
+.glass-panel.border-l-4.border-tbwa-yellow {
+  background: white !important;
+  box-shadow: var(--card-shadow) !important;
+  animation: fadeIn 0.5s ease-in-out forwards !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Power BI Chart Custom Styling */
+canvas {
+  transition: var(--transition-standard) !important;
+}
+
+/* TBWA Power BI-aligned Animation Library */
+.animate-pulse {
+  animation: pulse 2s infinite !important;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(246, 225, 77, 0.4) !important; }
+  70% { box-shadow: 0 0 0 6px rgba(246, 225, 77, 0) !important; }
+  100% { box-shadow: 0 0 0 0 rgba(246, 225, 77, 0) !important; }
+}
+
+/* Data Source Toggle Style */
+.toggle-group {
+  background-color: #f3f4f6 !important;
+  border-radius: 6px !important;
+  padding: 2px !important;
+  display: inline-flex !important;
+}
+
+.toggle-option {
+  padding: 6px 12px !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  font-size: 0.875rem !important;
+  transition: var(--transition-standard) !important;
+}
+
+.toggle-selected {
+  background-color: white !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+  color: var(--tbwa-darkBlue) !important;
+}
+
+/* Export Button Styling */
+.export-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.375rem !important;
+  color: var(--tbwa-darkBlue) !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  padding: 0.375rem 0.75rem !important;
+  font-size: 0.875rem !important;
+  border-radius: 0.375rem !important;
+  transition: var(--transition-standard) !important;
+}
+
+.export-btn:hover {
+  background-color: var(--tbwa-yellow-light) !important;
+  border-color: var(--tbwa-yellow) !important;
+}
+
+/* React Component-Specific Styles */
+.tbwa-logo {
+  font-weight: bold !important;
+}
+
+.tbwa-logo .tbwa-text {
+  color: var(--tbwa-darkBlue) !important;
+}
+
+.tbwa-logo .yellow-text {
+  color: var(--tbwa-yellow) !important;
+}
+
+/* Animated KPI Score Indicators */
+.score-indicator {
+  height: 6px !important;
+  border-radius: 3px !important;
+  background-color: #E5E7EB !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.score-indicator-fill {
+  position: absolute !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
+  border-radius: 3px !important;
+  transition: width 1s ease-in-out !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .filter-bar {
+    top: 50px !important;
+    padding: 8px !important;
+    gap: 4px !important;
+  }
+  
+  .filter-pill {
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+  }
+  
+  .dashboard-card {
+    margin-bottom: 12px !important;
+  }
+}
+
+/* Focus State Improvements - Accessibility */
+button:focus, a:focus, .toggle-option:focus, .filter-pill button:focus {
+  outline: 2px solid var(--tbwa-yellow) !important;
+  outline-offset: 2px !important;
+}
+
+/* Bootstrap overrides - Remove default blue */
+.btn-primary,
+.btn-outline-primary {
+  background-color: #FFCF00 !important;
+  color: #000 !important;
+  border-color: #FFCF00 !important;
+}
+
+.btn-primary:hover {
+  background-color: #e6ba00 !important;
+  border-color: #e6ba00 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #FFCF00 !important;
+  color: #000 !important;
+}
+
+/* Input focus states */
+.form-control:focus,
+.form-select:focus {
+  border-color: #FFCF00 !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 207, 0, 0.25) !important;
+}
+
+/* Checkboxes and radio buttons */
+.form-check-input:checked {
+  background-color: #FFCF00 !important;
+  border-color: #FFCF00 !important;
+}
+
+/* Remove Azure blue from other elements */
+.assistant-card {
+  border-left: 4px solid #FFCF00 !important;
+}
+
+.btn-ghost-azure {
+  color: #000 !important;
+}
+
+.btn-ghost-azure:hover {
+  background: rgba(255, 207, 0, 0.1) !important;
+}
+
+.btn-primary-azure {
+  background: #FFCF00 !important;
+  border-color: #FFCF00 !important;
+  color: #000 !important;
+}
+
+.btn-primary-azure:hover {
+  background: #e6ba00 !important;
+  border-color: #e6ba00 !important;
+}
+
+.confidence-fill {
+  background: #FFCF00 !important;
+}

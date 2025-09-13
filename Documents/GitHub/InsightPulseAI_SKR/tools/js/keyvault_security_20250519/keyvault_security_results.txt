@@ -1,0 +1,63 @@
+=== Key Vault Security Enhancement Results ===
+
+Key Vault: kv-projectscout-prod
+Resource Group: RG-TBWA-ProjectScout-Data
+---------------------------------
+✅ Soft delete already enabled
+✅ Purge protection already enabled
+✅ Created diagnostic setting KeyVaultAuditLogs-20250519
+✅ Enabled Azure Defender for Key Vault
+⚠️ Key Vault has unrestricted network access. Consider restricting to specific networks.
+  Command to restrict: az keyvault update --name kv-projectscout-prod --resource-group RG-TBWA-ProjectScout-Data --default-action Deny
+✅ Access policies exported to kv-projectscout-prod_access_policies.json for review
+  Review and remove any unnecessary access policies manually
+
+Key Vault: mymlworkkeyvault3441b156
+Resource Group: RG-TBWA-ProjectScout-Data
+---------------------------------
+✅ Soft delete already enabled
+✅ Enabled purge protection
+✅ Created diagnostic setting KeyVaultAuditLogs-20250519
+✅ Enabled Azure Defender for Key Vault
+✅ Network access is already restricted ()
+✅ Access policies exported to mymlworkkeyvault3441b156_access_policies.json for review
+  Review and remove any unnecessary access policies manually
+
+Key Vault: mymlworkkeyvault47ce10d1
+Resource Group: RG-Scout-BrandDetect-Prod-AUE
+---------------------------------
+✅ Soft delete already enabled
+✅ Enabled purge protection
+✅ Created diagnostic setting KeyVaultAuditLogs-20250519
+✅ Enabled Azure Defender for Key Vault
+✅ Network access is already restricted ()
+✅ Access policies exported to mymlworkkeyvault47ce10d1_access_policies.json for review
+  Review and remove any unnecessary access policies manually
+
+Key Vault: kv-tbwa-juicer-insights2
+Resource Group: RG-TBWA-ProjectScout-Juicer
+---------------------------------
+✅ Soft delete already enabled
+✅ Enabled purge protection
+✅ Created diagnostic setting KeyVaultAuditLogs-20250519
+✅ Enabled Azure Defender for Key Vault
+✅ Network access is already restricted ()
+✅ Access policies exported to kv-tbwa-juicer-insights2_access_policies.json for review
+  Review and remove any unnecessary access policies manually
+
+=== Manual Actions Required ===
+The following actions should be performed manually:
+
+1. Review access policies exported to the files in keyvault_security_20250519
+   - Remove unnecessary access policies
+   - Ensure least privilege principle is followed
+
+2. For Key Vaults with unrestricted network access:
+   - Identify which networks need access to the Key Vault
+   - Update the Key Vault to allow only those networks
+   - Example: az keyvault update --name <vault-name> --resource-group <resource-group> --default-action Deny --ip-address <allowed-ip>
+
+3. Review Key Vault secrets and certificates:
+   - Identify and remove any expired or unused secrets
+   - Ensure all secrets have appropriate expiration dates
+

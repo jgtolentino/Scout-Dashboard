@@ -1,0 +1,155 @@
+// Client360 DBML Schema Definition
+// This file defines the database schema for the Client360 Dashboard
+
+Project Client360 {
+  database_type: 'Azure SQL'
+  Note: 'Client360 Dashboard data schema for TBWA SMP'
+}
+
+// Store information table
+Table stores {
+  store_id integer [pk]
+  store_name varchar
+  store_type varchar
+  region varchar
+  city varchar
+  barangay varchar
+  latitude decimal
+  longitude decimal
+  status varchar
+  created_at timestamp
+  updated_at timestamp
+  
+  Note: 'Stores data with location information for the geospatial map'
+}
+
+// Sales data
+Table sales {
+  sale_id integer [pk]
+  store_id integer [ref: > stores.store_id]
+  transaction_date timestamp
+  amount decimal
+  units_sold integer
+  discount_amount decimal
+  payment_method varchar
+  
+  Note: 'Sales transaction data'
+}
+
+// Performance metrics
+Table store_performance {
+  performance_id integer [pk]
+  store_id integer [ref: > stores.store_id]
+  date_period varchar
+  sales_amount decimal
+  sales_growth decimal
+  customer_count integer
+  conversion_rate decimal
+  basket_size decimal
+  
+  Note: 'Store performance metrics for different time periods'
+}
+
+// Products table
+Table products {
+  product_id integer [pk]
+  product_name varchar
+  category varchar
+  brand varchar
+  price decimal
+  cost decimal
+  
+  Note: 'Product catalog'
+}
+
+// Sales details
+Table sales_details {
+  detail_id integer [pk]
+  sale_id integer [ref: > sales.sale_id]
+  product_id integer [ref: > products.product_id]
+  quantity integer
+  unit_price decimal
+  subtotal decimal
+  
+  Note: 'Line items for sales transactions'
+}
+
+// Brand metrics
+Table brand_metrics {
+  metric_id integer [pk]
+  brand varchar
+  date_period varchar
+  sales_amount decimal
+  sales_growth decimal
+  market_share decimal
+  sentiment_score decimal
+  
+  Note: 'Brand-level metrics and sentiment analysis'
+}
+
+// Customer segments
+Table customer_segments {
+  segment_id integer [pk]
+  segment_name varchar
+  description varchar
+  
+  Note: 'Customer segmentation definitions'
+}
+
+// Store segment mapping
+Table store_segments {
+  mapping_id integer [pk]
+  store_id integer [ref: > stores.store_id]
+  segment_id integer [ref: > customer_segments.segment_id]
+  
+  Note: 'Mapping between stores and their primary customer segments'
+}
+
+// Campaign performance
+Table campaigns {
+  campaign_id integer [pk]
+  campaign_name varchar
+  start_date timestamp
+  end_date timestamp
+  budget decimal
+  spend decimal
+  roi decimal
+  
+  Note: 'Marketing campaign performance metrics'
+}
+
+// Campaign store performance
+Table campaign_store_performance {
+  id integer [pk]
+  campaign_id integer [ref: > campaigns.campaign_id]
+  store_id integer [ref: > stores.store_id]
+  sales_lift decimal
+  conversion_lift decimal
+  
+  Note: 'Campaign performance at store level'
+}
+
+// AI-generated insights
+Table insights {
+  insight_id integer [pk]
+  date_generated timestamp
+  title varchar
+  description text
+  insight_type varchar
+  relevance_score decimal
+  source_data varchar
+  
+  Note: 'AI-generated insights for the dashboard'
+}
+
+// Rollback system configuration
+Table rollback_versions {
+  version_id integer [pk]
+  version_name varchar
+  version_date timestamp
+  is_active boolean
+  is_stable boolean
+  rollback_path varchar
+  
+  Note: 'System versions for rollback functionality'
+}

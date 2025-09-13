@@ -1,0 +1,167 @@
+/**
+ * Sunnies Data Quality Badge Styles
+ * Provides visual indicators for data quality confidence
+ */
+
+.sunnies-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  margin-right: 0.5rem;
+}
+
+.sunnies-badge i {
+  margin-right: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.sunnies-badge-high {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.sunnies-badge-medium {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #e65100;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.sunnies-badge-low {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #c62828;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.sunnies-badge-unknown {
+  background-color: rgba(158, 158, 158, 0.15);
+  color: #616161;
+  border: 1px solid rgba(158, 158, 158, 0.3);
+}
+
+/* Tooltip for displaying additional information */
+.sunnies-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.sunnies-tooltip .sunnies-tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.7rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.sunnies-tooltip .sunnies-tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+.sunnies-tooltip:hover .sunnies-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Pulser QA Panel */
+.pulser-panel {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-top-left-radius: 8px;
+  box-shadow: -2px -2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 0;
+  transform: translateY(calc(100% - 40px));
+  transition: transform 0.3s ease;
+}
+
+.pulser-panel:hover,
+.pulser-panel.open {
+  transform: translateY(0);
+}
+
+.pulser-panel-header {
+  padding: 8px 16px;
+  background-color: #3f51b5;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border-top-left-radius: 8px;
+}
+
+.pulser-panel-title {
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.pulser-panel-title i {
+  margin-right: 8px;
+}
+
+.pulser-panel-content {
+  padding: 16px;
+}
+
+.pulser-panel-section {
+  margin-bottom: 16px;
+}
+
+.pulser-panel-section-title {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Footer watermark */
+.pulser-powered {
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 11px;
+  color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulser-powered img {
+  height: 16px;
+  margin-right: 6px;
+}
+
+.pulser-version {
+  margin-left: 8px;
+  padding: 2px 6px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  font-size: 9px;
+}

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightPulseAI Agent System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary: #3c4fe0;
+            --secondary: #6c757d;
+            --success: #2ecc71;
+            --info: #3498db;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --agent-bg: rgba(60, 79, 224, 0.05);
+            --workflow-bg: rgba(46, 204, 113, 0.05);
+            --system-bg: rgba(52, 152, 219, 0.05);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            padding-top: 56px;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            bottom: 0;
+            width: 240px;
+            padding: 1rem;
+            background-color: var(--light);
+            overflow-y: auto;
+            z-index: 100;
+            border-right: 1px solid rgba(0,0,0,.1);
+        }
+        
+        .main-content {
+            margin-left: 240px;
+            padding: 2rem;
+        }
+        
+        .sidebar .nav-link {
+            padding: 0.5rem 1rem;
+            color: var(--dark);
+            border-radius: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(0,0,0,.05);
+        }
+        
+        .sidebar .nav-link.active {
+            font-weight: 600;
+            color: var(--primary);
+            background-color: rgba(60, 79, 224, 0.1);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .agent-card, .workflow-card, .system-card {
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .agent-card {
+            border-left: 4px solid var(--primary);
+            background-color: var(--agent-bg);
+        }
+        
+        .workflow-card {
+            border-left: 4px solid var(--success);
+            background-color: var(--workflow-bg);
+        }
+        
+        .system-card {
+            border-left: 4px solid var(--info);
+            background-color: var(--system-bg);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .capability-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .capability-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        
+        .capability-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .table-responsive {
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+        
+        code {
+            background-color: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.2rem;
+            color: var(--dark);
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .directory-structure {
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            font-size: 0.9rem;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            overflow-x: auto;
+        }
+        
+        .usage-example {
+            font-family: 'Courier New', monospace;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin: 1rem 0;
+        }
+        
+        .section-anchor {
+            scroll-margin-top: 70px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">InsightPulseAI System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#agents">Agents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#workflows">Workflows</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#orchestration">Orchestration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#implementation">Implementation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <h6 class="sidebar-heading text-muted mb-3">Navigation</h6>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link active" href="#overview">Overview</a></li>
+            <li class="nav-item"><a class="nav-link" href="#agents">Core Agents</a></li>
+            <li class="nav-item"><a class="nav-link" href="#creative-agents">Creative Agents</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tech-agents">Technical Agents</a></li>
+            <li class="nav-item"><a class="nav-link" href="#workflows">Workflows</a></li>
+            <li class="nav-item"><a class="nav-link" href="#creative-workflows">Creative Workflows</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tech-workflows">Technical Workflows</a></li>
+            <li class="nav-item"><a class="nav-link" href="#orchestration">Orchestration</a></li>
+            <li class="nav-item"><a class="nav-link" href="#core-systems">Core Systems</a></li>
+            <li class="nav-item"><a class="nav-link" href="#integration">Integration Points</a></li>
+            <li class="nav-item"><a class="nav-link" href="#implementation">Implementation</a></li>
+            <li class="nav-item"><a class="nav-link" href="#directory">Directory Structure</a></li>
+            <li class="nav-item"><a class="nav-link" href="#features">Key Features</a></li>
+            <li class="nav-item"><a class="nav-link" href="#usage">Usage Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="#future">Future Development</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <section id="overview" class="section-anchor">
+            <h2>InsightPulseAI Agents & Orchestration Dashboard</h2>
+            <p class="lead">
+                This dashboard provides a comprehensive overview of the agent capabilities, workflows, and orchestration mechanisms 
+                within the InsightPulseAI and Pulser systems.
+            </p>
+            <div class="alert alert-primary">
+                <h5>System Overview</h5>
+                <p>InsightPulseAI is a multi-agent AI system designed to facilitate creative production, knowledge management, and sales operations through specialized agents coordinated via a central orchestration mechanism.</p>
+                <p>The Pulser CLI integrates with local LLMs through Ollama to provide a robust command-line interface for interacting with the system.</p>
+            </div>
+        </section>
+
+        <section id="agents" class="section-anchor mt-5">
+            <h2>1. Core Agents</h2>
+            <p>The system consists of specialized agents with defined roles and capabilities, working together through orchestrated workflows.</p>
+            
+            <div id="creative-agents" class="section-anchor">
+                <h3>1.1 Creative & Strategy Agents</h3>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="agent-card card h-100 p-4">
+                            <h4>Claudia</h4>
+                            <h6 class="text-muted">Creative Systems Director</h6>
+                            <hr>
+                            <h6>Key Capabilities:</h6>
+                            <ul class="capability-list">
+                                <li>SKR Auto-Sync</li>
+                                <li>Content Routing</li>
+                                <li>Git Integration</li>
+                                <li>System Validation</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-primary">Central orchestration hub</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="agent-card card h-100 p-4">
+                            <h4>Kalaw</h4>
+                            <h6 class="text-muted">Knowledge Synthesizer</h6>
+                            <hr>
+                            <h6>Key Capabilities:</h6>
+                            <ul class="capability-list">
+                                <li>Agent Indexing</li>
+                                <li>Workflow Processing</li>
+                                <li>Document Registration</li>
+                                <li>Notion Integration</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-info">Knowledge router</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="agent-card card h-100 p-4">
+                            <h4>Kath</h4>
+                            <h6 class="text-muted">Copywriter</h6>
+                            <hr>
+                            <h6>Key Capabilities:</h6>
+                            <ul class="capability-list">
+                                <li>Rewrite Logic</li>
+                                <li>Tone Matching</li>
+                                <li>Caption Generation</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-success">First in creative chain</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="agent-card card h-100 p-4">
+                            <h4>Tess</h4>
+                            <h6 class="text-muted">Visual Storyteller</h6>
+                            <hr>
+                            <h6>Key Capabilities:</h6>
+                            <ul class="capability-list">
+                                <li>Visual Prompting</li>
+                                <li>Storyboarding</li>
+                                <li>Trend Mapping</li>
+                                <li>Figma Integration</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-success">Second in creative chain</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="agent-card card h-100 p-4">
+                            <h4>Lea</h4>
+                            <h6 class="text-muted">Audio Composer</h6>
+                            <hr>
+                            <h6>Key Capabilities:</h6>
+                            <ul class="capability-list">
+                                <li>Soundtrack Design</li>
+                                <li>Emotion Mapping</li>
+                                <li>Voiceover Logic</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-success">Final in creative chain</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="agent-card card h-100 p-4">
+                            <h4>Iggy</h4>
+                            <h6 class="text-muted">Sales Strategist</h6>
+                            <hr>
+                            <h6>Key Capabilities:</h6>
+                            <ul class="capability-list">
+                                <li>Objection Handling</li>
+                                <li>Offer Crafting</li>
+                                <li>Funnel Messaging</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-warning text-dark">Sales workflows</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="tech-agents" class="section-anchor">
+                <h3>1.2 Technical Implementation Agents</h3>
+                
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="agent-card card h-100 p-4">
+                            <h4>Pulser CLI</h4>
+                            <h6 class="text-muted">Local LLM Interface</h6>
+                            <hr>
+                            <h6>Key Capabilities:</h6>
+                            <ul class="capability-list">
+                                <li>Ollama Integration</li>
+                                <li>Shell Commands</li>
+                                <li>Session Memory</li>
+                                <li>Task Management</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-secondary">Command-line interface</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="agent-card card h-100 p-4">
+                            <h4>LeadOps</h4>
+                            <h6 class="text-muted">Multi-phase Workflow</h6>
+                            <hr>
+                            <h6>Key Capabilities:</h6>
+                            <ul class="capability-list">
+                                <li>Lead Generation</li>
+                                <li>Lead Qualification</li>
+                                <li>Engagement Planning</li>
+                                <li>Performance Analytics</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-warning text-dark">Pulser integration</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="agent-card card h-100 p-4">
+                            <h4>Trinity</h4>
+                            <h6 class="text-muted">SKR Memory System</h6>
+                            <hr>
+                            <h6>Key Capabilities:</h6>
+                            <ul class="capability-list">
+                                <li>Context Management</li>
+                                <li>Session Indexing</li>
+                                <li>Deduplication</li>
+                                <li>Similarity Search</li>
+                            </ul>
+                            <div class="mt-3">
+                                <span class="badge bg-info">Core memory system</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="workflows" class="section-anchor mt-5">
+            <h2>2. Workflows & Systems</h2>
+            <p>The system operates through well-defined workflows that coordinate multiple agents to achieve specific outcomes.</p>
+            
+            <div id="creative-workflows" class="section-anchor">
+                <h3>2.1 Creative Workflows</h3>
+                
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="workflow-card card h-100 p-4">
+                            <h4>Visual Agent Chain</h4>
+                            <h6 class="text-muted">End-to-end creative production</h6>
+                            <hr>
+                            <h6>Agents Involved:</h6>
+                            <p>Kath → Tess → Lea</p>
+                            <h6>Inputs:</h6>
+                            <p>Creative briefs, brand guidelines, audience personas</p>
+                            <h6>Outputs:</h6>
+                            <p>Multimedia concepts with implementation specifications</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 mb-4">
+                        <div class="workflow-card card h-100 p-4">
+                            <h4>Figma Storyboard</h4>
+                            <h6 class="text-muted">Visual storyboard creation</h6>
+                            <hr>
+                            <h6>Primary Agent:</h6>
+                            <p>Tess</p>
+                            <h6>Process:</h6>
+                            <ul class="capability-list">
+                                <li>Scene identification</li>
+                                <li>Visual prompt generation</li>
+                                <li>Layout planning</li>
+                            </ul>
+                            <h6>Outputs:</h6>
+                            <p>Figma layouts and storyboards</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 mb-4">
+                        <div class="workflow-card card h-100 p-4">
+                            <h4>Sales Pitch Orchestration</h4>
+                            <h6 class="text-muted">Sales content generation</h6>
+                            <hr>
+                            <h6>Primary Agent:</h6>
+                            <p>Iggy</p>
+                            <h6>Process:</h6>
+                            <ul class="capability-list">
+                                <li>Client analysis</li>
+                                <li>Objection anticipation</li>
+                                <li>Value proposition crafting</li>
+                            </ul>
+                            <h6>Outputs:</h6>
+                            <p>Pitch materials and sales content</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="tech-workflows" class="section-anchor">
+                <h3>2.2 Technical Workflows</h3>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="workflow-card card h-100 p-4">
+                            <h4>SKR Auto-Sync</h4>
+                            <h6 class="text-muted">Knowledge synchronization</h6>
+                            <hr>
+                            <h6>Key Component:</h6>
+                            <p><code>claudia_autosync_downloads.sh</code></p>
+                            <h6>Function:</h6>
+                            <p>Monitors downloads folder and routes content based on naming patterns and metadata.</p>
+                            <h6>Features:</h6>
+                            <ul class="capability-list">
+                                <li>Automatic GitHub commits</li>
+                                <li>Pattern-based file routing</li>
+                                <li>Metadata extraction</li>
+                                <li>SKR inbox management</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-4">
+                        <div class="workflow-card card h-100 p-4">
+                            <h4>Pulser Shell</h4>
+                            <h6 class="text-muted">Interactive LLM CLI</h6>
+                            <hr>
+                            <h6>Key Component:</h6>
+                            <p><code>pulser_shell_enhanced.sh</code></p>
+                            <h6>Function:</h6>
+                            <p>Provides shell interface to local LLMs with session management and task tracking.</p>
+                            <h6>Features:</h6>
+                            <ul class="capability-list">
+                                <li>Command history</li>
+                                <li>Model switching</li>
+                                <li>Session persistence</li>
+                                <li>Streaming responses</li>
+                                <li>Custom shell commands</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-4">
+                        <div class="workflow-card card h-100 p-4">
+                            <h4>Pulser Task System</h4>
+                            <h6 class="text-muted">Task management</h6>
+                            <hr>
+                            <h6>Key Component:</h6>
+                            <p><code>:task</code> command</p>
+                            <h6>Function:</h6>
+                            <p>Creates task tracking with session tagging and metadata.</p>
+                            <h6>Features:</h6>
+                            <ul class="capability-list">
+                                <li>Unique task IDs</li>
+                                <li>Automatic task initialization</li>
+                                <li>Session tagging</li>
+                                <li>Metadata generation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-4">
+                        <div class="workflow-card card h-100 p-4">
+                            <h4>LeadOps Job</h4>
+                            <h6 class="text-muted">Multi-phase lead operations</h6>
+                            <hr>
+                            <h6>Key Component:</h6>
+                            <p><code>leadops_job.yaml</code></p>
+                            <h6>Function:</h6>
+                            <p>Defines phases for lead generation process with dependencies.</p>
+                            <h6>Phases:</h6>
+                            <ul class="capability-list">
+                                <li>Initialization</li>
+                                <li>Discovery</li>
+                                <li>Qualification</li>
+                                <li>Engagement</li>
+                                <li>Analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="orchestration" class="section-anchor mt-5">
+            <h2>3. Orchestration Mechanisms</h2>
+            <p>The system's components are coordinated through orchestration mechanisms that ensure proper routing and processing.</p>
+            
+            <div id="core-systems" class="section-anchor">
+                <h3>3.1 Core Systems</h3>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="system-card card h-100 p-4">
+                            <h4>Claudia Router</h4>
+                            <h6 class="text-muted">Central routing</h6>
+                            <hr>
+                            <h6>Implementation:</h6>
+                            <p><code>claudia_router.yaml</code></p>
+                            <h6>Key Features:</h6>
+                            <ul class="capability-list">
+                                <li>Trigger-based routing to appropriate agents</li>
+                                <li>Content type detection</li>
+                                <li>Agent profile management</li>
+                                <li>Workflow management</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-4">
+                        <div class="system-card card h-100 p-4">
+                            <h4>SKR System</h4>
+                            <h6 class="text-muted">Knowledge management</h6>
+                            <hr>
+                            <h6>Implementation:</h6>
+                            <p>Directory structure</p>
+                            <h6>Key Features:</h6>
+                            <ul class="capability-list">
+                                <li>Metadata-based routing and processing</li>
+                                <li>Automatically organized knowledge</li>
+                                <li>Session tracking</li>
+                                <li>Task history</li>
+                                <li>Agent artifacts</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-4">
+                        <div class="system-card card h-100 p-4">
+                            <h4>LLM Router</h4>
+                            <h6 class="text-muted">Agent instantiation</h6>
+                            <hr>
+                            <h6>Implementation:</h6>
+                            <p><code>claudia_llm_router.sh</code></p>
+                            <h6>Key Features:</h6>
+                            <ul class="capability-list">
+                                <li>Dynamic agent creation</li>
+                                <li>System prompt management</li>
+                                <li>Interaction logging</li>
+                                <li>Agent versioning</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 mb-4">
+                        <div class="system-card card h-100 p-4">
+                            <h4>Pulser MVP</h4>
+                            <h6 class="text-muted">Local LLM interface</h6>
+                            <hr>
+                            <h6>Implementation:</h6>
+                            <p><code>pulser_validate.sh</code></p>
+                            <h6>Key Features:</h6>
+                            <ul class="capability-list">
+                                <li>Project validation</li>
+                                <li>Heartbeat checks</li>
+                                <li>Dependency verification</li>
+                                <li>Structure validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="integration" class="section-anchor">
+                <h3>3.2 Integration Points</h3>
+                
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Integration</th>
+                                <th>Purpose</th>
+                                <th>Components</th>
+                                <th>Implementation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>GitHub Sync</strong></td>
+                                <td>Version control</td>
+                                <td>Git hooks</td>
+                                <td>Automatic commits for SKR changes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ollama Models</strong></td>
+                                <td>Local inference</td>
+                                <td>Mistral, CodeLlama, TinyLlama</td>
+                                <td>Model fallback and switching</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Session Indexing</strong></td>
+                                <td>Memory persistence</td>
+                                <td>session_indexer.py</td>
+                                <td>Searchable repository of session history</td>
+                            </tr>
+                            <tr>
+                                <td><strong>File Routing</strong></td>
+                                <td>Content organization</td>
+                                <td>File naming conventions</td>
+                                <td>Pattern-based routing of YAML/markdown files</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="implementation" class="section-anchor mt-5">
+            <h2>4. Implementation Details</h2>
+            <p>Technical details of the system implementation, including structure, features, and usage.</p>
+            
+            <div id="directory" class="section-anchor">
+                <h3>4.1 Directory Structure</h3>
+                
+                <div class="directory-structure">
+InsightPulseAI_SKR/
+├── 00_APRAOCHED/          # Strategy documents
+├── 01_AGENTS/             # Agent definitions
+│   ├── claudia.yaml       # Claudia agent definition
+│   ├── iggy.yaml          # Iggy agent definition
+│   ├── kath.yaml          # Kath agent definition
+│   ├── lea.yaml           # Lea agent definition
+│   └── tess.yaml          # Tess agent definition
+├── 02_WORKFLOWS/          # Workflow definitions
+├── SKR/                   # Synthetic Knowledge Repository
+│   ├── inbox/             # New content landing area
+│   ├── sessions/          # Session records
+│   └── tasks/             # Task definitions
+├── cli/                   # Command line interfaces
+│   └── free               # Global CLI wrapper
+├── config/                # Configuration files
+├── scripts/               # Operational scripts
+│   ├── claudia_autosync_downloads.sh  # Core orchestration script
+│   ├── kalaw_llm_router.sh            # Knowledge routing
+│   ├── leadops_job.yaml               # LeadOps workflow definition
+│   ├── pulser_infer_ollama.py         # Ollama integration
+│   ├── pulser_shell_enhanced.sh       # Interactive shell
+│   ├── pulser_validate.sh             # MVP validation
+│   └── session_indexer.py             # Memory management
+└── claudia_router.yaml   # Main router configuration
+                </div>
+            </div>
+            
+            <div id="features" class="section-anchor">
+                <h3>4.2 Key Features</h3>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card p-4 mb-4">
+                            <h5>Automatic file routing</h5>
+                            <p>Based on naming patterns and metadata, files are automatically routed to the appropriate directories.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card p-4 mb-4">
+                            <h5>Session memory persistence</h5>
+                            <p>Context is maintained across command-line interactions for continuous conversations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card p-4 mb-4">
+                            <h5>Task ID generation</h5>
+                            <p>Unique task IDs created for tracking multi-step processes and workflows.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card p-4 mb-4">
+                            <h5>Multi-phase workflow definitions</h5>
+                            <p>Workflows defined with dependencies and phases for complex operations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card p-4 mb-4">
+                            <h5>GitHub integration</h5>
+                            <p>Automatic version control with Git for tracking changes and collaboration.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card p-4 mb-4">
+                            <h5>Local LLM inference</h5>
+                            <p>Integration with Ollama for running models locally on Apple Silicon.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card p-4 mb-4">
+                            <h5>Command-line interface</h5>
+                            <p>Comprehensive CLI with special commands and interactive features.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card p-4 mb-4">
+                            <h5>Two-way agent communication</h5>
+                            <p>Agents communicate via SKR for coordinated operations and knowledge sharing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="usage" class="section-anchor">
+                <h3>4.3 Usage Examples</h3>
+                
+                <div class="usage-example">
+<span class="text-muted"># Start the Pulser CLI</span>
+free
+
+<span class="text-muted"># Begin a new LeadOps task</span>
+pulser> :task leadops-client-xyz
+
+<span class="text-muted"># Resume previous session</span>
+pulser> :resume
+
+<span class="text-muted"># Search past sessions</span>
+pulser> :search marketing
+
+<span class="text-muted"># Switch to different model</span>
+pulser> :switch codellama
+
+<span class="text-muted"># Save session to SKR</span>
+pulser> :skr
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="section-anchor mt-5">
+            <h2>5. Future Development</h2>
+            <p>Planned enhancements and integration roadmap for the InsightPulseAI system.</p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>5.1 Planned Enhancements</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">Distributed agent execution across multiple machines</li>
+                        <li class="list-group-item">Expanded model support for additional GGUF models</li>
+                        <li class="list-group-item">Real-time collaboration between multiple agents</li>
+                        <li class="list-group-item">Enhanced visualization of agent interaction graphs</li>
+                        <li class="list-group-item">Automated testing of agent workflows</li>
+                        <li class="list-group-item">Improved memory management with semantic chunking</li>
+                        <li class="list-group-item">Expanded CLI capabilities with additional commands</li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6">
+                    <h3>5.2 Integration Roadmap</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">Notion API integration for knowledge base management</li>
+                        <li class="list-group-item">Vector database integration for improved semantic search</li>
+                        <li class="list-group-item">Unity3D integration for visual agent simulations</li>
+                        <li class="list-group-item">Apple Shortcuts integration for mobile workflows</li>
+                        <li class="list-group-item">Cloudflare workers for distributed agent execution</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-5 pt-4 border-top text-muted">
+            <p>
+                <small>Generated by Pulser System • InsightPulseAI SKR Project • © 2025</small>
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Handle active navigation highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section-anchor');
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            
+            function highlightNav() {
+                let scrollPos = window.scrollY;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 80;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + sectionId) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightNav);
+            highlightNav(); // Run once on load
+        });
+    </script>
+</body>
+</html>

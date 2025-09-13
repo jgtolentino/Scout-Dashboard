@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulser Prompt Lab</title>
+  <link rel="stylesheet" href="prompt-lab.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="prompt-lab-header">
+    <div class="prompt-lab-container">
+      <div class="prompt-lab-logo">
+        <span class="logo-text">Pulser</span>
+        <span class="logo-subtitle">Prompt Lab</span>
+      </div>
+      <nav class="prompt-lab-nav">
+        <a href="#" class="active">Editor</a>
+        <a href="#templates">Templates</a>
+        <a href="#history">History</a>
+        <a href="#export">Export</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="prompt-lab-main">
+    <div class="prompt-lab-container">
+      <div class="prompt-lab-editor" id="promptLabEditor"></div>
+    </div>
+  </main>
+
+  <footer class="prompt-lab-footer">
+    <div class="prompt-lab-container">
+      <p>Pulser v2.2.1 &copy; 2025 InsightPulseAI</p>
+    </div>
+  </footer>
+
+  <script src="prompt-lab.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const editorContainer = document.getElementById('promptLabEditor');
+      const promptLab = new PromptLab(editorContainer);
+    });
+  </script>
+</body>
+</html>

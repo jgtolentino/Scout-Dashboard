@@ -1,0 +1,416 @@
+id: ui-editor
+name: UI Editor
+description: Drag-and-drop interface for screen layout and component editing
+version: 1.0.0
+
+# Runtime configuration
+type: frontend.editor
+runtime: react
+timeout: 60
+
+# Input schema
+input_schema:
+  type: object
+  required:
+    - app_name
+    - screens_dir
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app being edited"
+    template_name:
+      type: string
+      description: "Template being used for the app"
+    screens_dir:
+      type: string
+      description: "Directory containing the generated screen files"
+    mode:
+      type: string
+      enum: [web, deck, mobile]
+      default: web
+      description: "Editor mode to use"
+
+# Output schema
+output_schema:
+  type: object
+  required:
+    - app_name
+    - editor_url
+    - screens
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app"
+    editor_url:
+      type: string
+      description: "URL to access the editor UI"
+    screens:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - name
+          - preview_url
+        properties:
+          id:
+            type: string
+            description: "Screen identifier"
+          name:
+            type: string
+            description: "Human-readable screen name"
+          preview_url:
+            type: string
+            description: "URL to preview this screen"
+    save_path:
+      type: string
+      description: "Path where edited files are saved"
+
+# UI editor React component
+component: |
+  import React, { useState, useEffect } from 'react';
+  import { DndProvider } from 'react-dnd';
+  import { HTML5Backend } from 'react-dnd-html5-backend';
+  
+  import AppEditorToolbar from './components/AppEditorToolbar';
+  import ComponentPalette from './components/ComponentPalette';
+  import ScreenEditor from './components/ScreenEditor';
+  import PropertyPanel from './components/PropertyPanel';
+  import ScreenNavigator from './components/ScreenNavigator';
+  import PreviewPanel from './components/PreviewPanel';
+  
+  const UIEditor = ({ app, screens, template, onSave }) => {
+    const [activeScreen, setActiveScreen] = useState(screens[0]?.id || null);
+    const [selectedComponent, setSelectedComponent] = useState(null);
+    const [editorMode, setEditorMode] = useState('edit'); // edit, preview, code
+    const [viewportSize, setViewportSize] = useState('mobile');
+    const [draggedComponent, setDraggedComponent] = useState(null);
+    
+    // Load screen data
+    const [screenData, setScreenData] = useState({});
+    
+    useEffect(() => {
+      // Load screen data for all screens
+      const loadScreenData = async () => {
+        const data = {};
+        for (const screen of screens) {
+          // In a real implementation, this would load from files
+          data[screen.id] = {
+            id: screen.id,
+            name: screen.name,
+            components: [],
+            layout: {}
+          };
+        }
+        setScreenData(data);
+      };
+      
+      loadScreenData();
+    }, [screens]);
+    
+    // Handle component drag and drop
+    const handleDrop = (component, target, position) => {
+      setScreenData(prev => {
+        const updatedScreen = { ...prev[activeScreen] };
+        
+        // Add new component or move existing one
+        if (draggedComponent) {
+          // Handle existing component moving
+        } else {
+          // Add new component
+          const newComponent = {
+            id: `${component.type.toLowerCase()}_${Date.now()}`,
+            type: component.type,
+            props: component.defaultProps || {},
+            position
+          };
+          
+          updatedScreen.components = [...updatedScreen.components, newComponent];
+        }
+        
+        return {
+          ...prev,
+          [activeScreen]: updatedScreen
+        };
+      });
+      
+      setDraggedComponent(null);
+    };
+    
+    // Handle component selection
+    const handleSelectComponent = (componentId) => {
+      setSelectedComponent(componentId);
+    };
+    
+    // Handle property changes
+    const handlePropertyChange = (componentId, property, value) => {
+      setScreenData(prev => {
+        const updatedScreen = { ...prev[activeScreen] };
+        const componentIndex = updatedScreen.components.findIndex(c => c.id === componentId);
+        
+        if (componentIndex >= 0) {
+          const updatedComponents = [...updatedScreen.components];
+          updatedComponents[componentIndex] = {
+            ...updatedComponents[componentIndex],
+            props: {
+              ...updatedComponents[componentIndex].props,
+              [property]: value
+            }
+          };
+          
+          updatedScreen.components = updatedComponents;
+        }
+        
+        return {
+          ...prev,
+          [activeScreen]: updatedScreen
+        };
+      });
+    };
+    
+    // Handle save
+    const handleSave = () => {
+      onSave(screenData);
+    };
+    
+    // Get selected component data
+    const selectedComponentData = selectedComponent ? 
+      screenData[activeScreen]?.components.find(c => c.id === selectedComponent) : 
+      null;
+    
+    return (
+      <DndProvider backend={HTML5Backend}>
+        <div className="ui-editor">
+          <AppEditorToolbar 
+            appName={app.name} 
+            mode={editorMode} 
+            onModeChange={setEditorMode}
+            onSave={handleSave}
+          />
+          
+          <div className="editor-main">
+            <div className="editor-sidebar left">
+              <ScreenNavigator 
+                screens={screens} 
+                activeScreen={activeScreen}
+                onSelectScreen={setActiveScreen}
+              />
+              <ComponentPalette 
+                onDragStart={setDraggedComponent}
+              />
+            </div>
+            
+            <div className="editor-content">
+              {editorMode === 'edit' ? (
+                <ScreenEditor 
+                  screen={screenData[activeScreen]}
+                  onDrop={handleDrop}
+                  onSelectComponent={handleSelectComponent}
+                  selectedComponent={selectedComponent}
+                  viewportSize={viewportSize}
+                />
+              ) : editorMode === 'preview' ? (
+                <PreviewPanel 
+                  screen={screenData[activeScreen]}
+                  viewportSize={viewportSize}
+                />
+              ) : (
+                <div className="code-editor">
+                  {/* Code editor would go here */}
+                  <pre>
+                    {JSON.stringify(screenData[activeScreen], null, 2)}
+                  </pre>
+                </div>
+              )}
+            </div>
+            
+            <div className="editor-sidebar right">
+              <PropertyPanel 
+                component={selectedComponentData}
+                onPropertyChange={handlePropertyChange}
+              />
+            </div>
+          </div>
+        </div>
+      </DndProvider>
+    );
+  };
+  
+  export default UIEditor;
+
+# Server setup for the UI editor
+server_setup: |
+  import express from 'express';
+  import path from 'path';
+  import fs from 'fs';
+  import React from 'react';
+  import ReactDOMServer from 'react-dom/server';
+  import UIEditor from './components/UIEditor';
+  
+  // Create Express server
+  const app = express();
+  const PORT = process.env.PORT || 3000;
+  
+  // Serve static files
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.json());
+  
+  // API endpoint to get app data
+  app.get('/api/app', (req, res) => {
+    const { app_name, screens_dir, template_name } = req.query;
+    
+    try {
+      // Get list of screens from directory
+      const screens = fs.readdirSync(screens_dir)
+        .filter(file => file.endsWith('.jsx') && !file.includes('AppNavigation'))
+        .map(file => {
+          const id = file.replace('.jsx', '');
+          return {
+            id,
+            name: id.charAt(0).toUpperCase() + id.slice(1).replace(/([A-Z])/g, ' $1').trim(),
+            file_path: path.join(screens_dir, file)
+          };
+        });
+      
+      res.json({
+        app_name,
+        template_name,
+        screens
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
+  // API endpoint to save changes
+  app.post('/api/save', (req, res) => {
+    const { screens } = req.body;
+    
+    try {
+      // Save changes to files
+      Object.entries(screens).forEach(([screenId, screenData]) => {
+        const filePath = path.join(screens_dir, `${screenId}.jsx`);
+        
+        // In a real implementation, this would generate JSX from the screen data
+        // and write it to the file
+        fs.writeFileSync(filePath, `// Updated by UI Editor\n// ${JSON.stringify(screenData)}`);
+      });
+      
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
+  // Render the UI editor app
+  app.get('*', (req, res) => {
+    const html = ReactDOMServer.renderToString(
+      <UIEditor />
+    );
+    
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>AppGenie UI Editor</title>
+          <link rel="stylesheet" href="/styles.css">
+        </head>
+        <body>
+          <div id="root">${html}</div>
+          <script src="/bundle.js"></script>
+        </body>
+      </html>
+    `);
+  });
+  
+  // Start the server
+  app.listen(PORT, () => {
+    console.log(`UI Editor server running on port ${PORT}`);
+  });
+
+# Execution steps
+steps:
+  # Start the UI editor server
+  - action: run_code
+    code: |
+      const { app_name, template_name = 'default', screens_dir, mode = 'web' } = input;
+      
+      // In a real implementation, this would start the UI editor server
+      // and return the URL to access it
+      
+      // For now, we'll simulate the output
+      const editorPort = 3000;
+      const editorUrl = `http://localhost:${editorPort}/${mode}/edit`;
+      
+      // Get list of screens from directory
+      const fs = require('fs');
+      const path = require('path');
+      
+      let screens = [];
+      try {
+        screens = fs.readdirSync(screens_dir)
+          .filter(file => file.endsWith('.jsx') && !file.includes('AppNavigation'))
+          .map(file => {
+            const id = file.replace('.jsx', '');
+            return {
+              id,
+              name: id.charAt(0).toUpperCase() + id.slice(1).replace(/([A-Z])/g, ' $1').trim(),
+              preview_url: `${editorUrl}/preview/${id}`
+            };
+          });
+      } catch (error) {
+        console.error('Error reading screens directory:', error);
+        screens = [
+          { id: 'home', name: 'Home', preview_url: `${editorUrl}/preview/home` },
+          { id: 'profile', name: 'Profile', preview_url: `${editorUrl}/preview/profile` }
+        ];
+      }
+      
+      // Return the result
+      return {
+        app_name,
+        editor_url: editorUrl,
+        screens,
+        save_path: screens_dir
+      };
+  
+  # Log the result
+  - action: log
+    message: "UI Editor started for app '{{ app_name }}' at {{ editor_url }} - {{ screens.length }} screens available"
+
+# Lifecycle hooks
+on_start:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.ui-editor.start', {
+        agent: 'ui-editor',
+        app_name: input.app_name,
+        mode: input.mode || 'visual',
+        screens_dir: input.screens_dir,
+        timestamp: new Date().toISOString()
+      });
+
+on_finish:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.ui-editor.finish', {
+        agent: 'ui-editor',
+        app_name: output.app_name,
+        editor_url: output.editor_url,
+        screen_count: output.screens.length,
+        save_path: output.save_path,
+        timestamp: new Date().toISOString()
+      });
+
+# Post-processing hooks
+post_process:
+  - action: next_step
+    agent: preview-engine
+    with:
+      app_name: "{{ app_name }}"
+      editor_url: "{{ editor_url }}"
+      screens: "{{ screens }}"

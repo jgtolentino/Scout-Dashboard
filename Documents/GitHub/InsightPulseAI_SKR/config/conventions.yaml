@@ -1,0 +1,12 @@
+watch_folder: /Users/tbwa/Downloads/
+
+routing:
+  agent_: agents/
+  skr_mod_: modules/
+  skr_dash_: dashboards/
+  skr_doc_: SKR/03_Artifacts/
+  apraoched_: 00_APRAOCHED/
+  Jake_InsightPulseAI_Context_Export: context_exports/
+  InsightPulseAI_SKR_Full_Backup: backups/
+  enrico_: dns_configs/
+  default: uploads/manual/

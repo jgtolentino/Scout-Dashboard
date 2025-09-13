@@ -1,0 +1,108 @@
+product:
+  name: "TBWA Creative Campaign Analysis System"
+  version: "1.0.0"
+  description: "A comprehensive ColPali-style PageIndex system with Perplexity-style semantic indexing, cataloging, and file-level linking for creative campaign analysis. This system processes, indexes, and enables search for creative files using Azure AI services."
+
+vision:
+  short_term_goal: "To establish a fully functional, production-ready system capable of ingesting and semantically indexing TBWA's creative campaign archive, enabling advanced search and insights."
+  long_term_goal: "To transform TBWA's creative archive into an intelligent, searchable knowledge base that predicts campaign effectiveness, identifies creative trends, and automates content analysis for strategic decision-making."
+
+key_features:
+  - name: "Per-file Semantic Chunking"
+    description: "Automatically breaks down various file types (PDF, PPTX, DOCX, images, videos) into meaningful semantic chunks."
+    stack_component: "PageIndex Agent (Python) with LangChain/custom splitter"
+    status: "Implemented"
+
+  - name: "Per-chunk Vector Embedding & Indexing"
+    description: "Generates high-dimensional vector embeddings for each semantic chunk and indexes them for fast similarity search."
+    stack_component: "Azure OpenAI Embeddings + Azure SQL (pgvector or custom storage)"
+    status: "Implemented"
+
+  - name: "File-to-Index Linking & Metadata Tagging"
+    description: "Maintains clear relationships between original files, their chunks, and extracted metadata (campaign, client, type, date, etc.)."
+    stack_component: "Azure SQL (pageIndex, fileMetadata tables)"
+    status: "Implemented"
+
+  - name: "Cataloging with Tags, Mood, & Quality Scoring"
+    description: "Automated extraction and tagging of creative elements including mood (e.g., celebratory, corporate), content clarity, visual type, and predicted effectiveness scores."
+    stack_component: "PageIndex Agent (Python) with LLM/classifier models"
+    status: "Implemented"
+
+  - name: "Live Indexing UI & Semantic Search Assistant"
+    description: "A user-friendly web interface for live monitoring of indexing progress, semantic search, and interactive exploration of indexed content."
+    stack_component: "Next.js Web Dashboard (React, Tailwind) + API routes"
+    status: "Implemented"
+
+  - name: "Multimodal Support"
+    description: "Ability to process and extract insights from diverse content formats beyond text, including images, PDFs, videos, and presentations."
+    stack_component: "PageIndex Agent (Python) with OCR/Vision/Speech-to-Text capabilities"
+    status: "Implemented"
+
+  - name: "Document-to-Page Context Recall"
+    description: "Ensures that semantic search results retain context from their original document or page, enabling precise retrieval and analysis."
+    stack_component: "RAG chain in PageIndex Agent / Web Dashboard"
+    status: "Implemented"
+
+architecture:
+  type: "Monorepo (Turborepo)"
+  components:
+    - name: "Web Dashboard (apps/web-dashboard)"
+      description: "Next.js 15 application for user interface, search, and analytics."
+      technologies: ["Next.js", "React 19", "Tailwind CSS"]
+    - name: "PageIndex Agent (packages/pageindex-agent)"
+      description: "Python-based processing engine for file ingestion, chunking, AI analysis, and database insertion."
+      technologies: ["Python 3.8+", "OpenAI API (Azure)", "LangChain", "MSSQL Driver"]
+    - name: "Database (packages/database)"
+      description: "Handles Azure SQL Database connection, schema migrations, and data access layer."
+      technologies: ["TypeScript", "mssql (Node.js)", "Zod", "Azure SQL Database"]
+    - name: "Shared (packages/shared)"
+      description: "Common types, schemas (Zod), and utility functions shared across frontend and backend components."
+      technologies: ["TypeScript", "Zod", "date-fns"]
+    - name: "Audit Tools (ci/audit_caca.js)"
+      description: "Comprehensive system for testing and verifying the health, functionality, and performance of the PageIndex system."
+      technologies: ["Node.js", "Playwright"]
+
+technical_requirements:
+  cloud_platform: "Azure"
+  database: "Azure SQL Database (SQL-TBWA-ProjectScout-Reporting-Prod)"
+  ai_service: "Azure OpenAI (gpt-4o-deployment, embeddings-deployment)"
+  storage: "Azure Blob Storage (future integration) / Google Drive (via Pulser)"
+  runtime_environments:
+    - "Node.js 18+ (for Next.js, database, shared, audit)"
+    - "Python 3.8+ (for PageIndex Agent)"
+  package_manager: "npm (with Turborepo workspaces)"
+  version_control: "Git"
+  ci_cd: "GitHub Actions (future)"
+
+desired_end_state_metrics:
+  - metric: "Processing Throughput"
+    target: ">= 500 files/hour (mixed content)"
+    description: "Rate at which creative files are ingested, processed, and indexed."
+
+  - metric: "Semantic Search Latency"
+    target: "< 500 ms for average queries"
+    description: "Time taken to return relevant semantic search results from indexed data."
+
+  - metric: "Data Coverage"
+    target: "100% of PH Awards Archive (1,186+ campaigns) indexed"
+    description: "Completeness of the creative archive in the PageIndex system."
+
+  - metric: "Data Accuracy (Quality/Mood Tagging)"
+    target: ">= 85% F1-score on validation set"
+    description: "Accuracy of AI-generated tags (mood, quality, topics) compared to human annotation."
+
+  - metric: "System Audit Score"
+    target: ">= 90% (based on ci/audit_caca.js)"
+    description: "Overall health, security, and performance score from the automated audit system."
+
+  - metric: "User Adoption"
+    target: "> 70% of creative team using search weekly"
+    description: "Frequency and engagement of the creative team with the PageIndex dashboard."
+
+future_enhancements:
+  - "Enhanced Multimodal Processing: Deeper video analysis, audio transcription"
+  - "Advanced Analytics: Predictive modeling for campaign success, A/B testing insights"
+  - "User Feedback Loop: Mechanism for users to correct AI tags and improve model performance"
+  - "Integration with Creative Tools: Direct integration with design software (e.g., Adobe Creative Cloud)"
+  - "Dynamic Content Generation: AI-assisted ideation and content creation based on insights"
+  - "Personalized Recommendations: Tailored content suggestions for designers and strategists" 

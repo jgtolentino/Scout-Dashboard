@@ -1,0 +1,52 @@
+=== Storage Accounts by Resource Group and Region ===
+
+Region: eastus
+--------------------
+Resource Group: RG-TBWA-ProjectScout-Data
+- mymlworkstorage89365eba1 (SKU: Standard_LRS, Kind: StorageV2)
+- projectscoutdata (SKU: Standard_RAGRS, Kind: StorageV2)
+
+Resource Group: retail-dashboards-rg
+- retailedgedash0513 (SKU: Standard_LRS, Kind: StorageV2)
+- retailperfdash0513 (SKU: Standard_LRS, Kind: StorageV2)
+
+Resource Group: ProjectScout-ResourceGroup
+- projectscoutstorage20250 (SKU: Standard_LRS, Kind: StorageV2)
+- pscoutdash0513 (SKU: Standard_LRS, Kind: StorageV2)
+
+
+Region: eastus2
+--------------------
+Resource Group: RG-TBWA-ProjectScout-Juicer
+- retailadvisorstore (SKU: Standard_LRS, Kind: StorageV2)
+- tbwajuicerstorage (SKU: Standard_LRS, Kind: StorageV2)
+
+
+Region: australiaeast
+--------------------
+No resource groups with multiple storage accounts in australiaeast
+
+=== Storage Account Redundancy Analysis ===
+Storage accounts with potentially excessive redundancy:
+- projectscoutdata (SKU: Standard_RAGRS, Resource Group: RG-TBWA-ProjectScout-Data)
+- dbstoragehyx7ppequk63i (SKU: Standard_GRS, Resource Group: databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5)
+
+=== Consolidation Recommendations ===
+Based on the analysis, the following consolidation actions are recommended:
+
+1. Consolidate 'retailedgedash0513' and 'retailperfdash0513' in 'retail-dashboards-rg'
+   - These appear to be similar dashboard storage accounts in the same resource group
+   - Action: Migrate data from 'retailperfdash0513' to 'retailedgedash0513' and decommission 'retailperfdash0513'
+
+2. Consolidate 'projectscoutstorage20250' and 'pscoutdash0513' in 'ProjectScout-ResourceGroup'
+   - These appear to be similar storage accounts in the same resource group
+   - Action: Evaluate usage patterns and consider migrating data to maintain only one storage account
+
+3. Review 'tbwajuicerstorage' and 'retailadvisorstore' in 'RG-TBWA-ProjectScout-Juicer'
+   - Determine if these have different purposes or could be consolidated
+   - Action: Review usage patterns and dependencies before considering consolidation
+
+4. Optimize redundancy levels:
+   - Consider changing 'projectscoutdata' from Standard_RAGRS to Standard_LRS if geo-redundancy is not critical
+   - Evaluate if 'dbstoragehyx7ppequk63i' requires Standard_GRS or could use a lower redundancy level
+

@@ -1,0 +1,38 @@
+{
+  "name": "pulserbuilder",
+  "version": 2,
+  "builds": [
+    { 
+      "src": "package.json", 
+      "use": "@vercel/node" 
+    }
+  ],
+  "routes": [
+    { 
+      "src": "/api/(.*)", 
+      "dest": "/api/$1" 
+    },
+    { 
+      "handle": "filesystem"
+    },
+    { 
+      "src": "/(.*)", 
+      "dest": "/index.html" 
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "FIREBASE_API_KEY": "@firebase-api-key",
+    "FIREBASE_AUTH_DOMAIN": "@firebase-auth-domain",
+    "FIREBASE_PROJECT_ID": "@firebase-project-id",
+    "FIREBASE_STORAGE_BUCKET": "@firebase-storage-bucket",
+    "FIREBASE_MESSAGING_SENDER_ID": "@firebase-messaging-sender-id",
+    "FIREBASE_APP_ID": "@firebase-app-id",
+    "AGENT_API_URL": "@agent-api-url",
+    "AGENT_API_KEY": "@agent-api-key"
+  },
+  "github": {
+    "enabled": true,
+    "silent": false
+  }
+}

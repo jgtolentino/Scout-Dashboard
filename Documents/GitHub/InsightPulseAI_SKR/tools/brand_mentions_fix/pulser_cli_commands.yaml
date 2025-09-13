@@ -1,0 +1,136 @@
+name: pulser_cli_commands
+description: Commands available in the Pulser CLI
+
+schema_version: "1.0"
+metadata:
+  sync_enabled: true
+  sync_priority: 5
+
+commands:
+  - name: verify-deploy
+    syntax: ":verify-deploy [domain]"
+    description: |
+      Verifies a Pulser deployment is working correctly
+      Checks DNS, HTTPS access, redirects, and API endpoints
+    examples:
+      - ":verify-deploy"
+      - ":verify-deploy pulser-ai.app"
+    category: deployment
+    output_format: |
+      [DNS] ✅ DNS resolves to 76.223.27.102
+      [HTTPS] ✅ Site reachable with 200 OK
+      [www_redirect] ⚠️ www domain active but no redirect
+    notes: |
+      - Domain defaults to pulser-ai.app if not specified
+      - Performs multiple checks including DNS, HTTPS, redirects
+      - Does not require model loading or initiate retry loops
+
+  - name: shell
+    syntax: ":shell"
+    description: |
+      Switches to shell command mode
+      Allows running shell commands without ! prefix
+    examples:
+      - ":shell"
+      - "ls -la"  # after switching to shell mode
+    category: mode
+    
+  - name: prompt
+    syntax: ":prompt"
+    description: |
+      Switches to prompt mode (default)
+      Sends text to the active model
+    examples:
+      - ":prompt"
+      - "what is a data lake?"  # sent to model
+    category: mode
+    
+  - name: ops
+    syntax: ":ops"
+    description: |
+      Switches to operations mode
+      Sends operations to Pulser agents
+    examples:
+      - ":ops"
+      - "scout extract session.json"  # sent to scout agent
+    category: mode
+    
+  - name: model
+    syntax: ":model name"
+    description: |
+      Sets the active model for prompts
+    examples:
+      - ":model mistral"
+      - ":model claudia"
+    category: model
+    
+  - name: task
+    syntax: ":task agent.method args"
+    description: |
+      Runs a specified task with an agent
+    examples:
+      - ":task scout.extract session.json"
+      - ":task claudia.process data.csv"
+    category: ops
+    
+  - name: quiet
+    syntax: ":quiet"
+    description: |
+      Enables quiet mode
+      Suppresses warnings and verbose output
+    examples:
+      - ":quiet"
+    category: display
+    
+  - name: verbose
+    syntax: ":verbose"
+    description: |
+      Enables verbose mode
+      Shows all warnings and output
+    examples:
+      - ":verbose"
+    category: display
+    
+  - name: silent-mode
+    syntax: ":silent-mode"
+    description: |
+      Toggles silent mode
+      Hides model interactions and reload messages
+    examples:
+      - ":silent-mode"
+    category: display
+    
+  - name: echo-mode
+    syntax: ":echo-mode"
+    description: |
+      Enables echo mode
+      Shows all model prompts and interactions
+    examples:
+      - ":echo-mode"
+    category: display
+    
+  - name: debug
+    syntax: ":debug"
+    description: |
+      Toggles debug mode
+      Shows command classification and execution details
+    examples:
+      - ":debug"
+    category: display
+    
+  - name: help
+    syntax: ":help"
+    description: |
+      Shows help information
+      Lists available commands and their usage
+    examples:
+      - ":help"
+    category: info
+    
+  - name: history
+    syntax: ":history"
+    description: |
+      Shows command history
+    examples:
+      - ":history"
+    category: info

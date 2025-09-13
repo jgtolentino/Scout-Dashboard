@@ -1,0 +1,1 @@
+I want a retail dashboard showing brand loyalty by store, top-selling SKUs, and customer sentiment.

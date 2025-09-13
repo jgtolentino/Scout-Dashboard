@@ -1,0 +1,58 @@
+Brand_Loyalty:
+  table: customer_loyalty
+  columns: 
+    - store_id
+    - store_name
+    - loyalty_index
+    - previous_month_loyalty
+    - loyalty_change_percent
+  filters:
+    - date_range
+    - region
+  aggregation: average
+  sorting: desc
+  top_n: 10
+
+Top_Selling_SKUs:
+  table: sales_data
+  joins:
+    - table: products
+      columns: [product_name, category, brand]
+      on: sales_data.sku = products.sku
+  columns: 
+    - sku
+    - product_name
+    - category
+    - brand
+    - total_sales
+    - units_sold
+    - profit_margin
+  filters:
+    - date_range
+    - region
+    - store
+  aggregation: sum
+  sorting: desc
+  top_n: 5
+
+Customer_Sentiment:
+  table: sentiment_logs
+  columns: 
+    - timestamp
+    - sentiment_score
+    - feedback_count
+    - positive_ratio
+    - negative_ratio
+    - neutral_ratio
+  filters:
+    - date_range
+    - region
+    - store
+  aggregation: average
+  time_granularity: daily
+  reference_lines:
+    - type: average
+      label: "Average Sentiment"
+    - type: threshold
+      value: 75
+      label: "Target"

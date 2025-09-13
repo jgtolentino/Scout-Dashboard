@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QR Code Generator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+    }
+    
+    .qr-container {
+      width: 256px;
+      height: 256px;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .qr-code {
+      width: 180px;
+      height: 180px;
+      background-color: white;
+      position: relative;
+    }
+    
+    .qr-pattern {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 4px solid black;
+    }
+    
+    .qr-pattern-eye {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: black;
+    }
+    
+    .top-left {
+      top: 0;
+      left: 0;
+    }
+    
+    .top-right {
+      top: 0;
+      right: 0;
+    }
+    
+    .bottom-left {
+      bottom: 0;
+      left: 0;
+    }
+    
+    .qr-data {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(7, 1fr);
+      gap: 2px;
+    }
+    
+    .qr-bit {
+      background-color: #000;
+      border-radius: 1px;
+    }
+    
+    .qr-text {
+      margin-top: 15px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="qr-container">
+    <div class="qr-code">
+      <div class="qr-pattern top-left">
+        <div class="qr-pattern-eye"></div>
+      </div>
+      <div class="qr-pattern top-right">
+        <div class="qr-pattern-eye"></div>
+      </div>
+      <div class="qr-pattern bottom-left">
+        <div class="qr-pattern-eye"></div>
+      </div>
+      <div class="qr-data">
+        <!-- Simulated QR code data bits -->
+        <div class="qr-bit" style="grid-column: 2; grid-row: 2;"></div>
+        <div class="qr-bit" style="grid-column: 3; grid-row: 2;"></div>
+        <div class="qr-bit" style="grid-column: 4; grid-row: 2;"></div>
+        <div class="qr-bit" style="grid-column: 5; grid-row: 2;"></div>
+        <div class="qr-bit" style="grid-column: 6; grid-row: 2;"></div>
+        
+        <div class="qr-bit" style="grid-column: 2; grid-row: 3;"></div>
+        <div class="qr-bit" style="grid-column: 4; grid-row: 3;"></div>
+        <div class="qr-bit" style="grid-column: 6; grid-row: 3;"></div>
+        
+        <div class="qr-bit" style="grid-column: 2; grid-row: 4;"></div>
+        <div class="qr-bit" style="grid-column: 3; grid-row: 4;"></div>
+        <div class="qr-bit" style="grid-column: 5; grid-row: 4;"></div>
+        
+        <div class="qr-bit" style="grid-column: 2; grid-row: 5;"></div>
+        <div class="qr-bit" style="grid-column: 4; grid-row: 5;"></div>
+        <div class="qr-bit" style="grid-column: 6; grid-row: 5;"></div>
+        
+        <div class="qr-bit" style="grid-column: 2; grid-row: 6;"></div>
+        <div class="qr-bit" style="grid-column: 3; grid-row: 6;"></div>
+        <div class="qr-bit" style="grid-column: 4; grid-row: 6;"></div>
+        <div class="qr-bit" style="grid-column: 5; grid-row: 6;"></div>
+        <div class="qr-bit" style="grid-column: 6; grid-row: 6;"></div>
+      </div>
+    </div>
+    <div class="qr-text">
+      Schedule a demo
+    </div>
+  </div>
+</body>
+</html>

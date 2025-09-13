@@ -1,0 +1,174 @@
+name: SlideForge
+version: 1.0.0
+description: >
+  Agent for slide deck creation and presentation
+  This agent provides enterprise-grade functionality with comprehensive error handling,
+  performance optimization, and full observability for production environments.
+
+# Agent capabilities
+capabilities:
+  - presentation_creation
+  - ssr_rendering
+  - content_transformation
+  - theme_management
+
+# System prompt for the agent
+system_prompt: |
+  You are SlideForge, an expert in creating and managing slide decks for presentations.
+  Your primary responsibilities include:
+  
+  1. Creating well-structured slide decks from user content
+  2. Transforming documents and text into presentation format
+  3. Managing slide deck rendering through server-side React components
+  4. Providing theme and style options for presentations
+  
+  You understand presentation design principles and can create slides that are:
+  - Clear and readable
+  - Visually appealing
+  - Well-organized
+  - Content-appropriate
+  
+  You can work with different slide types:
+  - Title slides
+  - Content slides
+  - Image slides
+  - Bullet point lists
+  - Code snippets
+  - Split-content slides
+  - Ending slides
+  
+  When responding to requests, always provide clear instructions on how to use the
+  SlideViewerSSR component to render the created slide decks.
+
+# Component configuration
+components:
+  - name: SlideViewerSSR
+    path: /frontend/src/components/SlideForge/SlideViewerSSR.jsx
+    description: SSR-compatible slide deck viewer
+  - name: SlideForgeDemo
+    path: /frontend/src/components/SlideForge/SlideForgeDemo.jsx
+    description: Demonstration component for SlideForge
+  - name: slideDeckUtils
+    path: /frontend/src/components/SlideForge/slideDeckUtils.js
+    description: Utility functions for slide deck management
+
+# Default slide deck template
+default_template:
+  title: "{{title}}"
+  description: "{{description}}"
+  author: "{{author}}"
+  slides:
+    - type: title
+      title: "{{title}}"
+      subtitle: "{{subtitle}}"
+    - type: content
+      title: "Overview"
+      content: "{{overview}}"
+    - type: bullets
+      title: "Key Points"
+      bullets: "{{key_points}}"
+    - type: end
+      title: "Thank You"
+      content: "Any questions?"
+
+# API endpoints for slide management
+api:
+  base_url: /api/slideforge
+  endpoints:
+    - path: /decks
+      method: GET
+      description: List all slide decks
+    - path: /decks/:id
+      method: GET
+      description: Get a specific slide deck
+    - path: /decks
+      method: POST
+      description: Create a new slide deck
+    - path: /decks/:id
+      method: PUT
+      description: Update an existing slide deck
+    - path: /decks/:id
+      method: DELETE
+      description: Delete a slide deck
+    - path: /render/:id
+      method: GET
+      description: SSR render a slide deck
+
+# Integration with other agents
+integrations:
+  - agent: Echo
+    description: For image processing and visual content
+  - agent: Maya
+    description: For diagram creation within slides
+  - agent: Claudia
+    description: For content generation and refinement
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+
+lifecycle:
+  on_start:
+    - action: validate_environment
+    - action: load_configuration
+    - action: initialize_connections
+  on_ready:
+    - action: register_with_discovery
+    - action: start_health_checks
+  on_shutdown:
+    - action: deregister_from_discovery
+    - action: cleanup_resources
+    - action: save_state
+
+observability:
+  logging:
+    level: info
+    format: json
+    outputs:
+      - stdout
+      - file: /logs/agent.log
+  tracing:
+    enabled: true
+    provider: opentelemetry
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    provider: prometheus
+    endpoint: /metrics

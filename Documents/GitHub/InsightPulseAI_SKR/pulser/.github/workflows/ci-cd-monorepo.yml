@@ -1,0 +1,222 @@
+name: Pulser Monorepo CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '20'
+  AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+
+jobs:
+  # Build and test frontend
+  build-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Run tests
+      run: npm test -- --coverage --watchAll=false
+    
+    - name: Build frontend
+      run: npm run build
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: frontend-build
+        path: frontend/dist
+
+  # Build and test API
+  build-api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./api
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: api/package-lock.json
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run API tests
+      run: npm test
+    
+    - name: Build API
+      run: npm run build
+    
+    - name: Validate function.json files
+      run: |
+        echo "Validating Azure Functions structure..."
+        find . -name "function.json" -exec echo "Validating {}" \; -exec cat {} \; -exec echo "" \;
+        
+        # Check that each API endpoint has proper function.json
+        required_endpoints=(
+          "premium-insights"
+          "transactions/trends" 
+          "transactions/heatmap"
+          "analytics/behavior"
+          "analytics/profiling"
+          "product-mix"
+          "stores/nearby"
+        )
+        
+        for endpoint in "${required_endpoints[@]}"; do
+          if [ ! -f "$endpoint/function.json" ]; then
+            echo "❌ Missing function.json for $endpoint"
+            exit 1
+          else
+            echo "✅ Found function.json for $endpoint"
+          fi
+        done
+
+  # Security and quality checks
+  security-checks:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Run security audit
+      run: |
+        # Check for secrets in codebase
+        echo "🔍 Scanning for potential secrets..."
+        if grep -r "sk-" . --exclude-dir=node_modules --exclude-dir=.git; then
+          echo "❌ Potential API keys found in codebase"
+          exit 1
+        fi
+        
+        # Validate environment variables are properly set
+        echo "🔧 Validating required secrets..."
+        if [ -z "${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}" ]; then
+          echo "❌ Missing AZURE_STATIC_WEB_APPS_API_TOKEN secret"
+          exit 1
+        fi
+        
+        echo "✅ Security checks passed"
+    
+    - name: Validate staticwebapp.config.json
+      run: |
+        if [ ! -f "staticwebapp.config.json" ]; then
+          echo "❌ Missing staticwebapp.config.json"
+          exit 1
+        fi
+        
+        # Validate JSON syntax
+        cat staticwebapp.config.json | jq empty
+        echo "✅ staticwebapp.config.json is valid"
+
+  # Deploy to Azure Static Web Apps (only on main branch)
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [build-frontend, build-api, security-checks]
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: false
+    
+    - name: Download frontend artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: frontend-build
+        path: frontend/dist
+    
+    - name: Deploy to Azure Static Web Apps
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        action: "upload"
+        app_location: "/frontend"
+        api_location: "/api"
+        output_location: "dist"
+
+  # Post-deployment verification
+  verify-deployment:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+    
+    - name: Install test dependencies
+      run: npm install -g supertest jest
+    
+    - name: Run post-deployment API tests
+      run: |
+        echo "🧪 Running post-deployment API health checks..."
+        
+        # Test all API endpoints
+        endpoints=(
+          "https://thankful-sea-06d26c00f.6.azurestaticapps.net/api/premium-insights"
+          "https://thankful-sea-06d26c00f.6.azurestaticapps.net/api/transactions/trends"
+          "https://thankful-sea-06d26c00f.6.azurestaticapps.net/api/transactions/heatmap"
+          "https://thankful-sea-06d26c00f.6.azurestaticapps.net/api/analytics/behavior"
+          "https://thankful-sea-06d26c00f.6.azurestaticapps.net/api/analytics/profiling"
+          "https://thankful-sea-06d26c00f.6.azurestaticapps.net/api/product-mix"
+          "https://thankful-sea-06d26c00f.6.azurestaticapps.net/api/stores/nearby"
+        )
+        
+        for endpoint in "${endpoints[@]}"; do
+          echo "Testing $endpoint..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" "$endpoint")
+          if [ "$response" = "200" ]; then
+            echo "✅ $endpoint returned 200"
+          else
+            echo "❌ $endpoint returned $response"
+            exit 1
+          fi
+        done
+        
+        echo "🎉 All API endpoints are healthy!"
+    
+    - name: Verify frontend deployment
+      run: |
+        echo "🌐 Verifying frontend deployment..."
+        response=$(curl -s -o /dev/null -w "%{http_code}" "https://thankful-sea-06d26c00f.6.azurestaticapps.net")
+        if [ "$response" = "200" ]; then
+          echo "✅ Frontend is accessible"
+        else
+          echo "❌ Frontend returned $response"
+          exit 1
+        fi

@@ -1,0 +1,124 @@
+# ✅ Unified QA Checklist: Project Scout – Medallion Architecture + GenAI Integration
+
+This document provides a comprehensive QA checklist for validating the Project Scout architecture diagram, system implementation, and GenAI integration.
+
+![Project Scout Architecture](images/AZURE_ARCHITECTURE_PRO.png)
+
+*QA reference diagram showing key components and data flow*
+
+## 1. 📊 Visual Clarity & Presentation
+
+| Checkpoint                                                            | Status |
+| --------------------------------------------------------------------- | ------ |
+| Consistent color coding for Bronze / Silver / Gold / Platinum layers  | ☐      |
+| Readable and properly sized text labels                               | ☐      |
+| No icon-to-icon overlaps (20px min horizontal, 30px min vertical)     | ☐      |
+| No icon-to-text overlaps (text should be below or beside icons)       | ☐      |
+| No connector-label overlaps                                           | ☐      |
+| Azure icons match official Azure service representations              | ☐      |
+| GenAI Insights visually distinct but integrated with main flow        | ☐      |
+| Layer boundaries clearly delineated                                   | ☐      |
+| Diagram fits standard HD screens (no horizontal scroll)               | ☐      |
+| Image export at ≥ 2x scale PNG and SVG                               | ☐      |
+| Font type and size consistent (Segoe UI, Roboto, 11–12pt)             | ☐      |
+| Diagram title ("Project Scout – Medallion Architecture") is prominent | ☐      |
+| Connectors follow standard routing (Manhattan style)                  | ☐      |
+| Icons consistently sized (64×64px recommended)                        | ☐      |
+
+## 2. 🧠 Flow Representation & System Logic
+
+| Checkpoint                                                                    | Status |
+| ----------------------------------------------------------------------------- | ------ |
+| Data flows logically from IoT (Edge) to Platinum (GenAI output)               | ☐      |
+| ETL paths (batch/stream) clearly differentiated                               | ☐      |
+| Dashed vs. solid lines consistently show logical vs. physical connections     | ☐      |
+| Component grouping reinforces processing stages (Ingest, Cleanse, ML, Output) | ☐      |
+| Event flows and system reactions (e.g., alerts) clearly marked                | ☐      |
+
+## 3. 🔒 Security & Access Control
+
+| Checkpoint                                                           | Status |
+| -------------------------------------------------------------------- | ------ |
+| Azure Key Vault integrated and labeled in diagram                    | ☐      |
+| Secrets and authentication flows indicated in appropriate places     | ☐      |
+| Identity or token exchange arrows (where applicable)                 | ☐      |
+| Access control touchpoints (e.g., GenAI API, dashboards) are labeled | ☐      |
+
+## 4. 🧪 Performance & Deployment Verification
+
+| Checkpoint                                                                 | Status |
+| -------------------------------------------------------------------------- | ------ |
+| Databricks cluster and workspace provisioned                               | ☐      |
+| Streaming ingestion (IoT Hub or Event Hub) tested and throughput validated | ☐      |
+| GenAI pipeline (Claude/OpenAI/DeepSeek) configured and testable via Pulser | ☐      |
+| Static Web App URL live and showing Insights Dashboard                     | ☐      |
+| Synapse / BI visualizations tested with production-scale sample            | ☐      |
+| Exported diagram validated by `diagram_qa_validate.sh`                     | ☐      |
+
+## 5. 📈 Monitoring & Alerting Coverage
+
+| Checkpoint                                                      | Status |
+| --------------------------------------------------------------- | ------ |
+| Azure Monitor + Log Analytics enabled                           | ☐      |
+| Alerts and thresholds configured for failures, latencies, drops | ☐      |
+| Event Hubs or Notification system integrated                    | ☐      |
+| QA screenshot of monitoring in `assets/screenshots/`            | ☐      |
+
+## 6. 📚 Documentation & Accessibility
+
+| Checkpoint                                                                    | Status |
+| ----------------------------------------------------------------------------- | ------ |
+| Architecture diagram saved as PNG + SVG in `docs/images/`                     | ☐      |
+| Color choices accessible for color-blind users (e.g., no red/green confusion) | ☐      |
+| Legend provided for icons or layer color codes                                | ☐      |
+| Data dictionary, pipeline spec, and fallback rules documented                 | ☐      |
+| Markdown or Notion versions of README, GUIDE, and STYLE\_GUIDE available      | ☐      |
+
+## 7. 🖼️ Fallback Icon Handling (When Azure Icon Is Unavailable)
+
+| Checkpoint                                                                                                                                                 | Status |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| Use **standard draw\.io shape** (rounded rectangle or labeled hex) with clear service name                                                                  | ☐      |
+| Apply **Azure Blue color** (`#0078D4`) with white font for visual consistency, unless specified in the icon fallback policy                                 | ☐      |
+| Include a small annotation (tooltip or note): *"Unofficial visual — no Azure icon available"*                                                               | ☐      |
+| Check if a **custom SVG icon** is available from [Azure Architecture Icon repo](https://github.com/microsoft/architecture-icons) or community sources       | ☐      |
+| Tag the component with a `qa:custom-icon` attribute for automated tracking                                                                                  | ☐      |
+| Verify the component follows `ICON_FALLBACK_POLICY.md` for Project Scout standard overrides                                                                 | ☐      |
+| Add any new custom icons to `MISSING_AZURE_ICONS.md` for tracking                                                                                           | ☐      |
+
+## Using This Checklist
+
+1. **Manual Review Process:**
+   - Copy this checklist to a new document for each review session
+   - Mark each item as ✅ (Pass), ⚠️ (Warning), or ❌ (Fail)
+   - Document any failures with screenshots and notes
+   - Track completion percentage and blockers
+
+2. **Automated Validation:**
+   - Run `diagram_qa.js` or `diagram_qa_validate.sh` on the architecture diagram
+   - Review the generated report at `docs/images/qa_results.md`
+   - Address any warnings or failures identified by the tools
+   - Re-run validation until all automated checks pass
+
+3. **Final Approval:**
+   - Ensure all critical items (security, data flow, icons) are passing
+   - Document any acceptable warnings that don't require immediate fixes
+   - Get signoff from architecture, security, and UX stakeholders
+   - Archive the completed checklist with the project documentation
+
+## References
+
+- [ARCHITECTURE_DIAGRAM_STYLE_GUIDE.md](ARCHITECTURE_DIAGRAM_STYLE_GUIDE.md)
+- [ARCHITECTURE_ICON_HANDLING.md](ARCHITECTURE_ICON_HANDLING.md)
+- [MISSING_AZURE_ICONS.md](MISSING_AZURE_ICONS.md)
+- [Azure Architecture Center](https://docs.microsoft.com/en-us/azure/architecture/)
+- [Medallion Architecture Pattern](https://databricks.com/glossary/medallion-architecture)
+## QA Reference Diagram
+<!-- QA_REFERENCE_DIAGRAM_SECTION -->
+
+<img src="docs/images/AZURE_ARCHITECTURE_PRO.svg" alt="Architecture Diagram" width="800">
+
+*Architecture diagram showing the Project Scout medallion data flow with GenAI integration*
+
+[View full-size diagram](docs/images/AZURE_ARCHITECTURE_PRO.png) | [View SVG](docs/images/AZURE_ARCHITECTURE_PRO.svg)
+

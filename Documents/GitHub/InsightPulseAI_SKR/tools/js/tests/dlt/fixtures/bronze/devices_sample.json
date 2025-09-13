@@ -1,0 +1,102 @@
+[
+  {
+    "device_id": "dev-12345",
+    "device_type": "desktop",
+    "os": "Windows 11",
+    "browser": "Chrome 112",
+    "region": "US-East",
+    "last_seen": "2025-05-15T10:18:30Z",
+    "properties": "{\"screen_resolution\":\"1920x1080\",\"color_depth\":24,\"language\":\"en-US\",\"timezone\":\"America/New_York\"}",
+    "processed_at": "2025-05-15T10:20:15Z"
+  },
+  {
+    "device_id": "dev-67890",
+    "device_type": "mobile",
+    "os": "iOS 16.3",
+    "browser": "Safari 16",
+    "region": "US-West",
+    "last_seen": "2025-05-15T10:30:25Z",
+    "properties": "{\"screen_resolution\":\"390x844\",\"color_depth\":24,\"language\":\"en-US\",\"timezone\":\"America/Los_Angeles\",\"device_model\":\"iPhone 14\"}",
+    "processed_at": "2025-05-15T10:32:10Z"
+  },
+  {
+    "device_id": "dev-54321",
+    "device_type": "tablet",
+    "os": "iPadOS 16.3",
+    "browser": "Safari 16",
+    "region": "US-Central",
+    "last_seen": "2025-05-15T11:07:20Z",
+    "properties": "{\"screen_resolution\":\"820x1180\",\"color_depth\":24,\"language\":\"en-US\",\"timezone\":\"America/Chicago\",\"device_model\":\"iPad Air\"}",
+    "processed_at": "2025-05-15T11:10:05Z"
+  },
+  {
+    "device_id": "dev-11111",
+    "device_type": "desktop",
+    "os": "macOS 13.3",
+    "browser": "Chrome 112",
+    "region": "US-West",
+    "last_seen": "2025-05-15T11:20:40Z",
+    "properties": "{\"screen_resolution\":\"2560x1600\",\"color_depth\":30,\"language\":\"en-US\",\"timezone\":\"America/Los_Angeles\"}",
+    "processed_at": "2025-05-15T11:22:15Z"
+  },
+  {
+    "device_id": "dev-22222",
+    "device_type": "mobile",
+    "os": "Android 13",
+    "browser": "Chrome Mobile 112",
+    "region": "US-South",
+    "last_seen": "2025-05-15T12:15:30Z",
+    "properties": "{\"screen_resolution\":\"412x915\",\"color_depth\":24,\"language\":\"en-US\",\"timezone\":\"America/Chicago\",\"device_model\":\"Samsung Galaxy S22\"}",
+    "processed_at": "2025-05-15T12:18:10Z"
+  },
+  {
+    "device_id": "dev-33333",
+    "device_type": "pos",
+    "os": "Android 12",
+    "browser": "Chrome Mobile 110",
+    "region": "US-East",
+    "last_seen": "2025-05-15T13:05:45Z",
+    "properties": "{\"screen_resolution\":\"1280x800\",\"color_depth\":24,\"language\":\"en-US\",\"timezone\":\"America/New_York\",\"device_model\":\"Square Terminal\"}",
+    "processed_at": "2025-05-15T13:08:20Z"
+  },
+  {
+    "device_id": "dev-44444",
+    "device_type": "kiosk",
+    "os": "Windows 10 IoT",
+    "browser": "Edge 112",
+    "region": "US-West",
+    "last_seen": "2025-05-15T14:30:15Z",
+    "properties": "{\"screen_resolution\":\"1920x1080\",\"color_depth\":24,\"language\":\"en-US\",\"timezone\":\"America/Los_Angeles\",\"location\":\"Store #123\"}",
+    "processed_at": "2025-05-15T14:32:40Z"
+  },
+  {
+    "device_id": "dev-55555",
+    "device_type": "other",
+    "os": "Custom OS 2.5",
+    "browser": "WebKit 612",
+    "region": "US-Central",
+    "last_seen": "2025-05-15T15:45:30Z",
+    "properties": "{\"screen_resolution\":\"1024x768\",\"color_depth\":24,\"language\":\"en-US\",\"timezone\":\"America/Chicago\",\"device_type\":\"Smart Display\"}",
+    "processed_at": "2025-05-15T15:48:10Z"
+  },
+  {
+    "device_id": "dev-66666",
+    "device_type": "desktop",
+    "os": "Linux Ubuntu 22.04",
+    "browser": "Firefox 112",
+    "region": "US-West",
+    "last_seen": "2025-05-15T16:20:45Z",
+    "properties": "{\"screen_resolution\":\"3840x2160\",\"color_depth\":30,\"language\":\"en-US\",\"timezone\":\"America/Los_Angeles\"}",
+    "processed_at": "2025-05-15T16:23:15Z"
+  },
+  {
+    "device_id": "dev-77777",
+    "device_type": "mobile",
+    "os": "Android 12",
+    "browser": "Samsung Internet 16",
+    "region": "US-South",
+    "last_seen": "2025-05-15T17:10:30Z",
+    "properties": "{\"screen_resolution\":\"412x915\",\"color_depth\":24,\"language\":\"en-US\",\"timezone\":\"America/Chicago\",\"device_model\":\"Samsung Galaxy A53\"}",
+    "processed_at": "2025-05-15T17:12:45Z"
+  }
+]

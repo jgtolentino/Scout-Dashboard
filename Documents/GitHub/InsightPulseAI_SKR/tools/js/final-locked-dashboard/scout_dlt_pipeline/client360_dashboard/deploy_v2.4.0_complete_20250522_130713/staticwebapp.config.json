@@ -1,0 +1,31 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "rewrite": "/360/index.html"
+    },
+    {
+      "route": "/*",
+      "rewrite": "/360/index.html"
+    }
+  ],
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/360/index.html"
+    }
+  },
+  "globalHeaders": {
+    "content-security-policy": "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://*.tile.openstreetmap.org https://*.azurestaticapps.net;",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1; mode=block"
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".geojson": "application/json",
+    ".css": "text/css",
+    ".js": "text/javascript",
+    ".html": "text/html",
+    ".svg": "image/svg+xml",
+    ".webp": "image/webp"
+  }
+}

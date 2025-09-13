@@ -1,0 +1,24 @@
+{
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/insights_dashboard.html",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/advisor",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/advisor/*",
+      "rewrite": "/index.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*", "/css/*", "/assets/*", "*.js"]
+  },
+  "mimeTypes": {
+    ".json": "text/json"
+  }
+}

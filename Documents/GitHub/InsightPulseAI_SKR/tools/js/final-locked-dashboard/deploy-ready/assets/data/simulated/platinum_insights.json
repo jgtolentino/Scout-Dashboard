@@ -1,0 +1,326 @@
+{
+  "data": [
+    {
+      "insightId": "ins-10001",
+      "insightType": "trend_detection",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smartphone X200",
+      "detectionDate": "2025-05-14T10:25:33.123Z",
+      "confidence": 0.92,
+      "urgency": "medium",
+      "title": "Camera Quality Emerging as Primary Purchase Driver",
+      "summary": "Analysis of recent social media conversations and reviews shows that camera quality has become the most significant factor in purchasing decisions for the Smartphone X200, overtaking battery life and performance.",
+      "description": "The TechVision Smartphone X200's camera system is receiving exceptionally positive feedback across all demographics, with particular emphasis on night mode photography and portrait capabilities. This represents a shift from previous quarters where battery life was the most discussed feature. Sentiment around camera quality is 18% higher than any other feature and is mentioned in 63% of positive product reviews.",
+      "supportingData": {
+        "mentionCount": 456,
+        "sentimentScore": 0.82,
+        "keyChannels": ["Instagram", "Twitter", "YouTube"],
+        "topRegions": ["North America", "Europe", "East Asia"]
+      },
+      "actionableInsights": [
+        "Emphasize camera features in upcoming marketing campaigns",
+        "Consider creating photo-focused add-on accessories",
+        "Develop tutorial content focused on advanced camera features",
+        "Engage with photography influencers for partnerships"
+      ],
+      "impactPrediction": {
+        "marketShare": "potential 2.3% increase if leveraged properly",
+        "competitiveAdvantage": "strong: 3-6 month lead over closest competitors",
+        "revenuePotential": "moderate to high"
+      },
+      "relatedTopics": ["Camera Quality", "Night Photography", "Mobile Photography"]
+    },
+    {
+      "insightId": "ins-10002",
+      "insightType": "risk_alert",
+      "category": "Home Goods",
+      "brandName": "HomeCafe",
+      "productName": "Coffee Maker Deluxe",
+      "detectionDate": "2025-05-14T09:12:45.456Z",
+      "confidence": 0.87,
+      "urgency": "high",
+      "title": "Emerging Reliability Concerns May Impact Brand Reputation",
+      "summary": "There is a growing pattern of customer complaints about the Coffee Maker Deluxe failing after 2-4 weeks of use, primarily related to the heating element and control board.",
+      "description": "While overall sentiment for the HomeCafe Coffee Maker Deluxe remains positive at 79%, there is a concerning trend of reliability issues emerging in customer feedback. Analysis of recent complaints shows a 215% increase in mentions of product failure within the first month of ownership. The specific components mentioned most frequently are the heating element (48% of complaints) and the electronic control board (37% of complaints). The issue appears most common in units from manufacturing batch HC-2025-03-B, suggesting a possible quality control issue in that production run.",
+      "supportingData": {
+        "mentionCount": 112,
+        "sentimentTrend": "rapidly decreasing (-15% in past week)",
+        "keyChannels": ["Product Reviews", "Twitter", "Support Forums"],
+        "complaintsCluster": "Early Failure (2-4 weeks)"
+      },
+      "actionableInsights": [
+        "Investigate manufacturing batch HC-2025-03-B immediately",
+        "Prepare customer service team for increased support volume",
+        "Consider proactive replacement program for affected units",
+        "Develop rapid verification process to identify affected units"
+      ],
+      "impactPrediction": {
+        "brandReputation": "potential 8-12% decrease in brand trust metrics",
+        "salesImpact": "projected 15-20% decrease in next quarter if unaddressed",
+        "customerRetention": "high risk to repeat purchase intent"
+      },
+      "relatedTopics": ["Product Reliability", "Customer Support", "Quality Control"]
+    },
+    {
+      "insightId": "ins-10003",
+      "insightType": "opportunity_identification",
+      "category": "Apparel",
+      "brandName": "UrbanStyle",
+      "productName": "Premium Denim Jacket",
+      "detectionDate": "2025-05-14T11:45:15.789Z",
+      "confidence": 0.89,
+      "urgency": "medium",
+      "title": "Size Inclusivity Gap Presents Market Opportunity",
+      "summary": "Analysis reveals significant unmet demand for the Premium Denim Jacket in extended sizes, with high search volume but limited purchase conversion due to sizing limitations.",
+      "description": "While the UrbanStyle Premium Denim Jacket has achieved strong market performance in standard sizes, data analysis reveals a substantial gap between search interest and purchase conversion for extended sizes. Web analytics show that searches including terms like 'plus size UrbanStyle denim jacket' and 'UrbanStyle jacket 2X/3X' have increased 175% year over year, but conversion rates for these sessions are 89% lower than standard size searches. Social listening data shows a consistent pattern of positive sentiment about the jacket's style and quality alongside disappointment about size availability. This represents a significant opportunity to expand market share in the underserved plus-size premium denim segment, which is growing at twice the rate of the standard size market.",
+      "supportingData": {
+        "searchVolume": "22,450 monthly searches for extended sizes",
+        "conversionGap": "5.2% standard sizes vs. 0.6% extended sizes",
+        "competitiveLandscape": "only 2 of 8 major competitors offer extended sizing",
+        "marketGrowth": "plus-size premium denim segment growing at 18% annually"
+      },
+      "actionableInsights": [
+        "Expand Premium Denim Jacket line to include sizes XS-4XL",
+        "Create dedicated marketing campaign highlighting size inclusivity",
+        "Partner with plus-size influencers for authentic promotion",
+        "Update size guides and photography to include diverse body types"
+      ],
+      "impactPrediction": {
+        "revenueOpportunity": "$2.2-2.8M in first year after implementation",
+        "marketShareGain": "potential 4.5% increase in total premium denim market",
+        "brandPerception": "significant enhancement of brand inclusivity metrics"
+      },
+      "relatedTopics": ["Size Inclusivity", "Fashion Accessibility", "Market Expansion"]
+    },
+    {
+      "insightId": "ins-10004",
+      "insightType": "competitive_intelligence",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smart Watch Pro",
+      "detectionDate": "2025-05-14T13:32:10.123Z",
+      "confidence": 0.85,
+      "urgency": "high",
+      "title": "Competitor Launch Detected: FitTrack Preparing Ultra Pro Release",
+      "summary": "Analysis of supply chain activity, patent filings, and social media chatter strongly indicates that FitTrack is preparing to launch their Ultra Pro model within 4-6 weeks, featuring significant battery improvements.",
+      "description": "Multiple indicators suggest FitTrack is preparing to launch their new Ultra Pro smartwatch, directly targeting TechVision's market position. Supply chain analysis shows increased component orders from FitTrack's primary manufacturers, particularly for advanced battery components and display modules. Recent patent filings indicate FitTrack has developed a new power management system that may extend battery life by up to 40% beyond current market leaders. Social listening has detected a 315% increase in vague references to FitTrack's 'next big announcement' from industry insiders and tech influencers, with specific mentions of 'revolutionary battery life.' Based on FitTrack's historical launch patterns and current activity, we project a launch window between June 15-30, 2025.",
+      "supportingData": {
+        "supplyChainSignals": "significant component order increases detected April-May 2025",
+        "patentActivity": "5 new power management patents filed in Q1 2025",
+        "socialChatter": "rising influencer mentions with specific battery focus",
+        "pricePointRumors": "$299-349 range, directly competing with Smart Watch Pro"
+      },
+      "actionableInsights": [
+        "Accelerate marketing for current Smart Watch Pro battery performance features",
+        "Prepare competitive response strategy for FitTrack launch",
+        "Consider limited-time promotion or bundle offers during projected launch window",
+        "Brief sales and customer service teams on comparative advantages"
+      ],
+      "impactPrediction": {
+        "marketShareRisk": "potential 5-8% erosion in fitness-focused segment",
+        "pricingPressure": "likely need for 10-15% discount actions to maintain volume",
+        "productCycle": "may accelerate next generation product timeline"
+      },
+      "relatedTopics": ["Competitive Analysis", "Product Launch Monitoring", "Battery Technology"]
+    },
+    {
+      "insightId": "ins-10005",
+      "insightType": "sentiment_shift",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smartphone X200",
+      "detectionDate": "2025-05-14T08:55:40.456Z",
+      "confidence": 0.91,
+      "urgency": "medium",
+      "title": "Regional Sentiment Divergence in European Markets",
+      "summary": "Analysis reveals a significant divergence in sentiment toward the Smartphone X200 across European markets, with particularly strong positive trends in Germany and negative shifts in France.",
+      "description": "Sentiment analysis across European markets shows an unusual pattern of regional divergence for the Smartphone X200. German markets demonstrate exceptionally strong positive sentiment (0.88) with purchase intent indicators 23% above global average, driven by appreciation for the phone's photography capabilities and build quality. Conversely, French market sentiment has declined significantly (now at 0.64 and trending downward) with purchase intent 17% below global average. Deep analysis of French language reviews and social media indicates the primary drivers are concerns about price-to-value ratio and perceived lack of localized AI features compared to regionally-focused competitors. This regional divergence is unusual for the product line, which typically shows consistent sentiment patterns across European markets.",
+      "supportingData": {
+        "sentimentScores": {
+          "germany": 0.88,
+          "uk": 0.79,
+          "italy": 0.77,
+          "spain": 0.75,
+          "france": 0.64,
+          "globalAverage": 0.81
+        },
+        "topPositiveDrivers": ["camera quality", "build materials", "battery life"],
+        "topNegativeDrivers": ["price point", "localized AI features", "regional app integration"]
+      },
+      "actionableInsights": [
+        "Develop targeted marketing emphasizing French language AI capabilities",
+        "Consider region-specific promotions or bundle offers for French market",
+        "Leverage strong German market reception in regional marketing",
+        "Prioritize French localization improvements in next software update"
+      ],
+      "impactPrediction": {
+        "salesVariance": "±18% from forecast based on regional factors",
+        "marketOpportunity": "potential to leverage German success across DACH region",
+        "competitiveRisk": "vulnerable to regional competitors in French market"
+      },
+      "relatedTopics": ["Regional Marketing", "Localization Strategy", "European Market Analysis"]
+    },
+    {
+      "insightId": "ins-10006",
+      "insightType": "emerging_use_case",
+      "category": "Home Goods",
+      "brandName": "HomeCafe",
+      "productName": "Coffee Maker Deluxe",
+      "detectionDate": "2025-05-14T12:10:18.789Z",
+      "confidence": 0.84,
+      "urgency": "low",
+      "title": "Small Business Adoption Trend for Premium Home Coffee Makers",
+      "summary": "Analysis has identified an emerging trend of small businesses purchasing the Coffee Maker Deluxe for office use, representing a previously untapped market segment.",
+      "description": "A pattern analysis of purchase data, reviews, and social media mentions has identified a significant trend of small businesses (5-20 employees) purchasing the HomeCafe Coffee Maker Deluxe for office use rather than commercial coffee machines. This segment now represents approximately 14% of total sales, growing from just 3% a year ago, despite no targeted marketing to business customers. Key drivers appear to be the premium quality compared to standard office coffee machines, the intuitive interface requiring minimal training, and the design aesthetic that enhances office environments. These business users report higher satisfaction scores (4.8/5 vs 4.5/5 for home users) and have a 68% higher average accessory purchase rate. Most notably, they mention the product has contributed to improved employee satisfaction and workplace culture in 72% of business-originating reviews.",
+      "supportingData": {
+        "segmentGrowth": "367% year-over-year growth in small business purchases",
+        "averageOrderValue": "$225 higher than consumer segment (multiple units + accessories)",
+        "loyaltyMetrics": "22% higher repeat purchase rate than consumer segment",
+        "socialProof": "significant increase in office setting photos tagged with HomeCafe"
+      },
+      "actionableInsights": [
+        "Develop small business marketing program highlighting office benefits",
+        "Create bundle offers targeting office environments (multiple carafes, bulk supplies)",
+        "Establish small business referral program to accelerate adoption",
+        "Consider commercial warranty option for business purchases"
+      ],
+      "impactPrediction": {
+        "segmentPotential": "estimated $4.8M annual revenue opportunity if properly targeted",
+        "brandExtension": "opportunity to establish B2B presence with minimal investment",
+        "productRoadmap": "potential for dedicated SMB product variant in future cycles"
+      },
+      "relatedTopics": ["Small Business Solutions", "Office Amenities", "Workplace Culture"]
+    },
+    {
+      "insightId": "ins-10007",
+      "insightType": "product_innovation",
+      "category": "Apparel",
+      "brandName": "UrbanStyle",
+      "productName": "Premium Denim Jacket",
+      "detectionDate": "2025-05-14T14:05:22.123Z",
+      "confidence": 0.88,
+      "urgency": "medium",
+      "title": "Customization Feature Opportunity Based on Consumer Modification Patterns",
+      "summary": "Analysis of social media content reveals a strong pattern of customers modifying their Premium Denim Jackets post-purchase, indicating demand for official customization options.",
+      "description": "Visual analysis of social media content featuring the UrbanStyle Premium Denim Jacket has identified a significant trend of post-purchase customization by consumers. Approximately 28% of user-shared images show some form of modification to the jacket, including patch applications (42% of modifications), embroidery (35%), distressing techniques (15%), and button/hardware replacements (8%). Sentiment analysis of these posts indicates high emotional connection to personalized items, with engagement rates 3.2x higher than unmodified product posts. Hashtag analysis shows terms like #myurbanjacket and #customdenim frequently associated with these modifications. Notably, many comments on these posts express interest in achieving similar customization but uncertainty about methods, representing an unmet need for official customization options.",
+      "supportingData": {
+        "modificationRate": "28% of social media posts show customized jackets",
+        "engagementMetrics": "customized jackets receive 3.2x higher engagement",
+        "sentimentAnalysis": "strong emotional language associated with personalized items",
+        "competitiveLandscape": "no major competitors currently offer official customization"
+      },
+      "actionableInsights": [
+        "Develop in-store and online customization program for denim jackets",
+        "Create starter customization kits with branded patches and materials",
+        "Launch social campaign featuring customer modifications and customization ideas",
+        "Consider collaborations with artists for limited edition customization options"
+      ],
+      "impactPrediction": {
+        "revenueOpportunity": "potential for 15-20% premium pricing on customized items",
+        "brandEngagement": "significant increase in social sharing and community building",
+        "customerLoyalty": "customization strongly correlates with brand loyalty metrics"
+      },
+      "relatedTopics": ["Product Personalization", "Customer Co-creation", "Brand Community"]
+    },
+    {
+      "insightId": "ins-10008",
+      "insightType": "market_trend",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smart Watch Pro",
+      "detectionDate": "2025-05-14T09:40:15.456Z",
+      "confidence": 0.93,
+      "urgency": "medium",
+      "title": "Marathon Training Segment Showing Unexpected Growth",
+      "summary": "Data analysis has identified marathon and endurance running as a rapidly growing use case for the Smart Watch Pro, with distinctive feature usage patterns and high brand advocacy.",
+      "description": "Analysis of app usage data, social media content, and review patterns has identified marathon training as an unexpectedly strong growth segment for the Smart Watch Pro. Users identifying as marathon trainers have increased 218% year-over-year, despite this not being a specifically targeted demographic. This user segment shows distinctive feature usage patterns, with 84% utilizing advanced performance metrics, 77% actively using route planning capabilities, and 91% regularly synchronizing with training plan applications. Marathon training users also demonstrate 3.1x higher brand advocacy metrics, sharing achievements tagged with the product 4.5x more frequently than average users, and showing 76% higher accessory purchase rates. Competitive analysis indicates this segment currently lacks a dominant market leader, with users distributed across multiple brands seeking optimal training support.",
+      "supportingData": {
+        "segmentGrowth": "218% year-over-year increase in marathon training users",
+        "featureUtilization": "84% use advanced metrics vs. 32% of general fitness users",
+        "advocacyMetrics": "3.1x higher NPS score compared to general users",
+        "competitivePosition": "fragmented market with no dominant leader for this segment"
+      },
+      "actionableInsights": [
+        "Develop marathon-specific feature set in next software update",
+        "Create targeted content marketing for endurance running community",
+        "Establish partnerships with major marathon events for brand visibility",
+        "Develop specialized accessories for marathon training use case"
+      ],
+      "impactPrediction": {
+        "segmentOpportunity": "potential to establish category leadership in growing niche",
+        "featureRoadmap": "endurance-focused features may drive broader fitness adoption",
+        "brandPositioning": "opportunity to strengthen athletic performance credentials"
+      },
+      "relatedTopics": ["Endurance Sports", "Marathon Training", "Fitness Technology"]
+    },
+    {
+      "insightId": "ins-10009",
+      "insightType": "demographic_insight",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smartphone X200",
+      "detectionDate": "2025-05-14T15:20:45.789Z",
+      "confidence": 0.90,
+      "urgency": "medium",
+      "title": "Unexpected 55+ Age Segment Adoption with Unique Usage Patterns",
+      "summary": "Data analysis reveals stronger than expected adoption of the Smartphone X200 among users 55+ years old, with distinct feature preferences and usage patterns.",
+      "description": "Demographic analysis of recent Smartphone X200 purchasers shows the 55+ age segment now represents 22% of new customers, significantly higher than the forecasted 8% and growing at 2.7x the rate of other age brackets. This segment shows distinct and consistent usage patterns, with heavy utilization of camera features (76% report taking photos daily), communication tools (92% regularly use video calling), and health-tracking applications (68% actively use health monitoring features). Notably, this group reports exceptionally high satisfaction scores (4.7/5 vs. 4.3/5 overall average) and demonstrates 34% higher brand loyalty metrics. Analysis of purchasing patterns shows 65% cited recommendations from family members as a primary influence, suggesting effective cross-generational advocacy. Review content from this demographic emphasizes ease of use, screen readability, and camera quality as key satisfaction drivers.",
+      "supportingData": {
+        "ageDistribution": "55+ segment represents 22% of recent purchasers (173% above forecast)",
+        "growthRate": "55+ adoption growing 2.7x faster than other demographics",
+        "featureUsage": "heavy utilization of camera, communication, and health features",
+        "satisfactionMetrics": "NPS score 18 points higher than brand average"
+      },
+      "actionableInsights": [
+        "Develop targeted marketing highlighting features valued by 55+ demographic",
+        "Create educational content specifically addressing this segment's use cases",
+        "Consider family-focused promotional campaigns leveraging cross-generational advocacy",
+        "Prioritize readability and accessibility features in UI updates"
+      ],
+      "impactPrediction": {
+        "marketExpansion": "potential to capture significant share of underserved demographic",
+        "loyaltyImpact": "higher retention rates could increase lifetime value by 25-30%",
+        "brandPerception": "opportunity to establish leadership in age-inclusive technology"
+      },
+      "relatedTopics": ["Senior Technology Adoption", "Intergenerational Technology", "Accessible Design"]
+    },
+    {
+      "insightId": "ins-10010",
+      "insightType": "customer_pain_point",
+      "category": "Apparel",
+      "brandName": "UrbanStyle",
+      "productName": "Premium Denim Jacket",
+      "detectionDate": "2025-05-14T10:35:28.123Z",
+      "confidence": 0.86,
+      "urgency": "high",
+      "title": "Pocket Design Emerging as Significant Functional Pain Point",
+      "summary": "Analysis of customer feedback reveals growing dissatisfaction with the pocket design of the Premium Denim Jacket, impacting overall product satisfaction despite positive sentiment about other features.",
+      "description": "Natural language processing of customer reviews and social media comments has identified a significant and growing pattern of dissatisfaction with the pocket design of the Premium Denim Jacket. Complaints specifically mention shallow pocket depth (mentioned in 42% of negative reviews), items falling out when seated (38%), and poor functionality for modern smartphone sizes (56%). This issue appears disproportionately impactful, with 28% of otherwise positive reviews mentioning pocket limitations as their 'only complaint' and 15% explicitly stating they would rate the product higher if not for this issue. Comparative analysis shows competitors are increasingly emphasizing 'functional pocket design' in marketing materials, suggesting growing category awareness of this feature. Notably, the issue affects both male and female customers equally, with consistent feedback across demographics.",
+      "supportingData": {
+        "mentionFrequency": "pocket complaints appear in 35% of all reviews, up from 12% last quarter",
+        "sentimentImpact": "reduces overall satisfaction score by estimated 0.8 points on 5-point scale",
+        "competitiveAnalysis": "four major competitors have recently updated pocket designs",
+        "returnReason": "cited as a contributing factor in 8% of product returns"
+      },
+      "actionableInsights": [
+        "Prioritize pocket redesign in next product update cycle",
+        "Consider short-term production adjustment for current manufacturing",
+        "Develop interim marketing acknowledging feedback (shows responsiveness)",
+        "Evaluate expanded internal wear-testing with focus on functional elements"
+      ],
+      "impactPrediction": {
+        "satisfactionImpact": "addressing issue could raise overall satisfaction by 12-15%",
+        "competitiveRisk": "growing vulnerability to competitors emphasizing functional design",
+        "brandPerception": "opportunity to demonstrate customer-responsive product development"
+      },
+      "relatedTopics": ["Functional Fashion", "Product Design", "Customer Feedback Integration"]
+    }
+  ],
+  "metadata": {
+    "count": 10,
+    "timestamp": "2025-05-14T15:00:00.000Z",
+    "source": "simulated",
+    "endpoint": "insights"
+  }
+}

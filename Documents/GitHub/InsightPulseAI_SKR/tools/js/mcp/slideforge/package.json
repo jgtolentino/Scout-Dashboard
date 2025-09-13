@@ -1,0 +1,38 @@
+{
+  "name": "slideforge",
+  "version": "0.1.0",
+  "description": "AI-native deck builder powered by Claude Code CLI with MCP integration",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deckgen": "node scripts/deckgen.js",
+    "slidebuilder": "node scripts/slidebuilder.js",
+    "feedback": "node scripts/feedback.js",
+    "publish": "node scripts/publish.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "marked": "^4.0.12"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.3.9"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "claude",
+    "slides",
+    "ai",
+    "presentation",
+    "mcp"
+  ],
+  "author": "",
+  "license": "MIT"
+}

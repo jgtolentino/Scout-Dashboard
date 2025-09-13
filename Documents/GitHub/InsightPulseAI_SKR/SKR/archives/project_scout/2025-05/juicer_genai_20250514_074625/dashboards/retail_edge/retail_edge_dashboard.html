@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retail Edge Interaction Dashboard</title>
+  
+  <!-- Bootstrap and Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  
+  <!-- TBWA Theme -->
+  <link rel="stylesheet" href="../styles/tbwa-theme.css">
+  
+  <style>
+    /* Dashboard-specific overrides */
+    .node-status {
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .node-status-active {
+      background-color: rgba(0, 174, 239, 0.1);
+      border-left: 4px solid var(--tbwa-cyan);
+    }
+    
+    .node-status-warning {
+      background-color: rgba(255, 107, 0, 0.1);
+      border-left: 4px solid var(--tbwa-orange);
+    }
+    
+    .node-status-inactive {
+      background-color: rgba(225, 25, 0, 0.1);
+      border-left: 4px solid var(--tbwa-red);
+    }
+    
+    .node-name {
+      font-weight: 600;
+    }
+    
+    .node-details {
+      font-size: 0.85rem;
+      color: var(--tbwa-grey-700);
+    }
+    
+    .node-signal {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+    
+    .signal-strong {
+      background-color: var(--tbwa-cyan);
+    }
+    
+    .signal-medium {
+      background-color: var(--tbwa-orange);
+    }
+    
+    .signal-weak {
+      background-color: var(--tbwa-red);
+    }
+    
+    .status-badge {
+      padding: 0.25rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    
+    .event-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .event-item:last-child {
+      border-bottom: none;
+    }
+    
+    .event-time {
+      font-size: 0.8rem;
+      color: var(--tbwa-grey-700);
+    }
+    
+    .event-type {
+      font-weight: 600;
+    }
+    
+    .event-description {
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+    
+    .event-brand {
+      display: inline-block;
+      background-color: var(--tbwa-navy);
+      color: white;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+    }
+    
+    .event-face {
+      display: inline-block;
+      background-color: #7E57C2;
+      color: white;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+    }
+    
+    .event-speech {
+      display: inline-block;
+      background-color: var(--tbwa-cyan);
+      color: white;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+    }
+    
+    /* Dark mode toggle styles */
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+    }
+    
+    body.dark-mode {
+      background-color: #121212;
+    }
+    
+    body.dark-mode .card {
+      background-color: #1e1e1e;
+    }
+    
+    body.dark-mode .node-status {
+      background-color: #2e2e2e;
+    }
+    
+    body.dark-mode .event-item {
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+    
+    body.dark-mode .bg-white {
+      background-color: #2a2a2a !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-bar">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="m-0 d-flex align-items-center">
+            <img src="../public/images/prompt-lab-icon.svg" alt="Edge Analytics Logo" class="logo me-2" style="height: 40px;">
+            <span>Retail Edge Interaction Dashboard</span>
+          </h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="d-flex justify-content-end align-items-center">
+            <div class="dark-mode-toggle me-3">
+              <span class="me-2">Dark Mode</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <button class="btn btn-secondary btn-refresh">
+              <i class="fas fa-sync-alt me-1"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard-container">
+    <!-- Filters and Controls -->
+    <div class="card mb-4">
+      <div class="card-header">Filters</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <label for="storeSelect" class="form-label">Store Location</label>
+            <select class="form-select" id="storeSelect">
+              <option value="all" selected>All Locations</option>
+              <option value="store-101">Store #101 - Downtown</option>
+              <option value="store-102">Store #102 - Westside Mall</option>
+              <option value="store-103">Store #103 - Eastside Plaza</option>
+              <option value="store-104">Store #104 - Northgate</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="timeRange" class="form-label">Time Range</label>
+            <select class="form-select" id="timeRange">
+              <option value="24h">Last 24 Hours</option>
+              <option value="7d" selected>Last 7 Days</option>
+              <option value="30d">Last 30 Days</option>
+              <option value="90d">Last 90 Days</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="deviceType" class="form-label">Device Type</label>
+            <select class="form-select" id="deviceType">
+              <option value="all" selected>All Devices</option>
+              <option value="camera">Camera Nodes</option>
+              <option value="audio">Audio Nodes</option>
+              <option value="display">Display Units</option>
+              <option value="shelf">Smart Shelves</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="eventType" class="form-label">Event Type</label>
+            <select class="form-select" id="eventType">
+              <option value="all" selected>All Events</option>
+              <option value="face">Face Detection</option>
+              <option value="speech">Speech Recognition</option>
+              <option value="brand">Brand Mentions</option>
+              <option value="interaction">Customer Interaction</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="kpi-label">Total Interactions</div>
+            <div class="kpi-number">1,247</div>
+            <div class="kpi-delta kpi-positive">
+              <span class="delta-arrow up"></span>
+              +12% from last period
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="kpi-label">Face Detections</div>
+            <div class="kpi-number">532</div>
+            <div class="kpi-delta kpi-positive">
+              <span class="delta-arrow up"></span>
+              +8% from last period
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="kpi-label">Speech Events</div>
+            <div class="kpi-number">428</div>
+            <div class="kpi-delta kpi-negative">
+              <span class="delta-arrow down"></span>
+              -3% from last period
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="kpi-label">Conversion Rate</div>
+            <div class="kpi-number">42.5%</div>
+            <div class="kpi-delta kpi-positive">
+              <span class="delta-arrow up"></span>
+              +5% from last period
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header">Interactions by Hour</div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="interactionsChart"></canvas>
+            </div>
+          </div>
+          <!-- Toolbar for Power BI style -->
+          <div class="on-object-toolbar">
+            <button class="toolbar-button" title="Focus mode"><i class="fas fa-expand"></i></button>
+            <button class="toolbar-button" title="More options"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-header">Event Types Distribution</div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="eventTypesChart"></canvas>
+            </div>
+          </div>
+          <!-- Toolbar for Power BI style -->
+          <div class="on-object-toolbar">
+            <button class="toolbar-button" title="Focus mode"><i class="fas fa-expand"></i></button>
+            <button class="toolbar-button" title="More options"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edge Node Status -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header">Edge Node Status</div>
+          <div class="card-body">
+            <div class="node-status node-status-active">
+              <div>
+                <div class="node-name">Camera Node #101-A (Entrance)</div>
+                <div class="node-details">
+                  <span class="node-signal signal-strong"></span> Signal Strength: 98% | Uptime: 7d 4h 12m
+                </div>
+              </div>
+              <span class="status-badge" style="background-color: var(--tbwa-cyan); color: white;">Online</span>
+            </div>
+            
+            <div class="node-status node-status-active">
+              <div>
+                <div class="node-name">Camera Node #101-B (Center Aisle)</div>
+                <div class="node-details">
+                  <span class="node-signal signal-strong"></span> Signal Strength: 95% | Uptime: 2d 18h 45m
+                </div>
+              </div>
+              <span class="status-badge" style="background-color: var(--tbwa-cyan); color: white;">Online</span>
+            </div>
+            
+            <div class="node-status node-status-warning">
+              <div>
+                <div class="node-name">Audio Node #101-C (Checkout)</div>
+                <div class="node-details">
+                  <span class="node-signal signal-medium"></span> Signal Strength: 72% | Uptime: 14h 22m
+                </div>
+              </div>
+              <span class="status-badge" style="background-color: var(--tbwa-orange); color: white;">Degraded</span>
+            </div>
+            
+            <div class="node-status node-status-active">
+              <div>
+                <div class="node-name">Display Unit #101-A (Front Display)</div>
+                <div class="node-details">
+                  <span class="node-signal signal-strong"></span> Signal Strength: 96% | Uptime: 4d 9h 56m
+                </div>
+              </div>
+              <span class="status-badge" style="background-color: var(--tbwa-cyan); color: white;">Online</span>
+            </div>
+            
+            <div class="node-status node-status-inactive">
+              <div>
+                <div class="node-name">Smart Shelf #101-B (Electronics)</div>
+                <div class="node-details">
+                  <span class="node-signal signal-weak"></span> Signal Strength: 15% | Offline for: 2h 34m
+                </div>
+              </div>
+              <span class="status-badge" style="background-color: var(--tbwa-red); color: white;">Offline</span>
+            </div>
+          </div>
+          <!-- Toolbar for Power BI style -->
+          <div class="on-object-toolbar">
+            <button class="toolbar-button" title="Focus mode"><i class="fas fa-expand"></i></button>
+            <button class="toolbar-button" title="More options"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header">Brand Mentions Heatmap</div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="brandHeatmapChart"></canvas>
+            </div>
+          </div>
+          <!-- Toolbar for Power BI style -->
+          <div class="on-object-toolbar">
+            <button class="toolbar-button" title="Focus mode"><i class="fas fa-expand"></i></button>
+            <button class="toolbar-button" title="More options"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Events and Dwell Time -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header">Recent Events</div>
+          <div class="card-body p-0">
+            <div class="event-item">
+              <div class="d-flex justify-content-between">
+                <div class="event-type">Face Detection</div>
+                <div class="event-time">12 minutes ago</div>
+              </div>
+              <div class="event-description">Adult customer detected at Camera Node #101-A (Entrance)</div>
+              <div class="mt-1">
+                <span class="event-face">Age: 30-40</span>
+                <span class="event-face">Attention: High</span>
+              </div>
+            </div>
+            
+            <div class="event-item">
+              <div class="d-flex justify-content-between">
+                <div class="event-type">Speech Recognition</div>
+                <div class="event-time">18 minutes ago</div>
+              </div>
+              <div class="event-description">Customer mentioned product features at Audio Node #101-C</div>
+              <div class="mt-1">
+                <span class="event-speech">Duration: 42s</span>
+                <span class="event-brand">Apple</span>
+                <span class="event-brand">Samsung</span>
+              </div>
+            </div>
+            
+            <div class="event-item">
+              <div class="d-flex justify-content-between">
+                <div class="event-type">Smart Shelf Interaction</div>
+                <div class="event-time">24 minutes ago</div>
+              </div>
+              <div class="event-description">Product pickup detected at Smart Shelf #101-A (Beverages)</div>
+              <div class="mt-1">
+                <span class="event-brand">Coca-Cola</span>
+                <span class="event-speech">Duration: 18s</span>
+              </div>
+            </div>
+            
+            <div class="event-item">
+              <div class="d-flex justify-content-between">
+                <div class="event-type">Face Detection</div>
+                <div class="event-time">36 minutes ago</div>
+              </div>
+              <div class="event-description">Group (3 customers) detected at Camera Node #101-B</div>
+              <div class="mt-1">
+                <span class="event-face">Age: Mixed</span>
+                <span class="event-face">Attention: Medium</span>
+              </div>
+            </div>
+            
+            <div class="event-item">
+              <div class="d-flex justify-content-between">
+                <div class="event-type">Display Interaction</div>
+                <div class="event-time">42 minutes ago</div>
+              </div>
+              <div class="event-description">CTA triggered at Display Unit #101-A</div>
+              <div class="mt-1">
+                <span class="event-speech">Duration: 65s</span>
+                <span class="event-brand">Nike</span>
+              </div>
+            </div>
+          </div>
+          <!-- Toolbar for Power BI style -->
+          <div class="on-object-toolbar">
+            <button class="toolbar-button" title="Focus mode"><i class="fas fa-expand"></i></button>
+            <button class="toolbar-button" title="More options"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Customer Dwell Time vs. Conversions</div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="dwellTimeChart"></canvas>
+            </div>
+          </div>
+          <!-- Toolbar for Power BI style -->
+          <div class="on-object-toolbar">
+            <button class="toolbar-button" title="Focus mode"><i class="fas fa-expand"></i></button>
+            <button class="toolbar-button" title="More options"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 Retail Edge Analytics</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <p class="mb-0">Powered by Advanced Analytics</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- TBWA Chart Theme -->
+  <script src="../styles/tbwa-charts.js"></script>
+  <script src="retail_edge_visualizer.js"></script>
+  
+  <script>
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+      window.RetailEdgeVisualizer.updateChartsTheme(darkModeToggle.checked);
+    });
+    
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize the visualizer
+      window.RetailEdgeVisualizer.init();
+      
+      // Apply TBWA theme to all charts
+      if (window.TBWA_THEME) {
+        window.RetailEdgeVisualizer.applyTbwaTheme();
+      }
+      
+      // Set up filter change handlers
+      document.getElementById('storeSelect').addEventListener('change', updateDashboard);
+      document.getElementById('timeRange').addEventListener('change', updateDashboard);
+      document.getElementById('deviceType').addEventListener('change', updateDashboard);
+      document.getElementById('eventType').addEventListener('change', updateDashboard);
+      
+      // Refresh button handler
+      document.querySelector('.btn-refresh').addEventListener('click', () => {
+        window.RetailEdgeVisualizer.refreshData();
+      });
+      
+      function updateDashboard() {
+        window.RetailEdgeVisualizer.filterData({
+          store: document.getElementById('storeSelect').value,
+          timeRange: document.getElementById('timeRange').value,
+          deviceType: document.getElementById('deviceType').value,
+          eventType: document.getElementById('eventType').value
+        });
+      }
+    });
+  </script>
+</body>
+</html>

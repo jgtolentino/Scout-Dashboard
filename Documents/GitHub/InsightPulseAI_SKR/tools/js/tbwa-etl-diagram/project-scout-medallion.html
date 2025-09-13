@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Project Scout - Medallion Architecture</title>
+  <style>
+    :root {
+      --bronze-color: rgba(205, 127, 50, 0.1);
+      --bronze-border: rgba(205, 127, 50, 0.8);
+      --silver-color: rgba(192, 192, 192, 0.1);
+      --silver-border: rgba(192, 192, 192, 0.8);
+      --gold-color: rgba(255, 215, 0, 0.1);
+      --gold-border: rgba(255, 215, 0, 0.8);
+      --azure-blue: #0078D4;
+      --border-color: #d1d5db;
+      --text-color: #333333;
+      --connector-color: #6b7280;
+    }
+    
+    body { 
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif; 
+      background: #ffffff; 
+      color: var(--text-color); 
+      padding: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    h1 { 
+      text-align: center; 
+      margin-bottom: 2rem; 
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+    
+    .swimlane {
+      margin: 1.5rem 0;
+      padding: 1.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    
+    .swimlane-header {
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: white;
+      padding: 0 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
+    /* Swimlane color schemes */
+    .bronze {
+      background-color: var(--bronze-color);
+      border-color: var(--bronze-border);
+    }
+    
+    .silver {
+      background-color: var(--silver-color);
+      border-color: var(--silver-border);
+    }
+    
+    .gold {
+      background-color: var(--gold-color);
+      border-color: var(--gold-border);
+    }
+    
+    /* Component blocks */
+    .component-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin: 30px 10px;
+      position: relative;
+    }
+    
+    .component {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 140px;
+      text-align: center;
+      background-color: white;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .component img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 12px;
+    }
+    
+    .component span {
+      font-weight: 500;
+      font-size: 0.85rem;
+      max-width: 100%;
+    }
+    
+    /* Connector styling */
+    .connector {
+      position: relative;
+      height: 2px;
+      width: 60px;
+      background: var(--connector-color);
+    }
+    
+    .connector.dashed {
+      background: none;
+      border-top: 2px dashed var(--connector-color);
+    }
+    
+    .connector::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: -4px;
+      border: 6px solid transparent;
+      border-left-color: var(--connector-color);
+    }
+    
+    .connector-label {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      color: var(--connector-color);
+      white-space: nowrap;
+    }
+    
+    .audit-log {
+      width: 120px;
+      margin-top: 40px;
+      padding: 10px;
+      border: 1px dashed var(--connector-color);
+      border-radius: 5px;
+      font-size: 0.85rem;
+      text-align: center;
+      background-color: white;
+    }
+    
+    .audit-connector {
+      position: absolute;
+      left: 280px;
+      top: 80px;
+      height: 40px;
+      width: 1px;
+      border-left: 2px dashed var(--connector-color);
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e5e7eb;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+    
+    footer a {
+      color: var(--azure-blue);
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Project Scout - Medallion Architecture</h1>
+
+  <!-- Bronze Layer -->
+  <div class="swimlane bronze">
+    <div class="swimlane-header">Bronze Layer (Raw Data)</div>
+    <div class="component-row">
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Integration/Azure%20Data%20Factory.svg" alt="Azure Data Factory"/>
+        <span>Data Ingestion</span>
+      </div>
+      <div class="connector">
+        <div class="connector-label">Ingest</div>
+      </div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Storage/Azure%20Data%20Lake%20Storage%20Gen2.svg" alt="Azure Data Lake Storage Gen2"/>
+        <span>Raw Transcript Store</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Silver Layer -->
+  <div class="swimlane silver">
+    <div class="swimlane-header">Silver Layer (Processed Data)</div>
+    <div class="component-row">
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/Azure%20Databricks.svg" alt="Azure Databricks"/>
+        <span>Data Cleaning & Chunking</span>
+      </div>
+      <div class="connector">
+        <div class="connector-label">Store</div>
+      </div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Databases/Azure%20SQL.svg" alt="Azure SQL Database"/>
+        <span>Processed Storage</span>
+      </div>
+      
+      <div class="audit-connector"></div>
+      <div class="audit-log">Audit Log</div>
+    </div>
+  </div>
+
+  <!-- Gold Layer -->
+  <div class="swimlane gold">
+    <div class="swimlane-header">Gold Layer (Analytics Ready)</div>
+    <div class="component-row">
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/AI%20Machine%20Learning/Azure%20Cognitive%20Search.svg" alt="Azure Cognitive Search"/>
+        <span>Embedding Store</span>
+      </div>
+      <div class="connector">
+        <div class="connector-label">Serve</div>
+      </div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/Power%20BI.svg" alt="Power BI"/>
+        <span>Dashboard</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vertical Connectors Between Swimlanes-->
+  <div style="position: relative; height: 0px;">
+    <!-- Bronze to Silver Connector -->
+    <svg height="80" width="30" style="position: absolute; top: -435px; left: 230px;">
+      <path d="M15,0 L15,65 L25,65" stroke="#6b7280" stroke-width="2" fill="none" />
+      <polygon points="25,65 25,61 35,65 25,69 25,65" fill="#6b7280" />
+      <text x="0" y="40" fill="#6b7280" font-size="10">Transform</text>
+    </svg>
+    
+    <!-- Silver to Gold Connector -->
+    <svg height="80" width="30" style="position: absolute; top: -245px; left: 230px;">
+      <path d="M15,0 L15,65 L25,65" stroke="#6b7280" stroke-width="2" fill="none" />
+      <polygon points="25,65 25,61 35,65 25,69 25,65" fill="#6b7280" />
+      <text x="0" y="40" fill="#6b7280" font-size="10">Embed</text>
+    </svg>
+  </div>
+
+  <footer>
+    <p>Icons from <a href="https://learn.microsoft.com/azure/architecture/icons/" target="_blank">Microsoft Azure Architecture Icons</a></p>
+    <p>Used under Microsoft's icon terms</p>
+  </footer>
+</body>
+</html>

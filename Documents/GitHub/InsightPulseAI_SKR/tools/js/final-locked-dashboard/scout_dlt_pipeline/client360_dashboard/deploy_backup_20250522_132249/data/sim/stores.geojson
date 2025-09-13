@@ -1,0 +1,286 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [120.9842, 14.5995]
+      },
+      "properties": {
+        "store_id": "MMA-001",
+        "name": "SM Mall of Asia",
+        "location": "Pasay, Metro Manila",
+        "type": "Flagship",
+        "status": "active",
+        "revenue": 450000,
+        "performance_score": 98.4,
+        "conversion_rate": 18.5,
+        "footfall": 28500,
+        "staff_count": 24,
+        "rating": 4.8,
+        "region": "Metro Manila",
+        "address": "Seaside Blvd, Pasay, Metro Manila",
+        "phone": "+63 2 8556 0680",
+        "manager": "Maria Santos",
+        "opening_hours": "10:00 AM - 10:00 PM",
+        "size_sqm": 850,
+        "parking_slots": 150,
+        "services": ["ATM", "Restaurant", "Cinema", "Pharmacy"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.0244, 14.5547]
+      },
+      "properties": {
+        "store_id": "MAK-002",
+        "name": "Ayala Malls Makati",
+        "location": "Makati, Metro Manila",
+        "type": "Premium",
+        "status": "active",
+        "revenue": 420000,
+        "performance_score": 95.7,
+        "conversion_rate": 16.8,
+        "footfall": 24800,
+        "staff_count": 22,
+        "rating": 4.7,
+        "region": "Metro Manila",
+        "address": "Ayala Avenue, Makati City",
+        "phone": "+63 2 8848 3888",
+        "manager": "John Cruz",
+        "opening_hours": "10:00 AM - 9:00 PM",
+        "size_sqm": 780,
+        "parking_slots": 120,
+        "services": ["ATM", "Restaurant", "Bank", "Spa"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.0564, 14.5865]
+      },
+      "properties": {
+        "store_id": "MEG-003",
+        "name": "SM Megamall",
+        "location": "Mandaluyong, Metro Manila",
+        "type": "Standard",
+        "status": "active",
+        "revenue": 380000,
+        "performance_score": 92.1,
+        "conversion_rate": 15.2,
+        "footfall": 31200,
+        "staff_count": 28,
+        "rating": 4.6,
+        "region": "Metro Manila",
+        "address": "EDSA, Mandaluyong City",
+        "phone": "+63 2 8633 7777",
+        "manager": "Anna Reyes",
+        "opening_hours": "10:00 AM - 10:00 PM",
+        "size_sqm": 920,
+        "parking_slots": 200,
+        "services": ["ATM", "Restaurant", "Cinema", "Pharmacy", "Grocery"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.1085, 14.6760]
+      },
+      "properties": {
+        "store_id": "TRI-004",
+        "name": "Trinoma",
+        "location": "Quezon City, Metro Manila",
+        "type": "Standard",
+        "status": "active",
+        "revenue": 360000,
+        "performance_score": 89.3,
+        "conversion_rate": 14.7,
+        "footfall": 27600,
+        "staff_count": 26,
+        "rating": 4.5,
+        "region": "Metro Manila",
+        "address": "EDSA, Quezon City",
+        "phone": "+63 2 8441 3333",
+        "manager": "Roberto Garcia",
+        "opening_hours": "10:00 AM - 10:00 PM",
+        "size_sqm": 850,
+        "parking_slots": 180,
+        "services": ["ATM", "Restaurant", "Cinema", "Bank"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [123.8854, 10.3157]
+      },
+      "properties": {
+        "store_id": "CEU-005",
+        "name": "Ayala Center Cebu",
+        "location": "Cebu City, Cebu",
+        "type": "Regional Flagship",
+        "status": "active",
+        "revenue": 298000,
+        "performance_score": 94.8,
+        "conversion_rate": 19.2,
+        "footfall": 18400,
+        "staff_count": 18,
+        "rating": 4.8,
+        "region": "Cebu",
+        "address": "Cardinal Rosales Ave, Cebu City",
+        "phone": "+63 32 231 5555",
+        "manager": "Carmen Lopez",
+        "opening_hours": "10:00 AM - 9:00 PM",
+        "size_sqm": 650,
+        "parking_slots": 100,
+        "services": ["ATM", "Restaurant", "Bank", "Cinema"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [125.6144, 7.0731]
+      },
+      "properties": {
+        "store_id": "DAV-006",
+        "name": "Gaisano Mall Davao",
+        "location": "Davao City, Davao",
+        "type": "Regional",
+        "status": "active",
+        "revenue": 234000,
+        "performance_score": 91.2,
+        "conversion_rate": 17.8,
+        "footfall": 15600,
+        "staff_count": 15,
+        "rating": 4.6,
+        "region": "Davao",
+        "address": "J.P. Laurel Ave, Davao City",
+        "phone": "+63 82 221 4444",
+        "manager": "Miguel Torres",
+        "opening_hours": "10:00 AM - 9:00 PM",
+        "size_sqm": 520,
+        "parking_slots": 80,
+        "services": ["ATM", "Restaurant", "Pharmacy", "Grocery"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [120.5926, 16.4023]
+      },
+      "properties": {
+        "store_id": "BAG-007",
+        "name": "Session Road Flagship",
+        "location": "Baguio City, Baguio",
+        "type": "Tourist Hub",
+        "status": "active",
+        "revenue": 189000,
+        "performance_score": 88.7,
+        "conversion_rate": 21.4,
+        "footfall": 12300,
+        "staff_count": 12,
+        "rating": 4.7,
+        "region": "Baguio",
+        "address": "Session Road, Baguio City",
+        "phone": "+63 74 442 3333",
+        "manager": "Elena Martinez",
+        "opening_hours": "9:00 AM - 9:00 PM",
+        "size_sqm": 420,
+        "parking_slots": 60,
+        "services": ["ATM", "Restaurant", "Bank", "Souvenir Shop"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.0644, 14.6042]
+      },
+      "properties": {
+        "store_id": "QZN-008",
+        "name": "Gateway Mall",
+        "location": "Cubao, Metro Manila",
+        "type": "Transit Hub",
+        "status": "warning",
+        "revenue": 167000,
+        "performance_score": 76.4,
+        "conversion_rate": 12.3,
+        "footfall": 34500,
+        "staff_count": 20,
+        "rating": 4.2,
+        "region": "Metro Manila",
+        "address": "EDSA, Cubao, Quezon City",
+        "phone": "+63 2 8911 7777",
+        "manager": "Carlos Mendoza",
+        "opening_hours": "10:00 AM - 10:00 PM",
+        "size_sqm": 680,
+        "parking_slots": 140,
+        "services": ["ATM", "Restaurant", "Cinema", "Transport Hub"],
+        "issues": ["High foot traffic but low conversion", "Security concerns", "Needs customer experience improvement"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [123.9022, 10.2968]
+      },
+      "properties": {
+        "store_id": "CEU-009",
+        "name": "IT Park Store",
+        "location": "Cebu IT Park, Cebu",
+        "type": "Tech Hub",
+        "status": "active",
+        "revenue": 145000,
+        "performance_score": 85.3,
+        "conversion_rate": 16.4,
+        "footfall": 9800,
+        "staff_count": 10,
+        "rating": 4.4,
+        "region": "Cebu",
+        "address": "Apas, Cebu City",
+        "phone": "+63 32 520 8888",
+        "manager": "Diana Tan",
+        "opening_hours": "8:00 AM - 8:00 PM",
+        "size_sqm": 380,
+        "parking_slots": 50,
+        "services": ["ATM", "Cafe", "Tech Support", "Co-working Space"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [125.5983, 7.1004]
+      },
+      "properties": {
+        "store_id": "DAV-010",
+        "name": "Abreeza Mall Davao",
+        "location": "Davao City, Davao",
+        "type": "Premium",
+        "status": "active",
+        "revenue": 198000,
+        "performance_score": 89.1,
+        "conversion_rate": 18.9,
+        "footfall": 14200,
+        "staff_count": 14,
+        "rating": 4.5,
+        "region": "Davao",
+        "address": "J.P. Laurel Ave, Davao City",
+        "phone": "+63 82 284 7777",
+        "manager": "Rafael Aguilar",
+        "opening_hours": "10:00 AM - 9:00 PM",
+        "size_sqm": 550,
+        "parking_slots": 90,
+        "services": ["ATM", "Restaurant", "Cinema", "Pharmacy"]
+      }
+    }
+  ]
+}

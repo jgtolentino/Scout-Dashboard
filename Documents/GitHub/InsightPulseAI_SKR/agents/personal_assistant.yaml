@@ -1,0 +1,163 @@
+agent:
+  name: MyLocalAssistant
+  version: "1.0.0"
+  description: Offline voice assistant with calendar control
+  role: voice_pa
+  
+  capabilities:
+    - voice_interaction
+    - calendar_management
+    - task_scheduling
+    - natural_language_understanding
+    - offline_operation
+    
+  agents:
+    - VoiceSync            # STT (Gemini Nano Whisper)
+    - Text2SpeechBot       # TTS (Nari Dia 1.6B)
+    - GoogleCalendarAgent  # create/read events
+    - ClaudeFallbackAgent  # cloud LLM if needed
+    
+  config:
+    wake_word: "hey assistant"
+    language: "en-US"
+    offline_mode: true
+    response_timeout: 5000
+    max_context_length: 2048
+    
+  pipelines:
+    default:
+      - name: voice_input
+        agent: VoiceSync
+        action: listen
+        params:
+          model: "gemini-nano-whisper"
+          language: "${language}"
+          
+      - name: intent_detection
+        agent: ClaudeFallbackAgent
+        action: intent_parse
+        params:
+          system_prompt: |
+            Extract intent and entities from user input.
+            Intents: calendar.create, calendar.read, calendar.update, calendar.delete, general.query
+            Return JSON: {"intent": "...", "entities": {...}}
+            
+      - name: action_router
+        type: conditional
+        conditions:
+          - condition: "intent == 'calendar.create'"
+            agent: GoogleCalendarAgent
+            action: create_event
+            params:
+              title: "${entities.title}"
+              start_time: "${entities.start_time}"
+              description: "${entities.description}"
+              
+          - condition: "intent == 'calendar.read'"
+            agent: GoogleCalendarAgent
+            action: read_events
+            params:
+              time_range: "${entities.time_range}"
+              
+          - condition: "intent == 'calendar.update'"
+            agent: GoogleCalendarAgent
+            action: update_event
+            params:
+              event_id: "${entities.event_id}"
+              updates: "${entities.updates}"
+              
+          - condition: "intent == 'calendar.delete'"
+            agent: GoogleCalendarAgent
+            action: delete_event
+            params:
+              event_id: "${entities.event_id}"
+              
+          - condition: "default"
+            agent: ClaudeFallbackAgent
+            action: answer
+            params:
+              context: "calendar_aware"
+              
+      - name: response_generation
+        agent: ClaudeFallbackAgent
+        action: format_response
+        params:
+          style: "conversational"
+          include_confirmation: true
+          
+      - name: voice_output
+        agent: Text2SpeechBot
+        action: synthesize
+        params:
+          model: "nari-labs/dia-1.6b"
+          voice: "assistant"
+          speed: 1.0
+          
+    calendar_summary:
+      - name: fetch_events
+        agent: GoogleCalendarAgent
+        action: read_events
+        params:
+          time_range:
+            start: "now"
+            end: "+24h"
+            
+      - name: summarize
+        agent: ClaudeFallbackAgent
+        action: summarize_events
+        params:
+          format: "brief"
+          
+      - name: speak_summary
+        agent: Text2SpeechBot
+        action: synthesize
+        
+  error_handling:
+    offline_fallback:
+      - type: cache_lookup
+        description: "Check local cache for similar queries"
+      - type: basic_nlp
+        description: "Use local NLP for simple intents"
+        
+    voice_errors:
+      no_input:
+        retry: 2
+        message: "I didn't catch that. Could you repeat?"
+      unclear_audio:
+        retry: 1
+        message: "Sorry, the audio wasn't clear. Please try again."
+        
+  integrations:
+    - name: HomeAssistant
+      description: "Smart home control"
+      optional: true
+      
+    - name: NotificationService
+      description: "Calendar reminders"
+      enabled: true
+      
+  examples:
+    - name: "Schedule meeting"
+      input: "Schedule a meeting with Jake tomorrow at 3 PM"
+      expected_flow:
+        - intent: "calendar.create"
+        - entities:
+            title: "Meeting with Jake"
+            start_time: "tomorrow 3:00 PM"
+        - response: "I've scheduled your meeting with Jake for tomorrow at 3 PM."
+        
+    - name: "Check calendar"
+      input: "What's on my calendar today?"
+      expected_flow:
+        - intent: "calendar.read"
+        - entities:
+            time_range: "today"
+        - response: "You have 3 events today: Team standup at 10 AM..."
+        
+  metadata:
+    author: "InsightPulseAI"
+    category: "personal_assistant"
+    tags: ["voice", "calendar", "offline", "assistant", "local"]
+    hardware_requirements:
+      gpu: "NVIDIA >= 6GB VRAM"
+      ram: "8GB minimum"

@@ -1,0 +1,598 @@
+version: 4.0.0
+project: scout-dashboard-v4-azure
+description: AI-Powered Retail Analytics Platform with Azure PostgreSQL
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DEPLOYMENT CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+deployment:
+  target: vercel
+  framework: nextjs
+  node_version: "20"
+  build_command: "npm run build"
+  dev_command: "npm run dev"
+  install_command: "npm ci"
+  
+  environments:
+    production:
+      url: "https://scout-dashboard-v4-azure.vercel.app"
+      branch: main
+      auto_deploy: true
+    preview:
+      url_template: "https://scout-dashboard-v4-azure-git-{branch}.vercel.app"
+      branches: ["develop", "feature/*"]
+      auto_deploy: true
+    development:
+      url: "http://localhost:3000"
+      branch: develop
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DATABASE CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+databases:
+  primary:
+    id: azure_postgresql
+    provider: postgresql
+    type: azure_flexible_server
+    ssl_mode: require
+    connection_pooling: true
+    max_connections: 100
+    
+    schema_tables:
+      - transactions
+      - consumers  
+      - product_mix
+      - daily_kpis
+      - product_performance
+      - regional_performance
+      - ai_recommendations
+      - ai_insights_summary
+    
+    environment_variables:
+      DATABASE_URL: "postgresql://username:password@server.postgres.database.azure.com:5432/database?sslmode=require"
+    
+    migrations:
+      tool: prisma
+      auto_deploy: true
+      rollback_enabled: true
+    
+    seeding:
+      enabled: true
+      script: "prisma/seed.ts"
+      sample_data: true
+
+  data_lake:
+    id: azure_adls_gen2
+    provider: azure_data_lake_storage
+    type: hierarchical_namespace
+    storage_account: "stscoutprod"
+    container: "rawtransactions"
+    mount_point: "/mnt/scout/raw"
+    
+    authentication:
+      type: service_principal
+      client_id_secret: "sp-client-id"
+      client_secret_secret: "sp-secret"
+      tenant_id_secret: "sp-tenant"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FEATURE FLAGS
+# ═══════════════════════════════════════════════════════════════════════════════
+feature_flags:
+  AI_PANEL: true
+  REAL_TIME_UPDATES: true
+  VISUAL_TESTING: true
+  MOCK_MODE: false
+  ADVANCED_ANALYTICS: true
+  EXPORT_FUNCTIONALITY: true
+  MULTI_TENANT: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENT ORCHESTRATION
+# ═══════════════════════════════════════════════════════════════════════════════
+agents:
+  repo:
+    path: "packages/agents/repo"
+    role: "source_control"
+    cross_repo: true
+    permissions: ["read", "write", "merge"]
+    
+  keykey:
+    path: "packages/agents/keykey"
+    role: "secret_management"
+    permissions: ["azure_keyvault:read"]
+    environment_grants:
+      - DATABASE_URL
+      - AZURE_CLIENT_ID
+      - AZURE_CLIENT_SECRET
+      
+  dash:
+    path: "packages/agents/dash"
+    role: "ui_testing"
+    watch_paths:
+      - "app/**"
+      - "components/**"
+      - "lib/**"
+    visual_testing:
+      tool: percy
+      baseline_branch: main
+      threshold: 0.1
+      
+  claude:
+    path: "packages/agents/claude"
+    role: "development"
+    cwd_lock: true
+    allowed_operations:
+      - code_generation
+      - refactoring
+      - documentation
+      
+  manong:
+    path: "packages/agents/manong"
+    role: "automation"
+    delegate_watch_to: dash
+    responsibilities:
+      - deployment_monitoring
+      - performance_tracking
+      - error_reporting
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DASHBOARD SPECIFICATION
+# ═══════════════════════════════════════════════════════════════════════════════
+dashboard:
+  pages:
+    overview:
+      route: "/"
+      title: "Scout Retail Dashboard"
+      components:
+        - kpi_cards
+        - revenue_trends_chart
+        - top_products_chart
+        - ai_status_badge
+      refresh_interval: 30000
+      
+    trends:
+      route: "/trends"
+      title: "Transaction Trends"
+      components:
+        - daily_transaction_chart
+        - revenue_distribution_chart
+        - shopping_time_heatmap
+        - trend_filters
+      refresh_interval: 60000
+      
+    products:
+      route: "/products"
+      title: "Product Analytics"
+      components:
+        - sku_combo_sankey
+        - category_breakdown
+        - substitution_behavior
+        - product_filters
+      refresh_interval: 60000
+      
+    consumers:
+      route: "/consumers"
+      title: "Consumer Insights"
+      components:
+        - demographic_breakdown
+        - preference_analysis
+        - behavior_patterns
+        - consumer_filters
+      refresh_interval: 120000
+      
+    retailbot:
+      route: "/retailbot"
+      title: "AI Recommendations"
+      components:
+        - ai_recommendation_panel
+        - action_cards
+        - performance_metrics
+        - feedback_system
+      refresh_interval: 300000
+
+  kpis:
+    revenue:
+      label: "Total Revenue"
+      format: "currency"
+      currency: "PHP"
+      icon: "peso"
+      color: "green"
+      
+    orders:
+      label: "Total Orders"
+      format: "number"
+      icon: "hash"
+      color: "blue"
+      
+    aov:
+      label: "Average Order Value"
+      format: "currency"
+      currency: "PHP"
+      icon: "average"
+      color: "purple"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# API SPECIFICATION
+# ═══════════════════════════════════════════════════════════════════════════════
+api:
+  base_path: "/api"
+  version: "v1"
+  
+  endpoints:
+    kpi:
+      path: "/api/kpi"
+      method: "GET"
+      description: "Dashboard KPIs (revenue, orders, AOV)"
+      cache_ttl: 300
+      rate_limit: 100
+      
+    trends:
+      path: "/api/trends"
+      method: "GET"
+      description: "Time-series transaction data"
+      cache_ttl: 600
+      rate_limit: 50
+      query_params:
+        - name: "period"
+          type: "string"
+          default: "30d"
+        - name: "granularity"
+          type: "string"
+          default: "day"
+          
+    products:
+      path: "/api/products"
+      method: "GET"
+      description: "Product performance analytics"
+      cache_ttl: 600
+      rate_limit: 50
+      query_params:
+        - name: "category"
+          type: "string"
+          optional: true
+        - name: "limit"
+          type: "number"
+          default: 20
+          
+    consumers:
+      path: "/api/consumers"
+      method: "GET"
+      description: "Consumer behavior insights"
+      cache_ttl: 1200
+      rate_limit: 30
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DATA PIPELINE CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+data_pipeline:
+  architecture: "medallion"
+  
+  layers:
+    bronze:
+      description: "Raw data ingestion from ADLS Gen2"
+      tables:
+        - "scout.bronze_transactions"
+      data_sources:
+        - "/mnt/scout/raw/transactions/*.json"
+      processing: "minimal_transformation"
+      
+    silver:
+      description: "Cleaned and validated data"
+      tables:
+        - "scout.silver_transactions"
+      transformations:
+        - "data_quality_checks"
+        - "field_standardization"
+        - "derived_columns"
+      
+    gold:
+      description: "Business-ready aggregated metrics"
+      tables:
+        - "scout.gold_daily_kpis"
+        - "scout.gold_product_performance"
+        - "scout.gold_regional_performance"
+      outputs:
+        - "postgresql_daily_kpis"
+        - "postgresql_product_performance"
+        - "postgresql_regional_performance"
+
+  databricks:
+    workspace: "dbx-scout-prod"
+    cluster_config:
+      spark_version: "13.3.x-scala2.12"
+      node_type: "Standard_D3_v2"
+      workers: 2
+    
+    jobs:
+      etl_pipeline:
+        name: "scout-etl-to-postgres"
+        schedule: "0 15 * * * ?"
+        timezone: "Asia/Manila"
+        notebook: "databricks/txn_etl.py"
+        libraries:
+          - "psycopg2-binary==2.9.7"
+          - "org.postgresql:postgresql:42.6.0"
+        
+      ai_insights:
+        name: "genie-stockbot-ai-insights"
+        schedule: "0 0 9 * * ?"
+        timezone: "Asia/Manila"
+        notebook: "databricks/genie_stockbot.py"
+        libraries:
+          - "openai==0.28.1"
+          - "psycopg2-binary==2.9.7"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AI SERVICES
+# ═══════════════════════════════════════════════════════════════════════════════
+ai_services:
+  genie_stockbot:
+    provider: "azure_openai"
+    model: "gpt-4o"
+    deployment: "gpt-4o-32k"
+    endpoint_secret: "aoai_endpoint"
+    key_secret: "aoai_key"
+    deployment_secret: "aoai_deployment"
+    
+    configuration:
+      max_tokens: 400
+      temperature: 0.4
+      top_p: 0.9
+      
+    capabilities:
+      - "performance_analysis"
+      - "trend_identification"
+      - "business_recommendations"
+      - "data_insights"
+      
+    output_tables:
+      - "public.ai_recommendations"
+      - "public.ai_insights_summary"
+      
+    schedule:
+      frequency: "daily"
+      time: "09:00"
+      timezone: "Asia/Manila"
+    
+  retail_bot:
+    provider: "openai"
+    model: "gpt-4o"
+    endpoint: "/api/ai/recommend"
+    prompt_template: "prompts/retailbot.md"
+    max_tokens: 500
+    temperature: 0.7
+    
+  data_analyzer:
+    provider: "azure_openai"
+    model: "gpt-4"
+    endpoint: "/api/ai/analyze"
+    prompt_template: "prompts/analyzer.md"
+    max_tokens: 1000
+    temperature: 0.3
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXTERNAL JOBS
+# ═══════════════════════════════════════════════════════════════════════════════
+external_jobs:
+  - id: "scout_etl_pipeline"
+    provider: "databricks"
+    job_id: "TBD_AFTER_CREATION"
+    name: "scout-etl-to-postgres"
+    schedule_ref: "ci"
+    dependencies: ["adls_mount", "postgres_connection"]
+    
+  - id: "genie_stockbot"
+    provider: "databricks"
+    job_id: "TBD_AFTER_CREATION"
+    name: "genie-stockbot-ai-insights"
+    schedule_ref: "ci"
+    dependencies: ["scout_etl_pipeline", "azure_openai"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DATASETS
+# ═══════════════════════════════════════════════════════════════════════════════
+datasets:
+  bronze:
+    - "scout.bronze_transactions"
+  silver:
+    - "scout.silver_transactions"
+  gold:
+    - "scout.gold_daily_kpis"
+    - "scout.gold_product_performance"
+    - "scout.gold_regional_performance"
+  postgresql:
+    - "public.daily_kpis"
+    - "public.product_performance"
+    - "public.regional_performance"
+    - "public.ai_recommendations"
+    - "public.ai_insights_summary"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GATES
+# ═══════════════════════════════════════════════════════════════════════════════
+quality_gates:
+  code_quality:
+    eslint: true
+    prettier: true
+    typescript_strict: true
+    
+  testing:
+    unit_tests: true
+    integration_tests: true
+    e2e_tests: false
+    coverage_threshold: 80
+    
+  performance:
+    lighthouse_threshold: 90
+    core_web_vitals: true
+    bundle_size_limit: "500kb"
+    
+  security:
+    dependency_audit: true
+    secret_scanning: true
+    ssl_required: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CI/CD PIPELINE
+# ═══════════════════════════════════════════════════════════════════════════════
+ci_cd:
+  pipeline_file: ".github/workflows/ci.yml"
+  
+  triggers:
+    - push: ["main", "develop"]
+    - pull_request: ["main"]
+    
+  jobs:
+    lint_and_test:
+      runs_on: "ubuntu-latest"
+      node_version: "20"
+      services:
+        - postgres:15
+      steps:
+        - checkout
+        - setup_node
+        - install_dependencies
+        - setup_test_database
+        - run_linting
+        - run_type_checking
+        - build_application
+        
+    deploy_preview:
+      needs: ["lint_and_test"]
+      condition: "github.event_name == 'pull_request'"
+      steps:
+        - checkout
+        - install_vercel_cli
+        - pull_vercel_environment
+        - build_project
+        - deploy_preview
+        
+    deploy_production:
+      needs: ["lint_and_test"]
+      condition: "github.ref == 'refs/heads/main'"
+      steps:
+        - checkout
+        - install_vercel_cli
+        - pull_vercel_environment
+        - build_project
+        - deploy_production
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MONITORING & OBSERVABILITY
+# ═══════════════════════════════════════════════════════════════════════════════
+monitoring:
+  performance:
+    lighthouse_ci: true
+    web_vitals_tracking: true
+    bundle_analyzer: true
+    
+  errors:
+    error_tracking: "vercel_analytics"
+    log_level: "error"
+    alert_threshold: 10
+    
+  analytics:
+    page_views: true
+    user_interactions: true
+    api_usage: true
+    
+  uptime:
+    health_check_endpoint: "/api/health"
+    monitoring_interval: "5m"
+    alert_channels: ["email", "slack"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SECURITY CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+security:
+  environment_variables:
+    encryption: true
+    rotation_policy: "90d"
+    access_logging: true
+    
+  database:
+    ssl_required: true
+    connection_encryption: true
+    access_control: "rbac"
+    
+  api:
+    rate_limiting: true
+    cors_policy: "strict"
+    input_validation: true
+    
+  deployment:
+    secret_scanning: true
+    dependency_audit: true
+    vulnerability_scanning: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DEVELOPMENT WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+development:
+  branching_strategy: "git_flow"
+  
+  branches:
+    main:
+      protection: true
+      required_reviews: 1
+      auto_deploy: true
+      
+    develop:
+      protection: false
+      auto_deploy: true
+      
+    feature:
+      naming_convention: "feature/*"
+      auto_deploy: false
+      
+  code_review:
+    required: true
+    reviewers: 1
+    dismiss_stale: true
+    
+  automation:
+    dependency_updates: "renovate"
+    security_updates: "auto"
+    format_on_save: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DOCUMENTATION
+# ═══════════════════════════════════════════════════════════════════════════════
+documentation:
+  readme: "README.md"
+  api_docs: "auto_generated"
+  architecture: "docs/architecture.md"
+  deployment: "docs/deployment.md"
+  
+  inline_docs:
+    jsdoc: true
+    typescript_docs: true
+    component_docs: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+metadata:
+  created_by: "scout_automation_script"
+  created_at: "2025-06-18T06:16:00Z"
+  template_source: "https://github.com/cruip/tailwind-dashboard-template"
+  
+  tech_stack:
+    frontend: "Next.js 15"
+    backend: "Next.js API Routes"
+    database: "Azure PostgreSQL"
+    orm: "Prisma"
+    styling: "Tailwind CSS"
+    charts: "Recharts"
+    deployment: "Vercel"
+    
+  compliance:
+    gdpr_ready: true
+    accessibility: "WCAG 2.1 AA"
+    browser_support: ["Chrome", "Firefox", "Safari", "Edge"]
+    
+  maintenance:
+    update_schedule: "monthly"
+    security_patches: "immediate"
+    dependency_updates: "weekly"

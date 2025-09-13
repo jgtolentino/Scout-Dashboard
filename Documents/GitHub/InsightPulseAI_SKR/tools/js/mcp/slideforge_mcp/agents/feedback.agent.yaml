@@ -1,0 +1,207 @@
+id: feedback
+name: Presentation Reviewer
+description: Reviews slide decks for tone, clarity, pacing, and provides improvement suggestions
+version: 1.0.0
+
+# AI model configuration
+model: claude-3-opus
+temperature: 0.3
+max_tokens: 4000
+input_format: json
+output_format: json
+
+# Input schema
+input_schema:
+  type: object
+  required:
+    - filename
+  properties:
+    filename:
+      type: string
+      description: JSON file to review (without extension)
+    focus_areas:
+      type: array
+      items:
+        type: string
+        enum: [tone, clarity, pacing, impact, visuals, actionability]
+      default: ["tone", "clarity", "pacing"]
+      description: Areas to focus feedback on
+
+# Output schema
+output_schema:
+  type: object
+  required:
+    - overall_feedback
+    - slide_feedback
+  properties:
+    overall_feedback:
+      type: object
+      required:
+        - strengths
+        - weaknesses
+        - recommendations
+      properties:
+        strengths:
+          type: array
+          items:
+            type: string
+          description: Strengths of the presentation
+        weaknesses:
+          type: array
+          items:
+            type: string
+          description: Areas for improvement
+        recommendations:
+          type: array
+          items:
+            type: string
+          description: Specific recommendations for improving the deck
+    slide_feedback:
+      type: array
+      items:
+        type: object
+        required:
+          - slide_index
+          - title
+          - feedback
+          - suggested_revisions
+        properties:
+          slide_index:
+            type: integer
+            description: Index of the slide (0-based)
+          title:
+            type: string
+            description: Title of the slide
+          feedback:
+            type: string
+            description: Specific feedback for this slide
+          suggested_revisions:
+            type: object
+            properties:
+              title:
+                type: [string, "null"]
+                description: Suggested revision for the title (null if no change)
+              subtitle:
+                type: [string, "null"]
+                description: Suggested revision for the subtitle (null if no change)
+              bullets:
+                type: [array, "null"]
+                items:
+                  type: string
+                description: Suggested revisions for bullet points (null if no change)
+              image_prompt:
+                type: [string, "null"]
+                description: Suggested revision for the image prompt (null if no change)
+              notes:
+                type: [string, "null"]
+                description: Suggested revision for the presenter notes (null if no change)
+
+# Function to load slide deck data
+load_data: |
+  import json
+  import os
+  
+  def load_slide_deck(filename):
+      # Determine the file path
+      file_path = f"./public/slides/{filename}.json"
+      
+      # Check if the file exists
+      if not os.path.exists(file_path):
+          raise ValueError(f"Slide deck file not found: {file_path}")
+      
+      # Load the JSON data
+      with open(file_path, 'r') as f:
+          return json.load(f)
+
+# Prompt template for Claude
+prompt_template: |
+  # SlideForge Presentation Review
+
+  You are a professional presentation coach and slide deck reviewer. You'll analyze a slide deck and provide constructive feedback to improve its effectiveness.
+  
+  ## Focus Areas
+  {% if focus_areas %}
+  Focus particularly on:
+  {% for area in focus_areas %}
+  - {{ area | title }}: {% if area == "tone" %}Is the language appropriate for the audience and purpose?{% elif area == "clarity" %}Are messages clear and jargon-free?{% elif area == "pacing" %}Does the flow between slides work logically?{% elif area == "impact" %}Will the content persuade and engage the audience?{% elif area == "visuals" %}Are visual suggestions appropriate and enhancing?{% elif area == "actionability" %}Does the deck drive toward clear next steps?{% endif %}
+  {% endfor %}
+  {% else %}
+  Analyze all aspects of the presentation including tone, clarity, pacing, impact, visuals, and actionability.
+  {% endif %}
+
+  ## Slide Deck to Review
+  ```json
+  {{ slide_deck | tojson(indent=2) }}
+  ```
+
+  ## Review Guidelines
+  
+  1. First, analyze the overall presentation for coherence, flow, and effectiveness
+  2. Then, review each slide individually
+  3. For each issue identified, provide a specific, actionable suggestion
+  4. Balance critique with recognition of effective elements
+  5. Consider the target audience implied by the content
+  6. Keep feedback concise and focused on improving communication effectiveness
+
+  ## Output Format
+  
+  Provide your feedback as JSON with:
+  1. Overall feedback section with strengths, weaknesses, and recommendations
+  2. Slide-by-slide feedback with specific suggestions for each slide
+
+  Output your analysis in this JSON structure:
+  ```json
+  {
+    "overall_feedback": {
+      "strengths": ["Strength 1", "Strength 2", "Strength 3"],
+      "weaknesses": ["Weakness 1", "Weakness 2", "Weakness 3"],
+      "recommendations": ["Recommendation 1", "Recommendation 2", "Recommendation 3"]
+    },
+    "slide_feedback": [
+      {
+        "slide_index": 0,
+        "title": "Slide title from deck",
+        "feedback": "Specific, constructive feedback for this slide",
+        "suggested_revisions": {
+          "title": "Suggested improved title or null if no change needed",
+          "subtitle": "Suggested improved subtitle or null",
+          "bullets": ["Improved bullet 1", "Improved bullet 2"] or null,
+          "image_prompt": "Improved image description or null",
+          "notes": "Improved presenter notes or null"
+        }
+      },
+      
+      // Additional slides...
+    ]
+  }
+  ```
+
+# Execution steps
+steps:
+  # Load the slide deck
+  - action: run_code
+    code: |
+      slide_deck = load_slide_deck("{{ filename }}")
+      return {"slide_deck": slide_deck}
+  
+  # Generate feedback using Claude Max
+  - action: call_model
+    with:
+      slide_deck: "{{ slide_deck }}"
+      focus_areas: "{{ focus_areas }}"
+  
+  # Save the feedback
+  - action: save_output
+    path: "public/slides/{{ filename }}_feedback.json"
+  
+  # Log the results
+  - action: log
+    message: "Generated feedback for {{ filename }} focusing on {{ focus_areas | join(', ') }}"
+
+# Post-processing hooks
+post_process:
+  - action: next_step
+    agent: slidebuilder
+    with:
+      filename: "{{ filename }}"
+      feedback_file: "{{ filename }}_feedback"

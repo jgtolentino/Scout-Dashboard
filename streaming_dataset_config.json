@@ -1,0 +1,75 @@
+{
+  "name": "cdc_stream_sales_dataset",
+  "defaultMode": "Streaming",
+  "tables": [
+    {
+      "name": "cdc_stream_sales",
+      "columns": [
+        {
+          "name": "timestamp",
+          "dataType": "DateTime"
+        },
+        {
+          "name": "transaction_id",
+          "dataType": "String"
+        },
+        {
+          "name": "store_id",
+          "dataType": "Int64"
+        },
+        {
+          "name": "customer_id",
+          "dataType": "Int64"
+        },
+        {
+          "name": "total_amount",
+          "dataType": "Double"
+        },
+        {
+          "name": "items_count",
+          "dataType": "Int64"
+        },
+        {
+          "name": "payment_method",
+          "dataType": "String"
+        },
+        {
+          "name": "checkout_seconds",
+          "dataType": "Int64"
+        },
+        {
+          "name": "nlp_processed",
+          "dataType": "Boolean"
+        },
+        {
+          "name": "nlp_confidence_score",
+          "dataType": "Double"
+        },
+        {
+          "name": "cdc_operation",
+          "dataType": "Int64"
+        },
+        {
+          "name": "stream_timestamp",
+          "dataType": "DateTime"
+        },
+        {
+          "name": "brand_name",
+          "dataType": "String"
+        },
+        {
+          "name": "product_category",
+          "dataType": "String"
+        },
+        {
+          "name": "store_name",
+          "dataType": "String"
+        },
+        {
+          "name": "store_city",
+          "dataType": "String"
+        }
+      ]
+    }
+  ]
+}

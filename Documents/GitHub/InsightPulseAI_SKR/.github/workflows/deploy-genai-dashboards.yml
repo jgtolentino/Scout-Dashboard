@@ -1,0 +1,98 @@
+name: Deploy GenAI Insights Dashboards
+
+on:
+  push:
+    branches: [main, release/pulser-2.1.2]
+    paths:
+      - 'tools/js/juicer-stack/dashboards/**'
+      - 'tools/js/juicer-stack/tools/deploy_insights_all_dashboards.js'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Dashboards
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Generate GenAI Insights Integration
+        run: |
+          cd tools/js/juicer-stack
+          chmod +x tools/deploy_insights_all_dashboards.js
+          node tools/deploy_insights_all_dashboards.js --env ${{ github.event.inputs.environment || 'dev' }}
+          
+      - name: Deploy to Azure Static Web Apps
+        id: deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "tools/js/deploy"
+          skip_app_build: true
+          output_location: ""
+          
+      - name: Upload Deployment Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: genai-dashboards
+          path: tools/js/deploy
+          
+      - name: Capture Dashboard Screenshot
+        run: |
+          npm install -g puppeteer
+          mkdir -p tools/js/juicer-stack/assets/screenshots
+          node -e "
+          const puppeteer = require('puppeteer');
+          (async () => {
+            const browser = await puppeteer.launch();
+            const page = await browser.newPage();
+            await page.setViewport({ width: 1920, height: 1080 });
+            await page.goto('https://${{ steps.deploy.outputs.static_web_app_url }}', { waitUntil: 'networkidle0' });
+            await page.screenshot({ path: 'tools/js/juicer-stack/assets/screenshots/dashboard_' + new Date().toISOString().replace(/:/g, '') + '.png' });
+            await browser.close();
+          })();
+          "
+          
+      - name: Upload Screenshot Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dashboard-screenshots
+          path: tools/js/juicer-stack/assets/screenshots
+          
+      - name: Create Deployment Summary
+        run: |
+          echo "## GenAI Insights Dashboard Deployment" > deployment-summary.md
+          echo "**Environment:** ${{ github.event.inputs.environment || 'dev' }}" >> deployment-summary.md
+          echo "**Deployed URL:** https://${{ steps.deploy.outputs.static_web_app_url }}" >> deployment-summary.md
+          echo "**Deployment Time:** $(date)" >> deployment-summary.md
+          echo "**Branch:** ${{ github.ref_name }}" >> deployment-summary.md
+          echo "**Commit:** ${{ github.sha }}" >> deployment-summary.md
+          echo "### Dashboards Included" >> deployment-summary.md
+          echo "- Main Insights Dashboard" >> deployment-summary.md
+          echo "- Retail Edge Dashboard" >> deployment-summary.md
+          echo "- Operations Dashboard" >> deployment-summary.md
+          
+      - name: Upload Deployment Summary
+        uses: actions/upload-artifact@v2
+        with:
+          name: deployment-summary
+          path: deployment-summary.md

@@ -1,0 +1,417 @@
+{
+  "simulated": true,
+  "meta": {
+    "data_type": "barangay_performance_metrics",
+    "version": "1.0.0",
+    "generated_date": "2025-05-19T08:00:00+08:00",
+    "total_records": 14
+  },
+  "data": [
+    {
+      "barangay": "Poblacion",
+      "code": "PBL001",
+      "city_municipality": "Makati City",
+      "province": "Metro Manila",
+      "region": "NCR",
+      "store_count": 42,
+      "sales": {
+        "total": 2450000,
+        "growth_rate": 8.2,
+        "per_capita": 112.47,
+        "yoy_change": 186000
+      },
+      "product_categories": {
+        "Groceries": 32,
+        "Personal Care": 18, 
+        "Beverages": 15,
+        "Snacks": 12,
+        "Home Care": 8,
+        "Others": 15
+      },
+      "demographics": {
+        "population": 21784,
+        "households": 5440,
+        "median_age": 32,
+        "income_level": "mixed"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Bel-Air",
+      "code": "BLA002",
+      "city_municipality": "Makati City",
+      "province": "Metro Manila",
+      "region": "NCR",
+      "store_count": 38,
+      "sales": {
+        "total": 3150000,
+        "growth_rate": 9.5,
+        "per_capita": 163.58,
+        "yoy_change": 274000
+      },
+      "product_categories": {
+        "Groceries": 28,
+        "Personal Care": 22, 
+        "Beverages": 18,
+        "Snacks": 10,
+        "Home Care": 12,
+        "Others": 10
+      },
+      "demographics": {
+        "population": 19257,
+        "households": 4810,
+        "median_age": 36,
+        "income_level": "high"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Lahug",
+      "code": "LHG001",
+      "city_municipality": "Cebu City",
+      "province": "Cebu",
+      "region": "Central Visayas",
+      "store_count": 55,
+      "sales": {
+        "total": 1870000,
+        "growth_rate": 5.3,
+        "per_capita": 48.84,
+        "yoy_change": 94000
+      },
+      "product_categories": {
+        "Groceries": 36,
+        "Personal Care": 14, 
+        "Beverages": 16,
+        "Snacks": 15,
+        "Home Care": 6,
+        "Others": 13
+      },
+      "demographics": {
+        "population": 38288,
+        "households": 8508,
+        "median_age": 30,
+        "income_level": "middle"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Guadalupe",
+      "code": "GDL002",
+      "city_municipality": "Cebu City",
+      "province": "Cebu",
+      "region": "Central Visayas",
+      "store_count": 72,
+      "sales": {
+        "total": 2540000,
+        "growth_rate": 6.7,
+        "per_capita": 41.48,
+        "yoy_change": 159000
+      },
+      "product_categories": {
+        "Groceries": 38,
+        "Personal Care": 12, 
+        "Beverages": 20,
+        "Snacks": 14,
+        "Home Care": 5,
+        "Others": 11
+      },
+      "demographics": {
+        "population": 61238,
+        "households": 13608,
+        "median_age": 28,
+        "income_level": "low-middle"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Poblacion",
+      "code": "PBL003",
+      "city_municipality": "Davao City",
+      "province": "Davao del Sur",
+      "region": "Davao",
+      "store_count": 35,
+      "sales": {
+        "total": 1950000,
+        "growth_rate": 7.8,
+        "per_capita": 95.12,
+        "yoy_change": 141000
+      },
+      "product_categories": {
+        "Groceries": 34,
+        "Personal Care": 15, 
+        "Beverages": 18,
+        "Snacks": 13,
+        "Home Care": 8,
+        "Others": 12
+      },
+      "demographics": {
+        "population": 20500,
+        "households": 4560,
+        "median_age": 31,
+        "income_level": "middle"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Matina",
+      "code": "MTN004",
+      "city_municipality": "Davao City",
+      "province": "Davao del Sur",
+      "region": "Davao",
+      "store_count": 63,
+      "sales": {
+        "total": 3280000,
+        "growth_rate": 9.1,
+        "per_capita": 71.54,
+        "yoy_change": 274000
+      },
+      "product_categories": {
+        "Groceries": 30,
+        "Personal Care": 18, 
+        "Beverages": 22,
+        "Snacks": 10,
+        "Home Care": 10,
+        "Others": 10
+      },
+      "demographics": {
+        "population": 45850,
+        "households": 10188,
+        "median_age": 29,
+        "income_level": "middle-high"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Aurora Hill",
+      "code": "AHL001",
+      "city_municipality": "Baguio City",
+      "province": "Benguet",
+      "region": "CAR",
+      "store_count": 28,
+      "sales": {
+        "total": 1320000,
+        "growth_rate": 4.9,
+        "per_capita": 71.27,
+        "yoy_change": 61000
+      },
+      "product_categories": {
+        "Groceries": 35,
+        "Personal Care": 14, 
+        "Beverages": 15,
+        "Snacks": 16,
+        "Home Care": 7,
+        "Others": 13
+      },
+      "demographics": {
+        "population": 18520,
+        "households": 4120,
+        "median_age": 32,
+        "income_level": "low-middle"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Session Road",
+      "code": "SRD002",
+      "city_municipality": "Baguio City",
+      "province": "Benguet",
+      "region": "CAR",
+      "store_count": 42,
+      "sales": {
+        "total": 2150000,
+        "growth_rate": 6.3,
+        "per_capita": 168.23,
+        "yoy_change": 127000
+      },
+      "product_categories": {
+        "Groceries": 28,
+        "Personal Care": 20, 
+        "Beverages": 18,
+        "Snacks": 14,
+        "Home Care": 8,
+        "Others": 12
+      },
+      "demographics": {
+        "population": 12780,
+        "households": 3190,
+        "median_age": 34,
+        "income_level": "middle-high"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "La Paz",
+      "code": "LPZ001",
+      "city_municipality": "Iloilo City",
+      "province": "Iloilo",
+      "region": "Western Visayas",
+      "store_count": 31,
+      "sales": {
+        "total": 1450000,
+        "growth_rate": 5.2,
+        "per_capita": 64.88,
+        "yoy_change": 71000
+      },
+      "product_categories": {
+        "Groceries": 37,
+        "Personal Care": 14, 
+        "Beverages": 16,
+        "Snacks": 12,
+        "Home Care": 8,
+        "Others": 13
+      },
+      "demographics": {
+        "population": 22350,
+        "households": 4970,
+        "median_age": 30,
+        "income_level": "middle"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Jaro",
+      "code": "JRO002",
+      "city_municipality": "Iloilo City",
+      "province": "Iloilo",
+      "region": "Western Visayas",
+      "store_count": 47,
+      "sales": {
+        "total": 2350000,
+        "growth_rate": 6.8,
+        "per_capita": 45.65,
+        "yoy_change": 149000
+      },
+      "product_categories": {
+        "Groceries": 35,
+        "Personal Care": 16, 
+        "Beverages": 18,
+        "Snacks": 12,
+        "Home Care": 6,
+        "Others": 13
+      },
+      "demographics": {
+        "population": 51482,
+        "households": 11440,
+        "median_age": 29,
+        "income_level": "middle"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Rizal",
+      "code": "RZL001",
+      "city_municipality": "Tacloban City",
+      "province": "Leyte",
+      "region": "Eastern Visayas",
+      "store_count": 27,
+      "sales": {
+        "total": 1120000,
+        "growth_rate": 5.6,
+        "per_capita": 60.78,
+        "yoy_change": 59000
+      },
+      "product_categories": {
+        "Groceries": 39,
+        "Personal Care": 12, 
+        "Beverages": 17,
+        "Snacks": 15,
+        "Home Care": 5,
+        "Others": 12
+      },
+      "demographics": {
+        "population": 18426,
+        "households": 4100,
+        "median_age": 31,
+        "income_level": "low-middle"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Sagkahan",
+      "code": "SGK002",
+      "city_municipality": "Tacloban City",
+      "province": "Leyte",
+      "region": "Eastern Visayas",
+      "store_count": 22,
+      "sales": {
+        "total": 980000,
+        "growth_rate": 4.8,
+        "per_capita": 62.50,
+        "yoy_change": 45000
+      },
+      "product_categories": {
+        "Groceries": 41,
+        "Personal Care": 10, 
+        "Beverages": 18,
+        "Snacks": 16,
+        "Home Care": 4,
+        "Others": 11
+      },
+      "demographics": {
+        "population": 15680,
+        "households": 3490,
+        "median_age": 30,
+        "income_level": "low-middle"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Concepcion Grande",
+      "code": "CGR001",
+      "city_municipality": "Naga City",
+      "province": "Camarines Sur",
+      "region": "Bicol",
+      "store_count": 24,
+      "sales": {
+        "total": 1050000,
+        "growth_rate": 5.1,
+        "per_capita": 82.35,
+        "yoy_change": 51000
+      },
+      "product_categories": {
+        "Groceries": 36,
+        "Personal Care": 13, 
+        "Beverages": 16,
+        "Snacks": 15,
+        "Home Care": 7,
+        "Others": 13
+      },
+      "demographics": {
+        "population": 12750,
+        "households": 2835,
+        "median_age": 32,
+        "income_level": "middle"
+      },
+      "simulated": true
+    },
+    {
+      "barangay": "Dinaga",
+      "code": "DNG002",
+      "city_municipality": "Naga City",
+      "province": "Camarines Sur",
+      "region": "Bicol",
+      "store_count": 18,
+      "sales": {
+        "total": 850000,
+        "growth_rate": 4.3,
+        "per_capita": 99.30,
+        "yoy_change": 35000
+      },
+      "product_categories": {
+        "Groceries": 34,
+        "Personal Care": 14, 
+        "Beverages": 18,
+        "Snacks": 14,
+        "Home Care": 8,
+        "Others": 12
+      },
+      "demographics": {
+        "population": 8560,
+        "households": 1902,
+        "median_age": 33,
+        "income_level": "middle"
+      },
+      "simulated": true
+    }
+  ]
+}

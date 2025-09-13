@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Pulser Prompts Lock File",
+  "description": "Lock file that ensures prompts don't drift without explicit approval",
+  "type": "object",
+  "required": ["version", "locked_at", "prompts"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Version of the lock file format"
+    },
+    "locked_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the prompts were locked"
+    },
+    "lock_author": {
+      "type": "string",
+      "description": "User or agent that performed the lock operation"
+    },
+    "prompts": {
+      "type": "object",
+      "description": "Dictionary of prompt IDs to their lock information",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["hash", "version", "last_modified"],
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "SHA256 hash of the prompt content"
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the prompt"
+          },
+          "last_modified": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the prompt was last modified"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Owner of the prompt"
+          },
+          "approved_by": {
+            "type": "string",
+            "description": "User or agent that approved the prompt"
+          }
+        }
+      }
+    },
+    "update_policy": {
+      "type": "object",
+      "description": "Policy for prompt updates",
+      "properties": {
+        "require_approval": {
+          "type": "boolean",
+          "description": "Whether updates require explicit approval"
+        },
+        "approvers": {
+          "type": "array",
+          "description": "List of users or agents that can approve prompt updates",
+          "items": {
+            "type": "string"
+          }
+        },
+        "auto_approve_minor": {
+          "type": "boolean",
+          "description": "Whether minor version updates are auto-approved"
+        }
+      }
+    }
+  }
+}

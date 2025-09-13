@@ -1,0 +1,31 @@
+=== Lifecycle Management Implementation Results ===
+Storage Account: tbwajuicerstorage
+Resource Group: RG-TBWA-ProjectScout-Juicer
+✅ Successfully applied lifecycle policy
+
+Storage Account: dbstoragehyx7ppequk63i
+Resource Group: databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5
+❌ Failed to apply lifecycle policy - may require manual implementation
+
+Storage Account: projectscoutdata
+Resource Group: RG-TBWA-ProjectScout-Data
+✅ Successfully applied lifecycle policy
+
+
+Implementing lifecycle policies for dashboard storage accounts...
+Storage Account: retailedgedash0513
+Resource Group: retail-dashboards-rg
+✅ Successfully applied lifecycle policy
+
+Storage Account: retailperfdash0513
+Resource Group: retail-dashboards-rg
+✅ Successfully applied lifecycle policy
+
+Storage Account: pscoutdash0513
+Resource Group: ProjectScout-ResourceGroup
+✅ Successfully applied lifecycle policy
+
+Storage Account: retailadvisorstore
+Resource Group: RG-TBWA-ProjectScout-Juicer
+✅ Successfully applied lifecycle policy
+

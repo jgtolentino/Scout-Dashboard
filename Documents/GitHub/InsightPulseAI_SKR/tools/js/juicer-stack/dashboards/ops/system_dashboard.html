@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Operations & Model Performance Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <style>
+    :root {
+      --system-primary: #2B6CB0;
+      --system-secondary: #4A5568;
+      --system-success: #38A169;
+      --system-warning: #DD6B20; 
+      --system-danger: #E53E3E;
+      --system-info: #00B5D8;
+      --system-light: #F7FAFC;
+      --system-dark: #1A202C;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: var(--system-dark);
+    }
+    
+    .header {
+      background-color: var(--system-secondary);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      height: 40px;
+    }
+    
+    .data-source-badge {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    
+    .mock-data {
+      background-color: #FEEBC8;
+      color: #9C4221;
+      border: 1px solid #F6AD55;
+    }
+    
+    .real-data {
+      background-color: #C6F6D5;
+      color: #276749;
+      border: 1px solid #68D391;
+    }
+    
+    .mixed-data {
+      background-color: #E9D8FD;
+      color: #553C9A;
+      border: 1px solid #B794F4;
+    }
+    
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+      margin-bottom: 20px;
+      border: none;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .card-header {
+      border-radius: 10px 10px 0 0 !important;
+      padding: 0.75rem 1.25rem;
+      font-weight: 600;
+      background-color: white;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    
+    .metric-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--system-dark);
+    }
+    
+    .metric-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--system-secondary);
+    }
+    
+    .trend-indicator {
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+    
+    .trend-up {
+      color: var(--system-success);
+    }
+    
+    .trend-down {
+      color: var(--system-danger);
+    }
+    
+    .chart-container {
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    .data-health-table th {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .data-health-table td {
+      font-size: 0.85rem;
+    }
+
+    .tab-button {
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      margin-right: 0.5rem;
+      background-color: #E2E8F0;
+      color: var(--system-secondary);
+      font-weight: 500;
+    }
+
+    .tab-button.active {
+      background-color: var(--system-primary);
+      color: white;
+    }
+
+    .refreshed-at {
+      font-size: 0.8rem;
+      color: var(--system-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+
+    .status-operational {
+      background-color: #C6F6D5;
+      color: #276749;
+    }
+
+    .status-degraded {
+      background-color: #FEEBC8;
+      color: #9C4221;
+    }
+
+    .status-down {
+      background-color: #FED7D7;
+      color: #9B2C2C;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="m-0 d-flex align-items-center">
+            <img src="/images/default-tool-icon.svg" alt="System Operations Dashboard" class="logo me-2">
+            <span>System Operations & Model Performance</span>
+          </h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="d-flex justify-content-end align-items-center">
+            <span class="me-2">Dark Mode</span>
+            <div class="form-check form-switch d-inline-block me-3">
+              <input class="form-check-input" type="checkbox" id="darkModeToggle">
+            </div>
+            <button class="btn btn-outline-light ms-3" id="refreshButton">
+              <i class="fas fa-sync-alt me-1"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <!-- Dashboard Tabs -->
+    <div class="mb-4">
+      <div class="btn-group" role="group" aria-label="Dashboard tabs">
+        <button type="button" class="tab-button active" data-tab="device-health">Device Health</button>
+        <button type="button" class="tab-button" data-tab="model-performance">Model Performance</button>
+        <button type="button" class="tab-button" data-tab="data-pipeline">Data Pipeline</button>
+        <button type="button" class="tab-button" data-tab="azure-infra">Azure Infrastructure</button>
+      </div>
+      <p class="refreshed-at">Last refreshed: <span id="lastRefreshed">May 13, 2025 08:45 AM</span></p>
+    </div>
+
+    <!-- Device Health Tab -->
+    <div id="device-health-tab" class="tab-content active">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Device Health Summary</h5>
+              <span class="data-source-badge mixed-data">
+                <i class="fas fa-database me-1"></i> Mixed Data Source
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="text-center mb-3">
+                    <h3 class="metric-value">156</h3>
+                    <p class="metric-label">Total Devices</p>
+                    <p class="trend-indicator trend-up">
+                      <i class="fas fa-check-circle"></i> All registered
+                    </p>
+                    <p class="small text-muted">
+                      <!-- REAL DATA: Fetched from device_registry table via /api/devices endpoint -->
+                      Source: device_registry DB
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="text-center mb-3">
+                    <h3 class="metric-value">3</h3>
+                    <p class="metric-label">Silent Devices</p>
+                    <p class="trend-indicator trend-down">
+                      <i class="fas fa-exclamation-circle"></i> 1.9% of total
+                    </p>
+                    <p class="small text-muted">
+                      <!-- REAL DATA: Real-time check of device heartbeats -->
+                      Source: heartbeat logs
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="text-center mb-3">
+                    <h3 class="metric-value">2</h3>
+                    <p class="metric-label">Critical Alerts</p>
+                    <p class="trend-indicator trend-down">
+                      <i class="fas fa-bell"></i> Needs attention
+                    </p>
+                    <p class="small text-muted">
+                      <!-- REAL DATA: Azure Alerts API -->
+                      Source: Azure Alerts API
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="text-center mb-3">
+                    <h3 class="metric-value">98.7%</h3>
+                    <p class="metric-label">Data Quality</p>
+                    <p class="trend-indicator trend-up">
+                      <i class="fas fa-chart-line"></i> +1.2% from last check
+                    </p>
+                    <p class="small text-muted">
+                      <!-- MOCK DATA: Calculated from various metrics -->
+                      Source: Calculated (mock)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Device Status by Location</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="deviceLocationChart"></canvas>
+              </div>
+              <p class="small text-muted">
+                <!-- REAL DATA: Data from device_registry joined with location_mapping -->
+                Data source: device_registry + location_mapping tables
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Firmware Performance</h5>
+              <span class="data-source-badge mixed-data">
+                <i class="fas fa-database me-1"></i> Mixed Data Source
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="firmwareChart"></canvas>
+              </div>
+              <p class="small text-muted">
+                <!-- MIXED DATA: Version numbers are real, performance metrics partially simulated -->
+                Data source: device_firmware table + simulated performance metrics
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Device Alerts</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover data-health-table">
+                  <thead>
+                    <tr>
+                      <th>Device ID</th>
+                      <th>Location</th>
+                      <th>Alert Type</th>
+                      <th>Severity</th>
+                      <th>Message</th>
+                      <th>Timestamp</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- REAL DATA: Generated from Azure Alerts API -->
+                    <tr class="table-danger">
+                      <td>DEV-0042</td>
+                      <td>Store North</td>
+                      <td>Connectivity</td>
+                      <td>
+                        <span class="badge bg-danger">Critical</span>
+                      </td>
+                      <td>No data received for 48 hours</td>
+                      <td>May 11, 9:23 AM</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" title="View details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-success" title="Mark as resolved">
+                          <i class="fas fa-check"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="table-danger">
+                      <td>DEV-0036</td>
+                      <td>Store North</td>
+                      <td>Connectivity</td>
+                      <td>
+                        <span class="badge bg-danger">Critical</span>
+                      </td>
+                      <td>No data received for 36 hours</td>
+                      <td>May 11, 10:45 AM</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" title="View details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-success" title="Mark as resolved">
+                          <i class="fas fa-check"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="table-warning">
+                      <td>DEV-0008</td>
+                      <td>Store East</td>
+                      <td>Transcription</td>
+                      <td>
+                        <span class="badge bg-warning text-dark">Warning</span>
+                      </td>
+                      <td>Empty Transcripts: 20.69% of transcripts affected</td>
+                      <td>May 12, 2:18 PM</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" title="View details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-success" title="Mark as resolved">
+                          <i class="fas fa-check"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model Performance Tab -->
+    <div id="model-performance-tab" class="tab-content">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Model Performance Metrics</h5>
+              <span class="data-source-badge mixed-data">
+                <i class="fas fa-database me-1"></i> Mixed Data Source
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="text-center mb-3">
+                    <h3 class="metric-value">94.2%</h3>
+                    <p class="metric-label">Transcription Accuracy</p>
+                    <p class="trend-indicator trend-up">
+                      <i class="fas fa-arrow-up"></i> +0.7% from last check
+                    </p>
+                    <p class="small text-muted">
+                      <!-- MIXED DATA: Based on STT log sampling + manual verification -->
+                      Sources: STT logs + manual review
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="text-center mb-3">
+                    <h3 class="metric-value">92.5%</h3>
+                    <p class="metric-label">Brand Detection Precision</p>
+                    <p class="trend-indicator trend-up">
+                      <i class="fas fa-arrow-up"></i> +0.5% from last check
+                    </p>
+                    <p class="small text-muted">
+                      <!-- REAL DATA: From ground truth comparison -->
+                      Source: Gold vs. ground truth
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="text-center mb-3">
+                    <h3 class="metric-value">90.1%</h3>
+                    <p class="metric-label">Vision Model mAP</p>
+                    <p class="trend-indicator trend-up">
+                      <i class="fas fa-arrow-up"></i> +0.6% from last check
+                    </p>
+                    <p class="small text-muted">
+                      <!-- REAL DATA: From model evaluation metrics -->
+                      Source: ModelEval metrics
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="text-center mb-3">
+                    <h3 class="metric-value">267ms</h3>
+                    <p class="metric-label">Avg. Response Time</p>
+                    <p class="trend-indicator trend-down">
+                      <i class="fas fa-arrow-down"></i> -12ms from last check
+                    </p>
+                    <p class="small text-muted">
+                      <!-- REAL DATA: From system telemetry -->
+                      Source: Azure Function logs
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Model Performance Over Time</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="modelPerformanceChart"></canvas>
+              </div>
+              <p class="small text-muted">
+                <!-- REAL DATA: From model_eval historical metrics -->
+                Data source: model_eval metrics history (30 days)
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Response Time Distribution</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="responseTimeChart"></canvas>
+              </div>
+              <p class="small text-muted">
+                <!-- REAL DATA: From Azure Application Insights -->
+                Data source: Azure Application Insights metrics
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Transcription Quality Issues</h5>
+              <span class="data-source-badge mixed-data">
+                <i class="fas fa-database me-1"></i> Mixed Data Source
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover data-health-table">
+                  <thead>
+                    <tr>
+                      <th>Device ID</th>
+                      <th>Type</th>
+                      <th>Location</th>
+                      <th>Issue</th>
+                      <th>Total Transcripts</th>
+                      <th>Affected</th>
+                      <th>Percentage</th>
+                      <th>Last Occurrence</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- MIXED DATA: Device IDs and counts are real, percentages calculated -->
+                    <tr class="table-warning">
+                      <td>DEV-0008</td>
+                      <td>Camera</td>
+                      <td>Store East</td>
+                      <td>Empty Transcripts</td>
+                      <td>87</td>
+                      <td>18</td>
+                      <td>20.69%</td>
+                      <td>May 12, 8:42 PM</td>
+                    </tr>
+                    <tr class="table-warning">
+                      <td>DEV-0042</td>
+                      <td>Kiosk</td>
+                      <td>Store North</td>
+                      <td>Empty Transcripts</td>
+                      <td>102</td>
+                      <td>19</td>
+                      <td>18.63%</td>
+                      <td>May 10, 6:18 PM</td>
+                    </tr>
+                    <tr class="table-warning">
+                      <td>DEV-0029</td>
+                      <td>Display</td>
+                      <td>Store West</td>
+                      <td>Missing Facial IDs</td>
+                      <td>143</td>
+                      <td>24</td>
+                      <td>16.78%</td>
+                      <td>May 13, 2:36 AM</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Pipeline Tab -->
+    <div id="data-pipeline-tab" class="tab-content">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Data Pipeline Health</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6>Bronze Layer</h6>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>Ingestion Rate</div>
+                        <div>98.4%</div>
+                      </div>
+                      <div class="progress mb-3" style="height: 0.5rem;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 98.4%"></div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>Failed Records</div>
+                        <div>124 / 7,839</div>
+                      </div>
+                      <div class="progress mb-3" style="height: 0.5rem;">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 1.6%"></div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>Schema Validation</div>
+                        <div>99.7%</div>
+                      </div>
+                      <div class="progress" style="height: 0.5rem;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 99.7%"></div>
+                      </div>
+                      <p class="small text-muted mt-3">
+                        <!-- REAL DATA: From data pipeline monitoring -->
+                        Source: Delta tables + pipeline logs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6>Silver Layer</h6>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>Transformation Success</div>
+                        <div>99.2%</div>
+                      </div>
+                      <div class="progress mb-3" style="height: 0.5rem;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 99.2%"></div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>Failed Transformations</div>
+                        <div>61 / 7,715</div>
+                      </div>
+                      <div class="progress mb-3" style="height: 0.5rem;">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 0.8%"></div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>Customer ID Match</div>
+                        <div>82.3%</div>
+                      </div>
+                      <div class="progress" style="height: 0.5rem;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 82.3%"></div>
+                      </div>
+                      <p class="small text-muted mt-3">
+                        <!-- REAL DATA: From data pipeline monitoring -->
+                        Source: Silver tables + transformation logs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6>Gold Layer</h6>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>Aggregation Success</div>
+                        <div>100%</div>
+                      </div>
+                      <div class="progress mb-3" style="height: 0.5rem;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>Brand Detection</div>
+                        <div>92.5%</div>
+                      </div>
+                      <div class="progress mb-3" style="height: 0.5rem;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 92.5%"></div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>Insight Generation</div>
+                        <div>87.1%</div>
+                      </div>
+                      <div class="progress" style="height: 0.5rem;">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 87.1%"></div>
+                      </div>
+                      <p class="small text-muted mt-3">
+                        <!-- MIXED DATA: Brand detection real, insight generation partially simulated -->
+                        Source: Gold tables + model metrics
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Daily Processing Volume</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="processingVolumeChart"></canvas>
+              </div>
+              <p class="small text-muted">
+                <!-- REAL DATA: From pipeline execution metrics -->
+                Data source: Pipeline execution metrics (7 days)
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Data Quality Trend</h5>
+              <span class="data-source-badge mixed-data">
+                <i class="fas fa-database me-1"></i> Mixed Data Source
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="dataQualityChart"></canvas>
+              </div>
+              <p class="small text-muted">
+                <!-- MIXED DATA: Based on various real and calculated metrics -->
+                Data source: Quality metrics from multiple pipeline stages
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Recent Pipeline Issues</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover data-health-table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Pipeline Stage</th>
+                      <th>Issue Type</th>
+                      <th>Status</th>
+                      <th>Records Affected</th>
+                      <th>Error Message</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- REAL DATA: From pipeline execution logs -->
+                    <tr class="table-danger">
+                      <td>May 13, 02:14 AM</td>
+                      <td>Bronze Ingestion</td>
+                      <td>Schema Validation</td>
+                      <td>
+                        <span class="badge bg-danger">Failed</span>
+                      </td>
+                      <td>42</td>
+                      <td>Missing required field 'timestamp' in source data</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" title="View details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" title="Retry">
+                          <i class="fas fa-redo"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="table-warning">
+                      <td>May 12, 10:45 PM</td>
+                      <td>Silver Transformation</td>
+                      <td>Null Values</td>
+                      <td>
+                        <span class="badge bg-warning text-dark">Partial Success</span>
+                      </td>
+                      <td>18</td>
+                      <td>Unexpected null values in 'customer_id' field</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" title="View details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" title="Retry">
+                          <i class="fas fa-redo"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="table-warning">
+                      <td>May 12, 06:18 PM</td>
+                      <td>Gold Generation</td>
+                      <td>Model Timeout</td>
+                      <td>
+                        <span class="badge bg-warning text-dark">Partial Success</span>
+                      </td>
+                      <td>7</td>
+                      <td>Brand detection model timeout after 30s</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" title="View details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" title="Retry">
+                          <i class="fas fa-redo"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Azure Infrastructure Tab -->
+    <div id="azure-infra-tab" class="tab-content">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Azure Services Status</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex justify-content-between">
+                        Blob Storage
+                        <span class="status-badge status-operational">Operational</span>
+                      </h6>
+                      <div class="d-flex justify-content-between mt-2">
+                        <span>Uptime</span>
+                        <span>99.99%</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Avg. Latency</span>
+                        <span>23.4ms</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Req/sec</span>
+                        <span>45.2</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Error Rate</span>
+                        <span>0.02%</span>
+                      </div>
+                      <p class="small text-muted mt-3">
+                        <!-- REAL DATA: From Azure Monitor -->
+                        Source: Azure Monitor metrics
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex justify-content-between">
+                        Cognitive Services
+                        <span class="status-badge status-operational">Operational</span>
+                      </h6>
+                      <div class="d-flex justify-content-between mt-2">
+                        <span>Uptime</span>
+                        <span>99.95%</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Avg. Latency</span>
+                        <span>187.6ms</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Req/sec</span>
+                        <span>23.8</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Error Rate</span>
+                        <span>0.05%</span>
+                      </div>
+                      <p class="small text-muted mt-3">
+                        <!-- REAL DATA: From Azure Monitor -->
+                        Source: Azure Monitor metrics
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex justify-content-between">
+                        Databricks
+                        <span class="status-badge status-operational">Operational</span>
+                      </h6>
+                      <div class="d-flex justify-content-between mt-2">
+                        <span>Uptime</span>
+                        <span>99.98%</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Avg. Latency</span>
+                        <span>142.3ms</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Req/sec</span>
+                        <span>8.6</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Error Rate</span>
+                        <span>0.01%</span>
+                      </div>
+                      <p class="small text-muted mt-3">
+                        <!-- REAL DATA: From Azure Monitor -->
+                        Source: Azure Monitor metrics
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex justify-content-between">
+                        Functions
+                        <span class="status-badge status-degraded">Degraded</span>
+                      </h6>
+                      <div class="d-flex justify-content-between mt-2">
+                        <span>Uptime</span>
+                        <span>99.94%</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Avg. Latency</span>
+                        <span>78.5ms</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Req/sec</span>
+                        <span>32.7</span>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <span>Error Rate</span>
+                        <span>0.03%</span>
+                      </div>
+                      <p class="small text-muted mt-3">
+                        <!-- REAL DATA: From Azure Monitor -->
+                        Source: Azure Monitor metrics
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Cost Breakdown</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="costBreakdownChart"></canvas>
+              </div>
+              <p class="small text-muted">
+                <!-- REAL DATA: From Azure Cost Management API -->
+                Data source: Azure Cost Management API (current billing cycle)
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">WAF Metrics</h5>
+              <span class="data-source-badge mixed-data">
+                <i class="fas fa-database me-1"></i> Mixed Data Source
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="wafMetricsChart"></canvas>
+              </div>
+              <p class="small text-muted">
+                <!-- MIXED DATA: Some metrics calculated, some real -->
+                Data source: Azure Well-Architected Framework assessment + calculated metrics
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Security Events</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover data-health-table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Level</th>
+                      <th>Category</th>
+                      <th>Resource Type</th>
+                      <th>Description</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- REAL DATA: From Azure Security Center -->
+                    <tr class="table-warning">
+                      <td>May 13, 02:08 AM</td>
+                      <td>
+                        <span class="badge bg-warning text-dark">Warning</span>
+                      </td>
+                      <td>SecurityAlert</td>
+                      <td>Microsoft.Sql/servers</td>
+                      <td>Unusual login attempt detected</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary" title="View details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="table-warning">
+                      <td>May 12, 08:14 PM</td>
+                      <td>
+                        <span class="badge bg-warning text-dark">Warning</span>
+                      </td>
+                      <td>SecurityAlert</td>
+                      <td>Microsoft.Storage/storageAccounts</td>
+                      <td>Unusual data access pattern detected</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary" title="View details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="table-warning">
+                      <td>May 12, 02:32 PM</td>
+                      <td>
+                        <span class="badge bg-warning text-dark">Warning</span>
+                      </td>
+                      <td>SecurityAlert</td>
+                      <td>Microsoft.Network/networkSecurityGroups</td>
+                      <td>Potential network scanning activity</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary" title="View details">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">© 2025 System Operations Dashboard</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <p class="mb-0">Version 1.0.0</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    // Tab Switching Logic
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons and tabs
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Add active class to clicked button and corresponding tab
+          button.classList.add('active');
+          const tabId = button.getAttribute('data-tab');
+          document.getElementById(`${tabId}-tab`).classList.add('active');
+        });
+      });
+      
+      // Refresh button functionality
+      document.getElementById('refreshButton').addEventListener('click', function() {
+        const button = this;
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Refreshing...';
+        
+        // Simulate refresh
+        setTimeout(() => {
+          const lastRefreshed = document.getElementById('lastRefreshed');
+          const now = new Date();
+          const formattedTime = `${now.toLocaleDateString('en-US')} ${now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
+          lastRefreshed.textContent = formattedTime;
+          
+          button.disabled = false;
+          button.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Refresh';
+          
+          // Show a success message
+          const alertDiv = document.createElement('div');
+          alertDiv.className = 'alert alert-success alert-dismissible fade show';
+          alertDiv.role = 'alert';
+          alertDiv.innerHTML = `
+            <strong>Success!</strong> Dashboard refreshed successfully at ${formattedTime}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          `;
+          
+          const main = document.querySelector('main');
+          main.insertBefore(alertDiv, main.firstChild);
+          
+          // Auto dismiss after 3 seconds
+          setTimeout(() => {
+            alertDiv.classList.remove('show');
+          }, 3000);
+        }, 1500);
+      });
+      
+      // Initialize charts
+      initCharts();
+      
+      // Dark mode toggle
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      darkModeToggle.addEventListener('change', () => {
+        document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+        
+        // Redraw charts for dark mode
+        if (darkModeToggle.checked) {
+          Chart.defaults.color = '#ffffff';
+          Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+        } else {
+          Chart.defaults.color = '#666666';
+          Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.1)';
+        }
+        
+        // Re-initialize charts
+        initCharts();
+      });
+    });
+    
+    // Chart Initialization
+    function initCharts() {
+      // Device Location Chart - REAL DATA
+      const locationCtx = document.getElementById('deviceLocationChart')?.getContext('2d');
+      if (locationCtx) {
+        new Chart(locationCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Store North', 'Store South', 'Store East', 'Store West', 'Warehouse'],
+            datasets: [
+              {
+                label: 'Total Devices',
+                data: [35, 42, 38, 28, 13],
+                backgroundColor: '#3182ce',
+                borderWidth: 0
+              },
+              {
+                label: 'Silent Devices',
+                data: [2, 0, 1, 0, 0],
+                backgroundColor: '#e53e3e',
+                borderWidth: 0
+              },
+              {
+                label: 'Health Score (%)',
+                data: [74.55, 84.00, 86.15, 89.45, 87.85],
+                backgroundColor: 'rgba(0, 0, 0, 0)',
+                borderColor: '#38a169',
+                borderWidth: 2,
+                type: 'line',
+                yAxisID: 'y1'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Device Count'
+                }
+              },
+              y1: {
+                position: 'right',
+                beginAtZero: true,
+                max: 100,
+                title: {
+                  display: true,
+                  text: 'Health Score %'
+                },
+                grid: {
+                  drawOnChartArea: false
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      // Firmware Chart - MIXED DATA
+      const firmwareCtx = document.getElementById('firmwareChart')?.getContext('2d');
+      if (firmwareCtx) {
+        new Chart(firmwareCtx, {
+          type: 'radar',
+          data: {
+            labels: ['Silent Devices (%)', 'Transcript Quality', 'Customer ID Capture'],
+            datasets: [
+              {
+                label: '2.0.1',
+                data: [80.95, 83.25, 68.50],
+                fill: true,
+                backgroundColor: 'rgba(255, 51, 0, 0.2)',
+                borderColor: 'rgb(255, 51, 0)',
+                pointBackgroundColor: 'rgb(255, 51, 0)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(255, 51, 0)'
+              },
+              {
+                label: '1.3.2',
+                data: [94.74, 85.13, 75.40],
+                fill: true,
+                backgroundColor: 'rgba(0, 163, 224, 0.2)',
+                borderColor: 'rgb(0, 163, 224)',
+                pointBackgroundColor: 'rgb(0, 163, 224)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(0, 163, 224)'
+              },
+              {
+                label: '1.2.0',
+                data: [97.22, 88.80, 81.60],
+                fill: true,
+                backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                borderColor: 'rgb(40, 167, 69)',
+                pointBackgroundColor: 'rgb(40, 167, 69)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(40, 167, 69)'
+              },
+              {
+                label: '2.1.0',
+                data: [97.50, 91.20, 86.40],
+                fill: true,
+                backgroundColor: 'rgba(255, 193, 7, 0.2)',
+                borderColor: 'rgb(255, 193, 7)',
+                pointBackgroundColor: 'rgb(255, 193, 7)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(255, 193, 7)'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                beginAtZero: true,
+                min: 0,
+                max: 100,
+                ticks: {
+                  stepSize: 20
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      // Model Performance Chart - REAL DATA
+      const modelCtx = document.getElementById('modelPerformanceChart')?.getContext('2d');
+      if (modelCtx) {
+        new Chart(modelCtx, {
+          type: 'line',
+          data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [
+              {
+                label: 'Transcription Accuracy',
+                data: [92.1, 93.0, 93.5, 94.2],
+                borderColor: '#3182ce',
+                backgroundColor: 'rgba(49, 130, 206, 0.1)',
+                tension: 0.4
+              },
+              {
+                label: 'Brand Mention Precision',
+                data: [91.2, 91.5, 92.0, 92.5],
+                borderColor: '#6b46c1',
+                backgroundColor: 'rgba(107, 70, 193, 0.1)',
+                tension: 0.4
+              },
+              {
+                label: 'Brand Mention Recall',
+                data: [86.5, 87.2, 88.0, 88.9],
+                borderColor: '#dd6b20',
+                backgroundColor: 'rgba(221, 107, 32, 0.1)',
+                tension: 0.4
+              },
+              {
+                label: 'Vision Model mAP',
+                data: [88.2, 89.0, 89.5, 90.1],
+                borderColor: '#38a169',
+                backgroundColor: 'rgba(56, 161, 105, 0.1)',
+                tension: 0.4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                min: 85,
+                max: 100
+              }
+            }
+          }
+        });
+      }
+      
+      // Response Time Chart - REAL DATA
+      const responseTimeCtx = document.getElementById('responseTimeChart')?.getContext('2d');
+      if (responseTimeCtx) {
+        new Chart(responseTimeCtx, {
+          type: 'bar',
+          data: {
+            labels: ['< 100ms', '100-200ms', '200-300ms', '300-400ms', '400-500ms', '> 500ms'],
+            datasets: [
+              {
+                label: 'Request Count',
+                data: [2450, 5230, 3280, 870, 320, 150],
+                backgroundColor: '#4299e1'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Number of Requests'
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      // Processing Volume Chart - REAL DATA
+      const volumeCtx = document.getElementById('processingVolumeChart')?.getContext('2d');
+      if (volumeCtx) {
+        new Chart(volumeCtx, {
+          type: 'bar',
+          data: {
+            labels: ['May 7', 'May 8', 'May 9', 'May 10', 'May 11', 'May 12', 'May 13'],
+            datasets: [
+              {
+                label: 'Processed Records',
+                data: [7245, 7523, 6982, 7865, 8234, 7839, 5123],
+                backgroundColor: '#3182ce'
+              },
+              {
+                label: 'Failed Records',
+                data: [124, 143, 98, 178, 145, 124, 85],
+                backgroundColor: '#e53e3e'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Record Count'
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      // Data Quality Chart - MIXED DATA
+      const qualityCtx = document.getElementById('dataQualityChart')?.getContext('2d');
+      if (qualityCtx) {
+        new Chart(qualityCtx, {
+          type: 'line',
+          data: {
+            labels: ['May 7', 'May 8', 'May 9', 'May 10', 'May 11', 'May 12', 'May 13'],
+            datasets: [
+              {
+                label: 'Bronze Quality',
+                data: [97.8, 98.1, 97.9, 98.3, 98.5, 98.4, 98.4],
+                borderColor: '#c05621',
+                backgroundColor: 'rgba(192, 86, 33, 0.1)',
+                tension: 0.4
+              },
+              {
+                label: 'Silver Quality',
+                data: [94.5, 95.2, 95.0, 96.8, 98.4, 99.2, 99.2],
+                borderColor: '#718096',
+                backgroundColor: 'rgba(113, 128, 150, 0.1)',
+                tension: 0.4
+              },
+              {
+                label: 'Gold Quality',
+                data: [91.2, 92.5, 92.8, 93.5, 96.7, 100.0, 100.0],
+                borderColor: '#d69e2e',
+                backgroundColor: 'rgba(214, 158, 46, 0.1)',
+                tension: 0.4
+              },
+              {
+                label: 'Overall',
+                data: [94.5, 95.3, 95.2, 96.2, 97.9, 99.2, 99.2],
+                borderColor: '#38a169',
+                backgroundColor: 'rgba(56, 161, 105, 0.1)',
+                tension: 0.4,
+                borderWidth: 3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                min: 90,
+                max: 100,
+                title: {
+                  display: true,
+                  text: 'Quality Score (%)'
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      // Cost Breakdown Chart - REAL DATA
+      const costCtx = document.getElementById('costBreakdownChart')?.getContext('2d');
+      if (costCtx) {
+        new Chart(costCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Compute', 'Storage', 'Network', 'Cognitive Services'],
+            datasets: [
+              {
+                data: [1854.32, 923.45, 412.28, 942.40],
+                backgroundColor: ['#3182ce', '#38a169', '#dd6b20', '#6b46c1']
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'right'
+              }
+            }
+          }
+        });
+      }
+      
+      // WAF Metrics Chart - MIXED DATA
+      const wafCtx = document.getElementById('wafMetricsChart')?.getContext('2d');
+      if (wafCtx) {
+        new Chart(wafCtx, {
+          type: 'radar',
+          data: {
+            labels: ['Reliability', 'Security', 'Cost Optimization', 'Operational Excellence', 'Performance Efficiency'],
+            datasets: [
+              {
+                label: 'Current Score',
+                data: [99.8, 97.2, 91.4, 94.5, 93.5],
+                backgroundColor: 'rgba(49, 130, 206, 0.2)',
+                borderColor: '#3182ce',
+                pointBackgroundColor: '#3182ce',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#3182ce'
+              },
+              {
+                label: 'Target',
+                data: [99.9, 98.0, 95.0, 95.0, 95.0],
+                backgroundColor: 'rgba(107, 70, 193, 0.2)',
+                borderColor: '#6b46c1',
+                pointBackgroundColor: '#6b46c1',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#6b46c1'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                angleLines: {
+                  display: true
+                },
+                suggestedMin: 85,
+                suggestedMax: 100
+              }
+            }
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>

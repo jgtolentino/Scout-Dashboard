@@ -1,0 +1,45 @@
+
+agent: Caca
+dashboard: Scout Advisor
+version: 1.1.0
+status: dry-run
+tests:
+  - id: toggle_data_mode
+    description: Verify toggle switch updates data source and refreshes chart data
+    methods:
+      - detect_localStorage_change: scout_data_source
+      - observe_DOM_chart_update
+      - confirm_diagnostic_overlay: Data Source updated
+
+  - id: tooltip_styling
+    description: Validate custom tooltip styling across all chart types
+    methods:
+      - simulate_hover
+      - extract_tooltip_css
+      - check_formatting_compliance: bg-black, border-yellow, number_format=true
+
+  - id: csv_export
+    description: Confirm CSV file download and content validity
+    methods:
+      - trigger_export_function
+      - listen_download
+      - parse_csv: filename="scout_advisor_dashboard_export.csv", check_headers=true
+
+  - id: chart_element_filter
+    description: Verify click on chart filters other visuals and updates recommendation panel
+    methods:
+      - simulate_chart_click
+      - validate_activeFilters_update
+      - observe_chart_responses
+      - confirm_recommendation_refresh
+
+  - id: diagnostic_overlay
+    description: Inspect overlay values after Alt+Shift+D trigger
+    methods:
+      - simulate_hotkey_press: Alt+Shift+D
+      - extract_overlay_text
+      - verify_keys_present: [Data Source, Active Filters, Chart States, Performance Metrics]
+
+report:
+  mode: dry-run
+  output: qa/logs/caca_scout_advisor_dryrun.json

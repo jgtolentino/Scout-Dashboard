@@ -1,0 +1,125 @@
+# Brand Mentions Extraction & Schema Extension
+# Pulser Tags for Orchestration
+# Created: 2025-05-12
+
+pulseops:
+  deployment_type: schema_extension
+  feature: brand_mentions_extraction_stt
+  status: ready_for_deployment
+  version: 1.0.0
+  timestamp: 2025-05-12T14:30:00+08:00
+  
+  agents:
+    - name: Echo
+      role: executor
+      tasks:
+        - run_brand_extraction
+        - sync_chunk_mentions
+      dependencies:
+        - spacy
+        - pandas
+        - sqlalchemy
+    
+    - name: Kalaw
+      role: knowledge_integration
+      tasks:
+        - index_brand_mentions
+        - update_entity_knowledge
+      dependencies:
+        - brand_mentions_schema
+    
+    - name: Caca
+      role: validator
+      tasks:
+        - validate_brand_detection
+        - generate_parity_report
+      dependencies:
+        - brand_mentions_data
+    
+    - name: Basher
+      role: infrastructure
+      tasks:
+        - deploy_schema_extension
+        - configure_database_access
+      dependencies:
+        - sql_server_access
+  
+  artifacts:
+    - name: schema_extension_brand_mentions.sql
+      type: sql_script
+      path: /tools/js/utils/sql/schema_extension_brand_mentions.sql
+      purpose: database_schema
+      executor: Basher
+    
+    - name: brand_explode.py
+      type: python_script
+      path: /tools/js/utils/scripts/brand_explode.py
+      purpose: extraction_engine
+      executor: Echo
+    
+    - name: run_brand_extraction.sh
+      type: shell_script
+      path: /tools/js/utils/scripts/run_brand_extraction.sh
+      purpose: integration_automation
+      executor: Echo
+    
+    - name: BRAND_MENTIONS_DEPLOYMENT_GUIDE.md
+      type: documentation
+      path: /tools/js/utils/BRAND_MENTIONS_DEPLOYMENT_GUIDE.md
+      purpose: deployment_instructions
+      executor: All
+  
+  database:
+    schema_extension:
+      table: TranscriptEntityMentions
+      indexes:
+        - idx_brand_mentions_device
+        - idx_brand_mentions_brand
+        - idx_brand_mentions_confidence
+      dependencies:
+        - SalesInteractionTranscripts
+  
+  deployment_steps:
+    - description: "Deploy database schema extension"
+      command: "sqlcmd -S <server> -d <database> -U <username> -P <password> -i schema_extension_brand_mentions.sql"
+      agent: Basher
+      order: 1
+    
+    - description: "Install Python dependencies"
+      command: "pip install pandas sqlalchemy pyodbc spacy && python -m spacy download en_core_web_lg"
+      agent: Echo
+      order: 2
+    
+    - description: "Run initial brand extraction"
+      command: "./run_brand_extraction.sh"
+      agent: Echo
+      order: 3
+    
+    - description: "Update Echo agent configuration"
+      command: "pulser agent update Echo --add-task run_brand_extraction"
+      agent: Claudia
+      order: 4
+    
+    - description: "Update Kalaw SKR configuration"
+      command: "pulser agent update Kalaw --add-knowledge-path /transcripts/entity_mentions/"
+      agent: Claudia
+      order: 5
+    
+    - description: "Run QA validation"
+      command: "pulser task create --agent Caca --type qa_validation --target brand_detection"
+      agent: Claudia
+      order: 6
+  
+  testing:
+    validation_report: /pulseops/validation_reports/scout_edge_validation_2025_05_12_demo2.md
+    expected_results:
+      - "Brand mentions section should be present in validation report"
+      - "At least 5 unique brands should be detected"
+      - "TranscriptEntityMentions table should contain entries"
+      - "SKR should contain brand mentions JSON files"
+  
+  rollback:
+    steps:
+      - "DROP TABLE IF EXISTS dbo.TranscriptEntityMentions;"
+      - "DROP VIEW IF EXISTS dbo.TranscriptWithBrands;"
+    responsible: Basher

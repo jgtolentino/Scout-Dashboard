@@ -1,0 +1,81 @@
+{
+  "timestamp": "2025-05-12T20:21:00.414Z",
+  "diagram_path": "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/diagrams/project_scout_with_genai.drawio",
+  "output_directory": "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images",
+  "checks": [
+    {
+      "category": "Setup",
+      "name": "Directory Structure",
+      "result": "pass",
+      "details": {
+        "directories": [
+          "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images",
+          "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images/archive",
+          "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/diagrams"
+        ]
+      }
+    },
+    {
+      "category": "File",
+      "name": "Diagram Validation",
+      "result": "pass",
+      "details": {
+        "fileSize": "55 KB",
+        "lastModified": "2025-05-12T15:59:40.342Z"
+      }
+    },
+    {
+      "category": "Structure",
+      "name": "Minimum Components",
+      "result": "pass",
+      "details": "33 shapes found (minimum expected: 5)"
+    },
+    {
+      "category": "Structure",
+      "name": "Component Connections",
+      "result": "pass",
+      "details": "25 connections found (minimum expected: 3)"
+    },
+    {
+      "category": "Structure",
+      "name": "Component Labeling",
+      "result": "pass",
+      "details": "30 labeled components out of 33 total shapes (91% labeled)"
+    },
+    {
+      "category": "Structure",
+      "name": "Overall Structure",
+      "result": "pass",
+      "details": {
+        "vertices": 33,
+        "edges": 25,
+        "textElements": 30
+      }
+    },
+    {
+      "category": "Tools",
+      "name": "draw.io CLI",
+      "result": "warning",
+      "details": "draw.io CLI not found - manual export will be required"
+    },
+    {
+      "category": "Documentation",
+      "name": "Related Documents",
+      "result": "pass",
+      "details": {
+        "existing": [
+          "Architecture Documentation",
+          "QA Checklist",
+          "Project README"
+        ],
+        "missing": []
+      }
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "passed": 7,
+    "warnings": 1,
+    "failed": 0
+  }
+}

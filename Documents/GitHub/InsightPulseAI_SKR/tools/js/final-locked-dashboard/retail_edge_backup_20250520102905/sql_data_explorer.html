@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SQL Data Explorer for the Retail Advisor dashboard">
+  <title>Retail Advisor - SQL Data Explorer</title>
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/shared-theme.css">
+  <style>
+    .query-card {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .query-card:hover {
+      border-left: 4px solid var(--primary);
+    }
+    .query-card.active {
+      border-left: 4px solid var(--primary);
+      background-color: rgba(248, 158, 27, 0.1);
+    }
+    .results-container {
+      min-height: 300px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    .sql-query {
+      font-family: 'Courier New', monospace;
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+    }
+    body.dark-mode .sql-query {
+      background-color: #2a2a2a;
+      color: #f5f5f5;
+    }
+    .export-options .btn {
+      margin-right: 10px;
+    }
+    .chart-placeholder {
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    body.dark-mode .chart-placeholder {
+      background-color: #2a2a2a;
+    }
+    .parameter-form {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    body.dark-mode .parameter-form {
+      background-color: #2a2a2a;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="m-0 d-flex align-items-center">
+            <img src="https://via.placeholder.com/40x40?text=RA" alt="Dashboard Logo" class="logo me-2">
+            <span>Retail Advisor</span>
+          </h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="d-flex justify-content-end align-items-center">
+            <span class="me-2">Dark Mode</span>
+            <label class="dark-mode-switch mb-0">
+              <input type="checkbox" id="darkModeToggle">
+              <span class="dark-mode-slider"></span>
+            </label>
+            <button class="btn btn-outline-light ms-3">
+              <i class="fas fa-sync-alt me-1"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <!-- Dashboard Navigation -->
+    <div class="text-center dashboard-nav mb-4">
+      <a href="../qa.html" class="btn btn-outline-primary me-2">
+        <i class="fas fa-chart-line me-1"></i> System Architecture & QA
+      </a>
+      <a href="../insights_dashboard.html" class="btn btn-outline-primary me-2">
+        <i class="fas fa-external-link-alt me-1"></i> Scout Advanced Analytics
+      </a>
+      <a href="retail_edge_dashboard.html" class="btn btn-outline-primary me-2">
+        <i class="fas fa-store me-1"></i> Retail Advisor Dashboard
+      </a>
+    </div>
+
+    <div class="row">
+      <div class="col-12 mb-4">
+        <h2 class="d-flex align-items-center">
+          <i class="fas fa-database text-primary me-2"></i>
+          SQL Data Explorer
+          <span class="badge bg-primary ms-2">Beta</span>
+        </h2>
+        <p class="text-muted">
+          Access and analyze sales and session data from the SQL Server database. Choose from predefined queries or create your own.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Query Selection Sidebar -->
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Predefined Queries</h5>
+          </div>
+          <div class="card-body p-0">
+            <div class="list-group list-group-flush">
+              <div class="query-card list-group-item list-group-item-action active" data-query="sales-transactions">
+                <i class="fas fa-shopping-cart me-2"></i> Sales Transactions
+              </div>
+              <div class="query-card list-group-item list-group-item-action" data-query="daily-sales">
+                <i class="fas fa-calendar-day me-2"></i> Daily Sales Summary
+              </div>
+              <div class="query-card list-group-item list-group-item-action" data-query="customer-sessions">
+                <i class="fas fa-users me-2"></i> Customer Sessions
+              </div>
+              <div class="query-card list-group-item list-group-item-action" data-query="product-performance">
+                <i class="fas fa-chart-line me-2"></i> Product Performance
+              </div>
+              <div class="query-card list-group-item list-group-item-action" data-query="hourly-traffic">
+                <i class="fas fa-clock me-2"></i> Hourly Traffic Analysis
+              </div>
+              <div class="query-card list-group-item list-group-item-action" data-query="shopping-behavior">
+                <i class="fas fa-user-tag me-2"></i> Shopping Behavior
+              </div>
+              <div class="query-card list-group-item list-group-item-action" data-query="employee-performance">
+                <i class="fas fa-user-tie me-2"></i> Employee Performance
+              </div>
+              <div class="query-card list-group-item list-group-item-action" data-query="discount-effectiveness">
+                <i class="fas fa-percent me-2"></i> Discount Effectiveness
+              </div>
+              <div class="query-card list-group-item list-group-item-action" data-query="inventory-turnover">
+                <i class="fas fa-boxes me-2"></i> Inventory Turnover
+              </div>
+              <div class="query-card list-group-item list-group-item-action" data-query="customer-segmentation">
+                <i class="fas fa-user-friends me-2"></i> Customer Segmentation
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Saved Queries</h5>
+          </div>
+          <div class="card-body p-0">
+            <div class="list-group list-group-flush" id="savedQueriesList">
+              <div class="list-group-item text-center text-muted">
+                No saved queries yet
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-sm btn-outline-primary w-100" id="createCustomQuery">
+              <i class="fas fa-plus me-1"></i> Create Custom Query
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Query Details and Results -->
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0" id="currentQueryTitle">Sales Transactions</h5>
+            <div>
+              <button class="btn btn-sm btn-outline-primary me-2" id="saveQueryBtn">
+                <i class="fas fa-save me-1"></i> Save Query
+              </button>
+              <button class="btn btn-sm btn-primary" id="runQueryBtn">
+                <i class="fas fa-play me-1"></i> Run Query
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- Query Parameters -->
+            <div class="parameter-form" id="queryParameters">
+              <h6>Query Parameters</h6>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="storeId" class="form-label">Store ID</label>
+                  <select class="form-select" id="storeId">
+                    <option value="all">All Stores</option>
+                    <option value="112" selected>112 - North Flagship</option>
+                    <option value="156">156 - West Express</option>
+                    <option value="128">128 - Central Standard</option>
+                    <option value="143">143 - East Kiosk</option>
+                    <option value="119">119 - South Drive-Thru</option>
+                  </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="timeRange" class="form-label">Time Range</label>
+                  <select class="form-select" id="timeRange">
+                    <option value="7">Last 7 days</option>
+                    <option value="14">Last 14 days</option>
+                    <option value="30" selected>Last 30 days</option>
+                    <option value="90">Last 90 days</option>
+                    <option value="365">Last 365 days</option>
+                  </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="limitResults" class="form-label">Limit Results</label>
+                  <select class="form-select" id="limitResults">
+                    <option value="100" selected>100 rows</option>
+                    <option value="250">250 rows</option>
+                    <option value="500">500 rows</option>
+                    <option value="1000">1000 rows</option>
+                    <option value="5000">5000 rows</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- SQL Query Display -->
+            <h6>SQL Query</h6>
+            <div class="sql-query" id="sqlQuery">
+SELECT 
+    t.TransactionID,
+    t.StoreID,
+    s.StoreName,
+    t.RegisterID,
+    t.EmployeeID,
+    e.EmployeeName,
+    t.CustomerID,
+    t.TransactionDate,
+    t.TransactionTime,
+    t.TotalAmount,
+    t.PaymentMethod,
+    t.ItemCount,
+    t.DiscountAmount,
+    t.TaxAmount,
+    t.Status
+FROM 
+    Sales.Transactions t
+INNER JOIN 
+    Store.Locations s ON t.StoreID = s.StoreID
+INNER JOIN 
+    HR.Employees e ON t.EmployeeID = e.EmployeeID
+WHERE 
+    t.TransactionDate >= DATEADD(day, -30, GETDATE())
+ORDER BY 
+    t.TransactionDate DESC, t.TransactionTime DESC
+OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY;
+            </div>
+
+            <!-- Query Results -->
+            <div class="results-section">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6>Results</h6>
+                <div class="export-options">
+                  <button class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-file-csv me-1"></i> Export CSV
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-file-excel me-1"></i> Export Excel
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-chart-bar me-1"></i> Visualize
+                  </button>
+                </div>
+              </div>
+              
+              <div class="results-container">
+                <div class="table-responsive">
+                  <table class="table table-hover table-sm">
+                    <thead>
+                      <tr>
+                        <th>Transaction ID</th>
+                        <th>Store</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Employee</th>
+                        <th>Amount</th>
+                        <th>Items</th>
+                        <th>Payment</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="queryResultsBody">
+                      <tr>
+                        <td>TXN-10045672</td>
+                        <td>North Flagship (112)</td>
+                        <td>2025-05-14</td>
+                        <td>09:45:22</td>
+                        <td>Sarah Johnson</td>
+                        <td>$87.52</td>
+                        <td>5</td>
+                        <td>Credit Card</td>
+                        <td><span class="badge bg-success">Completed</span></td>
+                      </tr>
+                      <tr>
+                        <td>TXN-10045671</td>
+                        <td>North Flagship (112)</td>
+                        <td>2025-05-14</td>
+                        <td>09:42:18</td>
+                        <td>Michael Chen</td>
+                        <td>$32.99</td>
+                        <td>2</td>
+                        <td>Mobile Pay</td>
+                        <td><span class="badge bg-success">Completed</span></td>
+                      </tr>
+                      <tr>
+                        <td>TXN-10045670</td>
+                        <td>North Flagship (112)</td>
+                        <td>2025-05-14</td>
+                        <td>09:38:46</td>
+                        <td>Sarah Johnson</td>
+                        <td>$124.75</td>
+                        <td>8</td>
+                        <td>Credit Card</td>
+                        <td><span class="badge bg-success">Completed</span></td>
+                      </tr>
+                      <tr>
+                        <td>TXN-10045669</td>
+                        <td>North Flagship (112)</td>
+                        <td>2025-05-14</td>
+                        <td>09:35:11</td>
+                        <td>James Wilson</td>
+                        <td>$46.23</td>
+                        <td>3</td>
+                        <td>Cash</td>
+                        <td><span class="badge bg-success">Completed</span></td>
+                      </tr>
+                      <tr>
+                        <td>TXN-10045668</td>
+                        <td>North Flagship (112)</td>
+                        <td>2025-05-14</td>
+                        <td>09:32:57</td>
+                        <td>Sarah Johnson</td>
+                        <td>$15.49</td>
+                        <td>1</td>
+                        <td>Mobile Pay</td>
+                        <td><span class="badge bg-success">Completed</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualization Preview -->
+        <div class="card mt-4" id="visualizationPanel" style="display: none;">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Data Visualization</h5>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label for="chartType" class="form-label">Chart Type</label>
+                <select class="form-select" id="chartType">
+                  <option value="bar">Bar Chart</option>
+                  <option value="line">Line Chart</option>
+                  <option value="pie">Pie Chart</option>
+                  <option value="doughnut">Doughnut Chart</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="xAxis" class="form-label">X-Axis</label>
+                <select class="form-select" id="xAxis">
+                  <option value="date">Transaction Date</option>
+                  <option value="store">Store</option>
+                  <option value="employee">Employee</option>
+                  <option value="payment">Payment Method</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="yAxis" class="form-label">Y-Axis</label>
+                <select class="form-select" id="yAxis">
+                  <option value="amount">Total Amount</option>
+                  <option value="items">Item Count</option>
+                  <option value="discount">Discount Amount</option>
+                  <option value="transactions">Transaction Count</option>
+                </select>
+              </div>
+            </div>
+            <div class="chart-placeholder">
+              <div class="text-center text-muted">
+                <i class="fas fa-chart-bar fa-3x mb-3"></i>
+                <p>Select visualization options and click "Generate Chart"</p>
+                <button class="btn btn-primary" id="generateChartBtn">
+                  <i class="fas fa-magic me-1"></i> Generate Chart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 Retail Advisor</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="analytics-powered">
+            <span>Powered by DLab</span>
+            <span class="analytics-version">2.1.2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    // Dark mode toggle with localStorage persistence
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    // Check localStorage on page load
+    const darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
+    darkModeToggle.checked = darkModeEnabled;
+    document.body.classList.toggle('dark-mode', darkModeEnabled);
+
+    // Update localStorage on toggle change
+    darkModeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+      localStorage.setItem('darkModeEnabled', darkModeToggle.checked);
+    });
+
+    // Query selection
+    const queryCards = document.querySelectorAll('.query-card');
+    const sqlQueryDisplay = document.getElementById('sqlQuery');
+    const currentQueryTitle = document.getElementById('currentQueryTitle');
+
+    // Sample queries
+    const queries = {
+      'sales-transactions': `SELECT 
+    t.TransactionID,
+    t.StoreID,
+    s.StoreName,
+    t.RegisterID,
+    t.EmployeeID,
+    e.EmployeeName,
+    t.CustomerID,
+    t.TransactionDate,
+    t.TransactionTime,
+    t.TotalAmount,
+    t.PaymentMethod,
+    t.ItemCount,
+    t.DiscountAmount,
+    t.TaxAmount,
+    t.Status
+FROM 
+    Sales.Transactions t
+INNER JOIN 
+    Store.Locations s ON t.StoreID = s.StoreID
+INNER JOIN 
+    HR.Employees e ON t.EmployeeID = e.EmployeeID
+WHERE 
+    t.TransactionDate >= DATEADD(day, -30, GETDATE())
+ORDER BY 
+    t.TransactionDate DESC, t.TransactionTime DESC
+OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY;`,
+      'daily-sales': `SELECT 
+    s.StoreID,
+    s.StoreName,
+    s.Region,
+    s.StoreType,
+    CAST(t.TransactionDate AS DATE) AS SalesDate,
+    COUNT(t.TransactionID) AS TransactionCount,
+    SUM(t.TotalAmount) AS TotalSales,
+    SUM(t.ItemCount) AS TotalItemsSold,
+    AVG(t.TotalAmount) AS AverageTransactionValue,
+    SUM(t.TotalAmount) / NULLIF(COUNT(DISTINCT t.CustomerID), 0) AS AverageCustomerSpend
+FROM 
+    Sales.Transactions t
+INNER JOIN 
+    Store.Locations s ON t.StoreID = s.StoreID
+WHERE 
+    t.TransactionDate >= DATEADD(day, -30, GETDATE())
+    AND t.Status = 'Completed'
+GROUP BY 
+    s.StoreID, s.StoreName, s.Region, s.StoreType, CAST(t.TransactionDate AS DATE)
+ORDER BY 
+    s.StoreID, CAST(t.TransactionDate AS DATE);`,
+      'customer-sessions': `SELECT 
+    cs.SessionID,
+    cs.CustomerID,
+    c.CustomerName,
+    c.CustomerSegment,
+    cs.StoreID,
+    s.StoreName,
+    cs.SessionStartTime,
+    cs.SessionEndTime,
+    DATEDIFF(minute, cs.SessionStartTime, cs.SessionEndTime) AS SessionDurationMinutes,
+    cs.DeviceType,
+    cs.ChannelType,
+    cs.PageViews,
+    cs.ProductViews,
+    cs.SearchCount,
+    cs.CartAdditions,
+    cs.CartRemovals,
+    CASE WHEN t.TransactionID IS NOT NULL THEN 'Yes' ELSE 'No' END AS MadeAPurchase,
+    COALESCE(t.TotalAmount, 0) AS PurchaseAmount
+FROM 
+    Analytics.CustomerSessions cs
+LEFT JOIN 
+    Customer.Profiles c ON cs.CustomerID = c.CustomerID
+LEFT JOIN 
+    Store.Locations s ON cs.StoreID = s.StoreID
+LEFT JOIN 
+    Sales.Transactions t ON cs.SessionID = t.SessionID
+WHERE 
+    cs.SessionStartTime >= DATEADD(day, -7, GETDATE())
+ORDER BY 
+    cs.SessionStartTime DESC;`,
+      'product-performance': `SELECT 
+    p.ProductID,
+    p.ProductName,
+    p.Category,
+    p.SubCategory,
+    p.Brand,
+    SUM(ti.Quantity) AS TotalQuantitySold,
+    SUM(ti.LineTotal) AS TotalRevenue,
+    COUNT(DISTINCT t.TransactionID) AS TransactionCount,
+    COUNT(DISTINCT t.CustomerID) AS UniqueCustomers,
+    AVG(ti.UnitPrice) AS AverageSellingPrice,
+    SUM(ti.LineTotal) / SUM(ti.Quantity) AS AverageRevenuePerUnit
+FROM 
+    Sales.TransactionItems ti
+INNER JOIN 
+    Sales.Transactions t ON ti.TransactionID = t.TransactionID
+INNER JOIN 
+    Inventory.Products p ON ti.ProductID = p.ProductID
+WHERE 
+    t.TransactionDate >= DATEADD(day, -30, GETDATE())
+    AND t.Status = 'Completed'
+GROUP BY 
+    p.ProductID, p.ProductName, p.Category, p.SubCategory, p.Brand
+ORDER BY 
+    TotalRevenue DESC;`,
+      'hourly-traffic': `SELECT 
+    s.StoreID,
+    s.StoreName,
+    DATEPART(hour, cs.SessionStartTime) AS HourOfDay,
+    COUNT(cs.SessionID) AS SessionCount,
+    COUNT(DISTINCT cs.CustomerID) AS UniqueCustomers,
+    AVG(DATEDIFF(minute, cs.SessionStartTime, cs.SessionEndTime)) AS AvgSessionDurationMinutes,
+    SUM(CASE WHEN t.TransactionID IS NOT NULL THEN 1 ELSE 0 END) AS CompletedTransactions,
+    SUM(COALESCE(t.TotalAmount, 0)) AS TotalSales,
+    CAST(SUM(CASE WHEN t.TransactionID IS NOT NULL THEN 1 ELSE 0 END) AS FLOAT) / 
+        NULLIF(COUNT(cs.SessionID), 0) AS ConversionRate
+FROM 
+    Analytics.CustomerSessions cs
+LEFT JOIN 
+    Store.Locations s ON cs.StoreID = s.StoreID
+LEFT JOIN 
+    Sales.Transactions t ON cs.SessionID = t.SessionID AND t.Status = 'Completed'
+WHERE 
+    cs.SessionStartTime >= DATEADD(day, -30, GETDATE())
+GROUP BY 
+    s.StoreID, s.StoreName, DATEPART(hour, cs.SessionStartTime)
+ORDER BY 
+    s.StoreID, DATEPART(hour, cs.SessionStartTime);`
+    };
+
+    // Event listener for query selection
+    queryCards.forEach(card => {
+      card.addEventListener('click', function() {
+        // Remove active class from all cards
+        queryCards.forEach(c => c.classList.remove('active'));
+        // Add active class to clicked card
+        this.classList.add('active');
+        
+        // Update query display
+        const queryName = this.getAttribute('data-query');
+        sqlQueryDisplay.textContent = queries[queryName] || 'SELECT * FROM table;';
+        currentQueryTitle.textContent = this.textContent.trim();
+        
+        // Simulate loading new data
+        simulateQueryExecution();
+      });
+    });
+
+    // Run query button
+    document.getElementById('runQueryBtn').addEventListener('click', function() {
+      simulateQueryExecution();
+    });
+
+    // Show visualization panel when clicking "Visualize" button
+    document.querySelector('.export-options .btn:nth-child(3)').addEventListener('click', function() {
+      document.getElementById('visualizationPanel').style.display = 'block';
+      scrollToElement(document.getElementById('visualizationPanel'));
+    });
+
+    // Function to simulate query execution
+    function simulateQueryExecution() {
+      const runBtn = document.getElementById('runQueryBtn');
+      runBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Running...';
+      runBtn.disabled = true;
+      
+      // Simulate loading delay
+      setTimeout(() => {
+        runBtn.innerHTML = '<i class="fas fa-play me-1"></i> Run Query';
+        runBtn.disabled = false;
+        
+        // Show a success message
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success alert-dismissible fade show';
+        alertDiv.innerHTML = `
+          <i class="fas fa-check-circle me-1"></i> Query executed successfully. 5 rows returned in 0.24 seconds.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        const resultsSection = document.querySelector('.results-section');
+        resultsSection.insertBefore(alertDiv, resultsSection.firstChild);
+        
+        // Automatically dismiss the alert after 5 seconds
+        setTimeout(() => {
+          alertDiv.remove();
+        }, 5000);
+      }, 1000);
+    }
+
+    // Function to scroll to an element
+    function scrollToElement(element) {
+      window.scrollTo({
+        top: element.offsetTop - 20,
+        behavior: 'smooth'
+      });
+    }
+
+    // Generate chart button handler
+    document.getElementById('generateChartBtn').addEventListener('click', function() {
+      const chartPlaceholder = document.querySelector('.chart-placeholder');
+      chartPlaceholder.innerHTML = `
+        <canvas id="dataVisualizationChart" style="width: 100%; height: 100%;"></canvas>
+      `;
+      
+      const ctx = document.getElementById('dataVisualizationChart').getContext('2d');
+      const chartType = document.getElementById('chartType').value;
+      
+      // Sample data for visualization
+      let chartData;
+      if (chartType === 'pie' || chartType === 'doughnut') {
+        chartData = {
+          labels: ['North Flagship', 'West Express', 'Central Standard', 'East Kiosk', 'South Drive-Thru'],
+          datasets: [{
+            data: [12345, 10567, 8901, 7654, 9876],
+            backgroundColor: [
+              '#00a3e0',
+              '#ff3300',
+              '#ffc107',
+              '#8a4fff',
+              '#00c389'
+            ]
+          }]
+        };
+      } else {
+        chartData = {
+          labels: ['May 7', 'May 8', 'May 9', 'May 10', 'May 11', 'May 12', 'May 13', 'May 14'],
+          datasets: [{
+            label: 'Sales ($)',
+            data: [12345, 13456, 12789, 14567, 15678, 13456, 15678, 16789],
+            backgroundColor: '#00a3e0',
+            borderColor: '#00a3e0',
+            borderWidth: 2,
+            fill: false
+          }]
+        };
+      }
+      
+      new Chart(ctx, {
+        type: chartType,
+        data: chartData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Sales Data Visualization'
+            }
+          }
+        }
+      });
+    });
+
+    // Custom query creation
+    document.getElementById('createCustomQuery').addEventListener('click', function() {
+      // Simulate adding a custom query to saved list
+      const savedQueriesList = document.getElementById('savedQueriesList');
+      savedQueriesList.innerHTML = `
+        <div class="query-card list-group-item list-group-item-action" data-query="custom">
+          <i class="fas fa-code me-2"></i> My Custom Query
+        </div>
+      `;
+      
+      // Make the new query selectable
+      const newQueryCard = savedQueriesList.querySelector('.query-card');
+      newQueryCard.addEventListener('click', function() {
+        queryCards.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        sqlQueryDisplay.textContent = 'SELECT * FROM YourCustomTable WHERE Condition = 1;';
+        currentQueryTitle.textContent = 'My Custom Query';
+        simulateQueryExecution();
+      });
+    });
+
+    // Save query button
+    document.getElementById('saveQueryBtn').addEventListener('click', function() {
+      const alertDiv = document.createElement('div');
+      alertDiv.className = 'alert alert-success alert-dismissible fade show';
+      alertDiv.innerHTML = `
+        <i class="fas fa-save me-1"></i> Query saved successfully.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      `;
+      
+      const cardBody = document.querySelector('.card-body');
+      cardBody.insertBefore(alertDiv, cardBody.firstChild);
+      
+      setTimeout(() => {
+        alertDiv.remove();
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

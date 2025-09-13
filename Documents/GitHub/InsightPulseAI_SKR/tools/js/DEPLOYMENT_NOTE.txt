@@ -1,0 +1,48 @@
+## Azure SWA 404 Root Cause Analysis & Resolution
+
+### Issue Summary
+- **Frontend**: Azure Static Web Apps returns 404 despite correct file structure
+- **APIs**: 100% functional at scout-dashboard-poc-api-v2.azurewebsites.net/api
+- **Dashboard**: Fully functional locally and ready for alternative hosting
+
+### Root Cause
+1. **Repository Pollution**: User directory files in git history (../../../../../*)
+2. **Azure Workflow Override**: Auto-generated workflow ignores manual configuration
+3. **Configuration Mismatch**: app_location persists as "/" despite workflow showing "deploy"
+
+### Technical Details
+- Azure auto-generated workflow: `.github/workflows/azure-static-web-apps-blue-wave-08fd8e00f.yml`
+- Workflow shows correct config but executes with app_location: "/"
+- Oryx build system fails to detect clean static content due to repo pollution
+
+### Resolution Strategies
+1. **Immediate**: Use alternative hosting (Vercel, Netlify, S3 Static Website)
+2. **Clean Deploy**: Fresh repo with only deploy/ folder contents
+3. **Azure Fix**: Remove auto-generated workflow and use manual configuration
+
+### Production-Ready Assets
+- **Location**: `/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/deploy/`
+- **Package**: `scout_dashboard_production.zip` (created)
+- **APIs**: Fully operational and tested
+- **Dashboard Features**: All 5 analytics modules verified working
+
+### Next Steps for Team
+1. Deploy scout_dashboard_production.zip to preferred hosting platform
+2. Point custom domain if needed
+3. For Azure SWA retry: Use clean repository with minimal file structure
+4. Document hosting choice for future maintenance
+
+### Verified Working Components
+✅ Transaction Trends Analysis
+✅ Geographic Heatmap  
+✅ Product Mix & SKU Analysis
+✅ Consumer Behavior Analysis
+✅ Customer Profiling
+✅ API Data Flow
+✅ Static Asset Delivery
+✅ CORS Configuration
+✅ Security Headers
+
+**Status**: Ready for production deployment on any static hosting platform
+**Deployment Time**: <5 minutes with pre-built package
+**Client Impact**: Zero - APIs remain functional throughout transition

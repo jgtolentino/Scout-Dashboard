@@ -1,0 +1,30 @@
+rollback: Restore AudioURL field to Scout DLT pipeline
+
+This commit restores the AudioURL field to the Scout DLT pipeline that was 
+recently deprecated. The rollback was necessary to maintain compatibility
+with existing dashboard features and analytics that depend on audio file
+access.
+
+Changes include:
+- Restored AudioURL field in bronze_transcriptions schema
+- Re-enabled audio file storage in Azure Blob Storage
+- Added SQL script to restore database schema
+- Updated Raspberry Pi client scripts to re-enable audio uploads
+- Added test data with AudioURL field for validation
+- Created rollback documentation and guides
+- Added demonstration script for the rollback process
+
+Related files:
+- scout_bronze_dlt.py
+- etl-deploy-kit.yaml
+- migrations/restore_audio_url.sql
+- pi_deployment_sim/update_pi_clients.sh
+- sample_data/rollback_test_data.json
+- DASHBOARD_ROLLBACK_GUIDE.md
+- DASHBOARD_ROLLBACK_SUMMARY.md
+- rollback_demo.sh
+- README.md
+
+Note: This is a temporary rollback to maintain system functionality.
+A future implementation will address audio storage concerns in a way
+that maintains dashboard compatibility.

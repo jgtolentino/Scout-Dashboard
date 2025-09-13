@@ -1,0 +1,356 @@
+id: deckgen
+name: Deck Generator
+description: >
+  Generate slide decks from natural language prompts using Claude Max
+  This agent provides enterprise-grade functionality with comprehensive error handling,
+  performance optimization, and full observability for production environments.
+version: 1.0.0
+
+# AI model configuration
+model: claude-3-opus
+temperature: 0.7
+max_tokens: 4000
+input_format: prompt
+output_format: json
+
+# Input schema
+input_schema:
+  type: object
+  required:
+    - topic
+  properties:
+    topic:
+      type: string
+      description: The topic or description for the slide deck
+    slides:
+      type: integer
+      default: 5
+      description: Number of slides to generate
+    style:
+      type: string
+      enum: [professional, casual, academic, marketing]
+      default: professional
+      description: Style of the presentation
+    audience:
+      type: string
+      description: The target audience for the presentation
+
+# Output schema
+output_schema:
+  type: object
+  required:
+    - title
+    - slides
+  properties:
+    title:
+      type: string
+      description: The title of the slide deck
+    description:
+      type: string
+      description: Brief description of the deck's content and purpose
+    slides:
+      type: array
+      items:
+        type: object
+        required:
+          - title
+          - bullets
+        properties:
+          title:
+            type: string
+            description: The title of the slide
+          subtitle:
+            type: string
+            description: Optional subtitle for the slide
+          bullets:
+            type: array
+            items:
+              type: string
+            description: Bullet points for the slide content
+          image_prompt:
+            type: string
+            description: Description for generating a visual for this slide
+          notes:
+            type: string
+            description: Presenter notes for this slide
+
+# Prompt template for Claude
+prompt_template: |
+  # SlideForge Deck Generator
+
+  You are a professional presentation designer with expertise in creating compelling, clear, and visually appealing slide decks. Your task is to generate a structured slide deck based on the given topic or description.
+
+  ## Guidelines
+
+  1. Create a cohesive narrative flow across all slides
+  2. Use concise, impactful language
+  3. Ensure each slide has a clear purpose
+  4. Balance text with visual element suggestions
+  5. Maintain consistent tone and terminology
+  6. Optimize for audience engagement
+
+  ## Input Parameters
+
+  - Topic: {{ topic }}
+  - Requested Slides: {{ slides | default(5) }}
+  - Style: {{ style | default('professional') }}
+  - Target Audience: {{ audience | default('business professionals') }}
+
+  ## Output Format
+
+  Generate a slide deck with exactly {{ slides | default(5) }} slides in the following JSON format:
+
+  ```json
+  {
+    "title": "Main Deck Title",
+    "description": "Brief description of the deck's purpose",
+    "slides": [
+      {
+        "title": "Slide Title",
+        "subtitle": "Optional Subtitle",
+        "bullets": [
+          "Concise bullet point 1",
+          "Concise bullet point 2",
+          "Concise bullet point 3"
+        ],
+        "image_prompt": "Description for generating a visual for this slide",
+        "notes": "Additional presenter notes visible only to the presenter"
+      }
+    ]
+  }
+  ```
+
+  ## Slide Structure
+
+  For a {{ slides | default(5) }}-slide deck, follow this recommended structure:
+
+  1. Title slide with compelling headline
+  2. Introduction/problem statement slide
+  3-{{ slides | default(5) - 2 }}: Main content slides covering key points
+  {{ slides | default(5) }}: Call-to-action or conclusion slide
+
+  ## For Each Slide
+
+  - Title: Clear, concise (5-8 words max)
+  - Bullets: 3-5 short, actionable points (avoid paragraphs)
+  - Image Prompt: Describe a relevant visual that enhances the slide content
+  - Notes: Include helpful context for the presenter
+
+  Remember to tailor the content for a {{ style | default('professional') }} style and {{ audience | default('business professionals') }} audience.
+
+# Examples for few-shot learning
+examples:
+  - input:
+      topic: "Launch deck for VisionAI HR assistant"
+      slides: 5
+      style: "professional"
+      audience: "HR executives"
+    output: |
+      {
+        "title": "VisionAI: Transforming HR with Intelligent Automation",
+        "description": "A product launch presentation introducing VisionAI's HR assistant capabilities to HR executives.",
+        "slides": [
+          {
+            "title": "Introducing VisionAI for HR",
+            "subtitle": "AI-powered assistance for modern HR teams",
+            "bullets": [
+              "Intelligent automation for routine HR processes",
+              "Built with security and compliance at its core",
+              "Proven to reduce administrative workload by 65%"
+            ],
+            "image_prompt": "Sleek, professional visualization of AI assistant helping HR professional with multiple tasks simultaneously",
+            "notes": "Emphasize how VisionAI was built specifically for HR workflows, not a general AI tool."
+          },
+          {
+            "title": "The HR Challenge Today",
+            "subtitle": "What's holding your team back?",
+            "bullets": [
+              "HR teams spend 73% of time on administrative tasks",
+              "Compliance requirements growing 32% YoY",
+              "Talent expects responsive, 24/7 HR support",
+              "Manual processes lead to inconsistent decisions"
+            ],
+            "image_prompt": "Split screen showing overwhelmed HR professional with mountains of paperwork vs organized HR dashboard",
+            "notes": "Pause after presenting these statistics to let them sink in. These are industry-wide problems that the audience will relate to."
+          },
+          {
+            "title": "VisionAI Capabilities",
+            "subtitle": "Intelligent automation for every HR function",
+            "bullets": [
+              "Candidate screening & matching: 8x faster hiring cycles",
+              "Employee onboarding: 100% documentation compliance",
+              "Performance reviews: Data-driven insights & bias detection",
+              "Policy Q&A: Instant, accurate answers to employee questions"
+            ],
+            "image_prompt": "Four-quadrant visual showing each capability with simple icons and flow diagrams",
+            "notes": "Each of these capabilities can be deployed independently or as a complete suite, depending on needs."
+          },
+          {
+            "title": "Implementation & Results",
+            "subtitle": "Real outcomes from early adopters",
+            "bullets": [
+              "Fortune 500 retail: 87% reduction in onboarding time",
+              "Global technology firm: $3.2M annual savings",
+              "Healthcare network: 94% employee satisfaction rating",
+              "Full deployment in as little as 6 weeks"
+            ],
+            "image_prompt": "Clean graph showing before/after metrics with company logos and testimonial snippets",
+            "notes": "We have case studies available for each of these implementations that we can share after the presentation."
+          },
+          {
+            "title": "Next Steps with VisionAI",
+            "subtitle": "Begin your HR transformation",
+            "bullets": [
+              "Schedule a personalized demo",
+              "30-day pilot program with your actual HR data",
+              "Dedicated implementation specialist",
+              "Seamless integration with existing HRIS systems"
+            ],
+            "image_prompt": "Clear call-to-action visual with a simple 3-step process and contact information",
+            "notes": "Offer to take questions, then direct interested parties to the demo sign-up in the lobby."
+          }
+        ]
+      }
+  
+  - input:
+      topic: "Quarterly business review for marketing department"
+      slides: 4
+      audience: "executive leadership"
+    output: |
+      {
+        "title": "Marketing Department: Q2 2025 Review",
+        "description": "Quarterly business review of marketing performance, challenges, and upcoming initiatives for executive leadership.",
+        "slides": [
+          {
+            "title": "Q2 2025 Marketing Performance",
+            "subtitle": "Key metrics and outcomes",
+            "bullets": [
+              "Revenue attribution: $3.2M (+18% YoY)",
+              "Customer acquisition cost: $42 (-7% QoQ)",
+              "Campaign ROI: 285% across all channels",
+              "Brand sentiment: 78% positive (+5 points)"
+            ],
+            "image_prompt": "Clean dashboard visualization showing primary KPIs with green/red indicators for growth/decline",
+            "notes": "All metrics exceeded quarterly targets except social media engagement, which we'll address in slide 3."
+          },
+          {
+            "title": "Channel Performance Analysis",
+            "subtitle": "Where we're winning and challenges",
+            "bullets": [
+              "Organic search: 41% of qualified leads (+15%)",
+              "Paid social: Efficiency declining, CPL up 12%",
+              "Email: Highest ROI channel at 315%",
+              "Events: Virtual format driving 2x attendance"
+            ],
+            "image_prompt": "Comparative bar chart showing performance across each channel with previous quarter comparison",
+            "notes": "Recommend shifting 15% of paid social budget to email and organic content for Q3 based on these trends."
+          },
+          {
+            "title": "Competitive Landscape Shifts",
+            "subtitle": "Threats and opportunities",
+            "bullets": [
+              "Competitor A launched new product targeting our SMB segment",
+              "Industry messaging shifting toward sustainability themes",
+              "Digital ad costs increasing 18% across all platforms",
+              "Partnership opportunity with [strategic partner] identified"
+            ],
+            "image_prompt": "Quadrant diagram showing competitive positioning with arrows indicating directional moves",
+            "notes": "Our primary competitor's new offering lacks the enterprise features we provide, but is gaining traction in SMB."
+          },
+          {
+            "title": "Q3 Strategic Priorities",
+            "subtitle": "Focus areas and resource needs",
+            "bullets": [
+              "Launch enterprise solution upgrade campaign",
+              "Optimize paid channel mix based on Q2 performance",
+              "Accelerate content production for organic growth",
+              "Expand customer advocacy program"
+            ],
+            "image_prompt": "Roadmap timeline showing key initiatives, milestones, and projected outcomes for Q3",
+            "notes": "Will need additional headcount approval for content team to support the organic growth initiative."
+          }
+        ]
+      }
+
+# Post-processing hooks
+post_process:
+  - action: save_output
+    path: "public/slides/{{ filename | default(uuid) }}.json"
+  
+  - action: log_generation
+    path: "logs/deckgen_{{ timestamp }}.log"
+    
+  - action: next_step
+    agent: slidebuilder
+    with:
+      filename: "{{ filename | default(uuid) }}"
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+
+lifecycle:
+  on_start:
+    - action: validate_environment
+    - action: load_configuration
+    - action: initialize_connections
+  on_ready:
+    - action: register_with_discovery
+    - action: start_health_checks
+  on_shutdown:
+    - action: deregister_from_discovery
+    - action: cleanup_resources
+    - action: save_state
+
+observability:
+  logging:
+    level: info
+    format: json
+    outputs:
+      - stdout
+      - file: /logs/agent.log
+  tracing:
+    enabled: true
+    provider: opentelemetry
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    provider: prometheus
+    endpoint: /metrics

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Trends Dashboard - POC v1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">📊 Transaction Trends Dashboard</h1>
+            <p class="text-gray-600">Real-time transaction analytics - POC v1 (Optimized)</p>
+            <div id="status" class="mt-2 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                Connected
+            </div>
+        </header>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-sm font-medium text-gray-500">Total Transactions</h3>
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                    </svg>
+                </div>
+                <div id="totalTransactions" class="text-2xl font-bold text-gray-900 loading-skeleton h-8 rounded"></div>
+                <p id="transactionsTrend" class="text-xs text-gray-500 mt-1"></p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-sm font-medium text-gray-500">Total Revenue</h3>
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div id="totalRevenue" class="text-2xl font-bold text-gray-900 loading-skeleton h-8 rounded"></div>
+                <p id="revenueTrend" class="text-xs text-gray-500 mt-1"></p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-sm font-medium text-gray-500">Avg Transaction Value</h3>
+                    <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <div id="avgValue" class="text-2xl font-bold text-gray-900 loading-skeleton h-8 rounded"></div>
+                <p class="text-xs text-gray-500 mt-1">Per transaction</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-sm font-medium text-gray-500">Weekly Growth</h3>
+                    <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
+                <div id="weeklyGrowth" class="text-2xl font-bold text-gray-900 loading-skeleton h-8 rounded"></div>
+                <p class="text-xs text-gray-500 mt-1">vs previous week</p>
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Daily Trends Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Daily Transaction Trends</h2>
+                <div class="relative h-64">
+                    <canvas id="dailyChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Hourly Distribution -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Hourly Distribution</h2>
+                <div class="relative h-64">
+                    <canvas id="hourlyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Breakdown -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Category Performance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="relative h-64">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+                <div id="categoryList" class="space-y-3">
+                    <!-- Category items will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Last Update -->
+        <div class="text-center text-sm text-gray-500 mt-8">
+            Last updated: <span id="lastUpdate">Loading...</span>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_URL = '/api/transactions-trends';
+        let charts = {};
+
+        // Initialize dashboard
+        async function initDashboard() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('API request failed');
+                
+                const data = await response.json();
+                updateKPIs(data.summary);
+                createDailyChart(data.daily);
+                createHourlyChart(data.hourly);
+                createCategoryChart(data.categories);
+                updateCategoryList(data.categories);
+                updateStatus('connected');
+                updateLastUpdate();
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                updateStatus('error');
+            }
+        }
+
+        // Update KPIs
+        function updateKPIs(summary) {
+            // Total Transactions
+            const totalTransEl = document.getElementById('totalTransactions');
+            totalTransEl.classList.remove('loading-skeleton', 'h-8');
+            totalTransEl.textContent = summary.totalTransactions.toLocaleString();
+            
+            // Total Revenue
+            const totalRevEl = document.getElementById('totalRevenue');
+            totalRevEl.classList.remove('loading-skeleton', 'h-8');
+            totalRevEl.textContent = '₱' + summary.totalRevenue.toLocaleString();
+            
+            // Average Value
+            const avgValEl = document.getElementById('avgValue');
+            avgValEl.classList.remove('loading-skeleton', 'h-8');
+            avgValEl.textContent = '₱' + summary.averageTransactionValue;
+            
+            // Weekly Growth
+            const growthEl = document.getElementById('weeklyGrowth');
+            growthEl.classList.remove('loading-skeleton', 'h-8');
+            const growth = parseFloat(summary.weeklyGrowth);
+            growthEl.textContent = (growth > 0 ? '+' : '') + growth + '%';
+            growthEl.className = growth > 0 ? 'text-2xl font-bold text-green-600' : 'text-2xl font-bold text-red-600';
+        }
+
+        // Create daily trends chart
+        function createDailyChart(dailyData) {
+            const ctx = document.getElementById('dailyChart').getContext('2d');
+            
+            if (charts.daily) charts.daily.destroy();
+            
+            charts.daily = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dailyData.map(d => new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })),
+                    datasets: [{
+                        label: 'Revenue',
+                        data: dailyData.map(d => d.revenue),
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₱' + (value / 1000).toFixed(0) + 'k';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create hourly distribution chart
+        function createHourlyChart(hourlyData) {
+            const ctx = document.getElementById('hourlyChart').getContext('2d');
+            
+            if (charts.hourly) charts.hourly.destroy();
+            
+            charts.hourly = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: hourlyData.map(h => h.label),
+                    datasets: [{
+                        label: 'Transactions',
+                        data: hourlyData.map(h => h.transactions),
+                        backgroundColor: 'rgba(16, 185, 129, 0.8)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        // Create category chart
+        function createCategoryChart(categories) {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            
+            if (charts.category) charts.category.destroy();
+            
+            charts.category = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: categories.map(c => c.category),
+                    datasets: [{
+                        data: categories.map(c => c.value),
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(251, 146, 60, 0.8)',
+                            'rgba(147, 51, 234, 0.8)',
+                            'rgba(236, 72, 153, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update category list
+        function updateCategoryList(categories) {
+            const listEl = document.getElementById('categoryList');
+            listEl.innerHTML = categories.map(cat => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div>
+                        <div class="font-medium text-gray-900">${cat.category}</div>
+                        <div class="text-sm text-gray-500">${cat.transactions.toLocaleString()} transactions</div>
+                    </div>
+                    <div class="text-lg font-semibold text-gray-900">${cat.value}%</div>
+                </div>
+            `).join('');
+        }
+
+        // Update status indicator
+        function updateStatus(status) {
+            const statusEl = document.getElementById('status');
+            if (status === 'connected') {
+                statusEl.className = 'mt-2 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800';
+                statusEl.innerHTML = '<span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>Connected';
+            } else {
+                statusEl.className = 'mt-2 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800';
+                statusEl.innerHTML = '<span class="w-2 h-2 bg-red-400 rounded-full mr-2"></span>Error';
+            }
+        }
+
+        // Update last update time
+        function updateLastUpdate() {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+        }
+
+        // Initialize on load
+        initDashboard();
+
+        // Refresh every 30 seconds
+        setInterval(initDashboard, 30000);
+    </script>
+</body>
+</html>

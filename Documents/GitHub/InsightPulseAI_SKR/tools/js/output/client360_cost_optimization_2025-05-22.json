@@ -1,0 +1,283 @@
+{
+  "summary": {
+    "currentMonthlyCost": 4450,
+    "openSourceMonthlyCost": 1070,
+    "monthlySavings": 3380,
+    "annualSavings": 40560,
+    "costReduction": "76.0%"
+  },
+  "migrationPlan": {
+    "phase1": {
+      "name": "Quick Wins (1-2 months)",
+      "services": [
+        "staticWebApps",
+        "appService"
+      ],
+      "totalSavings": 280,
+      "effort": "Low",
+      "risk": "Low"
+    },
+    "phase2": {
+      "name": "Foundation Services (2-4 months)",
+      "services": [
+        "storageAccounts",
+        "iotHub",
+        "keyVault"
+      ],
+      "totalSavings": 330,
+      "effort": "Medium",
+      "risk": "Medium"
+    },
+    "phase3": {
+      "name": "Core Infrastructure (4-8 months)",
+      "services": [
+        "sqlDatabases",
+        "eventHubs",
+        "openai"
+      ],
+      "totalSavings": 1170,
+      "effort": "High",
+      "risk": "High"
+    },
+    "phase4": {
+      "name": "Advanced Analytics (6-12 months)",
+      "services": [
+        "databricks"
+      ],
+      "totalSavings": 1600,
+      "effort": "Very High",
+      "risk": "High"
+    }
+  },
+  "serviceDetails": [
+    {
+      "serviceName": "databricks",
+      "current": {
+        "service": "Azure Databricks",
+        "currentCost": 2000,
+        "usage": "ETL processing, SQL warehouse, Unity Catalog",
+        "criticality": "high"
+      },
+      "alternative": {
+        "alternative": "Apache Spark + JupyterHub + PostgreSQL",
+        "implementation": "Kubernetes cluster with Spark operators",
+        "estimatedCost": 400,
+        "savings": 1600,
+        "complexity": "high",
+        "timeline": "3-4 months",
+        "requirements": [
+          "Kubernetes expertise",
+          "Spark administration",
+          "PostgreSQL DBA"
+        ]
+      }
+    },
+    {
+      "serviceName": "sqlDatabases",
+      "current": {
+        "service": "Azure SQL Database",
+        "currentCost": 800,
+        "usage": "Bronze/Silver/Gold medallion architecture",
+        "criticality": "high"
+      },
+      "alternative": {
+        "alternative": "PostgreSQL with TimescaleDB",
+        "implementation": "Managed PostgreSQL on Azure VMs or container clusters",
+        "estimatedCost": 200,
+        "savings": 600,
+        "complexity": "medium",
+        "timeline": "2-3 months",
+        "requirements": [
+          "PostgreSQL DBA",
+          "Migration scripting",
+          "Performance tuning"
+        ]
+      }
+    },
+    {
+      "serviceName": "openai",
+      "current": {
+        "service": "Azure OpenAI",
+        "currentCost": 400,
+        "usage": "AI insights generation, client360-insights deployment",
+        "criticality": "medium"
+      },
+      "alternative": {
+        "alternative": "Ollama + Llama 3 + LocalAI",
+        "implementation": "GPU-enabled VM with model serving",
+        "estimatedCost": 150,
+        "savings": 250,
+        "complexity": "high",
+        "timeline": "2-3 months",
+        "requirements": [
+          "ML Engineering",
+          "Model fine-tuning",
+          "API development"
+        ]
+      }
+    },
+    {
+      "serviceName": "staticWebApps",
+      "current": {
+        "service": "Azure Static Web Apps",
+        "currentCost": 150,
+        "usage": "Dashboard hosting, authentication",
+        "criticality": "medium"
+      },
+      "alternative": {
+        "alternative": "Nginx + Let's Encrypt + GitHub Actions",
+        "implementation": "Container-based web hosting with CI/CD",
+        "estimatedCost": 30,
+        "savings": 120,
+        "complexity": "low",
+        "timeline": "2-4 weeks",
+        "requirements": [
+          "DevOps basics",
+          "SSL certificate management"
+        ]
+      }
+    },
+    {
+      "serviceName": "storageAccounts",
+      "current": {
+        "service": "Azure Storage",
+        "currentCost": 300,
+        "usage": "Data lake, blob storage, staging",
+        "criticality": "high"
+      },
+      "alternative": {
+        "alternative": "MinIO + Object Storage",
+        "implementation": "Self-hosted S3-compatible storage",
+        "estimatedCost": 100,
+        "savings": 200,
+        "complexity": "medium",
+        "timeline": "4-6 weeks",
+        "requirements": [
+          "Storage administration",
+          "Backup strategies"
+        ]
+      }
+    },
+    {
+      "serviceName": "eventHubs",
+      "current": {
+        "service": "Azure Event Hubs",
+        "currentCost": 400,
+        "usage": "Real-time IoT data ingestion",
+        "criticality": "high"
+      },
+      "alternative": {
+        "alternative": "Apache Kafka + Zookeeper",
+        "implementation": "Kafka cluster on Kubernetes",
+        "estimatedCost": 80,
+        "savings": 320,
+        "complexity": "high",
+        "timeline": "6-8 weeks",
+        "requirements": [
+          "Kafka administration",
+          "Stream processing expertise"
+        ]
+      }
+    },
+    {
+      "serviceName": "iotHub",
+      "current": {
+        "service": "Azure IoT Hub",
+        "currentCost": 150,
+        "usage": "Pi5 device management",
+        "criticality": "high"
+      },
+      "alternative": {
+        "alternative": "Eclipse Mosquitto + InfluxDB",
+        "implementation": "MQTT broker with time-series database",
+        "estimatedCost": 50,
+        "savings": 100,
+        "complexity": "medium",
+        "timeline": "3-4 weeks",
+        "requirements": [
+          "IoT protocols",
+          "Time-series DB management"
+        ]
+      }
+    },
+    {
+      "serviceName": "keyVault",
+      "current": {
+        "service": "Azure Key Vault",
+        "currentCost": 50,
+        "usage": "Secret management, API keys",
+        "criticality": "high"
+      },
+      "alternative": {
+        "alternative": "HashiCorp Vault",
+        "implementation": "Self-hosted secret management",
+        "estimatedCost": 20,
+        "savings": 30,
+        "complexity": "high",
+        "timeline": "2-3 weeks",
+        "requirements": [
+          "Security expertise",
+          "PKI management"
+        ]
+      }
+    },
+    {
+      "serviceName": "appService",
+      "current": {
+        "service": "Azure App Service",
+        "currentCost": 200,
+        "usage": "retail-advisor-app hosting",
+        "criticality": "medium"
+      },
+      "alternative": {
+        "alternative": "Docker + Nginx + PM2",
+        "implementation": "Containerized application hosting",
+        "estimatedCost": 40,
+        "savings": 160,
+        "complexity": "low",
+        "timeline": "1-2 weeks",
+        "requirements": [
+          "Container management",
+          "Process monitoring"
+        ]
+      }
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "action": "Start with Static Web Apps migration",
+      "reason": "Lowest risk, quick wins, builds team confidence",
+      "timeline": "2-4 weeks",
+      "impact": "Low risk proof of concept"
+    },
+    {
+      "priority": "HIGH",
+      "action": "PostgreSQL migration for non-critical databases",
+      "reason": "Significant cost savings, manageable complexity",
+      "timeline": "2-3 months",
+      "impact": "$600/month savings"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Self-hosted AI services pilot",
+      "reason": "Reduce AI costs, maintain functionality",
+      "timeline": "2-3 months",
+      "impact": "$250/month savings"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Kafka implementation for event streaming",
+      "reason": "High savings potential, but requires expertise",
+      "timeline": "6-8 weeks",
+      "impact": "$320/month savings"
+    },
+    {
+      "priority": "LOW",
+      "action": "Databricks replacement planning",
+      "reason": "Highest savings but highest complexity",
+      "timeline": "3-4 months planning + 6 months implementation",
+      "impact": "$1,600/month savings"
+    }
+  ]
+}

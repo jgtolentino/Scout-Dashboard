@@ -1,0 +1,21 @@
+name: doer
+codename: doer
+description: >
+  Automation agent for Pulser CLI tasks, including CLI-native database MCP interaction.
+bindings:
+  mcp_supabase_clean:
+    endpoint: http://localhost:8888
+    type: supabase
+    role: reader
+    schemas:
+      - scout
+      - ces
+      - public
+permissions:
+  - select
+  - explain
+  - introspect
+memory_tags:
+  - pulser
+  - mcp
+  - supabase

@@ -1,0 +1,5 @@
+# ClodRep Aliases
+alias :claude='python3 /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/pulser-cli/mcp_bridge.py'
+alias :dash='/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/pulser-cli/task_executor.sh dash'
+alias :clodrep='/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/pulser-cli/clodrep.sh'
+alias :diagram='/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/pulser-cli/tools/diagram_handler.sh'

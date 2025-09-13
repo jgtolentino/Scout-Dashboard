@@ -1,0 +1,25 @@
+{
+  "testData": {
+    "users": [
+      {
+        "id": "user1",
+        "name": "Test User",
+        "role": "tester"
+      }
+    ],
+    "dashboards": [
+      {
+        "id": "dashboard1",
+        "name": "Test Dashboard",
+        "path": "/test-dashboard"
+      }
+    ],
+    "metrics": [
+      {
+        "id": "metric1",
+        "name": "Test Metric",
+        "value": 100
+      }
+    ]
+  }
+}

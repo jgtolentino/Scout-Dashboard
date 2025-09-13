@@ -1,0 +1,112 @@
+# transcript_field_map.yaml
+# Reference map for transcript field naming across different data layers
+# Created: 2025-05-12
+# For use by Maya, Claudia, and other agents
+
+# Transcript field naming conventions across tables
+field_aliases:
+  # Used in enriched/semantic-level tables
+  transcription_text:
+    description: "Enriched or semantic-level transcription text"
+    tables: 
+      - SalesInteractions
+      - TranscriptionDataTable
+    layer: "Silver/Gold"
+    use_cases:
+      - "Main query target for enriched transcriptions"
+      - "Sentiment analysis source"
+      - "Named entity extraction source"
+  
+  # Used in raw or chunked STT sources
+  transcript_text:
+    description: "Raw or chunked speech-to-text output"
+    tables:
+      - bronze_transcriptions
+      - silver_transcripts
+    layer: "Bronze/Silver"
+    use_cases:
+      - "Raw STT output storage"
+      - "Intermediate processing"
+      - "Deduplication source"
+  
+  # Used in Gold layer for final reconstructed transcripts
+  full_transcript:
+    description: "Complete reconstructed transcript"
+    tables:
+      - gold_reconstructed_transcripts
+    layer: "Gold"
+    use_cases:
+      - "Dashboard display"
+      - "Final reporting"
+      - "Downstream analytics"
+  
+  # Used specifically for chunked transcript data
+  chunk_text:
+    description: "Individual transcript chunks"
+    tables:
+      - SalesInteractionTranscripts
+    layer: "Bronze"
+    use_cases:
+      - "Granular transcript analysis"
+      - "Time-series correlation"
+      - "Brand mention extraction source"
+
+# Medallion architecture layer mapping
+medallion_layers:
+  bronze:
+    description: "Raw/ingested data"
+    tables:
+      - bronze_transcriptions
+      - SalesInteractionTranscripts
+    field_convention: "Raw naming, minimal standardization"
+  
+  silver:
+    description: "Cleansed/transformed data"
+    tables:
+      - silver_transcripts
+      - SalesInteractions
+      - TranscriptionDataTable
+    field_convention: "Standardized naming, business terminology"
+  
+  gold:
+    description: "Business-ready data"
+    tables:
+      - gold_reconstructed_transcripts
+    field_convention: "Fully standardized, aggregated fields"
+
+# Recommended query patterns
+query_recommendations:
+  brand_extraction:
+    recommended_source: "SalesInteractionTranscripts.ChunkText"
+    reason: "Provides granular access to transcript chunks for precise entity location"
+    example: |
+      SELECT 
+        InteractionID,
+        ChunkIndex,
+        ChunkText,
+        ChunkTimestamp
+      FROM 
+        SalesInteractionTranscripts
+      WHERE
+        ChunkText LIKE '%Samsung%'
+  
+  full_conversation_analysis:
+    recommended_source: "gold_reconstructed_transcripts.FullTranscript"
+    reason: "Provides complete conversations for holistic analysis"
+    example: |
+      SELECT 
+        InteractionID,
+        FullTranscript,
+        ConversationDate
+      FROM 
+        gold_reconstructed_transcripts
+      WHERE
+        InteractionID = '12345'
+
+# Integration points for brand mention enrichment
+enrichment_targets:
+  brand_mentions:
+    primary_source: "SalesInteractionTranscripts"
+    key_fields: ["InteractionID", "ChunkIndex"] 
+    target_table: "TranscriptEntityMentions"
+    description: "Extracts brand mentions from transcript chunks"

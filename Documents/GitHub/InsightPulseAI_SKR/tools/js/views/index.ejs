@@ -1,0 +1,63 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="container header-content">
+      <div class="logo">
+        <a href="/">
+          <span>InsightPulseAI</span>
+        </a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/test-sketch">Sketch Generator</a></li>
+          <li><a href="/prompt-lab">Prompt Lab</a></li>
+          <li><a href="/dashboards/">Data Insights</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-content">
+    <div class="container">
+      <div class="page-header">
+        <h1><%= title %></h1>
+        <p class="subtitle"><%= description %></p>
+      </div>
+
+      <div class="tools-grid">
+        <% tools.forEach(tool => { %>
+          <div class="tool-card">
+            <h2><%= tool.name %></h2>
+            <p><%= tool.description %></p>
+            <a href="<%= tool.path %>" class="button">Open Tool</a>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <div class="copyright">
+        &copy; <%= new Date().getFullYear() %> InsightPulseAI. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Documentation</a>
+        <a href="#">APIs</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/scripts/app.js"></script>
+</body>
+</html>
+EOF < /dev/null

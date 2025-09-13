@@ -1,0 +1,591 @@
+==== Storage Lifecycle Management Implementation ====
+Implementing lifecycle management for storage accounts in TBWA-ProjectScout-Prod subscription
+
+Retrieving storage account information...
+Implementing lifecycle policies for ETL storage accounts...
+Processing tbwajuicerstorage in RG-TBWA-ProjectScout-Juicer...
+Applying lifecycle policy to tbwajuicerstorage...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/tbwajuicerstorage/managementPolicies/default",
+  "lastModifiedTime": "2025-05-19T15:33:34.278817+00:00",
+  "name": "DefaultManagementPolicy",
+  "policy": {
+    "rules": [
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 365.0
+              },
+              "enableAutoTierToHotFromCool": null,
+              "tierToArchive": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 90.0
+              },
+              "tierToCold": null,
+              "tierToCool": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 30.0
+              },
+              "tierToHot": null
+            },
+            "snapshot": null,
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": [
+              "etl/processed/"
+            ]
+          }
+        },
+        "enabled": true,
+        "name": "MoveToCoolTier",
+        "type": "Lifecycle"
+      },
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 90.0
+              },
+              "enableAutoTierToHotFromCool": null,
+              "tierToArchive": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 30.0
+              },
+              "tierToCold": null,
+              "tierToCool": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 7.0
+              },
+              "tierToHot": null
+            },
+            "snapshot": null,
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": [
+              "logs/"
+            ]
+          }
+        },
+        "enabled": true,
+        "name": "CleanupLogFiles",
+        "type": "Lifecycle"
+      },
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": null,
+            "snapshot": {
+              "delete": {
+                "daysAfterCreationGreaterThan": 30.0,
+                "daysAfterLastTierChangeGreaterThan": null
+              },
+              "tierToArchive": null,
+              "tierToCold": null,
+              "tierToCool": null,
+              "tierToHot": null
+            },
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": null
+          }
+        },
+        "enabled": true,
+        "name": "DeleteSnapshots",
+        "type": "Lifecycle"
+      }
+    ]
+  },
+  "resourceGroup": "RG-TBWA-ProjectScout-Juicer",
+  "type": "Microsoft.Storage/storageAccounts/managementPolicies"
+}
+Processing dbstoragehyx7ppequk63i in databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5...
+Applying lifecycle policy to dbstoragehyx7ppequk63i...
+ERROR: (DenyAssignmentAuthorizationFailed) The client 's224670304@deakin.edu.au' with object id '6b8dc14a-c98d-43bf-8eb9-fa138ca997da' has permission to perform action 'Microsoft.Storage/storageAccounts/managementPolicies/write' on scope '/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5/providers/Microsoft.Storage/storageAccounts/dbstoragehyx7ppequk63i/managementPolicies/default'; however, the access is denied because of the deny assignment with name 'System deny assignment created by Azure Databricks /subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Databricks/workspaces/tbwa-juicer-databricks' and Id 'e46a76aba4b64668a2398d96609e12e1' at scope '/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5'.
+Code: DenyAssignmentAuthorizationFailed
+Message: The client 's224670304@deakin.edu.au' with object id '6b8dc14a-c98d-43bf-8eb9-fa138ca997da' has permission to perform action 'Microsoft.Storage/storageAccounts/managementPolicies/write' on scope '/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5/providers/Microsoft.Storage/storageAccounts/dbstoragehyx7ppequk63i/managementPolicies/default'; however, the access is denied because of the deny assignment with name 'System deny assignment created by Azure Databricks /subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Databricks/workspaces/tbwa-juicer-databricks' and Id 'e46a76aba4b64668a2398d96609e12e1' at scope '/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5'.
+Processing projectscoutdata in RG-TBWA-ProjectScout-Data...
+Applying lifecycle policy to projectscoutdata...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Data/providers/Microsoft.Storage/storageAccounts/projectscoutdata/managementPolicies/default",
+  "lastModifiedTime": "2025-05-19T15:33:37.168860+00:00",
+  "name": "DefaultManagementPolicy",
+  "policy": {
+    "rules": [
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 365.0
+              },
+              "enableAutoTierToHotFromCool": null,
+              "tierToArchive": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 90.0
+              },
+              "tierToCold": null,
+              "tierToCool": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 30.0
+              },
+              "tierToHot": null
+            },
+            "snapshot": null,
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": [
+              "etl/processed/"
+            ]
+          }
+        },
+        "enabled": true,
+        "name": "MoveToCoolTier",
+        "type": "Lifecycle"
+      },
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 90.0
+              },
+              "enableAutoTierToHotFromCool": null,
+              "tierToArchive": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 30.0
+              },
+              "tierToCold": null,
+              "tierToCool": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 7.0
+              },
+              "tierToHot": null
+            },
+            "snapshot": null,
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": [
+              "logs/"
+            ]
+          }
+        },
+        "enabled": true,
+        "name": "CleanupLogFiles",
+        "type": "Lifecycle"
+      },
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": null,
+            "snapshot": {
+              "delete": {
+                "daysAfterCreationGreaterThan": 30.0,
+                "daysAfterLastTierChangeGreaterThan": null
+              },
+              "tierToArchive": null,
+              "tierToCold": null,
+              "tierToCool": null,
+              "tierToHot": null
+            },
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": null
+          }
+        },
+        "enabled": true,
+        "name": "DeleteSnapshots",
+        "type": "Lifecycle"
+      }
+    ]
+  },
+  "resourceGroup": "RG-TBWA-ProjectScout-Data",
+  "type": "Microsoft.Storage/storageAccounts/managementPolicies"
+}
+Processing retailedgedash0513 in retail-dashboards-rg...
+Applying dashboard lifecycle policy to retailedgedash0513...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/retail-dashboards-rg/providers/Microsoft.Storage/storageAccounts/retailedgedash0513/managementPolicies/default",
+  "lastModifiedTime": "2025-05-19T15:33:39.543858+00:00",
+  "name": "DefaultManagementPolicy",
+  "policy": {
+    "rules": [
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": null,
+              "enableAutoTierToHotFromCool": null,
+              "tierToArchive": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 180.0
+              },
+              "tierToCold": null,
+              "tierToCool": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 60.0
+              },
+              "tierToHot": null
+            },
+            "snapshot": null,
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": [
+              "archived/"
+            ]
+          }
+        },
+        "enabled": true,
+        "name": "ArchiveOldData",
+        "type": "Lifecycle"
+      },
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": null,
+            "snapshot": {
+              "delete": {
+                "daysAfterCreationGreaterThan": 60.0,
+                "daysAfterLastTierChangeGreaterThan": null
+              },
+              "tierToArchive": null,
+              "tierToCold": null,
+              "tierToCool": null,
+              "tierToHot": null
+            },
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": null
+          }
+        },
+        "enabled": true,
+        "name": "DeleteSnapshots",
+        "type": "Lifecycle"
+      }
+    ]
+  },
+  "resourceGroup": "retail-dashboards-rg",
+  "type": "Microsoft.Storage/storageAccounts/managementPolicies"
+}
+Processing retailperfdash0513 in retail-dashboards-rg...
+Applying dashboard lifecycle policy to retailperfdash0513...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/retail-dashboards-rg/providers/Microsoft.Storage/storageAccounts/retailperfdash0513/managementPolicies/default",
+  "lastModifiedTime": "2025-05-19T15:33:41.668864+00:00",
+  "name": "DefaultManagementPolicy",
+  "policy": {
+    "rules": [
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": null,
+              "enableAutoTierToHotFromCool": null,
+              "tierToArchive": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 180.0
+              },
+              "tierToCold": null,
+              "tierToCool": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 60.0
+              },
+              "tierToHot": null
+            },
+            "snapshot": null,
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": [
+              "archived/"
+            ]
+          }
+        },
+        "enabled": true,
+        "name": "ArchiveOldData",
+        "type": "Lifecycle"
+      },
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": null,
+            "snapshot": {
+              "delete": {
+                "daysAfterCreationGreaterThan": 60.0,
+                "daysAfterLastTierChangeGreaterThan": null
+              },
+              "tierToArchive": null,
+              "tierToCold": null,
+              "tierToCool": null,
+              "tierToHot": null
+            },
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": null
+          }
+        },
+        "enabled": true,
+        "name": "DeleteSnapshots",
+        "type": "Lifecycle"
+      }
+    ]
+  },
+  "resourceGroup": "retail-dashboards-rg",
+  "type": "Microsoft.Storage/storageAccounts/managementPolicies"
+}
+Processing pscoutdash0513 in ProjectScout-ResourceGroup...
+Applying dashboard lifecycle policy to pscoutdash0513...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/ProjectScout-ResourceGroup/providers/Microsoft.Storage/storageAccounts/pscoutdash0513/managementPolicies/default",
+  "lastModifiedTime": "2025-05-19T15:33:44.121988+00:00",
+  "name": "DefaultManagementPolicy",
+  "policy": {
+    "rules": [
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": null,
+              "enableAutoTierToHotFromCool": null,
+              "tierToArchive": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 180.0
+              },
+              "tierToCold": null,
+              "tierToCool": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 60.0
+              },
+              "tierToHot": null
+            },
+            "snapshot": null,
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": [
+              "archived/"
+            ]
+          }
+        },
+        "enabled": true,
+        "name": "ArchiveOldData",
+        "type": "Lifecycle"
+      },
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": null,
+            "snapshot": {
+              "delete": {
+                "daysAfterCreationGreaterThan": 60.0,
+                "daysAfterLastTierChangeGreaterThan": null
+              },
+              "tierToArchive": null,
+              "tierToCold": null,
+              "tierToCool": null,
+              "tierToHot": null
+            },
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": null
+          }
+        },
+        "enabled": true,
+        "name": "DeleteSnapshots",
+        "type": "Lifecycle"
+      }
+    ]
+  },
+  "resourceGroup": "ProjectScout-ResourceGroup",
+  "type": "Microsoft.Storage/storageAccounts/managementPolicies"
+}
+Processing retailadvisorstore in RG-TBWA-ProjectScout-Juicer...
+Applying dashboard lifecycle policy to retailadvisorstore...
+{
+  "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/retailadvisorstore/managementPolicies/default",
+  "lastModifiedTime": "2025-05-19T15:33:45.950758+00:00",
+  "name": "DefaultManagementPolicy",
+  "policy": {
+    "rules": [
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": null,
+              "enableAutoTierToHotFromCool": null,
+              "tierToArchive": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 180.0
+              },
+              "tierToCold": null,
+              "tierToCool": {
+                "daysAfterCreationGreaterThan": null,
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterLastTierChangeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 60.0
+              },
+              "tierToHot": null
+            },
+            "snapshot": null,
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": [
+              "archived/"
+            ]
+          }
+        },
+        "enabled": true,
+        "name": "ArchiveOldData",
+        "type": "Lifecycle"
+      },
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": null,
+            "snapshot": {
+              "delete": {
+                "daysAfterCreationGreaterThan": 60.0,
+                "daysAfterLastTierChangeGreaterThan": null
+              },
+              "tierToArchive": null,
+              "tierToCold": null,
+              "tierToCool": null,
+              "tierToHot": null
+            },
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": null
+          }
+        },
+        "enabled": true,
+        "name": "DeleteSnapshots",
+        "type": "Lifecycle"
+      }
+    ]
+  },
+  "resourceGroup": "RG-TBWA-ProjectScout-Juicer",
+  "type": "Microsoft.Storage/storageAccounts/managementPolicies"
+}
+Lifecycle management implementation complete. Results saved to storage_lifecycle_20250519/lifecycle_implementation_results.txt
+
+Policies implemented:
+1. ETL Storage: Moves data to cool tier after 30 days, archive after 90 days, delete after 365 days
+2. Log files: Move to cool tier after 7 days, archive after 30 days, delete after 90 days
+3. Dashboard Storage: More conservative policy for active dashboard data
+
+Next steps:
+1. Monitor storage costs over the next 30-60 days to verify savings
+2. Adjust policies as needed based on access patterns
+3. Consider container-specific policies for finer-grained control

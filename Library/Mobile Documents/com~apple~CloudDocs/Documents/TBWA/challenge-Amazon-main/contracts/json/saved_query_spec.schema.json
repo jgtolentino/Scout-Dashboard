@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", 
+  "required": ["type", "query_name", "sql", "parameters", "cache_ttl"],
+  "properties": {
+    "type": {"const": "SavedQuerySpec"},
+    "query_name": {"type": "string"},
+    "sql": {"type": "string"},
+    "parameters": {"type": "object"},
+    "cache_ttl": {"type": "number"}
+  }
+}

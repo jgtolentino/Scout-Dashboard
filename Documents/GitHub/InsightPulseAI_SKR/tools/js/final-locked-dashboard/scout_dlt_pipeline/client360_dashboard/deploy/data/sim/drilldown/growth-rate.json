@@ -1,0 +1,63 @@
+{
+  "title": "Growth Rate",
+  "summary": {
+    "value": "+8.5%",
+    "label": "Monthly Growth Rate",
+    "trend": "+2.1%",
+    "trendDirection": "positive"
+  },
+  "breakdown": [
+    {
+      "category": "New Customers",
+      "value": "+15.2%",
+      "percentage": "45.0",
+      "change": "+3.8%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Repeat Purchases",
+      "value": "+12.7%",
+      "percentage": "32.5",
+      "change": "+5.1%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Average Order Value",
+      "value": "+6.8%",
+      "percentage": "22.5",
+      "change": "+1.2%",
+      "changeDirection": "positive"
+    }
+  ],
+  "trends": {
+    "data": [
+      {"date": "2024-01-01", "value": 5.2},
+      {"date": "2024-02-01", "value": 6.1},
+      {"date": "2024-03-01", "value": 6.4},
+      {"date": "2024-04-01", "value": 7.8},
+      {"date": "2024-05-01", "value": 8.5}
+    ],
+    "insights": [
+      "Strongest growth quarter in the past 18 months",
+      "Customer acquisition cost decreased by 23% while retention improved",
+      "Digital marketing campaigns showing 3.2x ROI improvement",
+      "Cross-selling initiatives contributing 18% to overall growth"
+    ]
+  },
+  "details": {
+    "topPerformers": [
+      {"name": "Customer Acquisition", "value": "+15.2% growth"},
+      {"name": "Product Bundling", "value": "+12.8% growth"},
+      {"name": "Loyalty Program", "value": "+11.4% growth"},
+      {"name": "Referral System", "value": "+9.7% growth"},
+      {"name": "Seasonal Promotions", "value": "+8.9% growth"}
+    ],
+    "recentActivity": [
+      {"time": "2 hours ago", "description": "New customer onboarding milestone: 100 customers this week"},
+      {"time": "5 hours ago", "description": "Cross-sell campaign generated ₱45K additional revenue"},
+      {"time": "8 hours ago", "description": "Referral program bonus triggered for 12 customers"},
+      {"time": "1 day ago", "description": "Monthly growth target exceeded by 1.2%"},
+      {"time": "2 days ago", "description": "Customer satisfaction survey: 94% positive feedback"}
+    ]
+  }
+}

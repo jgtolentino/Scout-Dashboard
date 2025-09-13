@@ -1,0 +1,77 @@
+{
+  "campaign_metadata": {
+    "client": "Example Client",
+    "campaign_name": "Campaign Name",
+    "year": 2023,
+    "campaign_type": "Brand",
+    "budget_tier": "Mid",
+    "industry_sector": "FMCG",
+    "channels": ["Digital", "TVC", "OOH"],
+    "award_status": {
+      "won_awards": true,
+      "awards": [
+        {"name": "Cannes", "category": "Digital", "level": "Gold"},
+        {"name": "D&AD", "category": "Design", "level": "Wood Pencil"}
+      ]
+    }
+  },
+  "creative_features": {
+    "messaging": {
+      "tone": "Emotional",
+      "call_to_action": "Strong",
+      "storytelling_arc": "Hero's Journey",
+      "humor_level": 2,
+      "innovation_level": 4
+    },
+    "visual_elements": {
+      "color_palette": "Warm",
+      "typography_style": "Modern",
+      "imagery_type": "Lifestyle",
+      "visual_complexity": 3,
+      "brand_prominence": 4
+    },
+    "execution": {
+      "production_quality": 5,
+      "technical_innovation": 3,
+      "cultural_relevance": 4,
+      "localization_level": 3
+    }
+  },
+  "performance_metrics": {
+    "engagement": {
+      "views": 2500000,
+      "likes": 45000,
+      "shares": 12000,
+      "comments": 8500,
+      "average_view_duration": 0.78
+    },
+    "brand_metrics": {
+      "recall": 0.68,
+      "recognition": 0.72,
+      "sentiment_positive": 0.65,
+      "sentiment_negative": 0.08,
+      "brand_lift": 0.15
+    },
+    "conversion": {
+      "click_through_rate": 0.042,
+      "conversion_rate": 0.038,
+      "cost_per_acquisition": 12.50
+    },
+    "business_impact": {
+      "sales_lift": 0.22,
+      "roi": 3.8,
+      "market_share_change": 0.04
+    }
+  },
+  "model_scores": {
+    "ces_overall_score": 82,
+    "feature_importance": {
+      "storytelling_arc": 0.28,
+      "cultural_relevance": 0.22,
+      "production_quality": 0.18,
+      "brand_prominence": 0.15,
+      "technical_innovation": 0.12,
+      "others": 0.05
+    }
+  }
+}

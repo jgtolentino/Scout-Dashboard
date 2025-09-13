@@ -1,0 +1,7 @@
+type: defect_notification
+task_id: "pulser-defect-20250502123456"
+timestamp: "2025-05-02T12:34:56"
+title: "Pulser Defect: Memory leak in auto-search function"
+priority: "high"
+version: "v1.2.1"
+message: "New Pulser v1.2.1 defect reported: Memory leak in auto-search function when processing large code files"

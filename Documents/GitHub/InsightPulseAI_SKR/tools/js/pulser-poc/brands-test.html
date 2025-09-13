@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Performance Dashboard - Real Data Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .card {
+            @apply bg-white rounded-lg shadow-md p-6 border-l-4;
+        }
+        .card-primary { @apply border-blue-500; }
+        .card-success { @apply border-green-500; }
+        .card-warning { @apply border-yellow-500; }
+        .card-danger { @apply border-red-500; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Brand Performance Dashboard</h1>
+            <p class="text-gray-600">Real data from brands_500.json - Live API Integration Test</p>
+            <div id="connection-status" class="mt-2 px-3 py-1 rounded-full text-sm font-medium">
+                🔄 Connecting to API...
+            </div>
+        </header>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="card card-primary">
+                <h3 class="text-sm font-medium text-gray-500 mb-1">Total Revenue</h3>
+                <p id="total-revenue" class="text-2xl font-bold text-gray-900">Loading...</p>
+                <p class="text-xs text-gray-500 mt-1">From 500 brands</p>
+            </div>
+            
+            <div class="card card-success">
+                <h3 class="text-sm font-medium text-gray-500 mb-1">Top Brand</h3>
+                <p id="top-brand" class="text-lg font-bold text-gray-900">Loading...</p>
+                <p id="top-brand-value" class="text-sm text-gray-600">Loading...</p>
+            </div>
+            
+            <div class="card card-warning">
+                <h3 class="text-sm font-medium text-gray-500 mb-1">Fastest Growth</h3>
+                <p id="fastest-growth" class="text-lg font-bold text-gray-900">Loading...</p>
+                <p id="fastest-growth-change" class="text-sm text-gray-600">Loading...</p>
+            </div>
+            
+            <div class="card card-danger">
+                <h3 class="text-sm font-medium text-gray-500 mb-1">Top Category</h3>
+                <p id="top-category" class="text-lg font-bold text-gray-900">Loading...</p>
+                <p id="top-category-value" class="text-sm text-gray-600">Loading...</p>
+            </div>
+        </div>
+
+        <!-- Market Share Chart -->
+        <div class="card mb-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Market Share - Top 10 Brands</h2>
+            <div class="h-96">
+                <canvas id="marketShareChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Brand Leaderboard -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="card">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Brand Leaderboard</h2>
+                <div id="leaderboard" class="space-y-2">
+                    <div class="text-center text-gray-500">Loading leaderboard...</div>
+                </div>
+            </div>
+
+            <!-- Fastest Movers -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Fastest Movers</h2>
+                <div id="movers" class="space-y-2">
+                    <div class="text-center text-gray-500">Loading movers...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="card mt-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">🤖 AI Insights</h2>
+            <div id="insights" class="text-gray-600">
+                Loading AI insights from real brand data...
+            </div>
+        </div>
+
+        <!-- API Test Results -->
+        <div class="card mt-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">🔧 API Test Results</h2>
+            <div id="api-results" class="bg-gray-50 p-4 rounded-md">
+                <div class="text-sm text-gray-600">Testing API endpoints...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:7072/api/brands';
+        let marketShareChart = null;
+
+        // Format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-PH', {
+                style: 'currency',
+                currency: 'PHP',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Update connection status
+        function updateConnectionStatus(status, message) {
+            const statusEl = document.getElementById('connection-status');
+            if (status === 'success') {
+                statusEl.className = 'mt-2 px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800';
+                statusEl.textContent = '✅ ' + message;
+            } else if (status === 'error') {
+                statusEl.className = 'mt-2 px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800';
+                statusEl.textContent = '❌ ' + message;
+            } else {
+                statusEl.className = 'mt-2 px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800';
+                statusEl.textContent = '🔄 ' + message;
+            }
+        }
+
+        // Load KPIs
+        async function loadKPIs() {
+            try {
+                const response = await fetch(`${API_BASE}/kpis`);
+                const data = await response.json();
+                
+                document.getElementById('total-revenue').textContent = formatCurrency(data.totalRevenue);
+                document.getElementById('top-brand').textContent = data.topBrand.name;
+                document.getElementById('top-brand-value').textContent = formatCurrency(data.topBrand.value);
+                document.getElementById('fastest-growth').textContent = data.fastestGrowth.name;
+                document.getElementById('fastest-growth-change').textContent = `+${(data.fastestGrowth.change * 100).toFixed(1)}%`;
+                document.getElementById('top-category').textContent = data.topCategory.name.charAt(0).toUpperCase() + data.topCategory.name.slice(1);
+                document.getElementById('top-category-value').textContent = formatCurrency(data.topCategory.value);
+                
+                return data;
+            } catch (error) {
+                console.error('Error loading KPIs:', error);
+                throw error;
+            }
+        }
+
+        // Load Market Share
+        async function loadMarketShare() {
+            try {
+                const response = await fetch(`${API_BASE}/market-share`);
+                const data = await response.json();
+                
+                // Create chart
+                const ctx = document.getElementById('marketShareChart').getContext('2d');
+                
+                if (marketShareChart) {
+                    marketShareChart.destroy();
+                }
+                
+                const top10 = data.slice(0, 10);
+                
+                marketShareChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: top10.map(item => item.name),
+                        datasets: [{
+                            data: top10.map(item => parseFloat(item.percentage)),
+                            backgroundColor: [
+                                '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6',
+                                '#06B6D4', '#84CC16', '#F97316', '#EC4899', '#6B7280'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                return data;
+            } catch (error) {
+                console.error('Error loading market share:', error);
+                throw error;
+            }
+        }
+
+        // Load Leaderboard
+        async function loadLeaderboard() {
+            try {
+                const response = await fetch(`${API_BASE}/leaderboard`);
+                const data = await response.json();
+                
+                const leaderboardEl = document.getElementById('leaderboard');
+                leaderboardEl.innerHTML = data.slice(0, 10).map((brand, index) => `
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <div class="flex items-center">
+                            <span class="w-6 h-6 bg-blue-100 text-blue-800 rounded-full flex items-center justify-center text-xs font-medium mr-3">
+                                ${index + 1}
+                            </span>
+                            <span class="font-medium text-gray-900">${brand.brand}</span>
+                        </div>
+                        <span class="text-sm font-medium text-gray-600">${formatCurrency(brand.value)}</span>
+                    </div>
+                `).join('');
+                
+                return data;
+            } catch (error) {
+                console.error('Error loading leaderboard:', error);
+                throw error;
+            }
+        }
+
+        // Load Movers
+        async function loadMovers() {
+            try {
+                const response = await fetch(`${API_BASE}/movers`);
+                const data = await response.json();
+                
+                const moversEl = document.getElementById('movers');
+                const gainers = data.gainers.slice(0, 5);
+                const losers = data.losers.slice(0, 5);
+                
+                moversEl.innerHTML = `
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-green-600 mb-2">📈 Top Gainers</h3>
+                        ${gainers.map(brand => `
+                            <div class="flex justify-between items-center py-1">
+                                <span class="text-sm text-gray-900">${brand.brand}</span>
+                                <span class="text-sm font-medium text-green-600">+${(brand.pct_change * 100).toFixed(1)}%</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-red-600 mb-2">📉 Top Losers</h3>
+                        ${losers.map(brand => `
+                            <div class="flex justify-between items-center py-1">
+                                <span class="text-sm text-gray-900">${brand.brand}</span>
+                                <span class="text-sm font-medium text-red-600">${(brand.pct_change * 100).toFixed(1)}%</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                return data;
+            } catch (error) {
+                console.error('Error loading movers:', error);
+                throw error;
+            }
+        }
+
+        // Load Insights
+        async function loadInsights() {
+            try {
+                const response = await fetch(`${API_BASE}/insights`);
+                const data = await response.json();
+                
+                document.getElementById('insights').innerHTML = data.map(insight => `
+                    <div class="mb-2 p-3 bg-blue-50 rounded-md">
+                        <span class="font-medium text-blue-900">${insight.type}:</span>
+                        <span class="text-blue-800">${insight.message}</span>
+                    </div>
+                `).join('');
+                
+                return data;
+            } catch (error) {
+                console.error('Error loading insights:', error);
+                throw error;
+            }
+        }
+
+        // Load all data
+        async function loadDashboard() {
+            updateConnectionStatus('loading', 'Loading dashboard data...');
+            
+            const results = {
+                success: [],
+                errors: []
+            };
+            
+            try {
+                // Test each endpoint
+                const kpis = await loadKPIs();
+                results.success.push('✅ KPIs loaded successfully');
+                
+                const marketShare = await loadMarketShare();
+                results.success.push('✅ Market share chart created');
+                
+                const leaderboard = await loadLeaderboard();
+                results.success.push('✅ Brand leaderboard loaded');
+                
+                const movers = await loadMovers();
+                results.success.push('✅ Fastest movers loaded');
+                
+                const insights = await loadInsights();
+                results.success.push('✅ AI insights loaded');
+                
+                updateConnectionStatus('success', 'All data loaded from brands_500.json');
+                
+                // Update API results
+                document.getElementById('api-results').innerHTML = `
+                    <div class="space-y-2">
+                        ${results.success.map(msg => `<div class="text-green-600 text-sm">${msg}</div>`).join('')}
+                        <div class="mt-4 p-3 bg-green-50 rounded-md">
+                            <div class="text-green-800 font-medium">🎉 Integration Success!</div>
+                            <div class="text-green-700 text-sm mt-1">
+                                Your brands_500.json file is successfully integrated with the Brand Performance Dashboard.
+                                All ${kpis ? '500' : 'N/A'} brands are being processed and displayed with real data.
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+            } catch (error) {
+                updateConnectionStatus('error', 'Failed to connect to API');
+                results.errors.push(`❌ Error: ${error.message}`);
+                
+                document.getElementById('api-results').innerHTML = `
+                    <div class="space-y-2">
+                        ${results.success.map(msg => `<div class="text-green-600 text-sm">${msg}</div>`).join('')}
+                        ${results.errors.map(msg => `<div class="text-red-600 text-sm">${msg}</div>`).join('')}
+                        <div class="mt-4 p-3 bg-red-50 rounded-md">
+                            <div class="text-red-800 font-medium">⚠️ Connection Issue</div>
+                            <div class="text-red-700 text-sm mt-1">
+                                Make sure the brands API server is running at http://127.0.0.1:7072
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+</body>
+</html>

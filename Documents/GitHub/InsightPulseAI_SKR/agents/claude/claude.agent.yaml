@@ -1,0 +1,119 @@
+# Claude Agent Configuration for Pulser CLI
+# Main Claude agent definition for CLI integration
+
+name: Claude
+description: >
+  Primary LLM agent for Pulser CLI providing general language capabilities, code generation, and advanced reasoning. Serves as the backbone for  specialized agents and handles fallback when specialized agents fail.
+
+version: "2.2.2"
+updated: "2025-05-15"
+# Basic agent configuration
+agent_type: foundation
+engine: claude-3-7-sonnet-20250219
+temperature: 0.3
+max_tokens: 4096
+top_p: 0.95
+# Primary capabilities 
+capabilities:
+  - code_generation
+  - text_generation
+  - reasoning
+  - question_answering
+  - creative_content
+  - technical_assistance
+  - prompt_engineering
+  - data_analysis
+# Command line integration
+cli:
+  command_alias: claude
+  description: "Primary Claude agent for general language tasks"
+  subcommands:
+    - name: code
+      description: "Generate or modify code based on requirements"
+      example: "claude code --task 'Create a React component' --language js"
+    - name: answer
+      description: "Answer questions with detailed explanations"
+      example: "claude answer 'How does transformer architecture work?'"
+    - name: document
+      description: "Generate or improve documentation"
+      example: "claude document --input README.md --improve"
+    - name: analyze
+      description: "Analyze code, text, or data with insights"
+      example: "claude analyze --file data.csv --task 'Identify trends'"
+    - name: create
+      description: "Create new content based on requirements"
+      example: "claude create --type 'technical blog' --topic 'Prompt engineering'"
+# Behavior settings
+behavior:
+  # Response style configuration
+  style:
+    tone: professional
+    verbosity: auto-detect # Adapts based on query complexity
+    format: markdown
+    code_blocks: true
+  # Safety and limitations
+  safety:
+    refusal_topics:
+      - illegal_activities
+      - harmful_content
+      - manipulative_content
+    content_policy_version: "2.0"
+  # Code generation specific settings
+  code_generation:
+    prefer_standard_libraries: true
+    include_comments: true
+    error_handling: true
+    test_suggestions: true
+    languages:
+      - python
+      - javascript
+      - typescript
+      - bash
+      - html
+      - css
+      - sql
+      - go
+      - rust
+# Fallback and routing
+routing:
+  default_fallback: claudia # Fall back to Claudia orchestrator if unavailable
+  is_fallback_for: # This agent is a fallback for these agents
+    - dash
+    - echo
+    - kalaw
+    - maya
+    - tala
+    - stacey
+  fallback_priority: high # High priority routing due to general capabilities
+# Internal state handling
+memory:
+  context_window_tokens: 200000
+  memory_persistence: true
+  memory_file: "/Users/tbwa/.claude_memory.json"
+# Task execution framework
+task_execution:
+  max_task_time: 300 # seconds
+  rate_limit: 30 # requests per minute
+  supports_batching: true
+  parallel_tasks: 3
+# Monitoring and telemetry
+monitoring:
+  log_file: "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/logs/claude_agent.log"
+  log_level: "info"
+  performance_metrics: true
+  telemetry_opt_in: true
+# Integration points
+integrations:
+  - kalaw_knowledge_repo
+  - caca_qa_validator
+  - maya_workflow_manager
+  - claudia_orchestration
+# Extra configuration parameters
+config:
+  environment: "production"
+  default_model: "claude-3-7-sonnet-20250219"
+  fallback_model: "claude-3-opus-20240229"
+  api_version: "2025-04-01"
+  license: "InsightPulseAI Commercial"
+resource_quota: 5000_tokens_per_min
+timeout_ms: 90000

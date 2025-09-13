@@ -1,0 +1,171 @@
+{
+  "public": {
+    "users": {
+      "columns": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "type": "character varying",
+          "nullable": false,
+          "default": null
+        },
+        "name": {
+          "type": "text",
+          "nullable": true,
+          "default": null
+        },
+        "created_at": {
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "default": "now()"
+        },
+        "role": {
+          "type": "text",
+          "nullable": false,
+          "default": "'user'"
+        }
+      }
+    },
+    "products": {
+      "columns": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "type": "text",
+          "nullable": false,
+          "default": null
+        },
+        "description": {
+          "type": "text",
+          "nullable": true,
+          "default": null
+        },
+        "price": {
+          "type": "numeric",
+          "nullable": false,
+          "default": "0"
+        },
+        "category": {
+          "type": "text",
+          "nullable": true,
+          "default": null
+        },
+        "stock_quantity": {
+          "type": "integer",
+          "nullable": false,
+          "default": "0"
+        },
+        "created_at": {
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "default": "now()"
+        }
+      }
+    },
+    "orders": {
+      "columns": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "type": "uuid",
+          "nullable": false,
+          "default": null
+        },
+        "status": {
+          "type": "text",
+          "nullable": false,
+          "default": "'pending'"
+        },
+        "total_amount": {
+          "type": "numeric",
+          "nullable": false,
+          "default": "0"
+        },
+        "created_at": {
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "default": "now()"
+        }
+      }
+    }
+  },
+  "scout": {
+    "agents": {
+      "columns": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "type": "text",
+          "nullable": false,
+          "default": null
+        },
+        "type": {
+          "type": "text",
+          "nullable": false,
+          "default": null
+        },
+        "status": {
+          "type": "text",
+          "nullable": false,
+          "default": "'inactive'"
+        },
+        "configuration": {
+          "type": "jsonb",
+          "nullable": true,
+          "default": null
+        },
+        "last_run": {
+          "type": "timestamp with time zone",
+          "nullable": true,
+          "default": null
+        }
+      }
+    },
+    "insights": {
+      "columns": {
+        "id": {
+          "type": "uuid",
+          "nullable": false,
+          "default": "gen_random_uuid()"
+        },
+        "agent_id": {
+          "type": "uuid",
+          "nullable": false,
+          "default": null
+        },
+        "type": {
+          "type": "text",
+          "nullable": false,
+          "default": null
+        },
+        "data": {
+          "type": "jsonb",
+          "nullable": false,
+          "default": "{}"
+        },
+        "confidence": {
+          "type": "numeric",
+          "nullable": true,
+          "default": null
+        },
+        "created_at": {
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "default": "now()"
+        }
+      }
+    }
+  }
+}

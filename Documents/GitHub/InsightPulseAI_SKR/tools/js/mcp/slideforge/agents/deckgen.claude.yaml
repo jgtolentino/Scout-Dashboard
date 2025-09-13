@@ -1,0 +1,178 @@
+name: deckgen
+description: >
+  Slide deck generator powered by Claude
+  This agent provides enterprise-grade functionality with comprehensive error handling,
+  performance optimization, and full observability for production environments.
+version: 1.0.0
+model: claude-3-opus
+
+prompt_template: |
+  # SlideForge Deck Generator
+
+  You are a professional slide deck creator with expertise in business presentations, product launches, and marketing materials.
+
+  ## Task
+  Generate a structured slide deck based on the user's input. Follow these guidelines:
+  
+  1. Analyze the user's request to understand:
+     - Purpose of the deck (product launch, pitch, report, etc.)
+     - Key messages to communicate
+     - Target audience
+     - Desired tone (formal, conversational, persuasive)
+  
+  2. Create a logical flow of slides with appropriate sections
+  
+  3. For each slide, provide:
+     - Title: Clear, concise heading (max 10 words)
+     - Body: Bullet points or short paragraphs (max 50 words total)
+     - Image prompt: Description for generating a relevant visual
+  
+  4. Output format must be valid JSON with this structure:
+  ```json
+  {
+    "title": "Deck Title",
+    "slides": [
+      {
+        "title": "Slide Title",
+        "body": "Slide content goes here. Can include bullet points or paragraphs.",
+        "image_prompt": "Description for generating a visual for this slide"
+      }
+    ]
+  }
+  ```
+
+  ## User Input
+  {{user_input}}
+
+output_format: json
+output_schema:
+  type: object
+  required:
+    - title
+    - slides
+  properties:
+    title:
+      type: string
+      description: The title of the entire deck
+    slides:
+      type: array
+      items:
+        type: object
+        required:
+          - title
+          - body
+          - image_prompt
+        properties:
+          title:
+            type: string
+            description: The title of the slide
+          body:
+            type: string
+            description: The main content of the slide
+          image_prompt:
+            type: string
+            description: Description for generating a visual
+
+examples:
+  - input: "Create a 5-slide deck to pitch a product called 'PulseSync', a team calendar powered by AI. Include: 1 title slide, 3 feature/benefit slides, 1 CTA"
+    output: |
+      {
+        "title": "PulseSync: AI-Powered Team Scheduling",
+        "slides": [
+          {
+            "title": "Introducing PulseSync",
+            "body": "The AI-powered team calendar that thinks ahead.",
+            "image_prompt": "Sleek, modern calendar UI with subtle AI visualization elements, professional and clean design"
+          },
+          {
+            "title": "Smart Scheduling",
+            "body": "• Automatically finds optimal meeting times\n• Learns team preferences and patterns\n• Reduces scheduling conflicts by 87%",
+            "image_prompt": "Split screen showing chaotic calendar vs. organized PulseSync calendar with AI suggesting optimal times"
+          },
+          {
+            "title": "Team Insights",
+            "body": "• Analyzes meeting effectiveness\n• Suggests focus time protection\n• Provides team availability forecasting",
+            "image_prompt": "Dashboard with meeting analytics and team availability heat map"
+          },
+          {
+            "title": "Seamless Integration",
+            "body": "• Works with existing tools (Slack, Teams, etc.)\n• No manual data entry\n• Available on all devices",
+            "image_prompt": "Multiple devices showing PulseSync connected to various common workplace tools"
+          },
+          {
+            "title": "Start Optimizing Your Team's Time Today",
+            "body": "Launch offer: $9/user/month\nFree 30-day trial\nEnterprise plans available\n\nwww.pulsesync.ai",
+            "image_prompt": "Clean call-to-action screen with subtle clock imagery and a prominent start button"
+          }
+        ]
+      }
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+
+lifecycle:
+  on_start:
+    - action: validate_environment
+    - action: load_configuration
+    - action: initialize_connections
+  on_ready:
+    - action: register_with_discovery
+    - action: start_health_checks
+  on_shutdown:
+    - action: deregister_from_discovery
+    - action: cleanup_resources
+    - action: save_state
+
+observability:
+  logging:
+    level: info
+    format: json
+    outputs:
+      - stdout
+      - file: /logs/agent.log
+  tracing:
+    enabled: true
+    provider: opentelemetry
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    provider: prometheus
+    endpoint: /metrics

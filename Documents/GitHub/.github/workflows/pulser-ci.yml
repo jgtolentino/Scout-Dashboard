@@ -1,0 +1,95 @@
+name: Pulser Local LLM CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: 🔒 Check for cloud API leaks
+        run: |
+          chmod +x ./ci-cloud-leak-guard.sh
+          ./ci-cloud-leak-guard.sh
+
+  test-local-llm:
+    runs-on: ubuntu-latest
+    needs: security-check
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: 📦 Install Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          
+      - name: 🚀 Start Ollama service
+        run: |
+          ollama serve &
+          sleep 5
+          
+      - name: 📥 Pull test model
+        run: |
+          ollama pull tinyllama:latest
+          
+      - name: 🧪 Run test suite
+        run: |
+          chmod +x ./test-pulser-local.sh
+          ./test-pulser-local.sh
+          
+      - name: 📊 Check test results
+        run: |
+          if [ -f ~/.pulser/metrics.log ]; then
+            echo "Metrics collected:"
+            tail -5 ~/.pulser/metrics.log
+          fi
+
+  build-extension:
+    runs-on: ubuntu-latest
+    needs: security-check
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          
+      - name: 📦 Install dependencies
+        run: |
+          cd cline-wrapper
+          npm ci
+          npm install -g @vscode/vsce
+          
+      - name: 🔨 Build extension
+        run: |
+          cd cline-wrapper
+          npm run compile
+          vsce package --no-dependencies
+          
+      - name: 📤 Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: vscode-extension
+          path: cline-wrapper/*.vsix
+
+  validate-models:
+    runs-on: ubuntu-latest
+    needs: test-local-llm
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: 📋 Validate model licenses
+        run: |
+          echo "Checking MODELS.md exists..."
+          test -f MODELS.md || exit 1
+          
+      - name: 🔍 Check configuration
+        run: |
+          # Verify safe defaults
+          grep "context_size: 3584" pulser.yml || exit 1
+          grep "concurrency: 1" pulser.yml || exit 1

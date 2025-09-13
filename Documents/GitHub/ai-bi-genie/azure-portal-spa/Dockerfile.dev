@@ -1,0 +1,30 @@
+# Angular Development Dockerfile
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install Angular CLI globally
+RUN npm install -g @angular/cli@17
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S angular -u 1001 -G nodejs && \
+    chown -R angular:nodejs /app
+
+USER angular
+
+# Expose port
+EXPOSE 4200
+
+# Start development server
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--poll", "2000"]

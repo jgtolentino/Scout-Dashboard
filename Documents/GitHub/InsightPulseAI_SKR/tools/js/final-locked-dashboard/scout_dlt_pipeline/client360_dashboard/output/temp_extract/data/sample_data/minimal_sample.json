@@ -1,0 +1,61 @@
+{
+  "metadata": {
+    "simulated": true,
+    "version": "1.0.0",
+    "created": "2025-05-19T22:30:00Z",
+    "source": "static_generator"
+  },
+  "data": {
+    "kpis": {
+      "total_sales": 5824350,
+      "sales_change": 12.3,
+      "conversion_rate": 4.8,
+      "conversion_change": 0.7,
+      "marketing_roi": 3.2,
+      "roi_change": 0.2,
+      "brand_sentiment": 78.5,
+      "sentiment_change": 2.1
+    },
+    "brands": [
+      { "brand_name": "Brand A", "performance_score": 87.5 },
+      { "brand_name": "Brand B", "performance_score": 82.3 },
+      { "brand_name": "Brand C", "performance_score": 76.8 },
+      { "brand_name": "Brand D", "performance_score": 75.1 },
+      { "brand_name": "Brand E", "performance_score": 72.4 }
+    ],
+    "regions": [
+      { "region_name": "Total", "sales_value": 12345678, "trend": [1020345, 1120500, 1240300, 1320600, 1500700, 1650400] },
+      { "region_name": "NCR", "sales_value": 3456789, "sales_change": 4.5 },
+      { "region_name": "Luzon", "sales_value": 2567890, "sales_change": 3.2 },
+      { "region_name": "Visayas", "sales_value": 2123456, "sales_change": 5.1 },
+      { "region_name": "Mindanao", "sales_value": 1987654, "sales_change": -0.8 }
+    ],
+    "recommendations": [
+      { "insight_type": "recommendation", "insight_text": "Increase inventory of high-demand items in NCR region to capture additional sales" },
+      { "insight_type": "recommendation", "insight_text": "Consider promotions for Brand C products to boost market share against competitors" },
+      { "insight_type": "recommendation", "insight_text": "Optimize store layouts based on recent traffic patterns and customer behavior" }
+    ],
+    "brandDictionary": {
+      "insight_type": "brand_dictionary",
+      "top_brands": ["Brand A", "Brand B", "Brand C"],
+      "brand_associations": [
+        { "brand": "Brand A", "association": "quality" },
+        { "brand": "Brand B", "association": "value" }
+      ]
+    },
+    "emotionalAnalysis": {
+      "insight_type": "emotional_analysis",
+      "peak_time": "5:30 PM",
+      "contextual_insights": [
+        "Customers respond positively to product demonstrations",
+        "Evening shoppers show higher engagement with promotional materials"
+      ]
+    },
+    "bundling": {
+      "insight_type": "bundling",
+      "products": ["Product X", "Product Y"],
+      "correlation": 85.3,
+      "potential_increase": 12.5
+    }
+  }
+}

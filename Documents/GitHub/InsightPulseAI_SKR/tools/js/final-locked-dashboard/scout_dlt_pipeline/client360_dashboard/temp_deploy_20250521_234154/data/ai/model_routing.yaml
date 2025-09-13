@@ -1,0 +1,190 @@
+# Client360 Dashboard - AI Model Routing Configuration
+# This file configures how different AI models are used across the dashboard
+# for various insight generation tasks.
+
+# Global configuration settings
+global:
+  default_provider: azure_openai
+  fallback_provider: local_embeddings
+  cache_duration_minutes: 30
+  log_level: info
+  synthetic_data_prefix: "SIM-"
+  enable_tracing: true
+  max_token_limit: 4000
+  timeout_seconds: 15
+
+# Azure OpenAI Configuration
+providers:
+  azure_openai:
+    base_url: ${AZURE_OPENAI_ENDPOINT}
+    api_version: "2023-12-01-preview"
+    api_key: ${AZURE_OPENAI_API_KEY}
+    deployment:
+      completion: tbwa-gpt4-turbo
+      embedding: tbwa-text-embedding-ada-002
+      chat: tbwa-gpt4-turbo
+    models:
+      gpt4: 
+        deployment_id: tbwa-gpt4-turbo
+        max_tokens: 4000
+        temperature: 0.2
+      gpt35turbo:
+        deployment_id: tbwa-gpt35-turbo
+        max_tokens: 2048
+        temperature: 0.3
+      text_embedding:
+        deployment_id: tbwa-text-embedding-ada-002
+        dimensions: 1536
+  
+  local_embeddings:
+    type: huggingface
+    model_name: all-MiniLM-L6-v2
+    cache_dir: ${APP_ROOT}/data/models/cache
+    dimensions: 384
+    normalize: true
+
+# Model routing rules for different analysis types
+routing:
+  sales_insights:
+    primary_model: azure_openai.gpt4
+    fallback_model: azure_openai.gpt35turbo
+    prompt_template: sales_insights_template
+    token_limit: 3500
+    required_fields:
+      - StoreID
+      - Date
+      - ProductCategory
+      - TotalSales
+    output_format: json
+    refresh_interval_hours: 24
+
+  brand_analysis:
+    primary_model: azure_openai.gpt4
+    fallback_model: azure_openai.gpt35turbo
+    prompt_template: brand_analysis_template
+    token_limit: 3000
+    required_fields:
+      - BrandID
+      - InteractionCount
+      - SentimentScore
+      - Category
+    output_format: json
+    refresh_interval_hours: 48
+
+  store_recommendations:
+    primary_model: azure_openai.gpt4
+    prompt_template: store_recommendations_template
+    token_limit: 3500
+    required_fields:
+      - StoreID
+      - Region
+      - CityMunicipality
+      - Barangay
+      - HistoricalSales
+    output_format: json
+    refresh_interval_hours: 72
+
+  market_trends:
+    primary_model: azure_openai.gpt4
+    prompt_template: market_trends_template
+    token_limit: 4000
+    required_fields:
+      - TimeRange
+      - ProductCategories
+      - Regions
+    output_format: json
+    refresh_interval_hours: 168  # Weekly
+
+  vision_analysis:
+    primary_model: azure_openai.gpt4
+    prompt_template: vision_analysis_template
+    token_limit: 3000
+    required_fields:
+      - ImageURL
+      - StoreID
+      - Date
+    output_format: json
+    refresh_interval_hours: 168  # Weekly
+
+# Prompt templates configuration
+prompt_templates:
+  sales_insights_template:
+    file: ${APP_ROOT}/data/prompts/sales_insights_prompt.txt
+    variables:
+      - StoreID
+      - DateRange
+      - ProductCategory
+      - SalesData
+    system_message: "You are an expert retail analyst providing concise, actionable insights about store sales performance."
+
+  brand_analysis_template:
+    file: ${APP_ROOT}/data/prompts/brand_analysis_prompt.txt
+    variables:
+      - BrandID
+      - BrandName
+      - Category
+      - InteractionData
+      - CompetitorData
+    system_message: "You are a brand analytics expert providing insights about brand performance in sari-sari stores."
+
+  store_recommendations_template:
+    file: ${APP_ROOT}/data/prompts/store_recommendations_prompt.txt
+    variables:
+      - StoreID
+      - StoreName
+      - LocationData
+      - SalesHistory
+      - ProductMix
+    system_message: "You are a retail optimization expert providing actionable recommendations to improve store performance."
+
+  market_trends_template:
+    file: ${APP_ROOT}/data/prompts/market_trends_prompt.txt
+    variables:
+      - TimeRange
+      - RegionalData
+      - CategoryData
+      - CompetitorData
+    system_message: "You are a market analyst identifying trends and patterns in the sari-sari store ecosystem across the Philippines."
+
+  vision_analysis_template:
+    file: ${APP_ROOT}/data/prompts/vision_analysis_prompt.txt
+    variables:
+      - ImageURL
+      - StoreContext
+      - PreviousFindings
+    system_message: "You are a visual merchandising expert analyzing store shelf and product placement images."
+
+# Monitoring and telemetry configuration
+monitoring:
+  enable_token_tracking: true
+  log_all_prompts: false
+  log_all_completions: false
+  error_reporting:
+    method: azure_application_insights
+    connection_string: ${APPINSIGHTS_CONNECTION_STRING}
+  performance_metrics:
+    track_latency: true
+    track_token_usage: true
+    track_error_rate: true
+  cost_management:
+    budget_limit_monthly_usd: 500
+    alert_threshold_percentage: 80
+    quota_exceeded_behavior: fallback_to_cached
+
+# Security and compliance settings
+security:
+  pii_detection:
+    enabled: true
+    redact_in_prompts: true
+    redact_in_logs: true
+  data_retention:
+    prompt_logs_days: 30
+    completion_logs_days: 30
+    usage_metrics_days: 365
+  access_control:
+    role_based_access: true
+    roles:
+      - admin
+      - analyst
+      - viewer
+    default_role: viewer

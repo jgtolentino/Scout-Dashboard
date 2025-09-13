@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scout Dashboard - Transaction Trends POC</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/recharts@2.5.0/umd/Recharts.js"></script>
+    <script src="https://unpkg.com/date-fns@2.29.3/index.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/react-leaflet@4.2.1/dist/react-leaflet.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .loading-spinner { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        const { useState, useEffect } = React;
+        const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } = Recharts;
+
+        // Heatmap Chart Component
+        function HeatmapChart({ dateRange }) {
+            const [heatmapData, setHeatmapData] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            const fetchHeatmapData = async () => {
+                setLoading(true);
+                setError(null);
+                
+                try {
+                    const params = new URLSearchParams({
+                        startDate: dateRange.startDate,
+                        endDate: dateRange.endDate,
+                        minDensity: 0
+                    });
+                    
+                    const response = await fetch(`https://scout-dashboard-poc-api.azurewebsites.net/api/transactions/heatmap?${params}`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const result = await response.json();
+                    setHeatmapData(result);
+                } catch (err) {
+                    setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            useEffect(() => {
+                fetchHeatmapData();
+            }, [dateRange.startDate, dateRange.endDate]);
+
+            if (loading) {
+                return React.createElement('div', { className: 'flex items-center justify-center h-64' },
+                    React.createElement('div', { className: 'loading-spinner rounded-full h-8 w-8 border-b-2 border-blue-600' }),
+                    React.createElement('span', { className: 'ml-3 text-gray-600 text-sm' }, 'Loading heatmap...')
+                );
+            }
+
+            if (error) {
+                return React.createElement('div', { className: 'bg-red-50 border border-red-200 rounded-lg p-4' },
+                    React.createElement('h4', { className: 'text-red-800 font-medium text-sm' }, 'Heatmap Error'),
+                    React.createElement('p', { className: 'text-red-700 mt-1 text-xs' }, error),
+                    React.createElement('button', { 
+                        onClick: fetchHeatmapData,
+                        className: 'mt-2 text-xs bg-red-100 hover:bg-red-200 text-red-800 px-2 py-1 rounded'
+                    }, 'Retry')
+                );
+            }
+
+            if (!heatmapData || !heatmapData.data || heatmapData.data.length === 0) {
+                return React.createElement('div', { className: 'flex items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-lg' },
+                    React.createElement('div', { className: 'text-center' },
+                        React.createElement('div', { className: 'text-gray-400 text-sm' }, 'No geographic data available'),
+                        React.createElement('div', { className: 'text-gray-500 text-xs mt-1' }, 'for the selected date range')
+                    )
+                );
+            }
+
+            // Simple heatmap visualization using CSS gradients
+            const maxDensity = Math.max(...heatmapData.data.map(d => d.density));
+            const getIntensityColor = (density) => {
+                const intensity = density / maxDensity;
+                const opacity = Math.max(0.1, intensity);
+                return `rgba(59, 130, 246, ${opacity})`;
+            };
+
+            return React.createElement('div', { 
+                className: 'space-y-4',
+                'data-testid': 'location-heatmap'
+            },
+                // Summary
+                React.createElement('div', { className: 'flex justify-between items-center' },
+                    React.createElement('div', { className: 'text-sm text-gray-600' },
+                        `${heatmapData.data.length} locations with transaction data`
+                    ),
+                    React.createElement('div', { className: 'text-xs text-gray-500' },
+                        `Max density: ${maxDensity.toFixed(2)}`
+                    )
+                ),
+                
+                // Location grid
+                React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-64 overflow-y-auto' },
+                    heatmapData.data.slice(0, 12).map((location, index) =>
+                        React.createElement('div', { 
+                            key: index, 
+                            className: 'p-3 rounded-lg border',
+                            style: { backgroundColor: getIntensityColor(location.density) }
+                        },
+                            React.createElement('div', { className: 'text-sm font-medium text-gray-900' }, location.barangay),
+                            React.createElement('div', { className: 'text-xs text-gray-600' }, 
+                                `${location.municipality}, ${location.province}`
+                            ),
+                            React.createElement('div', { className: 'mt-2 flex justify-between text-xs' },
+                                React.createElement('span', { className: 'text-blue-600 font-medium' }, 
+                                    `${location.transactionCount} txn`
+                                ),
+                                React.createElement('span', { className: 'text-green-600' }, 
+                                    `₱${location.totalAmount.toLocaleString()}`
+                                )
+                            )
+                        )
+                    )
+                ),
+                
+                heatmapData.data.length > 12 && React.createElement('div', { className: 'text-center' },
+                    React.createElement('div', { className: 'text-xs text-gray-500' },
+                        `... and ${heatmapData.data.length - 12} more locations`
+                    )
+                )
+            );
+        }
+
+        // Transaction Trends Component
+        function TransactionTrends() {
+            const [data, setData] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+            const [dateRange, setDateRange] = useState({
+                startDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                endDate: new Date().toISOString().split('T')[0]
+            });
+
+            const fetchData = async () => {
+                setLoading(true);
+                setError(null);
+                
+                try {
+                    const params = new URLSearchParams({
+                        startDate: dateRange.startDate,
+                        endDate: dateRange.endDate
+                    });
+                    
+                    const response = await fetch(`https://scout-dashboard-poc-api.azurewebsites.net/api/transactions/trends?${params}`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const result = await response.json();
+                    setData(result);
+                } catch (err) {
+                    setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            useEffect(() => {
+                fetchData();
+            }, [dateRange.startDate, dateRange.endDate]);
+
+            if (loading) {
+                return React.createElement('div', { className: 'flex items-center justify-center h-64' },
+                    React.createElement('div', { className: 'loading-spinner rounded-full h-12 w-12 border-b-2 border-blue-600' }),
+                    React.createElement('span', { className: 'ml-3 text-gray-600' }, 'Loading transaction trends...')
+                );
+            }
+
+            if (error) {
+                return React.createElement('div', { className: 'bg-red-50 border border-red-200 rounded-lg p-4' },
+                    React.createElement('h3', { className: 'text-red-800 font-medium' }, 'Error loading data'),
+                    React.createElement('p', { className: 'text-red-700 mt-1' }, error),
+                    React.createElement('button', { 
+                        onClick: fetchData,
+                        className: 'mt-2 text-sm bg-red-100 hover:bg-red-200 text-red-800 px-3 py-1 rounded'
+                    }, 'Retry')
+                );
+            }
+
+            return React.createElement('div', { className: 'min-h-screen bg-gray-50 p-6' },
+                React.createElement('div', { className: 'max-w-7xl mx-auto' },
+                    // Header
+                    React.createElement('div', { className: 'mb-8' },
+                        React.createElement('h1', { className: 'text-3xl font-bold text-gray-900 mb-2' }, 'Transaction Trends POC'),
+                        React.createElement('p', { className: 'text-gray-600' }, 'Analyze transaction patterns and duration metrics')
+                    ),
+                    
+                    // Date Range Picker
+                    React.createElement('div', { className: 'bg-white rounded-lg shadow p-4 mb-6' },
+                        React.createElement('div', { className: 'flex items-center space-x-4' },
+                            React.createElement('div', null,
+                                React.createElement('label', { className: 'block text-sm font-medium text-gray-700 mb-1' }, 'Start Date'),
+                                React.createElement('input', {
+                                    type: 'date',
+                                    value: dateRange.startDate,
+                                    onChange: (e) => setDateRange(prev => ({ ...prev, startDate: e.target.value })),
+                                    className: 'border border-gray-300 rounded px-3 py-2 text-sm'
+                                })
+                            ),
+                            React.createElement('div', null,
+                                React.createElement('label', { className: 'block text-sm font-medium text-gray-700 mb-1' }, 'End Date'),
+                                React.createElement('input', {
+                                    type: 'date',
+                                    value: dateRange.endDate,
+                                    onChange: (e) => setDateRange(prev => ({ ...prev, endDate: e.target.value })),
+                                    className: 'border border-gray-300 rounded px-3 py-2 text-sm'
+                                })
+                            ),
+                            React.createElement('div', { className: 'pt-6' },
+                                React.createElement('button', {
+                                    onClick: fetchData,
+                                    disabled: loading,
+                                    className: 'bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-4 py-2 rounded text-sm font-medium'
+                                }, loading ? 'Loading...' : 'Refresh')
+                            )
+                        )
+                    ),
+                    
+                    // Summary Stats
+                    data && React.createElement('div', { className: 'bg-white rounded-lg shadow p-6 mb-6' },
+                        React.createElement('h3', { className: 'text-lg font-semibold text-gray-900 mb-4' }, 'Summary Statistics'),
+                        React.createElement('div', { className: 'grid grid-cols-2 md:grid-cols-4 gap-4' },
+                            React.createElement('div', { className: 'text-center' },
+                                React.createElement('div', { className: 'text-2xl font-bold text-blue-600' }, 
+                                    data.summaryStats.totalTransactions?.toLocaleString() || '0'
+                                ),
+                                React.createElement('div', { className: 'text-sm text-gray-500' }, 'Total Transactions')
+                            ),
+                            React.createElement('div', { className: 'text-center' },
+                                React.createElement('div', { className: 'text-2xl font-bold text-green-600' }, 
+                                    '₱' + (data.summaryStats.avgTransactionAmount?.toFixed(2) || '0.00')
+                                ),
+                                React.createElement('div', { className: 'text-sm text-gray-500' }, 'Avg Amount')
+                            ),
+                            React.createElement('div', { className: 'text-center' },
+                                React.createElement('div', { className: 'text-2xl font-bold text-purple-600' }, 
+                                    (data.summaryStats.avgDurationSeconds / 60)?.toFixed(1) + 'm' || '0m'
+                                ),
+                                React.createElement('div', { className: 'text-sm text-gray-500' }, 'Avg Duration')
+                            ),
+                            React.createElement('div', { className: 'text-center' },
+                                React.createElement('div', { className: 'text-2xl font-bold text-orange-600' }, 
+                                    data.summaryStats.durationCompleteness + '%' || '0%'
+                                ),
+                                React.createElement('div', { className: 'text-sm text-gray-500' }, 'Data Completeness')
+                            )
+                        )
+                    ),
+                    
+                    // Charts
+                    data && React.createElement('div', { className: 'space-y-6' },
+                        // Geographic Heatmap
+                        React.createElement('div', { className: 'bg-white rounded-lg shadow p-6' },
+                            React.createElement('h3', { className: 'text-lg font-semibold text-gray-900 mb-4' }, 'Geographic Heatmap'),
+                            React.createElement(HeatmapChart, { dateRange })
+                        ),
+                        
+                        // Time-series Charts
+                        React.createElement('div', { className: 'grid grid-cols-1 lg:grid-cols-2 gap-6' },
+                        // Hourly Volume Chart
+                        React.createElement('div', { className: 'bg-white rounded-lg shadow p-6' },
+                            React.createElement('h3', { className: 'text-lg font-semibold text-gray-900 mb-4' }, 'Hourly Transaction Volume'),
+                            React.createElement(ResponsiveContainer, { width: '100%', height: 300 },
+                                React.createElement(LineChart, { data: data.hourlyVolume },
+                                    React.createElement(CartesianGrid, { strokeDasharray: '3 3' }),
+                                    React.createElement(XAxis, { 
+                                        dataKey: 'hour',
+                                        tickFormatter: (value) => `${value}:00`
+                                    }),
+                                    React.createElement(YAxis),
+                                    React.createElement(Tooltip, {
+                                        formatter: (value, name) => [value, name === 'transactionCount' ? 'Transactions' : name]
+                                    }),
+                                    React.createElement(Legend),
+                                    React.createElement(Line, {
+                                        type: 'monotone',
+                                        dataKey: 'transactionCount',
+                                        stroke: '#2563eb',
+                                        strokeWidth: 2,
+                                        name: 'Transaction Count'
+                                    })
+                                )
+                            )
+                        ),
+                        
+                        // Duration Distribution
+                        React.createElement('div', { className: 'bg-white rounded-lg shadow p-6' },
+                            React.createElement('h3', { className: 'text-lg font-semibold text-gray-900 mb-4' }, 'Duration Distribution'),
+                            React.createElement('div', { className: 'space-y-4' },
+                                data.durationDistribution.map((item, index) =>
+                                    React.createElement('div', { key: index, className: 'flex items-center space-x-4' },
+                                        React.createElement('div', { className: 'w-24 text-sm font-medium text-gray-700' }, item.category),
+                                        React.createElement('div', { className: 'flex-1 relative h-8 bg-gray-100 rounded' },
+                                            React.createElement('div', {
+                                                className: 'absolute h-full bg-blue-200 border border-blue-400',
+                                                style: {
+                                                    left: `${(item.q1 / item.maxDuration) * 100}%`,
+                                                    width: `${((item.q3 - item.q1) / item.maxDuration) * 100}%`
+                                                }
+                                            }),
+                                            React.createElement('div', {
+                                                className: 'absolute h-full w-0.5 bg-blue-600',
+                                                style: { left: `${(item.median / item.maxDuration) * 100}%` }
+                                            }),
+                                            React.createElement('div', { className: 'absolute -top-6 text-xs text-gray-500' },
+                                                item.count + ' transactions'
+                                            )
+                                        ),
+                                        React.createElement('div', { className: 'w-16 text-sm text-gray-600' },
+                                            (item.avgDuration / 60).toFixed(1) + 'm'
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        )
+                    ),
+                    
+                    // Footer
+                    data && React.createElement('div', { className: 'mt-6 text-xs text-gray-500 text-center' },
+                        `Data generated at ${new Date(data.metadata.generatedAt).toLocaleString()} | `,
+                        `Source: ${data.metadata.dataSource} | `,
+                        `Range: ${data.metadata.request.startDate} to ${data.metadata.request.endDate}`
+                    )
+                )
+            );
+        }
+
+        // App Component
+        function App() {
+            return React.createElement('div', { className: 'min-h-screen bg-gray-50' },
+                // Navigation
+                React.createElement('nav', { className: 'bg-white shadow-sm border-b border-gray-200' },
+                    React.createElement('div', { className: 'max-w-7xl mx-auto px-6' },
+                        React.createElement('div', { className: 'flex justify-between items-center h-16' },
+                            React.createElement('div', { className: 'flex items-center space-x-8' },
+                                React.createElement('div', { className: 'text-xl font-bold text-gray-900' }, 'Scout Dashboard'),
+                                React.createElement('div', { className: 'text-gray-600 text-sm' }, 'Transaction Trends POC')
+                            ),
+                            React.createElement('div', { className: 'text-sm text-gray-500' }, 'POC v1.0')
+                        )
+                    )
+                ),
+                // Main content
+                React.createElement(TransactionTrends)
+            );
+        }
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+    </script>
+</body>
+</html>

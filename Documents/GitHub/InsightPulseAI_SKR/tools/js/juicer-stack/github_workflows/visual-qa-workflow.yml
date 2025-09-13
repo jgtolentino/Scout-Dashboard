@@ -1,0 +1,83 @@
+name: Visual QA Testing
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'dashboards/**'
+      - 'public/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'dashboards/**'
+      - 'public/**'
+  workflow_dispatch:
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          
+      - name: Install dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          
+      - name: Create QA directories
+        run: |
+          mkdir -p ~/.pulser/QA/baseline
+          mkdir -p ~/.pulser/QA/diffs
+      
+      - name: Download baseline images
+        uses: actions/download-artifact@v2
+        with:
+          name: visual-qa-baseline
+          path: ~/.pulser/QA/baseline
+        continue-on-error: true
+      
+      - name: Start test server
+        run: |
+          npm run start:test &
+          sleep 5
+      
+      - name: Run Visual QA tests
+        run: node dashboard_qa.js --start-server
+        
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: visual-qa-results
+          path: |
+            qa/reports/
+            ~/.pulser/QA/diffs/
+      
+      - name: Upload new baseline images
+        uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          name: visual-qa-baseline
+          path: ~/.pulser/QA/baseline/
+      
+      - name: Send notification on failure
+        if: failure()
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number;
+            if (issue_number) {
+              github.rest.issues.createComment({
+                issue_number: issue_number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '❌ Visual QA tests failed. Please check the artifacts for details.'
+              });
+            }

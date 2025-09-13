@@ -1,0 +1,81 @@
+/* 
+ * Hover and active state transitions for consistent UX
+ * This file adds interactive state classes
+ */
+
+@layer utilities {
+  /* Transition duration classes */
+  .transition-fast {
+    transition-duration: 150ms;
+  }
+  
+  .transition-default {
+    transition-duration: 200ms;
+  }
+  
+  .transition-slow {
+    transition-duration: 300ms;
+  }
+  
+  /* Common hover effects */
+  .hover-lift {
+    @apply transition-all duration-200;
+  }
+  
+  .hover-lift:hover {
+    @apply translate-y-[-2px] shadow-md;
+  }
+  
+  .hover-lift:active {
+    @apply translate-y-0 shadow-sm;
+  }
+  
+  /* Button hover effects */
+  .hover-button {
+    @apply transition-all duration-200;
+  }
+  
+  .hover-button:hover {
+    @apply brightness-105 shadow-sm;
+  }
+  
+  .hover-button:active {
+    @apply brightness-95 shadow-none;
+  }
+  
+  /* Card hover effects */
+  .hover-card {
+    @apply transition-all duration-200;
+  }
+  
+  .hover-card:hover {
+    @apply shadow-md bg-background/80;
+  }
+  
+  .hover-card:active {
+    @apply shadow-sm bg-background;
+  }
+  
+  /* Scale hover effects */
+  .hover-scale {
+    @apply transition-all duration-200;
+  }
+  
+  .hover-scale:hover {
+    @apply scale-[1.02];
+  }
+  
+  .hover-scale:active {
+    @apply scale-[0.99];
+  }
+  
+  /* Focus ring styles */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2;
+  }
+  
+  /* Disabled styles */
+  .disabled-element {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}

@@ -1,0 +1,3002 @@
+[
+  {
+    "timestamp": "2025-04-27T17:36:14.439754",
+    "brand": "Winston",
+    "value": 2401349.07,
+    "pct_change": -0.0693
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.439779",
+    "brand": "Oishi Ridges",
+    "value": 2853021.25,
+    "pct_change": -0.0288
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.439792",
+    "brand": "Deli Mex",
+    "value": 876251.89,
+    "pct_change": 0.1601
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.439804",
+    "brand": "Cyclone (Bleach)",
+    "value": 1206971.86,
+    "pct_change": 0.0083
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.439814",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 845022.28,
+    "pct_change": 0.1653
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.439826",
+    "brand": "Del Monte Pineapple",
+    "value": 1271439.87,
+    "pct_change": 0.2444
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.439837",
+    "brand": "Oishi Prawn Crackers",
+    "value": 2928919.3,
+    "pct_change": 0.0612
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.439852",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 1125199.81,
+    "pct_change": 0.236
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.439865",
+    "brand": "Caster",
+    "value": 470171.75,
+    "pct_change": 0.0036
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.439879",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 759370.76,
+    "pct_change": 0.2185
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.439893",
+    "brand": "Oishi Bread Pan",
+    "value": 1971483.29,
+    "pct_change": 0.2057
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.439907",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 982155.76,
+    "pct_change": 0.1074
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.439918",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 1126444.52,
+    "pct_change": -0.0667
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.439928",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 2282770.43,
+    "pct_change": 0.142
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.439940",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 800052.96,
+    "pct_change": 0.1765
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.439952",
+    "brand": "Gourmet Picks",
+    "value": 2112896.13,
+    "pct_change": 0.0172
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.439962",
+    "brand": "Camel",
+    "value": 2459491.58,
+    "pct_change": -0.0138
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.439973",
+    "brand": "Oishi Prawn Crackers",
+    "value": 1345967.06,
+    "pct_change": 0.1606
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.439982",
+    "brand": "Del Monte Pineapple",
+    "value": 2167125.12,
+    "pct_change": -0.0796
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.439992",
+    "brand": "Oishi Marty's",
+    "value": 2464636.14,
+    "pct_change": -0.0112
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.440002",
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 1451839.6,
+    "pct_change": 0.2056
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.440012",
+    "brand": "Caster",
+    "value": 796920.08,
+    "pct_change": 0.063
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.440021",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 1316354.58,
+    "pct_change": 0.0438
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.440031",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 1300270.74,
+    "pct_change": 0.0631
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.440040",
+    "brand": "Gourmet Picks",
+    "value": 1659076.2,
+    "pct_change": -0.0601
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.440050",
+    "brand": "Caster",
+    "value": 1062111.3,
+    "pct_change": 0.0118
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.440061",
+    "brand": "Mighty",
+    "value": 2953802.41,
+    "pct_change": 0.1084
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.440072",
+    "brand": "Mevius (formerly Mild Seven)",
+    "value": 228853.2,
+    "pct_change": 0.0532
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.440082",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 1946920.62,
+    "pct_change": 0.136
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.440093",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 428636.14,
+    "pct_change": 0.1624
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.440104",
+    "brand": "Deli Mex",
+    "value": 2233690.72,
+    "pct_change": 0.0076
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.440114",
+    "brand": "Winston",
+    "value": 585160.59,
+    "pct_change": 0.0462
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.440125",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 1764723.88,
+    "pct_change": 0.2288
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.440135",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 1761137.55,
+    "pct_change": 0.0652
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.440147",
+    "brand": "Oishi Ridges",
+    "value": 2938229.24,
+    "pct_change": -0.0787
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.440157",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 279335.22,
+    "pct_change": 0.0716
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.440168",
+    "brand": "Oaties",
+    "value": 2382750.6,
+    "pct_change": 0.0416
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.440178",
+    "brand": "Oaties",
+    "value": 64310.49,
+    "pct_change": 0.1406
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.440188",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 1755378.45,
+    "pct_change": -0.0234
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.440199",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 2719826.08,
+    "pct_change": 0.0388
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.440209",
+    "brand": "Crispy Patata",
+    "value": 2485289.23,
+    "pct_change": 0.1663
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.440220",
+    "brand": "Del Monte Pasta",
+    "value": 1827950.44,
+    "pct_change": 0.051
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.440231",
+    "brand": "Caster",
+    "value": 1960918.84,
+    "pct_change": 0.0548
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.440241",
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 1974906.77,
+    "pct_change": 0.1179
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.440252",
+    "brand": "Del Monte Pasta",
+    "value": 2892877.45,
+    "pct_change": 0.0591
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.440263",
+    "brand": "LD",
+    "value": 1338091.48,
+    "pct_change": 0.0724
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.440273",
+    "brand": "Cyclone (Bleach)",
+    "value": 2271958.14,
+    "pct_change": 0.0819
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.440283",
+    "brand": "LD",
+    "value": 1472142.17,
+    "pct_change": -0.0216
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.440294",
+    "brand": "Alaska Condensed Milk",
+    "value": 1587666.58,
+    "pct_change": -0.082
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.440305",
+    "brand": "Deli Mex",
+    "value": 800658.76,
+    "pct_change": 0.2237
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.440316",
+    "brand": "Crispy Patata",
+    "value": 2699518.3,
+    "pct_change": 0.1351
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.440326",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 749154.54,
+    "pct_change": 0.0898
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.440338",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 834619.6,
+    "pct_change": 0.0924
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.440350",
+    "brand": "Oishi Marty's",
+    "value": 1107931.95,
+    "pct_change": -0.0749
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.440361",
+    "brand": "Alaska Condensed Milk",
+    "value": 150853.11,
+    "pct_change": 0.1201
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.440372",
+    "brand": "Hi-Ho",
+    "value": 1401329.85,
+    "pct_change": 0.0151
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.440384",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 1865965.65,
+    "pct_change": -0.0591
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.440394",
+    "brand": "LD",
+    "value": 1857579.41,
+    "pct_change": -0.0192
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.440405",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 2940956.14,
+    "pct_change": 0.2357
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.440416",
+    "brand": "Caster",
+    "value": 548541.45,
+    "pct_change": 0.0384
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.440426",
+    "brand": "Deli Mex",
+    "value": 2223936.51,
+    "pct_change": 0.0786
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.440436",
+    "brand": "Oishi Bread Pan",
+    "value": 2886739.19,
+    "pct_change": 0.0407
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.440448",
+    "brand": "Oishi Bread Pan",
+    "value": 1586022.03,
+    "pct_change": 0.1537
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.440459",
+    "brand": "Oishi Marty's",
+    "value": 1450122.13,
+    "pct_change": -0.0856
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.440473",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 288997.6,
+    "pct_change": 0.1434
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.440485",
+    "brand": "Oaties",
+    "value": 2310660.51,
+    "pct_change": 0.1123
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.440496",
+    "brand": "Smart C+ (Vitamin Drinks)",
+    "value": 868018.04,
+    "pct_change": 0.1237
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.440509",
+    "brand": "Oishi Marty's",
+    "value": 1322110.86,
+    "pct_change": 0.1827
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.440521",
+    "brand": "Del Monte Pasta",
+    "value": 228405.5,
+    "pct_change": -0.0271
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.440533",
+    "brand": "LD",
+    "value": 641242.42,
+    "pct_change": 0.137
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.440544",
+    "brand": "Winston",
+    "value": 670049.23,
+    "pct_change": 0.0103
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.440555",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 743923.13,
+    "pct_change": 0.2132
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.440565",
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 244216.77,
+    "pct_change": 0.1586
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.440576",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 303352.29,
+    "pct_change": 0.046
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.440587",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 951805.57,
+    "pct_change": 0.0409
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.440598",
+    "brand": "Rinbee",
+    "value": 1991711.68,
+    "pct_change": 0.1507
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.440609",
+    "brand": "Rinbee",
+    "value": 2126014.38,
+    "pct_change": 0.1819
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.440621",
+    "brand": "Oishi Marty's",
+    "value": 739553.12,
+    "pct_change": 0.2158
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.440633",
+    "brand": "Rinbee",
+    "value": 2705542.37,
+    "pct_change": 0.0501
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.440644",
+    "brand": "Alaska Powdered Milk",
+    "value": 1078898.08,
+    "pct_change": -0.0243
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.440656",
+    "brand": "Oishi Ridges",
+    "value": 1525655.21,
+    "pct_change": -0.005
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.440667",
+    "brand": "Oishi Marty's",
+    "value": 2463888.63,
+    "pct_change": 0.1842
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.440678",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 751140.91,
+    "pct_change": -0.0252
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.440690",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 1572863.36,
+    "pct_change": 0.2404
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.440701",
+    "brand": "Rinbee",
+    "value": 861518.96,
+    "pct_change": -0.0305
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.440712",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 2184320.48,
+    "pct_change": 0.0322
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.440723",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 1459394.42,
+    "pct_change": -0.0914
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.440734",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 206505.67,
+    "pct_change": 0.1253
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.440746",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 1078376.26,
+    "pct_change": 0.1705
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.440757",
+    "brand": "Cyclone (Bleach)",
+    "value": 962107.13,
+    "pct_change": -0.0633
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.440768",
+    "brand": "Deli Mex",
+    "value": 2051275.05,
+    "pct_change": -0.0221
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.440779",
+    "brand": "Calla (Personal Care Products)",
+    "value": 2267125.25,
+    "pct_change": -0.0657
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.440791",
+    "brand": "LD",
+    "value": 52065.46,
+    "pct_change": -0.0586
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.440803",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 1733990.35,
+    "pct_change": 0.0357
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.440814",
+    "brand": "Deli Mex",
+    "value": 1691482.07,
+    "pct_change": -0.0914
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.440825",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 666371.07,
+    "pct_change": -0.039
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.440837",
+    "brand": "Oishi Prawn Crackers",
+    "value": 178782.91,
+    "pct_change": 0.0073
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.440848",
+    "brand": "Camel",
+    "value": 208295.02,
+    "pct_change": 0.0799
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.440859",
+    "brand": "Oishi Prawn Crackers",
+    "value": 1805816.02,
+    "pct_change": 0.039
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.440871",
+    "brand": "Oishi Marty's",
+    "value": 1787648.87,
+    "pct_change": 0.1071
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.440882",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 2395053.61,
+    "pct_change": 0.0563
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.440893",
+    "brand": "Cyclone (Bleach)",
+    "value": 1189167.56,
+    "pct_change": 0.066
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.440904",
+    "brand": "Del Monte Pineapple",
+    "value": 1442503.81,
+    "pct_change": 0.0608
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.440915",
+    "brand": "Alaska Evaporated Milk",
+    "value": 378961.59,
+    "pct_change": -0.0498
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.440926",
+    "brand": "Mighty",
+    "value": 1905941.39,
+    "pct_change": -0.0311
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.440937",
+    "brand": "Del Monte Pineapple",
+    "value": 2447307.97,
+    "pct_change": 0.1742
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.440949",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 1939383.79,
+    "pct_change": 0.1387
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.440960",
+    "brand": "Del Monte Pineapple",
+    "value": 375953.93,
+    "pct_change": 0.055
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.440971",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 63476.49,
+    "pct_change": 0.1801
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.440982",
+    "brand": "Oishi Bread Pan",
+    "value": 2517436.07,
+    "pct_change": 0.0751
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.440996",
+    "brand": "Alaska Evaporated Milk",
+    "value": 801910.86,
+    "pct_change": -0.0932
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.441006",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 893268.05,
+    "pct_change": 0.0835
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.441017",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 191679.29,
+    "pct_change": 0.2225
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.441028",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 2813769.19,
+    "pct_change": 0.1673
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.441040",
+    "brand": "Deli Mex",
+    "value": 966624.94,
+    "pct_change": -0.0429
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.441051",
+    "brand": "Oishi Marty's",
+    "value": 2032677.25,
+    "pct_change": 0.0345
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.441063",
+    "brand": "Del Monte Pineapple",
+    "value": 261900.32,
+    "pct_change": 0.0202
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.441074",
+    "brand": "Oishi Pillows",
+    "value": 2615242.12,
+    "pct_change": 0.2193
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.441085",
+    "brand": "Caster",
+    "value": 2734687.55,
+    "pct_change": -0.0261
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.441097",
+    "brand": "Oishi Prawn Crackers",
+    "value": 816356.27,
+    "pct_change": 0.0886
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.441109",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 2757745.34,
+    "pct_change": -0.087
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.441120",
+    "brand": "Camel",
+    "value": 617866.67,
+    "pct_change": 0.2234
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.441131",
+    "brand": "Oishi Bread Pan",
+    "value": 1190629.76,
+    "pct_change": 0.0565
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.441143",
+    "brand": "Winston",
+    "value": 1955303.84,
+    "pct_change": -0.0649
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.441153",
+    "brand": "Camel",
+    "value": 351802.6,
+    "pct_change": 0.1225
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.441164",
+    "brand": "Mighty",
+    "value": 2333800.28,
+    "pct_change": 0.1617
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.441175",
+    "brand": "Oishi Marty's",
+    "value": 2124618.32,
+    "pct_change": 0.2006
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.441185",
+    "brand": "Mevius (formerly Mild Seven)",
+    "value": 331291.65,
+    "pct_change": 0.1953
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.441197",
+    "brand": "Winston",
+    "value": 1839252.93,
+    "pct_change": -0.0994
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.441209",
+    "brand": "Oishi Pillows",
+    "value": 1243283.5,
+    "pct_change": -0.0235
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.441219",
+    "brand": "Calla (Personal Care Products)",
+    "value": 2155886.25,
+    "pct_change": 0.0612
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.441231",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 416175.07,
+    "pct_change": 0.1408
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.441242",
+    "brand": "S&W (Premium Fruit & Vegetable Products)",
+    "value": 1355636.99,
+    "pct_change": 0.181
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.441252",
+    "brand": "Oishi Pillows",
+    "value": 1463989.9,
+    "pct_change": -0.0032
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.441263",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 2950648.84,
+    "pct_change": 0.1891
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.441275",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 236325.55,
+    "pct_change": 0.1817
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.441286",
+    "brand": "Oishi Ridges",
+    "value": 2276362.98,
+    "pct_change": 0.003
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.441297",
+    "brand": "S&W (Premium Fruit & Vegetable Products)",
+    "value": 2307759.27,
+    "pct_change": 0.114
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.441308",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 1727783.16,
+    "pct_change": 0.1785
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.441321",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 2658464.91,
+    "pct_change": 0.1309
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.441332",
+    "brand": "Camel",
+    "value": 1881623.08,
+    "pct_change": -0.0728
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.441343",
+    "brand": "Oishi Bread Pan",
+    "value": 2469974.55,
+    "pct_change": -0.034
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.441354",
+    "brand": "Caster",
+    "value": 2363858.58,
+    "pct_change": 0.1424
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.441365",
+    "brand": "Winston",
+    "value": 21781.21,
+    "pct_change": -0.0822
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.441375",
+    "brand": "Del Monte Pasta",
+    "value": 1830092.8,
+    "pct_change": 0.08
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.441387",
+    "brand": "Del Monte Pasta",
+    "value": 2161950.93,
+    "pct_change": 0.0583
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.441399",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 429350.58,
+    "pct_change": 0.1458
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.441410",
+    "brand": "Oishi Bread Pan",
+    "value": 590646.11,
+    "pct_change": 0.174
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.441422",
+    "brand": "Oishi Marty's",
+    "value": 2698659.86,
+    "pct_change": 0.2264
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.441433",
+    "brand": "Mighty",
+    "value": 1550946.34,
+    "pct_change": -0.0379
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.441444",
+    "brand": "Oishi Marty's",
+    "value": 1603331.29,
+    "pct_change": 0.1364
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.441455",
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 742092.74,
+    "pct_change": 0.039
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.441466",
+    "brand": "Oishi Marty's",
+    "value": 2886049.43,
+    "pct_change": 0.1654
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.441477",
+    "brand": "Camel",
+    "value": 1659022.86,
+    "pct_change": -0.0837
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.441488",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 2260997.86,
+    "pct_change": 0.2301
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.441522",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 1379877.54,
+    "pct_change": 0.0786
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.441533",
+    "brand": "Del Monte Pasta",
+    "value": 772325.56,
+    "pct_change": 0.0388
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.441544",
+    "brand": "Caster",
+    "value": 2354026.73,
+    "pct_change": 0.1948
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.441556",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 260654.26,
+    "pct_change": 0.1775
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.441567",
+    "brand": "Alaska Powdered Milk",
+    "value": 1464505.67,
+    "pct_change": -0.0974
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.441578",
+    "brand": "Crispy Patata",
+    "value": 93777.79,
+    "pct_change": 0.1898
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.441589",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 600779.73,
+    "pct_change": -0.0322
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.441600",
+    "brand": "Glamour",
+    "value": 764928.58,
+    "pct_change": 0.1048
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.441612",
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 2547299.06,
+    "pct_change": 0.135
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.441623",
+    "brand": "Alaska Condensed Milk",
+    "value": 230633.29,
+    "pct_change": 0.2327
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.441634",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 805148.69,
+    "pct_change": 0.1407
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.441644",
+    "brand": "Del Monte Pineapple",
+    "value": 1840413.45,
+    "pct_change": 0.1814
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.441655",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 2156710.04,
+    "pct_change": 0.0273
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.441667",
+    "brand": "Camel",
+    "value": 1297130.15,
+    "pct_change": 0.1792
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.441678",
+    "brand": "Cyclone (Bleach)",
+    "value": 2889252.72,
+    "pct_change": 0.1738
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.441689",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 1258076.68,
+    "pct_change": 0.0499
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.441700",
+    "brand": "Crispy Patata",
+    "value": 1573130.11,
+    "pct_change": 0.2196
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.441710",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 295115.97,
+    "pct_change": 0.1697
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.441722",
+    "brand": "Oishi Marty's",
+    "value": 927581.54,
+    "pct_change": -0.0471
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.441734",
+    "brand": "Gourmet Picks",
+    "value": 286806.15,
+    "pct_change": 0.1722
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.441745",
+    "brand": "Caster",
+    "value": 1835214.47,
+    "pct_change": 0.1389
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.441756",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 2302353.9,
+    "pct_change": -0.096
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.441767",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 195869.93,
+    "pct_change": 0.1168
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.441777",
+    "brand": "Crispy Patata",
+    "value": 1403489.53,
+    "pct_change": 0.0563
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.441788",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 2257799.99,
+    "pct_change": -0.0618
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.441800",
+    "brand": "Camel",
+    "value": 1696747.74,
+    "pct_change": 0.0868
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.441811",
+    "brand": "Caster",
+    "value": 935949.5,
+    "pct_change": 0.2066
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.441823",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 2928969.34,
+    "pct_change": 0.2234
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.441833",
+    "brand": "Oaties",
+    "value": 91034.45,
+    "pct_change": -0.0205
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.441845",
+    "brand": "Caster",
+    "value": 183240.88,
+    "pct_change": 0.2069
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.441855",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 2394070.41,
+    "pct_change": -0.0975
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.441865",
+    "brand": "Camel",
+    "value": 227322.16,
+    "pct_change": -0.0705
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.441876",
+    "brand": "Alaska Evaporated Milk",
+    "value": 2190397.81,
+    "pct_change": 0.1543
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.441888",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 1751866.84,
+    "pct_change": -0.098
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.441902",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 2666161.71,
+    "pct_change": 0.2426
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.441913",
+    "brand": "Mevius (formerly Mild Seven)",
+    "value": 2216220.47,
+    "pct_change": -0.0156
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.441924",
+    "brand": "Oishi Ridges",
+    "value": 737194.22,
+    "pct_change": 0.2335
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.441935",
+    "brand": "Calla (Personal Care Products)",
+    "value": 416219.61,
+    "pct_change": 0.1392
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.441947",
+    "brand": "Gourmet Picks",
+    "value": 699060.35,
+    "pct_change": 0.2387
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.441958",
+    "brand": "Del Monte Pasta",
+    "value": 761049.53,
+    "pct_change": -0.0708
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.441970",
+    "brand": "Alaska Powdered Milk",
+    "value": 1264652.91,
+    "pct_change": 0.1259
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.441980",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 2737996.56,
+    "pct_change": 0.164
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.441991",
+    "brand": "Cyclone (Bleach)",
+    "value": 2088855.73,
+    "pct_change": 0.022
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.442002",
+    "brand": "Alaska Powdered Milk",
+    "value": 1032990.87,
+    "pct_change": -0.0412
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.442013",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 1003450.62,
+    "pct_change": 0.1995
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.442025",
+    "brand": "Oishi Ridges",
+    "value": 885142.76,
+    "pct_change": 0.2444
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.442037",
+    "brand": "Oishi Prawn Crackers",
+    "value": 1386563.22,
+    "pct_change": -0.064
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.442048",
+    "brand": "Oaties",
+    "value": 2841776.14,
+    "pct_change": 0.0152
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.442060",
+    "brand": "Alaska Evaporated Milk",
+    "value": 1856087.5,
+    "pct_change": 0.214
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.442071",
+    "brand": "Oishi Bread Pan",
+    "value": 2469192.5,
+    "pct_change": 0.1354
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.442082",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 2827132.38,
+    "pct_change": -0.0299
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.442094",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 798729.85,
+    "pct_change": 0.2494
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.442105",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 1531665.06,
+    "pct_change": 0.2446
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.442116",
+    "brand": "Caster",
+    "value": 2501542.87,
+    "pct_change": -0.0349
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.442126",
+    "brand": "Alaska Evaporated Milk",
+    "value": 2986643.35,
+    "pct_change": -0.0485
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.442137",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 304269.45,
+    "pct_change": 0.245
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.442148",
+    "brand": "Alaska Evaporated Milk",
+    "value": 2223651.52,
+    "pct_change": 0.1391
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.442160",
+    "brand": "Glamour",
+    "value": 2884490.66,
+    "pct_change": 0.0811
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.442171",
+    "brand": "Oishi Bread Pan",
+    "value": 32547.21,
+    "pct_change": -0.041
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.442183",
+    "brand": "Caster",
+    "value": 1212949.54,
+    "pct_change": 0.0218
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.442194",
+    "brand": "Alaska Milk Corporation",
+    "value": 1270412.85,
+    "pct_change": 0.0794
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.442205",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 1701791.17,
+    "pct_change": -0.087
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.442216",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 2065311.85,
+    "pct_change": 0.0541
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.442228",
+    "brand": "Alaska Evaporated Milk",
+    "value": 2070571.46,
+    "pct_change": 0.0164
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.442239",
+    "brand": "Hi-Ho",
+    "value": 2327456.47,
+    "pct_change": 0.233
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.442250",
+    "brand": "Alaska Evaporated Milk",
+    "value": 2618546.72,
+    "pct_change": -0.0534
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.442261",
+    "brand": "Crispy Patata",
+    "value": 24135.61,
+    "pct_change": -0.0293
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.442272",
+    "brand": "Oishi Pillows",
+    "value": 2152979.41,
+    "pct_change": 0.2287
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.442283",
+    "brand": "Hi-Ho",
+    "value": 1227690.55,
+    "pct_change": 0.2166
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.442295",
+    "brand": "Alaska Condensed Milk",
+    "value": 1110885.97,
+    "pct_change": -0.0079
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.442306",
+    "brand": "LD",
+    "value": 2693707.06,
+    "pct_change": -0.0811
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.442317",
+    "brand": "Deli Mex",
+    "value": 2896930.49,
+    "pct_change": 0.2047
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.442330",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 2325264.37,
+    "pct_change": 0.2304
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.442341",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 1860537.43,
+    "pct_change": 0.1738
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.442352",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 1585617.61,
+    "pct_change": -0.0408
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.442363",
+    "brand": "Deli Mex",
+    "value": 2067203.16,
+    "pct_change": 0.1218
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.442375",
+    "brand": "Rinbee",
+    "value": 170399.91,
+    "pct_change": 0.1402
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.442386",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 1174758.12,
+    "pct_change": 0.0375
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.442398",
+    "brand": "Oaties",
+    "value": 1905052.45,
+    "pct_change": 0.171
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.442710",
+    "brand": "Deli Mex",
+    "value": 776125.8,
+    "pct_change": 0.1837
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.442727",
+    "brand": "Calla (Personal Care Products)",
+    "value": 274692.17,
+    "pct_change": -0.0745
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.442739",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 634209.5,
+    "pct_change": 0.1668
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.442751",
+    "brand": "Hi-Ho",
+    "value": 797397.85,
+    "pct_change": 0.0089
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.442762",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 1760929.36,
+    "pct_change": 0.082
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.442774",
+    "brand": "Camel",
+    "value": 2240760.92,
+    "pct_change": 0.0753
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.442785",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 168977.62,
+    "pct_change": 0.0019
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.442796",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 352464.62,
+    "pct_change": 0.0589
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.442807",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 2397911.57,
+    "pct_change": 0.2217
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.442818",
+    "brand": "LD",
+    "value": 398198.07,
+    "pct_change": 0.131
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.442828",
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 734829.73,
+    "pct_change": 0.1113
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.442839",
+    "brand": "Del Monte Pineapple",
+    "value": 2200794.65,
+    "pct_change": 0.0629
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.442850",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 1106085.91,
+    "pct_change": 0.1853
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.442861",
+    "brand": "S&W (Premium Fruit & Vegetable Products)",
+    "value": 185316.66,
+    "pct_change": -0.0487
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.442873",
+    "brand": "Oishi Ridges",
+    "value": 1344970.32,
+    "pct_change": 0.0899
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.442884",
+    "brand": "Crispy Patata",
+    "value": 585437.9,
+    "pct_change": -0.0148
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.442896",
+    "brand": "Hi-Ho",
+    "value": 2644361.16,
+    "pct_change": 0.2201
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.442907",
+    "brand": "Gourmet Picks",
+    "value": 1665916.6,
+    "pct_change": 0.0775
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.442919",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 2526414.7,
+    "pct_change": -0.0421
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.442930",
+    "brand": "Del Monte Pasta",
+    "value": 1899970.51,
+    "pct_change": 0.1707
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.442942",
+    "brand": "Camel",
+    "value": 296031.43,
+    "pct_change": -0.0448
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.442953",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 2143484.45,
+    "pct_change": 0.1375
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.442965",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 2107923.12,
+    "pct_change": 0.0912
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.442977",
+    "brand": "Oishi Marty's",
+    "value": 1055200.52,
+    "pct_change": -0.0501
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.442989",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 2491540.99,
+    "pct_change": -0.0585
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.443000",
+    "brand": "Del Monte Pasta",
+    "value": 2625754.4,
+    "pct_change": 0.2299
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.443011",
+    "brand": "Camel",
+    "value": 1830527.09,
+    "pct_change": 0.0497
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.443022",
+    "brand": "Alaska Powdered Milk",
+    "value": 1648183.61,
+    "pct_change": 0.2134
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.443035",
+    "brand": "Deli Mex",
+    "value": 1312771.06,
+    "pct_change": -0.0655
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.443048",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 2073873.22,
+    "pct_change": 0.1127
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.443059",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 1309146.97,
+    "pct_change": 0.2051
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.443071",
+    "brand": "Mighty",
+    "value": 2697427.12,
+    "pct_change": 0.2096
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.443083",
+    "brand": "Glamour",
+    "value": 1436616.0,
+    "pct_change": 0.2452
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.443094",
+    "brand": "Oishi Marty's",
+    "value": 831529.02,
+    "pct_change": -0.0998
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.443104",
+    "brand": "Caster",
+    "value": 2166512.59,
+    "pct_change": -0.0673
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.443116",
+    "brand": "Oaties",
+    "value": 2662778.55,
+    "pct_change": 0.1783
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.443128",
+    "brand": "Rinbee",
+    "value": 1280173.08,
+    "pct_change": 0.2103
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.443139",
+    "brand": "Alaska Powdered Milk",
+    "value": 740056.07,
+    "pct_change": -0.0529
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.443151",
+    "brand": "Alaska Evaporated Milk",
+    "value": 1829861.13,
+    "pct_change": 0.2407
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.443162",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 2271740.71,
+    "pct_change": -0.025
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.443172",
+    "brand": "Calla (Personal Care Products)",
+    "value": 2792855.67,
+    "pct_change": 0.1507
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.443183",
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 1450718.6,
+    "pct_change": 0.0668
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.443195",
+    "brand": "Glamour",
+    "value": 1152366.26,
+    "pct_change": 0.0186
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.443206",
+    "brand": "Crispy Patata",
+    "value": 2914983.29,
+    "pct_change": 0.0642
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.443217",
+    "brand": "Glamour",
+    "value": 1284780.69,
+    "pct_change": 0.1314
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.443228",
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 1668160.65,
+    "pct_change": 0.1284
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.443239",
+    "brand": "Alaska Evaporated Milk",
+    "value": 140637.52,
+    "pct_change": -0.0575
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.443250",
+    "brand": "Glamour",
+    "value": 2361244.92,
+    "pct_change": 0.2022
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.443261",
+    "brand": "Oishi Ridges",
+    "value": 1083951.93,
+    "pct_change": 0.1758
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.443272",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 2684640.59,
+    "pct_change": 0.2447
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.443300",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 1104934.15,
+    "pct_change": 0.0885
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.443311",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 420445.33,
+    "pct_change": -0.0766
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.443323",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 98135.01,
+    "pct_change": 0.059
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.443334",
+    "brand": "Winston",
+    "value": 2419379.63,
+    "pct_change": -0.0742
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.443345",
+    "brand": "Oishi Pillows",
+    "value": 480410.25,
+    "pct_change": -0.0366
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.443356",
+    "brand": "Oishi Marty's",
+    "value": 924080.85,
+    "pct_change": 0.123
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.443368",
+    "brand": "Mighty",
+    "value": 492828.41,
+    "pct_change": 0.0202
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.443378",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 2015072.69,
+    "pct_change": 0.0044
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.443390",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 2848293.47,
+    "pct_change": 0.0892
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.443401",
+    "brand": "Oishi Ridges",
+    "value": 1780165.87,
+    "pct_change": 0.2488
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.443415",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 1786128.42,
+    "pct_change": -0.0958
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.443426",
+    "brand": "Cyclone (Bleach)",
+    "value": 914289.43,
+    "pct_change": 0.2168
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.443437",
+    "brand": "S&W (Premium Fruit & Vegetable Products)",
+    "value": 64631.86,
+    "pct_change": 0.15
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.443448",
+    "brand": "Cyclone (Bleach)",
+    "value": 1434902.11,
+    "pct_change": 0.1842
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.443459",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 1491378.1,
+    "pct_change": 0.183
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.443470",
+    "brand": "Deli Mex",
+    "value": 1341435.6,
+    "pct_change": 0.2198
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.443484",
+    "brand": "Mevius (formerly Mild Seven)",
+    "value": 1051968.21,
+    "pct_change": 0.0528
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.443496",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 1886722.35,
+    "pct_change": -0.0265
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.443507",
+    "brand": "Oishi Bread Pan",
+    "value": 1277210.36,
+    "pct_change": 0.1462
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.443518",
+    "brand": "Oishi Bread Pan",
+    "value": 2700313.57,
+    "pct_change": 0.1224
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.443529",
+    "brand": "Oishi Ridges",
+    "value": 490135.72,
+    "pct_change": -0.0375
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.443540",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 1657314.41,
+    "pct_change": 0.1156
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.443551",
+    "brand": "LD",
+    "value": 2900024.81,
+    "pct_change": 0.2415
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.443562",
+    "brand": "Winston",
+    "value": 1431261.13,
+    "pct_change": 0.063
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.443573",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 998067.59,
+    "pct_change": 0.0395
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.443585",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 1089286.89,
+    "pct_change": 0.0492
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.443595",
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 1788232.86,
+    "pct_change": 0.2017
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.443606",
+    "brand": "Gourmet Picks",
+    "value": 1754491.61,
+    "pct_change": -0.047
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.443616",
+    "brand": "Oishi Prawn Crackers",
+    "value": 2677386.69,
+    "pct_change": 0.0535
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.443628",
+    "brand": "Oaties",
+    "value": 431899.59,
+    "pct_change": 0.0731
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.443640",
+    "brand": "Del Monte Pineapple",
+    "value": 96333.44,
+    "pct_change": 0.1741
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.443651",
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 2320557.87,
+    "pct_change": 0.0426
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.443661",
+    "brand": "Oishi Ridges",
+    "value": 2507595.46,
+    "pct_change": 0.2084
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.443673",
+    "brand": "LD",
+    "value": 1876231.64,
+    "pct_change": -0.0788
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.443684",
+    "brand": "Crispy Patata",
+    "value": 2234759.17,
+    "pct_change": 0.1399
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.443695",
+    "brand": "Caster",
+    "value": 1508816.4,
+    "pct_change": 0.0959
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.443706",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 614861.17,
+    "pct_change": 0.0641
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.443717",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 2053684.61,
+    "pct_change": 0.2054
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.443728",
+    "brand": "Oishi Prawn Crackers",
+    "value": 474853.99,
+    "pct_change": 0.0623
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.443739",
+    "brand": "Oishi Bread Pan",
+    "value": 2146047.82,
+    "pct_change": 0.1301
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.443750",
+    "brand": "Hi-Ho",
+    "value": 701571.93,
+    "pct_change": 0.1327
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.443760",
+    "brand": "Gourmet Picks",
+    "value": 532304.65,
+    "pct_change": -0.0356
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.443773",
+    "brand": "Oaties",
+    "value": 1015700.01,
+    "pct_change": -0.0335
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.443784",
+    "brand": "Camel",
+    "value": 703377.47,
+    "pct_change": 0.0074
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.443795",
+    "brand": "Oishi Ridges",
+    "value": 953959.86,
+    "pct_change": 0.0918
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.443805",
+    "brand": "Cyclone (Bleach)",
+    "value": 2840001.32,
+    "pct_change": 0.0635
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.443816",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 707603.8,
+    "pct_change": 0.0975
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.443826",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 632613.53,
+    "pct_change": -0.0509
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.443837",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 2292293.38,
+    "pct_change": 0.1377
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.443848",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 94956.19,
+    "pct_change": 0.0045
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.443859",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 732795.65,
+    "pct_change": 0.1232
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.443871",
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 1937810.37,
+    "pct_change": -0.0473
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.443883",
+    "brand": "Oaties",
+    "value": 1399463.16,
+    "pct_change": -0.0409
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.443894",
+    "brand": "Winston",
+    "value": 1504156.55,
+    "pct_change": 0.2421
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.443907",
+    "brand": "Oaties",
+    "value": 2193803.89,
+    "pct_change": 0.1928
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.443919",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 172155.71,
+    "pct_change": 0.0722
+  },
+  {
+    "timestamp": "2025-05-08T17:36:14.443929",
+    "brand": "Mighty",
+    "value": 1064315.08,
+    "pct_change": 0.0455
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.443941",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 653558.15,
+    "pct_change": -0.0225
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.443953",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 2562070.77,
+    "pct_change": -0.0051
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.443964",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 1890009.61,
+    "pct_change": -0.0157
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.443975",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 1058956.82,
+    "pct_change": 0.1601
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.443987",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 1272069.23,
+    "pct_change": 0.1452
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.443998",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 1676904.39,
+    "pct_change": 0.2224
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.444009",
+    "brand": "Rinbee",
+    "value": 36355.19,
+    "pct_change": -0.0935
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.444019",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 1448365.85,
+    "pct_change": 0.0453
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.444030",
+    "brand": "Oishi Prawn Crackers",
+    "value": 2128253.93,
+    "pct_change": 0.03
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.444041",
+    "brand": "S&W (Premium Fruit & Vegetable Products)",
+    "value": 1276177.0,
+    "pct_change": 0.0724
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.444052",
+    "brand": "Mighty",
+    "value": 1813762.53,
+    "pct_change": 0.2007
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.444063",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 2004114.68,
+    "pct_change": -0.0361
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.444074",
+    "brand": "S&W (Premium Fruit & Vegetable Products)",
+    "value": 2058681.8,
+    "pct_change": -0.0969
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.444084",
+    "brand": "Rinbee",
+    "value": 2541969.2,
+    "pct_change": 0.1989
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.444095",
+    "brand": "Oishi Marty's",
+    "value": 1977441.3,
+    "pct_change": -0.0727
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.444106",
+    "brand": "Oishi Bread Pan",
+    "value": 1639409.48,
+    "pct_change": 0.1327
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.444116",
+    "brand": "Gourmet Picks",
+    "value": 2309260.08,
+    "pct_change": -0.0012
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.444130",
+    "brand": "Calla (Personal Care Products)",
+    "value": 1800581.83,
+    "pct_change": 0.2276
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.444141",
+    "brand": "Rinbee",
+    "value": 1466433.47,
+    "pct_change": 0.1878
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.444153",
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 2577364.74,
+    "pct_change": 0.1821
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.444164",
+    "brand": "LD",
+    "value": 2326854.93,
+    "pct_change": -0.0247
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.444929",
+    "brand": "Cyclone (Bleach)",
+    "value": 2704595.71,
+    "pct_change": -0.019
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.444954",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 1686648.7,
+    "pct_change": 0.1608
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.444968",
+    "brand": "Oaties",
+    "value": 2502499.08,
+    "pct_change": 0.0927
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.444980",
+    "brand": "Alaska Condensed Milk",
+    "value": 2599315.65,
+    "pct_change": 0.0594
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.444991",
+    "brand": "Smart C+ (Vitamin Drinks)",
+    "value": 626090.06,
+    "pct_change": 0.2147
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.445001",
+    "brand": "Gourmet Picks",
+    "value": 2417344.65,
+    "pct_change": 0.0617
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.445013",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 1815268.02,
+    "pct_change": -0.0142
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.445024",
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 2650102.21,
+    "pct_change": -0.0167
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.445034",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 1967694.23,
+    "pct_change": 0.1668
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.445045",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 1725716.27,
+    "pct_change": 0.1757
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.445056",
+    "brand": "Oishi Marty's",
+    "value": 1678097.41,
+    "pct_change": -0.02
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.445066",
+    "brand": "Alaska Condensed Milk",
+    "value": 2937814.52,
+    "pct_change": 0.1337
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.445077",
+    "brand": "Rinbee",
+    "value": 828998.71,
+    "pct_change": -0.0029
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.445088",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 269245.57,
+    "pct_change": 0.0009
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.445099",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 420228.22,
+    "pct_change": 0.1996
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.445109",
+    "brand": "Alaska Powdered Milk",
+    "value": 494557.68,
+    "pct_change": 0.042
+  },
+  {
+    "timestamp": "2025-05-03T17:36:14.445120",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 2991130.15,
+    "pct_change": -0.0428
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.445130",
+    "brand": "Smart C+ (Vitamin Drinks)",
+    "value": 2491120.44,
+    "pct_change": 0.0316
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.445140",
+    "brand": "Camel",
+    "value": 1246442.89,
+    "pct_change": 0.2217
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.445151",
+    "brand": "Oishi Prawn Crackers",
+    "value": 1089401.4,
+    "pct_change": 0.0912
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.445162",
+    "brand": "Camel",
+    "value": 1357462.93,
+    "pct_change": 0.1721
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.445172",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 2460556.8,
+    "pct_change": -0.0493
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.445183",
+    "brand": "Rinbee",
+    "value": 2636091.63,
+    "pct_change": -0.0098
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.445194",
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 1332329.7,
+    "pct_change": 0.2047
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.445205",
+    "brand": "Mevius (formerly Mild Seven)",
+    "value": 2951567.77,
+    "pct_change": 0.019
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.445215",
+    "brand": "Calla (Personal Care Products)",
+    "value": 2855584.57,
+    "pct_change": 0.2018
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.445227",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 210772.81,
+    "pct_change": 0.1418
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.445238",
+    "brand": "Alaska Evaporated Milk",
+    "value": 1961512.56,
+    "pct_change": 0.0712
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.445249",
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 1382983.58,
+    "pct_change": 0.01
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.445260",
+    "brand": "Camel",
+    "value": 2555518.61,
+    "pct_change": -0.0896
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.445271",
+    "brand": "Alaska Milk Corporation",
+    "value": 1253152.48,
+    "pct_change": -0.0437
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.445282",
+    "brand": "S&W (Premium Fruit & Vegetable Products)",
+    "value": 64117.45,
+    "pct_change": 0.1229
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.445293",
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 283382.7,
+    "pct_change": 0.1623
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.445306",
+    "brand": "Alaska Powdered Milk",
+    "value": 1996368.97,
+    "pct_change": 0.0276
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.445317",
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 1676542.9,
+    "pct_change": 0.0197
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.445328",
+    "brand": "Del Monte Pasta",
+    "value": 1860250.89,
+    "pct_change": 0.1399
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.445358",
+    "brand": "Oishi Prawn Crackers",
+    "value": 2196365.85,
+    "pct_change": 0.028
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.445370",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 1277030.99,
+    "pct_change": 0.0317
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.445381",
+    "brand": "Del Monte Pineapple",
+    "value": 568925.83,
+    "pct_change": 0.116
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.445397",
+    "brand": "Mevius (formerly Mild Seven)",
+    "value": 1351894.84,
+    "pct_change": 0.1868
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.445407",
+    "brand": "Smart C+ (Vitamin Drinks)",
+    "value": 773253.93,
+    "pct_change": 0.0119
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.445418",
+    "brand": "Rinbee",
+    "value": 1463304.27,
+    "pct_change": 0.0389
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.445429",
+    "brand": "LD",
+    "value": 2753928.44,
+    "pct_change": -0.0997
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.445440",
+    "brand": "Cyclone (Bleach)",
+    "value": 2609382.46,
+    "pct_change": -0.0813
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.445452",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 2995740.32,
+    "pct_change": 0.0564
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.445463",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 1118812.95,
+    "pct_change": -0.0206
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.445474",
+    "brand": "Rinbee",
+    "value": 591921.99,
+    "pct_change": 0.1417
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.445485",
+    "brand": "Oaties",
+    "value": 728487.98,
+    "pct_change": -0.092
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.445498",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 650140.8,
+    "pct_change": -0.0336
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.445509",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 1964049.17,
+    "pct_change": -0.0119
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.445519",
+    "brand": "Oaties",
+    "value": 2834469.58,
+    "pct_change": -0.0066
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.445532",
+    "brand": "Oishi Marty's",
+    "value": 113472.58,
+    "pct_change": 0.1478
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.445543",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 371368.24,
+    "pct_change": -0.0674
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.445555",
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 1969468.07,
+    "pct_change": -0.0465
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.445567",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 2515758.76,
+    "pct_change": 0.016
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.445578",
+    "brand": "Oishi Ridges",
+    "value": 2359860.45,
+    "pct_change": -0.0606
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.445589",
+    "brand": "Smart C+ (Vitamin Drinks)",
+    "value": 1451124.57,
+    "pct_change": -0.0522
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.445601",
+    "brand": "Mighty",
+    "value": 1668079.31,
+    "pct_change": 0.173
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.445611",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 1261717.03,
+    "pct_change": -0.0407
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.445622",
+    "brand": "Winston",
+    "value": 26739.15,
+    "pct_change": 0.0892
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.445634",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 154284.77,
+    "pct_change": -0.0225
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.445645",
+    "brand": "Calla (Personal Care Products)",
+    "value": 832449.17,
+    "pct_change": 0.0861
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.445657",
+    "brand": "Alaska Milk Corporation",
+    "value": 2794411.54,
+    "pct_change": 0.1144
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.445668",
+    "brand": "Gourmet Picks",
+    "value": 1644153.95,
+    "pct_change": 0.1877
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.445679",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 633718.56,
+    "pct_change": 0.0689
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.445690",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 2808522.15,
+    "pct_change": -0.0952
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.445701",
+    "brand": "Caster",
+    "value": 1633513.53,
+    "pct_change": 0.034
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.445712",
+    "brand": "Oishi Pillows",
+    "value": 2204283.08,
+    "pct_change": 0.1342
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.445722",
+    "brand": "Alaska Condensed Milk",
+    "value": 2605167.23,
+    "pct_change": -0.0331
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.445733",
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 1754324.64,
+    "pct_change": 0.113
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.445744",
+    "brand": "Gourmet Picks",
+    "value": 1266797.17,
+    "pct_change": 0.0102
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.445755",
+    "brand": "Hi-Ho",
+    "value": 292871.23,
+    "pct_change": -0.0714
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.445766",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 2661375.68,
+    "pct_change": 0.069
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.445776",
+    "brand": "Mighty",
+    "value": 1177441.42,
+    "pct_change": 0.1062
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.445787",
+    "brand": "Alaska Condensed Milk",
+    "value": 2841003.04,
+    "pct_change": -0.0865
+  },
+  {
+    "timestamp": "2025-04-23T17:36:14.445797",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 2706057.67,
+    "pct_change": 0.1224
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.445808",
+    "brand": "Crispy Patata",
+    "value": 1973290.73,
+    "pct_change": -0.0296
+  },
+  {
+    "timestamp": "2025-04-26T17:36:14.445819",
+    "brand": "Gourmet Picks",
+    "value": 310375.95,
+    "pct_change": 0.0422
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.445829",
+    "brand": "Smart C+ (Vitamin Drinks)",
+    "value": 2105890.02,
+    "pct_change": 0.2276
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.445842",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 2724819.01,
+    "pct_change": 0.0021
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.445852",
+    "brand": "Gourmet Picks",
+    "value": 585463.98,
+    "pct_change": 0.1269
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.445861",
+    "brand": "Mighty",
+    "value": 570649.87,
+    "pct_change": 0.1937
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.445871",
+    "brand": "Crispy Patata",
+    "value": 2716450.67,
+    "pct_change": 0.0201
+  },
+  {
+    "timestamp": "2025-04-27T17:36:14.445881",
+    "brand": "Winston",
+    "value": 694691.9,
+    "pct_change": -0.0586
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.445890",
+    "brand": "Calla (Personal Care Products)",
+    "value": 1925194.86,
+    "pct_change": 0.0228
+  },
+  {
+    "timestamp": "2025-05-13T17:36:14.445900",
+    "brand": "Winston",
+    "value": 2250156.35,
+    "pct_change": 0.224
+  },
+  {
+    "timestamp": "2025-05-22T17:36:14.445911",
+    "brand": "Oishi Bread Pan",
+    "value": 2220401.13,
+    "pct_change": 0.0355
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.445922",
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 37374.76,
+    "pct_change": 0.2171
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.445928",
+    "brand": "Oishi Marty's",
+    "value": 176789.71,
+    "pct_change": -0.0979
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.445934",
+    "brand": "Alaska Milk Corporation",
+    "value": 1273446.85,
+    "pct_change": 0.1096
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.445941",
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 2375588.66,
+    "pct_change": 0.101
+  },
+  {
+    "timestamp": "2025-05-17T17:36:14.445947",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 1038227.1,
+    "pct_change": 0.0762
+  },
+  {
+    "timestamp": "2025-05-16T17:36:14.445953",
+    "brand": "Alaska Condensed Milk",
+    "value": 1005033.74,
+    "pct_change": -0.0239
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.445959",
+    "brand": "Alaska Condensed Milk",
+    "value": 1661562.3,
+    "pct_change": 0.0972
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.445967",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 213257.1,
+    "pct_change": 0.164
+  },
+  {
+    "timestamp": "2025-04-28T17:36:14.445975",
+    "brand": "Crispy Patata",
+    "value": 2424930.06,
+    "pct_change": 0.007
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.445981",
+    "brand": "Del Monte Pasta",
+    "value": 1203081.27,
+    "pct_change": 0.2073
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.445987",
+    "brand": "Mighty",
+    "value": 2581554.4,
+    "pct_change": 0.1172
+  },
+  {
+    "timestamp": "2025-05-15T17:36:14.445992",
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 1820294.32,
+    "pct_change": 0.2132
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.445998",
+    "brand": "Oishi Ridges",
+    "value": 2529608.54,
+    "pct_change": 0.2419
+  },
+  {
+    "timestamp": "2025-05-23T17:36:14.446004",
+    "brand": "Alaska Powdered Milk",
+    "value": 109975.14,
+    "pct_change": 0.0521
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.446010",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 1826018.8,
+    "pct_change": 0.025
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.446019",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 1093930.2,
+    "pct_change": 0.0222
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.446030",
+    "brand": "Winston",
+    "value": 433619.39,
+    "pct_change": 0.1881
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.446040",
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 1655837.46,
+    "pct_change": 0.2371
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.446050",
+    "brand": "Mevius (formerly Mild Seven)",
+    "value": 951239.77,
+    "pct_change": -0.0198
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.446060",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 1882801.34,
+    "pct_change": 0.1672
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.446070",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 1021409.56,
+    "pct_change": 0.1748
+  },
+  {
+    "timestamp": "2025-05-09T17:36:14.446080",
+    "brand": "Alaska Milk Corporation",
+    "value": 162530.83,
+    "pct_change": 0.0394
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.446090",
+    "brand": "Alaska Milk Corporation",
+    "value": 2353061.81,
+    "pct_change": -0.0843
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.446100",
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 2648359.92,
+    "pct_change": 0.0907
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.446109",
+    "brand": "Oishi Ridges",
+    "value": 2720407.96,
+    "pct_change": 0.0931
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.446115",
+    "brand": "Cyclone (Bleach)",
+    "value": 1418014.14,
+    "pct_change": 0.0788
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.446121",
+    "brand": "Winston",
+    "value": 62880.43,
+    "pct_change": 0.2087
+  },
+  {
+    "timestamp": "2025-04-29T17:36:14.446127",
+    "brand": "Oaties",
+    "value": 1427758.06,
+    "pct_change": -0.0593
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.446133",
+    "brand": "Alaska Condensed Milk",
+    "value": 2436965.71,
+    "pct_change": 0.2166
+  },
+  {
+    "timestamp": "2025-05-06T17:36:14.446139",
+    "brand": "Oaties",
+    "value": 2356336.78,
+    "pct_change": 0.0002
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.446145",
+    "brand": "Alaska Milk Corporation",
+    "value": 318722.48,
+    "pct_change": 0.1524
+  },
+  {
+    "timestamp": "2025-05-21T17:36:14.446151",
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 451349.71,
+    "pct_change": 0.0023
+  },
+  {
+    "timestamp": "2025-05-01T17:36:14.446157",
+    "brand": "Oishi Bread Pan",
+    "value": 2225962.22,
+    "pct_change": 0.1819
+  },
+  {
+    "timestamp": "2025-05-14T17:36:14.446164",
+    "brand": "Del Monte Pasta",
+    "value": 1098282.93,
+    "pct_change": 0.108
+  },
+  {
+    "timestamp": "2025-05-05T17:36:14.446169",
+    "brand": "Oishi Ridges",
+    "value": 2333891.05,
+    "pct_change": 0.0218
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.446175",
+    "brand": "S&W (Premium Fruit & Vegetable Products)",
+    "value": 36635.59,
+    "pct_change": 0.2406
+  },
+  {
+    "timestamp": "2025-04-30T17:36:14.446181",
+    "brand": "Del Monte Pineapple",
+    "value": 2118763.32,
+    "pct_change": 0.0395
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.446187",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 2508089.49,
+    "pct_change": -0.0105
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.446193",
+    "brand": "Alaska Evaporated Milk",
+    "value": 884674.54,
+    "pct_change": 0.1392
+  },
+  {
+    "timestamp": "2025-04-24T17:36:14.446200",
+    "brand": "Cyclone (Bleach)",
+    "value": 2042300.92,
+    "pct_change": 0.1401
+  },
+  {
+    "timestamp": "2025-05-11T17:36:14.446207",
+    "brand": "Oishi Marty's",
+    "value": 787598.63,
+    "pct_change": 0.0838
+  },
+  {
+    "timestamp": "2025-05-07T17:36:14.446213",
+    "brand": "Alaska Condensed Milk",
+    "value": 2798016.31,
+    "pct_change": 0.0808
+  },
+  {
+    "timestamp": "2025-05-12T17:36:14.446219",
+    "brand": "Calla (Personal Care Products)",
+    "value": 709427.53,
+    "pct_change": 0.0287
+  },
+  {
+    "timestamp": "2025-04-25T17:36:14.446225",
+    "brand": "Alaska Condensed Milk",
+    "value": 2915642.98,
+    "pct_change": -0.0969
+  },
+  {
+    "timestamp": "2025-05-02T17:36:14.446230",
+    "brand": "Camel",
+    "value": 2235185.58,
+    "pct_change": 0.0714
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.446237",
+    "brand": "Oishi Bread Pan",
+    "value": 917627.58,
+    "pct_change": 0.0132
+  },
+  {
+    "timestamp": "2025-05-20T17:36:14.446243",
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 2349207.13,
+    "pct_change": 0.25
+  },
+  {
+    "timestamp": "2025-05-10T17:36:14.446248",
+    "brand": "Oishi Ridges",
+    "value": 264714.43,
+    "pct_change": 0.2176
+  },
+  {
+    "timestamp": "2025-05-19T17:36:14.446254",
+    "brand": "Oishi Bread Pan",
+    "value": 1455888.95,
+    "pct_change": -0.0735
+  },
+  {
+    "timestamp": "2025-05-04T17:36:14.446260",
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 1250211.59,
+    "pct_change": -0.0385
+  },
+  {
+    "timestamp": "2025-05-18T17:36:14.446266",
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 735852.64,
+    "pct_change": 0.0465
+  }
+]

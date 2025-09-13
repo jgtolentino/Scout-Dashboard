@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Preview</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: #f0f2f5;
+    }
+    
+    .dashboard-container {
+      width: 100%;
+      height: 100vh;
+      background-color: #f0f2f5;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      background-color: #000;
+      padding: 15px;
+      border-radius: 8px;
+      color: white;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #ffc300;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: bold;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .control-button {
+      padding: 8px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .kpi-card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      position: relative;
+    }
+    
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background-color: #ffc300;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+    
+    .kpi-title {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .kpi-value {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .kpi-change {
+      font-size: 14px;
+    }
+    
+    .positive {
+      color: #28a745;
+    }
+    
+    .negative {
+      color: #dc3545;
+    }
+    
+    .charts-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .chart-card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .chart-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ffc300;
+    }
+    
+    .chart-placeholder {
+      height: 250px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #adb5bd;
+    }
+    
+    .map-container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .map-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ffc300;
+    }
+    
+    .map-placeholder {
+      height: 300px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #adb5bd;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .philippines-outline {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      opacity: 0.2;
+    }
+    
+    .insight-panel {
+      position: fixed;
+      top: 90px;
+      right: 30px;
+      width: 280px;
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .insight-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .insight-title::before {
+      content: "✨";
+    }
+    
+    .insight-card {
+      padding: 10px;
+      background-color: rgba(255, 195, 0, 0.1);
+      border-left: 3px solid #ffc300;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    
+    .data-badge {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #ffc300;
+      color: black;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="header">
+      <div class="logo">
+        <div class="logo-icon">TS</div>
+        <span>TBWA Client360 Dashboard</span>
+      </div>
+      <div class="controls">
+        <div class="control-button">Last 7 Days</div>
+        <div class="control-button">All Stores</div>
+        <div class="control-button">Export</div>
+      </div>
+    </div>
+    
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-title">Total Sales</div>
+        <div class="kpi-value">₱ 1.24M</div>
+        <div class="kpi-change positive">+8.5% vs prev month</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Active Stores</div>
+        <div class="kpi-value">487</div>
+        <div class="kpi-change positive">+12 new stores</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Avg. Order Value</div>
+        <div class="kpi-value">₱ 752</div>
+        <div class="kpi-change negative">-2.3% vs prev month</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Product Categories</div>
+        <div class="kpi-value">32</div>
+        <div class="kpi-change positive">+3 new categories</div>
+      </div>
+    </div>
+    
+    <div class="map-container">
+      <div class="map-title">Store Map</div>
+      <div class="map-placeholder">
+        <svg class="philippines-outline" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50,40 C60,20 80,10 100,20 C120,30 140,20 150,40 C160,60 170,80 160,100 C150,120 160,140 140,150 C120,160 100,170 80,160 C60,150 40,160 30,140 C20,120 30,100 40,80 C45,60 40,60 50,40Z" fill="#adb5bd"/>
+        </svg>
+        Philippines Store Map
+      </div>
+    </div>
+    
+    <div class="charts-container">
+      <div class="chart-card">
+        <div class="chart-title">Sales by Region</div>
+        <div class="chart-placeholder">
+          Sales Chart
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Top Selling Products</div>
+        <div class="chart-placeholder">
+          Products Chart
+        </div>
+      </div>
+    </div>
+    
+    <div class="insight-panel">
+      <div class="insight-title">AI Insights</div>
+      <div class="insight-card">NCR region shows 32% growth in Q2, outperforming all other regions combined.</div>
+      <div class="insight-card">Staff reassignments in Manila stores boosted conversion by 12% in two weeks.</div>
+      <div class="insight-card">Recommend increasing inventory for top 5 products to avoid stockouts.</div>
+    </div>
+    
+    <div class="data-badge">
+      Data: Live | Last updated: 5 min ago
+    </div>
+  </div>
+</body>
+</html>

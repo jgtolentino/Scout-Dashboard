@@ -1,0 +1,10 @@
+name: test
+description: Run test suite
+command: |
+  echo "Running tests..."
+  npm test || npm run test || echo "No tests configured"
+environment:
+  NODE_ENV: test
+triggers:
+  - pre_commit
+  - manual

@@ -1,0 +1,71 @@
+name: CI/CD Client360 Dashboard
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  AZURE_RESOURCE_GROUP: scout-dashboard
+  AZURE_STATIC_APP_NAME: tbwa-client360-dashboard-production
+  LOCATION: eastus2
+
+jobs:
+  setup-infra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy infrastructure (Bicep)
+        run: |
+          az deployment group create \
+            --resource-group $AZURE_RESOURCE_GROUP \
+            --template-file infrastructure/main.bicep
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: setup-infra
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          cd client360
+          npm ci
+      - name: Build
+        run: npm run build --prefix client360
+      - name: Deploy to Static Web App (staging slot)
+        run: |
+          az staticwebapp deploy \
+            --name $AZURE_STATIC_APP_NAME \
+            --resource-group $AZURE_RESOURCE_GROUP \
+            --source client360/build \
+            --slot staging
+      - name: Run Cypress smoke tests
+        run: |
+          cd client360
+          npm install cypress --no-save
+          npx cypress run --config baseUrl=https://${AZURE_STATIC_APP_NAME}-staging.azurestaticapps.net
+      - name: Swap staging → production
+        if: success()
+        run: |
+          az staticwebapp hostname swap \
+            --name $AZURE_STATIC_APP_NAME \
+            --resource-group $AZURE_RESOURCE_GROUP \
+            --slot staging
+
+  monitor-and-rollback:
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    if: failure()
+    steps:
+      - name: Rollback to previous version
+        run: |
+          az staticwebapp hostname swap \
+            --name $AZURE_STATIC_APP_NAME \
+            --resource-group $AZURE_RESOURCE_GROUP \
+            --slot production \
+            --target-slot staging
+      - name: Fail workflow
+        run: exit 1

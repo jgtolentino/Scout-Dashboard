@@ -1,0 +1,56 @@
+agent: claude
+parity_evaluation: Pulser v1.1.1
+source_reference: Claude Code CLI (npm: @anthropic-ai/claude-code)
+evaluation_date: 2025-05-04
+maintainer: claudia
+
+parity_matrix:
+  - feature: 'run command (`claude-code run "..."`)'
+    expected_in_pulser: true
+    implemented: true
+    notes: 'Alias already mapped as `:claude-run` in CLI.'
+
+  - feature: 'interactive chat mode (`claude-code chat`)'
+    expected_in_pulser: true
+    implemented: true
+    notes: '`pulser :claude-chat` launches Claude in shell.'
+
+  - feature: 'API toggle support (`--api`)'
+    expected_in_pulser: true
+    implemented: true
+    notes: 'Handled through `/apikey validate` and routing.'
+
+  - feature: 'Anthropic SDK usage'
+    expected_in_pulser: true
+    implemented: true
+    notes: 'Claude backend via Anthropic API is fully connected.'
+
+  - feature: 'Terminal spinner and logger UI (ora/chalk)'
+    expected_in_pulser: true
+    implemented: partial
+    notes: 'Spinner emulated; lacks colored output and live logs.'
+
+  - feature: 'Error fallback and CLI failure handling'
+    expected_in_pulser: true
+    implemented: partial
+    notes: 'Basic catch exists; lacks full message structure and codes.'
+
+  - feature: 'Context injection flag (`--context`)'
+    expected_in_pulser: true
+    implemented: false
+    notes: 'No current flag for working directory or context injection.'
+
+  - feature: 'Version display (`--version`)'
+    expected_in_pulser: true
+    implemented: partial
+    notes: 'Pulser shows version; Claude-specific version not parsed.'
+
+  - feature: 'Command registry structure (e.g., `commands/run.ts`)'
+    expected_in_pulser: true
+    implemented: false
+    notes: 'Pulser CLI not modularized per command group yet.'
+
+  - feature: 'Jest-style unit test coverage'
+    expected_in_pulser: true
+    implemented: false
+    notes: 'Pulser logs outputs only; no formal test framework yet.'

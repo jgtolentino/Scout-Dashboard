@@ -1,0 +1,322 @@
+name: pulsedev
+description: "Agent for handling specific tasks"
+# PulseDev Agent Profiles
+# Configuration file for the PulseDev agent stack
+
+version: 1.0
+updated: "2025-05-13"
+
+# Agent definitions
+agents:
+  # Language detection and runtime execution
+  tide:
+    name: "Tide"
+    description: "Language router for runtime execution"
+    capabilities:
+      - language_detection
+      - code_execution_routing
+      - syntax_validation
+      - runtime_selection
+    environments:
+      - code_execution
+      - terminal
+    skill_level: 9
+    models:
+      - claude-3-5-sonnet
+      - deepseekr1
+    fallback: "surf"
+  
+  # Workspace orchestration
+  claudia:
+    name: "Claudia"
+    description: "Workspace orchestration and session management"
+    capabilities:
+      - workspace_management
+      - session_persistence
+      - state_synchronization
+      - memory_management
+    environments:
+      - all
+    skill_level: 9
+    models:
+      - claude-3-5-sonnet
+      - claude-3-opus
+    fallback: "maya"
+  
+  # Container management
+  surf:
+    name: "Surf"
+    description: "Container management and code execution"
+    capabilities:
+      - docker_execution
+      - terminal_command_execution
+      - package_management
+      - dependency_resolution
+    environments:
+      - code_execution
+      - terminal
+    skill_level: 10
+    models:
+      - claude-3-5-sonnet
+      - deepseekr1
+    fallback: "basher"
+  
+  # Project structure
+  maya:
+    name: "Maya"
+    description: "Project structure and templates"
+    capabilities:
+      - project_scaffolding
+      - template_management
+      - structure_visualization
+      - architecture_planning
+    environments:
+      - editor
+      - filesystem
+    skill_level: 8
+    models:
+      - claude-3-5-sonnet
+    fallback: "claudia"
+  
+  # Terminal logging
+  echo:
+    name: "Echo"
+    description: "Terminal output and logging"
+    capabilities:
+      - log_capturing
+      - output_formatting
+      - error_highlighting
+      - execution_recording
+    environments:
+      - terminal
+      - code_execution
+    skill_level: 7
+    models:
+      - claude-3-5-sonnet
+      - deepseekr1-mini
+    fallback: "claudia"
+  
+  # AI code assistance
+  edge:
+    name: "Edge"
+    description: "AI code assistance and suggestions"
+    capabilities:
+      - code_completion
+      - error_correction
+      - refactoring
+      - documentation_generation
+      - code_explanation
+    environments:
+      - editor
+    skill_level: 10
+    models:
+      - claude-3-opus
+      - claude-3-5-sonnet
+    fallback: "claudia"
+  
+  # Terminal command execution
+  basher:
+    name: "Basher"
+    description: "Terminal command execution"
+    capabilities:
+      - shell_command_execution
+      - script_running
+      - process_management
+      - background_tasks
+    environments:
+      - terminal
+      - code_execution
+    skill_level: 9
+    models:
+      - claude-3-5-sonnet
+      - deepseekr1
+    fallback: "surf"
+
+# Runtime environments
+environments:
+  # Code editor environment
+  editor:
+    name: "Editor"
+    description: "Monaco-based code editing environment"
+    capabilities:
+      - syntax_highlighting
+      - code_completion
+      - error_highlighting
+      - file_editing
+    bridge: "editor_bridge"
+    agents:
+      - edge
+      - maya
+  
+  # Code execution environment
+  code_execution:
+    name: "CodeExecution"
+    description: "Docker-based code execution environment"
+    capabilities:
+      - execute_javascript
+      - execute_python
+      - execute_html
+      - package_management
+    bridge: "code_execution_bridge"
+    agents:
+      - tide
+      - surf
+      - echo
+    sandbox:
+      enabled: true
+      resource_limits:
+        memory: 256
+        cpu: 1
+        execution_time: 30
+      network_access: "limited"
+  
+  # Terminal environment
+  terminal:
+    name: "Terminal"
+    description: "Web-based terminal emulation"
+    capabilities:
+      - command_execution
+      - interactive_shell
+      - process_management
+      - output_streaming
+    bridge: "terminal_bridge"
+    agents:
+      - basher
+      - echo
+    sandbox:
+      enabled: true
+      resource_limits:
+        memory: 128
+        cpu: 0.5
+        execution_time: 60
+      network_access: "restricted"
+  
+  # Filesystem environment
+  filesystem:
+    name: "Filesystem"
+    description: "Virtual filesystem for workspace management"
+    capabilities:
+      - file_operations
+      - directory_management
+      - project_structure
+      - template_application
+    bridge: "filesystem_bridge"
+    agents:
+      - maya
+      - claudia
+    sandbox:
+      enabled: true
+      allowed_paths:
+        - "/workspaces"
+        - "/tmp"
+      filesystem_quota: 100 # MB
+
+# Routing rules
+routing:
+  # Code execution routing
+  - intent: "execute_code"
+    patterns:
+      - "run this code"
+      - "execute"
+      - "run"
+      - "compile"
+      - "build"
+    agent: "tide"
+    environment: "code_execution"
+    priority: "high"
+  
+  # Terminal command routing
+  - intent: "terminal_command"
+    patterns:
+      - "run command"
+      - "execute in terminal"
+      - "shell"
+      - "bash"
+      - "command line"
+    agent: "basher"
+    environment: "terminal"
+    priority: "high"
+  
+  # Code assistance routing
+  - intent: "code_assistance"
+    patterns:
+      - "help with code"
+      - "explain this code"
+      - "debug"
+      - "fix error"
+      - "optimize"
+      - "refactor"
+    agent: "edge"
+    environment: "editor"
+    priority: "medium"
+  
+  # Project structure routing
+  - intent: "project_structure"
+    patterns:
+      - "create project"
+      - "scaffold"
+      - "generate template"
+      - "new project"
+      - "project setup"
+    agent: "maya"
+    environment: "filesystem"
+    priority: "medium"
+  
+  # File operations routing
+  - intent: "file_operations"
+    patterns:
+      - "create file"
+      - "save file"
+      - "open file"
+      - "delete file"
+      - "rename file"
+    agent: "claudia"
+    environment: "filesystem"
+    priority: "high"
+
+# Fallback cascades
+fallback_cascades:
+  code:
+    sequence: ["tide", "surf", "edge", "claudia"]
+  
+  project:
+    sequence: ["maya", "claudia", "edge"]
+  
+  terminal:
+    sequence: ["basher", "surf", "echo"]
+  
+  assistance:
+    sequence: ["edge", "claudia", "maya"]
+
+# Synchronization config
+sync_config:
+  auto_sync: true
+  sync_frequency: 300 # seconds
+  sync_on_completion: true
+  memory_location: "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/.pulser_context.json"
+  session_history: "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/claude_sync_log"
+
+# Security configuration
+security:
+  default_permissions: "read_only"
+  admin_agents: ["claudia"]
+  execution_timeouts:
+    code_execution: 30 # seconds
+    terminal: 60 # seconds
+    editor: 0 # no timeout
+    filesystem: 10 # seconds
+  
+  sandbox_restrictions:
+    code_execution:
+      filesystem: "workspace_only"
+      network: "disabled"
+      system_calls: "restricted"
+    
+    terminal:
+      filesystem: "workspace_only"
+      network: "limited"
+      dangerous_commands: "prompt_user"
+    
+    filesystem:
+      operations: ["read", "write", "delete", "create"]
+      max_file_size: 10 # MB

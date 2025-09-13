@@ -1,0 +1,112 @@
+placements:
+  - id: title
+    text: "Project Scout: Brand Insights Flow"
+    align: center
+
+  - id: bronze_layer_title
+    text: "RAW DATA LAYER"
+    align: left
+
+  - id: silver_layer_title
+    text: "PROCESSING LAYER"
+    align: left
+
+  - id: gold_layer_title
+    text: "INSIGHTS LAYER"
+    align: left
+
+  - id: dashboard_layer_title
+    text: "VISUALIZATION LAYER"
+    align: left
+
+  - id: governance_title
+    text: "GOVERNANCE"
+    align: center
+
+  - id: data_source_1
+    text: "Raspberry Pi\n(STT Transcripts)"
+    align: center
+
+  - id: data_source_2
+    text: "Shelf Camera\n(Image Data)"
+    align: center
+
+  - id: data_source_3
+    text: "Chat Interactions\n(Text Data)"
+    align: center
+
+  - id: event_hub
+    text: "Azure EventHub\n(Data Ingestion)"
+    align: center
+    
+  - id: bronze_storage
+    text: "Data Lake Storage\n/bronze/audio_raw/\n/bronze/images_raw/\n/bronze/chat_raw/"
+    align: center
+
+  - id: azure_ml
+    text: "Azure ML Workspace"
+    align: center
+
+  - id: genai_enricher
+    text: "Brand Detection Engine\n(LLM-powered)"
+    align: center
+
+  - id: validation
+    text: "Data Validation\nQuality Checks"
+    align: center
+
+  - id: pulser_ops
+    text: "Workflow Automation:\n- Enrichment Pipeline\n- QA Validation\n- Metadata Tagging"
+    align: center
+
+  - id: azure_sql
+    text: "Azure SQL"
+    align: center
+
+  - id: brand_mentions_table
+    text: "<b>Brand Insights Table</b>\ninsight_id\nsource_id\nbrand_name\nproduct_line\ncategory\nmention_context\ntimestamp\nconfidence_score"
+    align: left
+
+  - id: mention_scores_table
+    text: "<b>Insight Analytics Table</b>\nanalytics_id\ninsight_id\nsentiment_score\nintent_score\nrelevance_score\nactionability_score\ntimeliness_score\nvalue_index"
+    align: left
+
+  - id: event_hub_out
+    text: "Real-time Insights\n(Event Stream)"
+    align: center
+
+  - id: react_dashboard
+    text: "Brand Insights Dashboard"
+    align: center
+
+  - id: key_vault
+    text: "Azure Key Vault\n(Secure Credentials)"
+    align: center
+
+  - id: metadata
+    text: "Metadata Store\n(YAML Config)"
+    align: center
+
+  - id: qa_monitoring
+    text: "Quality Assurance\nMonitoring Service"
+    align: center
+
+  - id: expanded_brand_mention
+    text: "<b>Insight Structure</b>"
+    align: center
+
+  - id: ebm_1
+    text: "Identity: {brand, product, category}"
+    align: left
+
+  - id: ebm_2
+    text: "Context: {location, situation, timing}"
+    align: left
+
+  - id: ebm_3
+    text: "Sentiment: {emotion, intent, attitude}"
+    align: left
+
+  - id: ebm_4
+    text: "Value: {relevance, actionability}"
+    align: left

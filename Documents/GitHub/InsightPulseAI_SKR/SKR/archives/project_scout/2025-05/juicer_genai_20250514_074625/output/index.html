@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0;url=insights_dashboard.html">
+  <title>Juicer Insights Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #002b49;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    
+    .accent {
+      color: #ff3300;
+    }
+    
+    .loading {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    
+    .loading div {
+      display: inline-block;
+      position: absolute;
+      left: 8px;
+      width: 16px;
+      background: #ff3300;
+      animation: loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    }
+    
+    .loading div:nth-child(1) {
+      left: 8px;
+      animation-delay: -0.24s;
+    }
+    
+    .loading div:nth-child(2) {
+      left: 32px;
+      animation-delay: -0.12s;
+    }
+    
+    .loading div:nth-child(3) {
+      left: 56px;
+      animation-delay: 0;
+    }
+    
+    @keyframes loading {
+      0% {
+        top: 8px;
+        height: 64px;
+      }
+      50%, 100% {
+        top: 24px;
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">Juicer <span class="accent">Insights</span></div>
+  <p>Loading dashboard...</p>
+  <div class="loading">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <p>If you are not redirected automatically, <a href="insights_dashboard.html" style="color: #ff3300;">click here</a>.</p>
+</body>
+</html>

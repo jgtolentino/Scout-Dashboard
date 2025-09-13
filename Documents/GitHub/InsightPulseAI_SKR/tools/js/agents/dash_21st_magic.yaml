@@ -1,0 +1,91 @@
+id: dash_21st_magic
+name: Dashboard Builder with 21st Magic
+description: >
+  Enhanced Dashboard Builder agent that integrates 21st Magic visualization capabilities,
+  enabling advanced data storytelling, interactive animations, and real-time data visualization
+  with minimal configuration. Supports all existing Dash capabilities while adding magical
+  3D visualization and motion graphics.
+
+version: 1.0.0
+
+agent_type: generator
+labels: [dashboard, visualization, 3d-charts, animation, interactive, analytics, scout, 21st-magic]
+
+model:
+  provider: claude
+  engine: claude-3-opus
+  temperature: 0.3
+  max_tokens: 4096
+
+entrypoint: build_magic_dashboard
+input_format: schema_and_requirements
+output_format: html_js_bundle
+
+orchestration:
+  parent: VisualSynth
+  role: enhanced-dashboard-deployer
+  subagents:
+    - reqparser
+    - schemainfer
+    - vizplanner
+    - reactgen
+    - deployer
+    - magicrenderer
+
+functions:
+  - id: parse_requirements
+    description: Extract user KPIs, layout preferences, and drill-down specs from prompt
+  - id: infer_schema
+    description: Analyze incoming data structure (SQL, CSV, JSON, API) for dashboard logic
+  - id: generate_components
+    description: Produce modular HTML/JS components for dashboard UI
+  - id: deploy_webapp
+    description: Push compiled dashboard to cloud (Azure, Vercel, or Netlify)
+  - id: generate_magic_visualizations
+    description: Create advanced 3D and animated visualizations using 21st Magic
+  - id: optimize_animations
+    description: Ensure animations are performant across devices with different capabilities
+
+outputs:
+  - path: /dashboards/magic_dashboard.html
+    format: HTML
+  - path: /dashboards/config.json
+    format: JSON (for component settings)
+  - path: /dashboards/assets/
+    format: JS/CSS/3D model assets
+
+integrations:
+  - azure_blob
+  - vercel_cli
+  - databricks_sql_connector
+  - pulser_internal_router
+  - 21st_magic_renderer
+  - threejs_components
+  - gsap_animation_library
+
+permissions:
+  network: true
+  file_system: write
+  execution: safe_mode
+
+visualization_capabilities:
+  - 3d_bar_charts
+  - animated_transitions
+  - data_driven_animations
+  - interactive_drill_downs
+  - particle_system_data_viz
+  - real_time_updates
+  - spatial_data_mapping
+  - timeline_animations
+
+themes:
+  - tbwa_magic_dark
+  - tbwa_magic_light
+  - executive_3d
+  - retail_interactive
+  - immersive_data_story
+
+resource_requirements:
+  min_memory: 2048
+  recommended_browser: "Chrome 90+"
+  fallback_mode: "2D simplified view"

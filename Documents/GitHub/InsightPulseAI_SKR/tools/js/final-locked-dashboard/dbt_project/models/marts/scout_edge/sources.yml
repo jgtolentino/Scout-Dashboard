@@ -1,0 +1,231 @@
+version: 2
+
+sources:
+  - name: sales
+    description: Source tables containing sales transaction data
+    database: retail_data
+    schema: sales
+    tables:
+      - name: transactions
+        description: Primary transaction records
+        columns:
+          - name: TransactionID
+            description: Primary key for transactions
+            tests:
+              - unique
+              - not_null
+          - name: StoreID
+            description: Store where transaction occurred
+          - name: RegisterID
+            description: Register/POS where transaction occurred
+          - name: EmployeeID
+            description: Employee who processed the transaction
+          - name: CustomerID
+            description: Customer who made the purchase
+          - name: TransactionDate
+            description: Date of transaction
+          - name: TransactionTime
+            description: Time of transaction
+          - name: TotalAmount
+            description: Total amount of transaction
+          - name: PaymentMethod
+            description: Method of payment
+          - name: ItemCount
+            description: Number of items in transaction
+          - name: DiscountAmount
+            description: Amount of discount applied
+          - name: TaxAmount
+            description: Amount of tax collected
+          - name: Status
+            description: Status of transaction (Completed, Voided, etc.)
+          - name: SessionID
+            description: Associated customer session ID if applicable
+      
+      - name: transaction_items
+        description: Line items within transactions
+        columns:
+          - name: TransactionItemID
+            description: Primary key for transaction items
+            tests:
+              - unique
+              - not_null
+          - name: TransactionID
+            description: Foreign key to parent transaction
+            tests:
+              - not_null
+              - relationships:
+                  to: source('sales', 'transactions')
+                  field: TransactionID
+          - name: ProductID
+            description: Product purchased
+            tests:
+              - not_null
+          - name: Quantity
+            description: Quantity of the product
+          - name: UnitPrice
+            description: Price per unit
+          - name: LineTotal
+            description: Total for this line item
+          - name: DiscountAmount
+            description: Discount amount for this line item
+          - name: DiscountPercent
+            description: Percentage discount for this line item
+
+  - name: inventory
+    description: Source tables containing product and inventory data
+    database: retail_data
+    schema: inventory
+    tables:
+      - name: products
+        description: Product master data
+        columns:
+          - name: ProductID
+            description: Primary key for products
+            tests:
+              - unique
+              - not_null
+          - name: ProductName
+            description: Name of the product
+          - name: SKU
+            description: Stock keeping unit
+          - name: Category
+            description: Product category
+          - name: SubCategory
+            description: Product subcategory
+          - name: BrandID
+            description: Foreign key to brand
+          - name: UnitPrice
+            description: Standard unit price
+          - name: Cost
+            description: Product cost
+      
+      - name: brands
+        description: Brand master data
+        columns:
+          - name: BrandID
+            description: Primary key for brands
+            tests:
+              - unique
+              - not_null
+          - name: BrandName
+            description: Name of the brand
+          - name: BrandCategory
+            description: Category of the brand
+          - name: ManufacturerID
+            description: ID of the manufacturer
+          
+      - name: stock_levels
+        description: Current inventory levels
+        columns:
+          - name: StockID
+            description: Primary key for stock records
+          - name: StoreID
+            description: Store location
+          - name: ProductID
+            description: Product reference
+          - name: CurrentStockLevel
+            description: Current quantity in stock
+          - name: ReorderPoint
+            description: Level at which to reorder
+          - name: LastRestockDate
+            description: Date of last restock
+
+  - name: store
+    description: Source tables containing store and location data
+    database: retail_data
+    schema: store
+    tables:
+      - name: locations
+        description: Store location master data
+        columns:
+          - name: StoreID
+            description: Primary key for stores
+            tests:
+              - unique
+              - not_null
+          - name: StoreName
+            description: Name of the store
+          - name: StoreType
+            description: Type of store (flagship, mall, etc.)
+          - name: RegionID
+            description: ID of the region
+          - name: Region
+            description: Name of the region
+          - name: City
+            description: City name
+          - name: Barangay
+            description: Barangay name
+          - name: Address
+            description: Full address
+          - name: Latitude
+            description: Geographic latitude
+          - name: Longitude
+            description: Geographic longitude
+          - name: SquareFootage
+            description: Size of the store
+          - name: OpeningDate
+            description: Date the store opened
+
+  - name: customer
+    description: Source tables containing customer data
+    database: retail_data
+    schema: customer
+    tables:
+      - name: profiles
+        description: Customer profile data
+        columns:
+          - name: CustomerID
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
+          - name: CustomerName
+            description: Customer name
+          - name: CustomerSegment
+            description: Market segment of customer
+          - name: Email
+            description: Customer email
+          - name: Phone
+            description: Customer phone number
+          - name: JoinDate
+            description: Date customer joined
+          - name: LoyaltyTier
+            description: Loyalty program tier
+          - name: LoyaltyPoints
+            description: Current loyalty points balance
+
+  - name: analytics
+    description: Source tables containing analytical data
+    database: retail_data
+    schema: analytics
+    tables:
+      - name: customer_sessions
+        description: Customer shopping sessions
+        columns:
+          - name: SessionID
+            description: Primary key for sessions
+            tests:
+              - unique
+              - not_null
+          - name: CustomerID
+            description: Customer identifier
+          - name: StoreID
+            description: Store where session occurred
+          - name: SessionStartTime
+            description: Start time of session
+          - name: SessionEndTime
+            description: End time of session
+          - name: DeviceType
+            description: Device used (mobile, kiosk, etc.)
+          - name: ChannelType
+            description: Channel (in-store, online, app)
+          - name: PageViews
+            description: Number of pages viewed
+          - name: ProductViews
+            description: Number of products viewed
+          - name: SearchCount
+            description: Number of searches performed
+          - name: CartAdditions
+            description: Number of items added to cart
+          - name: CartRemovals
+            description: Number of items removed from cart

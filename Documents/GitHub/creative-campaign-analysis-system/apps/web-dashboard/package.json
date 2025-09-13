@@ -1,0 +1,45 @@
+{
+  "name": "@tbwa/web-dashboard",
+  "version": "1.0.0",
+  "description": "TBWA Creative Campaign Analysis Dashboard",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next dist",
+    "deploy:dev": "vercel --prod",
+    "deploy:prod": "vercel --prod",
+    "db:migrate": "tsx src/scripts/migrate.ts",
+    "db:seed": "tsx src/scripts/seed.ts",
+    "pageindex:search": "tsx src/scripts/search.ts",
+    "pageindex:process": "tsx src/scripts/process.ts"
+  },
+  "dependencies": {
+    "@tbwa/shared": "file:../../packages/shared",
+    "@tbwa/database": "file:../../packages/database",
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "lucide-react": "^0.295.0",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.0.0",
+    "class-variance-authority": "^0.7.0",
+    "date-fns": "^3.0.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "^15.0.3",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "tsx": "^4.6.2",
+    "typescript": "^5.3.0"
+  },
+  "eslintConfig": {
+    "extends": "next/core-web-vitals"
+  }
+}

@@ -1,0 +1,62 @@
+### Market Trends Analysis Prompt
+# Tags: marketing, trends, analysis, yaml
+# Version: 1.0
+
+You are a market research expert analyzing industry trends. 
+Review the following market sector information and produce a structured YAML output that includes:
+
+1. Key market drivers
+2. Emerging trends
+3. Competitive landscape
+4. Growth opportunities
+5. Potential risks
+
+Format your analysis as valid YAML with clear hierarchical structure and appropriate labeling.
+
+Market sector to analyze: {{sector}}
+
+Additional context: {{context}}
+
+REQUIRED OUTPUT FORMAT:
+```yaml
+analysis:
+  sector: "(sector name)"
+  date: "(current date)"
+  overview: "(brief 1-2 sentence summary)"
+  key_drivers:
+    - name: "(driver name)"
+      description: "(explanation)"
+      impact_level: "(high|medium|low)"
+    # repeat for 3-5 drivers
+  emerging_trends:
+    - name: "(trend name)"
+      description: "(explanation)"
+      timeline: "(immediate|short-term|long-term)"
+    # repeat for 3-5 trends
+  competitive_landscape:
+    leaders:
+      - name: "(company name)"
+        strengths: ["strength 1", "strength 2"]
+        market_share: "(approximate percentage)"
+    challengers:
+      - name: "(company name)"
+        differentiator: "(key differentiator)"
+    emerging_players:
+      - name: "(company name)"
+        innovation: "(breakthrough innovation)"
+  opportunities:
+    - name: "(opportunity name)"
+      description: "(explanation)"
+      potential_impact: "(high|medium|low)"
+    # repeat for 2-3 opportunities
+  risks:
+    - name: "(risk name)"
+      description: "(explanation)"
+      severity: "(high|medium|low)"
+      mitigation: "(possible mitigation strategy)"
+    # repeat for 2-3 risks
+  recommendations:
+    - "(actionable recommendation 1)"
+    - "(actionable recommendation 2)"
+    - "(actionable recommendation 3)"
+```

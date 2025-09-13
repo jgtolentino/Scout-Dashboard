@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-05-12T15:59:46.216Z",
+  "configuration": {
+    "days_analyzed": 30,
+    "model": "claude",
+    "insight_type": "all",
+    "brand_filter": "all",
+    "confidence_threshold": 0.7
+  },
+  "results": {
+    "status": "success",
+    "processed_records": 448,
+    "insights_generated": 89,
+    "execution_time_ms": 5824
+  }
+}

@@ -1,0 +1,81 @@
+name: Power BI Style QA
+
+on:
+  push:
+    paths:
+      - 'dashboards/**'
+      - 'retail_**/**'
+      - '**.html'
+      - '**.js'
+      - '**.css'
+      - '**/powerbi_qa_**.js'
+  pull_request:
+    paths:
+      - 'dashboards/**'
+      - 'retail_**/**'
+      - '**.html'
+      - '**.js'
+      - '**.css'
+      - '**/powerbi_qa_**.js'
+  workflow_dispatch:
+
+jobs:
+  powerbi-qa:
+    name: Power BI Style QA Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: qa/package.json
+          
+      - name: Install dependencies
+        run: |
+          cd qa
+          npm install
+          
+      - name: Start local server
+        run: |
+          # Start a simple HTTP server to serve the dashboard
+          python3 -m http.server 3000 --directory dashboards &
+          # Save the PID to kill it later
+          echo $! > server.pid
+          # Wait for server to start
+          sleep 2
+          
+      - name: Run Power BI Style QA Check
+        run: |
+          cd qa
+          npm run qa:ci
+          
+      - name: Stop local server
+        run: |
+          if [ -f server.pid ]; then
+            kill $(cat server.pid)
+            rm server.pid
+          fi
+          
+      - name: Upload QA results
+        uses: actions/upload-artifact@v3
+        with:
+          name: powerbi-qa-results
+          path: |
+            docs/images/powerbi_qa_*.png
+            docs/images/powerbi_qa_*.md
+            docs/images/powerbi_qa_*.json
+          
+      - name: Check for failures
+        run: |
+          FAILURES=$(find docs/images -name "powerbi_qa_results_*.json" -exec jq '.failures | length' {} \; | sort -r | head -n 1)
+          if [ "$FAILURES" -gt 0 ]; then
+            echo "::error::Power BI Style QA found $FAILURES violations. See artifacts for details."
+            exit 1
+          else
+            echo "::notice::Power BI Style QA passed! Dashboard meets Power BI style guidelines."
+          fi

@@ -1,0 +1,230 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DLT Pipeline Configuration",
+  "description": "Schema for Data Lake Transfer (DLT) pipelines",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the DLT pipeline"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the pipeline configuration",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "bronze": {
+      "type": "object",
+      "description": "Bronze layer configuration (raw data)",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Storage path for bronze layer data"
+        },
+        "format": {
+          "type": "string",
+          "description": "File format for bronze layer data",
+          "enum": ["delta", "parquet", "csv", "json"]
+        },
+        "partitioning": {
+          "type": "array",
+          "description": "Partitioning columns",
+          "items": {
+            "type": "string"
+          }
+        },
+        "schema": {
+          "type": "object",
+          "description": "Schema definition for bronze layer",
+          "properties": {
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["string", "integer", "long", "float", "double", "boolean", "date", "timestamp", "binary"]
+                  },
+                  "nullable": {
+                    "type": "boolean",
+                    "default": true
+                  }
+                },
+                "required": ["name", "type"]
+              }
+            }
+          }
+        }
+      },
+      "required": ["path", "format"]
+    },
+    "silver": {
+      "type": "object",
+      "description": "Silver layer configuration (cleansed data)",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Storage path for silver layer data"
+        },
+        "format": {
+          "type": "string",
+          "description": "File format for silver layer data",
+          "enum": ["delta", "parquet", "csv", "json"]
+        },
+        "partitioning": {
+          "type": "array",
+          "description": "Partitioning columns",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transformations": {
+          "type": "array",
+          "description": "List of transformations to apply",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["rename", "cast", "drop", "filter", "join", "aggregate", "custom"]
+              },
+              "config": {
+                "type": "object"
+              }
+            },
+            "required": ["type"]
+          }
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "expectations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "string"
+                  },
+                  "expectation": {
+                    "type": "string",
+                    "enum": ["not_null", "unique", "in_range", "in_set", "regex_match"]
+                  },
+                  "params": {
+                    "type": "object"
+                  }
+                },
+                "required": ["column", "expectation"]
+              }
+            }
+          }
+        }
+      },
+      "required": ["path", "format"]
+    },
+    "gold": {
+      "type": "object",
+      "description": "Gold layer configuration (business-ready data)",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Storage path for gold layer data"
+        },
+        "format": {
+          "type": "string",
+          "description": "File format for gold layer data",
+          "enum": ["delta", "parquet", "csv", "json"]
+        },
+        "partitioning": {
+          "type": "array",
+          "description": "Partitioning columns",
+          "items": {
+            "type": "string"
+          }
+        },
+        "models": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "query": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": ["name", "path"]
+          }
+        }
+      },
+      "required": ["path", "format"]
+    },
+    "schedule": {
+      "type": "object",
+      "properties": {
+        "frequency": {
+          "type": "string",
+          "enum": ["once", "minutely", "hourly", "daily", "weekly", "monthly"]
+        },
+        "interval": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "monitoring": {
+      "type": "object",
+      "properties": {
+        "alerts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "metric": {
+                "type": "string"
+              },
+              "condition": {
+                "type": "string"
+              },
+              "threshold": {
+                "type": "number"
+              },
+              "action": {
+                "type": "string"
+              }
+            },
+            "required": ["metric", "condition", "threshold", "action"]
+          }
+        },
+        "logging": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": ["DEBUG", "INFO", "WARNING", "ERROR"]
+            },
+            "destination": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["name", "version", "bronze", "silver", "gold"]
+}

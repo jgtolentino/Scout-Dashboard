@@ -1,0 +1,18 @@
+graph TD
+    A[Claude] --> B[Local Adapter]
+    B --> C{Tool Selector}
+    C -->|Bash| D[Task Executor]
+    C -->|SVG| E[Diagram Generator]
+    C -->|Dashboard| F[Dash Renderer]
+    D --> G[Local System]
+    E --> H[Artifacts]
+    F --> H
+    
+    style A fill:#9DB1C0,stroke:#333,stroke-width:2px
+    style B fill:#B0C4DE,stroke:#333,stroke-width:2px
+    style C fill:#FFD700,stroke:#333,stroke-width:2px
+    style D fill:#90EE90,stroke:#333,stroke-width:2px
+    style E fill:#90EE90,stroke:#333,stroke-width:2px
+    style F fill:#90EE90,stroke:#333,stroke-width:2px
+    style G fill:#D3D3D3,stroke:#333,stroke-width:2px
+    style H fill:#FFA07A,stroke:#333,stroke-width:2px

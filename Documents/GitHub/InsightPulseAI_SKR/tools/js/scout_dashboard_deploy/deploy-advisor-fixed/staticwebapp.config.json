@@ -1,0 +1,12 @@
+{
+  "routes": [
+    { "route": "/advisor", "rewrite": "/advisor/index.html" },
+    { "route": "/edge", "rewrite": "/edge/index.html" },
+    { "route": "/ops", "rewrite": "/ops/index.html" },
+    { "route": "/insights_dashboard.html", "redirect": "/advisor", "statusCode": 301 }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*", "/advisor/assets/*", "/css/*", "/js/*"]
+  }
+}

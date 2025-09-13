@@ -1,0 +1,49 @@
+erDiagram
+    BRANDS {
+        int BrandID PK
+        nvarchar BrandName
+        datetime CreatedAt
+    }
+    SALES_INTERACTIONS {
+        int InteractionID PK
+        datetime InteractionTime
+        int StoreID
+        int DeviceID
+    }
+    SALES_INTERACTION_BRANDS {
+        int InteractionID FK "↠ SALES_INTERACTIONS.InteractionID"
+        int BrandID FK "↠ BRANDS.BrandID"
+    }
+    BRONZE_TRANSCRIPTIONS {
+        int TranscriptionID PK
+        int InteractionID FK
+        nvarchar AudioURL
+        nvarchar TranscriptText
+        float Confidence
+        datetime StartTime
+    }
+    SALES_INTERACTION_TRANSCRIPTS {
+        int ChunkID PK
+        int InteractionID FK
+        nvarchar ChunkText
+        int Sequence
+    }
+    TRANSCRIPT_CHUNK_AUDIT {
+        int AuditID PK
+        int ChunkID FK
+        nvarchar Status
+        datetime CheckedAt
+    }
+    BRONZE_VISION_DETECTIONS {
+        int DetectionID PK
+        int InteractionID FK
+        nvarchar Label
+        float Confidence
+    }
+
+    BRANDS ||--o{ SALES_INTERACTION_BRANDS : ""
+    SALES_INTERACTIONS ||--o{ SALES_INTERACTION_BRANDS : ""
+    SALES_INTERACTIONS ||--o{ BRONZE_TRANSCRIPTIONS : ""
+    SALES_INTERACTIONS ||--o{ SALES_INTERACTION_TRANSCRIPTS : ""
+    SALES_INTERACTION_TRANSCRIPTS ||--o{ TRANSCRIPT_CHUNK_AUDIT : ""
+    SALES_INTERACTIONS ||--o{ BRONZE_VISION_DETECTIONS : ""

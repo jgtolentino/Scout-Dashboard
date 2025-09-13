@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Brand Performance API Schema",
+  "version": "1.0.0",
+  "description": "Schema definitions for Brand Performance Dashboard API endpoints",
+  "definitions": {
+    "brand": {
+      "type": "object",
+      "properties": {
+        "brand": { "type": "string", "minLength": 1 },
+        "value": { "type": "number", "minimum": 0 },
+        "pct_change": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "category": { "type": "string", "enum": ["beverages", "snacks", "noodles", "household", "cigarettes", "others"] },
+        "competitor": { "type": "boolean" }
+      },
+      "required": ["brand", "value", "pct_change", "timestamp"],
+      "additionalProperties": false
+    },
+    "kpis": {
+      "type": "object",
+      "properties": {
+        "totalRevenue": { "type": "number", "minimum": 0 },
+        "topBrand": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "value": { "type": "number", "minimum": 0 },
+            "category": { "type": "string" }
+          },
+          "required": ["name", "value", "category"]
+        },
+        "fastestGrowth": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "change": { "type": "number" },
+            "category": { "type": "string" }
+          },
+          "required": ["name", "change", "category"]
+        },
+        "topCategory": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "value": { "type": "number", "minimum": 0 }
+          },
+          "required": ["name", "value"]
+        }
+      },
+      "required": ["totalRevenue", "topBrand", "fastestGrowth", "topCategory"],
+      "additionalProperties": false
+    },
+    "marketShare": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "value": { "type": "number", "minimum": 0 },
+          "percentage": { "type": "string", "pattern": "^\\d+\\.\\d+$" }
+        },
+        "required": ["name", "value", "percentage"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "leaderboard": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "brand": { "type": "string", "minLength": 1 },
+          "value": { "type": "number", "minimum": 0 },
+          "category": { "type": "string" },
+          "pct_change": { "type": "number" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["brand", "value"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "movers": {
+      "type": "object",
+      "properties": {
+        "gainers": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/brand" },
+          "minItems": 0
+        },
+        "losers": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/brand" },
+          "minItems": 0
+        }
+      },
+      "required": ["gainers", "losers"],
+      "additionalProperties": false
+    },
+    "insights": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["growth", "competition", "category", "anomaly", "trend"] },
+          "title": { "type": "string", "minLength": 1 },
+          "message": { "type": "string", "minLength": 1 },
+          "priority": { "type": "string", "enum": ["low", "medium", "high", "critical"] }
+        },
+        "required": ["type", "title", "message", "priority"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "healthCheck": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["healthy", "degraded", "error"] },
+        "service": { "type": "string", "const": "brands-api" },
+        "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+        "environment": { "type": "string", "enum": ["development", "staging", "production"] },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "data": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "lastCheck": { "type": "string", "format": "date-time" },
+            "recordCount": { "type": "number", "minimum": 0 },
+            "source": { "type": "string", "enum": ["mock", "production", "fallback", "none"] },
+            "environment": { "type": "string" },
+            "version": { "type": "string" }
+          },
+          "required": ["status", "recordCount", "source"]
+        },
+        "uptime": { "type": "number", "minimum": 0 },
+        "memory": { "type": "object" }
+      },
+      "required": ["status", "service", "version", "environment", "timestamp", "data"],
+      "additionalProperties": false
+    }
+  },
+  "endpoints": {
+    "/health": {
+      "method": "GET",
+      "description": "Health check endpoint with data validation",
+      "response": { "$ref": "#/definitions/healthCheck" }
+    },
+    "/api/brands/kpis": {
+      "method": "GET",
+      "description": "Key performance indicators",
+      "response": { "$ref": "#/definitions/kpis" }
+    },
+    "/api/brands/market-share": {
+      "method": "GET",
+      "description": "Market share distribution",
+      "response": { "$ref": "#/definitions/marketShare" }
+    },
+    "/api/brands/leaderboard": {
+      "method": "GET",
+      "description": "Brand rankings by value",
+      "response": { "$ref": "#/definitions/leaderboard" }
+    },
+    "/api/brands/movers": {
+      "method": "GET",
+      "description": "Fastest growing and declining brands",
+      "response": { "$ref": "#/definitions/movers" }
+    },
+    "/api/brands/insights": {
+      "method": "GET",
+      "description": "AI-generated insights",
+      "response": { "$ref": "#/definitions/insights" }
+    }
+  }
+}

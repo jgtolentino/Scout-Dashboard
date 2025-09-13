@@ -1,0 +1,112 @@
+{
+  "name": "scout-etl-to-postgres",
+  "description": "Scout Retail Analytics ETL Pipeline - Bronze → Silver → Gold → PostgreSQL",
+  "tags": {
+    "project": "scout-analytics",
+    "environment": "production",
+    "owner": "data-engineering"
+  },
+  "schedule": {
+    "quartz_cron": "0 15 * * * ?",
+    "timezone_id": "Asia/Manila",
+    "pause_status": "UNPAUSED"
+  },
+  "max_concurrent_runs": 1,
+  "timeout_seconds": 3600,
+  "new_cluster": {
+    "spark_version": "13.3.x-scala2.12",
+    "node_type_id": "Standard_D3_v2",
+    "num_workers": 2,
+    "cluster_name": "scout-etl-cluster",
+    "spark_conf": {
+      "spark.databricks.cluster.profile": "singleNode",
+      "spark.master": "local[*]",
+      "spark.sql.adaptive.enabled": "true",
+      "spark.sql.adaptive.coalescePartitions.enabled": "true"
+    },
+    "azure_attributes": {
+      "availability": "ON_DEMAND_AZURE",
+      "first_on_demand": 1,
+      "spot_bid_max_price": -1
+    },
+    "custom_tags": {
+      "Project": "Scout",
+      "Environment": "Production",
+      "CostCenter": "DataEngineering"
+    },
+    "init_scripts": [
+      {
+        "dbfs": {
+          "destination": "dbfs:/FileStore/scripts/install_dependencies.sh"
+        }
+      }
+    ]
+  },
+  "libraries": [
+    {
+      "pypi": {
+        "package": "psycopg2-binary==2.9.7"
+      }
+    },
+    {
+      "maven": {
+        "coordinates": "org.postgresql:postgresql:42.6.0"
+      }
+    }
+  ],
+  "spark_python_task": {
+    "python_file": "dbfs:/FileStore/code/txn_etl.py",
+    "parameters": [
+      "--environment", "production",
+      "--log-level", "INFO"
+    ]
+  },
+  "email_notifications": {
+    "on_start": ["data-engineering@scout.com"],
+    "on_success": ["data-engineering@scout.com"],
+    "on_failure": ["data-engineering@scout.com", "alerts@scout.com"],
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {
+    "on_start": [
+      {
+        "id": "webhook-start"
+      }
+    ],
+    "on_success": [
+      {
+        "id": "webhook-success"
+      }
+    ],
+    "on_failure": [
+      {
+        "id": "webhook-failure"
+      }
+    ]
+  },
+  "max_retries": 3,
+  "min_retry_interval_millis": 300000,
+  "retry_on_timeout": true,
+  "run_as": {
+    "service_principal_name": "sp-scout-etl@scout.com"
+  },
+  "access_control_list": [
+    {
+      "user_name": "data-engineering@scout.com",
+      "permission_level": "IS_OWNER"
+    },
+    {
+      "group_name": "scout-analytics-team",
+      "permission_level": "CAN_MANAGE_RUN"
+    }
+  ],
+  "health": {
+    "rules": [
+      {
+        "metric": "RUN_DURATION_SECONDS",
+        "op": "GREATER_THAN",
+        "value": 1800
+      }
+    ]
+  }
+}

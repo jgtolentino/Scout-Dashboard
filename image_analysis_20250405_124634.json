@@ -1,0 +1,68 @@
+{
+  "categories": [
+    {
+      "name": "animal_dog",
+      "score": 0.99609375
+    }
+  ],
+  "color": {
+    "dominantColorForeground": "White",
+    "dominantColorBackground": "Black",
+    "dominantColors": [
+      "White",
+      "Black",
+      "Green"
+    ],
+    "accentColor": "47652B",
+    "isBwImg": false,
+    "isBWImg": false
+  },
+  "imageType": {
+    "clipArtType": 0,
+    "lineDrawingType": 0
+  },
+  "description": {
+    "tags": [
+      "grass",
+      "outdoor",
+      "dog",
+      "white",
+      "laying"
+    ],
+    "captions": [
+      {
+        "text": "a white puppy lying on a rock",
+        "confidence": 0.5126563906669617
+      }
+    ]
+  },
+  "faces": [],
+  "objects": [
+    {
+      "rectangle": {
+        "x": 43,
+        "y": 90,
+        "w": 616,
+        "h": 781
+      },
+      "object": "dog",
+      "confidence": 0.927,
+      "parent": {
+        "object": "mammal",
+        "confidence": 0.934,
+        "parent": {
+          "object": "animal",
+          "confidence": 0.935
+        }
+      }
+    }
+  ],
+  "brands": [],
+  "requestId": "ad289d3e-bee5-4a05-8351-49c0ee9d17d8",
+  "metadata": {
+    "height": 965,
+    "width": 800,
+    "format": "Jpeg"
+  },
+  "modelVersion": "2021-05-01"
+}

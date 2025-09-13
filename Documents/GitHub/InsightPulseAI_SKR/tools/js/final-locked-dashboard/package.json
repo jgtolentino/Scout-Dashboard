@@ -1,0 +1,30 @@
+{
+  "name": "scout-advanced-analytics-dashboard",
+  "version": "2.2.1",
+  "description": "Scout Advanced Analytics Dashboard with Unified GenAI Integration",
+  "main": "deployment-v2/public/insights_dashboard.html",
+  "scripts": {
+    "start": "python -m http.server 8080 --directory deployment-v2/public",
+    "deploy": "bash deploy_unified_genai_dashboard.sh",
+    "test": "npm run test:unit && npm run test:smoke",
+    "test:unit": "jest --config jest.config.js",
+    "test:smoke": "jest --config jest.smoke.config.js",
+    "test:visual": "playwright test --project=visual-chrome",
+    "test:visual:update": "playwright test --project=visual-chrome --update-snapshots",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "chart.js": "^3.7.1"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.5.0",
+    "@playwright/test": "^1.32.0",
+    "eslint": "8.45.0",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "jest-html-reporter": "^3.7.0",
+    "jest-junit": "^15.0.0",
+    "puppeteer": "^19.7.2"
+  }
+}

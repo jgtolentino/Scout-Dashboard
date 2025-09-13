@@ -1,0 +1,58 @@
+{
+  "name": "client360_dlt_pipeline",
+  "clusters": [
+    {
+      "label": "default",
+      "num_workers": 2,
+      "node_type_id": "Standard_DS3_v2"
+    }
+  ],
+  "development": false,
+  "continuous": false,
+  "libraries": [
+    {
+      "file": {
+        "path": "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/final-locked-dashboard/scout_dlt_pipeline/scout_bronze_dlt.py"
+      }
+    },
+    {
+      "file": {
+        "path": "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/final-locked-dashboard/scout_dlt_pipeline/scout_silver_dlt.py"
+      }
+    },
+    {
+      "file": {
+        "path": "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/final-locked-dashboard/scout_dlt_pipeline/scout_gold_dlt.py"
+      }
+    }
+  ],
+  "target": "client360_catalog.client360",
+  "configuration": {
+    "pipelines.useCustomTables": "true",
+    "pipelines.enableNoProgress": "true",
+    "pipelines.infoHistoryRetentionDays": "30"
+  },
+  "channels": {
+    "instances_per_channel": 1,
+    "settings": {
+      "eh-pi-stt-raw": {
+        "connection_string": "",
+        "consumer_group": "dlt-bronze",
+        "eventhub_name": "eh-pi-stt-raw",
+        "max_events_per_trigger": 10000 
+      },
+      "eh-pi-visual-stream": {
+        "connection_string": "",
+        "consumer_group": "dlt-bronze",
+        "eventhub_name": "eh-pi-visual-stream",
+        "max_events_per_trigger": 10000
+      },
+      "eh-device-heartbeat": {
+        "connection_string": "",
+        "consumer_group": "dlt-bronze",
+        "eventhub_name": "eh-device-heartbeat",
+        "max_events_per_trigger": 10000
+      }
+    }
+  }
+}

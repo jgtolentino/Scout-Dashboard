@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  pulser:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pulser-cli
+    container_name: pulser-session
+    volumes:
+      - ${HOME}/.pulser:/root/.pulser
+    stdin_open: true # Equivalent to -i in docker run
+    tty: true # Equivalent to -t in docker run
+    environment:
+      - NODE_ENV=production
+    networks:
+      - pulser-network
+    depends_on:
+      - deepseekr1-api
+  
+  # DeepSeekr1 API service (uncomment if you need to run it inside Docker)
+  deepseekr1-api:
+    image: deepseekr1-api:latest
+    container_name: deepseekr1-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ${HOME}/.pulser/models:/app/models
+    environment:
+      - MODEL_PATH=/app/models/deepseekr1-8k
+      - PORT=8000
+    networks:
+      - pulser-network
+
+networks:
+  pulser-network:
+    driver: bridge

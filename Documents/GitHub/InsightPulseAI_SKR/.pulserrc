@@ -1,0 +1,61 @@
+# Pulser Shell Configuration
+
+# Model settings
+default_model=claude-3-5-sonnet
+cache_models=true
+
+# Output settings
+suppress_warnings=true
+silent_mode=true
+debug_mode=false
+
+# Default mode (prompt, shell, ops)
+default_mode=prompt
+
+# Directory settings
+data_dir=~/.pulser
+
+# CLAUDE.md Agent Standards Enforcement
+agent_standards:
+  rules_path: ../CLAUDE.md
+  enforce_on:
+    - commit
+    - pr
+    - test
+  validate_with:
+    - :codetest
+    - :agentcheck
+    - :uxtest
+  fail_on:
+    - critical_violation
+
+# Agent routing and MCP configuration
+mcp:
+  enabled: true
+  server_port: 9315
+  bridges:
+    - terminal_mcp_bridge
+    - vscode_mcp_bridge
+    - database_mcp_bridge
+    - jupyter_mcp_bridge
+
+# Production agent registry
+agents:
+  count: 66
+  production_ready: 66
+  primary_router: Claudia
+  validation: strict
+  canary_slot:
+    enabled: true
+    percentage: 5
+    target_agents:
+      - Claudia
+      - Kalaw
+      - Caca
+    rollback_on_error: true
+
+# SKR integration
+skr:
+  auto_sync: true
+  knowledge_agent: Kalaw
+  validation_agent: Caca

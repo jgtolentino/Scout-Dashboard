@@ -1,0 +1,10 @@
+# Client360 Dashboard v2.4.0 Checksums
+# Generated: Thu 22 May 2025 02:46:06 PST
+
+0366c2806440af71c70f013297791722a90063aa042ef6223cd1205046726553  deploy_v2.4.0/js/components/user/export_templates.js
+e88da81d4036d926f75fd7cc759a96224462b99257650f878b148c348c91aafc  deploy_v2.4.0/js/components/user/recent_views.js
+0577a07acc5456c43f19c584da23cb6b9636b832807c2fbf15538266025737bd  deploy_v2.4.0/js/components/ai/ai_engine.js
+dd300f97e9322d2a350fa0b0b1c7130a7a1f5ade01576dce926341a5417e3c4a  deploy_v2.4.0/js/components/ai/embeddings_service.js
+3c3f37c01a42483c4f5fb483aabe4ef173956006ca1a1a69ce37819324d5ba96  deploy_v2.4.0/js/components/ai/streaming_client.js
+c4666c790e249980990e4bf61d2fe75d1f535b26684587833eaffaf5155b6e3d  deploy_v2.4.0/js/components/ai/model_registry.js
+14ad6eabeb1f1413fc3198ad9f9bbf445a127547f50d4de690b55d60305dd721  deploy_v2.4.0/js/dashboard.js

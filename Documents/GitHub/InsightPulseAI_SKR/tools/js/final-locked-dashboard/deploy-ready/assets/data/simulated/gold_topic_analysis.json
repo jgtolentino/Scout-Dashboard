@@ -1,0 +1,740 @@
+{
+  "data": [
+    {
+      "topicId": "t-1001",
+      "topicName": "Camera Quality",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smartphone X200",
+      "mentionCount": 456,
+      "sentimentScore": 0.82,
+      "sentimentTrend": "increasing",
+      "timeRange": "last_30_days",
+      "volumeTrend": "increasing",
+      "engagementRate": 0.078,
+      "keyAttributes": [
+        {
+          "attribute": "resolution",
+          "score": 0.92,
+          "sentiment": 0.88
+        },
+        {
+          "attribute": "night mode",
+          "score": 0.85,
+          "sentiment": 0.90
+        },
+        {
+          "attribute": "color accuracy",
+          "score": 0.79,
+          "sentiment": 0.75
+        },
+        {
+          "attribute": "portrait mode",
+          "score": 0.74,
+          "sentiment": 0.82
+        }
+      ],
+      "relatedTopics": ["Smartphone Design", "Battery Life", "Display Quality"],
+      "competitivePositioning": [
+        {
+          "competitor": "PhoneMaster S30",
+          "positioningScore": 0.78
+        },
+        {
+          "competitor": "GadgetPro Ultra",
+          "positioningScore": 0.82
+        },
+        {
+          "competitor": "SmartTech Pixel",
+          "positioningScore": 0.75
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Twitter",
+          "percentage": 42
+        },
+        {
+          "channel": "Instagram",
+          "percentage": 28
+        },
+        {
+          "channel": "Review Sites",
+          "percentage": 18
+        },
+        {
+          "channel": "Forums",
+          "percentage": 12
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "25-34",
+        "gender": "balanced",
+        "topRegions": ["North America", "Europe", "East Asia"]
+      }
+    },
+    {
+      "topicId": "t-1002",
+      "topicName": "Battery Life",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smartphone X200",
+      "mentionCount": 312,
+      "sentimentScore": 0.76,
+      "sentimentTrend": "stable",
+      "timeRange": "last_30_days",
+      "volumeTrend": "stable",
+      "engagementRate": 0.065,
+      "keyAttributes": [
+        {
+          "attribute": "endurance",
+          "score": 0.88,
+          "sentiment": 0.80
+        },
+        {
+          "attribute": "fast charging",
+          "score": 0.82,
+          "sentiment": 0.85
+        },
+        {
+          "attribute": "standby time",
+          "score": 0.75,
+          "sentiment": 0.72
+        },
+        {
+          "attribute": "battery health",
+          "score": 0.69,
+          "sentiment": 0.65
+        }
+      ],
+      "relatedTopics": ["Charging Speed", "Power Management", "Heavy Usage"],
+      "competitivePositioning": [
+        {
+          "competitor": "PhoneMaster S30",
+          "positioningScore": 0.82
+        },
+        {
+          "competitor": "GadgetPro Ultra",
+          "positioningScore": 0.75
+        },
+        {
+          "competitor": "SmartTech Pixel",
+          "positioningScore": 0.68
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Forums",
+          "percentage": 38
+        },
+        {
+          "channel": "Twitter",
+          "percentage": 25
+        },
+        {
+          "channel": "Review Sites",
+          "percentage": 22
+        },
+        {
+          "channel": "YouTube",
+          "percentage": 15
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "25-44",
+        "gender": "male_skew",
+        "topRegions": ["North America", "Europe", "South Asia"]
+      }
+    },
+    {
+      "topicId": "t-1003",
+      "topicName": "Premium Denim Quality",
+      "category": "Apparel",
+      "brandName": "UrbanStyle",
+      "productName": "Premium Denim Jacket",
+      "mentionCount": 278,
+      "sentimentScore": 0.88,
+      "sentimentTrend": "increasing",
+      "timeRange": "last_30_days",
+      "volumeTrend": "increasing",
+      "engagementRate": 0.092,
+      "keyAttributes": [
+        {
+          "attribute": "material quality",
+          "score": 0.94,
+          "sentiment": 0.90
+        },
+        {
+          "attribute": "stitching",
+          "score": 0.88,
+          "sentiment": 0.92
+        },
+        {
+          "attribute": "durability",
+          "score": 0.85,
+          "sentiment": 0.86
+        },
+        {
+          "attribute": "wash",
+          "score": 0.82,
+          "sentiment": 0.89
+        }
+      ],
+      "relatedTopics": ["Fashion Trends", "Sustainable Clothing", "Vintage Style"],
+      "competitivePositioning": [
+        {
+          "competitor": "FashionNow Vintage Denim",
+          "positioningScore": 0.75
+        },
+        {
+          "competitor": "StyleLife Classic Jacket",
+          "positioningScore": 0.79
+        },
+        {
+          "competitor": "DenimCo Premium Line",
+          "positioningScore": 0.82
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Instagram",
+          "percentage": 52
+        },
+        {
+          "channel": "Fashion Blogs",
+          "percentage": 23
+        },
+        {
+          "channel": "Pinterest",
+          "percentage": 15
+        },
+        {
+          "channel": "TikTok",
+          "percentage": 10
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "18-34",
+        "gender": "balanced",
+        "topRegions": ["North America", "Europe", "Australia"]
+      }
+    },
+    {
+      "topicId": "t-1004",
+      "topicName": "Brewing Precision",
+      "category": "Home Goods",
+      "brandName": "HomeCafe",
+      "productName": "Coffee Maker Deluxe",
+      "mentionCount": 195,
+      "sentimentScore": 0.79,
+      "sentimentTrend": "stable",
+      "timeRange": "last_30_days",
+      "volumeTrend": "increasing",
+      "engagementRate": 0.068,
+      "keyAttributes": [
+        {
+          "attribute": "temperature control",
+          "score": 0.91,
+          "sentiment": 0.85
+        },
+        {
+          "attribute": "brewing consistency",
+          "score": 0.88,
+          "sentiment": 0.82
+        },
+        {
+          "attribute": "flavor extraction",
+          "score": 0.84,
+          "sentiment": 0.80
+        },
+        {
+          "attribute": "customization options",
+          "score": 0.79,
+          "sentiment": 0.75
+        }
+      ],
+      "relatedTopics": ["Coffee Quality", "Kitchen Appliance Design", "Morning Routine"],
+      "competitivePositioning": [
+        {
+          "competitor": "BrewPerfect Pro",
+          "positioningScore": 0.85
+        },
+        {
+          "competitor": "CafeMaster Elite",
+          "positioningScore": 0.78
+        },
+        {
+          "competitor": "BaristaHome Precision",
+          "positioningScore": 0.82
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Review Sites",
+          "percentage": 35
+        },
+        {
+          "channel": "Pinterest",
+          "percentage": 25
+        },
+        {
+          "channel": "Coffee Blogs",
+          "percentage": 20
+        },
+        {
+          "channel": "Instagram",
+          "percentage": 20
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "30-45",
+        "gender": "balanced",
+        "topRegions": ["North America", "Europe", "Australia"]
+      }
+    },
+    {
+      "topicId": "t-1005",
+      "topicName": "Fitness Tracking Accuracy",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smart Watch Pro",
+      "mentionCount": 187,
+      "sentimentScore": 0.81,
+      "sentimentTrend": "increasing",
+      "timeRange": "last_30_days",
+      "volumeTrend": "increasing",
+      "engagementRate": 0.075,
+      "keyAttributes": [
+        {
+          "attribute": "heart rate monitoring",
+          "score": 0.92,
+          "sentiment": 0.86
+        },
+        {
+          "attribute": "GPS accuracy",
+          "score": 0.88,
+          "sentiment": 0.83
+        },
+        {
+          "attribute": "step counting",
+          "score": 0.85,
+          "sentiment": 0.84
+        },
+        {
+          "attribute": "sleep tracking",
+          "score": 0.78,
+          "sentiment": 0.72
+        }
+      ],
+      "relatedTopics": ["Sports Performance", "Health Monitoring", "Wearable Tech"],
+      "competitivePositioning": [
+        {
+          "competitor": "FitTrack Ultra",
+          "positioningScore": 0.79
+        },
+        {
+          "competitor": "SportTech Runner",
+          "positioningScore": 0.84
+        },
+        {
+          "competitor": "HealthBand Pro",
+          "positioningScore": 0.77
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Fitness Forums",
+          "percentage": 32
+        },
+        {
+          "channel": "Twitter",
+          "percentage": 28
+        },
+        {
+          "channel": "Review Sites",
+          "percentage": 24
+        },
+        {
+          "channel": "Instagram",
+          "percentage": 16
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "25-44",
+        "gender": "balanced",
+        "topRegions": ["North America", "Europe", "East Asia", "Australia"]
+      }
+    },
+    {
+      "topicId": "t-1006",
+      "topicName": "Smartphone Design",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smartphone X200",
+      "mentionCount": 165,
+      "sentimentScore": 0.85,
+      "sentimentTrend": "stable",
+      "timeRange": "last_30_days",
+      "volumeTrend": "stable",
+      "engagementRate": 0.071,
+      "keyAttributes": [
+        {
+          "attribute": "premium materials",
+          "score": 0.90,
+          "sentiment": 0.89
+        },
+        {
+          "attribute": "ergonomics",
+          "score": 0.85,
+          "sentiment": 0.82
+        },
+        {
+          "attribute": "screen-to-body ratio",
+          "score": 0.82,
+          "sentiment": 0.85
+        },
+        {
+          "attribute": "color options",
+          "score": 0.78,
+          "sentiment": 0.81
+        }
+      ],
+      "relatedTopics": ["Phone Durability", "Premium Feel", "Aesthetic Appeal"],
+      "competitivePositioning": [
+        {
+          "competitor": "PhoneMaster S30",
+          "positioningScore": 0.83
+        },
+        {
+          "competitor": "GadgetPro Ultra",
+          "positioningScore": 0.79
+        },
+        {
+          "competitor": "SmartTech Pixel",
+          "positioningScore": 0.87
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Instagram",
+          "percentage": 38
+        },
+        {
+          "channel": "Tech Blogs",
+          "percentage": 27
+        },
+        {
+          "channel": "YouTube",
+          "percentage": 22
+        },
+        {
+          "channel": "Twitter",
+          "percentage": 13
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "18-34",
+        "gender": "balanced",
+        "topRegions": ["North America", "Europe", "East Asia"]
+      }
+    },
+    {
+      "topicId": "t-1007",
+      "topicName": "Jacket Fit and Sizing",
+      "category": "Apparel",
+      "brandName": "UrbanStyle",
+      "productName": "Premium Denim Jacket",
+      "mentionCount": 142,
+      "sentimentScore": 0.72,
+      "sentimentTrend": "decreasing",
+      "timeRange": "last_30_days",
+      "volumeTrend": "stable",
+      "engagementRate": 0.058,
+      "keyAttributes": [
+        {
+          "attribute": "true to size",
+          "score": 0.65,
+          "sentiment": 0.62
+        },
+        {
+          "attribute": "sleeve length",
+          "score": 0.72,
+          "sentiment": 0.68
+        },
+        {
+          "attribute": "shoulder fit",
+          "score": 0.78,
+          "sentiment": 0.75
+        },
+        {
+          "attribute": "size range",
+          "score": 0.58,
+          "sentiment": 0.52
+        }
+      ],
+      "relatedTopics": ["Size Inclusivity", "Clothing Measurements", "Return Policy"],
+      "competitivePositioning": [
+        {
+          "competitor": "FashionNow Vintage Denim",
+          "positioningScore": 0.69
+        },
+        {
+          "competitor": "StyleLife Classic Jacket",
+          "positioningScore": 0.75
+        },
+        {
+          "competitor": "DenimCo Premium Line",
+          "positioningScore": 0.72
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Product Reviews",
+          "percentage": 45
+        },
+        {
+          "channel": "Forums",
+          "percentage": 25
+        },
+        {
+          "channel": "Twitter",
+          "percentage": 20
+        },
+        {
+          "channel": "Instagram",
+          "percentage": 10
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "18-44",
+        "gender": "balanced",
+        "topRegions": ["North America", "Europe", "Australia"]
+      }
+    },
+    {
+      "topicId": "t-1008",
+      "topicName": "Coffee Maker Reliability",
+      "category": "Home Goods",
+      "brandName": "HomeCafe",
+      "productName": "Coffee Maker Deluxe",
+      "mentionCount": 112,
+      "sentimentScore": 0.62,
+      "sentimentTrend": "decreasing",
+      "timeRange": "last_30_days",
+      "volumeTrend": "increasing",
+      "engagementRate": 0.082,
+      "keyAttributes": [
+        {
+          "attribute": "durability",
+          "score": 0.58,
+          "sentiment": 0.52
+        },
+        {
+          "attribute": "component quality",
+          "score": 0.62,
+          "sentiment": 0.60
+        },
+        {
+          "attribute": "warranty service",
+          "score": 0.55,
+          "sentiment": 0.48
+        },
+        {
+          "attribute": "longevity",
+          "score": 0.65,
+          "sentiment": 0.61
+        }
+      ],
+      "relatedTopics": ["Customer Service", "Product Support", "Returns Process"],
+      "competitivePositioning": [
+        {
+          "competitor": "BrewPerfect Pro",
+          "positioningScore": 0.78
+        },
+        {
+          "competitor": "CafeMaster Elite",
+          "positioningScore": 0.74
+        },
+        {
+          "competitor": "BaristaHome Precision",
+          "positioningScore": 0.71
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Product Reviews",
+          "percentage": 42
+        },
+        {
+          "channel": "Forums",
+          "percentage": 30
+        },
+        {
+          "channel": "Twitter",
+          "percentage": 18
+        },
+        {
+          "channel": "Facebook",
+          "percentage": 10
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "30-55",
+        "gender": "balanced",
+        "topRegions": ["North America", "Europe"]
+      }
+    },
+    {
+      "topicId": "t-1009",
+      "topicName": "Smart Watch Battery Life",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smart Watch Pro",
+      "mentionCount": 138,
+      "sentimentScore": 0.77,
+      "sentimentTrend": "stable",
+      "timeRange": "last_30_days",
+      "volumeTrend": "stable",
+      "engagementRate": 0.069,
+      "keyAttributes": [
+        {
+          "attribute": "workout tracking",
+          "score": 0.86,
+          "sentiment": 0.82
+        },
+        {
+          "attribute": "always-on display",
+          "score": 0.72,
+          "sentiment": 0.68
+        },
+        {
+          "attribute": "charging speed",
+          "score": 0.78,
+          "sentiment": 0.75
+        },
+        {
+          "attribute": "power saving mode",
+          "score": 0.84,
+          "sentiment": 0.81
+        }
+      ],
+      "relatedTopics": ["Long Workouts", "Multi-day Use", "Charging Options"],
+      "competitivePositioning": [
+        {
+          "competitor": "FitTrack Ultra",
+          "positioningScore": 0.82
+        },
+        {
+          "competitor": "SportTech Runner",
+          "positioningScore": 0.75
+        },
+        {
+          "competitor": "HealthBand Pro",
+          "positioningScore": 0.80
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Fitness Forums",
+          "percentage": 35
+        },
+        {
+          "channel": "Tech Reviews",
+          "percentage": 30
+        },
+        {
+          "channel": "Twitter",
+          "percentage": 20
+        },
+        {
+          "channel": "Reddit",
+          "percentage": 15
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "25-44",
+        "gender": "balanced",
+        "topRegions": ["North America", "Europe", "Australia", "East Asia"]
+      }
+    },
+    {
+      "topicId": "t-1010",
+      "topicName": "Smartphone Value for Money",
+      "category": "Electronics",
+      "brandName": "TechVision",
+      "productName": "Smartphone X200",
+      "mentionCount": 128,
+      "sentimentScore": 0.68,
+      "sentimentTrend": "stable",
+      "timeRange": "last_30_days",
+      "volumeTrend": "stable",
+      "engagementRate": 0.072,
+      "keyAttributes": [
+        {
+          "attribute": "price point",
+          "score": 0.65,
+          "sentiment": 0.60
+        },
+        {
+          "attribute": "features vs cost",
+          "score": 0.72,
+          "sentiment": 0.69
+        },
+        {
+          "attribute": "flagship comparison",
+          "score": 0.68,
+          "sentiment": 0.64
+        },
+        {
+          "attribute": "long-term value",
+          "score": 0.74,
+          "sentiment": 0.70
+        }
+      ],
+      "relatedTopics": ["Price Comparison", "Feature Parity", "Premium Smartphone Market"],
+      "competitivePositioning": [
+        {
+          "competitor": "PhoneMaster S30",
+          "positioningScore": 0.72
+        },
+        {
+          "competitor": "GadgetPro Ultra",
+          "positioningScore": 0.65
+        },
+        {
+          "competitor": "SmartTech Pixel",
+          "positioningScore": 0.78
+        }
+      ],
+      "topChannels": [
+        {
+          "channel": "Tech Forums",
+          "percentage": 38
+        },
+        {
+          "channel": "YouTube",
+          "percentage": 28
+        },
+        {
+          "channel": "Twitter",
+          "percentage": 22
+        },
+        {
+          "channel": "Review Sites",
+          "percentage": 12
+        }
+      ],
+      "demographicHighlights": {
+        "ageGroup": "25-44",
+        "gender": "male_skew",
+        "topRegions": ["North America", "Europe", "South Asia"]
+      }
+    }
+  ],
+  "metadata": {
+    "count": 10,
+    "timestamp": "2025-05-14T15:00:00.000Z",
+    "source": "simulated",
+    "endpoint": "topic-analysis"
+  }
+}

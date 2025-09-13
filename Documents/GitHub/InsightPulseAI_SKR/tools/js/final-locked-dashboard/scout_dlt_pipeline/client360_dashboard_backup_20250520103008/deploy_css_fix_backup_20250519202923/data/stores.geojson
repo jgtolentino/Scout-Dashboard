@@ -1,0 +1,216 @@
+{
+  "type": "FeatureCollection",
+  "simulated": true,
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-001",
+        "name": "Mang Juan's Sari-Sari Store",
+        "owner": "Juan Dela Cruz",
+        "address": "123 Sampaguita St., Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "phone": "+63-917-123-4567",
+        "sales_30d": 42500,
+        "sales_7d": 8900,
+        "customer_count_30d": 312,
+        "top_products": ["Rice", "Canned Goods", "Instant Coffee"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.0244, 14.5547]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-002",
+        "name": "Maria's Mini Mart",
+        "owner": "Maria Santos",
+        "address": "45 Rizal Ave., Cebu City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "phone": "+63-918-765-4321",
+        "sales_30d": 38750,
+        "sales_7d": 7650,
+        "customer_count_30d": 287,
+        "top_products": ["Soft Drinks", "Bread", "Snacks"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [123.8854, 10.3157]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-003",
+        "name": "Aling Rosa's Store",
+        "owner": "Rosa Reyes",
+        "address": "78 Mabini St., Davao City",
+        "province": "Davao del Sur",
+        "region": "Davao",
+        "phone": "+63-919-555-1234",
+        "sales_30d": 51200,
+        "sales_7d": 10500,
+        "customer_count_30d": 378,
+        "top_products": ["LPG", "Cigarettes", "Condiments"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [125.6127, 7.0707]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-004",
+        "name": "Pedro's General Merchandise",
+        "owner": "Pedro Gonzales",
+        "address": "15 Luna St., Baguio City",
+        "province": "Benguet",
+        "region": "CAR",
+        "phone": "+63-920-888-7777",
+        "sales_30d": 47300,
+        "sales_7d": 9100,
+        "customer_count_30d": 341,
+        "top_products": ["Vegetables", "Rice", "Canned Goods"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [120.5960, 16.4023]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-005",
+        "name": "Luz Mini Grocery",
+        "owner": "Luz Mendoza",
+        "address": "32 Bonifacio St., Iloilo City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "phone": "+63-921-222-3333",
+        "sales_30d": 35900,
+        "sales_7d": 7200,
+        "customer_count_30d": 265,
+        "top_products": ["Instant Noodles", "Alcohol", "Cleaning Supplies"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [122.5726, 10.7202]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-006",
+        "name": "Tindahan ni Mila",
+        "owner": "Mila Garcia",
+        "address": "56 Aguinaldo St., Laoag City",
+        "province": "Ilocos Norte",
+        "region": "Ilocos",
+        "phone": "+63-922-444-5555",
+        "sales_30d": 31200,
+        "sales_7d": 6400,
+        "customer_count_30d": 229,
+        "top_products": ["School Supplies", "Candies", "Soft Drinks"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [120.5960, 18.1982]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-007",
+        "name": "Kuya Ben's Store",
+        "owner": "Benjamin Tan",
+        "address": "89 Magsaysay Blvd., Tacloban City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "phone": "+63-923-777-8888",
+        "sales_30d": 41500,
+        "sales_7d": 8300,
+        "customer_count_30d": 305,
+        "top_products": ["Rice", "Canned Goods", "Bread"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [125.0008, 11.2543]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-008",
+        "name": "Ate Joy's Sari-Sari",
+        "owner": "Joy Aquino",
+        "address": "12 Quezon St., Naga City",
+        "province": "Camarines Sur",
+        "region": "Bicol",
+        "phone": "+63-924-111-9999",
+        "sales_30d": 37800,
+        "sales_7d": 7600,
+        "customer_count_30d": 278,
+        "top_products": ["Cigarettes", "Load Cards", "Snacks"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [123.7509, 13.6192]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-009",
+        "name": "Carinderia ni Lola",
+        "owner": "Lola Carmela",
+        "address": "67 Burgos St., Batangas City",
+        "province": "Batangas",
+        "region": "CALABARZON",
+        "phone": "+63-925-333-2222",
+        "sales_30d": 49700,
+        "sales_7d": 9800,
+        "customer_count_30d": 366,
+        "top_products": ["Cooked Meals", "Rice", "Soft Drinks"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.0582, 13.7565]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "store_id": "sari-010",
+        "name": "Tatay Romy's Corner Store",
+        "owner": "Romeo Villanueva",
+        "address": "23 Paterno St., Cabanatuan City",
+        "province": "Nueva Ecija",
+        "region": "Central Luzon",
+        "phone": "+63-926-666-4444",
+        "sales_30d": 34600,
+        "sales_7d": 7100,
+        "customer_count_30d": 254,
+        "top_products": ["Cigarettes", "Beer", "Snacks"],
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [120.9675, 15.4881]
+      }
+    }
+  ]
+}

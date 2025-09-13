@@ -1,0 +1,34 @@
+{
+  "routes": {
+    "/dashboard/hr": {
+      "component": "HRDashboard",
+      "requiredRole": ["hr_manager", "executive"],
+      "features": [
+        "employee_metrics",
+        "performance_tracking",
+        "onboarding_pipeline",
+        "hr_ai_assistant"
+      ]
+    },
+    "/dashboard/finance": {
+      "component": "FinanceDashboard",
+      "requiredRole": ["finance_manager", "executive"],
+      "features": [
+        "expense_management",
+        "budget_tracking",
+        "cash_advances",
+        "expense_ai_classifier"
+      ]
+    },
+    "/dashboard/executive": {
+      "component": "ExecutiveDashboard",
+      "requiredRole": ["executive"],
+      "features": [
+        "all_kpis",
+        "cross_domain_analytics",
+        "ai_insights",
+        "predictive_analytics"
+      ]
+    }
+  }
+}

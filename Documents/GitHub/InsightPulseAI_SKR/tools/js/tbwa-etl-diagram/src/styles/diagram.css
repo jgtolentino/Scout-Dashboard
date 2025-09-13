@@ -1,0 +1,25 @@
+/* TBWA Diagram Overrides */
+html,
+body {
+  font-family: "Inter", sans-serif;
+}
+
+[data-theme~="tbwa"] {
+  --tbwa-yellow: 255, 207, 0;
+  --tbwa-black: 0, 0, 0;
+  --tbwa-slate: 75, 85, 99;
+  --tbwa-red: 239, 68, 68;
+  --tbwa-blue: 59, 130, 246;
+  --tbwa-gray: 156, 163, 175;
+}
+
+/* Utility for colored bg/border */
+[class*="bg-tbwa-"] {
+  background-color: rgba(var(--color), 0.2);
+}
+[class*="border-tbwa-"] {
+  border-color: rgba(var(--color), 1);
+}
+[class*="text-tbwa-"] {
+  color: rgba(var(--color), 1);
+}

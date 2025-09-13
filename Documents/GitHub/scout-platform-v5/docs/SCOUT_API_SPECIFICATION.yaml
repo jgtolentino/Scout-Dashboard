@@ -1,0 +1,659 @@
+openapi: 3.0.3
+info:
+  title: Scout Platform v5.2 API
+  description: |
+    **Scout Platform v5.2** - Retail Analytics API Specification
+    
+    Scout Platform provides consolidated retail analytics through Gold and Platinum layer views.
+    This API enables access to processed retail data including customer behavior, campaign performance, 
+    and executive-level insights.
+    
+    **Architecture**: Medallion+ (Bronze → Silver → Gold → Platinum)
+    **Access Pattern**: Direct view queries via Supabase
+    **Authentication**: Anonymous read-only access to views
+    
+    **Data Freshness**:
+    - Gold Layer: Refreshed every 6 hours
+    - Platinum Layer: Refreshed daily at 06:00 UTC
+    
+    **SLA**: 99.9% uptime, <500ms response time
+    
+  version: 5.2.0
+  contact:
+    name: Scout Platform Team
+    email: scout-platform@tbwa.com
+  license:
+    name: Proprietary
+    
+servers:
+  - url: https://cxzllzyxwpyptfretryc.supabase.co/rest/v1
+    description: Production Supabase API
+  - url: http://localhost:3002/api
+    description: Local development API
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+  # Gold Layer APIs
+  /gold_basket_analysis_api:
+    get:
+      tags:
+        - Gold Layer
+      summary: Get basket analysis data
+      description: |
+        Returns daily basket analysis metrics including average basket value,
+        transaction counts, and total revenue aggregated by date.
+      parameters:
+        - $ref: '#/components/parameters/SelectParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/OrderParam'
+      responses:
+        '200':
+          description: Successful response with basket analysis data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BasketAnalysisData'
+              examples:
+                successful_response:
+                  $ref: '#/components/examples/BasketAnalysisExample'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /gold_customer_activity_api:
+    get:
+      tags:
+        - Gold Layer
+      summary: Get customer activity metrics
+      description: |
+        Returns customer activity data including transaction volumes,
+        revenue totals, and satisfaction scores over time.
+      parameters:
+        - $ref: '#/components/parameters/SelectParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/OrderParam'
+      responses:
+        '200':
+          description: Successful response with customer activity data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerActivityData'
+              examples:
+                successful_response:
+                  $ref: '#/components/examples/CustomerActivityExample'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /gold_campaign_effect_api:
+    get:
+      tags:
+        - Gold Layer
+      summary: Get campaign effectiveness data
+      description: |
+        Returns campaign performance metrics including ROI percentages,
+        impressions delivered, conversions tracked, and campaign status.
+      parameters:
+        - $ref: '#/components/parameters/SelectParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: campaign_status
+          in: query
+          description: Filter by campaign status
+          schema:
+            type: string
+            enum: [ACTIVE, COMPLETED, PLANNING, PAUSED]
+        - name: brand_name
+          in: query
+          description: Filter by brand name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with campaign data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampaignDataItem'
+              examples:
+                successful_response:
+                  $ref: '#/components/examples/CampaignDataExample'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /gold_regional_performance_api:
+    get:
+      tags:
+        - Gold Layer
+      summary: Get regional performance metrics
+      description: |
+        Returns regional performance data including revenue totals,
+        growth rates, market share, and store counts by region.
+      parameters:
+        - $ref: '#/components/parameters/SelectParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: region_name
+          in: query
+          description: Filter by region name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with regional data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RegionalDataItem'
+              examples:
+                successful_response:
+                  $ref: '#/components/examples/RegionalDataExample'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  # Platinum Layer APIs
+  /platinum_executive_dashboard_api:
+    get:
+      tags:
+        - Platinum Layer
+      summary: Get executive dashboard KPIs
+      description: |
+        Returns high-level executive metrics including total revenue,
+        transaction volumes, market share, customer satisfaction,
+        and system status indicators.
+        
+        **Refresh Schedule**: Daily at 06:00 UTC
+        **Data Latency**: Up to 24 hours
+      parameters:
+        - $ref: '#/components/parameters/SelectParam'
+        - $ref: '#/components/parameters/LimitParam'
+      responses:
+        '200':
+          description: Successful response with executive dashboard data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExecutiveDashboardData'
+                minItems: 1
+                maxItems: 1
+              examples:
+                successful_response:
+                  $ref: '#/components/examples/ExecutiveDashboardExample'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  # System Health
+  /health:
+    get:
+      tags:
+        - System
+      summary: System health check
+      description: |
+        Returns current system status including database connectivity,
+        view availability, and data freshness indicators.
+      responses:
+        '200':
+          description: System is operational
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+        '503':
+          description: System is degraded or unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase anonymous key for read-only access
+
+  parameters:
+    SelectParam:
+      name: select
+      in: query
+      description: |
+        Columns to select. Use * for all columns or specify comma-separated column names.
+        Example: select=transaction_date,total_revenue
+      schema:
+        type: string
+        default: "*"
+        
+    LimitParam:
+      name: limit
+      in: query
+      description: Maximum number of rows to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+        
+    OrderParam:
+      name: order
+      in: query
+      description: |
+        Ordering criteria. Format: column_name.asc or column_name.desc
+        Example: order=transaction_date.desc
+      schema:
+        type: string
+
+  schemas:
+    BasketAnalysisData:
+      type: object
+      required:
+        - transaction_date
+        - avg_basket_value
+        - total_transactions
+        - total_revenue
+      properties:
+        transaction_date:
+          type: string
+          format: date
+          description: Transaction date in YYYY-MM-DD format
+          example: "2025-01-06"
+        avg_basket_value:
+          type: number
+          format: decimal
+          minimum: 0
+          description: Average basket value in PHP
+          example: 1247.50
+        total_transactions:
+          type: integer
+          minimum: 0
+          description: Total number of transactions
+          example: 4521
+        total_revenue:
+          type: number
+          format: decimal
+          minimum: 0
+          description: Total revenue in PHP
+          example: 5639247.80
+
+    CustomerActivityData:
+      type: object
+      required:
+        - transaction_date
+        - total_transactions
+        - total_revenue
+        - avg_satisfaction
+      properties:
+        transaction_date:
+          type: string
+          format: date
+          description: Transaction date in YYYY-MM-DD format
+          example: "2025-01-06"
+        total_transactions:
+          type: integer
+          minimum: 0
+          description: Total number of transactions
+          example: 4521
+        total_revenue:
+          type: number
+          format: decimal
+          minimum: 0
+          description: Total revenue in PHP
+          example: 5639247.80
+        avg_satisfaction:
+          type: number
+          format: decimal
+          minimum: 0
+          maximum: 10
+          description: Average customer satisfaction score (0-10 scale)
+          example: 8.7
+        unique_customers:
+          type: integer
+          minimum: 0
+          description: Number of unique customers
+          example: 2847
+
+    CampaignDataItem:
+      type: object
+      required:
+        - campaign_id
+        - campaign_name
+        - brand_name
+        - roi_percentage
+        - campaign_status
+        - impressions_delivered
+        - conversions_tracked
+      properties:
+        campaign_id:
+          type: string
+          description: Unique campaign identifier
+          example: "CAM-2025-001"
+        campaign_name:
+          type: string
+          description: Human-readable campaign name
+          example: "Summer Retail Push"
+        brand_name:
+          type: string
+          description: Brand name associated with the campaign
+          example: "Nike"
+        roi_percentage:
+          oneOf:
+            - type: string
+            - type: number
+          description: Return on investment as percentage
+          example: "245%"
+        campaign_status:
+          type: string
+          enum: [ACTIVE, COMPLETED, PLANNING, PAUSED]
+          description: Current campaign status
+          example: "ACTIVE"
+        impressions_delivered:
+          type: integer
+          minimum: 0
+          description: Total impressions delivered
+          example: 12500000
+        conversions_tracked:
+          type: integer
+          minimum: 0
+          description: Total conversions tracked
+          example: 45230
+
+    RegionalDataItem:
+      type: object
+      required:
+        - region
+        - revenue
+        - growth_rate
+        - market_share
+      properties:
+        region:
+          type: string
+          description: Region name
+          example: "Metro Manila"
+        revenue:
+          type: number
+          format: decimal
+          minimum: 0
+          description: Total revenue for the region in PHP
+          example: 125600000
+        growth_rate:
+          type: number
+          format: decimal
+          description: Growth rate as percentage
+          example: 15.2
+        market_share:
+          type: number
+          format: decimal
+          minimum: 0
+          maximum: 100
+          description: Market share percentage
+          example: 34.2
+
+    ExecutiveDashboardData:
+      type: object
+      required:
+        - total_revenue_millions
+        - total_transactions
+        - tbwa_market_share_pct
+        - avg_handshake_score
+        - campaign_influence_pct
+        - regions_covered
+        - active_stores
+        - system_status
+        - last_updated_date
+      properties:
+        total_revenue_millions:
+          type: string
+          description: Total revenue in millions (formatted string)
+          example: "125.6"
+        total_transactions:
+          type: integer
+          minimum: 0
+          description: Total number of transactions
+          example: 45238
+        tbwa_market_share_pct:
+          type: string
+          description: TBWA market share percentage
+          example: "34.2"
+        avg_handshake_score:
+          type: string
+          description: Average handshake/satisfaction score
+          example: "8.7"
+        campaign_influence_pct:
+          type: string
+          description: Campaign influence percentage
+          example: "42.1"
+        regions_covered:
+          type: integer
+          minimum: 0
+          description: Number of regions covered
+          example: 12
+        active_stores:
+          type: integer
+          minimum: 0
+          description: Number of active stores
+          example: 1847
+        system_status:
+          type: string
+          enum: [OPERATIONAL, DEGRADED, ERROR]
+          description: Current system status
+          example: "OPERATIONAL"
+        last_updated_date:
+          type: string
+          format: date
+          description: Last data update date in YYYY-MM-DD format
+          example: "2025-01-06"
+
+    HealthCheck:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum: [OPERATIONAL, DEGRADED, ERROR]
+          description: Overall system status
+        timestamp:
+          type: string
+          format: date-time
+          description: Health check timestamp
+        database:
+          type: string
+          description: Database connection status
+          example: "connected"
+        views_available:
+          type: integer
+          description: Number of available views
+          example: 8
+        last_data_refresh:
+          type: string
+          format: date-time
+          description: Last data refresh timestamp
+        response_time_ms:
+          type: integer
+          description: Response time in milliseconds
+          example: 125
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+        - timestamp
+      properties:
+        error:
+          type: string
+          description: Error type identifier
+          example: "VIEW_NOT_FOUND"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "The requested view does not exist or is not accessible"
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        request_id:
+          type: string
+          description: Unique request identifier for debugging
+          example: "req_1234567890"
+        details:
+          type: object
+          description: Additional error details
+          additionalProperties: true
+
+  responses:
+    NotFound:
+      description: No data found or view not accessible
+      content:
+        application/json:
+          schema:
+            type: array
+            items: {}
+            example: []
+
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            database_error:
+              summary: Database connection error
+              value:
+                error: "DATABASE_ERROR"
+                message: "Unable to connect to database"
+                timestamp: "2025-01-06T10:30:00Z"
+                request_id: "req_1234567890"
+
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            invalid_key:
+              summary: Invalid API key
+              value:
+                error: "UNAUTHORIZED"
+                message: "Invalid API key provided"
+                timestamp: "2025-01-06T10:30:00Z"
+
+  examples:
+    BasketAnalysisExample:
+      summary: Weekly basket analysis data
+      value:
+        - transaction_date: "2025-01-06"
+          avg_basket_value: 1247.50
+          total_transactions: 4521
+          total_revenue: 5639247.80
+        - transaction_date: "2025-01-05"
+          avg_basket_value: 1198.25
+          total_transactions: 4305
+          total_revenue: 5159136.25
+
+    CustomerActivityExample:
+      summary: Customer activity over past week
+      value:
+        - transaction_date: "2025-01-06"
+          total_transactions: 4521
+          total_revenue: 5639247.80
+          avg_satisfaction: 8.7
+          unique_customers: 2847
+        - transaction_date: "2025-01-05"
+          total_transactions: 4305
+          total_revenue: 5159136.25
+          avg_satisfaction: 8.5
+          unique_customers: 2710
+
+    CampaignDataExample:
+      summary: Top performing campaigns
+      value:
+        - campaign_id: "CAM-2025-001"
+          campaign_name: "Summer Retail Push"
+          brand_name: "Nike"
+          roi_percentage: "245%"
+          campaign_status: "ACTIVE"
+          impressions_delivered: 12500000
+          conversions_tracked: 45230
+        - campaign_id: "CAM-2025-002"
+          campaign_name: "Holiday Collection"
+          brand_name: "Adidas"
+          roi_percentage: "189%"
+          campaign_status: "ACTIVE"
+          impressions_delivered: 8900000
+          conversions_tracked: 28750
+
+    RegionalDataExample:
+      summary: Regional performance metrics
+      value:
+        - region: "Metro Manila"
+          revenue: 125600000
+          growth_rate: 15.2
+          market_share: 34.2
+        - region: "Cebu"
+          revenue: 89400000
+          growth_rate: 12.8
+          market_share: 28.7
+
+    ExecutiveDashboardExample:
+      summary: Executive dashboard KPIs
+      value:
+        - total_revenue_millions: "125.6"
+          total_transactions: 45238
+          tbwa_market_share_pct: "34.2"
+          avg_handshake_score: "8.7"
+          campaign_influence_pct: "42.1"
+          regions_covered: 12
+          active_stores: 1847
+          system_status: "OPERATIONAL"
+          last_updated_date: "2025-01-06"
+
+tags:
+  - name: Gold Layer
+    description: |
+      **Gold Layer APIs** provide cleansed and aggregated analytics data.
+      These views are refreshed every 6 hours and contain business-ready metrics
+      for operational dashboards and reports.
+      
+      **Data Quality**: Validated, deduplicated, and aggregated
+      **Refresh Frequency**: Every 6 hours
+      **Typical Use Cases**: Operational dashboards, daily reports, trend analysis
+      
+  - name: Platinum Layer
+    description: |
+      **Platinum Layer APIs** provide executive-level KPIs and insights.
+      These views are refreshed daily and contain the highest-level business metrics
+      for strategic decision making.
+      
+      **Data Quality**: Executive-ready, validated business KPIs
+      **Refresh Frequency**: Daily at 06:00 UTC
+      **Typical Use Cases**: Executive dashboards, strategic planning, board reports
+      
+  - name: System
+    description: |
+      **System APIs** provide health checks, status monitoring, and operational metrics
+      for the Scout Platform infrastructure.
+      
+      **Use Cases**: Health monitoring, operational alerting, system diagnostics

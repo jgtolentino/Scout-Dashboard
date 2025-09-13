@@ -1,0 +1,11 @@
+{
+  "name": "golden-20250519-restored",
+  "environment": "production",
+  "timestamp": "2025-05-19T00:00:00Z",
+  "created_by": "Claude Code <noreply@anthropic.com>",
+  "description": "Restored golden baseline from the e5a75c8 commit (Add complete CI/CD setup guide) to fix dashboard styling issues",
+  "docker_image": null,
+  "git_tag": "golden-20250519",
+  "git_branch": "rollback-dashboard-2025-05-19",
+  "git_commit": "e5a75c8"
+}

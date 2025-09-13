@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRISMA Flow Diagram - Mermaid Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f8fa;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .mermaid {
+            margin: 30px 0;
+        }
+        .options {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow: auto;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PRISMA Flow Diagram</h1>
+        <p>Interactive visualization of the systematic review process using Mermaid.js</p>
+        
+        <div class="mermaid">
+            flowchart TB
+                A[Records identified through<br>database searching (n = 483)]
+                B[Records after duplicates<br>removed (n = 356)]
+                C[Records screened<br>(n = 356)]
+                D[Records excluded<br>(n = 302)]
+                E[Full-text articles assessed<br>for eligibility (n = 54)]
+                F[Full-text articles excluded<br>(n = 48):<br>• Non-randomized design (n = 16)<br>• Inappropriate intervention (n = 12)<br>• Different population/indication (n = 9)<br>• Insufficient outcome data (n = 7)<br>• Duplicated reporting (n = 4)]
+                G[Studies included in<br>qualitative synthesis (n = 6)]
+                H[Studies included in<br>quantitative synthesis<br>(meta-analysis) (n = 6)]
+
+                A --> B --> C
+                C --> D
+                C --> E
+                E --> F
+                E --> G --> H
+        </div>
+
+        <div class="options">
+            <h2>Implementation Options</h2>
+            <p>This diagram can be easily integrated into your Pulser UI components:</p>
+            <button class="btn" id="showCode">Show Mermaid Code</button>
+            <button class="btn" id="showReact">Show React Implementation</button>
+            <button class="btn" id="showHTML">Show HTML Implementation</button>
+            
+            <div id="codeDisplay"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ startOnLoad: true });
+        
+        // Code snippets
+        const mermaidCode = `flowchart TB
+    A[Records identified through<br>database searching (n = 483)]
+    B[Records after duplicates<br>removed (n = 356)]
+    C[Records screened<br>(n = 356)]
+    D[Records excluded<br>(n = 302)]
+    E[Full-text articles assessed<br>for eligibility (n = 54)]
+    F[Full-text articles excluded<br>(n = 48):<br>• Non-randomized design (n = 16)<br>• Inappropriate intervention (n = 12)<br>• Different population/indication (n = 9)<br>• Insufficient outcome data (n = 7)<br>• Duplicated reporting (n = 4)]
+    G[Studies included in<br>qualitative synthesis (n = 6)]
+    H[Studies included in<br>quantitative synthesis<br>(meta-analysis) (n = 6)]
+
+    A --> B --> C
+    C --> D
+    C --> E
+    E --> F
+    E --> G --> H`;
+        
+        const reactCode = `import React, { useEffect } from 'react';
+import mermaid from 'mermaid';
+
+// Import the diagram code
+import { prismaDiagram } from './prisma_flow_diagram';
+
+function PrismaFlowChart() {
+  useEffect(() => {
+    mermaid.initialize({ startOnLoad: true });
+    mermaid.contentLoaded();
+  }, []);
+
+  return (
+    <div className="prisma-flow-container">
+      <h2>PRISMA Flow Diagram</h2>
+      <div className="mermaid">{prismaDiagram}</div>
+    </div>
+  );
+}
+
+export default PrismaFlowChart;`;
+        
+        const htmlCode = `<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <div class="mermaid">
+    flowchart TB
+      A[Records identified through<br>database searching (n = 483)]
+      B[Records after duplicates<br>removed (n = 356)]
+      C[Records screened<br>(n = 356)]
+      D[Records excluded<br>(n = 302)]
+      E[Full-text articles assessed<br>for eligibility (n = 54)]
+      F[Full-text articles excluded<br>(n = 48):<br>• Non-randomized design (n = 16)<br>• Inappropriate intervention (n = 12)<br>• Different population/indication (n = 9)<br>• Insufficient outcome data (n = 7)<br>• Duplicated reporting (n = 4)]
+      G[Studies included in<br>qualitative synthesis (n = 6)]
+      H[Studies included in<br>quantitative synthesis<br>(meta-analysis) (n = 6)]
+
+      A --> B --> C
+      C --> D
+      C --> E
+      E --> F
+      E --> G --> H
+  </div>
+  <script>
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+</body>
+</html>`;
+        
+        // Button click handlers
+        document.getElementById('showCode').addEventListener('click', function() {
+            document.getElementById('codeDisplay').innerHTML = `<h3>Mermaid Code</h3><pre>${mermaidCode}</pre>`;
+        });
+        
+        document.getElementById('showReact').addEventListener('click', function() {
+            document.getElementById('codeDisplay').innerHTML = `<h3>React Component Implementation</h3><pre>${reactCode}</pre>`;
+        });
+        
+        document.getElementById('showHTML').addEventListener('click', function() {
+            document.getElementById('codeDisplay').innerHTML = `<h3>HTML Implementation</h3><pre>${htmlCode}</pre>`;
+        });
+    </script>
+</body>
+</html>

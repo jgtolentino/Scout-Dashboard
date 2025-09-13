@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --ces-primary: #0052cc;
+  --ces-primary-hover: #0073e6;
+  --ces-secondary: #6c757d;
+  --ces-success: #28a745;
+  --ces-warning: #ffc107;
+  --ces-danger: #dc3545;
+  --ces-light: #f8f9fa;
+  --ces-dark: #212529;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* Ask CES Custom Styles */
+.ces-gradient {
+  background: linear-gradient(120deg, var(--ces-primary), var(--ces-primary-hover));
+}
+
+.ces-card {
+  @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6 transition-all duration-200 hover:shadow-md;
+}
+
+.ces-button-primary {
+  @apply bg-ces-primary-500 hover:bg-ces-primary-600 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200;
+}
+
+.ces-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ces-primary-500 focus:border-transparent transition-colors duration-200;
+}
+
+.ces-text-gradient {
+  background: linear-gradient(120deg, var(--ces-primary), var(--ces-primary-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading animations */
+.ces-pulse {
+  animation: ces-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes ces-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+.ces-fade-in {
+  animation: ces-fade-in 0.5s ease-in-out;
+}
+
+@keyframes ces-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive typography */
+.ces-heading-xl {
+  @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+}
+
+.ces-heading-lg {
+  @apply text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight;
+}
+
+.ces-heading-md {
+  @apply text-xl md:text-2xl font-semibold;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ces-primary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ces-primary-hover);
+}

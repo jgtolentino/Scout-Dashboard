@@ -1,0 +1,146 @@
+diff --git a/final-locked-dashboard/scout_dlt_pipeline/client360_dashboard/src/components/store_map.js b/final-locked-dashboard/scout_dlt_pipeline/client360_dashboard/src/components/store_map.js
+index 7dffe48..a9c23b6 100644
+--- a/final-locked-dashboard/scout_dlt_pipeline/client360_dashboard/src/components/store_map.js
++++ b/final-locked-dashboard/scout_dlt_pipeline/client360_dashboard/src/components/store_map.js
+@@ -1,3 +1,85 @@
+-// Store map component
+-console.log('Store map component loaded');
+-EOL < /dev/null
++/**
++ * Store Map Component for Client360 Dashboard
++ * Renders an interactive map of store locations with performance metrics
++ * Meets PRD requirement F8: Geospatial Map
++ */
++
++// Dependencies
++import L from 'leaflet';
++import 'leaflet/dist/leaflet.css';
++import { useEffect, useRef, useState } from 'react';
++
++// Default map center (Philippines)
++const DEFAULT_CENTER = [12.8797, 121.7740];
++const DEFAULT_ZOOM = 6;
++
++/**
++ * StoreMap component
++ * @param {Object} props - Component properties
++ * @param {Array} props.stores - Array of store objects with lat/lng and metrics
++ * @param {Function} props.onStoreSelect - Callback when store is selected
++ * @param {string} props.height - Optional height override (default is responsive)
++ */
++export default function StoreMap({ stores = [], onStoreSelect, height }) {
++  const mapRef = useRef(null);
++  const mapInstance = useRef(null);
++  const markersLayer = useRef(null);
++  const [selectedStore, setSelectedStore] = useState(null);
++  
++  // Initialize map on component mount
++  useEffect(() => {
++    if (!mapRef.current) return;
++    
++    // Initialize Leaflet map
++    mapInstance.current = L.map(mapRef.current).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
++    
++    // Add base tile layer (OpenStreetMap)
++    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
++      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
++    }).addTo(mapInstance.current);
++    
++    // Create markers layer group
++    markersLayer.current = L.layerGroup().addTo(mapInstance.current);
++    
++    // Cleanup on unmount
++    return () => {
++      if (mapInstance.current) {
++        mapInstance.current.remove();
++      }
++    };
++  }, []);
++  
++  // Update markers when stores data changes
++  useEffect(() => {
++    if (!mapInstance.current || !markersLayer.current || !stores.length) return;
++    
++    // Clear existing markers
++    markersLayer.current.clearLayers();
++    
++    // Add markers for each store
++    stores.forEach(store => {
++      if (!store.latitude || !store.longitude) return;
++      
++      // Create marker with custom properties for the QA overlay
++      const marker = L.circleMarker([store.latitude, store.longitude], {
++        radius: 8,
++        fillColor: getColorByUptime(store.uptime || 0),
++        color: '#fff',
++        weight: 1,
++        opacity: 1,
++        fillOpacity: 0.8
++      }).addTo(markersLayer.current);
++      
++      // Add data attributes for QA debugging
++      marker.options.store_id = store.store_id;
++      marker.options.uptime = store.uptime;
++      marker.options.latency = store.latency;
++      
++      // Add tooltip with store information
++      marker.bindTooltip(`
++        <strong>${store.store_name || 'Store ' + store.store_id}</strong><br>
++        Uptime: ${store.uptime || 0}%<br>
++        Latency: ${store.latency || 0}ms
++      `);
++      
++      // Handle click event
++      marker.on('click', () => {
++        setSelectedStore(store);
++        if (onStoreSelect) onStoreSelect(store);
++      });
++    });
++  }, [stores, onStoreSelect]);
++  
++  // Helper function to get color based on uptime percentage
++  const getColorByUptime = (uptime) => {
++    if (uptime >= 98) return '#36B37E'; // Green (healthy)
++    if (uptime >= 90) return '#FFAB00'; // Yellow (warning)
++    return '#FF5630'; // Red (critical)
++  };
++  
++  return (
++    <div className="store-map-container w-full" data-qa="store-map">
++      {/* Increased height with responsive breakpoints to match PRD requirements */}
++      <div 
++        ref={mapRef} 
++        className={`w-full ${height || 'h-[600px] sm:h-[700px] md:h-[800px] lg:h-[900px]'}`}
++        data-stores-count={stores.length}
++      />
++    </div>
++  );
++}
+diff --git a/final-locked-dashboard/scout_dlt_pipeline/client360_dashboard/src/styles/store-map.scss b/final-locked-dashboard/scout_dlt_pipeline/client360_dashboard/src/styles/store-map.scss
+index e69de29..6be09e4 100644
+--- a/final-locked-dashboard/scout_dlt_pipeline/client360_dashboard/src/styles/store-map.scss
++++ b/final-locked-dashboard/scout_dlt_pipeline/client360_dashboard/src/styles/store-map.scss
+@@ -0,0 +1,23 @@
++// Store map SCSS styles
++
++.store-map-container {
++  border-radius: var(--border-radius);
++  overflow: hidden;
++  box-shadow: var(--box-shadow);
++  margin-bottom: var(--spacing-lg);
++  
++  // Ensure full width layout per PRD F8 requirement
++  width: 100%;
++  
++  // Map tooltips styling
++  .leaflet-tooltip {
++    font-family: var(--font-family-base);
++    font-size: var(--font-size-sm);
++    padding: var(--spacing-sm) var(--spacing-md);
++    border-radius: var(--border-radius);
++    border: 1px solid var(--border-color);
++    box-shadow: var(--box-shadow-sm);
++    background-color: var(--bg-card);
++    color: var(--text-primary);
++  }
++}

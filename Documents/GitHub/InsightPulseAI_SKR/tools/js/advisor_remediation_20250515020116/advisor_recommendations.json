@@ -1,0 +1,2463 @@
+[
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "3b20e985-f71f-483b-b078-f30d73936d43",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-PROJECTSCOUT-COMPUTE/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/9d2361e7-96d6-1e4b-9d63-9bd91a54aa20",
+    "impact": "High",
+    "impactedField": "Microsoft.Compute/virtualMachines",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T12:30:25.275666+00:00",
+    "metadata": null,
+    "name": "9d2361e7-96d6-1e4b-9d63-9bd91a54aa20",
+    "recommendationTypeId": "3b20e985-f71f-483b-b078-f30d73936d43",
+    "resourceGroup": "RG-TBWA-PROJECTSCOUT-COMPUTE",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-PROJECTSCOUT-COMPUTE/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "All network ports should be restricted on network security groups associated to your virtual machine",
+      "solution": "All network ports should be restricted on network security groups associated to your virtual machine"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "a40cc620-e72c-fdf4-c554-c6ca2cd705c0",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/ab66862b-0e16-b5f2-f730-141a15d4a6a6",
+    "impact": "High",
+    "impactedField": "Microsoft.Compute/virtualMachines",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-13T20:12:51.008570+00:00",
+    "metadata": null,
+    "name": "ab66862b-0e16-b5f2-f730-141a15d4a6a6",
+    "recommendationTypeId": "a40cc620-e72c-fdf4-c554-c6ca2cd705c0",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Linux virtual machines should enable Azure Disk Encryption or EncryptionAtHost.",
+      "solution": "Linux virtual machines should enable Azure Disk Encryption or EncryptionAtHost."
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "82e20e14-edc5-4373-bfc4-f13121257c37",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.sql/servers/sqltbwaprojectscoutserver/providers/Microsoft.Advisor/recommendations/fb8aaf0a-89a0-b434-640b-38387f9f325d",
+    "impact": "High",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "sqltbwaprojectscoutserver",
+    "lastUpdated": "2025-05-14T15:30:03.433353+00:00",
+    "metadata": null,
+    "name": "fb8aaf0a-89a0-b434-640b-38387f9f325d",
+    "recommendationTypeId": "82e20e14-edc5-4373-bfc4-f13121257c37",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.sql/servers/sqltbwaprojectscoutserver",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "SQL databases should have vulnerability findings resolved",
+      "solution": "SQL databases should have vulnerability findings resolved"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "82e20e14-edc5-4373-bfc4-f13121257c37",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.sql/servers/tbwa-ces-model-server/providers/Microsoft.Advisor/recommendations/341a1e0c-d211-1296-8d5e-dbec7976ca1a",
+    "impact": "High",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "tbwa-ces-model-server",
+    "lastUpdated": "2025-05-14T15:30:03.433353+00:00",
+    "metadata": null,
+    "name": "341a1e0c-d211-1296-8d5e-dbec7976ca1a",
+    "recommendationTypeId": "82e20e14-edc5-4373-bfc4-f13121257c37",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.sql/servers/tbwa-ces-model-server",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "SQL databases should have vulnerability findings resolved",
+      "solution": "SQL databases should have vulnerability findings resolved"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "1746",
+      "displayQty": "2",
+      "displaySKU": "SQL DB Single/Elastic Pool - General Purpose - Gen 5",
+      "lookbackPeriod": "30",
+      "qty": "2",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "sqldatabases",
+      "savingsAmount": "145",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "SQLDB_GP_Compute_Gen5",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "term": "P3Y"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/1a56c958-e266-1da8-d6f2-41546e6e8b99",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:57:46.572982+00:00",
+    "metadata": null,
+    "name": "1a56c958-e266-1da8-d6f2-41546e6e8b99",
+    "recommendationTypeId": "885cd4f5-dfa0-4d68-bbfd-00f89fc2b69c",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs",
+      "solution": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "1746",
+      "displayQty": "2",
+      "displaySKU": "SQL DB Single/Elastic Pool - General Purpose - Gen 5",
+      "lookbackPeriod": "60",
+      "qty": "2",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "sqldatabases",
+      "savingsAmount": "145",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "SQLDB_GP_Compute_Gen5",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "term": "P3Y"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/14903b3b-29ae-7554-1194-dc6bdcafe10c",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:57:46.572982+00:00",
+    "metadata": null,
+    "name": "14903b3b-29ae-7554-1194-dc6bdcafe10c",
+    "recommendationTypeId": "885cd4f5-dfa0-4d68-bbfd-00f89fc2b69c",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs",
+      "solution": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "1111",
+      "displayQty": "2",
+      "displaySKU": "SQL DB Single/Elastic Pool - General Purpose - Gen 5",
+      "lookbackPeriod": "30",
+      "qty": "2",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "sqldatabases",
+      "savingsAmount": "92",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "SQLDB_GP_Compute_Gen5",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "term": "P1Y"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/14f9caa7-e86b-13b9-b21b-5aaab7c7fd6e",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:57:46.572982+00:00",
+    "metadata": null,
+    "name": "14f9caa7-e86b-13b9-b21b-5aaab7c7fd6e",
+    "recommendationTypeId": "885cd4f5-dfa0-4d68-bbfd-00f89fc2b69c",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs",
+      "solution": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "1111",
+      "displayQty": "2",
+      "displaySKU": "SQL DB Single/Elastic Pool - General Purpose - Gen 5",
+      "lookbackPeriod": "7",
+      "qty": "2",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "sqldatabases",
+      "savingsAmount": "92",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "SQLDB_GP_Compute_Gen5",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "term": "P1Y"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/bcc36edd-5d8d-41ef-e0c2-9c330ce97dc3",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:57:46.572982+00:00",
+    "metadata": null,
+    "name": "bcc36edd-5d8d-41ef-e0c2-9c330ce97dc3",
+    "recommendationTypeId": "885cd4f5-dfa0-4d68-bbfd-00f89fc2b69c",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs",
+      "solution": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "1746",
+      "displayQty": "2",
+      "displaySKU": "SQL DB Single/Elastic Pool - General Purpose - Gen 5",
+      "lookbackPeriod": "7",
+      "qty": "2",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "sqldatabases",
+      "savingsAmount": "145",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "SQLDB_GP_Compute_Gen5",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "term": "P3Y"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/0a9f7e95-4ef6-d74a-8e7b-419193e1b83f",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:57:46.572982+00:00",
+    "metadata": null,
+    "name": "0a9f7e95-4ef6-d74a-8e7b-419193e1b83f",
+    "recommendationTypeId": "885cd4f5-dfa0-4d68-bbfd-00f89fc2b69c",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs",
+      "solution": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "1111",
+      "displayQty": "2",
+      "displaySKU": "SQL DB Single/Elastic Pool - General Purpose - Gen 5",
+      "lookbackPeriod": "60",
+      "qty": "2",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "sqldatabases",
+      "savingsAmount": "92",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "SQLDB_GP_Compute_Gen5",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "term": "P1Y"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/7481bac6-3f8e-492f-9c70-b4c7fcb33cd9",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:57:46.572982+00:00",
+    "metadata": null,
+    "name": "7481bac6-3f8e-492f-9c70-b4c7fcb33cd9",
+    "recommendationTypeId": "885cd4f5-dfa0-4d68-bbfd-00f89fc2b69c",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs",
+      "solution": "Consider SQL PaaS DB reserved instance to save over the pay-as-you-go costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "MonitoringAndAlerting",
+      "recommendationOfferingId": "ed05f3b7-8949-4698-9b38-49ab8abb5ee0",
+      "recommendationSubCategory": "MonitoringAndAlerting"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/86ebc5b4-e94e-9339-4fdd-3066e737f0b4",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T14:45:33.030026+00:00",
+    "metadata": null,
+    "name": "86ebc5b4-e94e-9339-4fdd-3066e737f0b4",
+    "recommendationTypeId": "242639fd-cd73-4be2-8f55-70478db8d1a5",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Create an Azure Service Health alert",
+      "solution": "Create an Azure Service Health alert"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "55ed2823-a834-42bd-96ec-d3d5c97d9c6b",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2/providers/Microsoft.Advisor/recommendations/5addd0f2-ed36-3417-b219-b5bc3d1e3793",
+    "impact": "High",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "kv-tbwa-juicer-insights2",
+    "lastUpdated": "2025-05-14T02:32:40.996942+00:00",
+    "metadata": null,
+    "name": "5addd0f2-ed36-3417-b219-b5bc3d1e3793",
+    "recommendationTypeId": "55ed2823-a834-42bd-96ec-d3d5c97d9c6b",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Role-Based Access Control should be used on Azure Keyvault Services (AKV)",
+      "solution": "Role-Based Access Control should be used on Azure Keyvault Services (AKV)"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "HighAvailability",
+      "recommendationOfferingId": "61173952-2056-4f87-a4ad-809ba0db7528",
+      "recommendationSubCategory": "HighAvailability"
+    },
+    "id": "/subscriptions/C03C092C-443C-4F25-9EFE-33F092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/microsoft.sql/servers/sqltbwaprojectscoutserver/databases/CentralizedDatabank/providers/Microsoft.Advisor/recommendations/27a711b8-eb58-497e-daa8-126b71bd0759",
+    "impact": "High",
+    "impactedField": "MICROSOFT.SQL/SERVERS/DATABASES",
+    "impactedValue": "CentralizedDatabank",
+    "lastUpdated": "2025-05-14T16:21:05.741340+00:00",
+    "metadata": null,
+    "name": "27a711b8-eb58-497e-daa8-126b71bd0759",
+    "recommendationTypeId": "807e58d0-e385-41ad-987b-4a4b3e3fb563",
+    "resourceGroup": "RG-TBWA-ProjectScout-Compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/C03C092C-443C-4F25-9EFE-33F092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/microsoft.sql/servers/sqltbwaprojectscoutserver/databases/CentralizedDatabank",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable zone redundancy for Azure SQL Database to achieve high availability and resiliency.",
+      "solution": "Enable zone redundancy for Azure SQL Database to achieve high availability and resiliency."
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "HighAvailability",
+      "recommendationOfferingId": "61173952-2056-4f87-a4ad-809ba0db7528",
+      "recommendationSubCategory": "HighAvailability"
+    },
+    "id": "/subscriptions/C03C092C-443C-4F25-9EFE-33F092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/microsoft.sql/servers/sqltbwaprojectscoutserver/databases/SQL-TBWA-ProjectScout-Reporting-Prod/providers/Microsoft.Advisor/recommendations/32071854-0b89-5bd0-5366-c477790dd637",
+    "impact": "High",
+    "impactedField": "MICROSOFT.SQL/SERVERS/DATABASES",
+    "impactedValue": "SQL-TBWA-ProjectScout-Reporting-Prod",
+    "lastUpdated": "2025-05-14T16:21:05.741340+00:00",
+    "metadata": null,
+    "name": "32071854-0b89-5bd0-5366-c477790dd637",
+    "recommendationTypeId": "807e58d0-e385-41ad-987b-4a4b3e3fb563",
+    "resourceGroup": "RG-TBWA-ProjectScout-Compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/C03C092C-443C-4F25-9EFE-33F092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/microsoft.sql/servers/sqltbwaprojectscoutserver/databases/SQL-TBWA-ProjectScout-Reporting-Prod",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable zone redundancy for Azure SQL Database to achieve high availability and resiliency.",
+      "solution": "Enable zone redundancy for Azure SQL Database to achieve high availability and resiliency."
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "Preview",
+      "recommendationControl": "Scalability",
+      "recommendationOfferingId": "ceccbf46-e9ab-431d-b496-fc2cf6fc2691",
+      "recommendationSubCategory": "Scalability"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/fb3cfdce-7bf6-f47f-bbcf-f039fcaad37c",
+    "impact": "High",
+    "impactedField": "MICROSOFT.COMPUTE/VIRTUALMACHINES",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T15:09:40.393289+00:00",
+    "metadata": null,
+    "name": "fb3cfdce-7bf6-f47f-bbcf-f039fcaad37c",
+    "recommendationTypeId": "7f71b153-c0b7-4e99-a23e-db8179183ec9",
+    "resourceGroup": "RG-TBWA-ProjectScout-Compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Migrate workload to D-series or better virtual machine",
+      "solution": "Migrate workload to D-series or better virtual machine"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "20606e75-05c4-48c0-9d97-add6daa2109a",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/78b91b27-3b0e-e4bd-c2c4-6b52c1fcf0be",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T03:29:48.712692+00:00",
+    "metadata": null,
+    "name": "78b91b27-3b0e-e4bd-c2c4-6b52c1fcf0be",
+    "recommendationTypeId": "20606e75-05c4-48c0-9d97-add6daa2109a",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Guest accounts with owner permissions on Azure resources should be removed",
+      "solution": "Guest accounts with owner permissions on Azure resources should be removed"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "287",
+      "displayQty": "1",
+      "displaySKU": "Standard_B2s",
+      "location": "australiaeast",
+      "lookbackPeriod": "60",
+      "qty": "1",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "virtualmachines",
+      "savingsAmount": "23",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "Standard_B2s",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "targetResourceCount": "1",
+      "term": "P3Y",
+      "vmSize": "Standard_B2s"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/6423a05d-11e6-49c4-4e3b-ab943d38245d",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:15:33.145486+00:00",
+    "metadata": null,
+    "name": "6423a05d-11e6-49c4-4e3b-ab943d38245d",
+    "recommendationTypeId": "84b1a508-fc21-49da-979e-96894f1665df",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider virtual machine reserved instance to save over the on-demand costs",
+      "solution": "Consider virtual machine reserved instance to save over the on-demand costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "190",
+      "displayQty": "1",
+      "displaySKU": "Standard_B2s",
+      "location": "australiaeast",
+      "lookbackPeriod": "60",
+      "qty": "1",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "virtualmachines",
+      "savingsAmount": "15",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "Standard_B2s",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "targetResourceCount": "1",
+      "term": "P1Y",
+      "vmSize": "Standard_B2s"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/598c6ce7-3dc3-939b-b5cf-8fa66145c431",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:15:33.145486+00:00",
+    "metadata": null,
+    "name": "598c6ce7-3dc3-939b-b5cf-8fa66145c431",
+    "recommendationTypeId": "84b1a508-fc21-49da-979e-96894f1665df",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider virtual machine reserved instance to save over the on-demand costs",
+      "solution": "Consider virtual machine reserved instance to save over the on-demand costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "190",
+      "displayQty": "1",
+      "displaySKU": "Standard_B2s",
+      "location": "australiaeast",
+      "lookbackPeriod": "30",
+      "qty": "1",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "virtualmachines",
+      "savingsAmount": "15",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "Standard_B2s",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "targetResourceCount": "1",
+      "term": "P1Y",
+      "vmSize": "Standard_B2s"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/29a5f6f2-adda-7a02-591f-1d049420eb55",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:15:33.145486+00:00",
+    "metadata": null,
+    "name": "29a5f6f2-adda-7a02-591f-1d049420eb55",
+    "recommendationTypeId": "84b1a508-fc21-49da-979e-96894f1665df",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider virtual machine reserved instance to save over the on-demand costs",
+      "solution": "Consider virtual machine reserved instance to save over the on-demand costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "190",
+      "displayQty": "1",
+      "displaySKU": "Standard_B2s",
+      "location": "australiaeast",
+      "lookbackPeriod": "7",
+      "qty": "1",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "virtualmachines",
+      "savingsAmount": "15",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "Standard_B2s",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "targetResourceCount": "1",
+      "term": "P1Y",
+      "vmSize": "Standard_B2s"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/bc85e422-786f-5b4b-cee6-c431f9f8fd96",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:15:33.145486+00:00",
+    "metadata": null,
+    "name": "bc85e422-786f-5b4b-cee6-c431f9f8fd96",
+    "recommendationTypeId": "84b1a508-fc21-49da-979e-96894f1665df",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider virtual machine reserved instance to save over the on-demand costs",
+      "solution": "Consider virtual machine reserved instance to save over the on-demand costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "287",
+      "displayQty": "1",
+      "displaySKU": "Standard_B2s",
+      "location": "australiaeast",
+      "lookbackPeriod": "30",
+      "qty": "1",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "virtualmachines",
+      "savingsAmount": "23",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "Standard_B2s",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "targetResourceCount": "1",
+      "term": "P3Y",
+      "vmSize": "Standard_B2s"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/2b41d9f2-de28-ccfc-5ea7-65ec4f5a7fd8",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:15:33.145486+00:00",
+    "metadata": null,
+    "name": "2b41d9f2-de28-ccfc-5ea7-65ec4f5a7fd8",
+    "recommendationTypeId": "84b1a508-fc21-49da-979e-96894f1665df",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider virtual machine reserved instance to save over the on-demand costs",
+      "solution": "Consider virtual machine reserved instance to save over the on-demand costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "287",
+      "displayQty": "1",
+      "displaySKU": "Standard_B2s",
+      "location": "australiaeast",
+      "lookbackPeriod": "7",
+      "qty": "1",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "region": "australiaeast",
+      "reservedResourceType": "virtualmachines",
+      "savingsAmount": "23",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "Standard_B2s",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "targetResourceCount": "1",
+      "term": "P3Y",
+      "vmSize": "Standard_B2s"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/e20cc867-f97b-0ec1-983b-edd30c1f0f8a",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T13:15:33.145486+00:00",
+    "metadata": null,
+    "name": "e20cc867-f97b-0ec1-983b-edd30c1f0f8a",
+    "recommendationTypeId": "84b1a508-fc21-49da-979e-96894f1665df",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider virtual machine reserved instance to save over the on-demand costs",
+      "solution": "Consider virtual machine reserved instance to save over the on-demand costs"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "f0553104-cfdb-65e6-759c-002812e38500",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver/providers/Microsoft.Advisor/recommendations/7be4aac0-5d72-8b26-6811-574ddf0b6fb3",
+    "impact": "High",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "sqltbwaprojectscoutserver",
+    "lastUpdated": "2025-05-14T01:28:54.941834+00:00",
+    "metadata": null,
+    "name": "7be4aac0-5d72-8b26-6811-574ddf0b6fb3",
+    "recommendationTypeId": "f0553104-cfdb-65e6-759c-002812e38500",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "SQL servers should have an Azure Active Directory administrator provisioned",
+      "solution": "SQL servers should have an Azure Active Directory administrator provisioned"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "26f0d5bb-1398-49be-83c5-7161c2e39d8b",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/68ff28da-2ae6-2f45-c972-fc088979b5ad",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-13T22:13:05.804014+00:00",
+    "metadata": null,
+    "name": "68ff28da-2ae6-2f45-c972-fc088979b5ad",
+    "recommendationTypeId": "26f0d5bb-1398-49be-83c5-7161c2e39d8b",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Microsoft Defender for Storage plan should be enabled with Malware Scanning and Sensitive Data Threat Detection",
+      "solution": "Microsoft Defender for Storage plan should be enabled with Malware Scanning and Sensitive Data Threat Detection"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "805651bc-6ecd-4c73-9b55-97a19d0582d0",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-PROJECTSCOUT-COMPUTE/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/5d20bdb9-b651-aec7-9661-191572830113",
+    "impact": "High",
+    "impactedField": "Microsoft.Compute/virtualMachines",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T00:12:29.331066+00:00",
+    "metadata": null,
+    "name": "5d20bdb9-b651-aec7-9661-191572830113",
+    "recommendationTypeId": "805651bc-6ecd-4c73-9b55-97a19d0582d0",
+    "resourceGroup": "RG-TBWA-PROJECTSCOUT-COMPUTE",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-PROJECTSCOUT-COMPUTE/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Management ports of virtual machines should be protected with just-in-time network access control",
+      "solution": "Management ports of virtual machines should be protected with just-in-time network access control"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "Location": "australiaeast",
+      "maturityLevel": "GA",
+      "recommendationControl": "HighAvailability",
+      "recommendationOfferingId": "af1f3e3c-c276-446a-affc-78e683c6603d",
+      "recommendationSubCategory": "HighAvailability"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-PROJECTSCOUT-COMPUTE/providers/Microsoft.Compute/disks/projectscout-superset-vm_OsDisk_1_e922d409e7474c95877d85c60961a519/providers/Microsoft.Advisor/recommendations/d11b16c7-995b-1204-45b6-1a05a49ed7cf",
+    "impact": "High",
+    "impactedField": "MICROSOFT.COMPUTE/DISKS",
+    "impactedValue": "projectscout-superset-vm_OsDisk_1_e922d409e7474c95877d85c60961a519",
+    "lastUpdated": "2025-05-13T23:48:23.311718+00:00",
+    "metadata": null,
+    "name": "d11b16c7-995b-1204-45b6-1a05a49ed7cf",
+    "recommendationTypeId": "d4102c0f-ebe3-4b22-8fe0-e488866a87af",
+    "resourceGroup": "RG-TBWA-PROJECTSCOUT-COMPUTE",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-PROJECTSCOUT-COMPUTE/providers/Microsoft.Compute/disks/projectscout-superset-vm_OsDisk_1_e922d409e7474c95877d85c60961a519",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Use Azure Disks with Zone Redundant Storage (ZRS) for higher resiliency and availability",
+      "solution": "Use Azure Disks with Zone Redundant Storage (ZRS) for higher resiliency and availability"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "Preview",
+      "recommendationControl": "HighAvailability",
+      "recommendationOfferingId": "ceccbf46-e9ab-431d-b496-fc2cf6fc2691",
+      "recommendationSubCategory": "HighAvailability"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/2a2d7706-a44c-b584-f1a9-9926ae2359b8",
+    "impact": "High",
+    "impactedField": "MICROSOFT.COMPUTE/VIRTUALMACHINES",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T10:59:09.116770+00:00",
+    "metadata": null,
+    "name": "2a2d7706-a44c-b584-f1a9-9926ae2359b8",
+    "recommendationTypeId": "1670c0af-6536-4cbf-872f-152c91a51a80",
+    "resourceGroup": "RG-TBWA-ProjectScout-Compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Use Azure Capacity Reservation for virtual machine (VM)",
+      "solution": "Use Azure Capacity Reservation for virtual machine (VM)"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "90386950-71ca-4357-a12e-486d1679427c",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/a7a530a0-417c-2e68-4145-2b4591ed4af7",
+    "impact": "High",
+    "impactedField": "Microsoft.Compute/virtualMachines",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-13T23:14:41.504329+00:00",
+    "metadata": null,
+    "name": "a7a530a0-417c-2e68-4145-2b4591ed4af7",
+    "recommendationTypeId": "90386950-71ca-4357-a12e-486d1679427c",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Machines should be configured to periodically check for missing system updates",
+      "solution": "Machines should be configured to periodically check for missing system updates"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "122",
+      "commitment": "0.038",
+      "lookbackPeriod": "30",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "savingsAmount": "10",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "Compute_Savings_Plan",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "term": "P1Y"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/48e1e648-fd48-d71d-d1f0-c5bcc31d8dbd",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T15:33:07.048774+00:00",
+    "metadata": null,
+    "name": "48e1e648-fd48-d71d-d1f0-c5bcc31d8dbd",
+    "recommendationTypeId": "89515250-1243-43d1-b4e7-f9437cedffd8",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider purchasing a savings plan for compute to unlock lower prices",
+      "solution": "Consider purchasing a savings plan for compute to unlock lower prices"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Cost",
+    "extendedProperties": {
+      "annualSavingsAmount": "221",
+      "commitment": "0.026",
+      "lookbackPeriod": "30",
+      "recommendationOfferingId": "07649cbd-2ee4-4992-898b-f5f16bad1b36",
+      "savingsAmount": "18",
+      "savingsCurrency": "USD",
+      "scope": "Single",
+      "sku": "Compute_Savings_Plan",
+      "subId": "c03c092c-443c-4f25-9efe-33f092621251",
+      "term": "P3Y"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/6dbb85db-7316-c2f0-45ff-e0ea3e27efba",
+    "impact": "High",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T15:33:07.048774+00:00",
+    "metadata": null,
+    "name": "6dbb85db-7316-c2f0-45ff-e0ea3e27efba",
+    "recommendationTypeId": "89515250-1243-43d1-b4e7-f9437cedffd8",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Consider purchasing a savings plan for compute to unlock lower prices",
+      "solution": "Consider purchasing a savings plan for compute to unlock lower prices"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "c076bfee-3834-4685-8ab5-17f5207c827e",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver/providers/Microsoft.Advisor/recommendations/4e9d8b23-308f-ea94-b0d6-bde1d66cbb8e",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "sqltbwaprojectscoutserver",
+    "lastUpdated": "2025-05-14T10:30:27.167833+00:00",
+    "metadata": null,
+    "name": "4e9d8b23-308f-ea94-b0d6-bde1d66cbb8e",
+    "recommendationTypeId": "c076bfee-3834-4685-8ab5-17f5207c827e",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure SQL Database should have Azure Active Directory Only Authentication enabled",
+      "solution": "Azure SQL Database should have Azure Active Directory Only Authentication enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "c076bfee-3834-4685-8ab5-17f5207c827e",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/Microsoft.Sql/servers/tbwa-ces-model-server/providers/Microsoft.Advisor/recommendations/42287542-9866-b3d8-892d-656ab46f37ca",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "tbwa-ces-model-server",
+    "lastUpdated": "2025-05-14T10:30:27.167833+00:00",
+    "metadata": null,
+    "name": "42287542-9866-b3d8-892d-656ab46f37ca",
+    "recommendationTypeId": "c076bfee-3834-4685-8ab5-17f5207c827e",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/Microsoft.Sql/servers/tbwa-ces-model-server",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure SQL Database should have Azure Active Directory Only Authentication enabled",
+      "solution": "Azure SQL Database should have Azure Active Directory Only Authentication enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "889df0ba-a5a2-47a0-a16d-6111b5879cce",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.databricks/workspaces/tbwa-juicer-databricks/providers/Microsoft.Advisor/recommendations/a131a095-f62c-38a9-6f12-0d3ae0c66774",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Databricks/workspaces",
+    "impactedValue": "tbwa-juicer-databricks",
+    "lastUpdated": "2025-05-14T12:29:38.098817+00:00",
+    "metadata": null,
+    "name": "a131a095-f62c-38a9-6f12-0d3ae0c66774",
+    "recommendationTypeId": "889df0ba-a5a2-47a0-a16d-6111b5879cce",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.databricks/workspaces/tbwa-juicer-databricks",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Databricks Workspaces should be in a virtual network",
+      "solution": "Azure Databricks Workspaces should be in a virtual network"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "efbbd784-656d-473a-9863-ea7693bfcd2a",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/c6190324-8140-0fe4-f15a-6f5fe6acc71e",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Compute/virtualMachines",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T15:32:01.378452+00:00",
+    "metadata": null,
+    "name": "c6190324-8140-0fe4-f15a-6f5fe6acc71e",
+    "recommendationTypeId": "efbbd784-656d-473a-9863-ea7693bfcd2a",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Virtual machines and virtual machine scale sets should have encryption at host enabled",
+      "solution": "Virtual machines and virtual machine scale sets should have encryption at host enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "52f7826a-ace7-3107-dd0d-4875853c1576",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.keyvault/vaults/mymlworkkeyvault47ce10d1/providers/Microsoft.Advisor/recommendations/feedee7f-eb7e-1189-74bd-53c040c16f89",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "mymlworkkeyvault47ce10d1",
+    "lastUpdated": "2025-05-13T18:13:04.608009+00:00",
+    "metadata": null,
+    "name": "feedee7f-eb7e-1189-74bd-53c040c16f89",
+    "recommendationTypeId": "52f7826a-ace7-3107-dd0d-4875853c1576",
+    "resourceGroup": "rg-scout-branddetect-prod-aue",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.keyvault/vaults/mymlworkkeyvault47ce10d1",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Firewall should be enabled on Key Vault",
+      "solution": "Firewall should be enabled on Key Vault"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "52f7826a-ace7-3107-dd0d-4875853c1576",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/mymlworkkeyvault3441b156/providers/Microsoft.Advisor/recommendations/ec40bd3b-89e6-8027-0612-06bca6aedfe8",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "mymlworkkeyvault3441b156",
+    "lastUpdated": "2025-05-13T18:13:04.608009+00:00",
+    "metadata": null,
+    "name": "ec40bd3b-89e6-8027-0612-06bca6aedfe8",
+    "recommendationTypeId": "52f7826a-ace7-3107-dd0d-4875853c1576",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/mymlworkkeyvault3441b156",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Firewall should be enabled on Key Vault",
+      "solution": "Firewall should be enabled on Key Vault"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "52f7826a-ace7-3107-dd0d-4875853c1576",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/kv-projectscout-prod/providers/Microsoft.Advisor/recommendations/9befcf8e-a9a2-d689-5f34-878f07f09d67",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "kv-projectscout-prod",
+    "lastUpdated": "2025-05-13T18:13:04.608009+00:00",
+    "metadata": null,
+    "name": "9befcf8e-a9a2-d689-5f34-878f07f09d67",
+    "recommendationTypeId": "52f7826a-ace7-3107-dd0d-4875853c1576",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/kv-projectscout-prod",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Firewall should be enabled on Key Vault",
+      "solution": "Firewall should be enabled on Key Vault"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "52f7826a-ace7-3107-dd0d-4875853c1576",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2/providers/Microsoft.Advisor/recommendations/2607193d-fc6c-aa20-f374-21ea48364680",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "kv-tbwa-juicer-insights2",
+    "lastUpdated": "2025-05-13T18:13:04.618007+00:00",
+    "metadata": null,
+    "name": "2607193d-fc6c-aa20-f374-21ea48364680",
+    "recommendationTypeId": "52f7826a-ace7-3107-dd0d-4875853c1576",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Firewall should be enabled on Key Vault",
+      "solution": "Firewall should be enabled on Key Vault"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "6c99f570-2ce7-46bc-8175-cde013df43bc",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/1f27aaed-1848-d168-3fba-22e0ad8f2d51",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Compute/virtualMachines",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T14:31:41.319461+00:00",
+    "metadata": null,
+    "name": "1f27aaed-1848-d168-3fba-22e0ad8f2d51",
+    "recommendationTypeId": "6c99f570-2ce7-46bc-8175-cde013df43bc",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Guest Configuration extension should be installed on machines",
+      "solution": "Guest Configuration extension should be installed on machines"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "51fd8bb1-0db4-bbf1-7e2b-cfcba7eb66a6",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/projectscout-resourcegroup/providers/microsoft.storage/storageaccounts/projectscoutstorage20250/providers/Microsoft.Advisor/recommendations/289ef147-381d-9ec6-143d-97ef64a4117e",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "projectscoutstorage20250",
+    "lastUpdated": "2025-05-13T18:12:21.622577+00:00",
+    "metadata": null,
+    "name": "289ef147-381d-9ec6-143d-97ef64a4117e",
+    "recommendationTypeId": "51fd8bb1-0db4-bbf1-7e2b-cfcba7eb66a6",
+    "resourceGroup": "projectscout-resourcegroup",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/projectscout-resourcegroup/providers/microsoft.storage/storageaccounts/projectscoutstorage20250",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Storage account public access should be disallowed",
+      "solution": "Storage account public access should be disallowed"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "1b351b29-41ca-6df5-946c-c190a56be5fe",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.web/sites/retail-advisor-app/providers/Microsoft.Advisor/recommendations/1d5a8fea-0d61-97ab-630e-89dff4cc62dc",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Web/sites",
+    "impactedValue": "retail-advisor-app",
+    "lastUpdated": "2025-05-14T11:30:32.879143+00:00",
+    "metadata": null,
+    "name": "1d5a8fea-0d61-97ab-630e-89dff4cc62dc",
+    "recommendationTypeId": "1b351b29-41ca-6df5-946c-c190a56be5fe",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.web/sites/retail-advisor-app",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Web Application should only be accessible over HTTPS",
+      "solution": "Web Application should only be accessible over HTTPS"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "Preview",
+      "recommendationControl": "HighAvailability",
+      "recommendationOfferingId": "ceccbf46-e9ab-431d-b496-fc2cf6fc2691",
+      "recommendationSubCategory": "HighAvailability"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/204c0829-811b-8762-3bff-123784340c54",
+    "impact": "Medium",
+    "impactedField": "MICROSOFT.COMPUTE/VIRTUALMACHINES",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T14:05:16.805473+00:00",
+    "metadata": null,
+    "name": "204c0829-811b-8762-3bff-123784340c54",
+    "recommendationTypeId": "5f2613df-629f-4b07-9425-2a47ea0dfad3",
+    "resourceGroup": "RG-TBWA-ProjectScout-Compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Compute/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Migrate workload to Virtual Machine Scale Sets Flex",
+      "solution": "Migrate workload to Virtual Machine Scale Sets Flex"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "75396512-3323-9be4-059d-32ecb113c3de",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver/providers/Microsoft.Advisor/recommendations/785bdd2f-4e25-3d36-a32b-9988a9337c25",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "sqltbwaprojectscoutserver",
+    "lastUpdated": "2025-05-14T02:30:36.281959+00:00",
+    "metadata": null,
+    "name": "785bdd2f-4e25-3d36-a32b-9988a9337c25",
+    "recommendationTypeId": "75396512-3323-9be4-059d-32ecb113c3de",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Private endpoint connections on Azure SQL Database should be enabled",
+      "solution": "Private endpoint connections on Azure SQL Database should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "75396512-3323-9be4-059d-32ecb113c3de",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/Microsoft.Sql/servers/tbwa-ces-model-server/providers/Microsoft.Advisor/recommendations/a7d3a6d8-25c8-c98a-0f81-f1de526c7cbe",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "tbwa-ces-model-server",
+    "lastUpdated": "2025-05-14T02:30:36.281959+00:00",
+    "metadata": null,
+    "name": "a7d3a6d8-25c8-c98a-0f81-f1de526c7cbe",
+    "recommendationTypeId": "75396512-3323-9be4-059d-32ecb113c3de",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/Microsoft.Sql/servers/tbwa-ces-model-server",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Private endpoint connections on Azure SQL Database should be enabled",
+      "solution": "Private endpoint connections on Azure SQL Database should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "4a3d7cd3-f17c-637a-1ffc-614a01dd03cf",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.web/sites/retail-advisor-app/providers/Microsoft.Advisor/recommendations/0c323f7a-7704-d771-6748-454c3b65488e",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Web/sites",
+    "impactedValue": "retail-advisor-app",
+    "lastUpdated": "2025-05-14T14:29:51.038962+00:00",
+    "metadata": null,
+    "name": "0c323f7a-7704-d771-6748-454c3b65488e",
+    "recommendationTypeId": "4a3d7cd3-f17c-637a-1ffc-614a01dd03cf",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.web/sites/retail-advisor-app",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Managed identity should be enabled on web apps",
+      "solution": "Managed identity should be enabled on web apps"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "BusinessContinuity",
+      "recommendationOfferingId": "c6b94711-f1f5-4e7e-9c89-c17ed4190969",
+      "recommendationSubCategory": "BusinessContinuity"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-Scout-BrandDetect-Prod-AUE/providers/Microsoft.Storage/storageAccounts/mymlworkstoragef442bd96a/providers/Microsoft.Advisor/recommendations/b0656cea-edbd-d883-8245-8e5d1d61174b",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "mymlworkstoragef442bd96a",
+    "lastUpdated": "2025-05-14T12:13:14.856217+00:00",
+    "metadata": null,
+    "name": "b0656cea-edbd-d883-8245-8e5d1d61174b",
+    "recommendationTypeId": "42dbf883-9e4b-4f84-9da4-232b87c4b5e9",
+    "resourceGroup": "RG-Scout-BrandDetect-Prod-AUE",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-Scout-BrandDetect-Prod-AUE/providers/Microsoft.Storage/storageAccounts/mymlworkstoragef442bd96a",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable Soft Delete to protect your blob data",
+      "solution": "Enable Soft Delete to protect your blob data"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "BusinessContinuity",
+      "recommendationOfferingId": "c6b94711-f1f5-4e7e-9c89-c17ed4190969",
+      "recommendationSubCategory": "BusinessContinuity"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Data/providers/Microsoft.Storage/storageAccounts/mymlworkstorage89365eba1/providers/Microsoft.Advisor/recommendations/1df83df7-9ee8-214a-10d3-08f59aba1fd4",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "mymlworkstorage89365eba1",
+    "lastUpdated": "2025-05-14T12:13:14.856217+00:00",
+    "metadata": null,
+    "name": "1df83df7-9ee8-214a-10d3-08f59aba1fd4",
+    "recommendationTypeId": "42dbf883-9e4b-4f84-9da4-232b87c4b5e9",
+    "resourceGroup": "RG-TBWA-ProjectScout-Data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Data/providers/Microsoft.Storage/storageAccounts/mymlworkstorage89365eba1",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable Soft Delete to protect your blob data",
+      "solution": "Enable Soft Delete to protect your blob data"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "BusinessContinuity",
+      "recommendationOfferingId": "c6b94711-f1f5-4e7e-9c89-c17ed4190969",
+      "recommendationSubCategory": "BusinessContinuity"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/PulserRG/providers/Microsoft.Storage/storageAccounts/pulserstorage/providers/Microsoft.Advisor/recommendations/8b024c34-0a2d-64cd-6c42-2418b4662e72",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "pulserstorage",
+    "lastUpdated": "2025-05-14T12:13:14.856217+00:00",
+    "metadata": null,
+    "name": "8b024c34-0a2d-64cd-6c42-2418b4662e72",
+    "recommendationTypeId": "42dbf883-9e4b-4f84-9da4-232b87c4b5e9",
+    "resourceGroup": "PulserRG",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/PulserRG/providers/Microsoft.Storage/storageAccounts/pulserstorage",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable Soft Delete to protect your blob data",
+      "solution": "Enable Soft Delete to protect your blob data"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "BusinessContinuity",
+      "recommendationOfferingId": "c6b94711-f1f5-4e7e-9c89-c17ed4190969",
+      "recommendationSubCategory": "BusinessContinuity"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/ProjectScout-ResourceGroup/providers/Microsoft.Storage/storageAccounts/projectscoutstorage20250/providers/Microsoft.Advisor/recommendations/597f7048-69b8-d0f8-3b20-871961b9dde4",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "projectscoutstorage20250",
+    "lastUpdated": "2025-05-14T12:13:14.856217+00:00",
+    "metadata": null,
+    "name": "597f7048-69b8-d0f8-3b20-871961b9dde4",
+    "recommendationTypeId": "42dbf883-9e4b-4f84-9da4-232b87c4b5e9",
+    "resourceGroup": "ProjectScout-ResourceGroup",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/ProjectScout-ResourceGroup/providers/Microsoft.Storage/storageAccounts/projectscoutstorage20250",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable Soft Delete to protect your blob data",
+      "solution": "Enable Soft Delete to protect your blob data"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "BusinessContinuity",
+      "recommendationOfferingId": "c6b94711-f1f5-4e7e-9c89-c17ed4190969",
+      "recommendationSubCategory": "BusinessContinuity"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/ProjectScout-ResourceGroup/providers/Microsoft.Storage/storageAccounts/pscoutdash0513/providers/Microsoft.Advisor/recommendations/f8b0ac45-3aef-2124-1615-2be97c6778c6",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "pscoutdash0513",
+    "lastUpdated": "2025-05-14T12:13:14.856217+00:00",
+    "metadata": null,
+    "name": "f8b0ac45-3aef-2124-1615-2be97c6778c6",
+    "recommendationTypeId": "42dbf883-9e4b-4f84-9da4-232b87c4b5e9",
+    "resourceGroup": "ProjectScout-ResourceGroup",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/ProjectScout-ResourceGroup/providers/Microsoft.Storage/storageAccounts/pscoutdash0513",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable Soft Delete to protect your blob data",
+      "solution": "Enable Soft Delete to protect your blob data"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "BusinessContinuity",
+      "recommendationOfferingId": "c6b94711-f1f5-4e7e-9c89-c17ed4190969",
+      "recommendationSubCategory": "BusinessContinuity"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/tbwajuicerstorage/providers/Microsoft.Advisor/recommendations/d11d280e-40a2-ae18-4c49-c6320bd5c051",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "tbwajuicerstorage",
+    "lastUpdated": "2025-05-14T12:13:14.856217+00:00",
+    "metadata": null,
+    "name": "d11d280e-40a2-ae18-4c49-c6320bd5c051",
+    "recommendationTypeId": "42dbf883-9e4b-4f84-9da4-232b87c4b5e9",
+    "resourceGroup": "RG-TBWA-ProjectScout-Juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/tbwajuicerstorage",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable Soft Delete to protect your blob data",
+      "solution": "Enable Soft Delete to protect your blob data"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "BusinessContinuity",
+      "recommendationOfferingId": "c6b94711-f1f5-4e7e-9c89-c17ed4190969",
+      "recommendationSubCategory": "BusinessContinuity"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5/providers/Microsoft.Storage/storageAccounts/dbstoragehyx7ppequk63i/providers/Microsoft.Advisor/recommendations/4c0c2b2c-f4eb-005e-903a-efdddf259b2b",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "dbstoragehyx7ppequk63i",
+    "lastUpdated": "2025-05-14T12:13:14.856217+00:00",
+    "metadata": null,
+    "name": "4c0c2b2c-f4eb-005e-903a-efdddf259b2b",
+    "recommendationTypeId": "42dbf883-9e4b-4f84-9da4-232b87c4b5e9",
+    "resourceGroup": "databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5/providers/Microsoft.Storage/storageAccounts/dbstoragehyx7ppequk63i",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable Soft Delete to protect your blob data",
+      "solution": "Enable Soft Delete to protect your blob data"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "BusinessContinuity",
+      "recommendationOfferingId": "c6b94711-f1f5-4e7e-9c89-c17ed4190969",
+      "recommendationSubCategory": "BusinessContinuity"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/retail-dashboards-rg/providers/Microsoft.Storage/storageAccounts/retailedgedash0513/providers/Microsoft.Advisor/recommendations/4bf2076f-065f-e23e-8010-db1213861c8e",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "retailedgedash0513",
+    "lastUpdated": "2025-05-14T12:13:14.856217+00:00",
+    "metadata": null,
+    "name": "4bf2076f-065f-e23e-8010-db1213861c8e",
+    "recommendationTypeId": "42dbf883-9e4b-4f84-9da4-232b87c4b5e9",
+    "resourceGroup": "retail-dashboards-rg",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/retail-dashboards-rg/providers/Microsoft.Storage/storageAccounts/retailedgedash0513",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable Soft Delete to protect your blob data",
+      "solution": "Enable Soft Delete to protect your blob data"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "BusinessContinuity",
+      "recommendationOfferingId": "c6b94711-f1f5-4e7e-9c89-c17ed4190969",
+      "recommendationSubCategory": "BusinessContinuity"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/retail-dashboards-rg/providers/Microsoft.Storage/storageAccounts/retailperfdash0513/providers/Microsoft.Advisor/recommendations/81c61fc6-4633-03ea-bc1c-04edb64267c0",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Storage/storageAccounts",
+    "impactedValue": "retailperfdash0513",
+    "lastUpdated": "2025-05-14T12:13:14.856217+00:00",
+    "metadata": null,
+    "name": "81c61fc6-4633-03ea-bc1c-04edb64267c0",
+    "recommendationTypeId": "42dbf883-9e4b-4f84-9da4-232b87c4b5e9",
+    "resourceGroup": "retail-dashboards-rg",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/retail-dashboards-rg/providers/Microsoft.Storage/storageAccounts/retailperfdash0513",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Enable Soft Delete to protect your blob data",
+      "solution": "Enable Soft Delete to protect your blob data"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "28ca6fb2-f3b0-4494-bcfb-6600b30fec50",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.databricks/workspaces/tbwa-juicer-databricks/providers/Microsoft.Advisor/recommendations/ba6655c4-3bb8-b180-17ee-9cbd80da141a",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Databricks/workspaces",
+    "impactedValue": "tbwa-juicer-databricks",
+    "lastUpdated": "2025-05-14T11:29:54.466871+00:00",
+    "metadata": null,
+    "name": "ba6655c4-3bb8-b180-17ee-9cbd80da141a",
+    "recommendationTypeId": "28ca6fb2-f3b0-4494-bcfb-6600b30fec50",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.databricks/workspaces/tbwa-juicer-databricks",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Databricks Workspaces should use private link",
+      "solution": "Azure Databricks Workspaces should use private link"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "9f6b22c2-61e5-4c4b-ab83-f5a88387bff4",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.databricks/workspaces/tbwa-juicer-databricks/providers/Microsoft.Advisor/recommendations/ce8d6cba-0a66-01ed-2faf-1974ca4cb126",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Databricks/workspaces",
+    "impactedValue": "tbwa-juicer-databricks",
+    "lastUpdated": "2025-05-14T02:29:56.367211+00:00",
+    "metadata": null,
+    "name": "ce8d6cba-0a66-01ed-2faf-1974ca4cb126",
+    "recommendationTypeId": "9f6b22c2-61e5-4c4b-ab83-f5a88387bff4",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.databricks/workspaces/tbwa-juicer-databricks",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Databricks Workspaces should disable public network access",
+      "solution": "Azure Databricks Workspaces should disable public network access"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "1b663c6e-6432-4517-9a2b-49f5008e652f",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.machinelearningservices/workspaces/mymlworkspace/providers/Microsoft.Advisor/recommendations/d0ee0ba1-126a-2c70-4ce0-27f86ecaa915",
+    "impact": "Medium",
+    "impactedField": "Microsoft.MachineLearningServices/workspaces",
+    "impactedValue": "mymlworkspace",
+    "lastUpdated": "2025-05-14T06:29:46.135818+00:00",
+    "metadata": null,
+    "name": "d0ee0ba1-126a-2c70-4ce0-27f86ecaa915",
+    "recommendationTypeId": "1b663c6e-6432-4517-9a2b-49f5008e652f",
+    "resourceGroup": "rg-scout-branddetect-prod-aue",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.machinelearningservices/workspaces/mymlworkspace",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Resource logs in Azure Machine Learning Workspaces should be enabled",
+      "solution": "Resource logs in Azure Machine Learning Workspaces should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "1b663c6e-6432-4517-9a2b-49f5008e652f",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.machinelearningservices/workspaces/mymlworkspace/providers/Microsoft.Advisor/recommendations/6f1ca301-fb88-eb64-1eed-52244b053db7",
+    "impact": "Medium",
+    "impactedField": "Microsoft.MachineLearningServices/workspaces",
+    "impactedValue": "mymlworkspace",
+    "lastUpdated": "2025-05-14T06:29:46.135818+00:00",
+    "metadata": null,
+    "name": "6f1ca301-fb88-eb64-1eed-52244b053db7",
+    "recommendationTypeId": "1b663c6e-6432-4517-9a2b-49f5008e652f",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.machinelearningservices/workspaces/mymlworkspace",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Resource logs in Azure Machine Learning Workspaces should be enabled",
+      "solution": "Resource logs in Azure Machine Learning Workspaces should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "a78ee063-e419-42a9-8d8f-8ec1a94f6b3e",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.machinelearningservices/workspaces/mymlworkspace/providers/Microsoft.Advisor/recommendations/b1dde9da-2955-4055-8b8e-ee52303b70bc",
+    "impact": "Medium",
+    "impactedField": "Microsoft.MachineLearningServices/workspaces",
+    "impactedValue": "mymlworkspace",
+    "lastUpdated": "2025-05-14T01:29:08.173985+00:00",
+    "metadata": null,
+    "name": "b1dde9da-2955-4055-8b8e-ee52303b70bc",
+    "recommendationTypeId": "a78ee063-e419-42a9-8d8f-8ec1a94f6b3e",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.machinelearningservices/workspaces/mymlworkspace",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Machine Learning Workspaces should disable public network access",
+      "solution": "Azure Machine Learning Workspaces should disable public network access"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "a78ee063-e419-42a9-8d8f-8ec1a94f6b3e",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.machinelearningservices/workspaces/mymlworkspace/providers/Microsoft.Advisor/recommendations/f5b6b761-7359-aeb4-643e-9f1410988386",
+    "impact": "Medium",
+    "impactedField": "Microsoft.MachineLearningServices/workspaces",
+    "impactedValue": "mymlworkspace",
+    "lastUpdated": "2025-05-14T01:29:08.173985+00:00",
+    "metadata": null,
+    "name": "f5b6b761-7359-aeb4-643e-9f1410988386",
+    "recommendationTypeId": "a78ee063-e419-42a9-8d8f-8ec1a94f6b3e",
+    "resourceGroup": "rg-scout-branddetect-prod-aue",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.machinelearningservices/workspaces/mymlworkspace",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Machine Learning Workspaces should disable public network access",
+      "solution": "Azure Machine Learning Workspaces should disable public network access"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "4ed62ae4-5072-f9e7-8d94-51c76c48159a",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/mymlworkkeyvault3441b156/providers/Microsoft.Advisor/recommendations/47e367d1-1693-a26f-7225-6d79d390db09",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "mymlworkkeyvault3441b156",
+    "lastUpdated": "2025-05-14T10:30:11.538751+00:00",
+    "metadata": null,
+    "name": "47e367d1-1693-a26f-7225-6d79d390db09",
+    "recommendationTypeId": "4ed62ae4-5072-f9e7-8d94-51c76c48159a",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/mymlworkkeyvault3441b156",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Key vaults should have purge protection enabled",
+      "solution": "Key vaults should have purge protection enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "4ed62ae4-5072-f9e7-8d94-51c76c48159a",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.keyvault/vaults/mymlworkkeyvault47ce10d1/providers/Microsoft.Advisor/recommendations/08d36780-ffe6-d8a4-f522-b11fa754e4c6",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "mymlworkkeyvault47ce10d1",
+    "lastUpdated": "2025-05-14T10:30:11.538751+00:00",
+    "metadata": null,
+    "name": "08d36780-ffe6-d8a4-f522-b11fa754e4c6",
+    "recommendationTypeId": "4ed62ae4-5072-f9e7-8d94-51c76c48159a",
+    "resourceGroup": "rg-scout-branddetect-prod-aue",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.keyvault/vaults/mymlworkkeyvault47ce10d1",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Key vaults should have purge protection enabled",
+      "solution": "Key vaults should have purge protection enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "4ed62ae4-5072-f9e7-8d94-51c76c48159a",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2/providers/Microsoft.Advisor/recommendations/f99a7dfc-d082-4f6a-79e2-b88912d8330e",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "kv-tbwa-juicer-insights2",
+    "lastUpdated": "2025-05-14T10:30:11.538751+00:00",
+    "metadata": null,
+    "name": "f99a7dfc-d082-4f6a-79e2-b88912d8330e",
+    "recommendationTypeId": "4ed62ae4-5072-f9e7-8d94-51c76c48159a",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Key vaults should have purge protection enabled",
+      "solution": "Key vaults should have purge protection enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "a59cd763-dbb7-4918-a5e5-b933705c8f74",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.databricks/workspaces/tbwa-juicer-databricks/providers/Microsoft.Advisor/recommendations/0a541615-d9eb-81a3-1250-af61ae7e71f4",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Databricks/workspaces",
+    "impactedValue": "tbwa-juicer-databricks",
+    "lastUpdated": "2025-05-13T22:12:15.604081+00:00",
+    "metadata": null,
+    "name": "0a541615-d9eb-81a3-1250-af61ae7e71f4",
+    "recommendationTypeId": "a59cd763-dbb7-4918-a5e5-b933705c8f74",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.databricks/workspaces/tbwa-juicer-databricks",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Resource logs in Azure Databricks Workspaces should be enabled",
+      "solution": "Resource logs in Azure Databricks Workspaces should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "22e93e92-4a31-b4cd-d640-3ef908430aa6",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/Microsoft.Sql/servers/tbwa-ces-model-server/providers/Microsoft.Advisor/recommendations/ed33b269-3d73-748d-428b-b5d2208e9792",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "tbwa-ces-model-server",
+    "lastUpdated": "2025-05-13T21:13:04.348956+00:00",
+    "metadata": null,
+    "name": "ed33b269-3d73-748d-428b-b5d2208e9792",
+    "recommendationTypeId": "22e93e92-4a31-b4cd-d640-3ef908430aa6",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/Microsoft.Sql/servers/tbwa-ces-model-server",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Public network access on Azure SQL Database should be disabled",
+      "solution": "Public network access on Azure SQL Database should be disabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "22e93e92-4a31-b4cd-d640-3ef908430aa6",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver/providers/Microsoft.Advisor/recommendations/6d0fab18-e7a0-4f86-bcb8-34a2dd88b909",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "sqltbwaprojectscoutserver",
+    "lastUpdated": "2025-05-13T21:13:04.348956+00:00",
+    "metadata": null,
+    "name": "6d0fab18-e7a0-4f86-bcb8-34a2dd88b909",
+    "recommendationTypeId": "22e93e92-4a31-b4cd-d640-3ef908430aa6",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Public network access on Azure SQL Database should be disabled",
+      "solution": "Public network access on Azure SQL Database should be disabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "f6b59724-4a05-aa38-33e2-25f15eecf00b",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.keyvault/vaults/mymlworkkeyvault47ce10d1/providers/Microsoft.Advisor/recommendations/02b9a218-f0b1-d04b-1999-1e08b4d423f8",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "mymlworkkeyvault47ce10d1",
+    "lastUpdated": "2025-05-14T05:30:13.965899+00:00",
+    "metadata": null,
+    "name": "02b9a218-f0b1-d04b-1999-1e08b4d423f8",
+    "recommendationTypeId": "f6b59724-4a05-aa38-33e2-25f15eecf00b",
+    "resourceGroup": "rg-scout-branddetect-prod-aue",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-scout-branddetect-prod-aue/providers/microsoft.keyvault/vaults/mymlworkkeyvault47ce10d1",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Key Vaults should use private link",
+      "solution": "Azure Key Vaults should use private link"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "f6b59724-4a05-aa38-33e2-25f15eecf00b",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/mymlworkkeyvault3441b156/providers/Microsoft.Advisor/recommendations/c9364be7-eed0-3252-1ff2-1542548c3c1a",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "mymlworkkeyvault3441b156",
+    "lastUpdated": "2025-05-14T05:30:13.965899+00:00",
+    "metadata": null,
+    "name": "c9364be7-eed0-3252-1ff2-1542548c3c1a",
+    "recommendationTypeId": "f6b59724-4a05-aa38-33e2-25f15eecf00b",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/mymlworkkeyvault3441b156",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Key Vaults should use private link",
+      "solution": "Azure Key Vaults should use private link"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "f6b59724-4a05-aa38-33e2-25f15eecf00b",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2/providers/Microsoft.Advisor/recommendations/175d893b-ffd1-3557-5a3e-d409b4447ee0",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "kv-tbwa-juicer-insights2",
+    "lastUpdated": "2025-05-14T05:30:13.965899+00:00",
+    "metadata": null,
+    "name": "175d893b-ffd1-3557-5a3e-d409b4447ee0",
+    "recommendationTypeId": "f6b59724-4a05-aa38-33e2-25f15eecf00b",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Key Vaults should use private link",
+      "solution": "Azure Key Vaults should use private link"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "f6b59724-4a05-aa38-33e2-25f15eecf00b",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/kv-projectscout-prod/providers/Microsoft.Advisor/recommendations/5beb3f4a-979c-13b5-ad94-4a81e32e6ca1",
+    "impact": "Medium",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "kv-projectscout-prod",
+    "lastUpdated": "2025-05-14T05:30:13.965899+00:00",
+    "metadata": null,
+    "name": "5beb3f4a-979c-13b5-ad94-4a81e32e6ca1",
+    "recommendationTypeId": "f6b59724-4a05-aa38-33e2-25f15eecf00b",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/kv-projectscout-prod",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Key Vaults should use private link",
+      "solution": "Azure Key Vaults should use private link"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "40394a2c-60fb-7cc5-1944-065772e94f05",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.web/sites/retail-advisor-app/providers/Microsoft.Advisor/recommendations/ecd8ef2b-a8f4-7108-9a73-db806e3dc898",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Web/sites",
+    "impactedValue": "retail-advisor-app",
+    "lastUpdated": "2025-05-14T08:30:25.925973+00:00",
+    "metadata": null,
+    "name": "ecd8ef2b-a8f4-7108-9a73-db806e3dc898",
+    "recommendationTypeId": "40394a2c-60fb-7cc5-1944-065772e94f05",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.web/sites/retail-advisor-app",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Diagnostic logs in App Service should be enabled",
+      "solution": "Diagnostic logs in App Service should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "bc303248-3d14-44c2-96a0-55f5c326b5fe",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-PROJECTSCOUT-COMPUTE/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/5b70eeb8-f4f5-24c9-7f15-56ccd7c4f324",
+    "impact": "Medium",
+    "impactedField": "Microsoft.Compute/virtualMachines",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T13:29:33.295753+00:00",
+    "metadata": null,
+    "name": "5b70eeb8-f4f5-24c9-7f15-56ccd7c4f324",
+    "recommendationTypeId": "bc303248-3d14-44c2-96a0-55f5c326b5fe",
+    "resourceGroup": "RG-TBWA-PROJECTSCOUT-COMPUTE",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourceGroups/RG-TBWA-PROJECTSCOUT-COMPUTE/providers/Microsoft.Compute/virtualMachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Management ports should be closed on your virtual machines",
+      "solution": "Management ports should be closed on your virtual machines"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "HighAvailability",
+    "extendedProperties": {
+      "maturityLevel": "GA",
+      "recommendationControl": "HighAvailability",
+      "recommendationOfferingId": "021d60de-795e-468a-953b-cb0067f8542e",
+      "recommendationSubCategory": "HighAvailability",
+      "region": "australiaeast"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.network/virtualnetworks/projectscout-superset-vmvnet/providers/Microsoft.Advisor/recommendations/3e66f95a-c5f7-d6b1-01b5-cf0febc01535",
+    "impact": "Medium",
+    "impactedField": "MICROSOFT.NETWORK/VIRTUALNETWORKS",
+    "impactedValue": "projectscout-superset-vmvnet",
+    "lastUpdated": "2025-05-14T06:29:31.107943+00:00",
+    "metadata": null,
+    "name": "3e66f95a-c5f7-d6b1-01b5-cf0febc01535",
+    "recommendationTypeId": "56f0c458-521d-4b8b-a704-c0a099483d19",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.network/virtualnetworks/projectscout-superset-vmvnet",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Use NAT gateway for outbound connectivity",
+      "solution": "Use NAT gateway for outbound connectivity"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "77785808-ce86-4e40-b45f-19110a547397",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.devices/iothubs/pi5/providers/Microsoft.Advisor/recommendations/a01969e5-0d05-0953-6920-27a47f4d7481",
+    "impact": "Low",
+    "impactedField": "Microsoft.Devices/IotHubs",
+    "impactedValue": "pi5",
+    "lastUpdated": "2025-05-13T20:12:06.955426+00:00",
+    "metadata": null,
+    "name": "a01969e5-0d05-0953-6920-27a47f4d7481",
+    "recommendationTypeId": "77785808-ce86-4e40-b45f-19110a547397",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.devices/iothubs/pi5",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Diagnostic logs in IoT Hub should be enabled",
+      "solution": "Diagnostic logs in IoT Hub should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "94208a8b-16e8-4e5b-abbd-4e81c9d02bee",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver/providers/Microsoft.Advisor/recommendations/dd5aa021-10a3-aacd-6a84-82c3db5a033d",
+    "impact": "Low",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "sqltbwaprojectscoutserver",
+    "lastUpdated": "2025-05-14T11:30:08.061614+00:00",
+    "metadata": null,
+    "name": "dd5aa021-10a3-aacd-6a84-82c3db5a033d",
+    "recommendationTypeId": "94208a8b-16e8-4e5b-abbd-4e81c9d02bee",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/Microsoft.Sql/servers/sqltbwaprojectscoutserver",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Auditing on SQL server should be enabled",
+      "solution": "Auditing on SQL server should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "94208a8b-16e8-4e5b-abbd-4e81c9d02bee",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/Microsoft.Sql/servers/tbwa-ces-model-server/providers/Microsoft.Advisor/recommendations/b7626919-d66c-5e13-f1da-0104a1347038",
+    "impact": "Low",
+    "impactedField": "Microsoft.Sql/servers",
+    "impactedValue": "tbwa-ces-model-server",
+    "lastUpdated": "2025-05-14T11:30:08.061614+00:00",
+    "metadata": null,
+    "name": "b7626919-d66c-5e13-f1da-0104a1347038",
+    "recommendationTypeId": "94208a8b-16e8-4e5b-abbd-4e81c9d02bee",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/Microsoft.Sql/servers/tbwa-ces-model-server",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Auditing on SQL server should be enabled",
+      "solution": "Auditing on SQL server should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "88bbc99c-e5af-ddd7-6105-6150b2bfa519",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/kv-projectscout-prod/providers/Microsoft.Advisor/recommendations/7640ff4b-18b0-ca09-7c00-278aace4ba6b",
+    "impact": "Low",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "kv-projectscout-prod",
+    "lastUpdated": "2025-05-14T02:32:28.028594+00:00",
+    "metadata": null,
+    "name": "7640ff4b-18b0-ca09-7c00-278aace4ba6b",
+    "recommendationTypeId": "88bbc99c-e5af-ddd7-6105-6150b2bfa519",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.keyvault/vaults/kv-projectscout-prod",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Diagnostic logs in Key Vault should be enabled",
+      "solution": "Diagnostic logs in Key Vault should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "88bbc99c-e5af-ddd7-6105-6150b2bfa519",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2/providers/Microsoft.Advisor/recommendations/1922522b-6bc6-701e-1ea9-70768d1b565a",
+    "impact": "Low",
+    "impactedField": "Microsoft.KeyVault/vaults",
+    "impactedValue": "kv-tbwa-juicer-insights2",
+    "lastUpdated": "2025-05-14T02:32:28.108593+00:00",
+    "metadata": null,
+    "name": "1922522b-6bc6-701e-1ea9-70768d1b565a",
+    "recommendationTypeId": "88bbc99c-e5af-ddd7-6105-6150b2bfa519",
+    "resourceGroup": "rg-tbwa-projectscout-juicer",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-juicer/providers/microsoft.keyvault/vaults/kv-tbwa-juicer-insights2",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Diagnostic logs in Key Vault should be enabled",
+      "solution": "Diagnostic logs in Key Vault should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "f2f595ec-5dc6-68b4-82ef-b63563e9c610",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/ed3d679f-de93-a90b-334b-2faca84fea6a",
+    "impact": "Low",
+    "impactedField": "Microsoft.Compute/virtualMachines",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T15:29:44.884741+00:00",
+    "metadata": null,
+    "name": "ed3d679f-de93-a90b-334b-2faca84fea6a",
+    "recommendationTypeId": "f2f595ec-5dc6-68b4-82ef-b63563e9c610",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Azure Backup should be enabled for virtual machines",
+      "solution": "Azure Backup should be enabled for virtual machines"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "e94a7421-fc27-7a4d-e9ba-2ba01384cacd",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm/providers/Microsoft.Advisor/recommendations/a6c501cc-4d1f-6975-68ef-71ba477eb9ba",
+    "impact": "Low",
+    "impactedField": "Microsoft.Compute/virtualMachines",
+    "impactedValue": "projectscout-superset-vm",
+    "lastUpdated": "2025-05-14T10:29:51.659165+00:00",
+    "metadata": null,
+    "name": "a6c501cc-4d1f-6975-68ef-71ba477eb9ba",
+    "recommendationTypeId": "e94a7421-fc27-7a4d-e9ba-2ba01384cacd",
+    "resourceGroup": "rg-tbwa-projectscout-compute",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-compute/providers/microsoft.compute/virtualmachines/projectscout-superset-vm",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Guest Attestation extension should be installed on supported Linux virtual machines",
+      "solution": "Guest Attestation extension should be installed on supported Linux virtual machines"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "1597605a-0faf-5860-eb74-462ae2e9fc21",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.eventhub/namespaces/eventhubs-tbwa-projectscout-pi5-prod/providers/Microsoft.Advisor/recommendations/e79f0ed8-f39a-913e-c315-c2121f63275b",
+    "impact": "Low",
+    "impactedField": "Microsoft.EventHub/namespaces",
+    "impactedValue": "eventhubs-tbwa-projectscout-pi5-prod",
+    "lastUpdated": "2025-05-14T08:29:38.435725+00:00",
+    "metadata": null,
+    "name": "e79f0ed8-f39a-913e-c315-c2121f63275b",
+    "recommendationTypeId": "1597605a-0faf-5860-eb74-462ae2e9fc21",
+    "resourceGroup": "rg-tbwa-projectscout-data",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/resourcegroups/rg-tbwa-projectscout-data/providers/microsoft.eventhub/namespaces/eventhubs-tbwa-projectscout-pi5-prod",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Diagnostic logs in Event Hub should be enabled",
+      "solution": "Diagnostic logs in Event Hub should be enabled"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  },
+  {
+    "category": "Security",
+    "extendedProperties": {
+      "assessmentKey": "77758c9d-8a56-5f54-6ff7-69a762ca6004",
+      "recommendationOfferingId": "e11311d7-dcf7-4ed0-a4e8-718288227231",
+      "score": "0"
+    },
+    "id": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251/providers/Microsoft.Advisor/recommendations/c143f381-b50d-1a6a-318b-bb40a487fe75",
+    "impact": "Low",
+    "impactedField": "Microsoft.Subscriptions/subscriptions",
+    "impactedValue": "c03c092c-443c-4f25-9efe-33f092621251",
+    "lastUpdated": "2025-05-14T12:29:47.589781+00:00",
+    "metadata": null,
+    "name": "c143f381-b50d-1a6a-318b-bb40a487fe75",
+    "recommendationTypeId": "77758c9d-8a56-5f54-6ff7-69a762ca6004",
+    "resourceMetadata": {
+      "resourceId": "/subscriptions/c03c092c-443c-4f25-9efe-33f092621251",
+      "source": null
+    },
+    "risk": null,
+    "shortDescription": {
+      "problem": "Subscriptions should have a contact email address for security issues",
+      "solution": "Subscriptions should have a contact email address for security issues"
+    },
+    "suppressionIds": null,
+    "type": "Microsoft.Advisor/recommendations"
+  }
+]

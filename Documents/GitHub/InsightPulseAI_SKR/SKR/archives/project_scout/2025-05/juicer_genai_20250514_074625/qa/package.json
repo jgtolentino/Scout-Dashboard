@@ -1,0 +1,44 @@
+{
+  "name": "scout-dashboard-qa",
+  "version": "1.0.0",
+  "description": "QA framework for Scout dashboards with Power BI parity testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --config jest.config.js",
+    "test:visual": "jest --config jest.config.js visual-parity",
+    "test:behavior": "jest --config jest.config.js behavior-parity",
+    "test:accessibility": "jest --config jest.config.js accessibility",
+    "test:performance": "jest --config jest.config.js performance",
+    "test:debug": "node utils/debug_tests.js",
+    "test:verify": "node verify_setup.js",
+    "capture-baselines": "node utils/capture-baselines.js",
+    "create-real-baselines": "node utils/create_real_baselines.js",
+    "baseline:update": "node utils/update_baseline.js",
+    "convert-baselines": "node utils/convert_svg_to_png.js",
+    "generate-mock-pngs": "node utils/generate_mock_pngs.js",
+    "lint": "eslint tests utils",
+    "prepare-ci": "node utils/prepare_ci_environment.js"
+  },
+  "keywords": [
+    "qa",
+    "dashboard",
+    "power-bi",
+    "testing"
+  ],
+  "author": "TBWA",
+  "dependencies": {
+    "jest": "^29.5.0",
+    "pixelmatch": "^5.3.0",
+    "puppeteer": "^19.7.0",
+    "chart.js": "^4.2.1",
+    "color": "^4.2.3",
+    "axe-core": "^4.6.3",
+    "pngjs": "^7.0.0",
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "babel-jest": "^29.5.0"
+  },
+  "optionalDependencies": {
+    "lighthouse": "^10.0.0"
+  }
+}

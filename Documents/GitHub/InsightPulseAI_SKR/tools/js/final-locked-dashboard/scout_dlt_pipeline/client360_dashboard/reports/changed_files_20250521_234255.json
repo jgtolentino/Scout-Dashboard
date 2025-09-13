@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-05-21T15:42:56Z",
+  "total_files": 66,
+  "changed_files":        1,
+  "unchanged_files":       65,
+  "files": [
+    {
+      "path": "VERSION_2.3.0_HIGHLIGHTS.md",
+      "sha": "2588fa4e7eb865ed4e54776ee17c05847bd99c5cd7db1a3f4305fa3740aa5eb3"
+    }
+  ]
+}

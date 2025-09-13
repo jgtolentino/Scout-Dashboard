@@ -1,0 +1,477 @@
+# Azure DevOps Pipeline for AI-BI-Genie
+# This pipeline handles CI/CD for all components of the AI-BI-Genie system
+
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+      - release/*
+  paths:
+    exclude:
+      - README.md
+      - docs/*
+      - .gitignore
+
+pr:
+  branches:
+    include:
+      - main
+      - develop
+
+variables:
+  - group: ai-bi-genie-variables
+  - name: buildConfiguration
+    value: 'Release'
+  - name: azureSubscription
+    value: 'AI-BI-Genie-ServiceConnection'
+  - name: dockerRegistryServiceConnection
+    value: 'aibirgenie-acr'
+  - name: imageRepository
+    value: 'ai-bi-genie'
+  - name: containerRegistry
+    value: 'aibirgenie.azurecr.io'
+  - name: dockerfilePath
+    value: '$(Build.SourcesDirectory)/Dockerfile'
+  - name: tag
+    value: '$(Build.BuildNumber)'
+  - name: vmImageName
+    value: 'ubuntu-latest'
+  - name: pythonVersion
+    value: '3.11'
+  - name: nodeVersion
+    value: '18.x'
+  - name: dotnetVersion
+    value: '8.x'
+
+stages:
+  - stage: Build
+    displayName: 'Build and Test'
+    jobs:
+      # Python/Streamlit App Build
+      - job: BuildPythonApp
+        displayName: 'Build Python Application'
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+            displayName: 'Use Python $(pythonVersion)'
+
+          - script: |
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+              pip install pytest pytest-cov flake8 mypy black
+            displayName: 'Install dependencies'
+
+          - script: |
+              black --check app/ api/ pipelines/
+              flake8 app/ api/ pipelines/ --max-line-length=100
+              mypy app/ api/ pipelines/ --ignore-missing-imports
+            displayName: 'Lint Python code'
+
+          - script: |
+              pytest tests/unit -v --cov=app --cov=api --cov-report=xml --cov-report=html
+            displayName: 'Run Python unit tests'
+
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFiles: '**/test-*.xml'
+              testRunTitle: 'Python Tests'
+            condition: succeededOrFailed()
+
+          - task: PublishCodeCoverageResults@1
+            inputs:
+              codeCoverageTool: 'Cobertura'
+              summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+              reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
+
+          - task: Docker@2
+            displayName: 'Build Streamlit Docker image'
+            inputs:
+              command: build
+              repository: $(imageRepository)-streamlit
+              dockerfile: app/Dockerfile
+              containerRegistry: $(dockerRegistryServiceConnection)
+              tags: |
+                $(tag)
+                latest
+
+      # .NET Microservices Build
+      - job: BuildDotNetServices
+        displayName: 'Build .NET Microservices'
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: UseDotNet@2
+            inputs:
+              version: '$(dotnetVersion)'
+              includePreviewVersions: true
+            displayName: 'Use .NET $(dotnetVersion)'
+
+          - script: |
+              dotnet restore advisor-microservices/AdvisorAPI/AdvisorAPI.csproj
+              dotnet restore advisor-microservices/ResourceGraphAPI/ResourceGraphAPI.csproj
+              dotnet restore advisor-microservices/MetricsAPI/MetricsAPI.csproj
+              dotnet restore advisor-microservices/Gateway/Gateway.csproj
+            displayName: 'Restore NuGet packages'
+
+          - script: |
+              dotnet build advisor-microservices/AdvisorAPI/AdvisorAPI.csproj --configuration $(buildConfiguration)
+              dotnet build advisor-microservices/ResourceGraphAPI/ResourceGraphAPI.csproj --configuration $(buildConfiguration)
+              dotnet build advisor-microservices/MetricsAPI/MetricsAPI.csproj --configuration $(buildConfiguration)
+              dotnet build advisor-microservices/Gateway/Gateway.csproj --configuration $(buildConfiguration)
+            displayName: 'Build microservices'
+
+          - script: |
+              dotnet test advisor-microservices/AdvisorAPI.Tests/AdvisorAPI.Tests.csproj --configuration $(buildConfiguration) --logger trx --collect:"XPlat Code Coverage"
+              dotnet test advisor-microservices/ResourceGraphAPI.Tests/ResourceGraphAPI.Tests.csproj --configuration $(buildConfiguration) --logger trx --collect:"XPlat Code Coverage"
+            displayName: 'Run .NET tests'
+
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: 'VSTest'
+              testResultsFiles: '**/*.trx'
+              testRunTitle: '.NET Tests'
+            condition: succeededOrFailed()
+
+          - script: |
+              for service in AdvisorAPI ResourceGraphAPI MetricsAPI Gateway; do
+                docker build -t $(containerRegistry)/$(imageRepository)-$service:$(tag) -f advisor-microservices/$service/Dockerfile advisor-microservices/$service
+              done
+            displayName: 'Build microservice Docker images'
+
+      # Angular SPA Build
+      - job: BuildAngularApp
+        displayName: 'Build Angular Application'
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '$(nodeVersion)'
+            displayName: 'Install Node.js'
+
+          - script: |
+              cd azure-portal-spa
+              npm ci
+              npm run lint
+              npm run test:ci
+            displayName: 'Install dependencies and run tests'
+
+          - script: |
+              cd azure-portal-spa
+              npm run build:prod
+            displayName: 'Build Angular app'
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: 'azure-portal-spa/dist'
+              ArtifactName: 'angular-app'
+              publishLocation: 'Container'
+
+      # Infrastructure Validation
+      - job: ValidateInfrastructure
+        displayName: 'Validate Infrastructure'
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: TerraformInstaller@0
+            inputs:
+              terraformVersion: 'latest'
+
+          - task: TerraformTaskV3@3
+            displayName: 'Terraform Init'
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/terraform'
+              backendServiceArm: '$(azureSubscription)'
+              backendAzureRmResourceGroupName: 'terraform-state-rg'
+              backendAzureRmStorageAccountName: 'tfstateaibigenie'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'ai-bi-genie.tfstate'
+
+          - task: TerraformTaskV3@3
+            displayName: 'Terraform Validate'
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/terraform'
+
+          - task: TerraformTaskV3@3
+            displayName: 'Terraform Plan'
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/terraform'
+              environmentServiceNameAzureRM: '$(azureSubscription)'
+
+  - stage: SecurityScan
+    displayName: 'Security Scanning'
+    dependsOn: Build
+    jobs:
+      - job: SecurityAnalysis
+        displayName: 'Run Security Scans'
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+            displayName: 'Use Python $(pythonVersion)'
+
+          - script: |
+              pip install bandit safety
+              bandit -r app/ api/ pipelines/ -f json -o bandit-report.json
+              safety check --json > safety-report.json
+            displayName: 'Python security scan'
+
+          - task: WhiteSource Bolt@20
+            displayName: 'WhiteSource Bolt scan'
+
+          - task: CredScan@3
+            displayName: 'Credential Scanner'
+
+          - task: PublishSecurityAnalysisLogs@3
+            displayName: 'Publish Security Analysis Logs'
+            inputs:
+              ArtifactName: 'CodeAnalysisLogs'
+              ArtifactType: 'Container'
+
+  - stage: DeployDev
+    displayName: 'Deploy to Development'
+    dependsOn: SecurityScan
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    jobs:
+      - deployment: DeployToDev
+        displayName: 'Deploy to Dev Environment'
+        pool:
+          vmImage: $(vmImageName)
+        environment: 'Development'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureCLI@2
+                  displayName: 'Deploy Infrastructure'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      cd infra/terraform
+                      terraform apply -auto-approve \
+                        -var="environment=dev" \
+                        -var="resource_group_name=ai-bi-genie-dev-rg"
+
+                - task: AzureCLI@2
+                  displayName: 'Push Docker images to ACR'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      az acr login --name aibirgenie
+                      docker push $(containerRegistry)/$(imageRepository)-streamlit:$(tag)
+                      for service in AdvisorAPI ResourceGraphAPI MetricsAPI Gateway; do
+                        docker push $(containerRegistry)/$(imageRepository)-$service:$(tag)
+                      done
+
+                - task: KubernetesManifest@0
+                  displayName: 'Deploy to AKS'
+                  inputs:
+                    action: 'deploy'
+                    kubernetesServiceConnection: 'aks-dev-connection'
+                    namespace: 'ai-bi-genie-dev'
+                    manifests: |
+                      infra/kubernetes/namespace.yaml
+                      infra/kubernetes/configmaps.yaml
+                      infra/kubernetes/secrets.yaml
+                      infra/kubernetes/deployments.yaml
+                      infra/kubernetes/services.yaml
+                      infra/kubernetes/ingress.yaml
+
+                - task: AzureStaticWebApp@0
+                  displayName: 'Deploy Angular SPA'
+                  inputs:
+                    app_location: 'azure-portal-spa'
+                    api_location: ''
+                    output_location: 'dist/azure-portal-spa'
+                    azure_static_web_apps_api_token: '$(AZURE_STATIC_WEB_APPS_API_TOKEN)'
+
+                - task: AzureCLI@2
+                  displayName: 'Run database migrations'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      SQL_SERVER=$(az sql server list -g ai-bi-genie-dev-rg --query "[0].name" -o tsv)
+                      SQL_PASSWORD=$(az keyvault secret show --vault-name aibigenie-dev-kv --name sql-admin-password --query value -o tsv)
+                      
+                      for migration in database/migrations/*.sql; do
+                        sqlcmd -S $SQL_SERVER.database.windows.net -d ai-bi-genie-dev -U sqladmin -P $SQL_PASSWORD -i $migration
+                      done
+
+                - task: AzureCLI@2
+                  displayName: 'Configure App Service'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      az webapp config container set \
+                        --name ai-bi-genie-streamlit-dev \
+                        --resource-group ai-bi-genie-dev-rg \
+                        --docker-custom-image-name $(containerRegistry)/$(imageRepository)-streamlit:$(tag)
+
+  - stage: DeployStaging
+    displayName: 'Deploy to Staging'
+    dependsOn: DeployDev
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: DeployToStaging
+        displayName: 'Deploy to Staging Environment'
+        pool:
+          vmImage: $(vmImageName)
+        environment: 'Staging'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - template: templates/deploy-environment.yml
+                  parameters:
+                    environment: 'staging'
+                    resourceGroup: 'ai-bi-genie-staging-rg'
+                    aksConnection: 'aks-staging-connection'
+                    namespace: 'ai-bi-genie-staging'
+
+  - stage: DeployProduction
+    displayName: 'Deploy to Production'
+    dependsOn: DeployStaging
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+    jobs:
+      - deployment: DeployToProduction
+        displayName: 'Deploy to Production Environment'
+        pool:
+          vmImage: $(vmImageName)
+        environment: 'Production'
+        strategy:
+          runOnce:
+            preDeploy:
+              steps:
+                - task: ManualValidation@0
+                  displayName: 'Manual approval for Production'
+                  inputs:
+                    notifyUsers: 'devops@company.com'
+                    instructions: 'Please validate staging deployment before approving production release'
+                    onTimeout: 'reject'
+
+            deploy:
+              steps:
+                - template: templates/deploy-environment.yml
+                  parameters:
+                    environment: 'prod'
+                    resourceGroup: 'ai-bi-genie-prod-rg'
+                    aksConnection: 'aks-prod-connection'
+                    namespace: 'ai-bi-genie-prod'
+
+                - task: AzureCLI@2
+                  displayName: 'Configure Traffic Manager'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      az network traffic-manager endpoint update \
+                        --name prod-endpoint \
+                        --profile-name ai-bi-genie-tm \
+                        --resource-group ai-bi-genie-global-rg \
+                        --type azureEndpoints \
+                        --weight 100
+
+            postRouteTraffic:
+              steps:
+                - task: AzureCLI@2
+                  displayName: 'Run smoke tests'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      npm install -g newman
+                      newman run tests/postman/ai-bi-genie-smoke-tests.json \
+                        --environment tests/postman/prod-environment.json \
+                        --reporters cli,junit \
+                        --reporter-junit-export test-results.xml
+
+                - task: PublishTestResults@2
+                  inputs:
+                    testResultsFiles: '**/test-results.xml'
+                    testRunTitle: 'Production Smoke Tests'
+                  condition: always()
+
+  - stage: PostDeployment
+    displayName: 'Post-Deployment Tasks'
+    dependsOn: 
+      - DeployProduction
+    condition: succeeded()
+    jobs:
+      - job: PostDeploymentTasks
+        displayName: 'Run Post-Deployment Tasks'
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: AzureCLI@2
+            displayName: 'Update monitoring dashboards'
+            inputs:
+              azureSubscription: '$(azureSubscription)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                # Update Grafana dashboards
+                kubectl apply -f monitoring/grafana/dashboards/ -n monitoring
+
+                # Configure alerts
+                az monitor metrics alert create \
+                  --name 'ai-bi-genie-high-cpu' \
+                  --resource-group ai-bi-genie-prod-rg \
+                  --scopes "/subscriptions/$(SUBSCRIPTION_ID)/resourceGroups/ai-bi-genie-prod-rg" \
+                  --condition "avg Percentage CPU > 80" \
+                  --window-size 5m \
+                  --evaluation-frequency 1m
+
+          - task: AzureCLI@2
+            displayName: 'Generate deployment report'
+            inputs:
+              azureSubscription: '$(azureSubscription)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                ./scripts/generate_deployment_report.sh prod > deployment-report.md
+                
+                # Send notification
+                curl -X POST $(TEAMS_WEBHOOK_URL) \
+                  -H 'Content-Type: application/json' \
+                  -d '{
+                    "text": "AI-BI-Genie deployed to production successfully!",
+                    "attachments": [{
+                      "contentType": "application/vnd.microsoft.card.adaptive",
+                      "content": {
+                        "type": "AdaptiveCard",
+                        "body": [{
+                          "type": "TextBlock",
+                          "text": "Build: $(Build.BuildNumber)",
+                          "weight": "bolder"
+                        }]
+                      }
+                    }]
+                  }'
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: 'deployment-report.md'
+              ArtifactName: 'deployment-report'
+              publishLocation: 'Container'

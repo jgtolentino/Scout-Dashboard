@@ -1,0 +1,29 @@
+<!-- Device Health Monitoring Section -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">
+          <i class="fas fa-heartbeat me-2 text-danger"></i>
+          Device Health Monitoring
+        </h5>
+        <div>
+          <button class="btn btn-sm btn-outline-primary me-2" id="refreshDeviceHealthBtn">
+            <i class="fas fa-sync-alt me-1"></i> Refresh
+          </button>
+          <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#deviceHealthContent">
+            <i class="fas fa-chevron-down"></i>
+          </button>
+        </div>
+      </div>
+      <div class="collapse show" id="deviceHealthContent">
+        <div class="card-body">
+          <!-- Device Health Dashboard Container -->
+          <div id="deviceHealthContainer">
+            <!-- Content will be loaded by the DeviceHealthMonitor component -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

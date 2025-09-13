@@ -1,0 +1,66 @@
+# :clodrep etl-deploy-kit for Project Scout (Pi → Azure)
+
+azure_deploy:
+  event_hubs:
+    - name: eh-pi-stt-raw
+    - name: eh-pi-visual-stream
+    - name: eh-pi-annotated-events
+    - name: eh-device-heartbeat
+
+  blob_storage:
+    container: scout-raw-ingest
+    use_for:
+      - backup_metadata_json
+      # Note: No audio backup as AudioURL is deprecated
+
+  databricks:
+    pipelines:
+      - name: scout_dlt_pipeline
+        bronze_tables:
+          - bronze_transcriptions  # No AudioURL field
+          - bronze_vision_detections
+          - bronze_device_logs
+        silver_tables:
+          - SalesInteractions
+          - SalesInteractionTranscripts
+          - TranscriptChunkAudit
+        gold_tables:
+          - SalesInteractionBrands
+          - BrandMentionDashboard
+        transforms:
+          - script: nlp_brand_detector.py
+          - script: session_matcher.py
+          - script: interaction_scorer.py
+        autoloader_sources:
+          - eventhub: eh-pi-stt-raw
+          - eventhub: eh-pi-visual-stream
+          - eventhub: eh-device-heartbeat
+
+  webapp:
+    dashboard:
+      name: scout-insights
+      source: gold.SalesInteractionBrands
+      type: Azure Static Web App or Streamlit
+      features:
+        - Brand mention rates
+        - Store reliability score
+        - Transcript coverage
+
+  governance:
+    unity_catalog:
+      pii_tags:
+        - SalesInteractions.TranscriptionText
+        - SalesInteractions.FacialID
+      rbac_enabled: true
+    key_vault:
+      store:
+        - EVENT_HUB_CONNECTION_STRING
+        - STORAGE_ACCOUNT_KEY
+
+notes:
+  - all ingestion scripts from Raspberry Pi are assumed to push via Event Hub using `event_hub_client.py`
+  - transcript scoring and facial session joining handled by DLT or Databricks notebooks
+  - AudioURL field is DEPRECATED and not included in the pipeline - audio files remain on devices
+  - Schema reflects updated directive (May 19, 2025) removing AudioURL from bronze_transcriptions
+
+status: ready_for_deployment

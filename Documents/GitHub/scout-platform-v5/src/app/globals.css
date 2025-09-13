@@ -1,0 +1,49 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'mapbox-gl/dist/mapbox-gl.css';
+
+:root {
+  --scout-primary: #3b82f6;
+  --scout-secondary: #64748b;
+  --scout-success: #10b981;
+  --scout-warning: #f59e0b;
+  --scout-error: #ef4444;
+  --scout-background: #f8fafc;
+  --scout-surface: #ffffff;
+  --scout-text-primary: #1e293b;
+  --scout-text-secondary: #64748b;
+}
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .scout-card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+  }
+  
+  .scout-button-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .scout-button-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .scout-loading {
+    @apply animate-pulse;
+  }
+  
+  .scout-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+}

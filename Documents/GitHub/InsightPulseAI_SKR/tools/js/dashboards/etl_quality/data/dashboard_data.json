@@ -1,0 +1,144 @@
+{
+  "timestamp": "2025-05-16T08:30:00Z",
+  "pipelineMetrics": {
+    "status": "HEALTHY",
+    "successRate": 98.5,
+    "totalChecks": 124,
+    "failedChecks": 3,
+    "avgProcessingTime": 4.8
+  },
+  "layerHealth": {
+    "labels": ["Bronze", "Silver", "Gold"],
+    "passed": [32, 48, 41],
+    "warnings": [2, 5, 1],
+    "failed": [1, 2, 0]
+  },
+  "schemaStability": {
+    "labels": ["May 10", "May 11", "May 12", "May 13", "May 14", "May 15", "May 16"],
+    "changes": [0, 0, 5, 3, 0, 0, 0]
+  },
+  "rowCountTrends": {
+    "labels": ["May 10", "May 11", "May 12", "May 13", "May 14", "May 15", "May 16"],
+    "datasets": [
+      {
+        "label": "bronze_stt_raw",
+        "data": [12500, 12800, 13100, 12900, 13400, 13200, 13500],
+        "backgroundColor": "rgba(13, 110, 253, 0.2)",
+        "borderColor": "rgba(13, 110, 253, 1)",
+        "borderWidth": 2
+      },
+      {
+        "label": "silver_annotated_events",
+        "data": [12300, 12600, 12900, 12700, 13200, 13000, 13300],
+        "backgroundColor": "rgba(25, 135, 84, 0.2)",
+        "borderColor": "rgba(25, 135, 84, 1)",
+        "borderWidth": 2
+      },
+      {
+        "label": "gold_insight_aggregates",
+        "data": [850, 860, 880, 890, 900, 910, 920],
+        "backgroundColor": "rgba(255, 193, 7, 0.2)",
+        "borderColor": "rgba(255, 193, 7, 1)",
+        "borderWidth": 2
+      }
+    ]
+  },
+  "recentIssues": [
+    {
+      "date": "2025-05-15T10:15:32Z",
+      "check": "silver_transformation_completeness",
+      "severity": "WARNING",
+      "details": "Silver transformation at 98.7%, below 99% threshold"
+    },
+    {
+      "date": "2025-05-14T14:23:05Z",
+      "check": "silver_brand_extraction_quality",
+      "severity": "WARNING",
+      "details": "22% brand mentions have confidence score below 0.7"
+    },
+    {
+      "date": "2025-05-12T09:05:18Z",
+      "check": "bronze_ingestion_latency",
+      "severity": "ERROR",
+      "details": "Max ingestion latency: 480s, above threshold of 300s"
+    },
+    {
+      "date": "2025-05-12T07:42:30Z",
+      "check": "schema_compliance",
+      "severity": "WARNING",
+      "details": "Schema changes detected in 5 tables"
+    },
+    {
+      "date": "2025-05-11T16:38:12Z",
+      "check": "transformation_duration",
+      "severity": "WARNING",
+      "details": "ETL step 'silver_brand_extraction' took 45m, exceeding expected duration by 50%"
+    }
+  ],
+  "qualityScores": [
+    {
+      "table": "bronze_stt_raw",
+      "completeness": 98,
+      "consistency": 95,
+      "timeliness": 92,
+      "overall": 95,
+      "trend": "up"
+    },
+    {
+      "table": "bronze_device_events",
+      "completeness": 100,
+      "consistency": 98,
+      "timeliness": 95,
+      "overall": 98,
+      "trend": "neutral"
+    },
+    {
+      "table": "bronze_user_interactions",
+      "completeness": 97,
+      "consistency": 95,
+      "timeliness": 93,
+      "overall": 95,
+      "trend": "neutral"
+    },
+    {
+      "table": "silver_annotated_events",
+      "completeness": 94,
+      "consistency": 92,
+      "timeliness": 90,
+      "overall": 92,
+      "trend": "down"
+    },
+    {
+      "table": "silver_brand_mentions",
+      "completeness": 85,
+      "consistency": 78,
+      "timeliness": 92,
+      "overall": 85,
+      "trend": "up"
+    },
+    {
+      "table": "gold_insight_aggregates",
+      "completeness": 98,
+      "consistency": 96,
+      "timeliness": 94,
+      "overall": 96,
+      "trend": "up"
+    },
+    {
+      "table": "gold_interaction_metrics",
+      "completeness": 96,
+      "consistency": 92,
+      "timeliness": 90,
+      "overall": 93,
+      "trend": "neutral"
+    },
+    {
+      "table": "gold_brand_performance",
+      "completeness": 90,
+      "consistency": 88,
+      "timeliness": 93,
+      "overall": 90,
+      "trend": "up"
+    }
+  ]
+}

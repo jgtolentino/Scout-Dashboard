@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scout Advanced Analytics (Market Intelligence with GenAI)</title>
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  
+  <!-- Tailwind CSS (optional, uncomment if needed) -->
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/shared-theme.css">
+  <link rel="stylesheet" href="css/mockify-style.css">
+  <link rel="stylesheet" href="css/retail_edge_style_patch.css">
+  <link rel="stylesheet" href="css/unified-genai.css">
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="breadcrumb-nav">
+        <div class="d-flex align-items-center">
+          <img src="https://www.tbwa.com/assets/img/tbwa-backslash-logo-white.svg" alt="TBWA" class="logo me-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="index.html" class="text-light">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Scout Advanced Analytics</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="d-flex align-items-center">
+          <span class="genai-badge me-3">Unified GenAI</span>
+          <div id="data-source-toggle-container" class="me-3"></div>
+          <button class="header-btn me-2" id="export-btn">
+            <i class="fas fa-download me-1"></i> Export
+          </button>
+          <button class="header-btn" id="refresh-data-btn" data-action="refresh-data">
+            <i class="fas fa-sync-alt me-1"></i> Refresh
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container my-4">
+    <!-- Dashboard Information Banner -->
+    <div class="alert alert-primary d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <strong>📊 Scout Advisor:</strong> Styled Source Dashboard (Vercel Baseline)
+        <a href="README_SCOUT_ADVISOR.md" class="ms-2 btn btn-sm btn-outline-primary">
+          <i class="fas fa-info-circle"></i> About Scout Advisor
+        </a>
+      </div>
+      <div class="badge bg-warning">Internal Use Only</div>
+    </div>
+    
+    <!-- Dashboard Navigation -->
+    <div class="text-center dashboard-nav mb-4">
+      <a href="qa.html" class="btn btn-outline-primary me-2" title="Scout Ops">
+        <i class="fas fa-chart-line me-1"></i> System Architecture & QA
+      </a>
+      <a href="retail_edge/retail_edge_dashboard.html" class="btn btn-outline-primary me-2" title="Scout Edge">
+        <i class="fas fa-store me-1"></i> Retail Advisor
+      </a>
+    </div>
+    
+    <!-- Data Filters Section -->
+    <section class="mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Data Filters</h5>
+          <div class="row">
+            <div class="col-md-3 mb-2">
+              <label for="date-range-select">Time Period:</label>
+              <select id="date-range-select" class="form-select" data-filter="dateRange">
+                <option value="7">Last 7 Days</option>
+                <option value="30" selected>Last 30 Days</option>
+                <option value="90">Last 90 Days</option>
+                <option value="180">Last 6 Months</option>
+                <option value="365">Last 12 Months</option>
+              </select>
+            </div>
+            <div class="col-md-3 mb-2">
+              <label for="store-select">Store:</label>
+              <select id="store-select" class="form-select" data-filter="storeId">
+                <option value="all" selected>All Stores</option>
+                <option value="112">North Flagship (112)</option>
+                <option value="143">East Center (143)</option>
+                <option value="156">West Express (156)</option>
+                <option value="119">South Hub (119)</option>
+                <option value="127">Central Mall (127)</option>
+              </select>
+            </div>
+            <div class="col-md-3 mb-2">
+              <label for="category-select">Category:</label>
+              <select id="category-select" class="form-select" data-filter="category">
+                <option value="all" selected>All Categories</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Home Goods">Home Goods</option>
+                <option value="Food & Beverage">Food & Beverage</option>
+                <option value="Health & Beauty">Health & Beauty</option>
+              </select>
+            </div>
+            <div class="col-md-3 mb-2">
+              <label for="brand-select">Brand:</label>
+              <select id="brand-select" class="form-select" data-filter="brand">
+                <option value="all" selected>All Brands</option>
+                <option value="TechVision">TechVision</option>
+                <option value="UrbanStyle">UrbanStyle</option>
+                <option value="HomeCafe">HomeCafe</option>
+                <option value="HealthPlus">HealthPlus</option>
+                <option value="FoodFresh">FoodFresh</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Loading Indicator -->
+    <div class="loading-indicator" style="display: none;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Loading data...</p>
+    </div>
+    
+    <!-- Error Message Container -->
+    <div id="error-message-container" class="mb-4" style="display: none;"></div>
+    
+    <!-- KPI Summary Section -->
+    <section class="mb-5">
+      <h2 class="analytics-title mb-4">Key Performance Indicators</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="kpi-card primary">
+            <div class="kpi-value">87%</div>
+            <p class="kpi-label">Brand Recognition</p>
+            <div class="kpi-change positive">
+              <i class="fas fa-arrow-up"></i> 5.2% vs. last month
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="kpi-card success">
+            <div class="kpi-value">$1.2M</div>
+            <p class="kpi-label">Revenue Impact</p>
+            <div class="kpi-change positive">
+              <i class="fas fa-arrow-up"></i> 12.3% vs. last quarter
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="kpi-card warning">
+            <div class="kpi-value">24.5K</div>
+            <p class="kpi-label">Active Customers</p>
+            <div class="kpi-change positive">
+              <i class="fas fa-arrow-up"></i> 3.7% vs. last month
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="kpi-card danger">
+            <div class="kpi-value">9.3</div>
+            <p class="kpi-label">Cust. Satisfaction</p>
+            <div class="kpi-change negative">
+              <i class="fas fa-arrow-down"></i> 0.2 points vs. last month
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Scout Analysis Overview Section -->
+    <section id="project-scout-analysis" class="mb-5">
+      <div class="glass-panel">
+        <div class="card-header bg-white">
+          <h4 class="analytics-title">
+            Project Scout Analysis Overview
+            <div class="badge bg-primary ms-2">Market Intelligence</div>
+          </h4>
+        </div>
+        <div class="card-body">
+          <!-- Analytics Categories -->
+          <div class="analytics-grid mb-4">
+            <div class="analytics-stat-card">
+              <div class="stat-value text-azure-blue">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="stat-label">Customer Profile</div>
+              <ul class="insights-list mt-2">
+                <li><i class="fas fa-chart-line"></i> Purchase patterns</li>
+                <li><i class="fas fa-heart"></i> Brand loyalty metrics</li>
+                <li><i class="fas fa-globe"></i> Cultural influence</li>
+              </ul>
+            </div>
+            
+            <div class="analytics-stat-card">
+              <div class="stat-value text-azure-green">
+                <i class="fas fa-store"></i>
+              </div>
+              <div class="stat-label">Store Performance</div>
+              <ul class="insights-list mt-2">
+                <li><i class="fas fa-map-marker-alt"></i> Regional analysis</li>
+                <li><i class="fas fa-expand"></i> Store size impact</li>
+                <li><i class="fas fa-clock"></i> Peak transaction times</li>
+              </ul>
+            </div>
+            
+            <div class="analytics-stat-card">
+              <div class="stat-value text-azure-orange">
+                <i class="fas fa-box-open"></i>
+              </div>
+              <div class="stat-label">Product Intelligence</div>
+              <ul class="insights-list mt-2">
+                <li><i class="fas fa-puzzle-piece"></i> Bundle effectiveness</li>
+                <li><i class="fas fa-tags"></i> Category performance</li>
+                <li><i class="fas fa-barcode"></i> SKU-level patterns</li>
+              </ul>
+            </div>
+            
+            <div class="analytics-stat-card">
+              <div class="stat-value text-azure-red">
+                <i class="fas fa-brain"></i>
+              </div>
+              <div class="stat-label">Advanced Analytics</div>
+              <ul class="insights-list mt-2">
+                <li><i class="fas fa-shopping-basket"></i> Market basket</li>
+                <li><i class="fas fa-chart-line"></i> Demand forecasting</li>
+                <li><i class="fas fa-percentage"></i> Promotional impact</li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- SQL Analytics Dashboard -->
+          <div id="analytics-dashboard-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="mb-5">
+      <h2 class="analytics-title mb-4">Performance Metrics</h2>
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="chart-container">
+            <h3 class="chart-title">Monthly Sales Trend</h3>
+            <canvas id="salesTrendChart" height="300"></canvas>
+            <div class="chart-footer">
+              <span>Source: Sales Data API</span>
+              <span>Last updated: <time datetime="2025-05-14">May 14, 2025</time></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="chart-container">
+            <h3 class="chart-title">Revenue by Category</h3>
+            <canvas id="revenueCategoryChart" height="300"></canvas>
+            <div class="chart-footer">
+              <span>Source: Finance Dashboard</span>
+              <span>Last updated: <time datetime="2025-05-14">May 14, 2025</time></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row g-4 mt-2">
+        <div class="col-lg-6">
+          <div class="chart-container">
+            <h3 class="chart-title">Customer Acquisition Channels</h3>
+            <canvas id="acquisitionChart" height="250"></canvas>
+            <div class="chart-footer">
+              <span>Source: CRM Analytics</span>
+              <span>Last updated: <time datetime="2025-05-14">May 14, 2025</time></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="chart-container">
+            <h3 class="chart-title">Regional Performance</h3>
+            <canvas id="regionalPerformanceChart" height="250"></canvas>
+            <div class="chart-footer">
+              <span>Source: Store Performance API</span>
+              <span>Last updated: <time datetime="2025-05-14">May 14, 2025</time></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GenAI Insights Section -->
+    <section class="mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="analytics-title">
+          AI-Powered Retail Insights
+          <span class="genai-badge">Unified GenAI</span>
+        </h2>
+        <div class="dropdown">
+          <button class="header-btn dropdown-toggle" type="button" id="insightFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-filter me-1"></i> Filter
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="insightFilterDropdown">
+            <li><a class="dropdown-item" href="#">All Insights</a></li>
+            <li><a class="dropdown-item" href="#">General</a></li>
+            <li><a class="dropdown-item" href="#">Brand</a></li>
+            <li><a class="dropdown-item" href="#">Sentiment</a></li>
+            <li><a class="dropdown-item" href="#">Trend</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Static Insights (will be replaced by real data when available) -->
+      <div class="insights-grid static-insights" id="static-insights-grid">
+        <!-- Insight Card 1 -->
+        <div class="insight-card">
+          <div class="insight-header">
+            <span class="insight-type-badge general">General</span>
+            <span class="confidence-badge confidence-high">92% confidence</span>
+          </div>
+          <div class="insight-body">
+            <h4>Increasing focus on value meals across all demographics</h4>
+            <p>Analysis of customer data shows increased interest in value options across all age groups and income levels, especially in urban locations.</p>
+            <div class="mt-3">
+              <span class="insight-tag">pricing</span>
+              <span class="insight-tag">value</span>
+              <span class="insight-tag">economy</span>
+            </div>
+          </div>
+          <div class="insight-footer">
+            <i class="fas fa-robot"></i> Generated by AI • May 14, 2025
+          </div>
+        </div>
+        
+        <!-- Additional static cards here... -->
+      </div>
+      
+      <!-- Dynamic Insights Container (populated by dashboard_integrator.js) -->
+      <div id="insights-container" class="insights-grid data-container"></div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section class="row mb-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h5>View Other Dashboards</h5>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="retail_edge/retail_edge_dashboard.html" class="btn btn-outline-primary">
+                <i class="fas fa-shop me-2"></i> Retail Advisor
+              </a>
+              <a href="qa.html" class="btn btn-outline-secondary">
+                <i class="fas fa-wrench me-2"></i> System Architecture & QA
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="dashboard-footer">
+    <div class="container">
+      <p>&copy; 2025 TBWA\Project Scout. All rights reserved.</p>
+      <p class="last-updated">Last updated: May 14, 2025 at 10:45 AM</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+  
+  <!-- Custom Scripts -->
+  <script src="js/insights_visualizer.js"></script>
+  <script src="dashboard_sql_component.js"></script>
+  <script src="js/unified_genai_insights.js"></script>
+  
+  <!-- Data Integration Scripts -->
+  <script src="js/data_source_toggle.js"></script>
+  <script src="js/medallion_data_connector.js"></script>
+  <script src="js/dashboard_integrator.js"></script>
+  
+  <script>
+    // Initialize charts when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sales Trend Chart
+      const salesTrendCtx = document.getElementById('salesTrendChart').getContext('2d');
+      const salesTrendChart = new Chart(salesTrendCtx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          datasets: [{
+            label: 'Current Year',
+            data: [18500, 19200, 21500, 22800, 24100, 25400, 26200, 27100, 28400, 29200, 30100, 31500],
+            borderColor: '#0078D4',
+            backgroundColor: 'rgba(0, 120, 212, 0.1)',
+            tension: 0.4,
+            fill: true
+          }, {
+            label: 'Previous Year',
+            data: [17200, 17900, 19100, 20300, 21500, 22700, 23400, 24200, 25100, 25800, 26500, 27200],
+            borderColor: '#aaaaaa',
+            backgroundColor: 'rgba(170, 170, 170, 0.1)',
+            tension: 0.4,
+            borderDash: [5, 5],
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            }
+          },
+          scales: {
+            y: {
+              ticks: {
+                callback: function(value) {
+                  return '$' + value.toLocaleString();
+                }
+              }
+            }
+          }
+        }
+      });
+      
+      // Revenue by Category Chart
+      const revenueCategoryCtx = document.getElementById('revenueCategoryChart').getContext('2d');
+      const revenueCategoryChart = new Chart(revenueCategoryCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Electronics', 'Apparel', 'Home Goods', 'Food & Beverage', 'Health & Beauty'],
+          datasets: [{
+            label: 'Revenue Distribution',
+            data: [42, 23, 15, 12, 8],
+            backgroundColor: [
+              '#0078D4',
+              '#50E6FF',
+              '#107C10',
+              '#FF8C00',
+              '#E81123'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+            }
+          }
+        }
+      });
+      
+      // Customer Acquisition Channels Chart
+      const acquisitionCtx = document.getElementById('acquisitionChart').getContext('2d');
+      const acquisitionChart = new Chart(acquisitionCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Organic Search', 'Direct', 'Referral', 'Social', 'Email', 'Paid Search'],
+          datasets: [{
+            label: 'New Customers',
+            data: [1200, 900, 650, 870, 720, 980],
+            backgroundColor: '#0078D4'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      
+      // Regional Performance Chart
+      const regionalCtx = document.getElementById('regionalPerformanceChart').getContext('2d');
+      const regionalChart = new Chart(regionalCtx, {
+        type: 'radar',
+        data: {
+          labels: ['Sales Growth', 'Traffic', 'Conversion', 'AOV', 'Retention', 'NPS'],
+          datasets: [{
+            label: 'North Region',
+            data: [80, 65, 75, 82, 68, 72],
+            borderColor: '#0078D4',
+            backgroundColor: 'rgba(0, 120, 212, 0.2)'
+          }, {
+            label: 'South Region',
+            data: [72, 78, 69, 75, 85, 79],
+            borderColor: '#107C10',
+            backgroundColor: 'rgba(16, 124, 16, 0.2)'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          elements: {
+            line: {
+              borderWidth: 2
+            },
+            point: {
+              radius: 3
+            }
+          },
+          scales: {
+            r: {
+              angleLines: {
+                display: true
+              },
+              suggestedMin: 0,
+              suggestedMax: 100
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

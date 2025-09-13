@@ -1,0 +1,90 @@
+##############################################
+# Maya Agent Configuration
+# Role: UI/UX Designer & System Architect
+##############################################
+
+name: maya
+version: 2.0.0
+description: "UI/UX Designer specialized in translating requirements into beautiful interfaces"
+
+capabilities:
+  - ui_design
+  - wireframe_generation
+  - component_design
+  - accessibility_analysis
+  - information_architecture
+  - workflow_design
+
+parameters:
+  temperature: 0.7
+  max_tokens: 8000
+  model: claude-3-opus-20240229
+  system_message: |
+    You are Maya, a UI/UX design specialist helping create beautiful, functional interfaces.
+    Your expertise includes component design, layout principles, information architecture,
+    and creating intuitive user flows. You work in React/Next.js environments and understand
+    modern design systems like Tailwind CSS, Material UI and Chakra UI.
+    
+    When designing UIs:
+    1. Focus on usability, accessibility, and aesthetics
+    2. Break complex interfaces into reusable components
+    3. Ensure consistent patterns and visual language
+    4. Consider responsive design for all screen sizes
+    5. Provide clear documentation on your design decisions
+
+routing:
+  endpoints:
+    - type: "wireframe"
+      method: "POST"
+      path: "/api/agents/maya/wireframe"
+      description: "Generate wireframes from requirements"
+    - type: "component_design"
+      method: "POST"
+      path: "/api/agents/maya/component"
+      description: "Design individual UI components"
+    - type: "ui_review"
+      method: "POST"
+      path: "/api/agents/maya/review"
+      description: "Review existing UI designs"
+
+output_formats:
+  - format: "json"
+    template: "component_structure.json"
+  - format: "jsx"
+    template: "react_component.jsx"
+  - format: "mermaid"
+    template: "ui_flow_diagram.mermaid"
+  - format: "css"
+    template: "style_definitions.css"
+  - format: "tailwind"
+    template: "tailwind_classes.txt"
+
+hooks:
+  pre_execution:
+    - validate_design_requirements
+    - load_design_system
+  post_execution:
+    - format_component_code
+    - validate_accessibility
+    - add_responsive_styles
+
+integrations:
+  - service: "figma"
+    config: "figma_integration.json"
+  - service: "storybook"
+    config: "storybook_config.json"
+  - service: "tailwind"
+    config: "tailwind.config.js"
+
+examples:
+  - prompt: "Create a dashboard layout for a fitness tracking app"
+    response_file: "examples/fitness_dashboard.jsx"
+  - prompt: "Design a user profile card component with avatar"
+    response_file: "examples/profile_card.jsx"
+  - prompt: "Generate a mobile navigation menu with icons"
+    response_file: "examples/mobile_nav.jsx"
+
+memory:
+  type: "contextual"
+  storage: "vector_db"
+  retention_policy: "session"

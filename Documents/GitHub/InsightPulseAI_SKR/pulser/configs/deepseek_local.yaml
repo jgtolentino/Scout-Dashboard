@@ -1,0 +1,103 @@
+# DeepSeek Coder Local Configuration for Pulser/Codex CLI
+# This enables running DeepSeek Coder models locally via Ollama
+
+models:
+  deepseek-local:
+    provider: ollama
+    base_url: "http://localhost:11434"
+    model_name: "deepseek-coder:33b-instruct-q4_K_M"
+    api_key: "not-required"  # Ollama doesn't need API keys
+    parameters:
+      temperature: 0.2
+      max_tokens: 4096
+      top_p: 0.95
+      stream: true
+    context_window: 16384
+    supports_functions: false  # DeepSeek requires wrapper for function calling
+    
+  deepseek-fast:
+    provider: ollama
+    base_url: "http://localhost:11434"
+    model_name: "deepseek-coder:6.7b-instruct-q4_K_M"
+    api_key: "not-required"
+    parameters:
+      temperature: 0.1
+      max_tokens: 2048
+    context_window: 8192
+    supports_functions: false
+
+# Alternative LM Studio configuration
+lm_studio:
+  deepseek-lmstudio:
+    provider: openai-compatible
+    base_url: "http://localhost:1234/v1"
+    model_name: "deepseek-coder-33b-instruct"
+    api_key: "lm-studio"
+    parameters:
+      temperature: 0.2
+      max_tokens: 4096
+
+# vLLM configuration for better performance
+vllm:
+  deepseek-vllm:
+    provider: openai-compatible
+    base_url: "http://localhost:8000"
+    model_name: "deepseek-ai/deepseek-coder-33b-instruct"
+    api_key: "vllm-local"
+    parameters:
+      temperature: 0.2
+      max_tokens: 8192
+      tensor_parallel_size: 4  # For multi-GPU
+
+# Security settings for local models
+security:
+  local_models_only: true
+  disable_telemetry: true
+  allowed_endpoints:
+    - "localhost"
+    - "127.0.0.1"
+  sandbox_mode: strict
+  code_execution:
+    enabled: true
+    timeout: 30
+    memory_limit: "2GB"
+
+# Performance optimizations
+performance:
+  ollama:
+    num_gpu: 1  # Adjust based on your hardware
+    max_loaded_models: 1
+    memory_limit: "32GB"
+  cache:
+    enabled: true
+    ttl: 3600
+    max_size: "10GB"
+
+# Pulser CLI integration
+pulser_integration:
+  command_prefix: ":deepseek"
+  aliases:
+    - "ds"
+    - "dsc"
+  default_context:
+    project_type: "auto-detect"
+    language_preference: ["python", "javascript", "typescript"]
+  
+# Model selection rules
+model_selection:
+  rules:
+    - condition: "file_size > 1000"
+      model: "deepseek-fast"
+    - condition: "task_type == 'refactor'"
+      model: "deepseek-local"
+    - condition: "language == 'chinese'"
+      model: "deepseek-local"  # Better Chinese support
+    - condition: "privacy_level == 'high'"
+      model: "deepseek-local"
+      
+# Compatibility wrapper settings
+compatibility:
+  openai_translation: true
+  function_emulation: true
+  response_format: "claude"  # Match existing Pulser format
+  error_handling: "graceful"

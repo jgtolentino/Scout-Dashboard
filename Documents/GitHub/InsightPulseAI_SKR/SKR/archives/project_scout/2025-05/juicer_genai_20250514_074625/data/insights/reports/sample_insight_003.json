@@ -1,0 +1,25 @@
+{
+  "id": "INS-003-2025-05-13-003",
+  "timestamp": "2025-05-13T16:15:00Z",
+  "model": "deepseek",
+  "type": "product",
+  "status": "processing",
+  "source": {
+    "dataLake": "azure-adls",
+    "table": "product_usage",
+    "queryId": "PRD-2025-Q2-012"
+  },
+  "insight": {
+    "title": "Product Feature Usage Patterns Across User Segments",
+    "summary": "Initial analysis in progress...",
+    "confidence": 0.65,
+    "keywords": ["feature usage", "user segments", "product analytics"],
+    "recommendations": []
+  },
+  "metadata": {
+    "processingTime": 2.3,
+    "tokenCount": 784,
+    "dataPoints": 2145,
+    "version": "1.0.3"
+  }
+}

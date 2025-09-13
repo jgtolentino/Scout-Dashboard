@@ -1,0 +1,547 @@
+{
+  "version": "2.4.0",
+  "lastUpdated": "2025-05-22T13:18:00Z",
+  "demoMode": true,
+  "navigation": [
+    {
+      "key": "overview",
+      "label": "Dashboard Overview",
+      "icon": "fas fa-chart-bar",
+      "route": "/",
+      "section": "overview",
+      "description": "Comprehensive view of all key metrics and performance indicators",
+      "active": true
+    },
+    {
+      "key": "sales",
+      "label": "Sales Analytics",
+      "icon": "fas fa-chart-line",
+      "route": "/sales",
+      "section": "sales",
+      "description": "Deep dive into sales performance across regions and channels",
+      "active": false
+    },
+    {
+      "key": "customer",
+      "label": "Customer Insights",
+      "icon": "fas fa-users",
+      "route": "/customer",
+      "section": "customer",
+      "description": "Customer behavior analysis and segmentation insights",
+      "active": false
+    },
+    {
+      "key": "regional",
+      "label": "Regional Analysis",
+      "icon": "fas fa-map-marked-alt",
+      "route": "/regional",
+      "section": "regional",
+      "description": "Geographic performance breakdown by region",
+      "active": false
+    },
+    {
+      "key": "brands",
+      "label": "Brand Performance",
+      "icon": "fas fa-tag",
+      "route": "/brands",
+      "section": "brands",
+      "description": "Brand-level metrics and competitive analysis",
+      "active": false
+    },
+    {
+      "key": "sentiment",
+      "label": "Sentiment Analysis",
+      "icon": "fas fa-smile",
+      "route": "/sentiment",
+      "section": "sentiment",
+      "description": "Customer sentiment trends and feedback analysis",
+      "active": false
+    },
+    {
+      "key": "ai-insights",
+      "label": "AI Insights",
+      "icon": "fas fa-robot",
+      "route": "/ai-insights",
+      "section": "ai-insights",
+      "description": "AI-powered recommendations and predictive analytics",
+      "active": false
+    },
+    {
+      "key": "device-health",
+      "label": "Device Health",
+      "icon": "fas fa-heartbeat",
+      "route": "/device-health",
+      "section": "device-health",
+      "description": "Real-time device monitoring and health status",
+      "active": false
+    },
+    {
+      "key": "reports",
+      "label": "Reports & Export",
+      "icon": "fas fa-file-export",
+      "route": "/reports",
+      "section": "reports",
+      "description": "Generate and export custom reports",
+      "active": false
+    }
+  ],
+  "quickActions": [
+    {
+      "key": "refresh",
+      "label": "Refresh Data",
+      "icon": "fas fa-sync-alt",
+      "action": "refresh"
+    },
+    {
+      "key": "export",
+      "label": "Export Dashboard",
+      "icon": "fas fa-download",
+      "action": "export"
+    },
+    {
+      "key": "settings",
+      "label": "Settings",
+      "icon": "fas fa-cog",
+      "action": "settings"
+    }
+  ],
+  "kpis": {
+    "total_sales": {
+      "label": "Total Sales",
+      "value": 8200000,
+      "unit": "PHP",
+      "change": 12.5,
+      "changeType": "increase",
+      "period": "Last 30 days",
+      "target": 8500000,
+      "icon": "fas fa-chart-line",
+      "color": "success",
+      "clickable": true
+    },
+    "transactions": {
+      "label": "Total Transactions",
+      "value": 24631,
+      "unit": "count",
+      "change": 8.2,
+      "changeType": "increase",
+      "period": "Last 30 days",
+      "target": 25000,
+      "icon": "fas fa-receipt",
+      "color": "info",
+      "clickable": true
+    },
+    "avg_order_value": {
+      "label": "Average Order Value",
+      "value": 333.15,
+      "unit": "PHP",
+      "change": 3.8,
+      "changeType": "increase",
+      "period": "Last 30 days",
+      "target": 350,
+      "icon": "fas fa-coins",
+      "color": "warning",
+      "clickable": true
+    },
+    "customer_satisfaction": {
+      "label": "Customer Satisfaction",
+      "value": 4.6,
+      "unit": "/5",
+      "change": 0.2,
+      "changeType": "increase",
+      "period": "Last 30 days",
+      "target": 4.8,
+      "icon": "fas fa-smile",
+      "color": "success",
+      "clickable": true
+    },
+    "active_customers": {
+      "label": "Active Customers",
+      "value": 15847,
+      "unit": "count",
+      "change": 15.3,
+      "changeType": "increase",
+      "period": "Last 30 days",
+      "target": 16000,
+      "icon": "fas fa-users",
+      "color": "primary",
+      "clickable": true
+    },
+    "device_uptime": {
+      "label": "Device Uptime",
+      "value": 99.2,
+      "unit": "%",
+      "change": 0.5,
+      "changeType": "increase",
+      "period": "Last 30 days",
+      "target": 99.5,
+      "icon": "fas fa-heartbeat",
+      "color": "success",
+      "clickable": true
+    },
+    "conversion_rate": {
+      "label": "Conversion Rate",
+      "value": 3.4,
+      "unit": "%",
+      "change": 0.8,
+      "changeType": "increase",
+      "period": "Last 30 days",
+      "target": 4.0,
+      "icon": "fas fa-funnel-dollar",
+      "color": "info",
+      "clickable": true
+    }
+  },
+  "map": {
+    "stores": [
+      {
+        "id": "STORE-MM-001",
+        "name": "Metro Manila Central",
+        "lat": 14.6042,
+        "lng": 120.9822,
+        "address": "123 Ayala Ave, Makati City",
+        "uptime": 99.8,
+        "revenue": 2850000,
+        "transactions": 8456,
+        "manager": "Maria Santos",
+        "performance": "excellent",
+        "services": ["Retail", "Online Pickup", "Delivery"],
+        "lastUpdated": "2025-05-22T13:15:00Z"
+      },
+      {
+        "id": "STORE-CEV-001",
+        "name": "Cebu Visayas Hub",
+        "lat": 10.3157,
+        "lng": 123.8854,
+        "address": "456 Colon St, Cebu City",
+        "uptime": 98.5,
+        "revenue": 1650000,
+        "transactions": 5234,
+        "manager": "Juan Dela Cruz",
+        "performance": "good",
+        "services": ["Retail", "Online Pickup"],
+        "lastUpdated": "2025-05-22T13:12:00Z"
+      },
+      {
+        "id": "STORE-DAV-001",
+        "name": "Davao Mindanao",
+        "lat": 7.0731,
+        "lng": 125.6128,
+        "address": "789 Roxas Ave, Davao City",
+        "uptime": 97.2,
+        "revenue": 1420000,
+        "transactions": 4567,
+        "manager": "Ana Rodriguez",
+        "performance": "good",
+        "services": ["Retail", "Delivery"],
+        "lastUpdated": "2025-05-22T13:10:00Z"
+      },
+      {
+        "id": "STORE-ILO-001",
+        "name": "Iloilo Panay",
+        "lat": 10.7202,
+        "lng": 122.5621,
+        "address": "321 Rizal St, Iloilo City",
+        "uptime": 96.8,
+        "revenue": 980000,
+        "transactions": 3245,
+        "manager": "Roberto Garcia",
+        "performance": "fair",
+        "services": ["Retail"],
+        "lastUpdated": "2025-05-22T13:08:00Z"
+      },
+      {
+        "id": "STORE-BAG-001",
+        "name": "Baguio Luzon North",
+        "lat": 16.4023,
+        "lng": 120.5960,
+        "address": "654 Session Rd, Baguio City",
+        "uptime": 98.9,
+        "revenue": 750000,
+        "transactions": 2789,
+        "manager": "Carmen Flores",
+        "performance": "excellent",
+        "services": ["Retail", "Online Pickup"],
+        "lastUpdated": "2025-05-22T13:05:00Z"
+      },
+      {
+        "id": "STORE-ZAM-001",
+        "name": "Zamboanga Peninsula",
+        "lat": 6.9214,
+        "lng": 122.0790,
+        "address": "987 Rizal Ave, Zamboanga City",
+        "uptime": 95.5,
+        "revenue": 650000,
+        "transactions": 2156,
+        "manager": "Luis Reyes",
+        "performance": "fair",
+        "services": ["Retail"],
+        "lastUpdated": "2025-05-22T13:02:00Z"
+      },
+      {
+        "id": "STORE-CAG-001",
+        "name": "Cagayan Valley",
+        "lat": 17.6129,
+        "lng": 121.7270,
+        "address": "159 Maharlika Hwy, Tuguegarao",
+        "uptime": 97.8,
+        "revenue": 580000,
+        "transactions": 1834,
+        "manager": "Elena Morales",
+        "performance": "good",
+        "services": ["Retail", "Delivery"],
+        "lastUpdated": "2025-05-22T13:00:00Z"
+      },
+      {
+        "id": "STORE-TAC-001",
+        "name": "Tacloban Eastern Visayas",
+        "lat": 11.2447,
+        "lng": 125.0048,
+        "address": "753 Real St, Tacloban City",
+        "uptime": 94.2,
+        "revenue": 420000,
+        "transactions": 1567,
+        "manager": "Miguel Torres",
+        "performance": "needs_improvement",
+        "services": ["Retail"],
+        "lastUpdated": "2025-05-22T12:58:00Z"
+      },
+      {
+        "id": "STORE-BUT-001",
+        "name": "Butuan Caraga",
+        "lat": 8.9470,
+        "lng": 125.5456,
+        "address": "864 Montilla Blvd, Butuan City",
+        "uptime": 96.5,
+        "revenue": 380000,
+        "transactions": 1245,
+        "manager": "Sofia Castillo",
+        "performance": "fair",
+        "services": ["Retail", "Online Pickup"],
+        "lastUpdated": "2025-05-22T12:55:00Z"
+      },
+      {
+        "id": "STORE-LEG-001",
+        "name": "Legazpi Bicol",
+        "lat": 13.1391,
+        "lng": 123.7436,
+        "address": "456 Penaranda St, Legazpi City",
+        "uptime": 98.1,
+        "revenue": 520000,
+        "transactions": 1789,
+        "manager": "Carlos Mendoza",
+        "performance": "good",
+        "services": ["Retail", "Online Pickup", "Delivery"],
+        "lastUpdated": "2025-05-22T12:52:00Z"
+      }
+    ]
+  },
+  "tags": [
+    {
+      "id": "region-ncr",
+      "label": "NCR",
+      "category": "Region",
+      "count": 2456,
+      "color": "#0067b1"
+    },
+    {
+      "id": "region-visayas",
+      "label": "Visayas",
+      "category": "Region",
+      "count": 1834,
+      "color": "#e31937"
+    },
+    {
+      "id": "region-mindanao",
+      "label": "Mindanao",
+      "category": "Region",
+      "count": 1567,
+      "color": "#ffd100"
+    },
+    {
+      "id": "brand-coca-cola",
+      "label": "Coca-Cola",
+      "category": "Brand",
+      "count": 3245,
+      "color": "#dc143c"
+    },
+    {
+      "id": "brand-pepsi",
+      "label": "Pepsi",
+      "category": "Brand",
+      "count": 2789,
+      "color": "#004b93"
+    },
+    {
+      "id": "sentiment-positive",
+      "label": "Positive",
+      "category": "Sentiment",
+      "count": 4567,
+      "color": "#28a745"
+    },
+    {
+      "id": "sentiment-neutral",
+      "label": "Neutral",
+      "category": "Sentiment",
+      "count": 2345,
+      "color": "#ffc107"
+    },
+    {
+      "id": "sentiment-negative",
+      "label": "Negative",
+      "category": "Sentiment",
+      "count": 456,
+      "color": "#dc3545"
+    },
+    {
+      "id": "category-beverages",
+      "label": "Beverages",
+      "category": "Category",
+      "count": 5678,
+      "color": "#17a2b8"
+    },
+    {
+      "id": "category-snacks",
+      "label": "Snacks",
+      "category": "Category",
+      "count": 3456,
+      "color": "#6610f2"
+    }
+  ],
+  "devices": {
+    "total": 1247,
+    "healthy": 1156,
+    "warning": 67,
+    "critical": 24,
+    "lastUpdated": "2025-05-22T13:18:00Z",
+    "byRegion": {
+      "NCR": {"total": 456, "healthy": 423, "warning": 25, "critical": 8},
+      "Visayas": {"total": 334, "healthy": 312, "warning": 18, "critical": 4},
+      "Mindanao": {"total": 289, "healthy": 268, "warning": 15, "critical": 6},
+      "Luzon": {"total": 168, "healthy": 153, "warning": 9, "critical": 6}
+    },
+    "devices": [
+      {
+        "id": "DEV-001",
+        "name": "POS Terminal MM-001",
+        "type": "POS",
+        "status": "healthy",
+        "uptime": 99.8,
+        "lastPing": "2025-05-22T13:17:45Z",
+        "location": "Metro Manila Central",
+        "alerts": []
+      },
+      {
+        "id": "DEV-002",
+        "name": "Scanner CEV-001",
+        "type": "Scanner",
+        "status": "warning",
+        "uptime": 94.2,
+        "lastPing": "2025-05-22T13:15:30Z",
+        "location": "Cebu Visayas Hub",
+        "alerts": ["Low battery", "Connection unstable"]
+      }
+    ]
+  },
+  "insights": [
+    {
+      "id": "insight-001",
+      "title": "Sales Performance Surge",
+      "description": "Metro Manila stores showing 15% increase in sales compared to last month",
+      "type": "sales",
+      "priority": "high",
+      "timestamp": "2025-05-22T13:15:00Z",
+      "actionable": true,
+      "recommendation": "Scale successful Metro Manila strategies to other regions"
+    },
+    {
+      "id": "insight-002",
+      "title": "Customer Satisfaction Improvement",
+      "description": "Overall customer satisfaction score improved by 4.2% this quarter",
+      "type": "customer",
+      "priority": "medium",
+      "timestamp": "2025-05-22T13:10:00Z",
+      "actionable": false,
+      "recommendation": "Continue current customer service training programs"
+    },
+    {
+      "id": "insight-003",
+      "title": "Device Maintenance Alert",
+      "description": "24 devices require immediate attention to prevent service disruption",
+      "type": "operational",
+      "priority": "critical",
+      "timestamp": "2025-05-22T13:05:00Z",
+      "actionable": true,
+      "recommendation": "Schedule maintenance for critical devices within 24 hours"
+    }
+  ],
+  "drilldowns": {
+    "total_sales": {
+      "title": "Total Sales Breakdown",
+      "data": {
+        "byRegion": [
+          {"region": "NCR", "value": 2850000, "percentage": 34.8},
+          {"region": "Visayas", "value": 2070000, "percentage": 25.2},
+          {"region": "Mindanao", "value": 1800000, "percentage": 22.0},
+          {"region": "Luzon", "value": 1480000, "percentage": 18.0}
+        ],
+        "trends": [
+          {"date": "2025-04-22", "value": 7200000},
+          {"date": "2025-05-01", "value": 7450000},
+          {"date": "2025-05-08", "value": 7850000},
+          {"date": "2025-05-15", "value": 8100000},
+          {"date": "2025-05-22", "value": 8200000}
+        ],
+        "topProducts": [
+          {"product": "Coca-Cola Classic 12oz", "sales": 450000, "units": 15000},
+          {"product": "Pepsi Cola 12oz", "sales": 380000, "units": 12667},
+          {"product": "Sprite 12oz", "sales": 320000, "units": 10667}
+        ]
+      }
+    },
+    "transactions": {
+      "title": "Transaction Analysis",
+      "data": {
+        "byHour": [
+          {"hour": "06:00", "count": 234},
+          {"hour": "12:00", "count": 1567},
+          {"hour": "18:00", "count": 2345},
+          {"hour": "21:00", "count": 1789}
+        ],
+        "byPaymentMethod": [
+          {"method": "Cash", "count": 12456, "percentage": 50.6},
+          {"method": "Card", "count": 8234, "percentage": 33.4},
+          {"method": "Digital Wallet", "count": 3941, "percentage": 16.0}
+        ],
+        "trends": [
+          {"date": "2025-04-22", "count": 22000},
+          {"date": "2025-05-01", "count": 22500},
+          {"date": "2025-05-08", "count": 23200},
+          {"date": "2025-05-15", "count": 24100},
+          {"date": "2025-05-22", "count": 24631}
+        ]
+      }
+    }
+  },
+  "exportFormats": [
+    {
+      "format": "PDF",
+      "icon": "fas fa-file-pdf",
+      "description": "Executive summary report"
+    },
+    {
+      "format": "Excel",
+      "icon": "fas fa-file-excel",
+      "description": "Detailed data spreadsheet"
+    },
+    {
+      "format": "PowerPoint",
+      "icon": "fas fa-file-powerpoint",
+      "description": "Presentation slides"
+    },
+    {
+      "format": "JSON",
+      "icon": "fas fa-file-code",
+      "description": "Raw data export"
+    }
+  ]
+}

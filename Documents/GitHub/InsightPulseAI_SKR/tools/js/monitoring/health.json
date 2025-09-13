@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-05-22T12:00:00Z",
+  "service": "client360-dashboard",
+  "version": "2.4.0",
+  "environment": "production",
+  "status": "healthy",
+  "uptime": 1716379200000,
+  "message": "Client360 dashboard is operational",
+  "endpoints": {
+    "dashboard": "/",
+    "version": "/version.json",
+    "health": "/monitoring/health.json"
+  },
+  "checks": {
+    "core_files": "pass",
+    "data_sources": "pass",
+    "version_consistency": "pass"
+  }
+}

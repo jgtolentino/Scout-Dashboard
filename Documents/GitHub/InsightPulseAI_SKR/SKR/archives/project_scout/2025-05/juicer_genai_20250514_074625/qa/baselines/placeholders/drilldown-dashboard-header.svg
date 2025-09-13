@@ -1,0 +1,8 @@
+
+          <svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="#f0f0f0"/>
+            <rect x="5" y="5" width="490" height="290" fill="white" stroke="#aaa" stroke-width="2" stroke-dasharray="5,5"/>
+            <text x="50%" y="45%" font-family="Arial" font-size="24" text-anchor="middle" fill="#555">header</text>
+            <text x="50%" y="55%" font-family="Arial" font-size="16" text-anchor="middle" fill="#777">drilldown-dashboard</text>
+          </svg>
+        

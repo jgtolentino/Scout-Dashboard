@@ -1,0 +1,38 @@
+{
+  "name": "tbwa-platform",
+  "version": "1.0.0",
+  "description": "TBWA Platform - Multi-domain AI and analytics suite",
+  "scripts": {
+    "guard:scan": "python3 tools/project_guard/check_project_files.py --scan",
+    "guard:report": "python3 tools/project_guard/check_project_files.py --report",
+    "guard:fix": "python3 tools/project_guard/check_project_files.py --auto-fix",
+    "guard:dry-run": "python3 tools/project_guard/check_project_files.py --auto-fix --dry-run",
+    "guard:install": "git config core.hooksPath .githooks && chmod +x .githooks/pre-commit .githooks/commit-msg",
+    "guard:validate": "python3 tools/project_guard/check_project_files.py --validate-commit"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-code": "^1.0.112",
+    "maplibre-gl": "5.7.1"
+  },
+  "devDependencies": {
+    "pyyaml": "^0.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "python": ">=3.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbwa/platform.git"
+  },
+  "keywords": [
+    "tbwa",
+    "analytics",
+    "ai",
+    "dashboard",
+    "multi-domain",
+    "documentation-enforcement"
+  ],
+  "author": "TBWA Team",
+  "license": "MIT"
+}

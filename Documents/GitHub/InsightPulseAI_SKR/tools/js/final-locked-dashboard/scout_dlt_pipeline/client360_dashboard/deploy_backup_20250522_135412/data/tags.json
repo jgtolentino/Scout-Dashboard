@@ -1,0 +1,195 @@
+{
+  "tags": [
+    {
+      "id": "fmcg",
+      "label": "FMCG Products",
+      "category": "industry",
+      "count": 847,
+      "color": "#0067b1"
+    },
+    {
+      "id": "premium",
+      "label": "Premium Brands",
+      "category": "segment",
+      "count": 234,
+      "color": "#e31937"
+    },
+    {
+      "id": "del-monte",
+      "label": "Del Monte",
+      "category": "brand",
+      "count": 189,
+      "color": "#228b22"
+    },
+    {
+      "id": "oishi",
+      "label": "Oishi",
+      "category": "brand",
+      "count": 156,
+      "color": "#ff6b35"
+    },
+    {
+      "id": "alaska",
+      "label": "Alaska Milk",
+      "category": "brand",
+      "count": 142,
+      "color": "#4a90e2"
+    },
+    {
+      "id": "peerless",
+      "label": "Peerless",
+      "category": "brand",
+      "count": 98,
+      "color": "#7b68ee"
+    },
+    {
+      "id": "ncr",
+      "label": "National Capital Region",
+      "category": "region",
+      "count": 324,
+      "color": "#ffd700"
+    },
+    {
+      "id": "luzon",
+      "label": "Luzon",
+      "category": "region",
+      "count": 298,
+      "color": "#32cd32"
+    },
+    {
+      "id": "visayas",
+      "label": "Visayas",
+      "category": "region",
+      "count": 167,
+      "color": "#ff69b4"
+    },
+    {
+      "id": "mindanao",
+      "label": "Mindanao",
+      "category": "region",
+      "count": 143,
+      "color": "#dda0dd"
+    },
+    {
+      "id": "snacks",
+      "label": "Snacks & Confectionery",
+      "category": "category",
+      "count": 256,
+      "color": "#ff4500"
+    },
+    {
+      "id": "beverages",
+      "label": "Beverages",
+      "category": "category",
+      "count": 198,
+      "color": "#1e90ff"
+    },
+    {
+      "id": "dairy",
+      "label": "Dairy Products",
+      "category": "category",
+      "count": 167,
+      "color": "#fffacd"
+    },
+    {
+      "id": "canned-goods",
+      "label": "Canned Goods",
+      "category": "category",
+      "count": 134,
+      "color": "#cd853f"
+    },
+    {
+      "id": "cooking-ingredients",
+      "label": "Cooking Ingredients",
+      "category": "category",
+      "count": 89,
+      "color": "#daa520"
+    },
+    {
+      "id": "high-growth",
+      "label": "High Growth",
+      "category": "performance",
+      "count": 78,
+      "color": "#00ff00"
+    },
+    {
+      "id": "market-leader",
+      "label": "Market Leader",
+      "category": "performance", 
+      "count": 45,
+      "color": "#ffd700"
+    },
+    {
+      "id": "emerging",
+      "label": "Emerging Opportunity",
+      "category": "performance",
+      "count": 67,
+      "color": "#ff6347"
+    },
+    {
+      "id": "digital-first",
+      "label": "Digital-First Campaign",
+      "category": "channel",
+      "count": 234,
+      "color": "#9370db"
+    },
+    {
+      "id": "traditional-media",
+      "label": "Traditional Media",
+      "category": "channel",
+      "count": 187,
+      "color": "#708090"
+    },
+    {
+      "id": "social-media",
+      "label": "Social Media Focus",
+      "category": "channel",
+      "count": 345,
+      "color": "#ff1493"
+    },
+    {
+      "id": "retail-activation",
+      "label": "Retail Activation",
+      "category": "channel",
+      "count": 156,
+      "color": "#20b2aa"
+    }
+  ],
+  "categories": [
+    {
+      "id": "industry",
+      "label": "Industry",
+      "icon": "fas fa-industry"
+    },
+    {
+      "id": "segment", 
+      "label": "Market Segment",
+      "icon": "fas fa-chart-pie"
+    },
+    {
+      "id": "brand",
+      "label": "Brand",
+      "icon": "fas fa-tag"
+    },
+    {
+      "id": "region",
+      "label": "Geographic Region", 
+      "icon": "fas fa-map-marker-alt"
+    },
+    {
+      "id": "category",
+      "label": "Product Category",
+      "icon": "fas fa-boxes"
+    },
+    {
+      "id": "performance",
+      "label": "Performance Tier",
+      "icon": "fas fa-chart-line"
+    },
+    {
+      "id": "channel",
+      "label": "Marketing Channel",
+      "icon": "fas fa-bullhorn"
+    }
+  ]
+}

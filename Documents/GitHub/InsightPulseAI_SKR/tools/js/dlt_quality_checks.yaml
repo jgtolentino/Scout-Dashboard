@@ -1,0 +1,307 @@
+# DLT Quality Checks Configuration
+# Applied to all DLT pipeline runs at bronze, silver, and gold layers
+
+version: "1.0"
+description: "Quality checks for Scout DLT pipeline"
+
+# Global settings
+settings:
+  log_level: INFO
+  alert_threshold: ERROR
+  expectation_threshold: 0.99  # 99% of rows must pass all expectations
+  fail_pipeline_on_error: true
+  notification_channel: "slack:scout-alerts"
+
+# Bronze layer expectations
+bronze_expectations:
+  # Raw event data quality checks
+  bronze_events:
+    table: "bronze_events"
+    expectations:
+      - name: "not_null_event_id"
+        type: "column_values_not_null"
+        column: "event_id"
+        threshold: 1.0  # 100% must have event_id
+        severity: "ERROR"
+      
+      - name: "not_null_timestamp"
+        type: "column_values_not_null"
+        column: "timestamp"
+        threshold: 0.999  # Allow 0.1% missing timestamps
+        severity: "ERROR"
+      
+      - name: "valid_event_type"
+        type: "column_values_in_set"
+        column: "event_type"
+        value_set: ["pageview", "interaction", "transaction", "conversion", "error"]
+        threshold: 0.98  # 98% must be known event types
+        severity: "WARNING"
+      
+      - name: "timestamp_in_range"
+        type: "column_values_between"
+        column: "timestamp"
+        min_value: "2023-01-01T00:00:00Z"  # No data before 2023
+        max_value: "${now}"                # No future data
+        threshold: 0.999
+        severity: "ERROR"
+
+  # Raw transcript data quality checks
+  bronze_transcripts:
+    table: "bronze_transcripts"
+    expectations:
+      - name: "not_null_transcript_id"
+        type: "column_values_not_null"
+        column: "transcript_id"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "not_empty_transcript"
+        type: "column_values_not_null"
+        column: "transcript_text"
+        threshold: 0.95  # Allow 5% empty transcripts
+        severity: "WARNING"
+      
+      - name: "transcript_length"
+        type: "column_values_length_between"
+        column: "transcript_text"
+        min_length: 10
+        max_length: 50000
+        threshold: 0.99
+        severity: "WARNING"
+
+  # Device telemetry quality checks
+  bronze_device_telemetry:
+    table: "bronze_device_telemetry"
+    expectations:
+      - name: "not_null_device_id"
+        type: "column_values_not_null"
+        column: "device_id"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "valid_device_type"
+        type: "column_values_in_set"
+        column: "device_type"
+        value_set: ["desktop", "tablet", "mobile", "pos", "kiosk", "other"]
+        threshold: 0.99
+        severity: "WARNING"
+
+# Silver layer expectations
+silver_expectations:
+  # Enriched events quality checks
+  silver_enriched_events:
+    table: "silver_enriched_events"
+    expectations:
+      - name: "not_null_enriched_event_id"
+        type: "column_values_not_null"
+        column: "enriched_event_id"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "not_null_user_id"
+        type: "column_values_not_null"
+        column: "user_id"
+        threshold: 0.90  # Allow 10% anonymous users
+        severity: "WARNING"
+      
+      - name: "expected_row_count"
+        type: "table_row_count_between"
+        min_value: 1000
+        max_value: 10000000
+        severity: "WARNING"
+
+  # Brand mentions quality checks  
+  silver_brand_mentions:
+    table: "silver_brand_mentions"
+    expectations:
+      - name: "not_null_brand_id"
+        type: "column_values_not_null"
+        column: "brand_id"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "confidence_score_range"
+        type: "column_values_between"
+        column: "confidence_score"
+        min_value: 0.0
+        max_value: 1.0
+        threshold: 1.0  # All confidence scores must be valid probabilities
+        severity: "ERROR"
+      
+      - name: "high_confidence_percentage"
+        type: "column_values_greater_than"
+        column: "confidence_score"
+        value: 0.7
+        threshold: 0.75  # At least 75% should be high confidence
+        severity: "WARNING"
+
+  # Customer interactions quality checks
+  silver_customer_interactions:
+    table: "silver_customer_interactions"
+    expectations:
+      - name: "not_null_interaction_id"
+        type: "column_values_not_null"
+        column: "interaction_id"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "valid_sentiment_score"
+        type: "column_values_between"
+        column: "sentiment_score"
+        min_value: -1.0
+        max_value: 1.0
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "not_null_interaction_type"
+        type: "column_values_not_null"
+        column: "interaction_type"
+        threshold: 0.999
+        severity: "WARNING"
+
+# Gold layer expectations
+gold_expectations:
+  # Aggregated metrics quality checks
+  gold_metrics:
+    table: "gold_metrics"
+    expectations:
+      - name: "not_null_metric_id"
+        type: "column_values_not_null"
+        column: "metric_id"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "not_null_metric_value"
+        type: "column_values_not_null"
+        column: "metric_value"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "not_null_time_window"
+        type: "column_values_not_null"
+        column: "time_window"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "expected_row_count"
+        type: "table_row_count_between"
+        min_value: 100
+        max_value: 100000
+        severity: "WARNING"
+
+  # Generated insights quality checks
+  gold_insights:
+    table: "gold_insights"
+    expectations:
+      - name: "not_null_insight_id"
+        type: "column_values_not_null"
+        column: "insight_id"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "not_null_insight_text"
+        type: "column_values_not_null"
+        column: "insight_text"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "not_null_insight_type"
+        type: "column_values_not_null"
+        column: "insight_type"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "valid_insight_type"
+        type: "column_values_in_set"
+        column: "insight_type"
+        value_set: ["trend", "anomaly", "correlation", "prediction", "recommendation", "opportunity", "risk"]
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "high_quality_insights"
+        type: "column_values_greater_than"
+        column: "confidence_score"
+        value: 0.8
+        threshold: 0.9  # 90% of insights should be high confidence
+        severity: "WARNING"
+
+  # Brand performance metrics quality checks
+  gold_brand_performance:
+    table: "gold_brand_performance"
+    expectations:
+      - name: "not_null_brand_id"
+        type: "column_values_not_null"
+        column: "brand_id"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "not_null_time_period"
+        type: "column_values_not_null"
+        column: "time_period"
+        threshold: 1.0
+        severity: "ERROR"
+      
+      - name: "mention_count_positive"
+        type: "column_values_greater_than_or_equal"
+        column: "mention_count"
+        value: 0
+        threshold: 1.0
+        severity: "ERROR"
+
+# Cross-table expectations
+cross_table_expectations:
+  # Ensure all bronze events appear in silver (no data loss)
+  bronze_to_silver_completeness:
+    expectation: "table_a_ids_in_table_b"
+    table_a: "bronze_events"
+    table_b: "silver_enriched_events"
+    id_column_a: "event_id"
+    id_column_b: "source_event_id"
+    threshold: 0.99
+    severity: "ERROR"
+    
+  # Ensure all brand mentions have corresponding enriched events
+  brand_mentions_to_events:
+    expectation: "table_a_ids_in_table_b"
+    table_a: "silver_brand_mentions"
+    table_b: "silver_enriched_events"
+    id_column_a: "event_id"
+    id_column_b: "enriched_event_id"
+    threshold: 0.99
+    severity: "ERROR"
+    
+  # Ensure all insights reference valid metrics
+  insights_to_metrics:
+    expectation: "table_a_ids_in_table_b"
+    table_a: "gold_insights"
+    table_b: "gold_metrics"
+    id_column_a: "metric_id"
+    id_column_b: "metric_id"
+    threshold: 0.95
+    severity: "WARNING"
+
+# Freshness expectations
+freshness_expectations:
+  bronze_events:
+    table: "bronze_events"
+    timestamp_column: "processed_at"
+    max_delay_minutes: 60
+    severity: "WARNING"
+    
+  silver_enriched_events:
+    table: "silver_enriched_events"
+    timestamp_column: "processed_at"
+    max_delay_minutes: 120
+    severity: "WARNING"
+    
+  gold_metrics:
+    table: "gold_metrics"
+    timestamp_column: "updated_at"
+    max_delay_minutes: 180
+    severity: "WARNING"
+    
+  gold_insights:
+    table: "gold_insights"
+    timestamp_column: "generated_at"
+    max_delay_minutes: 240
+    severity: "WARNING"

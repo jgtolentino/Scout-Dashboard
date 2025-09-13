@@ -1,0 +1,26 @@
+Auto-Approval Audit Report - Sat 24 May 2025 15:19:29 PST
+Repository: https://github.com/jgtolentino/pulser.git
+Auto-approval patterns:       43
+Manual gates:      246
+
+Files checked:
+./prompt_client360_onboarding.yaml
+./migrate_product_mix_sku_analysis.sh
+./migrate_product_mix_sku_analysis_direct.sh
+./pulser_test_tasks.yaml
+./audit_auto_approval.sh
+./quick_advisor_deploy.sh
+./run_caca_qa.py
+./azure-advisor-remediation.sh
+./fix_advisor_deployment.sh
+./docker-compose-up.sh
+./infra/desired-state.yaml
+./tbwa-powerbi-dashboard/az-upload.sh
+./tbwa-powerbi-dashboard/deploy_to_azure.sh
+./tbwa-powerbi-dashboard/deploy_final_polished.sh
+./tbwa-powerbi-dashboard/deploy-realtime-toggled.sh
+./tbwa-powerbi-dashboard/deploy-powerbi-dashboard.sh
+./tbwa-powerbi-dashboard/confirm-final-polish-deployment.sh
+./tools/cli/deploy_dashboard.sh
+./tools/cli/deploy_optimize/setup.sh
+./tools/cli/deploy_optimize/hot_redeploy.sh

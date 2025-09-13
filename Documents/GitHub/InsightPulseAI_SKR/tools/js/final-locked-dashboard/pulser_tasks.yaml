@@ -1,0 +1,183 @@
+# Scout Dashboard Deployment Tasks for Pulser Integration
+# These tasks are registered with the Pulser system for automated deployment
+# Follows InsightPulseAI Unified Developer Deployment SOP v1.0
+
+tasks:
+  - id: deploy_dashboard
+    name: Deploy Scout Dashboard
+    agent: Basher
+    script: scripts/deploy_dashboard.sh
+    description: Deploys latest Power BI-styled dashboard to Azure Static Web App
+    env:
+      AZURE_SWA_NAME: tbwa-juicer-insights-dashboard
+      AZURE_RESOURCE_GROUP: RG-TBWA-ProjectScout-Juicer
+    triggers:
+      - make deploy
+      - /deploy retail
+      - :deploy scout
+
+  - id: package_dashboard
+    name: Package Scout Dashboard
+    agent: Basher 
+    script: scripts/package_dashboard.sh
+    description: Packages the Scout dashboard files for deployment
+    env:
+      SCOUT_ROOT_DIR: ${HOME}/Documents/GitHub/InsightPulseAI_SKR/tools/js/final-locked-dashboard
+    triggers:
+      - make package
+      - /package retail
+      - :package scout
+
+  - id: validate_dashboard
+    name: Validate Scout Dashboard
+    agent: Basher
+    script: scripts/deploy_dashboard.sh --dry-run
+    description: Performs a dry run of deployment to validate the package
+    env:
+      AZURE_SWA_NAME: tbwa-juicer-insights-dashboard
+      AZURE_RESOURCE_GROUP: RG-TBWA-ProjectScout-Juicer
+      DRY_RUN: true
+    triggers:
+      - make deploy-dry-run
+      - /validate retail
+      - :validate scout
+
+  - id: monitor_dashboard
+    name: Monitor Scout Dashboard
+    agent: Echo
+    script: tools/monitor_dashboard_uptime.js
+    description: Monitors the deployed dashboard for uptime and performance
+    env:
+      DASHBOARD_URL: https://tbwa-juicer-insights-dashboard.azurestaticapps.net/insights_dashboard_v2.html
+      ALERT_THRESHOLD_MS: 3000
+    schedule: 
+      - "0 */6 * * *"  # Every 6 hours
+    triggers:
+      - /monitor dashboard
+      - :monitor scout
+
+  - id: verify_style_compliance
+    name: Verify Power BI Style Compliance
+    agent: Caca
+    script: tools/verify_style_compliance.js
+    description: Verifies the dashboard follows Power BI styling guidelines
+    env:
+      STYLE_GUIDE_PATH: POWER_BI_STYLE_GUIDE.md
+      DASHBOARD_PATH: insights_dashboard_v2.html
+    triggers:
+      - /verify style
+      - :verify powerbi
+
+  - id: visualsynth_generate
+    name: Generate Dashboard with VisualSynth
+    agent: Dash
+    script: utils/visualsynth_code_generator.js
+    description: Generates a dashboard from schema and requirements
+    env:
+      SCHEMA_PATH: ${SCHEMA_PATH:-templates/dashboards/retail.json}
+      REQUIREMENTS_PATH: ${REQUIREMENTS_PATH:-templates/requirements/default.md}
+      OUTPUT_DIR: ${OUTPUT_DIR:-output/visualsynth}
+    triggers:
+      - /build-dash
+      - :build-dash
+
+  - id: visualsynth_deploy
+    name: Deploy VisualSynth Dashboard
+    agent: Basher
+    script: utils/visualsynth_deployment.js
+    description: Deploys a generated dashboard to Azure Static Web App
+    env:
+      SOURCE_DIR: ${SOURCE_DIR:-output/visualsynth}
+      AZURE_SWA_NAME: ${AZURE_SWA_NAME:-tbwa-visualsynth-dashboard}
+      AZURE_RESOURCE_GROUP: ${AZURE_RESOURCE_GROUP:-RG-TBWA-ProjectScout-VisualSynth}
+    triggers:
+      - /deploy-dash
+      - :deploy-dash
+
+  # New task for the Pulser CLI dashboard deployment integration
+  - id: dash_deploy_all
+    name: Pulser CLI Dashboard Deploy
+    agent: Basher
+    script: tools/cli/deploy_dashboards.sh
+    description: Full deployment of Scout dashboards with clean URL structure (build, package, deploy)
+    env:
+      APP_NAME: tbwa-juicer-insights-dashboard
+      RESOURCE_GROUP: RG-TBWA-ProjectScout-Juicer
+      SHOULD_DEPLOY: true
+    triggers:
+      - :dash-deploy all
+      - /dash-deploy all
+
+  - id: dash_deploy_build
+    name: Pulser CLI Dashboard Build
+    agent: Basher
+    script: tools/cli/deploy_dashboards.sh --no-deploy
+    description: Build and package dashboard files without deployment
+    env:
+      APP_NAME: tbwa-juicer-insights-dashboard
+      RESOURCE_GROUP: RG-TBWA-ProjectScout-Juicer
+    triggers:
+      - :dash-deploy build
+      - /dash-deploy build
+
+  - id: dash_deploy_azure
+    name: Pulser CLI Azure Upload
+    agent: Basher
+    script: tools/cli/deploy_dashboards.sh --deploy
+    description: Deploy prebuilt dashboard files to Azure Static Web App
+    env:
+      APP_NAME: tbwa-juicer-insights-dashboard
+      RESOURCE_GROUP: RG-TBWA-ProjectScout-Juicer
+      SHOULD_DEPLOY: true
+    triggers:
+      - :dash-deploy azure
+      - /dash-deploy azure
+
+workflows:
+  - id: deploy_and_monitor
+    name: Deploy and Monitor Dashboard
+    description: Full workflow to deploy and set up monitoring for the Scout dashboard
+    steps:
+      - task: package_dashboard
+      - task: validate_dashboard
+      - task: verify_style_compliance
+      - task: deploy_dashboard
+      - task: monitor_dashboard
+    triggers:
+      - /deploy full
+      - :deploy full
+
+  - id: qa_validate
+    name: QA Validation
+    description: Run all verification steps without deployment
+    steps:
+      - task: validate_dashboard
+      - task: verify_style_compliance
+    triggers:
+      - /qa validate
+      - :qa dashboard
+      
+  - id: dash_end_to_end
+    name: Dash End-to-End Workflow
+    description: Full workflow to generate and deploy a dashboard with Dash and VisualSynth
+    steps:
+      - task: visualsynth_generate
+      - task: verify_style_compliance
+      - task: visualsynth_deploy
+      - task: monitor_dashboard
+    triggers:
+      - /dash full
+      - :dash e2e
+
+  # New workflow for the clean URL deployment process
+  - id: dashboard_clean_url_deploy
+    name: Clean URL Dashboard Deploy
+    description: Deploy dashboard with clean URL structure and URL fixes
+    steps:
+      - task: dash_deploy_build
+      - task: verify_style_compliance
+      - task: dash_deploy_azure
+      - task: monitor_dashboard
+    triggers:
+      - /dash-deploy full
+      - :dash-deploy full

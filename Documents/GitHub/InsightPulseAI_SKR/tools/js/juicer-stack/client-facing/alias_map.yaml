@@ -1,0 +1,100 @@
+# OpsCore Agent Alias Mapping
+# This file defines the standard white-label alias mapping for client repositories
+# IMPORTANT: Do not include this file in client repositories - for internal use only
+
+version: "1.1.0"
+last_updated: "2025-05-12"
+
+# Mapping from internal agent names to client-facing aliases
+agent_aliases:
+  # Core system
+  Pulser: "OpsCore"
+  InsightPulseAI: "RetailAdvisor"
+  
+  # Primary agents
+  Claudia: "TaskRunner"
+  Kalaw: "KnowledgeModule"
+  Maya: "FlowManager"
+  Echo: "SignalParser"
+  Sunnies: "ChartRenderer"
+  SnowWhite: "RebranchManager"
+  
+  # Support agents
+  Caca: "QAChecker"
+  Tide: "BackendSwitcher"
+  Enrico: "DataAugmentor"
+  Basher: "SysOpsDaemon"
+  Plato: "AssistantBot"
+  
+  # Additional agents
+  Rica: "SecurityEnforcer"
+  Tala: "FinanceParser"
+  Toni: "MultimodalProcessor"
+  Datu: "DataIntegrator"
+  Susi: "MetricTracker"
+  
+# Agent identifiers in config files
+agent_identifiers:
+  claudia: "task_runner"
+  kalaw: "knowledge_module"
+  maya: "flow_manager"
+  echo: "signal_parser"
+  sunnies: "chart_renderer"
+  snowwhite: "rebranch_manager"
+  caca: "qa_checker"
+  
+# File extension mapping
+file_extensions:
+  .pulserrc: ".opscore-config"
+  .pulser_history: ".opscore-history"
+  pulser_aliases.sh: "opscore_aliases.sh"
+  
+# Command mapping
+commands:
+  pulser: "opscore"
+  ":juicer": ":retail-advisor"
+  
+# Directory mapping
+directories:
+  /pulser/: "/opscore/"
+  /pulser_config/: "/opscore_config/"
+  
+# Terminology mapping for documentation
+terminology:
+  # System terms
+  "Pulser CLI": "OpsCore CLI"
+  "Pulser agent system": "OpsCore agent system"
+  "Pulser shell": "OpsCore shell"
+  "Pulser orchestration": "OpsCore orchestration"
+  "Juicer integration": "Retail Advisor integration"
+  "Brand mentions": "Brand intelligence"
+  "Sketch dashboard": "Embedded visualization"
+  
+  # Architecture terms
+  "medallion architecture": "data processing framework"
+  "bronze layer": "raw data layer"
+  "silver layer": "processed data layer"
+  "gold layer": "analytics layer"
+  "platinum layer": "insights layer"
+  
+  # Organizational terms
+  "InsightPulse": "CLIENT_COMPANY"
+  "TBWA": "CLIENT_COMPANY"
+
+# Files to clean sensitive content from
+sensitive_files:
+  - "*.pulserrc"
+  - "claudia_*.log"
+  - "kalaw_*.json"
+  - "*_sync.log"
+  - "*.pulser_context.json"
+
+# Directories to skip during white-labeling
+skip_directories:
+  - .git
+  - node_modules
+  - .tokens
+  - logs
+  - .pulser
+  - .claude
+  - .claude-cli

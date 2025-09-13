@@ -1,0 +1,34 @@
+{
+  "test_execution": {
+    "timestamp": "2025-07-19T16:56:23Z",
+    "environment": "production",
+    "project_ref": "cxzllzyxwpyptfretryc",
+    "base_url": "https://cxzllzyxwpyptfretryc.supabase.co/functions/v1"
+  },
+  "edge_functions": {
+    "aladdin": {
+      "purpose": "AI Genie for executive insights",
+      "expected_inputs": ["query", "prompt", "context"],
+      "status": "tested"
+    },
+    "retailbot": {
+      "purpose": "Retail analytics chatbot",
+      "expected_inputs": ["query", "message", "timeframe"],
+      "status": "tested"
+    },
+    "adsbot": {
+      "purpose": "Advertising/marketing analytics",
+      "expected_inputs": ["query", "prompt", "campaign", "metrics"],
+      "status": "tested"
+    },
+    "sql-certifier": {
+      "purpose": "SQL validation and governance",
+      "expected_inputs": ["sql", "query", "validate"],
+      "status": "tested"
+    }
+  },
+  "test_summary": {
+    "total_tests": 12,
+    "timestamp": "20250720-005612"
+  }
+}

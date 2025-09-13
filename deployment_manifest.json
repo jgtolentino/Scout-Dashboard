@@ -1,0 +1,77 @@
+{
+  "deployment_id": "deploy_20250719_225004",
+  "timestamp": "2025-07-19T22:50:04.705967",
+  "platform": "TBWA Unified Intelligence Platform",
+  "components": {
+    "database": {
+      "status": "READY",
+      "schemas": [
+        "public",
+        "hr_admin",
+        "expense",
+        "scout_dash"
+      ],
+      "role_based_access": true,
+      "policies_count": 3
+    },
+    "ai_agents": {
+      "status": "READY",
+      "agents": [
+        {
+          "name": "hr-assistant",
+          "type": "HR Support"
+        },
+        {
+          "name": "expense-classifier",
+          "type": "Finance AI"
+        },
+        {
+          "name": "document-processor",
+          "type": "Document AI"
+        },
+        {
+          "name": "ticket-router",
+          "type": "Support AI"
+        },
+        {
+          "name": "knowledge-assistant",
+          "type": "Knowledge AI"
+        },
+        {
+          "name": "workflow-automation",
+          "type": "Process AI"
+        },
+        {
+          "name": "sentiment-analyzer",
+          "type": "Analytics AI"
+        }
+      ]
+    },
+    "dashboards": {
+      "status": "READY",
+      "routes": {
+        "/dashboard/hr": "HR Manager Dashboard",
+        "/dashboard/finance": "Finance Manager Dashboard",
+        "/dashboard/executive": "Executive Dashboard"
+      }
+    },
+    "mcp_integration": {
+      "status": "CONFIGURED",
+      "servers": [
+        "supabase_unified",
+        "hr_dashboard",
+        "finance_dashboard"
+      ]
+    }
+  },
+  "deployment_urls": {
+    "project": "https://supabase.com/dashboard/project/cxzllzyxwpyptfretryc",
+    "sql_editor": "https://supabase.com/dashboard/project/cxzllzyxwpyptfretryc/sql/new",
+    "functions": "https://supabase.com/dashboard/project/cxzllzyxwpyptfretryc/functions",
+    "api_endpoint": "https://cxzllzyxwpyptfretryc.supabase.co"
+  },
+  "quick_test": {
+    "hr_assistant": "curl -X POST https://cxzllzyxwpyptfretryc.supabase.co/functions/v1/hr-assistant -H 'Authorization: Bearer YOUR_ANON_KEY' -d '{\"query\": \"How do I request leave?\"}'",
+    "expense_classifier": "curl -X POST https://cxzllzyxwpyptfretryc.supabase.co/functions/v1/expense-classifier -H 'Authorization: Bearer YOUR_ANON_KEY' -d '{\"description\": \"Uber to client meeting\", \"amount\": 350}'"
+  }
+}

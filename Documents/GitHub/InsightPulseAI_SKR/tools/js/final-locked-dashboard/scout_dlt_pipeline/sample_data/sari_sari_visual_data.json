@@ -1,0 +1,580 @@
+[
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:01:15.765Z",
+    "session_id": "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
+    "frame_id": 1234,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.88,
+        "bounding_box": {
+          "x": 120,
+          "y": 80,
+          "width": 100,
+          "height": 100
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": null,
+          "object_class": null,
+          "zone_id": "entrance",
+          "motion_direction": "entering",
+          "dwell_time_sec": 0.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.92,
+        "bounding_box": {
+          "x": 350,
+          "y": 200,
+          "width": 60,
+          "height": 80
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "milo_sachet",
+          "zone_id": "counter",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-112",
+      "camera_position": "counter",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:03:48.432Z",
+    "session_id": "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
+    "frame_id": 1435,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.89,
+        "bounding_box": {
+          "x": 130,
+          "y": 85,
+          "width": 100,
+          "height": 100
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": null,
+          "object_class": null,
+          "zone_id": "drinks",
+          "motion_direction": null,
+          "dwell_time_sec": 12.5
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.95,
+        "bounding_box": {
+          "x": 320,
+          "y": 190,
+          "width": 40,
+          "height": 70
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "coke_can",
+          "zone_id": "drinks",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-112",
+      "camera_position": "counter",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:10:08.765Z",
+    "session_id": "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+    "frame_id": 2201,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.91,
+        "bounding_box": {
+          "x": 140,
+          "y": 90,
+          "width": 105,
+          "height": 105
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": "pointing",
+          "object_class": null,
+          "zone_id": "hygiene",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.87,
+        "bounding_box": {
+          "x": 280,
+          "y": 180,
+          "width": 50,
+          "height": 60
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "tide_sachet",
+          "zone_id": "hygiene",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-112",
+      "camera_position": "shelf",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:11:22.321Z",
+    "session_id": "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+    "frame_id": 2345,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.90,
+        "bounding_box": {
+          "x": 125,
+          "y": 95,
+          "width": 100,
+          "height": 100
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": null,
+          "object_class": null,
+          "zone_id": "counter",
+          "motion_direction": "approaching",
+          "dwell_time_sec": 15.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.85,
+        "bounding_box": {
+          "x": 330,
+          "y": 210,
+          "width": 20,
+          "height": 40
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "smart_card",
+          "zone_id": "counter",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-112",
+      "camera_position": "counter",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:15:45.876Z",
+    "session_id": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t0u1v2",
+    "frame_id": 3201,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.89,
+        "bounding_box": {
+          "x": 150,
+          "y": 100,
+          "width": 110,
+          "height": 110
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": null,
+          "object_class": null,
+          "zone_id": "entrance",
+          "motion_direction": "entering",
+          "dwell_time_sec": 0.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.93,
+        "bounding_box": {
+          "x": 300,
+          "y": 190,
+          "width": 45,
+          "height": 55
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "nestle_cream",
+          "zone_id": "food",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-113",
+      "camera_position": "shelf",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:17:33.543Z",
+    "session_id": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t0u1v2",
+    "frame_id": 3312,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.88,
+        "bounding_box": {
+          "x": 135,
+          "y": 90,
+          "width": 100,
+          "height": 100
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": "pointing",
+          "object_class": null,
+          "zone_id": "hygiene",
+          "motion_direction": null,
+          "dwell_time_sec": 18.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.91,
+        "bounding_box": {
+          "x": 290,
+          "y": 180,
+          "width": 40,
+          "height": 60
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "colgate",
+          "zone_id": "hygiene",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-113",
+      "camera_position": "shelf",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:20:18.321Z",
+    "session_id": "w3x4y5z6-a7b8-c9d0-e1f2-g3h4i5j6k7l8",
+    "frame_id": 4201,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.92,
+        "bounding_box": {
+          "x": 145,
+          "y": 95,
+          "width": 105,
+          "height": 105
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": null,
+          "object_class": null,
+          "zone_id": "food",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.94,
+        "bounding_box": {
+          "x": 310,
+          "y": 200,
+          "width": 50,
+          "height": 70
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "lucky_me_pancit_canton",
+          "zone_id": "food",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-113",
+      "camera_position": "shelf",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:22:10.765Z",
+    "session_id": "w3x4y5z6-a7b8-c9d0-e1f2-g3h4i5j6k7l8",
+    "frame_id": 4292,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.90,
+        "bounding_box": {
+          "x": 140,
+          "y": 90,
+          "width": 100,
+          "height": 100
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": "reaching",
+          "object_class": null,
+          "zone_id": "snacks",
+          "motion_direction": null,
+          "dwell_time_sec": 12.5
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.92,
+        "bounding_box": {
+          "x": 330,
+          "y": 210,
+          "width": 40,
+          "height": 65
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "sprite_bottle",
+          "zone_id": "drinks",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.89,
+        "bounding_box": {
+          "x": 380,
+          "y": 220,
+          "width": 30,
+          "height": 45
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "clover_chips",
+          "zone_id": "snacks",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-113",
+      "camera_position": "shelf",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:25:45.432Z",
+    "session_id": "m9n0o1p2-q3r4-s5t6-u7v8-w9x0y1z2a3b4",
+    "frame_id": 5201,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.91,
+        "bounding_box": {
+          "x": 155,
+          "y": 105,
+          "width": 115,
+          "height": 115
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": "pointing",
+          "object_class": null,
+          "zone_id": "drinks",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.93,
+        "bounding_box": {
+          "x": 320,
+          "y": 200,
+          "width": 45,
+          "height": 65
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "nescafe_3in1_box",
+          "zone_id": "drinks",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-114",
+      "camera_position": "shelf",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:27:33.876Z",
+    "session_id": "m9n0o1p2-q3r4-s5t6-u7v8-w9x0y1z2a3b4",
+    "frame_id": 5312,
+    "detections": [
+      {
+        "detection_type": "face",
+        "confidence": 0.89,
+        "bounding_box": {
+          "x": 145,
+          "y": 95,
+          "width": 110,
+          "height": 110
+        },
+        "attributes": {
+          "age_group": "adult",
+          "gender": "unknown",
+          "gesture_type": null,
+          "object_class": null,
+          "zone_id": "food",
+          "motion_direction": null,
+          "dwell_time_sec": 15.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.92,
+        "bounding_box": {
+          "x": 300,
+          "y": 190,
+          "width": 70,
+          "height": 40
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "gardenia_loaf",
+          "zone_id": "food",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      },
+      {
+        "detection_type": "product",
+        "confidence": 0.90,
+        "bounding_box": {
+          "x": 370,
+          "y": 210,
+          "width": 35,
+          "height": 50
+        },
+        "attributes": {
+          "age_group": null,
+          "gender": null,
+          "gesture_type": null,
+          "object_class": "eden_cheese",
+          "zone_id": "food",
+          "motion_direction": null,
+          "dwell_time_sec": 0.0
+        }
+      }
+    ],
+    "metadata": {
+      "store_id": "sari-114",
+      "camera_position": "shelf",
+      "resolution": "640x480",
+      "fps": 30.0,
+      "model_version": "opencv-4.5.1",
+      "simulated": true
+    }
+  }
+]

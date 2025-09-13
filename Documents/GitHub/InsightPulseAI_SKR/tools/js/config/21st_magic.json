@@ -1,0 +1,204 @@
+{
+  "version": "1.0.0",
+  "themes": {
+    "tbwa_magic_dark": {
+      "primaryColor": "#FF3600",
+      "secondaryColor": "#121212",
+      "accentColor": "#00C6FF",
+      "backgroundColor": "#0A0A0A",
+      "cardBackground": "#1A1A1A",
+      "textColor": "#FFFFFF",
+      "fontFamily": "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      "borderRadius": "12px",
+      "chartColors": ["#FF3600", "#00C6FF", "#7B61FF", "#00E0A1", "#FFB800", "#FF5CB4", "#9B51E0", "#00B2FF"],
+      "gridGap": "24px",
+      "boxShadow": "0 8px 16px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.1)",
+      "animationDuration": "0.5s",
+      "glowEffects": true,
+      "particleDensity": "high",
+      "depthEffect": true
+    },
+    "tbwa_magic_light": {
+      "primaryColor": "#FF3600",
+      "secondaryColor": "#F0F0F0",
+      "accentColor": "#0055FF",
+      "backgroundColor": "#FFFFFF",
+      "cardBackground": "#F9F9F9",
+      "textColor": "#222222",
+      "fontFamily": "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      "borderRadius": "12px",
+      "chartColors": ["#FF3600", "#0055FF", "#7B61FF", "#00C170", "#FFB800", "#FF5CB4", "#9B51E0", "#00B2FF"],
+      "gridGap": "24px",
+      "boxShadow": "0 8px 16px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)",
+      "animationDuration": "0.5s",
+      "glowEffects": false,
+      "particleDensity": "medium",
+      "depthEffect": true
+    },
+    "executive_3d": {
+      "primaryColor": "#0070C0",
+      "secondaryColor": "#2E3440",
+      "accentColor": "#FFCC00",
+      "backgroundColor": "#ECEFF4",
+      "cardBackground": "#FFFFFF",
+      "textColor": "#2E3440",
+      "fontFamily": "'Segoe UI', 'SF Pro Display', Arial, sans-serif",
+      "borderRadius": "8px",
+      "chartColors": ["#0070C0", "#00B050", "#C00000", "#7030A0", "#FFC000", "#00B0F0", "#FF6666", "#00FF99"],
+      "gridGap": "20px",
+      "boxShadow": "0 4px 12px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.02)",
+      "animationDuration": "0.7s",
+      "glowEffects": false,
+      "particleDensity": "low",
+      "depthEffect": true
+    },
+    "retail_interactive": {
+      "primaryColor": "#6200EA",
+      "secondaryColor": "#424242",
+      "accentColor": "#00E5FF",
+      "backgroundColor": "#FAFAFA",
+      "cardBackground": "#FFFFFF",
+      "textColor": "#212121",
+      "fontFamily": "'SF Pro Display', 'Segoe UI', Arial, sans-serif",
+      "borderRadius": "16px",
+      "chartColors": ["#6200EA", "#00E5FF", "#FF4081", "#00B0FF", "#FF9100", "#00C853", "#AA00FF", "#FFD600"],
+      "gridGap": "24px",
+      "boxShadow": "0 12px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.02)",
+      "animationDuration": "0.6s",
+      "glowEffects": true,
+      "particleDensity": "high",
+      "depthEffect": true
+    },
+    "immersive_data_story": {
+      "primaryColor": "#FF9800",
+      "secondaryColor": "#263238",
+      "accentColor": "#1DE9B6",
+      "backgroundColor": "#0A1929",
+      "cardBackground": "#132F4C",
+      "textColor": "#FFFFFF",
+      "fontFamily": "'SF Pro Display', 'Segoe UI', Arial, sans-serif",
+      "borderRadius": "20px",
+      "chartColors": ["#FF9800", "#1DE9B6", "#00B0FF", "#F44336", "#8BC34A", "#9C27B0", "#FFEB3B", "#00E5FF"],
+      "gridGap": "28px",
+      "boxShadow": "0 16px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05)",
+      "animationDuration": "0.8s",
+      "glowEffects": true,
+      "particleDensity": "high",
+      "depthEffect": true
+    }
+  },
+  "animation_levels": {
+    "subtle": {
+      "duration": "0.3s",
+      "effects": ["fade", "slide"],
+      "transition_time": "0.3s",
+      "particle_density": "low",
+      "glow_effects": false,
+      "motion_blur": false,
+      "parallax_depth": 0.1
+    },
+    "moderate": {
+      "duration": "0.5s",
+      "effects": ["fade", "slide", "scale", "rotate"],
+      "transition_time": "0.5s",
+      "particle_density": "medium",
+      "glow_effects": true,
+      "motion_blur": false,
+      "parallax_depth": 0.2
+    },
+    "immersive": {
+      "duration": "0.8s",
+      "effects": ["fade", "slide", "scale", "rotate", "blur", "color"],
+      "transition_time": "0.8s",
+      "particle_density": "high",
+      "glow_effects": true,
+      "motion_blur": true,
+      "parallax_depth": 0.4
+    }
+  },
+  "browser_compatibility": {
+    "minimum_versions": {
+      "chrome": 80,
+      "firefox": 80,
+      "safari": 13,
+      "edge": 80
+    },
+    "webgl_required": true,
+    "fallback_enabled": true
+  },
+  "performance_settings": {
+    "low": {
+      "particles_enabled": false,
+      "glow_effects": false,
+      "animation_complexity": "minimal",
+      "3d_enabled": false,
+      "texture_quality": "low",
+      "shadow_quality": "off"
+    },
+    "medium": {
+      "particles_enabled": true,
+      "glow_effects": false,
+      "animation_complexity": "moderate",
+      "3d_enabled": true,
+      "texture_quality": "medium",
+      "shadow_quality": "low"
+    },
+    "high": {
+      "particles_enabled": true,
+      "glow_effects": true,
+      "animation_complexity": "full",
+      "3d_enabled": true,
+      "texture_quality": "high",
+      "shadow_quality": "medium"
+    },
+    "ultra": {
+      "particles_enabled": true,
+      "glow_effects": true,
+      "animation_complexity": "full",
+      "3d_enabled": true,
+      "texture_quality": "ultra",
+      "shadow_quality": "high"
+    }
+  },
+  "visualization_types": {
+    "3d_bar": {
+      "enabled": true,
+      "complexity": "medium",
+      "fallback": "bar"
+    },
+    "3d_pie": {
+      "enabled": true,
+      "complexity": "medium",
+      "fallback": "doughnut"
+    },
+    "3d_line": {
+      "enabled": true,
+      "complexity": "high",
+      "fallback": "line"
+    },
+    "3d_scatter": {
+      "enabled": true,
+      "complexity": "high",
+      "fallback": "scatter"
+    },
+    "particle_flow": {
+      "enabled": true,
+      "complexity": "ultra",
+      "fallback": "line"
+    },
+    "heat_surface": {
+      "enabled": true,
+      "complexity": "high",
+      "fallback": "heatmap"
+    }
+  },
+  "cdn_resources": {
+    "three_js": "https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js",
+    "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.9.1/dist/gsap.min.js",
+    "chart_js": "https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js",
+    "d3": "https://cdn.jsdelivr.net/npm/d3@7.3.0/dist/d3.min.js",
+    "magic_viz": "https://cdn.jsdelivr.net/npm/21st-magic-viz@latest/dist/magic-viz.min.js",
+    "magic_particles": "https://cdn.jsdelivr.net/npm/21st-magic-viz@latest/dist/magic-particles.min.js",
+    "magic_transitions": "https://cdn.jsdelivr.net/npm/21st-magic-viz@latest/dist/magic-transitions.min.js"
+  }
+}

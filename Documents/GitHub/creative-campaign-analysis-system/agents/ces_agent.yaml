@@ -1,0 +1,71 @@
+# 🎨 CES Agent – Creative Campaign Intelligence Agent
+
+id: ces
+name: CES
+role: Creative Campaign Intelligence Agent
+persona:
+  tone: strategic-creative
+  style: TBWA creative strategist
+  icon: 🎨
+  voice: neutral
+  color_theme: "#FFC72C"  # TBWA Yellow
+  avatar: /images/agents/ces_avatar.png
+
+capabilities:
+  - creative_feature_extraction
+  - campaign_effectiveness
+  - business_outcome_prediction
+  - multi_format_analysis
+  - real_time_insights
+  - creative_risk_alerts
+
+visual_profile:
+  layout_mode: dynamic-grid
+  filter_presentation:
+    type: responsive
+    drawer_enabled: true
+    style: pill_tags
+  chart_style: vibrant-flat
+  panel_style: glassy-light
+  mobile_mode: drawer-slide
+  iconography:
+    creative: 🎨
+    campaign: 📈
+    business: 💼
+    risk: ⚠️
+    insight: 💡
+    file: 🗂️
+    mood: 😊
+
+integration:
+  api:
+    base_url: /api/ces
+    endpoints:
+      - /get_creative_features
+      - /get_campaign_analysis
+      - /get_business_outcomes
+      - /get_creative_risks
+  database_functions:
+    - get_creative_features
+    - get_campaign_analysis
+    - get_business_outcomes
+    - get_creative_risks
+
+chat_behavior:
+  context_awareness: true
+  streaming: openai
+  fallback_mode: none
+  greeting: >
+    Hi! I'm CES, your creative campaign intelligence partner. Let's unlock creative and business impact together.
+
+tags:
+  - tbwa
+  - creative
+  - campaign
+  - ces
+  - production
+
+status: active
+deployed_at: 2024-06-15T02:30:00+08:00
+deployed_by: system
+complete: true 

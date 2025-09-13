@@ -1,0 +1,42 @@
+PROJECT SCOUT RETAIL ADVISOR COMPONENT LICENSE AGREEMENT
+
+This repository contains components of the Project Scout Retail Advisor system.
+
+1. PROPRIETARY NOTICE
+   The OpsCore automation framework, agent system, visualization components, and related 
+   orchestration logic included in this repository are proprietary technologies.
+   The underlying agent framework and intelligence layer are provided under separate
+   license agreements and are not transferred through this repository.
+
+2. PERMITTED USE
+   TBWA and authorized project partners may use, modify, and extend the components in this
+   repository solely for the purposes outlined in the Master Services Agreement between
+   the parties. Any use outside the scope of that agreement is prohibited without prior
+   written consent.
+
+3. CONFIDENTIALITY
+   All materials in this repository are considered confidential business information.
+   Recipient agrees to maintain the confidentiality of these materials and not to
+   disclose them to any third party without explicit written permission.
+
+4. OWNERSHIP
+   All intellectual property rights in the OpsCore framework, including but not limited to
+   all agent algorithms, orchestration systems, and underlying technologies, remain the
+   exclusive property of the licensor. Modifications to configuration files, dashboards, or
+   other components do not transfer ownership of the underlying technologies.
+
+5. LIMITED DISTRIBUTION
+   The materials in this repository may only be distributed to personnel directly
+   involved in the Project Scout initiative, subject to these same license terms.
+
+6. NO WARRANTY
+   The materials are provided "as is" without warranty of any kind, express or implied,
+   including but not limited to the warranties of merchantability, fitness for a
+   particular purpose, and non-infringement.
+
+7. LIMITATION OF LIABILITY
+   In no event shall the licensor be liable for any claim, damages or other liability
+   arising from the use of the materials in this repository.
+
+Copyright © 2025 TBWA Global, Inc.
+All rights reserved.

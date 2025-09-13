@@ -1,0 +1,33 @@
+// src/themes/sarisari.scss
+@import '../styles/variables-sarisari';
+@import '../styles/common';
+
+:root {
+  --logo-url: url('/assets/logos/sarisari-logo.svg');
+}
+
+// Sari Sari specific overrides
+.header {
+  background-color: #fff;
+  border-bottom: 3px solid var(--color-primary);
+}
+
+.sidebar {
+  background-color: #fbfbfb;
+}
+
+// Sari Sari specific components
+.sarisari-brand-tag {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-secondary);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  margin-right: var(--spacing-xs);
+}
+
+// Store map customizations for Sari Sari
+.map-container {
+  border: 2px solid var(--color-primary);
+}

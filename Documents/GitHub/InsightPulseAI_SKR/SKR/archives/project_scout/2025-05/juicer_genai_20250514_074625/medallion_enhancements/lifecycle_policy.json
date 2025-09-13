@@ -1,0 +1,143 @@
+{
+  "rules": [
+    {
+      "enabled": true,
+      "name": "BronzeToArchive",
+      "type": "Lifecycle",
+      "definition": {
+        "actions": {
+          "baseBlob": {
+            "tierToCool": {
+              "daysAfterModificationGreaterThan": 30
+            },
+            "tierToArchive": {
+              "daysAfterModificationGreaterThan": 90
+            }
+          }
+        },
+        "filters": {
+          "blobTypes": [
+            "blockBlob"
+          ],
+          "prefixMatch": [
+            "bronze/"
+          ]
+        }
+      }
+    },
+    {
+      "enabled": true,
+      "name": "SilverToArchive",
+      "type": "Lifecycle",
+      "definition": {
+        "actions": {
+          "baseBlob": {
+            "tierToCool": {
+              "daysAfterModificationGreaterThan": 60
+            },
+            "tierToArchive": {
+              "daysAfterModificationGreaterThan": 180
+            }
+          }
+        },
+        "filters": {
+          "blobTypes": [
+            "blockBlob"
+          ],
+          "prefixMatch": [
+            "silver/"
+          ]
+        }
+      }
+    },
+    {
+      "enabled": true,
+      "name": "GoldToCool",
+      "type": "Lifecycle",
+      "definition": {
+        "actions": {
+          "baseBlob": {
+            "tierToCool": {
+              "daysAfterModificationGreaterThan": 90
+            }
+          }
+        },
+        "filters": {
+          "blobTypes": [
+            "blockBlob"
+          ],
+          "prefixMatch": [
+            "gold/"
+          ]
+        }
+      }
+    },
+    {
+      "enabled": true,
+      "name": "PlatinumRetention",
+      "type": "Lifecycle",
+      "definition": {
+        "actions": {
+          "baseBlob": {
+            "delete": {
+              "daysAfterModificationGreaterThan": 731
+            }
+          }
+        },
+        "filters": {
+          "blobTypes": [
+            "blockBlob"
+          ],
+          "prefixMatch": [
+            "platinum/"
+          ]
+        }
+      }
+    },
+    {
+      "enabled": true,
+      "name": "LogsRetention",
+      "type": "Lifecycle",
+      "definition": {
+        "actions": {
+          "baseBlob": {
+            "tierToArchive": {
+              "daysAfterModificationGreaterThan": 30
+            },
+            "delete": {
+              "daysAfterModificationGreaterThan": 365
+            }
+          }
+        },
+        "filters": {
+          "blobTypes": [
+            "blockBlob"
+          ],
+          "prefixMatch": [
+            "logs/",
+            "data-quality/"
+          ]
+        }
+      }
+    },
+    {
+      "enabled": true,
+      "name": "SnapshotRetention",
+      "type": "Lifecycle",
+      "definition": {
+        "actions": {
+          "snapshot": {
+            "delete": {
+              "daysAfterCreationGreaterThan": 90
+            }
+          }
+        },
+        "filters": {
+          "blobTypes": [
+            "blockBlob"
+          ]
+        }
+      }
+    }
+  ]
+}

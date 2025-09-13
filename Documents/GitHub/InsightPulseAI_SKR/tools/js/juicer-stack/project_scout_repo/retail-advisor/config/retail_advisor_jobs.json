@@ -1,0 +1,81 @@
+{
+  "jobs": [
+    {
+      "name": "retail_advisor_insights_daily",
+      "description": "Generate daily insights from transcripts",
+      "tasks": [
+        {
+          "task_key": "generate_insights",
+          "description": "Generate insights from Gold layer data",
+          "notebook_task": {
+            "notebook_path": "/retail-advisor/gold_insights",
+            "base_parameters": {
+              "date": "1d",
+              "model": "claude",
+              "generate_dashboard": "true"
+            }
+          },
+          "existing_cluster_id": "0123-456789-abcxyz",
+          "timeout_seconds": 3600,
+          "max_retries": 2
+        }
+      ],
+      "schedule": {
+        "quartz_cron_expression": "0 0 6 * * ?",
+        "timezone_id": "America/Los_Angeles",
+        "pause_status": "UNPAUSED"
+      }
+    },
+    {
+      "name": "retail_advisor_insights_weekly",
+      "description": "Generate weekly insights summary",
+      "tasks": [
+        {
+          "task_key": "generate_weekly_insights",
+          "description": "Generate weekly insights summary from Gold layer data",
+          "notebook_task": {
+            "notebook_path": "/retail-advisor/gold_insights",
+            "base_parameters": {
+              "date": "7d",
+              "model": "auto",
+              "generate_dashboard": "true"
+            }
+          },
+          "existing_cluster_id": "0123-456789-abcxyz",
+          "timeout_seconds": 7200,
+          "max_retries": 3
+        }
+      ],
+      "schedule": {
+        "quartz_cron_expression": "0 0 7 ? * MON",
+        "timezone_id": "America/Los_Angeles",
+        "pause_status": "UNPAUSED"
+      }
+    },
+    {
+      "name": "retail_advisor_insights_schema_setup",
+      "description": "One-time setup of insights schema in Databricks",
+      "tasks": [
+        {
+          "task_key": "setup_insights_tables",
+          "description": "Create tables for storing GenAI insights",
+          "notebook_task": {
+            "notebook_path": "/retail-advisor/setup_insights_tables",
+            "base_parameters": {
+              "env": "prod",
+              "create_sample_data": "false"
+            }
+          },
+          "existing_cluster_id": "0123-456789-abcxyz",
+          "timeout_seconds": 1800,
+          "max_retries": 1
+        }
+      ],
+      "schedule": {
+        "quartz_cron_expression": "0 0 0 1 1 ? 2099",
+        "timezone_id": "America/Los_Angeles",
+        "pause_status": "PAUSED"
+      }
+    }
+  ]
+}

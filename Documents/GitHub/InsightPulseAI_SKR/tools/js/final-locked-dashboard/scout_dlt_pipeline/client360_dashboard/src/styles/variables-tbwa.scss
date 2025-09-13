@@ -1,0 +1,108 @@
+// src/styles/variables-tbwa.scss
+:root {
+  // Updated color palette based on Project Scout AI Dashboard
+  // Brand colors
+  --color-primary: #0052CC; // Primary brand color (Azure Blue)
+  --color-primary-dark: #004299; // Darker blue for hover states
+  --color-primary-light: #2684FF; // Lighter blue for hover states (also info color)
+  --color-secondary: #FFAB00; // Secondary color (Yellow-Orange)
+  --color-secondary-dark: #FF9500; // Darker yellow-orange for hover states
+  --color-secondary-light: #FFD700; // Lighter yellow-orange for hover states
+  
+  // Semantic colors
+  --color-success: #36B37E; // Success green (teal-green)
+  --color-warning: #FFAB00; // Warning matches secondary
+  --color-danger: #FF5630; // Danger red (error red)
+  --color-info: #2684FF; // Info blue (matches primary-light)
+  --color-light: #F4F5F7; // Light gray for backgrounds
+  --color-dark: #1D1D1D; // Text primary dark gray
+  
+  // Color RGB values (for opacity)
+  --color-primary-rgb: 0, 82, 204; // Azure Blue RGB
+  --color-secondary-rgb: 255, 171, 0; // Yellow-Orange RGB
+  --color-success-rgb: 54, 179, 126; // Teal-Green RGB
+  --color-danger-rgb: 255, 86, 48; // Error Red RGB
+  --color-warning-rgb: 255, 171, 0; // Yellow-Orange RGB
+  --color-info-rgb: 38, 132, 255; // Light Blue RGB
+  --color-light-rgb: 244, 245, 247; // Light Gray RGB
+  --color-dark-rgb: 29, 29, 29; // Dark Gray RGB
+  
+  // Text colors
+  --text-primary: #1D1D1D; // Text primary dark gray
+  --text-secondary: #505F79; // Text secondary mid-gray
+  --text-muted: #7A869A; // Muted text
+  --text-light: #FFFFFF; // White text
+  
+  // Background colors
+  --bg-primary: #F4F5F7; // Page background light gray
+  --bg-secondary: #EBECF0; // Slightly darker background
+  --bg-tertiary: #DFE1E6; // Tertiary background
+  --bg-card: #FFFFFF; // Card background white
+  --bg-card-hover: #FAFBFC; // Card hover background
+  
+  // Border colors
+  --border-color: #DFE1E6; // Borders/shadows subtle gray
+  --border-radius: 0.5rem; // 8px border radius
+  
+  // Spacing (using 8px increments)
+  --spacing-xs: 0.25rem; // 4px
+  --spacing-sm: 0.5rem;  // 8px
+  --spacing-md: 1rem;    // 16px
+  --spacing-lg: 1.5rem;  // 24px
+  --spacing-xl: 2rem;    // 32px
+  
+  // Font settings
+  --font-family-base: 'Inter', 'Roboto', system-ui, sans-serif;
+  --font-family-heading: 'Inter', 'Roboto', system-ui, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-size-xs: 0.75rem;   // 12px Caption
+  --font-size-sm: 0.875rem;  // 14px Body
+  --font-size-base: 1rem;    // 16px Heading 2
+  --font-size-lg: 1.125rem;  // 18px
+  --font-size-xl: 1.25rem;   // 20px Heading 1
+  --font-size-2xl: 1.5rem;   // 24px
+  --font-size-3xl: 1.875rem; // 30px
+  --line-height-base: 1.5;
+  --line-height-heading: 1.2;
+  --letter-spacing-tight: -0.025em; // Tight for headlines
+  --letter-spacing-normal: 0;       // Normal for body
+  
+  // Box shadows
+  --box-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  --box-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.12);
+  
+  // Components
+  --header-height: 64px;
+  --footer-height: 48px;
+  --sidebar-width: 240px;
+  --filter-height: 56px;
+  
+  // Transitions
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+  
+  // Map colors
+  --map-color-low: #CCE0FF;
+  --map-color-medium: #66A3FF;
+  --map-color-high: #0052CC;
+  
+  // TBWA accent red
+  --tbwa-red: #FF5630;
+
+  // Logo URL
+  --logo-url: url('/assets/logos/tbwasmp-logo.webp');
+  
+  // Rollback component specific colors (explicit declarations to avoid theme issues)
+  --rollback-bg: #FFFFFF;
+  --rollback-border: #FFAB00;
+  --rollback-title: #0052CC;
+  --rollback-text: #505F79;
+  --rollback-action-primary: #0052CC;
+  --rollback-action-secondary: #FFAB00;
+  --rollback-info-bg: rgba(38, 132, 255, 0.1);
+}

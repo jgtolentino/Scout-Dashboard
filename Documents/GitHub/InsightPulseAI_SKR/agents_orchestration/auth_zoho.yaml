@@ -1,0 +1,128 @@
+##############################################################
+# Zoho Mail OAuth Authentication Flow Configuration
+# This file defines the OAuth flow for Zoho Mail authentication 
+# Used by Pulser to authenticate with Zoho Mail API
+##############################################################
+
+version: "1.0"
+name: "zoho_oauth"
+description: >
+  "OAuth authentication flow for Zoho Mail API" This agent provides enterprise-grade functionality with comprehensive error handling, performance optimization, and full observability for production environments.
+
+flows:
+  - name: zoho_oauth_headless
+    agent: shogun
+    trigger: mail:setup
+    provider: zoho
+    redirect_uri: https://insightpulseai.com/auth/zoho/callback
+    scopes:
+      - ZohoMail.messages.ALL
+      - ZohoMail.accounts.READ
+      - ZohoMail.folders.READ
+      - ZohoMail.settings.READ
+    handler: headless
+    credentials_path: ~/.pulser/zoho_credentials.json
+  - name: zoho_renew_token
+    agent: shogun
+    trigger: mail:renew
+    provider: zoho
+    handler: token_refresh
+    credentials_path: ~/.pulser/zoho_credentials.json
+handlers:
+  headless:
+    module: ~/Documents/GitHub/InsightPulseAI_SKR/tools/shogun/handlers/headless_oauth.py
+    function: handle_headless_flow
+    log_file: ~/.pulser/logs/shogun_oauth.log
+  token_refresh:
+    module: ~/Documents/GitHub/InsightPulseAI_SKR/tools/shogun/handlers/token_refresh.py
+    function: refresh_token
+    log_file: ~/.pulser/logs/shogun_token.log
+providers:
+  zoho:
+    auth_url: https://accounts.zoho.com/oauth/v2/auth
+    token_url: https://accounts.zoho.com/oauth/v2/token
+    client_env: PULSER_ZOHO_CLIENT_ID
+    secret_env: PULSER_ZOHO_CLIENT_SECRET
+hooks:
+  pre_auth:
+    - name: check_env_variables
+      module: ~/Documents/GitHub/InsightPulseAI_SKR/tools/shogun/hooks/env_check.py
+      function: check_required_env
+  post_auth:
+    - name: update_mail_functions
+      module: ~/Documents/GitHub/InsightPulseAI_SKR/tools/shogun/hooks/mail_hooks.py
+      function: update_mail_config
+  on_error:
+    - name: log_error
+      module: ~/Documents/GitHub/InsightPulseAI_SKR/tools/shogun/hooks/error_logger.py
+      function: log_error
+    - name: fallback_to_manual
+      module: ~/Documents/GitHub/InsightPulseAI_SKR/tools/shogun/hooks/fallback.py
+      function: switch_to_manual_flow
+telemetry:
+  enabled: true
+  log_file: ~/.pulser/logs/auth_telemetry.log
+  metrics:
+    - auth_success_rate
+    - token_refresh_count
+    - auth_failure_reasons
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+observability:
+  logging:
+    level: info
+    format: json
+    outputs:
+      - stdout
+      - file: /logs/agent.log
+  tracing:
+    enabled: true
+    provider: opentelemetry
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    provider: prometheus
+    endpoint: /metrics
+integrations:
+  - pulser_core
+  - external_api
+interactions:
+  - pulser_core
+  - zoho_api

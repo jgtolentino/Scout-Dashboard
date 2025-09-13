@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import 'variables.css';
+
+/* Reset + base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* TBWA Logo Styling */
+.tbwa-logo {
+  height: 40px;
+  width: auto;
+}
+
+/* Cards & panels */
+.card, .dashboard-panel, .bg-white {
+  background: var(--color-card) !important;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover, .dashboard-panel:hover {
+  box-shadow: var(--box-shadow-hover);
+}
+
+/* Buttons */
+.btn-primary, .bg-blue-500, button.bg-blue-500 {
+  background-color: var(--color-secondary) !important;
+  color: white !important;
+  border: none;
+}
+
+.btn-primary:hover, .bg-blue-500:hover, button.bg-blue-500:hover {
+  background-color: var(--color-secondary-dark) !important;
+}
+
+.btn-secondary {
+  background-color: var(--color-primary) !important;
+  color: var(--color-text) !important;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary-dark) !important;
+}
+
+/* Headings */
+h1, .header-title, .text-xl {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-secondary);
+  font-weight: bold;
+}
+
+h2, .subheader-title, .text-lg {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+h3, .text-md {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Links */
+a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* KPI Tiles */
+.kpi-tile, [onclick*="DrillDown"] {
+  border-top: 4px solid var(--color-primary) !important;
+  transition: transform 0.2s ease;
+}
+
+.kpi-tile:hover, [onclick*="DrillDown"]:hover {
+  transform: translateY(-2px);
+}
+
+.kpi-tile h3, [onclick*="DrillDown"] p.text-gray-500 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-muted) !important;
+}
+
+.kpi-tile .value, [onclick*="DrillDown"] h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-text) !important;
+}
+
+/* Map container */
+.map-container, #storeMap {
+  background: #e5e5e5;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+/* Color overrides */
+.text-blue-500, .text-blue-700, .text-blue-600 {
+  color: var(--color-secondary) !important;
+}
+
+.text-green-500 {
+  color: var(--color-success) !important;
+}
+
+.text-red-500 {
+  color: var(--color-danger) !important;
+}
+
+.text-yellow-500 {
+  color: var(--color-warning) !important;
+}
+
+.bg-blue-500 {
+  background-color: var(--color-secondary) !important;
+}
+
+.bg-green-500 {
+  background-color: var(--color-success) !important;
+}
+
+.bg-red-500 {
+  background-color: var(--color-danger) !important;
+}
+
+.bg-yellow-500 {
+  background-color: var(--color-warning) !important;
+}
+
+.bg-blue-100 {
+  background-color: rgba(0, 91, 187, 0.1) !important;
+}
+
+.bg-green-100 {
+  background-color: rgba(40, 167, 69, 0.1) !important;
+}
+
+.text-blue-800 {
+  color: var(--color-secondary-dark) !important;
+}
+
+/* Insights cards */
+.ai-powered-insights .border-l-4, #brandInsights .border-l-4 {
+  border-left: 4px solid var(--color-primary) !important;
+}
+
+.ai-powered-insights .insight-card, #brandInsights .insight-section {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+}
+
+/* Charts */
+canvas {
+  max-width: 100%;
+}
+
+/* Header and footer */
+header.bg-white, footer.bg-white {
+  background-color: white !important;
+}
+
+/* Filter Bar */
+.bg-gray-200 {
+  background-color: #edf2f7 !important;
+}
+
+/* Progress Bars */
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.h-2\.5, .h-2 {
+  height: 0.625rem;
+}
+
+/* Transaction Metrics */
+.transaction-metrics-table th {
+  color: var(--color-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.transaction-metrics-table tr:nth-child(even) {
+  background-color: rgba(0, 91, 187, 0.05);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  :root {
+    --font-size-base: 12px;
+  }
+  
+  .kpi-tile .value, [onclick*="DrillDown"] h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* TBWA Footer Branding */
+.tbwa-footer-brand {
+  font-weight: bold;
+  color: var(--color-secondary);
+}
+
+.tbwa-footer-brand span {
+  color: var(--color-primary);
+}

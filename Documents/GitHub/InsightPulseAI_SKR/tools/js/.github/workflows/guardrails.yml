@@ -1,0 +1,13 @@
+name: Guardrails
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  guardrails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run guardrail checks
+        run: scripts/ci/check-guardrails.sh

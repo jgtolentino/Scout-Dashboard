@@ -1,0 +1,270 @@
+{
+  "properties": {
+    "lenses": {
+      "0": {
+        "order": 0,
+        "parts": {
+          "0": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "options",
+                  "isOptional": true,
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions//resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/tbwajuicerstorage"
+                          },
+                          "name": "UsedCapacity",
+                          "aggregationType": 4,
+                          "namespace": "microsoft.storage/storageaccounts",
+                          "metricVisualization": {
+                            "displayName": "Used capacity"
+                          }
+                        }
+                      ],
+                      "title": "Storage capacity by tier",
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideSubtitle": false
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart"
+            }
+          },
+          "1": {
+            "position": {
+              "x": 6,
+              "y": 0,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "options",
+                  "isOptional": true,
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions//resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/tbwajuicerstorage"
+                          },
+                          "name": "Transactions",
+                          "aggregationType": 1,
+                          "namespace": "microsoft.storage/storageaccounts",
+                          "metricVisualization": {
+                            "displayName": "Transactions"
+                          }
+                        }
+                      ],
+                      "title": "Transactions by container",
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideSubtitle": false
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart"
+            }
+          },
+          "2": {
+            "position": {
+              "x": 0,
+              "y": 4,
+              "colSpan": 12,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                },
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions//resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/tbwajuicerstorage"
+                          },
+                          "name": "BlobCount",
+                          "aggregationType": 3,
+                          "namespace": "microsoft.storage/storageaccounts/blobservices",
+                          "metricVisualization": {
+                            "displayName": "Blob Count",
+                            "color": "#00BCF2"
+                          }
+                        },
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions//resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/tbwajuicerstorage"
+                          },
+                          "name": "BlobCapacity",
+                          "aggregationType": 3,
+                          "namespace": "microsoft.storage/storageaccounts/blobservices",
+                          "metricVisualization": {
+                            "displayName": "Blob Capacity",
+                            "color": "#F8C016"
+                          }
+                        }
+                      ],
+                      "title": "Blob count and capacity",
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideSubtitle": false
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart"
+            }
+          },
+          "3": {
+            "position": {
+              "x": 0,
+              "y": 7,
+              "colSpan": 12,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "options",
+                  "value": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions//resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/tbwajuicerstorage"
+                          },
+                          "name": "SuccessE2ELatency",
+                          "aggregationType": 4,
+                          "namespace": "microsoft.storage/storageaccounts",
+                          "metricVisualization": {
+                            "displayName": "Success E2E Latency",
+                            "color": "#00BCF2"
+                          }
+                        },
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions//resourceGroups/RG-TBWA-ProjectScout-Juicer/providers/Microsoft.Storage/storageAccounts/tbwajuicerstorage"
+                          },
+                          "name": "SuccessServerLatency",
+                          "aggregationType": 4,
+                          "namespace": "microsoft.storage/storageaccounts",
+                          "metricVisualization": {
+                            "displayName": "Success Server Latency",
+                            "color": "#F8C016"
+                          }
+                        }
+                      ],
+                      "title": "Storage latency",
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideSubtitle": false
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart"
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "model": {
+        "timeRange": {
+          "value": {
+            "relative": {
+              "duration": 24,
+              "timeUnit": 1
+            }
+          },
+          "type": "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+        }
+      }
+    }
+  },
+  "name": "juicer-storage-lifecycle-dashboard",
+  "type": "Microsoft.Portal/dashboards",
+  "location": "eastus",
+  "tags": {
+    "hidden-title": "Juicer Storage Lifecycle Management"
+  }
+}

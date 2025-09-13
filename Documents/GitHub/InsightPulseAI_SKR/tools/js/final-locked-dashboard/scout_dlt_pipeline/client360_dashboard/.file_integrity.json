@@ -1,0 +1,545 @@
+{
+  "assets/logos/tbwa-logo.svg": {
+    "sha": "956d71558b9610527ff5692c6e784b6a357649f6c967142c6531ae087153b899",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 24,
+    "file_type": "svg"
+  }
+,
+  "assets/logos/tbwasmp-logo.webp": {
+    "sha": "fc424e528d99d7d1915ba2d091003a9bcef5646dbbf1dff4b05fb2d2b381e453",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 23,
+    "file_type": "webp"
+  }
+,
+  "assets/logos/test-fallback.txt": {
+    "sha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 0,
+    "file_type": "txt"
+  }
+,
+  "CLIENT360_DASHBOARD_PRD.md": {
+    "sha": "29c19c923ed6ba1dd359f39184e1cf73a07af3e3db069a00e428694528bee306",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 15106,
+    "file_type": "md"
+  }
+,
+  "CLIENT360_VISUAL_REFERENCE.md": {
+    "sha": "e1c74fc5ab8a5770b10352cf59139bf2defa96e3bfcbe9d118583c321e1c8f26",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 7076,
+    "file_type": "md"
+  }
+,
+  "css/ai-insights.css": {
+    "sha": "99e6d0968d325dc22ace1189bad00d615eb014b5297ae554d99e8079a692e548",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 6421,
+    "file_type": "css"
+  }
+,
+  "css/dashboard.css": {
+    "sha": "afe289b6dd8de2a832a4a1540c3e6fa19cdb6d4f5592b2f7706432fdd667b85d",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 5540,
+    "file_type": "css"
+  }
+,
+  "css/tbwa-project-scout.css": {
+    "sha": "6a4d13d460f3e181ce77919124b116880f6514736a68a180d755e5b4c0304d36",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 15080,
+    "file_type": "css"
+  }
+,
+  "css/tbwa-theme.css": {
+    "sha": "1d21fdabbe94b3e8e2cbf6e240a3d55c502e59169637f4a914bb0539bf9a75be",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 56423,
+    "file_type": "css"
+  }
+,
+  "css/tokens.css": {
+    "sha": "274fc981af7143ebb998226c59770b66c47c2efa45cfa691a3943f26cf97cfac",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 6780,
+    "file_type": "css"
+  }
+,
+  "css/variables.css": {
+    "sha": "1e5bcc8dc8d34c576433d7a3c012c11088b0133152c10b9281f5fb8dca6aa435",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 1174,
+    "file_type": "css"
+  }
+,
+  "css/variables.css.bak.20250521_061129": {
+    "sha": "1e5bcc8dc8d34c576433d7a3c012c11088b0133152c10b9281f5fb8dca6aa435",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 1174,
+    "file_type": "20250521_061129"
+  }
+,
+  "cypress.config.js": {
+    "sha": "a5a84afd907cac833fa117444be97506440d180cb5a890ecc3cf353598dbc8e5",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 181,
+    "file_type": "js"
+  }
+,
+  "cypress/integration/theme_parity_spec.ts": {
+    "sha": "0015b3cde18a44ea015fc27eb98aea699d1e354a494cc1516ce88bb5debc423d",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 117,
+    "file_type": "ts"
+  }
+,
+  "data/ai/ai_insights_table.sql": {
+    "sha": "da880a036e0f5074069999ebabf9bb5537ed3314a8e8ca919eaaaac45d8802bf",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 10407,
+    "file_type": "sql"
+  }
+,
+  "data/ai/fabricate_ai_insights.py": {
+    "sha": "063923fdc2a5e9ec1b93a320064ce2219af7eac7d2fba43bfe6879c298100f00",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 22940,
+    "file_type": "py"
+  }
+,
+  "data/ai/insights/all_insights_latest.json": {
+    "sha": "33c09ba7a1cbcb9e676da6c0a214c49ffe2f06bfd7895b3a8fc434d7aa43c395",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 7557,
+    "file_type": "json"
+  }
+,
+  "data/ai/model_routing.yaml": {
+    "sha": "9c541d84ad4e84242803be8745ad03679b7aecad5ddf5d800af89440d57be941",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:30Z",
+    "size": 5212,
+    "file_type": "yaml"
+  }
+,
+  "data/ai/prompts/brand_analysis_prompt.txt": {
+    "sha": "559a5de2dac5d7db4f17460d0696e5ab58b34fe44b3e9b034080748c3faec0ea",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 2812,
+    "file_type": "txt"
+  }
+,
+  "data/ai/prompts/market_trends_prompt.txt": {
+    "sha": "82526092994ee85a8fe426e1e136b52b28569ceb39412e33bf48728cb7393342",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 3997,
+    "file_type": "txt"
+  }
+,
+  "data/ai/prompts/sales_insights_prompt.txt": {
+    "sha": "bf1038355a28efd867bef90c17baca5f0a14e22b7a9b6673d979c86a461fdb46",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 2417,
+    "file_type": "txt"
+  }
+,
+  "data/ai/prompts/store_recommendations_prompt.txt": {
+    "sha": "45e15e7aa256952fc78aa0cc3ac48c64fc6acec7d357cfbfb90f66da0e89dbba",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 3515,
+    "file_type": "txt"
+  }
+,
+  "data/ai/prompts/vision_analysis_prompt.txt": {
+    "sha": "5b83b969a992d0d531a395de1f28c5d5553fb4b990ace1ebf4e235831a525100",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 3428,
+    "file_type": "txt"
+  }
+,
+  "data/ai/pulser_ai_insights.yaml": {
+    "sha": "e6673c28aa92d070639ce0bee444017d89640ebbe913f649f4be983cca13cf9b",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 11008,
+    "file_type": "yaml"
+  }
+,
+  "data/ai/README_AI_INTEGRATION.md": {
+    "sha": "3729886d8c32b8c47c782cb4b9ef6daf64592efeb7ae2508cb35a76ef03732bd",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 6539,
+    "file_type": "md"
+  }
+,
+  "data/ai/scripts/export_insights.py": {
+    "sha": "28e650f9aa4ad3f56460f18a2b8d2ce2480bfc4d90ff2bf679ee0f31ec5fb633",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 11506,
+    "file_type": "py"
+  }
+,
+  "data/ai/scripts/load_insights_to_db.sh": {
+    "sha": "37a8c492ee399cb72dd209a373bdb0e2fcc3788f2ee915b12ef3e6058f96f036",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 3825,
+    "file_type": "sh"
+  }
+,
+  "data/ai/scripts/update_dashboard_views.py": {
+    "sha": "0eb86c101a44ddfc4a34787ab49320ec750470d76bd59dfb1901a14c46d83d75",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 20318,
+    "file_type": "py"
+  }
+,
+  "data/ai/scripts/verify_azure_openai.py": {
+    "sha": "2643f2af21bb4bf9dc572e550d0642b14f6838f1f80a510c8555b792c3bd9e7f",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 10398,
+    "file_type": "py"
+  }
+,
+  "data/audio_visual_correlation.js": {
+    "sha": "4a526742bc9915f06e28c401f2aaae58db90540f1a05e709c5e69718b8c63ddc",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 17271,
+    "file_type": "js"
+  }
+,
+  "data/dlt_connector.js": {
+    "sha": "4292846055b9c9f1c4ffe39a6bc6d81d12ec0be47f590594f1ac08113a6e68ef",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 20692,
+    "file_type": "js"
+  }
+,
+  "data/philippines_outline.geojson": {
+    "sha": "73c92946a95a5f2e2132c6b45d7b1c103873097cb7aa7b7401ab0ede168ebe1c",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 3649,
+    "file_type": "geojson"
+  }
+,
+  "data/README.md": {
+    "sha": "a34b3f70eb703c63e9492e906d35d8857a678a7f2cc62ceed780b0ac13ccd3c0",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 605,
+    "file_type": "md"
+  }
+,
+  "data/sample_data.json": {
+    "sha": "78c4cc0f3434acfd0909d7f57cad156a9df2c9865f7f888edcade3d1b39492ce",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 5099,
+    "file_type": "json"
+  }
+,
+  "data/sample/product_catalog.json": {
+    "sha": "5a23b125746ce55d7eb8e98bf80593fe1cce2230c52564413e928bc1ebd052e1",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 17017,
+    "file_type": "json"
+  }
+,
+  "data/sample/README.md": {
+    "sha": "b5f7ffd54bccfcf6b41a442a95a529a32f2495e0e499915667ad03eec6bdf328",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 5812,
+    "file_type": "md"
+  }
+,
+  "data/sample/sari_sari_heartbeat.json": {
+    "sha": "e4852824a5981e67befd5cc8af98d4ca54b4c4282edf6e2683a7116356d36b2a",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 6278,
+    "file_type": "json"
+  }
+,
+  "data/sample/sari_sari_transactions.json": {
+    "sha": "93c8e9ce62987cf6e106319cb7c13b652b47f5490fe49d215a95723ad214638b",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 11341,
+    "file_type": "json"
+  }
+,
+  "data/sample/sari_sari_visual_data.json": {
+    "sha": "e61f4ef16c49fa87edcf48368a39a7db6bfae227c62ac28f9d619d351d7c7660",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 12121,
+    "file_type": "json"
+  }
+,
+  "data/sql_queries.js": {
+    "sha": "db657b2ff3c08d8bc20e71f59dcf8507649c5d6c55dcab7144eecb522d010660",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 18270,
+    "file_type": "js"
+  }
+,
+  "data/stores.geojson": {
+    "sha": "548ccd564b396ffdb3cf9f3bf75d67f5f2b9532f58a73c5b1eb92d35bacee642",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 6090,
+    "file_type": "geojson"
+  }
+,
+  "data/transcript_analysis_extension.js": {
+    "sha": "19cab3b8aae0d835bbea0f328ce3fc3f261d8716442923a7d65bbffab4ca12f4",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 10080,
+    "file_type": "js"
+  }
+,
+  "direct_url_links.html": {
+    "sha": "27402a2ccb305502b699fb2d9d536304959da60549f08b43a58947265f2f899e",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 184,
+    "file_type": "html"
+  }
+,
+  "guide.html": {
+    "sha": "3c118c492cef8772b4727d0d527cc22b34d1858001b60c65c16c7eb078a918e5",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 18373,
+    "file_type": "html"
+  }
+,
+  "index.html": {
+    "sha": "b2fdcdd4a465bdbbdb3187e74f6d52366e4580a1a3fb1cf302e70d2a07c6ada8",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 30236,
+    "file_type": "html"
+  }
+,
+  "index.html.bak": {
+    "sha": "421a7cfc601380a3749be3dcbc6e8fb7aeabdb058fc243d71078ea79c67bf30a",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 79400,
+    "file_type": "bak"
+  }
+,
+  "js/ai_insights_component.js": {
+    "sha": "94c3b01ee22a91d2891634bd1169f4ddc5f57ea7f0ff182469a0d3a77b85aee0",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 8543,
+    "file_type": "js"
+  }
+,
+  "js/components/ai_insights_component.js": {
+    "sha": "66a94e310f4392deac370d0478ebfdcee527960823cbaedcfd628a6b8ead03e0",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 7910,
+    "file_type": "js"
+  }
+,
+  "js/components/ai/ai_insights.js": {
+    "sha": "2fdc6060813ab452829e88c1f7b161a7911ba0ef6295899137d8f13f6db2025e",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 12546,
+    "file_type": "js"
+  }
+,
+  "js/components/brand_insights.js": {
+    "sha": "ea0b551f4898a77589f0ed9c211ef0a8cd62231d7aff8cbacf8c3e71fa27d30a",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 10043,
+    "file_type": "js"
+  }
+,
+  "js/components/store_map.js": {
+    "sha": "00f5d9214d1a0ed58e7939c39e213afc64e4d489a28585b7e0c9309f6555807a",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 81,
+    "file_type": "js"
+  }
+,
+  "js/components/transaction_metrics.js": {
+    "sha": "6a7cbf0abc7efeb36175bfb799d6affec3107ca077e80da37517fa8809128da1",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 39663,
+    "file_type": "js"
+  }
+,
+  "js/dashboard.js": {
+    "sha": "7be225bdebb5661cc160cd0126783faf3193c16b93257c8f268e6c2950876ef8",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 162485,
+    "file_type": "js"
+  }
+,
+  "js/store_map.js": {
+    "sha": "ff7945a992b6888647af72d21f439c434422718784e0304ec1a92071e5bf7855",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 10919,
+    "file_type": "js"
+  }
+,
+  "js/tbwa-charts.js": {
+    "sha": "a2cdedb53ab7261c9b4ccd47054430af24fb29e9c29127b56a34e81b883d9d9c",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 4850,
+    "file_type": "js"
+  }
+,
+  "package.json": {
+    "sha": "514a447e484e69ebcc90092eecf214d4f649f27b05cc86d8beeda92da8e6c145",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 1563,
+    "file_type": "json"
+  }
+,
+  "prd.html": {
+    "sha": "13d2c597c172b501a41acdf384cc265ea0fc855105d8674003526538bbed65e8",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 171,
+    "file_type": "html"
+  }
+,
+  "README.md": {
+    "sha": "83842e76073f011e0f0dc1c9ecd2597d0fe1bf6d483093120b8a3552c39371e5",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 6095,
+    "file_type": "md"
+  }
+,
+  "screenshots/README.md": {
+    "sha": "bb3b25ec568d5f04371d40f0ba4f160e2398f063eb0c4fd0e23b9a9896a01887",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:31Z",
+    "size": 93,
+    "file_type": "md"
+  }
+,
+  "staticwebapp.config.json": {
+    "sha": "30631accb715870139ec0da556848a6b947c7e18d363646880d08513689d2a57",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:32Z",
+    "size": 1267,
+    "file_type": "json"
+  }
+,
+  "staticwebapp.config.json.bak": {
+    "sha": "30631accb715870139ec0da556848a6b947c7e18d363646880d08513689d2a57",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:32Z",
+    "size": 1267,
+    "file_type": "bak"
+  }
+,
+  "staticwebapp.config.json.bak.20250521_061130": {
+    "sha": "30631accb715870139ec0da556848a6b947c7e18d363646880d08513689d2a57",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:32Z",
+    "size": 1267,
+    "file_type": "20250521_061130"
+  }
+,
+  "theme.css": {
+    "sha": "75cff093844ef600b3ae79577a3ff06ffbb18c0cf3e94f32778f308d99eaff16",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:32Z",
+    "size": 47069,
+    "file_type": "css"
+  }
+,
+  "tsconfig.json": {
+    "sha": "4a07498db75bc5357fe3533fd90b21e2f08792912a0fa2b5761bdf8250f33884",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:32Z",
+    "size": 137,
+    "file_type": "json"
+  }
+,
+  "verification_report.html": {
+    "sha": "1d166957549cfae9584607bbd29c1987cb0f4cdcb5c1ec136bb0b40b33544357",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:32Z",
+    "size": 5939,
+    "file_type": "html"
+  }
+,
+  "VERSION_2.3.0_HIGHLIGHTS.md": {
+    "sha": "2588fa4e7eb865ed4e54776ee17c05847bd99c5cd7db1a3f4305fa3740aa5eb3",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:32Z",
+    "size": 3992,
+    "file_type": "md"
+  }
+,
+  "version.json": {
+    "sha": "420891870832d5637c9a7307a853d89b8f4af11cab145b469a7a2894daee8ee7",
+    "etag": "",
+    "last_checked": "2025-05-21T19:18:32Z",
+    "size": 386,
+    "file_type": "json"
+  }
+,
+  "data/ai/config/azure_openai_config.json": {
+    "sha": "b507ee56b2b6b7a5a44917126234747eb7360fd91b87f14b9435e53d964b45f0",
+    "last_checked": "2025-05-21T19:18:32Z",
+    "size": 828,
+    "file_type": "json",
+    "content_type": "azure_openai_config"
+  }
+}

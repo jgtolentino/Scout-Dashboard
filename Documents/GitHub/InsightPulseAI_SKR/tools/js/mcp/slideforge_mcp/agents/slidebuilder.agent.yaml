@@ -1,0 +1,219 @@
+id: slidebuilder
+name: Slide Builder
+description: Renders slide deck JSON into HTML/React components using SSR
+version: 1.0.0
+
+# Runtime configuration
+type: renderer
+runtime: node
+timeout: 30
+
+# Input schema
+input_schema:
+  type: object
+  required:
+    - filename
+  properties:
+    filename:
+      type: string
+      description: JSON file to render (without extension)
+    template:
+      type: string
+      enum: [default, dark, light, corporate, creative]
+      default: default
+      description: Template style to use for rendering
+    feedback_file:
+      type: string
+      description: Optional feedback JSON file to incorporate (without extension)
+
+# Output schema
+output_schema:
+  type: object
+  required:
+    - html
+    - filename
+  properties:
+    html:
+      type: string
+      description: The rendered HTML content
+    filename:
+      type: string
+      description: The output filename
+    stats:
+      type: object
+      properties:
+        slideCount:
+          type: integer
+          description: Number of slides in the deck
+        renderTime:
+          type: number
+          description: Time taken to render in milliseconds
+
+# Function to load slide deck and feedback data
+load_data: |
+  import fs from 'fs';
+  import path from 'path';
+  
+  export async function loadSlideData(filename, feedbackFile = null) {
+    // Load slide deck JSON
+    const deckPath = path.resolve(`./public/slides/${filename}.json`);
+    if (!fs.existsSync(deckPath)) {
+      throw new Error(`Slide deck file not found: ${deckPath}`);
+    }
+    
+    const deckData = JSON.parse(fs.readFileSync(deckPath, 'utf8'));
+    
+    // Load feedback if available
+    let feedbackData = null;
+    if (feedbackFile) {
+      const feedbackPath = path.resolve(`./public/slides/${feedbackFile}.json`);
+      if (fs.existsSync(feedbackPath)) {
+        feedbackData = JSON.parse(fs.readFileSync(feedbackPath, 'utf8'));
+      }
+    }
+    
+    return { deck: deckData, feedback: feedbackData };
+  }
+
+# Script to render slides as HTML using React SSR
+render_script: |
+  import React from 'react';
+  import ReactDOMServer from 'react-dom/server';
+  import fs from 'fs';
+  import path from 'path';
+  import { loadSlideData } from './data-loader.js';
+  import SlideViewerSSR from '../src/components/SlideViewerSSR.jsx';
+  
+  export async function renderSlideDeck(filename, template = 'default', feedbackFile = null) {
+    const startTime = Date.now();
+    
+    // Load data
+    const { deck, feedback } = await loadSlideData(filename, feedbackFile);
+    
+    // Apply any feedback revisions if available
+    if (feedback && feedback.slide_feedback) {
+      feedback.slide_feedback.forEach(slideFeedback => {
+        const slideIndex = slideFeedback.slide_index;
+        const revisions = slideFeedback.suggested_revisions;
+        
+        if (revisions && deck.slides[slideIndex]) {
+          // Apply revisions where they exist and aren't null
+          Object.keys(revisions).forEach(key => {
+            if (revisions[key] !== null) {
+              deck.slides[slideIndex][key] = revisions[key];
+            }
+          });
+        }
+      });
+    }
+    
+    // Create a React element with the SlideViewerSSR component
+    const element = React.createElement(SlideViewerSSR, {
+      deck,
+      theme: template,
+      showNavigation: true
+    });
+    
+    // Render to static HTML
+    const html = ReactDOMServer.renderToString(element);
+    
+    // Create a complete HTML document
+    const fullHtml = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>${deck.title || 'SlideForge Presentation'}</title>
+      <style>
+        ${fs.readFileSync(path.resolve('./src/components/SlideViewerSSR.css'), 'utf8')}
+        
+        body, html {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          width: 100%;
+          font-family: 'Roboto', 'Segoe UI', 'Arial', sans-serif;
+        }
+        
+        #root {
+          height: 100%;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .presentation-container {
+          flex: 1;
+          padding: 20px;
+          background-color: #f5f5f5;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="root">
+        <div class="presentation-container">
+          ${html}
+        </div>
+      </div>
+      
+      <script>
+        // Simple client-side navigation
+        document.addEventListener('DOMContentLoaded', () => {
+          const prevButtons = document.querySelectorAll('.nav-button.prev');
+          const nextButtons = document.querySelectorAll('.nav-button.next');
+          
+          // Handle navigation button clicks
+          prevButtons.forEach(btn => btn.addEventListener('click', () => {
+            // Navigation logic would go here in hydrated version
+            alert('Previous slide navigation would occur here');
+          }));
+          
+          nextButtons.forEach(btn => btn.addEventListener('click', () => {
+            // Navigation logic would go here in hydrated version
+            alert('Next slide navigation would occur here');
+          }));
+        });
+      </script>
+    </body>
+    </html>
+    `;
+    
+    // Calculate stats
+    const renderTime = Date.now() - startTime;
+    const slideCount = deck.slides.length;
+    
+    return {
+      html: fullHtml,
+      filename: `${filename}.html`,
+      stats: {
+        slideCount,
+        renderTime
+      }
+    };
+  }
+
+# Execution steps
+steps:
+  # Execute the render script
+  - action: run_code
+    code: |
+      const { filename, template, feedback_file } = input;
+      const result = await renderSlideDeck(filename, template, feedback_file);
+      return result;
+  
+  # Save the rendered HTML
+  - action: save_file
+    path: "public/slides/{{ filename }}.html"
+    content: "{{ html }}"
+  
+  # Log the results
+  - action: log
+    message: "Rendered '{{ filename }}' with {{ stats.slideCount }} slides in {{ stats.renderTime }}ms"
+
+# Post-processing hooks
+post_process:
+  - action: next_step
+    with:
+      filename: "{{ filename }}"
+      rendered_file: "public/slides/{{ filename }}.html"

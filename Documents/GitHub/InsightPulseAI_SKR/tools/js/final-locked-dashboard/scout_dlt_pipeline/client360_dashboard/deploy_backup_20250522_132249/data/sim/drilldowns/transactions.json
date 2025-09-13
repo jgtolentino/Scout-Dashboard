@@ -1,0 +1,104 @@
+{
+  "kpi_type": "transactions",
+  "timestamp": "2025-05-22T11:30:00Z",
+  "summary": {
+    "total_transactions": 15432,
+    "period": "Today",
+    "avg_transaction_value": 1587,
+    "peak_hour": "15:00",
+    "busiest_location": "SM Mall of Asia"
+  },
+  "hourly": [
+    { "hour": 8, "count": 167, "value": 264520, "avg_value": 1583 },
+    { "hour": 9, "count": 245, "value": 388650, "avg_value": 1586 },
+    { "hour": 10, "count": 567, "value": 899289, "avg_value": 1586 },
+    { "hour": 11, "count": 789, "value": 1251663, "avg_value": 1586 },
+    { "hour": 12, "count": 923, "value": 1464698, "avg_value": 1587 },
+    { "hour": 13, "count": 854, "value": 1355298, "avg_value": 1587 },
+    { "hour": 14, "count": 1123, "value": 1782101, "avg_value": 1587 },
+    { "hour": 15, "count": 1345, "value": 2134615, "avg_value": 1587 },
+    { "hour": 16, "count": 1567, "value": 2487829, "avg_value": 1588 },
+    { "hour": 17, "count": 1234, "value": 1958758, "avg_value": 1588 },
+    { "hour": 18, "count": 1056, "value": 1676928, "avg_value": 1588 },
+    { "hour": 19, "count": 876, "value": 1391412, "avg_value": 1588 },
+    { "hour": 20, "count": 654, "value": 1038252, "avg_value": 1588 },
+    { "hour": 21, "count": 432, "value": 685616, "avg_value": 1587 },
+    { "hour": 22, "count": 289, "value": 458643, "avg_value": 1587 }
+  ],
+  "transaction_types": [
+    {
+      "type": "Credit Card",
+      "count": 8456,
+      "percentage": 54.8,
+      "total_value": 13420000,
+      "avg_value": 1587
+    },
+    {
+      "type": "Cash",
+      "count": 4321,
+      "percentage": 28.0,
+      "total_value": 6859827,
+      "avg_value": 1587
+    },
+    {
+      "type": "Digital Wallet",
+      "count": 2123,
+      "percentage": 13.8,
+      "total_value": 3370101,
+      "avg_value": 1587
+    },
+    {
+      "type": "Bank Transfer",
+      "count": 532,
+      "percentage": 3.4,
+      "total_value": 844284,
+      "avg_value": 1587
+    }
+  ],
+  "location_breakdown": [
+    {
+      "location": "SM Mall of Asia",
+      "transactions": 2845,
+      "percentage": 18.4,
+      "peak_hour": "15:00",
+      "avg_value": 1650
+    },
+    {
+      "location": "Ayala Malls Makati",
+      "transactions": 2567,
+      "percentage": 16.6,
+      "peak_hour": "14:00",
+      "avg_value": 1720
+    },
+    {
+      "location": "SM Megamall",
+      "transactions": 2234,
+      "percentage": 14.5,
+      "peak_hour": "16:00",
+      "avg_value": 1580
+    },
+    {
+      "location": "Trinoma",
+      "transactions": 1987,
+      "percentage": 12.9,
+      "peak_hour": "15:00",
+      "avg_value": 1545
+    },
+    {
+      "location": "Other Locations",
+      "transactions": 5799,
+      "percentage": 37.6,
+      "peak_hour": "15:00",
+      "avg_value": 1520
+    }
+  ],
+  "weekly_trend": [
+    { "day": "Monday", "transactions": 12543, "change": -8.2 },
+    { "day": "Tuesday", "transactions": 13876, "change": 1.5 },
+    { "day": "Wednesday", "transactions": 14234, "change": 4.2 },
+    { "day": "Thursday", "transactions": 15123, "change": 10.8 },
+    { "day": "Friday", "transactions": 16789, "change": 23.1 },
+    { "day": "Saturday", "transactions": 18956, "change": 39.2 },
+    { "day": "Sunday", "transactions": 15432, "change": 13.4 }
+  ]
+}

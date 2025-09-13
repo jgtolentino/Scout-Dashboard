@@ -1,0 +1,21 @@
+{
+  "dashboards": [
+    {
+      "name": "Sales Dashboard",
+      "project": "Test",
+      "workbook_path": "test-data/sales.twbx",
+      "datasource_path": "test-data/sales.hyper",
+      "description": "Test sales dashboard",
+      "tags": ["test", "sales"],
+      "enabled": true
+    },
+    {
+      "name": "Marketing Dashboard",
+      "project": "Test",
+      "workbook_path": "test-data/marketing.twbx",
+      "description": "Test marketing dashboard",
+      "tags": ["test", "marketing"],
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,464 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Dashboard Configuration Schema",
+  "description": "Schema for InsightPulseAI dashboard configuration",
+  "type": "object",
+  "required": ["metadata", "components", "layout", "themes"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["title", "description", "version", "created_at", "updated_at"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Dashboard title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Dashboard description"
+        },
+        "version": {
+          "type": "string",
+          "description": "Dashboard version (semver)",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp (ISO-8601)"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp (ISO-8601)"
+        },
+        "author": {
+          "type": "string",
+          "description": "Dashboard author"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Dashboard tags"
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "description": "Dashboard components (charts, tables, filters, etc.)",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "title", "data_source"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Component unique identifier"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["bar_chart", "line_chart", "pie_chart", "area_chart", "scatter_plot", "table", "kpi_card", "filter", "text", "custom"],
+            "description": "Component type"
+          },
+          "title": {
+            "type": "string",
+            "description": "Component title"
+          },
+          "data_source": {
+            "type": "string",
+            "description": "Data source identifier for the component"
+          },
+          "settings": {
+            "type": "object",
+            "description": "Component-specific settings"
+          },
+          "x_axis": {
+            "type": "string",
+            "description": "X-axis field (for charts)"
+          },
+          "y_axis": {
+            "type": "string",
+            "description": "Y-axis field (for charts)"
+          },
+          "series": {
+            "type": "array",
+            "description": "Series configuration (for multi-series charts)",
+            "items": {
+              "type": "object",
+              "required": ["name", "field"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Series name"
+                },
+                "field": {
+                  "type": "string",
+                  "description": "Data field for the series"
+                },
+                "color": {
+                  "type": "string",
+                  "description": "Series color"
+                }
+              }
+            }
+          },
+          "filters": {
+            "type": "array",
+            "description": "Component-specific filters",
+            "items": {
+              "type": "object",
+              "required": ["field", "operator", "value"],
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "description": "Field to filter on"
+                },
+                "operator": {
+                  "type": "string",
+                  "enum": ["=", "!=", ">", "<", ">=", "<=", "in", "not_in", "contains", "not_contains", "between"],
+                  "description": "Filter operator"
+                },
+                "value": {
+                  "description": "Filter value"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "required": ["grid", "responsive"],
+      "properties": {
+        "grid": {
+          "type": "object",
+          "required": ["columns", "rows"],
+          "properties": {
+            "columns": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 24,
+              "description": "Number of grid columns"
+            },
+            "rows": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Number of grid rows"
+            },
+            "gap": {
+              "type": "string",
+              "description": "Grid gap (CSS value)"
+            }
+          }
+        },
+        "responsive": {
+          "type": "object",
+          "required": ["breakpoints"],
+          "properties": {
+            "breakpoints": {
+              "type": "object",
+              "required": ["mobile", "tablet", "desktop"],
+              "properties": {
+                "mobile": {
+                  "type": "integer",
+                  "description": "Mobile breakpoint in pixels"
+                },
+                "tablet": {
+                  "type": "integer",
+                  "description": "Tablet breakpoint in pixels"
+                },
+                "desktop": {
+                  "type": "integer",
+                  "description": "Desktop breakpoint in pixels"
+                }
+              }
+            },
+            "mobile_layout": {
+              "type": "string",
+              "enum": ["stack", "reflow", "zoom"],
+              "description": "Mobile layout behavior"
+            }
+          }
+        },
+        "placements": {
+          "type": "array",
+          "description": "Component placements in the grid",
+          "items": {
+            "type": "object",
+            "required": ["component_id", "x", "y", "width", "height"],
+            "properties": {
+              "component_id": {
+                "type": "string",
+                "description": "Component identifier"
+              },
+              "x": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "X position in the grid"
+              },
+              "y": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Y position in the grid"
+              },
+              "width": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Width in grid cells"
+              },
+              "height": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Height in grid cells"
+              },
+              "mobile_settings": {
+                "type": "object",
+                "description": "Mobile-specific settings for this placement"
+              }
+            }
+          }
+        }
+      }
+    },
+    "themes": {
+      "type": "object",
+      "required": ["default"],
+      "properties": {
+        "default": {
+          "type": "string",
+          "enum": ["light", "dark", "power_bi", "custom"],
+          "description": "Default theme"
+        },
+        "allow_toggle": {
+          "type": "boolean",
+          "description": "Allow user to toggle themes"
+        },
+        "custom_theme": {
+          "type": "object",
+          "description": "Custom theme definition",
+          "properties": {
+            "colors": {
+              "type": "object",
+              "description": "Theme colors",
+              "properties": {
+                "primary": {
+                  "type": "string",
+                  "description": "Primary color"
+                },
+                "secondary": {
+                  "type": "string",
+                  "description": "Secondary color"
+                },
+                "background": {
+                  "type": "string",
+                  "description": "Background color"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Text color"
+                },
+                "chart_palette": {
+                  "type": "array",
+                  "description": "Chart color palette",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "typography": {
+              "type": "object",
+              "description": "Typography settings",
+              "properties": {
+                "font_family": {
+                  "type": "string",
+                  "description": "Font family"
+                },
+                "heading_font": {
+                  "type": "string",
+                  "description": "Heading font family"
+                },
+                "base_size": {
+                  "type": "string",
+                  "description": "Base font size"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "data_sources": {
+      "type": "array",
+      "description": "Data source configurations",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "config"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Data source identifier"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["static", "api", "sql", "csv", "json", "live"],
+            "description": "Data source type"
+          },
+          "config": {
+            "type": "object",
+            "description": "Data source configuration"
+          },
+          "refresh_interval": {
+            "type": "integer",
+            "description": "Refresh interval in seconds (for live data)"
+          },
+          "required_permissions": {
+            "type": "array",
+            "description": "Required permissions for this data source",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "interactivity": {
+      "type": "object",
+      "description": "Dashboard interactivity settings",
+      "properties": {
+        "global_filters": {
+          "type": "array",
+          "description": "Global filter definitions",
+          "items": {
+            "type": "object",
+            "required": ["id", "field", "label", "type"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Filter identifier"
+              },
+              "field": {
+                "type": "string",
+                "description": "Data field for the filter"
+              },
+              "label": {
+                "type": "string",
+                "description": "Filter label"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["dropdown", "checkbox", "radio", "range", "date", "search"],
+                "description": "Filter control type"
+              },
+              "default_value": {
+                "description": "Default filter value"
+              },
+              "options": {
+                "type": "array",
+                "description": "Filter options (for dropdown, checkbox, radio)",
+                "items": {
+                  "type": "object",
+                  "required": ["value", "label"],
+                  "properties": {
+                    "value": {
+                      "description": "Option value"
+                    },
+                    "label": {
+                      "type": "string",
+                      "description": "Option label"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "drill_downs": {
+          "type": "array",
+          "description": "Drill-down configurations",
+          "items": {
+            "type": "object",
+            "required": ["source_component", "target_component", "mapping"],
+            "properties": {
+              "source_component": {
+                "type": "string",
+                "description": "Source component ID"
+              },
+              "target_component": {
+                "type": "string",
+                "description": "Target component ID"
+              },
+              "mapping": {
+                "type": "object",
+                "description": "Field mapping for the drill-down"
+              },
+              "action": {
+                "type": "string",
+                "enum": ["filter", "navigate", "expand", "custom"],
+                "description": "Drill-down action type"
+              }
+            }
+          }
+        },
+        "dashboard_actions": {
+          "type": "array",
+          "description": "Dashboard-level actions",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "action"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Action identifier"
+              },
+              "label": {
+                "type": "string",
+                "description": "Action label"
+              },
+              "action": {
+                "type": "string",
+                "enum": ["export", "refresh", "reset", "share", "fullscreen", "custom"],
+                "description": "Action type"
+              },
+              "icon": {
+                "type": "string",
+                "description": "Action icon"
+              }
+            }
+          }
+        }
+      }
+    },
+    "telemetry": {
+      "type": "object",
+      "description": "Telemetry settings",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable telemetry"
+        },
+        "provider": {
+          "type": "string",
+          "enum": ["application_insights", "google_analytics", "custom"],
+          "description": "Telemetry provider"
+        },
+        "config": {
+          "type": "object",
+          "description": "Telemetry provider configuration"
+        },
+        "metrics": {
+          "type": "array",
+          "description": "Metrics to collect",
+          "items": {
+            "type": "string",
+            "enum": ["page_views", "component_interactions", "filter_usage", "drill_downs", "load_time", "errors"]
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

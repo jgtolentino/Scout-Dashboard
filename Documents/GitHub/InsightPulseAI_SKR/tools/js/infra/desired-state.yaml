@@ -1,0 +1,143 @@
+# Scout Dashboard Desired State Configuration
+# Purpose: Define the target architecture and features for drift monitoring
+
+version: "1.0"
+last_updated: "2025-05-23"
+environment: "production"
+
+# Infrastructure Components
+infrastructure:
+  database:
+    server: "sqltbwaprojectscoutserver.database.windows.net"
+    database: "SQL-TBWA-ProjectScout-Reporting-Prod"
+    views:
+      - "v_TransactionTrendsPOC"
+      - "v_TransactionDensity"  # Added for heatmap iteration
+    procedures:
+      - "sp_GetTransactionTrendsPOC"
+      - "sp_GetTransactionDensity"  # Added for heatmap iteration
+    
+  api:
+    function_app: "scout-dashboard-poc-api"
+    endpoints:
+      - path: "/api/transactions/trends"
+        method: "GET"
+        parameters: ["startDate", "endDate", "storeId", "format"]
+      - path: "/api/transactions/heatmap"  # Added for heatmap iteration
+        method: "GET"
+        parameters: ["startDate", "endDate"]
+    
+  frontend:
+    static_web_app: "scout-dashboard-poc"
+    domain: "blue-wave-08fd8e00f.6.azurestaticapps.net"
+
+# Application Features
+features:
+  ui:
+    nav:
+      - name: "Transaction Trends"
+        route: "/transactions"
+        filters: ["TimeOfDay", "Location", "WeekType"]
+        visuals: ["timeSeries", "boxPlot", "heatmap"]  # Added heatmap
+        status: "active"
+      - name: "Product Mix"  # Future module
+        route: "/products"
+        filters: ["Category", "Brand", "Location"]
+        visuals: ["categoryPerformance", "substitutionPatterns"]
+        status: "planned"
+      - name: "Consumer Behavior Analysis"
+        route: "/consumer-behavior"
+        filters: ["Gender", "AgeBracket", "RequestGroup"]
+        visuals: ["requestPatterns", "suggestionAcceptance", "sentimentTrend"]
+        status: "active"
+      - name: "Customer Profiling"
+        route: "/customer-profiling"
+        filters: ["Segment", "LifetimeValue", "ChurnRisk", "Location"]
+        visuals: ["segmentDistribution", "clvAnalysis", "churnPrediction", "demographicBreakdown"]
+        status: "active"
+    
+    components:
+      filters:
+        - type: "DateRangePicker"
+          testId: "date-range-filter"
+          required: true
+        - type: "LocationFilter"
+          testId: "location-filter"
+          required: false
+      
+      charts:
+        - type: "TimeSeriesChart"
+          testId: "hourly-volume-chart"
+          dataSource: "/api/transactions/trends"
+          required: true
+        - type: "BoxPlotChart"
+          testId: "duration-box-plot"
+          dataSource: "/api/transactions/trends"
+          required: true
+        - type: "HeatmapChart"  # Added for heatmap iteration
+          testId: "location-heatmap"
+          dataSource: "/api/transactions/heatmap"
+          required: true
+
+# Data Requirements
+data:
+  sources:
+    - table: "SalesInteractions"
+      columns: ["StartTime", "EndTime", "DurationSec", "TransactionAmount", "TransactionDate", "StoreID"]
+      indexes: ["IX_SalesInteractions_POC_TimeAnalysis"]
+    - table: "Stores"
+      columns: ["StoreID", "StoreName", "Location", "Latitude", "Longitude", "Barangay"]
+      indexes: ["IX_Stores_Location"]
+    - table: "GeoDimension"  # Added for heatmap iteration
+      columns: ["StoreID", "Barangay", "Municipality", "Province", "Region"]
+      indexes: ["IX_GeoDimension_StoreID"]
+
+# Quality Gates
+quality:
+  performance:
+    page_load: "<3s"
+    api_response: "<2s"
+    chart_render: "<1s"
+  
+  test_coverage:
+    e2e_tests: ["route_availability", "chart_selectors", "api_integration"]
+    smoke_tests: ["navigation", "data_loading", "error_handling"]
+  
+  data_integrity:
+    completeness: ">90%"
+    accuracy: ">95%"
+    freshness: "<24h"
+
+# Deployment Pipeline
+deployment:
+  environments:
+    - name: "development"
+      branch: "feature/*"
+      auto_deploy: true
+    - name: "staging"
+      branch: "main"
+      auto_deploy: true
+      requires_approval: false
+    - name: "production"
+      branch: "release/*"
+      auto_deploy: false
+      requires_approval: true
+
+# Monitoring & Alerts
+monitoring:
+  metrics:
+    - name: "api_availability"
+      threshold: ">99%"
+      alert_channel: "teams"
+    - name: "page_load_time"
+      threshold: "<3s"
+      alert_channel: "email"
+    - name: "error_rate"
+      threshold: "<1%"
+      alert_channel: "teams"
+
+# Compliance & Security
+compliance:
+  data_privacy: "GDPR_compliant"
+  access_control: "azure_ad"
+  encryption: "in_transit_and_at_rest"

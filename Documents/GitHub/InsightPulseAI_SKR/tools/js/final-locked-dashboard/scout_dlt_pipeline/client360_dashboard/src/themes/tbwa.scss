@@ -1,0 +1,439 @@
+// src/themes/tbwa.scss
+@import '../styles/variables-tbwa';
+@import '../styles/common';
+@import '../styles/modern-dashboard';
+@import '../styles/utility-classes';
+@import '../styles/store-map';
+
+// TBWA specific overrides
+
+// Header customization
+.header {
+  background-color: var(--color-primary); // TBWA Navy #002B80
+  color: var(--text-light);
+  border-bottom: 3px solid var(--color-secondary); // TBWA Cyan #00C3EC
+  
+  &-title {
+    color: var(--text-light);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .toggle-label, .toggle-value {
+    color: var(--text-light);
+  }
+  
+  select {
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+  }
+  
+  .btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-light);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+// KPI cards
+.kpi-card {
+  border-left: 4px solid var(--color-secondary); // TBWA Cyan #00C3EC
+  
+  .value {
+    color: var(--color-primary); // TBWA Navy #002B80
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .change {
+    &.positive {
+      color: var(--color-success);
+    }
+    
+    &.negative {
+      color: var(--color-danger);
+    }
+  }
+}
+
+// Cards
+.card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  
+  h3 {
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+// Buttons
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  
+  &:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+  }
+}
+
+.btn-secondary {
+  color: var(--color-primary);
+  background-color: transparent;
+  border-color: var(--color-primary);
+  
+  &:hover {
+    background-color: rgba(var(--color-primary-rgb), 0.05);
+  }
+}
+
+.btn-tbwa {
+  background-color: var(--color-secondary); // TBWA cyan
+  color: var(--color-primary); // TBWA navy
+  border: none;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  &:hover {
+    background-color: var(--color-secondary-dark); // Darker cyan
+  }
+}
+
+// Filter bar
+.filter-bar {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  
+  label {
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+// Footer
+.footer {
+  background-color: var(--color-primary); // TBWA navy 
+  color: var(--text-light);
+  
+  .footer-container {
+    padding: var(--spacing-md) 0;
+  }
+  
+  .footer-info p {
+    color: var(--text-light);
+  }
+  
+  .data-disclaimer {
+    color: var(--color-secondary); // TBWA cyan
+  }
+  
+  a {
+    color: var(--color-secondary); // TBWA cyan
+    
+    &:hover {
+      color: var(--text-light);
+    }
+  }
+}
+
+// Data freshness indicator
+.data-freshness {
+  background-color: var(--color-secondary); // TBWA cyan
+  color: var(--color-primary); // TBWA navy
+  font-weight: var(--font-weight-medium);
+}
+
+// Insights
+.insights-container {
+  .insight-card {
+    border-left: 4px solid var(--color-secondary); // TBWA cyan
+    background-color: rgba(var(--color-secondary-rgb), 0.05);
+    
+    .insight-title {
+      color: var(--color-primary);
+    }
+  }
+}
+
+// Map customization
+.map-container {
+  border: 1px solid var(--color-secondary); // TBWA cyan
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+}
+
+// Charts customization
+.chart-container {
+  .chart-title {
+    color: var(--color-primary); // TBWA navy
+    border-bottom: 2px solid var(--color-secondary); // TBWA cyan
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+// Custom TBWA components
+.tbwa-disruption-banner {
+  background-color: var(--color-secondary); // TBWA cyan
+  color: var(--color-primary); // TBWA navy
+  padding: var(--spacing-md);
+  text-align: center;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--border-radius);
+}
+
+.tbwa-callout {
+  background-color: rgba(var(--color-secondary-rgb), 0.1); // Light cyan
+  border-left: 4px solid var(--color-secondary); // TBWA cyan
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  
+  h3, h4 {
+    color: var(--color-primary); // TBWA navy
+    margin-bottom: var(--spacing-sm);
+  }
+}
+
+// Diagnostics overlay - TBWA styling
+.diagnostic-overlay {
+  .diagnostic-content {
+    border-top: 4px solid var(--color-secondary);
+    
+    h2 {
+      color: var(--color-primary);
+    }
+  }
+}
+
+// Custom badges
+.badge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius);
+  
+  &-primary {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  
+  &-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+  }
+  
+  &-success {
+    background-color: var(--color-success);
+    color: white;
+  }
+  
+  &-warning {
+    background-color: var(--color-warning);
+    color: var(--text-primary);
+  }
+  
+  &-danger {
+    background-color: var(--color-danger);
+    color: white;
+  }
+}
+
+// Section titles
+.section-title {
+  position: relative;
+  display: inline-block;
+  margin-bottom: var(--spacing-lg);
+  
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 40px;
+    height: 3px;
+    background-color: var(--color-secondary);
+  }
+}
+
+// Rollback Dashboard Component
+.rollback-dashboard {
+  background-color: var(--rollback-bg, var(--bg-card)); // Fallback to --bg-card if explicit var not available
+  border: 3px solid var(--rollback-border, var(--color-secondary)); // TBWA Cyan - with fallback
+  border-radius: var(--border-radius); // 8px
+  padding: var(--spacing-lg); // 24px
+  margin-bottom: var(--spacing-xl); // 32px
+  box-shadow: var(--box-shadow); // 0 4px 6px rgba(0, 0, 0, 0.08)
+  
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md); // 16px
+    
+    h3 {
+      color: var(--rollback-title, var(--color-primary)); // TBWA Navy with fallback
+      font-size: var(--font-size-xl); // 20px
+      font-weight: var(--font-weight-semibold); // 600
+      margin: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+      letter-spacing: var(--letter-spacing-tight); // Tight for headlines
+      position: relative; // Added for the underline effect
+      
+      &:after { // Added underline effect similar to other TBWA elements
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background-color: var(--rollback-border, var(--color-secondary)); // TBWA Cyan with fallback
+        border-radius: 1.5px;
+      }
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      font-weight: var(--font-weight-semibold); // 600
+      font-size: var(--font-size-sm); // 14px
+      border-radius: 6px; // Rounded corners for status
+      padding: 0.25rem 0.75rem; // Padding for badge look
+      
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: var(--spacing-xs); // 4px
+      }
+      
+      &.active {
+        color: var(--color-success);
+        background-color: rgba(var(--color-success-rgb), 0.1); // Light green background
+        
+        &::before {
+          background-color: var(--color-success);
+        }
+      }
+      
+      &.inactive {
+        color: var(--color-warning);
+        background-color: rgba(var(--color-warning-rgb), 0.1); // Light orange background
+        
+        &::before {
+          background-color: var(--color-warning);
+        }
+      }
+    }
+  }
+  
+  &-content {
+    margin-bottom: var(--spacing-md); // 16px
+    margin-top: var(--spacing-md); // Added margin top to account for the header's underline
+    
+    p {
+      color: var(--rollback-text, var(--text-secondary)); // Mid-grey with fallback
+      margin-bottom: var(--spacing-sm); // 8px
+      font-size: var(--font-size-sm); // 14px
+    }
+    
+    .version-info {
+      display: flex;
+      justify-content: space-between;
+      background-color: var(--rollback-info-bg, rgba(var(--color-secondary-rgb), 0.1)); // Light cyan background with fallback
+      padding: var(--spacing-sm) var(--spacing-md); // 8px 16px
+      border-radius: var(--border-radius); // 8px
+      margin-top: var(--spacing-sm); // 8px
+      border-left: 3px solid var(--rollback-border, var(--color-secondary)); // Left border with fallback
+      
+      .version-label {
+        font-weight: var(--font-weight-semibold); // 600
+        color: var(--rollback-title, var(--color-primary)); // TBWA Navy with fallback
+        font-size: var(--font-size-sm); // 14px
+      }
+      
+      .version-value {
+        font-family: monospace;
+        color: var(--text-primary); // Charcoal
+        font-size: var(--font-size-sm); // 14px
+        background-color: rgba(var(--color-primary-rgb), 0.05); // Light blue background
+        padding: 0.1rem 0.5rem;
+        border-radius: 4px;
+      }
+    }
+  }
+  
+  &-actions {
+    display: flex;
+    gap: var(--spacing-md); // 16px
+    
+    .btn-rollback {
+      background-color: var(--rollback-action-primary, var(--color-primary)); // TBWA Navy with fallback
+      color: white;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-lg); // More consistent padding
+      font-weight: var(--font-weight-semibold); // 600
+      border-radius: 6px; // Per spec
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: var(--font-size-sm); // 14px
+      
+      &:hover {
+        background-color: var(--color-primary-dark);
+        transform: translateY(-2px); // Slight elevation on hover
+      }
+      
+      &:disabled {
+        background-color: var(--text-muted);
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+    
+    .btn-verify {
+      background-color: var(--rollback-action-secondary, var(--color-secondary)); // TBWA Cyan with fallback
+      color: var(--rollback-action-primary, var(--color-primary)); // TBWA Navy with fallback
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-lg); // More consistent padding
+      font-weight: var(--font-weight-semibold); // 600
+      border-radius: 6px; // Per spec
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: var(--font-size-sm); // 14px
+      
+      &:hover {
+        background-color: var(--color-secondary-dark);
+        transform: translateY(-2px); // Slight elevation on hover
+      }
+    }
+  }
+  
+  &-log {
+    margin-top: var(--spacing-lg); // 24px
+    background-color: var(--bg-tertiary); // Slightly darker background for contrast
+    border-radius: var(--border-radius); // 8px
+    padding: var(--spacing-md); // 16px
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: var(--font-size-sm); // Slightly larger for better readability
+    border-left: 3px solid var(--rollback-border, var(--color-secondary)); // Left border with fallback
+    
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+  }
+}

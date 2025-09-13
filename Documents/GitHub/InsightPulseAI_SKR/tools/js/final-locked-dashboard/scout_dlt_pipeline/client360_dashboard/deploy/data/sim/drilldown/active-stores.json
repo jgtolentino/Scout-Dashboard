@@ -1,0 +1,70 @@
+{
+  "title": "Active Stores",
+  "summary": {
+    "value": "1,247",
+    "label": "Active Stores (This Month)",
+    "trend": "+3.2%",
+    "trendDirection": "positive"
+  },
+  "breakdown": [
+    {
+      "category": "Metro Manila",
+      "value": "485",
+      "percentage": "38.9",
+      "change": "+5.1%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Visayas",
+      "value": "324",
+      "percentage": "26.0",
+      "change": "+2.8%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Mindanao",
+      "value": "267",
+      "percentage": "21.4",
+      "change": "+1.9%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Luzon (Outside NCR)",
+      "value": "171",
+      "percentage": "13.7",
+      "change": "+4.3%",
+      "changeDirection": "positive"
+    }
+  ],
+  "trends": {
+    "data": [
+      {"date": "2024-04-01", "value": 1208},
+      {"date": "2024-04-08", "value": 1223},
+      {"date": "2024-04-15", "value": 1235},
+      {"date": "2024-04-22", "value": 1241},
+      {"date": "2024-04-29", "value": 1247}
+    ],
+    "insights": [
+      "Store activation rate increased by 15% compared to last quarter",
+      "Rural expansion program ahead of schedule with 23 new locations",
+      "Digital onboarding process reduced activation time by 40%",
+      "Partnership with local distributors accelerating growth in provinces"
+    ]
+  },
+  "details": {
+    "topPerformers": [
+      {"name": "Quezon Province", "value": "34 new stores"},
+      {"name": "Cebu Province", "value": "28 new stores"},
+      {"name": "Cavite", "value": "22 new stores"},
+      {"name": "Laguna", "value": "19 new stores"},
+      {"name": "Davao Region", "value": "17 new stores"}
+    ],
+    "recentActivity": [
+      {"time": "3 hours ago", "description": "Store #1247 activated in Baguio City"},
+      {"time": "6 hours ago", "description": "Bulk activation: 5 stores in Batangas province"},
+      {"time": "12 hours ago", "description": "Partnership agreement signed with Mindanao distributor"},
+      {"time": "1 day ago", "description": "Store performance review completed for Q1 2024"},
+      {"time": "2 days ago", "description": "Training session conducted for 25 new store owners"}
+    ]
+  }
+}

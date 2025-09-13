@@ -1,0 +1,190 @@
+agents:
+  arkie-voice-sdr:
+    capabilities:
+    - real_time_voice
+    - speech_to_text
+    - call_analytics
+    - contact_discovery
+    - auto_followup
+    - sentiment_tracking
+    category: interaction
+    endpoint: http://localhost:8003
+    priority: high
+    server: voice_agent_mcp
+  audio-analysis-call-centre-qa:
+    capabilities:
+    - audio_quality_assessment
+    - speech_transcription
+    - sentiment_analysis
+    - call_centre_qa
+    - customer_satisfaction_analysis
+    - audio_search_indexing
+    category: quality
+    endpoint: http://localhost:8009
+    priority: low
+    server: audio_analysis_mcp
+  briefvault-rag-processor:
+    capabilities:
+    - complex_document_processing
+    - multi_modal_extraction
+    - semantic_search
+    - brief_intelligence
+    - creative_compliance
+    - cross_reference_analysis
+    category: knowledge
+    endpoint: http://localhost:8006
+    priority: high
+    server: briefvault_rag_mcp
+  creative-rag-analyst:
+    capabilities:
+    - vector_search
+    - asset_ingestion
+    - creative_discovery
+    - campaign_analysis
+    - colpali_embeddings
+    category: knowledge
+    endpoint: http://localhost:8001
+    priority: high
+    server: creative_rag_mcp
+  deep-researcher-intelligence:
+    capabilities:
+    - competitive_analysis
+    - market_intelligence
+    - brand_monitoring
+    - trend_analysis
+    - research_automation
+    - intelligence_reporting
+    category: intelligence
+    endpoint: http://localhost:8007
+    priority: medium
+    server: deep_researcher_mcp
+  marketing-kpi-analyst:
+    capabilities:
+    - kpi_analysis
+    - revenue_forecasting
+    - roi_calculation
+    - trend_detection
+    - code_generation
+    - visualization
+    category: analytics
+    endpoint: http://localhost:8002
+    priority: medium
+    server: financial_analyst_mcp
+  ph-retail-synthetic-generator:
+    capabilities:
+    - transaction_generation
+    - market_simulation
+    - geo_accurate_locations
+    - tobacco_modeling
+    - data_validation
+    category: data
+    endpoint: http://localhost:8005
+    priority: medium
+    server: synthetic_data_mcp
+  scout-local-analytics:
+    capabilities:
+    - offline_data_collection
+    - local_trend_analysis
+    - transcription_management
+    - edge_device_sync
+    category: analytics
+    endpoint: http://localhost:8000
+    priority: high
+    server: scout_local_mcp
+  video-rag-creative-diagnostics:
+    capabilities:
+    - video_content_analysis
+    - frame_extraction
+    - audio_transcription
+    - brand_compliance_checking
+    - creative_performance_insights
+    - multi_modal_search
+    category: knowledge
+    endpoint: http://localhost:8008
+    priority: high
+    server: video_rag_mcp
+monitoring:
+  health_check_interval: 30
+  logging_level: INFO
+  performance_tracking: true
+pulser:
+  ecosystem: InsightPulseAI SKR
+  mcp_architecture: true
+  version: 4.0.0
+routing:
+  default_timeout: 30
+  load_balancing: round_robin
+  retry_attempts: 3
+servers:
+  audio_analysis_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8009
+    protocol: http
+    status: configured
+  briefvault_rag_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8006
+    protocol: http
+    status: configured
+  creative_rag_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8001
+    protocol: http
+    status: configured
+  deep_researcher_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8007
+    protocol: http
+    status: configured
+  financial_analyst_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8002
+    protocol: http
+    status: configured
+  scout_local_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8000
+    protocol: http
+    status: configured
+  shared_memory_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 5700
+    protocol: http
+    status: configured
+  slideforge_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8000
+    protocol: http
+    status: configured
+  synthetic_data_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8005
+    protocol: http
+    status: configured
+  unified_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8004
+    protocol: http
+    status: configured
+  video_rag_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8008
+    protocol: http
+    status: configured
+  voice_agent_mcp:
+    health_endpoint: /health
+    host: localhost
+    port: 8003
+    protocol: http
+    status: configured

@@ -1,0 +1,101 @@
+# OpsCore Configuration
+# Version: 2.2.1
+# White-labeled configuration for client deployment
+
+# System configuration
+system:
+  name: "OpsCore"
+  version: "2.2.1"
+  environment: "production"
+  log_level: "info"
+  
+# Agent configuration
+agents:
+  TaskRunner:
+    description: "Core task router and dispatcher for OpsCore agent system"
+    enabled: true
+    priority: 100
+    command_handler: true
+    capabilities:
+      - task_routing
+      - command_dispatch
+      - environment_detection
+      
+  KnowledgeModule:
+    description: "Knowledge indexing and document processing"
+    enabled: true
+    priority: 90
+    capabilities:
+      - document_processing
+      - knowledge_indexing
+      - metadata_extraction
+      
+  FlowManager:
+    description: "Documentation generation and pipeline management"
+    enabled: true
+    priority: 85
+    capabilities:
+      - documentation_generation
+      - visualization_templates
+      - process_flow_management
+      
+  SignalParser:
+    description: "Multimodal data analysis and signal processing"
+    enabled: true
+    priority: 80
+    capabilities:
+      - transcription_analysis
+      - entity_extraction
+      - sentiment_analysis
+      
+  ChartRenderer:
+    description: "Visualization and dashboard generation"
+    enabled: true
+    priority: 75
+    capabilities:
+      - chart_generation
+      - dashboard_rendering
+      - data_visualization
+      
+  QAChecker:
+    description: "Quality assurance and verification"
+    enabled: true
+    priority: 85
+    capabilities:
+      - content_verification
+      - hallucination_checking
+      - accuracy_validation
+      
+# Integration modules
+modules:
+  RetailAdvisor:
+    description: "Retail analytics and intelligence module"
+    enabled: true
+    version: "1.0.0"
+    configuration:
+      command_prefix: "retail-advisor"
+      data_source: "azure_sql"
+      dashboard_path: "/retail-analytics-dash/"
+    commands:
+      - name: "insights"
+        handler: "insights_handler"
+        aliases: ["insight", "analyze"]
+      - name: "dashboard"
+        handler: "dashboard_handler"
+        aliases: ["dash", "visualize"]
+      - name: "query"
+        handler: "query_handler"
+        aliases: ["search", "find"]
+        
+# Runtime settings
+runtime:
+  timeout_seconds: 300
+  memory_limit_mb: 512
+  threading_enabled: true
+  auto_recovery: true
+  
+# Security settings
+security:
+  token_refresh_interval_minutes: 60
+  log_sensitive_data: false
+  require_authentication: true

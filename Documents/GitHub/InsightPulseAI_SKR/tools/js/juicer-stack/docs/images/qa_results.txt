@@ -1,0 +1,17 @@
+Diagram QA Results for: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/diagrams/project_scout_with_genai.drawio
+Date: Tue 13 May 2025 02:06:45 PST
+----------------------------------------
+⚠️ draw.io CLI not found - install for full validation
+✅ Diagram file exists
+ℹ️ Diagram file size:  56K
+✅ Diagram copied to architecture source directory
+ℹ️ Text elements count: 0
+ℹ️ Shape elements count: 33
+ℹ️ Connection elements count: 25
+⚠️ Possible unlabeled shapes detected (more shapes than text elements)
+⚠️ Fewer connections than expected - diagram may be disconnected
+Running visual QA with headless screenshot...
+✅ Visual render check successful: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images/diagram_render_check.png
+❌ Visual render check failed
+Visual QA check completed
+----------------------------------------

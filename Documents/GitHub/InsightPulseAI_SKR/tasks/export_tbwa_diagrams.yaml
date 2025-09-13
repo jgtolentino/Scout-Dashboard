@@ -1,0 +1,20 @@
+name: export_tbwa_diagrams
+description: "Export TBWA-styled diagrams to PNG format for easier viewing"
+created: 2025-05-01T00:00:00Z
+status: pending
+type: general
+files:
+  - /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/diagrams/project_scout_brand_mentions_flow_tbwa.drawio
+notes: |
+  Export the TBWA-styled diagram as PNG using one of these methods:
+  1. Open with draw.io desktop application and export as PNG
+  2. Use draw.io CLI if available: drawio -x -f png -o output.png input.drawio
+  3. Use the draw.io web application (https://app.diagrams.net/) to open the file and export as PNG
+  
+  The PNG should preserve all TBWA visual identity elements:
+  - Color system (Yellow, Black, Gray, Orange, Blue, Red)
+  - Helvetica Neue font family
+  - Blocky layout style
+  - Black vertical sidebar for Governance
+  - Color legend
+  - TBWA branding elements

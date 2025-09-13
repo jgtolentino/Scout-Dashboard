@@ -1,0 +1,146 @@
+version: "2.3"
+name: "scout-dlt-pipeline"
+description: "End-to-end data transformation, quality checks, and client-facing dashboards"
+
+# Core configurations
+console:
+  theme: "tbwa"
+  log_level: "info"
+  verbose: true
+
+# Plugin management
+plugins:
+  - name: "etl-deploy-kit"
+    version: "1.2.0"
+    enabled: true
+  - name: "azure-resource-manager"
+    version: "1.1.3"
+    enabled: true
+  - name: "dashboard-quality-checker"
+    version: "1.0.5"
+    enabled: true
+
+# CI/CD integration
+ci_cd:
+  provider: "azure-devops"
+  pipeline_id: "scout-dlt-pipeline-cicd"
+  environment:
+    dev:
+      resource_group: "scout-dashboard-dev"
+      app_name: "client360-dashboard-dev"
+    stage:
+      resource_group: "scout-dashboard-stage"
+      app_name: "client360-dashboard-stage"
+    prod:
+      resource_group: "scout-dashboard"
+      app_name: "tbwa-client360-dashboard-production"
+
+# Documentation tracking
+docs:
+  auto_generate: true
+  template_dir: "./docs/templates"
+  output_dir: "./docs/generated"
+  metadata:
+    author: "TBWA Technical Team"
+    company: "TBWA"
+    project: "Project Scout - Client360"
+
+# Deployment configuration
+deployment:
+  strategy: "blue-green"
+  rollback:
+    enabled: true
+    retention_count: 3
+  notifications:
+    enabled: true
+    channels:
+      - type: "email"
+        recipients: ["devops@tbwa.com", "analytics@tbwa.com"]
+      - type: "teams"
+        webhook: "${TEAMS_WEBHOOK_URL}"
+
+# Project management integration
+project_management:
+  system: "azure-boards"
+  project: "ProjectScout"
+  area_path: "Client360"
+  tags: ["dashboard", "client360", "dlt"]
+
+# Quality gates
+quality_gates:
+  - name: "code-quality"
+    tool: "sonarqube"
+    threshold: 80
+  - name: "test-coverage"
+    tool: "jest"
+    threshold: 75
+  - name: "ui-tests"
+    tool: "cypress"
+    threshold: 90
+
+# UAT tracking (added)
+uat:
+  enabled: true
+  schedule:
+    preparation: "2025-05-22"
+    execution: "2025-05-23 to 2025-05-24"
+    triage: "2025-05-25 to 2025-05-26"
+    sign_off: "2025-05-27"
+  participants:
+    - role: "UAT Lead"
+      department: "Business Analysis"
+    - role: "QA Engineer"
+      department: "Quality Assurance"
+    - role: "Business Analyst"
+      department: "Business Analysis"
+    - role: "Operations Representative"
+      department: "Operations"
+    - role: "IT Engineer"
+      department: "IT/Technical"
+    - role: "Data Scientist"
+      department: "Data Analytics"
+    - role: "Marketing Lead"
+      department: "Marketing"
+  documentation:
+    path: "./client360_dashboard/CLIENT360_UAT_SCHEDULE.md"
+    auto_update: true
+  entry_criteria:
+    - "All features implemented"
+    - "Themes and styling complete"
+    - "Sample data available"
+    - "No critical bugs in pre-UAT testing"
+  exit_criteria:
+    - "All critical and high severity defects resolved"
+    - "90% test case pass rate"
+    - "Business stakeholder sign-off"
+    - "Complete documentation"
+    - "Performance threshold met"
+
+# Environment variables (references only, actual values stored in Azure Key Vault)
+env_vars:
+  AZURE_TENANT_ID: "${AZURE_TENANT_ID}"
+  AZURE_SUBSCRIPTION_ID: "${AZURE_SUBSCRIPTION_ID}"
+  AZURE_CLIENT_ID: "${AZURE_CLIENT_ID}"
+  AZURE_DATABRICKS_HOST: "${AZURE_DATABRICKS_HOST}"
+  AZURE_STORAGE_CONNECTION_STRING: "${AZURE_STORAGE_CONNECTION_STRING}"
+
+# Script definitions
+scripts:
+  deploy_pipeline:
+    path: "./deploy_pipeline.sh"
+    description: "Deploy the full Scout DLT pipeline"
+  deploy_dashboard:
+    path: "./client360_dashboard/deploy_to_azure.sh"
+    description: "Deploy Client360 Dashboard to Azure"
+  rollback:
+    path: "./rollback_pipeline.sh"
+    description: "Rollback to previous deployment"
+  validate_deployment:
+    path: "./verify_deployment.sh"
+    description: "Validate deployment health"
+  uat_validate:
+    path: "./client360_dashboard/scripts/verify_uat_schedule.sh"
+    description: "Validate UAT schedule and sign-off"
+  run_test_sari_sari:
+    path: "./test_sari_sari_analytics.sh"
+    description: "Run tests for Sari-Sari store analytics"

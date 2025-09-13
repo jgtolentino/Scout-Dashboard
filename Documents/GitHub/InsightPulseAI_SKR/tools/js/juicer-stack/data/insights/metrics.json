@@ -1,0 +1,203 @@
+{
+  "lastUpdated": "2025-05-13T18:00:00.000Z",
+  "insights": {
+    "total": 3,
+    "byModel": {
+      "claude": 1,
+      "gpt4": 1,
+      "deepseek": 1
+    },
+    "byType": {
+      "sales": 0,
+      "marketing": 1,
+      "customer": 1,
+      "product": 1,
+      "general": 0
+    },
+    "byStatus": {
+      "pending": 0,
+      "processing": 1,
+      "completed": 2,
+      "failed": 0
+    }
+  },
+  "system": {
+    "cpuUsage": [
+      {
+        "timestamp": "2025-05-13T17:00:00.000Z",
+        "value": 32
+      },
+      {
+        "timestamp": "2025-05-13T17:30:00.000Z",
+        "value": 45
+      },
+      {
+        "timestamp": "2025-05-13T18:00:00.000Z",
+        "value": 38
+      }
+    ],
+    "memoryUsage": [
+      {
+        "timestamp": "2025-05-13T17:00:00.000Z",
+        "value": 48.5
+      },
+      {
+        "timestamp": "2025-05-13T17:30:00.000Z",
+        "value": 52.3
+      },
+      {
+        "timestamp": "2025-05-13T18:00:00.000Z",
+        "value": 49.7
+      }
+    ],
+    "diskUsage": [
+      {
+        "timestamp": "2025-05-13T17:00:00.000Z",
+        "value": 62
+      },
+      {
+        "timestamp": "2025-05-13T17:30:00.000Z",
+        "value": 62
+      },
+      {
+        "timestamp": "2025-05-13T18:00:00.000Z",
+        "value": 63
+      }
+    ]
+  },
+  "history": [
+    {
+      "date": "2025-05-07",
+      "insights": {
+        "total": 42,
+        "byModel": {
+          "claude": 22,
+          "gpt4": 15,
+          "deepseek": 5
+        },
+        "byType": {
+          "sales": 12,
+          "marketing": 15,
+          "customer": 8,
+          "product": 5,
+          "general": 2
+        },
+        "completed": 38
+      }
+    },
+    {
+      "date": "2025-05-08",
+      "insights": {
+        "total": 47,
+        "byModel": {
+          "claude": 25,
+          "gpt4": 14,
+          "deepseek": 8
+        },
+        "byType": {
+          "sales": 13,
+          "marketing": 16,
+          "customer": 9,
+          "product": 6,
+          "general": 3
+        },
+        "completed": 42
+      }
+    },
+    {
+      "date": "2025-05-09",
+      "insights": {
+        "total": 52,
+        "byModel": {
+          "claude": 28,
+          "gpt4": 15,
+          "deepseek": 9
+        },
+        "byType": {
+          "sales": 14,
+          "marketing": 17,
+          "customer": 11,
+          "product": 7,
+          "general": 3
+        },
+        "completed": 48
+      }
+    },
+    {
+      "date": "2025-05-10",
+      "insights": {
+        "total": 38,
+        "byModel": {
+          "claude": 20,
+          "gpt4": 12,
+          "deepseek": 6
+        },
+        "byType": {
+          "sales": 10,
+          "marketing": 14,
+          "customer": 8,
+          "product": 4,
+          "general": 2
+        },
+        "completed": 35
+      }
+    },
+    {
+      "date": "2025-05-11",
+      "insights": {
+        "total": 41,
+        "byModel": {
+          "claude": 23,
+          "gpt4": 13,
+          "deepseek": 5
+        },
+        "byType": {
+          "sales": 12,
+          "marketing": 14,
+          "customer": 9,
+          "product": 5,
+          "general": 1
+        },
+        "completed": 39
+      }
+    },
+    {
+      "date": "2025-05-12",
+      "insights": {
+        "total": 45,
+        "byModel": {
+          "claude": 25,
+          "gpt4": 14,
+          "deepseek": 6
+        },
+        "byType": {
+          "sales": 13,
+          "marketing": 15,
+          "customer": 10,
+          "product": 5,
+          "general": 2
+        },
+        "completed": 42
+      }
+    },
+    {
+      "date": "2025-05-13",
+      "insights": {
+        "total": 3,
+        "byModel": {
+          "claude": 1,
+          "gpt4": 1,
+          "deepseek": 1
+        },
+        "byType": {
+          "sales": 0,
+          "marketing": 1,
+          "customer": 1,
+          "product": 1,
+          "general": 0
+        },
+        "completed": 2
+      }
+    }
+  ]
+}

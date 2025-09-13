@@ -1,0 +1,154 @@
+name: IoT Expert System - CI Test Matrix
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'apps/web/src/**'
+      - 'apps/web/tests/**'
+      - 'apps/web/package.json'
+      - 'apps/web/playwright.config.ts'
+      - 'apps/web/jest.config.js'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'apps/web/src/**'
+      - 'apps/web/tests/**'
+      - 'apps/web/package.json'
+      - 'apps/web/playwright.config.ts'
+      - 'apps/web/jest.config.js'
+  schedule:
+    - cron: '0 2 * * *'  # Nightly at 2 AM
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: apps/web
+
+jobs:
+  setup:
+    name: Setup & Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'apps/web/package-lock.json'
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npx eslint src/ --max-warnings 0
+      - run: npm run build
+
+  jest:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'apps/web/package-lock.json'
+      - run: npm ci
+      - run: npm run test:unit
+      - run: npm run test:integration
+      - name: Upload Jest Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: jest-results
+          path: apps/web/reports/junit/
+          retention-days: 30
+
+  pw-matrix:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - e2e
+          - perf
+          - sec
+          - a11y
+          - reliability
+          - monitoring
+        browser:
+          - chromium
+          - firefox
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'apps/web/package-lock.json'
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - name: Start test server
+        run: |
+          npm run build
+          npm run preview &
+          npx wait-on http://localhost:4173 --timeout 30000
+      - name: Run ${{ matrix.suite }} tests on ${{ matrix.browser }}
+        run: npm run test:${{ matrix.suite }} -- --project=${{ matrix.browser }}
+        env:
+          WEB_BASE_URL: http://localhost:4173
+      - name: Upload Playwright Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-${{ matrix.suite }}-${{ matrix.browser }}
+          path: |
+            apps/web/playwright-report/
+            apps/web/test-results/
+          retention-days: 30
+
+  lighthouse:
+    name: Performance Audit
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'apps/web/package-lock.json'
+      - run: npm ci
+      - run: npm run build
+      - name: Lighthouse CI
+        run: |
+          npm run preview &
+          npx wait-on http://localhost:4173 --timeout 30000
+          npm run lighthouse:ci
+      - name: Upload Lighthouse Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-results
+          path: apps/web/.lighthouseci/
+          retention-days: 30
+
+  summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [jest, pw-matrix, lighthouse]
+    if: always()
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: test-results
+      - name: Publish Test Summary
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: IoT Expert System Test Results
+          path: 'test-results/**/jest-results.xml,test-results/**/results.xml'
+          reporter: java-junit
+          fail-on-error: true

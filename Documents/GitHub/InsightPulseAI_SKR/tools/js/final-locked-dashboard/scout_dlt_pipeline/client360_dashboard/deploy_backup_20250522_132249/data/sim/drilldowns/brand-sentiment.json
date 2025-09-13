@@ -1,0 +1,190 @@
+{
+  "kpi_type": "brand-sentiment",
+  "timestamp": "2025-05-22T11:30:00Z",
+  "summary": {
+    "overall_sentiment": 0.847,
+    "total_mentions": 4531,
+    "positive_percentage": 73.2,
+    "top_brand": "Samsung Philippines",
+    "sentiment_trend": "improving"
+  },
+  "brands": [
+    {
+      "name": "Samsung Philippines",
+      "sentiment": 0.91,
+      "sentiment_label": "Excellent",
+      "mentions": 756,
+      "positive_mentions": 688,
+      "neutral_mentions": 54,
+      "negative_mentions": 14,
+      "change": 0.08,
+      "trending_topics": ["Galaxy S24", "Customer Service", "Innovation"],
+      "key_phrases": [
+        "amazing camera quality",
+        "excellent customer support",
+        "innovative features"
+      ]
+    },
+    {
+      "name": "Uniqlo Philippines",
+      "sentiment": 0.87,
+      "sentiment_label": "Very Good",
+      "mentions": 623,
+      "positive_mentions": 542,
+      "neutral_mentions": 65,
+      "negative_mentions": 16,
+      "change": 0.05,
+      "trending_topics": ["Spring Collection", "Quality", "Affordable"],
+      "key_phrases": [
+        "great quality basics",
+        "reasonable prices",
+        "comfortable clothing"
+      ]
+    },
+    {
+      "name": "Jollibee",
+      "sentiment": 0.84,
+      "sentiment_label": "Very Good",
+      "mentions": 987,
+      "positive_mentions": 829,
+      "neutral_mentions": 118,
+      "negative_mentions": 40,
+      "change": 0.03,
+      "trending_topics": ["New Menu", "Family Dining", "Convenience"],
+      "key_phrases": [
+        "family favorite",
+        "delicious chicken",
+        "friendly service"
+      ]
+    },
+    {
+      "name": "Globe Telecom",
+      "sentiment": 0.72,
+      "sentiment_label": "Good",
+      "mentions": 834,
+      "positive_mentions": 600,
+      "neutral_mentions": 167,
+      "negative_mentions": 67,
+      "change": -0.04,
+      "trending_topics": ["5G Network", "Customer Service", "Data Plans"],
+      "key_phrases": [
+        "reliable network",
+        "slow customer service",
+        "good coverage"
+      ]
+    },
+    {
+      "name": "BDO Unibank",
+      "sentiment": 0.68,
+      "sentiment_label": "Fair",
+      "mentions": 567,
+      "positive_mentions": 386,
+      "neutral_mentions": 136,
+      "negative_mentions": 45,
+      "change": 0.02,
+      "trending_topics": ["Digital Banking", "Branches", "Security"],
+      "key_phrases": [
+        "convenient locations",
+        "digital app improvements",
+        "long queues"
+      ]
+    },
+    {
+      "name": "Shopee Philippines",
+      "sentiment": 0.89,
+      "sentiment_label": "Excellent",
+      "mentions": 1234,
+      "positive_mentions": 1098,
+      "neutral_mentions": 111,
+      "negative_mentions": 25,
+      "change": 0.12,
+      "trending_topics": ["Free Shipping", "Sales Events", "App Experience"],
+      "key_phrases": [
+        "great deals",
+        "fast delivery",
+        "user-friendly app"
+      ]
+    },
+    {
+      "name": "McDonald's Philippines",
+      "sentiment": 0.79,
+      "sentiment_label": "Good",
+      "mentions": 530,
+      "positive_mentions": 419,
+      "neutral_mentions": 85,
+      "negative_mentions": 26,
+      "change": 0.01,
+      "trending_topics": ["McCafé", "Breakfast Menu", "Drive-Thru"],
+      "key_phrases": [
+        "consistent quality",
+        "quick service",
+        "good coffee"
+      ]
+    }
+  ],
+  "sentiment_distribution": {
+    "very_positive": { "count": 1821, "percentage": 40.2 },
+    "positive": { "count": 1497, "percentage": 33.0 },
+    "neutral": { "count": 852, "percentage": 18.8 },
+    "negative": { "count": 273, "percentage": 6.0 },
+    "very_negative": { "count": 88, "percentage": 2.0 }
+  },
+  "trending_topics": [
+    {
+      "topic": "Customer Service",
+      "mentions": 1456,
+      "sentiment": 0.71,
+      "trend": "stable"
+    },
+    {
+      "topic": "Product Quality",
+      "mentions": 1234,
+      "sentiment": 0.89,
+      "trend": "improving"
+    },
+    {
+      "topic": "Digital Experience",
+      "mentions": 987,
+      "sentiment": 0.84,
+      "trend": "improving"
+    },
+    {
+      "topic": "Pricing",
+      "mentions": 789,
+      "sentiment": 0.76,
+      "trend": "stable"
+    },
+    {
+      "topic": "Innovation",
+      "mentions": 654,
+      "sentiment": 0.92,
+      "trend": "improving"
+    }
+  ],
+  "regional_sentiment": [
+    {
+      "region": "Metro Manila",
+      "sentiment": 0.85,
+      "mentions": 2456,
+      "top_brands": ["Samsung Philippines", "Shopee Philippines", "Jollibee"]
+    },
+    {
+      "region": "Cebu",
+      "sentiment": 0.83,
+      "mentions": 867,
+      "top_brands": ["Uniqlo Philippines", "McDonald's Philippines", "Globe Telecom"]
+    },
+    {
+      "region": "Davao",
+      "sentiment": 0.88,
+      "mentions": 678,
+      "top_brands": ["Jollibee", "BDO Unibank", "Samsung Philippines"]
+    },
+    {
+      "region": "Baguio",
+      "sentiment": 0.86,
+      "mentions": 530,
+      "top_brands": ["McDonald's Philippines", "Globe Telecom", "Shopee Philippines"]
+    }
+  ]
+}

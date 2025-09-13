@@ -1,0 +1,158 @@
+# Pulser Configuration
+# EdgeAgent (Alex Hormozi) as Default Orchestrator
+# MySQL Integration for Claude Agent
+
+tools:
+  - name: SQLExecutor
+    type: sql
+    config:
+      dialect: mysql
+      host: scout_mysql       # matches container_name in docker-compose
+      port: 3306
+      database: gagambi_db
+      username: TBWA
+      password: R@nd0mPA$2025!
+      connection_timeout: 30
+      query_timeout: 120
+      
+  # Optional: Add other tools here
+  - name: HTTPClient
+    type: http
+    config:
+      base_url: http://localhost:8000
+      timeout: 60
+      
+  - name: FileManager
+    type: file
+    config:
+      base_path: /Users/tbwa/tableau-dashboard-system
+      allowed_extensions: [sql, json, yaml, txt, md]
+
+# Agent configurations
+default_agent: edge
+default_persona: alex_hormozi
+
+agents:
+  # EdgeAgent - Primary Orchestrator (Alex Hormozi Persona)
+  edge:
+    path: "/Users/tbwa/agents/edge.yaml"
+    status: active
+    is_default: true
+    priority: 1
+    persona: alex_hormozi
+    model: claude-3-5-sonnet
+    capabilities:
+      - supabase_edge_functions
+      - studio_operations  
+      - property_management
+      - iot_orchestration
+    tools:
+      - SQLExecutor
+      - HTTPClient
+      - FileManager
+
+  # LearnBot - Adult Learning Instructional Designer
+  learnbot:
+    path: "/Users/tbwa/agents/learnbot.yaml"
+    status: active
+    priority: 2
+    persona: senior_analyst_mentor
+    model: claude-3-5-sonnet
+    capabilities:
+      - andragogy_principles
+      - contextual_qna
+      - adaptive_walkthroughs
+      - skill_tracking
+      - learning_analytics
+    tools:
+      - SQLExecutor
+      - HTTPClient
+
+  claude:
+    model: claude-3-opus-20240229
+    max_tokens: 4096
+    temperature: 0.7
+    priority: 3
+    tools:
+      - SQLExecutor
+      - HTTPClient
+      - FileManager
+    
+  tableau:
+    model: claude-3-sonnet-20240229
+    max_tokens: 2048
+    temperature: 0.5
+    priority: 4
+    tools:
+      - SQLExecutor
+
+# Environment settings
+environment:
+  MYSQL_HOST: scout_mysql
+  MYSQL_PORT: 3306
+  MYSQL_DATABASE: gagambi_db
+  MYSQL_USER: TBWA
+  API_BASE_URL: http://localhost:8000
+
+# Logging configuration
+logging:
+  level: INFO
+  format: json
+  output: /Users/tbwa/.pulser/logs/pulser.log
+
+# MCP Container Management
+mcp_containers:
+  autoload_agents:
+    - "agents/mcp-docker-agents.yaml"
+  docker_watchtower: true
+  network_bridge: "pulser_mcp_net"
+  health_check_interval: 30
+  auto_restart: true
+  
+# Container registry settings
+container_registry:
+  provider: "ghcr.io/metorial"
+  auto_pull: true
+  pull_schedule: "0 4 * * *"  # Daily at 4am
+  
+# MCP Server endpoints
+mcp_servers:
+  sqlite:
+    endpoint: "http://localhost:3010"
+    enabled: true
+  gdrive:
+    endpoint: "http://localhost:3011"
+    enabled: true
+  firecrawl:
+    endpoint: "http://localhost:3012"
+    enabled: true
+  websearch:
+    endpoint: "http://localhost:3013"
+    enabled: true
+  github:
+    endpoint: "http://localhost:3014"
+    enabled: true
+  supabase-reader:
+    config: ".pulser/mcpServers.json"
+    enabled: true
+
+# Render deployment tasks
+tasks:
+  sync_render_env:
+    description: "Upload environment variables to Render service"
+    run: "python doer/tasks/render_env_uploader.py"
+    env:
+      RENDER_ENV_FILE: "render_env.json"
+  
+  parse_env:
+    description: "Parse .env file to JSON format"
+    run: "python mcp-render-config/parse_env.py > render_env.json"
+  
+  render_full_sync:
+    description: "Parse env and sync to Render"
+    steps:
+      - task: "parse_env"
+      - task: "sync_render_env"
+        
+shortcuts:
+  renv: "render_full_sync"

@@ -1,0 +1,37 @@
+It looks like the environment helper (`ace_tools`) isn’t available directly here. Instead, let me present the same data in a concise markdown table for clarity—and then generate a couple of sample insights that highlight TBWA clients versus competitors.
+
+---
+
+### Sample Retail Data (TBWA Clients vs Competitors)
+
+| StoreID | Brand                  | Category | Sales   | TBWA Client | Competitor |
+| ------- | ---------------------- | -------- | ------- | ----------- | ---------- |
+| 1       | Del Monte Sauce        | Sauce    | ₱2,400K | Yes         | No         |
+| 2       | Alaska Evaporated Milk | Dairy    | ₱1,900K | Yes         | No         |
+| 3       | Magnolia Ice Cream     | Frozen   | ₱1,600K | No          | Yes        |
+| 4       | Nescafé Coffee         | Beverage | ₱1,200K | No          | Yes        |
+| 5       | Oishi Snacks           | Snacks   | ₱800K   | No          | Yes        |
+| 6       | Coca-Cola              | Beverage | ₱400K   | No          | Yes        |
+
+---
+
+### Example Generated Insights
+
+1. **TBWA Client Performance**
+   “Del Monte Sauce leads the category with ₱2.4M in sales, outperforming non-client competitors by 20% this period.”
+
+2. **Competitive Gaps**
+   “Alaska Evaporated Milk (TBWA) saw a 12% increase in sales, while Nescafé Coffee (competitor) only grew by 5%, indicating stronger brand resonance for your client in the dairy segment.”
+
+3. **Opportunity Spotting**
+   “Magnolia Ice Cream (competitor) still maintains ₱1.6M in frozen sales—consider a targeted promotions push for Alaska Ice to capture that segment.”
+
+---
+
+**Next Steps**
+
+* Wire in your `/api/brands` endpoint to pull real flags for `TBWA_Client` and drive this table dynamically in the Brand Performance grid.
+* Update the front-end “Brand Performance” component to style TBWA clients with your brand colors and mark competitors in a secondary style.
+* Flip between simulated (`/data/sim/brands.json`) and live (`/api/brands?client=true`) sources via your Data-Source toggle.
+
+Let me know if you want the exact patch for the React/Vue/JSX component to render these flags visually!

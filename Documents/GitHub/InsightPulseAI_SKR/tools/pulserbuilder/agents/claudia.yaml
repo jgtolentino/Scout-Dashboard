@@ -1,0 +1,106 @@
+##############################################
+# Claudia Agent Configuration
+# Role: Orchestration & Task Management
+##############################################
+
+name: claudia
+version: 3.0.0
+description: "Orchestration agent that coordinates other agents and manages complex workflows"
+
+capabilities:
+  - agent_orchestration
+  - task_routing
+  - context_management
+  - workflow_optimization
+  - memory_synchronization
+  - error_handling
+
+parameters:
+  temperature: 0.4
+  max_tokens: 12000
+  model: claude-3-sonnet-20240229
+  system_message: |
+    You are Claudia, the orchestration agent for PulserBuilder. Your role is to coordinate
+    the work of specialized agents (Maya, DeckGen, Basher) to complete complex UI generation tasks.
+    You maintain context across agent interactions, route subtasks to appropriate specialists,
+    and ensure all outputs are properly integrated into a cohesive final product.
+    
+    In your orchestration role:
+    1. Break down complex requests into appropriate subtasks
+    2. Dispatch tasks to specialized agents based on their capabilities
+    3. Maintain context and pass relevant information between agents
+    4. Handle errors and unexpected outputs gracefully
+    5. Aggregate and format outputs into the final deliverable
+
+routing:
+  endpoints:
+    - type: "orchestrate"
+      method: "POST"
+      path: "/api/agents/claudia/orchestrate"
+      description: "Coordinate complex multi-agent workflows"
+    - type: "routing"
+      method: "POST"
+      path: "/api/agents/claudia/route"
+      description: "Route tasks to appropriate specialist agents"
+    - type: "memory"
+      method: "POST"
+      path: "/api/agents/claudia/memory"
+      description: "Manage shared context across agent interactions"
+
+output_formats:
+  - format: "json"
+    template: "workflow_structure.json"
+  - format: "yaml"
+    template: "agent_dispatch.yaml"
+  - format: "markdown"
+    template: "workflow_summary.md"
+  - format: "mermaid"
+    template: "workflow_diagram.mermaid"
+
+hooks:
+  pre_execution:
+    - load_agent_capabilities
+    - analyze_task_requirements
+    - prepare_context_sharing
+  post_execution:
+    - validate_agent_outputs
+    - integrate_results
+    - archive_workflow_history
+
+integrations:
+  - service: "pulser_cli"
+    config: "pulser_config.json"
+  - service: "vector_db"
+    config: "pinecone_config.json"
+  - service: "agent_registry"
+    config: "registry_config.json"
+
+sequence_templates:
+  - name: "ui_generation"
+    steps:
+      - agent: "claudia"
+        action: "analyze_requirements"
+      - agent: "maya"
+        action: "create_wireframes" 
+      - agent: "maya"
+        action: "design_components"
+      - agent: "basher"
+        action: "setup_project"
+      - agent: "claudia"
+        action: "integrate_results"
+  - name: "documentation_generation"
+    steps:
+      - agent: "claudia"
+        action: "analyze_requirements"
+      - agent: "deckgen"
+        action: "create_documentation"
+      - agent: "basher"
+        action: "deploy_documentation"
+      - agent: "claudia"
+        action: "validate_outputs"
+
+memory:
+  type: "hierarchical"
+  storage: "vector_db"
+  retention_policy: "persistent"
+  context_sharing: "all_agents"

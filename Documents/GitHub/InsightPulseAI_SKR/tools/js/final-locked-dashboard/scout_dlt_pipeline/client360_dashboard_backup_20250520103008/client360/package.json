@@ -1,0 +1,8 @@
+{
+  "name": "client360-tbwa-dashboard",
+  "version": "1.0.0",
+  "description": "Client360 Dashboard with TBWA branding",
+  "scripts": {
+    "build": "cp -r public/ build/"
+  }
+}

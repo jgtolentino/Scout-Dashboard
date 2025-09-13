@@ -1,0 +1,94 @@
+---
+title: Ask CES Deployment Master Checklist
+
+pre_deployment:
+  - task: Finalize CES agent prompts
+    file: cesai_prompt.txt
+    status: completed
+  - task: Define Supabase schema
+    file: ces_schema.sql
+    status: completed
+  - task: Confirm working RAG pipeline
+    details: ChromaDB / pgvector
+    status: completed
+  - task: Integrate UI into Scout stack
+    details: React + Tailwind
+    status: completed
+  - task: Clean up duplicated components
+    details: e.g. AI insights panel
+    status: completed
+  - task: Create dashboard layout
+    file: ask_ces.yaml
+    details: Pulser-compatible
+    status: completed
+  - task: Enable filter → agent context passing
+    details: {{filter_values}}
+    status: completed
+  - task: Validate AI output UX
+    details: loading states, error boundaries
+    status: completed
+  - task: Merge CESAI + Yummy/Scout under unified AI runtime
+    status: completed
+  - task: Validate via Pulser CLI
+    command: :verify-deploy
+    status: completed
+
+staging_deployment:
+  - task: Deploy staging build to Vercel
+    url: ask-ces-staging.vercel.app
+    status: completed
+  - task: Set Supabase ENV vars
+    details: RLS policies, DB URLs
+    status: completed
+  - task: Test CES agent
+    subtasks:
+      - Can answer product-specific queries
+      - Can reference filtered data (region, brand, etc.)
+      - Can retrieve insights from ChromaDB
+    status: completed
+  - task: QA checklist from Caca
+    details: accuracy, speed, interface
+    status: completed
+  - task: Claudia orchestration logs clean
+    status: completed
+  - task: Branding reviewed
+    details: TBWA + InsightPulse
+    status: completed
+  - task: Fix any console or schema errors
+    status: completed
+
+production_deployment:
+  - task: Trigger final GitHub Actions deploy from main
+    status: completed
+  - task: Verify final prod domain
+    url: ask-ces.insightpulseai.com
+    status: completed
+  - task: DNS + HTTPS working
+    status: completed
+  - task: Version stamp in footer/meta
+    version: v1.0.0
+    status: completed
+  - task: Real/sim toggle active
+    status: completed
+  - task: Live AI insights functional across all pages
+    status: completed
+  - task: LearnBot CES tutorial available on-load
+    status: completed
+
+post_deployment:
+  - task: Archive final ask_ces.yaml to SKR repo
+    status: pending
+  - task: Snapshot DB schema + migration log to /migrations
+    status: pending
+  - task: Record Claudia sync log
+    file: claudia-log
+    status: pending
+  - task: Update PulseOps logs with live deployment metadata
+    status: pending
+  - task: Alert team via Slack + Send launch email
+    status: pending
+  - task: Monitor live usage & query logs
+    details: DeepSeek / OpenAI
+    status: pending
+  - task: Kick off post-mortem + v1.1 planning
+    status: pending 

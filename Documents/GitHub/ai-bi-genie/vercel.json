@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "env": {
+    "SYSTEM_NAME": "Ask CES",
+    "SYSTEM_VERSION": "3.0.0",
+    "PLATFORM_MOTTO": "Central Intelligence for Enterprise Success"
+  },
+  "functions": {
+    "app/api/ask-ces/route.ts": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "X-CES-Platform",
+          "value": "Ask CES v3.0.0"
+        },
+        {
+          "key": "Cache-Control", 
+          "value": "public, s-maxage=10, stale-while-revalidate=59"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/ces/:path*",
+      "destination": "/:path*"
+    },
+    {
+      "source": "/ask-ces/:path*",
+      "destination": "/:path*"
+    }
+  ]
+}

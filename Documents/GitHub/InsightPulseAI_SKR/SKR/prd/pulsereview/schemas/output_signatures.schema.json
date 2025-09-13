@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Output Signatures",
+  "description": "Records of AI-generated output signatures for auditability and traceability",
+  "type": "object",
+  "required": ["version", "generated_at", "signatures"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Version of the output signatures format"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the output signatures file was generated"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Identifier for the project"
+    },
+    "signatures": {
+      "type": "array",
+      "description": "List of output signatures",
+      "items": {
+        "type": "object",
+        "required": ["file", "sha256", "prompt_id", "agent", "timestamp"],
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Path to the output file"
+          },
+          "sha256": {
+            "type": "string",
+            "description": "SHA256 hash of the file content"
+          },
+          "prompt_id": {
+            "type": "string",
+            "description": "ID of the prompt used to generate the output"
+          },
+          "agent": {
+            "type": "string",
+            "description": "Agent that generated the output"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the output was generated"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional metadata about the output",
+            "properties": {
+              "user": {
+                "type": "string",
+                "description": "User that requested the output"
+              },
+              "request_id": {
+                "type": "string",
+                "description": "ID of the request that generated the output"
+              },
+              "generation_time_ms": {
+                "type": "integer",
+                "description": "Time it took to generate the output in milliseconds"
+              },
+              "model": {
+                "type": "string",
+                "description": "Model used to generate the output"
+              },
+              "tags": {
+                "type": "array",
+                "description": "Tags associated with the output",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "validation": {
+            "type": "object",
+            "description": "Validation information for the output",
+            "properties": {
+              "validated_by": {
+                "type": "string",
+                "description": "Agent that validated the output"
+              },
+              "validation_timestamp": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Timestamp when the output was validated"
+              },
+              "validation_status": {
+                "type": "string",
+                "enum": ["passed", "failed", "pending"],
+                "description": "Status of the validation"
+              },
+              "validation_message": {
+                "type": "string",
+                "description": "Message from the validation process"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

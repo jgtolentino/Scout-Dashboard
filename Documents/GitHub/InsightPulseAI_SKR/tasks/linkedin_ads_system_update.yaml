@@ -1,0 +1,95 @@
+name: LinkedIn Ads System Update
+description: Complete LinkedIn conversion tracking implementation and ad system integration
+priority: high
+agent: claudia
+status: pending
+
+steps:
+  - name: Verify LinkedIn Insight Tag Installation
+    description: Confirm the LinkedIn Insight Tag is properly installed and functioning on the website
+    status: pending
+    dependencies: []
+    
+  - name: Create LinkedIn Conversion Actions
+    description: Set up the 5 conversion actions in LinkedIn Campaign Manager
+    status: pending
+    dependencies: ["Verify LinkedIn Insight Tag Installation"]
+    subtasks:
+      - name: "Configure Signup Completion conversion"
+        url: "https://insightpulseai.com/signup-success"
+        attribution: "Post-click and post-view, 30-day window"
+      - name: "Configure Quote Request conversion"
+        url: "https://insightpulseai.com/quote-success"
+        attribution: "Post-click and post-view, 30-day window"
+      - name: "Configure Diagnostic Tool Completion conversion"
+        url: "https://insightpulseai.com/diagnostic-success"
+        attribution: "Post-click and post-view, 30-day window"
+      - name: "Configure Strategy Call Booking conversion"
+        url: "https://insightpulseai.com/appointment-success"
+        attribution: "Post-click and post-view, 30-day window"
+      - name: "Configure Email Capture/Download conversion"
+        url: "https://insightpulseai.com/diagnostic-success"
+        attribution: "Post-click and post-view, 30-day window"
+    
+  - name: Validate UTM Parameter Tracking
+    description: Test that UTM parameters are correctly captured and associated with conversions
+    status: pending
+    dependencies: ["Create LinkedIn Conversion Actions"]
+    
+  - name: Set Up Campaign Structure
+    description: Create campaign structure in LinkedIn Campaign Manager based on playbook
+    status: pending
+    dependencies: ["Validate UTM Parameter Tracking"]
+    subtasks:
+      - name: "Create Awareness Campaign"
+        target: "Broad industry audiences"
+        adFormat: "Single image, carousel"
+      - name: "Create Consideration Campaign"
+        target: "Interest-based audiences"
+        adFormat: "Video, carousel"
+      - name: "Create Conversion Campaign"
+        target: "Warm audiences, lookalikes"
+        adFormat: "Single image, carousel"
+      - name: "Create Retargeting Campaign"
+        target: "Website visitors, partial form completions"
+        adFormat: "Single image"
+    
+  - name: Prepare Ad Creative
+    description: Develop creative assets for LinkedIn ads
+    status: pending
+    dependencies: ["Set Up Campaign Structure"]
+    
+  - name: Configure Audience Targeting
+    description: Set up audience segments and targeting parameters
+    status: pending
+    dependencies: ["Set Up Campaign Structure"]
+    
+  - name: Set Up Reporting Dashboard
+    description: Create reporting dashboard for campaign performance tracking
+    status: pending
+    dependencies: ["Configure Audience Targeting", "Prepare Ad Creative"]
+    
+  - name: Launch Initial Campaigns
+    description: Activate initial campaigns and establish baseline performance
+    status: pending
+    dependencies: ["Set Up Reporting Dashboard"]
+    
+  - name: Schedule Optimization Reviews
+    description: Set up weekly review cadence for campaign optimization
+    status: pending
+    dependencies: ["Launch Initial Campaigns"]
+
+metadata:
+  created: "2025-05-02"
+  owner: "marketing-team"
+  estimated_completion: "2025-05-16"
+  priority: "high"
+  tags: ["linkedin", "ads", "conversion", "marketing"]
+  
+resources:
+  - title: "Conversion Strategy Playbook"
+    path: "/Users/tbwa/Documents/GitHub/webapp_pulse/conversion_strategy_playbook.md"
+  - title: "LinkedIn Conversion Setup Documentation"
+    path: "/Users/tbwa/Documents/GitHub/webapp_pulse/README_LINKEDIN_CONVERSION.md"
+  - title: "UTM Tracker Implementation"
+    path: "/Users/tbwa/Documents/GitHub/webapp_pulse/src/utils/utmTracker.ts"

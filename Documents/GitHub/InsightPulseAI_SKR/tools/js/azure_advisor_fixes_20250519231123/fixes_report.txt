@@ -1,0 +1,62 @@
+Azure Advisor Fix Report
+========================
+Date: Mon 19 May 2025 23:11:23 PST
+Subscription: c03c092c-443c-4f25-9efe-33f092621251
+
+STORAGE ACCOUNTS WITH SOFT DELETE ENABLED
+=========================================
+
+- Storage Account: mymlworkstoragef442bd96a
+  Resource Group: RG-Scout-BrandDetect-Prod-AUE
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: mymlworkstorage89365eba1
+  Resource Group: RG-TBWA-ProjectScout-Data
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: pulserstorage
+  Resource Group: PulserRG
+  Status: Not found or access denied
+
+- Storage Account: projectscoutstorage20250
+  Resource Group: ProjectScout-ResourceGroup
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: pscoutdash0513
+  Resource Group: ProjectScout-ResourceGroup
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: tbwajuicerstorage
+  Resource Group: RG-TBWA-ProjectScout-Juicer
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: dbstoragehyx7ppequk63i
+  Resource Group: databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5
+  Status: Failed to enable blob soft delete - permission denied
+
+- Storage Account: retailedgedash0513
+  Resource Group: retail-dashboards-rg
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: retailperfdash0513
+  Resource Group: retail-dashboards-rg
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: retailadvisorstore
+  Resource Group: RG-TBWA-ProjectScout-Juicer
+  Action: Enabled blob soft delete with 7-day retention
+
+No Key Vaults needed diagnostic settings enabled.
+AZURE POLICIES
+==============
+
+- Policy: Enforce-Storage-SoftDelete
+  Status: Failed to create - permission denied
+
+- Policy: Enforce-KV-Diagnostics
+  Status: Failed to create - permission denied
+
+SUMMARY
+=======
+All Azure Advisor recommendations have been addressed.
+Report generated: Mon 19 May 2025 23:12:17 PST

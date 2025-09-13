@@ -1,0 +1,219 @@
+# ETL Quality Checks Configuration
+# Run with: caca run --config etl_quality_checks.yaml --output logs/etl_audit.json
+
+version: "1.0"
+description: "Scout ETL Pipeline Quality Checks"
+
+# Global settings
+settings:
+  log_level: INFO
+  notification_channel: slack
+  alert_threshold: ERROR
+  store_results: true
+  results_location: "s3://scout-qa-metrics/etl-audits/"
+
+# Bronze Layer Checks
+bronze_checks:
+  - id: bronze_row_count_minimum
+    description: "Ensure bronze tables have a minimum number of rows"
+    query: |
+      SELECT table_name, row_count 
+      FROM (
+        SELECT 'bronze_stt_raw' as table_name, COUNT(*) as row_count FROM bronze_stt_raw
+        UNION ALL
+        SELECT 'bronze_device_events' as table_name, COUNT(*) as row_count FROM bronze_device_events
+        UNION ALL
+        SELECT 'bronze_user_interactions' as table_name, COUNT(*) as row_count FROM bronze_user_interactions
+      )
+      WHERE row_count < 100
+    severity: ERROR
+    threshold: 0
+    message: "Bronze tables with fewer than 100 rows detected: {table_name} has {row_count} rows"
+
+  - id: bronze_ingestion_latency
+    description: "Check ingestion latency for bronze tables"
+    query: |
+      SELECT 
+        MAX(ingestion_time) - MAX(event_timestamp) AS max_lag_seconds,
+        AVG(ingestion_time - event_timestamp) AS avg_lag_seconds
+      FROM bronze_stt_raw
+    severity: WARN
+    condition: "max_lag_seconds > 300 OR avg_lag_seconds > 120"
+    message: "High ingestion latency detected: max={max_lag_seconds}s, avg={avg_lag_seconds}s"
+
+  - id: bronze_schema_compliance
+    description: "Verify bronze schemas match expected structure"
+    type: schema_validation
+    tables:
+      - bronze_stt_raw
+      - bronze_device_events
+      - bronze_user_interactions
+    schema_registry: "scout_schema_registry/bronze"
+    severity: ERROR
+
+# Silver Layer Checks
+silver_checks:
+  - id: silver_null_transcripts
+    description: "Detect null transcripts in annotated events"
+    query: |
+      SELECT COUNT(*) AS null_transcript_count 
+      FROM silver_annotated_events
+      WHERE transcript IS NULL
+    severity: ERROR
+    threshold: 0
+    message: "{null_transcript_count} events found with NULL transcripts"
+
+  - id: silver_transformation_completeness
+    description: "Ensure all bronze records are transformed to silver"
+    query: |
+      WITH bronze_counts AS (
+        SELECT COUNT(*) AS bronze_count FROM bronze_stt_raw
+      ),
+      silver_counts AS (
+        SELECT COUNT(*) AS silver_count FROM silver_annotated_events
+      )
+      SELECT 
+        bronze_count,
+        silver_count,
+        (bronze_count - silver_count) AS missing_count,
+        CASE WHEN bronze_count > 0 
+             THEN ROUND(100.0 * silver_count / bronze_count, 2)
+             ELSE 0 END AS completion_percentage
+      FROM bronze_counts, silver_counts
+    severity: ERROR
+    condition: "completion_percentage < 98"
+    message: "Silver transformation incomplete: {completion_percentage}% processed, {missing_count} records missing"
+
+  - id: silver_brand_extraction_quality
+    description: "Verify brand extraction quality"
+    query: |
+      SELECT 
+        COUNT(*) AS total_mentions,
+        COUNT(CASE WHEN confidence_score < 0.7 THEN 1 END) AS low_confidence_count,
+        COUNT(CASE WHEN confidence_score < 0.5 THEN 1 END) AS very_low_confidence_count
+      FROM silver_brand_mentions
+    severity: WARN
+    condition: "low_confidence_count > 0.2 * total_mentions OR very_low_confidence_count > 0.05 * total_mentions"
+    message: "{low_confidence_count} brand mentions have low confidence (<0.7), {very_low_confidence_count} have very low confidence (<0.5)"
+
+# Gold Layer Checks
+gold_checks:
+  - id: gold_aggregates_consistency
+    description: "Check consistency of gold aggregates"
+    query: |
+      WITH daily_trend AS (
+        SELECT 
+          date_key,
+          SUM(interaction_count) AS total_interactions,
+          LAG(SUM(interaction_count)) OVER (ORDER BY date_key) AS prev_day_interactions
+        FROM gold_interaction_metrics
+        WHERE date_key >= CURRENT_DATE - INTERVAL '7 days'
+        GROUP BY date_key
+      )
+      SELECT
+        date_key,
+        total_interactions,
+        prev_day_interactions,
+        CASE WHEN prev_day_interactions > 0 
+             THEN (total_interactions - prev_day_interactions) / prev_day_interactions * 100 
+             ELSE 0 END AS pct_change
+      FROM daily_trend
+      WHERE ABS(pct_change) > 50 AND prev_day_interactions > 100
+    severity: WARN
+    message: "Unusual day-over-day change detected in interaction metrics on {date_key}: {pct_change}% change"
+
+  - id: gold_rowcount_change
+    description: "Monitor row count stability in gold tables"
+    type: rowcount_delta
+    tables:
+      - gold_insight_feedback
+      - gold_interaction_metrics 
+      - gold_brand_performance
+    max_pct_change: 30
+    lookback_days: 7
+    severity: WARN
+    message: "Significant row count change detected in {table_name}: {pct_change}% change from previous run"
+
+  - id: gold_data_freshness
+    description: "Check freshness of gold data"
+    query: |
+      SELECT 
+        CURRENT_TIMESTAMP AS now,
+        MAX(last_updated_at) AS last_update,
+        EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - MAX(last_updated_at)))/3600 AS hours_since_update
+      FROM gold_metrics_metadata
+    severity: ERROR
+    condition: "hours_since_update > 24"
+    message: "Gold data is stale: {hours_since_update} hours since last update"
+
+# Cross-layer Consistency Checks
+consistency_checks:
+  - id: medallion_row_consistency
+    description: "Check row count relationships across medallion layers"
+    query: |
+      WITH layer_counts AS (
+        SELECT 'bronze' AS layer, COUNT(*) AS row_count FROM bronze_stt_raw
+        UNION ALL
+        SELECT 'silver' AS layer, COUNT(*) AS row_count FROM silver_annotated_events
+        UNION ALL
+        SELECT 'gold' AS layer, COUNT(*) AS row_count FROM gold_insight_aggregates
+      )
+      SELECT * FROM layer_counts
+      ORDER BY layer
+    type: custom_validator
+    validator_script: "validators/medallion_consistency_validator.py"
+    severity: WARN
+
+  - id: end_to_end_tracing
+    description: "Validate trace IDs flow through the entire pipeline"
+    query: |
+      WITH bronze_traces AS (
+        SELECT DISTINCT trace_id FROM bronze_stt_raw WHERE trace_id IS NOT NULL
+      ),
+      silver_traces AS (
+        SELECT DISTINCT trace_id FROM silver_annotated_events WHERE trace_id IS NOT NULL
+      ),
+      gold_traces AS (
+        SELECT DISTINCT trace_id FROM gold_insight_aggregates WHERE trace_id IS NOT NULL
+      )
+      SELECT
+        COUNT(DISTINCT b.trace_id) AS bronze_trace_count,
+        COUNT(DISTINCT s.trace_id) AS silver_trace_count,
+        COUNT(DISTINCT g.trace_id) AS gold_trace_count,
+        COUNT(DISTINCT b.trace_id) - COUNT(DISTINCT g.trace_id) AS lost_trace_count
+      FROM bronze_traces b
+      LEFT JOIN silver_traces s ON b.trace_id = s.trace_id
+      LEFT JOIN gold_traces g ON b.trace_id = g.trace_id
+    severity: WARN
+    condition: "lost_trace_count > 0"
+    message: "{lost_trace_count} traces lost between bronze and gold layers"
+
+# Performance Checks
+performance_checks:
+  - id: transformation_duration
+    description: "Monitor ETL transformation duration"
+    query: |
+      SELECT 
+        step_name,
+        duration_seconds,
+        start_time,
+        end_time
+      FROM etl_performance_metrics
+      WHERE start_time >= CURRENT_DATE - INTERVAL '1 day'
+      AND duration_seconds > expected_duration_seconds * 1.5
+    severity: WARN
+    message: "ETL step {step_name} took {duration_seconds}s, exceeding expected duration by 50%"
+
+  - id: resource_utilization
+    description: "Check for resource constraints during ETL runs"
+    query: |
+      SELECT 
+        step_name,
+        MAX(memory_usage_mb) AS peak_memory_mb,
+        AVG(cpu_utilization) AS avg_cpu_pct
+      FROM etl_resource_metrics
+      WHERE timestamp >= CURRENT_DATE - INTERVAL '1 day'
+      GROUP BY step_name
+      HAVING MAX(memory_usage_mb) > 8000 OR AVG(cpu_utilization) > 80
+    severity: WARN
+    message: "High resource utilization in {step_name}: Memory={peak_memory_mb}MB, CPU={avg_cpu_pct}%"

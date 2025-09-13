@@ -1,0 +1,22 @@
+# dbt Model Metadata Template for SKR
+# This template is used to generate SKR metadata for dbt models
+
+name: "{model_name}"
+description: "{model_description}"
+type: "dbt_model"
+created_at: "{created_at}"
+updated_at: "{updated_at}"
+owner: "scout_edge"
+tags:
+  - "dbt"
+  - "scout_edge"
+  - "{model_type}"  # staging, intermediate, or mart
+materialization: "{materialization}"
+model_depends_on:
+{model_depends_on}
+columns:
+{columns}
+tests:
+{tests}
+metrics:
+{metrics}

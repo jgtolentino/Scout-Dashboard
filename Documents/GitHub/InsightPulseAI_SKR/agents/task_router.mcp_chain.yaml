@@ -1,0 +1,46 @@
+name: agents
+description: "Agent for handling specific tasks"
+version: "1.0.0"
+status: active
+# Inside: /agents/task_router.mcp_chain.yaml
+# Updated: May 10, 2025 - Replaced clodrep with Claude prompt executor
+
+flows:
+  - id: aci_style_prompt_flow
+    path: agents_orchestration/aci_style_prompt_flow.yaml
+    trigger_keywords:
+      - "Hacker News"
+      - "Tavily"
+      - "send email"
+      - "news summary"
+      - "use ACI"
+    description: >
+      Executes multi-step prompt workflows using Kalaw, Echo, Tala, and Caca. Mirrors ACI.dev's natural language API chaining behavior.
+
+    requires_validation: true
+    validation_agent: caca
+    priority: high
+  - id: claude_prompt_execution
+    path: agents/claude/prompt_executor.yaml
+    trigger_keywords:
+      - "prompt test"
+      - "prompt sync"
+      - "prompt list"
+      - "prompt version"
+      - "clodrep" # Legacy support
+    description: >
+      Handles prompt testing, engineering, and versioning through Claude. Replaces deprecated clodrep executor.
+
+    requires_validation: false
+    priority: medium
+interactions:
+  - name: default
+    type: message
+    handler: handle_message
+execution:
+  on_start:
+    - initialize
+  on_finish:
+    - cleanup
+resource_quota: 5000_tokens_per_min
+timeout_ms: 90000

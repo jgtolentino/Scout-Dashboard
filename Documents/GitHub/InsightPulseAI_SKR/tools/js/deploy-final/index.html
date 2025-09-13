@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Architecture & QA Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            text-align: center; 
+            background-color: #f5f5f5;
+        }
+        h1 { color: #002b49; }
+        .dashboard-links {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 30px auto;
+        }
+        .dashboard-link {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        .dashboard-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        .dashboard-icon {
+            margin-right: 15px;
+            background-color: #0078d4;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .dashboard-preview {
+            max-width: 600px; 
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .dashboard-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .qa-toggle {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 16px;
+            background-color: #0078d4;
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .qa-toggle:hover {
+            background-color: #0062ad;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>System Architecture & QA Dashboard</h1>
+        <p class="lead">Monitor system health, device performance, and model quality</p>
+        
+        <div class="dashboard-preview">
+            <img src="https://via.placeholder.com/600x300?text=System+Architecture+&+QA" alt="Dashboard Preview">
+        </div>
+        
+        <!-- System monitoring sections will go here -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h4 class="mb-3"><i class="fas fa-heartbeat text-danger me-2"></i>System Health Monitoring</h4>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">96.2%</h5>
+                        <p class="text-muted mb-0">Model Reliability</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">94.8%</h5>
+                        <p class="text-muted mb-0">Data Health</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">99.7%</h5>
+                        <p class="text-muted mb-0">Infrastructure Uptime</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">97.1%</h5>
+                        <p class="text-muted mb-0">Overall Health</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h4 class="mb-3"><i class="fas fa-microchip text-primary me-2"></i>Device Monitoring</h4>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">156</h5>
+                        <p class="text-muted mb-0">Total Devices</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">3</h5>
+                        <p class="text-muted mb-0">Silent Devices</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">2</h5>
+                        <p class="text-muted mb-0">Critical Alerts</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">98.7%</h5>
+                        <p class="text-muted mb-0">Data Quality</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h4 class="mb-3"><i class="fas fa-exclamation-triangle text-warning me-2"></i>Anomaly Detection</h4>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2"><i class="fas fa-check-circle text-success"></i></h5>
+                        <p class="text-muted mb-0">No Drift Detected</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">1.3%</h5>
+                        <p class="text-muted mb-0">Confidence Deviation</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="h2 mb-2">0.04%</h5>
+                        <p class="text-muted mb-0">Outlier Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="qa-toggle" id="toggleQAMode">
+            <i class="fas fa-tools me-2"></i> Toggle QA Dev Mode
+        </div>
+        
+        <div class="dashboard-links mt-5">
+            <a class="dashboard-link" href="retail_edge/retail_edge_dashboard.html">
+                <div class="dashboard-icon"><i class="fas fa-store"></i></div>
+                <div>
+                    <div>Retail Edge Dashboard</div>
+                    <small class="text-muted">Retail performance metrics and insights</small>
+                </div>
+            </a>
+            <a class="dashboard-link" href="ops/system_dashboard.html">
+                <div class="dashboard-icon"><i class="fas fa-server"></i></div>
+                <div>
+                    <div>Operations Dashboard</div>
+                    <small class="text-muted">System health and operational metrics</small>
+                </div>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 System Architecture & QA Dashboard • Powered by Retail Advisor</p>
+            <p>Version 2.1.3</p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('toggleQAMode').addEventListener('click', function() {
+            this.classList.toggle('active');
+            if (this.classList.contains('active')) {
+                this.innerHTML = '<i class="fas fa-tools me-2"></i> QA Dev Mode: ON';
+                this.style.backgroundColor = '#28a745';
+                // Show QA developer tools or additional debug info
+                alert('QA Developer Mode activated. Additional debug tools and logs are now visible.');
+            } else {
+                this.innerHTML = '<i class="fas fa-tools me-2"></i> Toggle QA Dev Mode';
+                this.style.backgroundColor = '#0078d4';
+                // Hide QA developer tools
+                alert('QA Developer Mode deactivated.');
+            }
+        });
+    </script>
+</body>
+</html>

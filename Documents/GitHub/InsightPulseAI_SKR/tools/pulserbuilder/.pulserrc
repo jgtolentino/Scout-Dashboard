@@ -1,0 +1,154 @@
+# PulserBuilder Configuration
+# Version: 1.0.0
+
+# Project Configuration
+project:
+  name: PulserBuilder
+  description: A UI/UX generation and customization platform powered by AI agents
+  version: 0.1.0
+  author: InsightPulseAI Team
+  repository: https://github.com/insightpulseai/pulserbuilder
+
+# Agent Configuration
+agents:
+  - name: maya
+    path: ./agents/maya.yaml
+    description: UI/UX Designer Agent
+    active: true
+    priority: 1
+    
+  - name: deckgen
+    path: ./agents/deckgen.yaml
+    description: Presentation & Documentation Generator
+    active: true
+    priority: 2
+    
+  - name: claudia
+    path: ./agents/claudia.yaml
+    description: Orchestration Agent
+    active: true
+    priority: 0
+    
+  - name: basher
+    path: ./agents/basher.yaml
+    description: DevOps Specialist
+    active: true
+    priority: 3
+
+# Environment Settings
+environment:
+  production:
+    api_url: https://pulserbuilder-api.insightpulseai.com
+    firebase_project: pulserbuilder-prod
+    logging_level: error
+    
+  staging:
+    api_url: https://staging.pulserbuilder-api.insightpulseai.com
+    firebase_project: pulserbuilder-staging
+    logging_level: info
+    
+  development:
+    api_url: http://localhost:5000
+    firebase_project: pulserbuilder-dev
+    logging_level: debug
+
+# Default Agent Parameters
+default_parameters:
+  temperature: 0.7
+  timeout: 60000
+  max_tokens: 8000
+  model: claude-3-opus-20240229
+  retry_attempts: 3
+  stream: true
+
+# Component Library Config
+component_library:
+  path: ./src/constants/componentTypes.js
+  categories:
+    - layout
+    - input
+    - display
+    - navigation
+    - feedback
+    - data
+    - media
+  
+  default_frameworks:
+    - react
+    - next.js
+    - vue
+    - angular
+    - html/css
+  
+  default_styles:
+    - tailwind
+    - material-ui
+    - bootstrap
+    - chakra-ui
+    - styled-components
+
+# Memory & Storage
+memory:
+  type: firebase
+  collection: agent_memory
+  ttl: 86400  # 24 hours in seconds
+  max_tokens_per_entity: 4000
+  vector_embedding: true
+
+# Logging & Monitoring
+logging:
+  enabled: true
+  path: ./logs
+  rotation:
+    max_size: 10485760  # 10 MB
+    max_files: 10
+  include_timestamps: true
+  level: info
+  format: json
+
+# Security & Authentication
+security:
+  firebase_auth: true
+  api_key_required: true
+  rate_limiting:
+    max_requests: 100
+    window_ms: 3600000  # 1 hour
+  allow_demo_without_auth: true
+  restricted_features:
+    - name: deployment
+      minimum_tier: paid
+    - name: code_export
+      minimum_tier: free
+
+# Deployment Settings
+deployment:
+  platforms:
+    - name: vercel
+      config: ./deployment/vercel.json
+      active: true
+      
+    - name: netlify
+      config: ./deployment/netlify.toml
+      active: false
+      
+    - name: firebase
+      config: ./deployment/firebase.json
+      active: true
+  
+  default_platform: vercel
+  auto_deployment: false
+  require_tests: true
+
+# Integration Points
+integrations:
+  github:
+    enabled: true
+    config: ./integrations/github.json
+    
+  figma:
+    enabled: true
+    config: ./integrations/figma.json
+    
+  slack:
+    enabled: false
+    config: ./integrations/slack.json

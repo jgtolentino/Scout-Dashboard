@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBWA ETL Diagram - Static Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* TBWA Diagram Overrides */
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+    
+    .card:hover {
+      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+    
+    .icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 8px;
+    }
+    
+    .connector {
+      margin: 0 8px;
+      height: 2px;
+      width: 80px;
+      background-color: #888;
+    }
+    
+    .connector.stream {
+      background: repeating-linear-gradient(
+        90deg,
+        #888,
+        #888 4px,
+        transparent 4px,
+        transparent 8px
+      );
+    }
+    
+    /* TBWA Colors */
+    .tbwa-yellow { background-color: rgba(255, 207, 0, 0.2); border-color: rgba(255, 207, 0, 1); }
+    .tbwa-black { background-color: rgba(0, 0, 0, 0.2); border-color: rgba(0, 0, 0, 1); }
+    .tbwa-slate { background-color: rgba(75, 85, 99, 0.2); border-color: rgba(75, 85, 99, 1); }
+    .tbwa-red { background-color: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 1); }
+    .tbwa-blue { background-color: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 1); }
+    .tbwa-gray { background-color: rgba(156, 163, 175, 0.2); border-color: rgba(156, 163, 175, 1); }
+  </style>
+</head>
+<body class="bg-white p-6">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-2xl font-bold mb-8 text-center">TBWA ETL Architecture Diagram</h1>
+    
+    <!-- Orchestration Row -->
+    <div class="flex justify-center items-center mb-12">
+      <div class="card tbwa-yellow border-2">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zM7 8h2v2H7V8"/>
+        </svg>
+        <span class="font-semibold">Data Factory</span>
+      </div>
+      
+      <div class="connector"></div>
+      
+      <div class="card tbwa-blue border-2">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-8h10v2H7z"/>
+        </svg>
+        <span class="font-semibold">Event Hubs</span>
+      </div>
+      
+      <div class="connector stream"></div>
+      
+      <div class="card tbwa-slate border-2">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+        </svg>
+        <span class="font-semibold">Blob Storage</span>
+      </div>
+    </div>
+    
+    <!-- ETL Layers -->
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div class="card tbwa-yellow border-2" title="Delta Live Tables ingestion">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+        </svg>
+        <span class="font-semibold text-center">Raw Ingestion</span>
+      </div>
+      
+      <div class="card tbwa-slate border-2" title="Data quality checks & CDC">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-8h10v2H7z"/>
+        </svg>
+        <span class="font-semibold text-center">Staging & Cleansing</span>
+      </div>
+      
+      <div class="card tbwa-red border-2" title="Aggregations & feature store">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zM7 8h2v2H7V8"/>
+        </svg>
+        <span class="font-semibold text-center">Curated Business Tables</span>
+      </div>
+      
+      <div class="card tbwa-blue border-2" title="GenAI enrichment">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-8h10v2H7z"/>
+        </svg>
+        <span class="font-semibold text-center">Feature Store & RAG</span>
+      </div>
+      
+      <div class="card tbwa-gray border-2" title="Power BI–style UI">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+        </svg>
+        <span class="font-semibold text-center">Dashboard & BI</span>
+      </div>
+    </div>
+    
+    <div class="mt-12 text-sm text-gray-500 text-center">
+      TBWA ETL Architecture Diagram – Static HTML Version
+    </div>
+  </div>
+</body>
+</html>

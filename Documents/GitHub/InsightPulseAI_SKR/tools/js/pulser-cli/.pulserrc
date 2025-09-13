@@ -1,0 +1,7 @@
+claude:
+  name: Local Claude
+  api: http://127.0.0.1:9315
+  token: mock-token-1234
+context:
+  memory_file: "claude_session.log"
+  enable_context_sync: true

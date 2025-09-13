@@ -1,0 +1,155 @@
+Here’s the **trimmed-down** `BrandPerformanceGrid`—no more “TBWA Client” vs “Competitor” badges, just a clean grid of brands:
+
+---
+
+### 1. `BrandPerformanceGrid.jsx`
+
+```jsx
+import React, { useEffect, useState } from 'react';
+import './BrandPerformanceGrid.css';
+
+export default function BrandPerformanceGrid() {
+  const [brands, setBrands] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const url = window.isSimulatedData
+      ? '/data/sim/brands.json'
+      : '/api/brands?top=6';
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setBrands(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error loading brands:', err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div className="bp-grid__loading">Loading…</div>;
+
+  return (
+    <div className="bp-grid">
+      {brands.map(({ brand, value, pct }) => (
+        <div
+          key={brand}
+          className="bp-card"
+          onClick={() => console.log(`Drill into ${brand}`)}
+        >
+          <div className="bp-card__header">
+            <span className="bp-card__title">{brand}</span>
+          </div>
+          <div className="bp-card__metrics">
+            <div className="bp-value">₱{(value/1000).toFixed(1)}K</div>
+            <div className={`bp-pct ${pct >= 0 ? 'up' : 'down'}`}>
+              {pct >= 0 ? '▲' : '▼'} {(pct * 100).toFixed(1)}%
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+---
+
+### 2. `BrandPerformanceGrid.css`
+
+```css
+.bp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.bp-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+.bp-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.bp-card__header {
+  margin-bottom: 0.5rem;
+}
+
+.bp-card__title {
+  font-weight: 600;
+}
+
+.bp-card__metrics {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.bp-value {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.bp-pct.up {
+  color: var(--success-color);
+}
+.bp-pct.down {
+  color: var(--danger-color);
+}
+
+.bp-grid__loading {
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}
+```
+
+---
+
+### 3. (Optional) Sample Data
+
+Your existing `/public/data/sim/brands.json` works as-is. If you want a reminder:
+
+```json
+[
+  { "brand": "Del Monte Sauce",        "value": 2400000, "pct": 0.182 },
+  { "brand": "Alaska Evaporated Milk", "value": 1900000, "pct": 0.147 },
+  { "brand": "Magnolia Ice Cream",     "value": 1600000, "pct": 0.093 },
+  { "brand": "Nescafé Coffee",         "value": 1200000, "pct": 0.035 },
+  { "brand": "Oishi Snacks",           "value":  800000, "pct": 0.018 },
+  { "brand": "Coca-Cola",              "value":  400000, "pct": -0.052 }
+]
+```
+
+---
+
+#### Next Steps
+
+1. Drop these files into your `/js/components/` (or wherever you keep your React components).
+
+2. Import and render as before:
+
+   ```jsx
+   import BrandPerformanceGrid from './components/BrandPerformanceGrid';
+   // …
+   <section id="brand-performance">
+     <h2>Brand Performance</h2>
+     <BrandPerformanceGrid />
+   </section>
+   ```
+
+3. Build & deploy:
+
+   ```bash
+   npm run build
+   swa deploy deploy_v2.4.0 --env production
+   ```
+
+That’ll give you a neat, PRD-aligned brand grid without any extra badges.

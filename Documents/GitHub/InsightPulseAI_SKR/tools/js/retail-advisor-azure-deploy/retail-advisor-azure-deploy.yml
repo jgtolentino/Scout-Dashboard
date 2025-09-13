@@ -1,0 +1,121 @@
+name: Deploy Retail Advisor Dashboard to Azure
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/retail-advisor-azure-deploy.yml'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+# Environment variables
+env:
+  NODE_VERSION: '16.x'                               # Node.js version
+  AZURE_WEBAPP_NAME: 'retail-advisor-dashboard'      # Azure Web App name
+  AZURE_RESOURCE_GROUP: 'RG-TBWA-RetailAdvisor'      # Azure Resource Group
+  DASHBOARD_NAME: 'Retail Advisor'                   # Dashboard display name
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy Retail Advisor Dashboard
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    
+    steps:
+      # Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: 'jgtolentino/mockify-creator'
+          ref: 'main'
+      
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+      
+      # Build the project
+      - name: Build
+        run: npm run build
+      
+      # Deploy to Azure Web App
+      - name: Deploy to Azure Web App
+        id: deploy-to-azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: ${{ github.event.inputs.environment || 'production' }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
+      
+      # Configure App Settings
+      - name: Configure App Settings
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az webapp config appsettings set \
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+              --settings \
+                SCM_DO_BUILD_DURING_DEPLOYMENT=true \
+                WEBSITE_NODE_DEFAULT_VERSION=~16 \
+                DASHBOARD_NAME="${{ env.DASHBOARD_NAME }}"
+        
+      # Add custom domain (if needed)
+      - name: Add Custom Domain
+        if: github.event.inputs.environment == 'production' || github.event.inputs.environment == ''
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            # Check if custom domain binding already exists
+            BINDING_EXISTS=$(az webapp config hostname list \
+              --webapp-name ${{ env.AZURE_WEBAPP_NAME }} \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+              --query "[?name=='retail-advisor.tbwa.com'].name" -o tsv)
+            
+            # Add binding if it doesn't exist
+            if [ -z "$BINDING_EXISTS" ]; then
+              echo "Adding custom domain binding..."
+              az webapp config hostname add \
+                --webapp-name ${{ env.AZURE_WEBAPP_NAME }} \
+                --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+                --hostname retail-advisor.tbwa.com
+            else
+              echo "Custom domain binding already exists."
+            fi
+      
+      # Post-deployment notification
+      - name: Post-deployment notification
+        if: success()
+        run: |
+          WEBAPP_URL=$(az webapp show \
+            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --query "defaultHostName" -o tsv)
+          
+          echo "Retail Advisor Dashboard deployed successfully!"
+          echo "Dashboard URL: https://$WEBAPP_URL"
+          
+          if [ "${{ github.event.inputs.environment || 'production' }}" == "production" ]; then
+            echo "Custom domain: https://retail-advisor.tbwa.com"
+          fi

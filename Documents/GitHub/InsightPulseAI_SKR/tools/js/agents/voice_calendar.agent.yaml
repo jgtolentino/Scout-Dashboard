@@ -1,0 +1,101 @@
+id: voice_calendar
+name: Voice Calendar Agent
+description: >-
+  End-to-end voice-driven calendar automation agent.
+  Takes voice input via Echo, parses intent with Claude,
+  executes calendar actions, and responds with voice using ElevenLabs.
+
+version: 2.0.0
+type: orchestrator
+trigger:
+  source: echo.stt
+  event: voice_command_received
+  input: transcript
+inputs:
+  - name: transcript
+    type: string
+    description: Transcribed voice command from user
+
+steps:
+  - id: parse_intent
+    name: Claude Calendar Intent Parser
+    uses: claude-3-opus
+    input: |
+      You are an AI agent for managing a user's calendar.
+      From the user input below, extract:
+      - intent: [create, update, delete, list]
+      - title
+      - datetime (ISO 8601)
+      - attendees (if any, comma-separated)
+      Input: {{ transcript }}
+    output_format: json
+
+  - id: validate_intent
+    name: QA Intent Validation
+    uses: caca.qa_intent_check
+    input:
+      intent: {{ parse_intent.intent }}
+      datetime: {{ parse_intent.datetime }}
+      title: {{ parse_intent.title }}
+
+  - id: route_action
+    name: Route Intent to Action
+    logic:
+      switch: parse_intent.intent
+      cases:
+        - match: create
+          run: create_event
+        - match: update
+          run: update_event
+        - match: delete
+          run: delete_event
+        - match: list
+          run: list_events
+
+steps_definitions:
+  create_event:
+    name: Google Calendar Create
+    uses: google.calendar.create
+    input:
+      title: {{ parse_intent.title }}
+      datetime: {{ parse_intent.datetime }}
+      attendees: {{ parse_intent.attendees | default([]) }}
+    next: synthesize_response
+
+  update_event:
+    name: Google Calendar Update
+    uses: google.calendar.update
+    input:
+      title: {{ parse_intent.title }}
+      datetime: {{ parse_intent.datetime }}
+    next: synthesize_response
+
+  delete_event:
+    name: Google Calendar Delete
+    uses: google.calendar.delete
+    input:
+      title: {{ parse_intent.title }}
+    next: synthesize_response
+
+  list_events:
+    name: Google Calendar List
+    uses: google.calendar.list
+    input:
+      datetime_range_start: now
+      datetime_range_end: +7d
+    next: synthesize_response
+
+  synthesize_response:
+    name: Voice Response with ElevenLabs
+    uses: elevenlabs.tts
+    input:
+      text: |
+        Got it! Your request to {{ parse_intent.intent }} the event "{{ parse_intent.title }}" has been processed.
+        Let me know if you'd like to do anything else.
+    output: audio_url
+    next: claudia.complete
+
+outputs:
+  - name: audio_url
+    type: string
+    description: Direct link to the generated voice response

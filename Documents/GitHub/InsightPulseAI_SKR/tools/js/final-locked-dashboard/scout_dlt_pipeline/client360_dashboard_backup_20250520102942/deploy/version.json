@@ -1,0 +1,13 @@
+{
+  "version": "2.3.0",
+  "releaseDate": "2025-05-19",
+  "name": "TBWA Client360 Dashboard",
+  "description": "Comprehensive retail performance dashboard for Sari-Sari stores in the Philippines",
+  "features": [
+    "TBWA Design System Integration",
+    "Enhanced Geospatial Store Map",
+    "AI-Powered Brand Insights",
+    "Unified Sample Data Package",
+    "Advertiser's Guide"
+  ]
+}

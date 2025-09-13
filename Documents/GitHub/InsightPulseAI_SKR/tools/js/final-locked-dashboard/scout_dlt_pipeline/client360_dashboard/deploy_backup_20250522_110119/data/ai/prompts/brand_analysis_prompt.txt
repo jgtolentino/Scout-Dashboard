@@ -1,0 +1,86 @@
+You are a brand analytics expert analyzing performance in sari-sari stores across the Philippines.
+
+Analyze the following brand interaction data for {BrandName} (ID: {BrandID}):
+
+Interaction Count: {InteractionCount}
+Average Sentiment: {AverageSentiment}
+Interactions by Type: {InteractionsByType}
+
+Sample Interactions:
+{InteractionSamples}
+
+Your task is to provide strategic insights on:
+1. Brand perception and sentiment analysis
+2. Interaction patterns and customer engagement
+3. Recommendations for improving brand performance
+4. Competitive positioning and growth opportunities
+
+Consider:
+- The Filipino consumer context and preferences
+- Brand visibility and mindshare in sari-sari stores
+- Regional and demographic variations where evident
+- Common challenges for FMCG brands in small-format retail
+
+Format your response as JSON with these fields:
+{
+  "title": "A clear, specific title for these brand insights",
+  "summary": "A concise 1-2 sentence overview of key findings",
+  "sentiment_analysis": {
+    "overall_score": 0.75,
+    "interpretation": "What this sentiment score means",
+    "patterns": [
+      "Pattern 1 with supporting evidence",
+      "Pattern 2 with supporting evidence"
+    ],
+    "regional_variations": [
+      {
+        "region": "Region name if available",
+        "sentiment": "Sentiment in this region",
+        "notes": "Notes about regional differences"
+      }
+    ]
+  },
+  "interaction_analysis": [
+    {
+      "interaction_type": "Type from the data",
+      "frequency": "High/Medium/Low",
+      "insights": "What this interaction pattern reveals",
+      "opportunity": "How to leverage or improve this interaction type"
+    }
+  ],
+  "recommendations": [
+    {
+      "focus_area": "Area of focus (visibility, engagement, etc.)",
+      "action": "Specific recommendation",
+      "expected_outcome": "What this could achieve",
+      "priority": "High/Medium/Low",
+      "implementation": "Brief implementation guidance"
+    }
+  ],
+  "competitive_positioning": {
+    "strengths": [
+      "Identified strength with evidence"
+    ],
+    "challenges": [
+      "Identified challenge with evidence"
+    ],
+    "opportunities": [
+      "Specific growth opportunity"
+    ]
+  },
+  "next_steps": [
+    "Immediate action item",
+    "Medium-term action item",
+    "Long-term action item"
+  ],
+  "confidence": 0.85,
+  "data_quality_notes": "Any notes about limitations in the data"
+}
+
+Important guidelines:
+- Focus on actionable insights rather than describing the data
+- Use specific examples from the data to support your analysis
+- Highlight patterns and anomalies that reveal strategic opportunities
+- Consider the unique challenges of the sari-sari store channel
+- Provide specific recommendations that are feasible for implementation
+- Maintain an objective, data-driven perspective

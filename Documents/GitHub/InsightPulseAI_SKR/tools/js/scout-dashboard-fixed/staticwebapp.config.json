@@ -1,0 +1,34 @@
+{
+  "routes": [
+    { 
+      "route": "/advisor", 
+      "rewrite": "/advisor.html" 
+    },
+    { 
+      "route": "/edge", 
+      "rewrite": "/edge.html" 
+    },
+    { 
+      "route": "/ops", 
+      "rewrite": "/ops.html" 
+    },
+    {
+      "route": "/insights_dashboard.html",
+      "redirect": "/advisor",
+      "statusCode": 301
+    },
+    {
+      "route": "/advisor.html", 
+      "rewrite": "/advisor/index.html" 
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*", "/css/*", "/js/*"]
+  },
+  "globalHeaders": {
+    "X-Dashboard-Tag": "scout_dashboards_clean_urls",
+    "X-Patch-ID": "dashboard-url-structure-v2",
+    "X-Client-Context": "TBWA-direct-only"
+  }
+}

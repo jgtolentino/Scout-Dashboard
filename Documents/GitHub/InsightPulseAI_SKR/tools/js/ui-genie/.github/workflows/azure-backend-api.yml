@@ -1,0 +1,55 @@
+name: Deploy UI-Genie Backend API
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Backend API
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Create deployment package
+        run: |
+          cd backend
+          zip -r ../backend-deploy.zip .
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'ui-genie-api'
+          slot-name: 'production'
+          package: './backend-deploy.zip'
+          
+      - name: Purge Static Web App CDN
+        run: |
+          az staticwebapp purge \
+            --name ui-genie-app \
+            --resource-group ui-genie-rg \
+            --routes '/*'
+            
+      - name: Azure logout
+        run: |
+          az logout

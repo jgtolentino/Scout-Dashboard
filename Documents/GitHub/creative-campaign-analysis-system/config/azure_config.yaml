@@ -1,0 +1,163 @@
+# TBWA Creative Campaign Analysis System - Azure Configuration
+# Environment-aware, repo-contained Azure resource configuration
+
+azure:
+  # Identity and Access Management
+  tenant_id: "${AZURE_TENANT_ID}"
+  client_id: "${AZURE_CLIENT_ID}"
+  client_secret: "${AZURE_CLIENT_SECRET}"
+  
+  # Azure SQL Database (CES)
+  sql:
+    server: "${CES_AZURE_SQL_SERVER}"
+    database: "${CES_AZURE_SQL_DATABASE}"
+    username: "${CES_AZURE_SQL_USER}"
+    password: "${CES_AZURE_SQL_PASSWORD}"
+    connection_string: "mssql://${CES_AZURE_SQL_USER}:${CES_AZURE_SQL_PASSWORD}@${CES_AZURE_SQL_SERVER}/${CES_AZURE_SQL_DATABASE}?encrypt=true"
+    
+  # Azure OpenAI (CES)
+  openai:
+    api_key: "${AZURE_OPENAI_API_KEY}"
+    endpoint: "${AZURE_OPENAI_ENDPOINT}"
+    deployment_name: "${AZURE_OPENAI_DEPLOYMENT_NAME}"
+    embedding_model: "text-embedding-ada-002"
+    chat_model: "gpt-4o"
+    api_version: "2024-02-01"
+    
+  # Azure Data Lake Storage Gen2 (if needed)
+  storage:
+    account_name: "tbwacreativedata"
+    container_name: "campaigns"
+    connection_string: "${AZURE_STORAGE_CONNECTION_STRING}"
+    
+  # Databricks (if configured)
+  databricks:
+    workspace_url: "${DATABRICKS_WORKSPACE_URL}"
+    access_token: "${DATABRICKS_ACCESS_TOKEN}"
+    cluster_id: "${DATABRICKS_CLUSTER_ID}"
+
+# Google Drive Integration
+google:
+  service_account_email: "${GOOGLE_SERVICE_ACCOUNT_EMAIL}"
+  drive_root_folder_id: "${GOOGLE_DRIVE_ROOT_FOLDER_ID}"
+  
+# PageIndex System Configuration
+pageindex:
+  # Processing settings
+  chunk_size: 1000
+  chunk_overlap: 200
+  max_chunks_per_file: 100
+  
+  # Quality scoring thresholds
+  quality_thresholds:
+    excellent: 0.8
+    good: 0.6
+    average: 0.4
+    poor: 0.2
+    
+  # Supported file types
+  supported_formats:
+    documents: [".pdf", ".docx", ".pptx", ".txt"]
+    images: [".jpg", ".jpeg", ".png", ".gif", ".webp"]
+    videos: [".mp4", ".mov", ".avi", ".webm"]
+    
+  # Embedding configuration  
+  embeddings:
+    model: "text-embedding-ada-002"
+    dimensions: 1536
+    batch_size: 16
+    
+  # Classification models
+  classification:
+    mood_labels: 
+      - "celebratory"
+      - "corporate"
+      - "intimate"
+      - "energetic"
+      - "sophisticated"
+      - "playful"
+      - "dramatic"
+      - "minimalist"
+    
+    content_types:
+      - "infographic"
+      - "screenshot"
+      - "quote_card"
+      - "product_shot"
+      - "lifestyle"
+      - "hero_image"
+      - "logo_treatment"
+      - "text_overlay"
+      
+    visual_quality_factors:
+      - "composition"
+      - "color_harmony"
+      - "typography"
+      - "brand_consistency"
+      - "technical_quality"
+      - "emotional_impact"
+
+# Application Settings
+app:
+  name: "${NEXT_PUBLIC_APP_NAME}"
+  version: "${NEXT_PUBLIC_APP_VERSION}"
+  environment: "${NODE_ENV}"
+  
+  # API Configuration
+  api:
+    base_url: "http://localhost:3000"
+    timeout: 30000
+    retry_attempts: 3
+    
+  # UI Configuration
+  ui:
+    results_per_page: 20
+    max_file_size_mb: 100
+    supported_languages: ["en", "es", "fr"]
+    
+# Logging and Monitoring
+logging:
+  level: "info"
+  format: "json"
+  outputs:
+    - type: "console"
+    - type: "file"
+      path: "./logs/pageindex.log"
+      
+monitoring:
+  health_check_interval: 60000
+  performance_metrics: true
+  error_tracking: true
+
+# Security Configuration
+security:
+  cors_origins: 
+    - "http://localhost:3000"
+    - "https://*.vercel.app"
+  rate_limiting:
+    window_ms: 900000  # 15 minutes
+    max_requests: 100
+  encryption:
+    algorithm: "aes-256-gcm"
+    
+# Development and Testing
+development:
+  mock_data: false
+  debug_mode: false
+  sample_campaigns:
+    - name: "Nike Air Max Campaign"
+      client: "Nike"
+      files: 5
+    - name: "Coca-Cola Summer"
+      client: "Coca-Cola" 
+      files: 8
+      
+# CI/CD Configuration
+ci:
+  audit_enabled: true
+  performance_budget:
+    lighthouse_score: 80
+    core_web_vitals: true
+  deployment:
+    auto_deploy: false
+    environment_checks: true

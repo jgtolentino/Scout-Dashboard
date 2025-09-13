@@ -1,0 +1,63 @@
+{
+  "name": "client360-dashboard",
+  "version": "1.0.0",
+  "description": "Client360 Dashboard with multi-brand theming support and drill-down functionality",
+  "main": "index.js",
+  "scripts": {
+    "build:themes": "webpack --config webpack.config.js --mode production",
+    "build:dev": "webpack --config webpack.config.js --mode development",
+    "watch": "webpack --config webpack.config.js --mode development --watch",
+    "test": "playwright test",
+    "test:e2e": "./run_e2e_tests.sh",
+    "test:api": "./run_e2e_tests.sh --mode api",
+    "test:mobile": "./run_e2e_tests.sh --mode mobile",
+    "test:performance": "./run_e2e_tests.sh --mode performance",
+    "test:headless": "./run_e2e_tests.sh --headless",
+    "test:firefox": "./run_e2e_tests.sh --browser firefox-desktop",
+    "test:webkit": "./run_e2e_tests.sh --browser webkit-desktop",
+    "test:open": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:install": "playwright install --with-deps",
+    "test:legacy": "cypress run",
+    "test:legacy:open": "cypress open",
+    "serve": "python -m http.server 8000",
+    "deploy:api": "./deploy_drilldown_api.sh"
+  },
+  "dependencies": {
+    "@azure/event-hubs": "^6.0.0",
+    "@azure/identity": "^3.4.0",
+    "@azure/keyvault-secrets": "^4.7.0",
+    "leaflet": "^1.9.4",
+    "pg": "^8.11.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "autoprefixer": "^10.4.21",
+    "css-loader": "^6.11.0",
+    "cypress": "^14.3.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "postcss-loader": "^7.3.4",
+    "sass": "^1.89.0",
+    "sass-loader": "^13.3.3",
+    "style-loader": "^3.3.3",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "dashboard",
+    "client360",
+    "drill-down",
+    "analytics",
+    "azure",
+    "playwright",
+    "e2e-testing"
+  ],
+  "author": "TBWA Client360 Team",
+  "license": "UNLICENSED",
+  "private": true
+}

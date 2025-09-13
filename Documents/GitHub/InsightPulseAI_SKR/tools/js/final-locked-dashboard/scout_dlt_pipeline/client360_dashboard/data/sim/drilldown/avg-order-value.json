@@ -1,0 +1,70 @@
+{
+  "title": "Average Order Value",
+  "summary": {
+    "value": "₱332.91",
+    "label": "Average Order Value (30 days)",
+    "trend": "+4.1%",
+    "trendDirection": "positive"
+  },
+  "breakdown": [
+    {
+      "category": "Premium Items",
+      "value": "₱487.23",
+      "percentage": "28.5",
+      "change": "+7.8%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Regular Items",
+      "value": "₱298.67",
+      "percentage": "45.2",
+      "change": "+3.2%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Promotional Items",
+      "value": "₱189.45",
+      "percentage": "18.7",
+      "change": "+1.9%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Bundle Deals",
+      "value": "₱156.89",
+      "percentage": "7.6",
+      "change": "-0.5%",
+      "changeDirection": "negative"
+    }
+  ],
+  "trends": {
+    "data": [
+      {"date": "2024-04-01", "value": 319.50},
+      {"date": "2024-04-08", "value": 324.20},
+      {"date": "2024-04-15", "value": 328.75},
+      {"date": "2024-04-22", "value": 331.40},
+      {"date": "2024-04-29", "value": 332.91}
+    ],
+    "insights": [
+      "Premium product sales driving higher order values (+15.2%)",
+      "Bundle promotions showing positive impact on basket size",
+      "Cross-selling initiatives increased AOV by ₱13.41 on average",
+      "Seasonal products contributing 22% to order value growth"
+    ]
+  },
+  "details": {
+    "topPerformers": [
+      {"name": "Electronics Bundle", "value": "₱892 avg"},
+      {"name": "Grocery Premium", "value": "₱456 avg"},
+      {"name": "Personal Care Set", "value": "₱387 avg"},
+      {"name": "Home & Living", "value": "₱342 avg"},
+      {"name": "Snacks & Beverages", "value": "₱198 avg"}
+    ],
+    "recentActivity": [
+      {"time": "1 hour ago", "description": "High-value order: ₱1,450 (Electronics + Accessories)"},
+      {"time": "3 hours ago", "description": "Bundle promotion triggered: 3 items for ₱599"},
+      {"time": "5 hours ago", "description": "Loyalty member upgraded basket: +₱234"},
+      {"time": "8 hours ago", "description": "Cross-sell success: Beauty products added (+₱156)"},
+      {"time": "12 hours ago", "description": "Corporate bulk order: ₱2,890 average per order"}
+    ]
+  }
+}

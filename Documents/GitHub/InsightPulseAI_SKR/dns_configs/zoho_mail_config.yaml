@@ -1,0 +1,36 @@
+domain: insightpulseai.com
+provider: zoho
+host: vercel
+last_updated: 2025-04-22
+generated_by: enrico
+config_file: enrico_20250422_121715.md
+status: verified
+
+mx_records:
+  - host: "@"
+    value: "mx.zoho.com"
+    priority: 10
+    ttl: 3600
+  - host: "@"
+    value: "mx2.zoho.com"
+    priority: 20
+    ttl: 3600
+  - host: "@"
+    value: "mx3.zoho.com"
+    priority: 50
+    ttl: 3600
+
+txt_records:
+  - host: "@"
+    value: "v=spf1 include:zoho.com ~all"
+    ttl: 3600
+  - host: "@"
+    value: "zoho-verification=zb93127941.zmverify.zoho.com"
+    ttl: 3600
+
+dkim_records:
+  - host: "zmail._domainkey"
+    value: "zmail.zoho.com"
+    type: "CNAME"
+    ttl: 3600
+    status: "pending_verification"

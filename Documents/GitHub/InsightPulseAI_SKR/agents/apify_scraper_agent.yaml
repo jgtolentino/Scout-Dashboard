@@ -1,0 +1,262 @@
+name: ApifyScraperAgent
+alias: apify_scraper
+version: "1.0.0"
+description: |
+  Hybrid scraper agent that uses Apify actors by default with automatic fallback to PlaywrightCrawler.
+  Supports TikTok, Instagram, YouTube, Google Maps scraping for creative brief extraction.
+  Used by Gagambi and Pulser for campaign content analysis and enrichment.
+
+agent:
+  type: scraper
+  model: claude-3-5-sonnet
+  temperature: 0.3
+  max_tokens: 4000
+
+permissions:
+  - read:env
+  - use:http
+  - use:playwright
+  - write:temp
+
+environment:
+  APIFY_API_TOKEN: ${APIFY_API_TOKEN}
+  PLAYWRIGHT_BROWSERS_PATH: ${PLAYWRIGHT_BROWSERS_PATH:-/usr/lib/playwright}
+
+capabilities:
+  - social_media_scraping
+  - content_extraction
+  - structured_data_parsing
+  - automated_fallback
+  - screenshot_capture
+
+inputs:
+  - name: actor_id
+    type: string
+    description: Apify actor ID (e.g., johnsmith~tiktok-scraper)
+    required: true
+  - name: target_url
+    type: string
+    description: URL to scrape
+    required: true
+  - name: input_params
+    type: object
+    description: Additional parameters for the actor
+    required: false
+    default: {}
+  - name: timeout
+    type: integer
+    description: Timeout in seconds
+    required: false
+    default: 30
+  - name: fallback_enabled
+    type: boolean
+    description: Enable PlaywrightCrawler fallback
+    required: false
+    default: true
+
+outputs:
+  - name: extracted_data
+    type: list
+    description: Structured data extracted from the target URL
+  - name: source_method
+    type: string
+    description: Method used (apify or playwright_fallback)
+  - name: metadata
+    type: object
+    description: Scraping metadata including timestamps and confidence scores
+
+routes:
+  - match: ":extract*"
+    handler: apify_run_handler
+    description: Auto-scrapes from URL using Apify with fallback
+  - match: ":scrape*"
+    handler: apify_run_handler
+    description: Alias for extract command
+
+handlers:
+  apify_run_handler: |
+    import os
+    import requests
+    import json
+    from datetime import datetime
+    from urllib.parse import urlparse
+    
+    def run(actor_id, target_url, input_params=None, timeout=30, fallback_enabled=True):
+        if input_params is None:
+            input_params = {}
+        
+        # Add target URL to input params
+        input_params['startUrls'] = [{'url': target_url}]
+        
+        # Try Apify first
+        token = os.getenv("APIFY_API_TOKEN")
+        if token:
+            try:
+                url = f"https://api.apify.com/v2/actor-tasks/{actor_id}/run-sync-get-dataset-items?token={token}"
+                response = requests.post(url, json=input_params, timeout=timeout)
+                response.raise_for_status()
+                
+                data = response.json()
+                return {
+                    "extracted_data": data,
+                    "source_method": "apify",
+                    "metadata": {
+                        "scraped_at": datetime.now().isoformat(),
+                        "actor_id": actor_id,
+                        "target_url": target_url,
+                        "confidence_score": 0.95
+                    }
+                }
+                
+            except Exception as apify_error:
+                print(f"[ApifyScraperAgent] Apify failed: {apify_error}")
+                if not fallback_enabled:
+                    raise apify_error
+        
+        # Fallback to Playwright
+        try:
+            from playwright.sync_api import sync_playwright
+            
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                page = browser.new_page()
+                page.set_default_timeout(timeout * 1000)
+                
+                # Navigate to target URL
+                page.goto(target_url)
+                page.wait_for_load_state('networkidle')
+                
+                # Extract structured data based on platform
+                domain = urlparse(target_url).netloc.lower()
+                extracted_data = []
+                
+                if 'tiktok.com' in domain:
+                    extracted_data = extract_tiktok_data(page)
+                elif 'instagram.com' in domain:
+                    extracted_data = extract_instagram_data(page)
+                elif 'youtube.com' in domain or 'youtu.be' in domain:
+                    extracted_data = extract_youtube_data(page)
+                elif 'maps.google.com' in domain:
+                    extracted_data = extract_google_maps_data(page)
+                else:
+                    # Generic extraction
+                    extracted_data = [{
+                        "title": page.title(),
+                        "text": page.inner_text("body")[:1000],
+                        "url": target_url,
+                        "timestamp": datetime.now().isoformat()
+                    }]
+                
+                # Take screenshot for analysis
+                screenshot_path = f"/tmp/scrape_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+                page.screenshot(path=screenshot_path, full_page=True)
+                
+                browser.close()
+                
+                return {
+                    "extracted_data": extracted_data,
+                    "source_method": "playwright_fallback",
+                    "metadata": {
+                        "scraped_at": datetime.now().isoformat(),
+                        "target_url": target_url,
+                        "screenshot_path": screenshot_path,
+                        "confidence_score": 0.75,
+                        "fallback_reason": "apify_unavailable"
+                    }
+                }
+                
+        except Exception as playwright_error:
+            print(f"[ApifyScraperAgent] Playwright fallback failed: {playwright_error}")
+            raise Exception(f"Both Apify and Playwright failed. Apify: {apify_error if 'apify_error' in locals() else 'Not attempted'}, Playwright: {playwright_error}")
+    
+    def extract_tiktok_data(page):
+        try:
+            # Wait for TikTok content to load
+            page.wait_for_selector('[data-e2e="browse-video-desc"]', timeout=10000)
+            
+            return [{
+                "title": page.inner_text('[data-e2e="browse-video-desc"]'),
+                "url": page.url,
+                "views": page.inner_text('[data-e2e="video-views"]') if page.query_selector('[data-e2e="video-views"]') else None,
+                "likes": page.inner_text('[data-e2e="like-count"]') if page.query_selector('[data-e2e="like-count"]') else None,
+                "author": page.inner_text('[data-e2e="video-author-uniqueid"]') if page.query_selector('[data-e2e="video-author-uniqueid"]') else None,
+                "description": page.inner_text('[data-e2e="browse-video-desc"]'),
+                "hashtags": [tag.inner_text() for tag in page.query_selector_all('a[href*="/tag/"]')],
+                "timestamp": datetime.now().isoformat()
+            }]
+        except:
+            return [{"error": "Failed to extract TikTok data", "url": page.url}]
+    
+    def extract_instagram_data(page):
+        try:
+            # Wait for Instagram content
+            page.wait_for_selector('article', timeout=10000)
+            
+            return [{
+                "caption": page.inner_text('article div[data-testid="post-caption"]') if page.query_selector('article div[data-testid="post-caption"]') else None,
+                "url": page.url,
+                "likes": page.inner_text('section button span') if page.query_selector('section button span') else None,
+                "media_type": "image" if page.query_selector('img[style*="object-fit"]') else "video",
+                "timestamp": datetime.now().isoformat()
+            }]
+        except:
+            return [{"error": "Failed to extract Instagram data", "url": page.url}]
+    
+    def extract_youtube_data(page):
+        try:
+            # Wait for YouTube content
+            page.wait_for_selector('#title h1', timeout=10000)
+            
+            return [{
+                "title": page.inner_text('#title h1'),
+                "url": page.url,
+                "views": page.inner_text('#info-container #count') if page.query_selector('#info-container #count') else None,
+                "channel": page.inner_text('#channel-name a') if page.query_selector('#channel-name a') else None,
+                "description": page.inner_text('#description') if page.query_selector('#description') else None,
+                "duration": page.inner_text('.ytp-time-duration') if page.query_selector('.ytp-time-duration') else None,
+                "timestamp": datetime.now().isoformat()
+            }]
+        except:
+            return [{"error": "Failed to extract YouTube data", "url": page.url}]
+    
+    def extract_google_maps_data(page):
+        try:
+            # Wait for Maps content
+            page.wait_for_selector('h1', timeout=10000)
+            
+            return [{
+                "name": page.inner_text('h1'),
+                "url": page.url,
+                "address": page.inner_text('[data-value="Address"]') if page.query_selector('[data-value="Address"]') else None,
+                "rating": page.inner_text('[role="img"][aria-label*="star"]') if page.query_selector('[role="img"][aria-label*="star"]') else None,
+                "reviews": page.inner_text('button[aria-label*="review"]') if page.query_selector('button[aria-label*="review"]') else None,
+                "timestamp": datetime.now().isoformat()
+            }]
+        except:
+            return [{"error": "Failed to extract Google Maps data", "url": page.url}]
+
+config:
+  retry_attempts: 3
+  retry_delay: 5
+  max_concurrent_requests: 2
+  supported_platforms:
+    - tiktok.com
+    - instagram.com
+    - youtube.com
+    - youtu.be
+    - maps.google.com
+  
+  apify_actors:
+    tiktok: "johnsmith~tiktok-scraper"
+    instagram: "johnsmith~instagram-scraper"
+    youtube: "johnsmith~youtube-scraper"
+    google_maps: "johnsmith~google-maps-scraper"
+
+integration:
+  gagambi:
+    enrichment_hook: true
+    auto_tag: true
+    confidence_threshold: 0.7
+  pulser:
+    auto_schedule: true
+    output_format: "structured_json"

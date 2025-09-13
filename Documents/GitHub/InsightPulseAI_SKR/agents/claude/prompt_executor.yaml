@@ -1,0 +1,111 @@
+# Claude Prompt Executor Agent Definition
+# Replacement for deprecated clodrep
+# Created: May 10, 2025
+
+name: ClaudePromptExecutor
+description: >
+  Claude-powered prompt testing and engineering agent This agent provides enterprise-grade functionality with comprehensive error handling, performance optimization, and full observability for production environments.
+
+# Capabilities
+capabilities:
+  - prompt_testing
+  - prompt_engineering
+  - version_management
+  - prompt_catalogue
+# Runtime configuration
+runtime:
+  executor: claude
+  model: claude-3-7-sonnet-20250219
+  memory: enabled
+  logging:
+    - claude_prompt_tests.log
+    - prompt_sync_activity.log
+# Handlers for different prompt types
+handlers:
+  - name: prompt_test
+    module: prompt_engineering
+    function: claude_test_prompt
+  - name: prompt_sync
+    module: prompt_engineering
+    function: claude_sync_index
+  - name: prompt_version
+    module: prompt_engineering
+    function: claude_version_prompt
+# Integration with Pulser CLI
+cli:
+  command: prompt
+  subcommands:
+    - name: test
+      description: Test a prompt with Claude
+      example: pulser prompt test --name brand_analysis
+    - name: sync
+      description: Sync the prompt catalogue
+      example: pulser prompt sync
+    - name: list
+      description: List available prompts
+      example: pulser prompt list
+    - name: version
+      description: Show versions of a prompt
+      example: pulser prompt version --name brand_analysis
+# Claude prompt tags handling
+prompt_tags:
+  - specific_request
+  - step_by_step
+  - chaining_prompt
+  - critiquing_prompt
+  - system_message
+  - few_shot
+  - multimodal_analysis
+# Lifecycle
+lifecycle:
+  replaces: clodrep
+  deprecated: false
+  since_version: 2.5.0
+  maintained_by: InsightPulseAI
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+integrations:
+  - pulser_core
+  - external_api
+interactions:
+  - pulser_core
+  - prompt_router
+resource_quota: 5000_tokens_per_min
+timeout_ms: 90000

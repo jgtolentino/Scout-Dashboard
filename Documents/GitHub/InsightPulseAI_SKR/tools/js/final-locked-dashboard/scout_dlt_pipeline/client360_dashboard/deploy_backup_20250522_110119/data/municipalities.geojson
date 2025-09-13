@@ -1,0 +1,286 @@
+{
+  "type": "FeatureCollection",
+  "simulated": true,
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Makati City",
+        "type": "City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 582602,
+        "area_sqkm": 21.57,
+        "density": 27010,
+        "store_count": 342,
+        "total_sales": 22150000,
+        "growth_rate": 7.5,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0044, 14.5347],
+            [121.0444, 14.5347],
+            [121.0444, 14.5747],
+            [121.0044, 14.5747],
+            [121.0044, 14.5347]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cebu City",
+        "type": "City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "population": 922611,
+        "area_sqkm": 315.0,
+        "density": 2927,
+        "store_count": 427,
+        "total_sales": 18750000,
+        "growth_rate": 4.8,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.8654, 10.2957],
+            [123.9054, 10.2957],
+            [123.9054, 10.3357],
+            [123.8654, 10.3357],
+            [123.8654, 10.2957]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Davao City",
+        "type": "City",
+        "province": "Davao del Sur",
+        "region": "Davao",
+        "population": 1632991,
+        "area_sqkm": 2443.61,
+        "density": 668,
+        "store_count": 512,
+        "total_sales": 25400000,
+        "growth_rate": 8.9,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [125.5927, 7.0507],
+            [125.6327, 7.0507],
+            [125.6327, 7.0907],
+            [125.5927, 7.0907],
+            [125.5927, 7.0507]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Baguio City",
+        "type": "City",
+        "province": "Benguet",
+        "region": "CAR",
+        "population": 345366,
+        "area_sqkm": 57.5,
+        "density": 6006,
+        "store_count": 215,
+        "total_sales": 12500000,
+        "growth_rate": 5.2,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.5760, 16.3823],
+            [120.6160, 16.3823],
+            [120.6160, 16.4223],
+            [120.5760, 16.4223],
+            [120.5760, 16.3823]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Iloilo City",
+        "type": "City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "population": 447992,
+        "area_sqkm": 78.34,
+        "density": 5719,
+        "store_count": 289,
+        "total_sales": 14800000,
+        "growth_rate": 6.1,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [122.5526, 10.7002],
+            [122.5926, 10.7002],
+            [122.5926, 10.7402],
+            [122.5526, 10.7402],
+            [122.5526, 10.7002]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Laoag City",
+        "type": "City",
+        "province": "Ilocos Norte",
+        "region": "Ilocos",
+        "population": 110029,
+        "area_sqkm": 107.96,
+        "density": 1019,
+        "store_count": 134,
+        "total_sales": 7500000,
+        "growth_rate": 3.8,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.5760, 18.1782],
+            [120.6160, 18.1782],
+            [120.6160, 18.2182],
+            [120.5760, 18.2182],
+            [120.5760, 18.1782]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tacloban City",
+        "type": "City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "population": 242089,
+        "area_sqkm": 201.72,
+        "density": 1200,
+        "store_count": 178,
+        "total_sales": 9800000,
+        "growth_rate": 7.2,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [124.9808, 11.2343],
+            [125.0208, 11.2343],
+            [125.0208, 11.2743],
+            [124.9808, 11.2743],
+            [124.9808, 11.2343]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature", 
+      "properties": {
+        "name": "Naga City",
+        "type": "City",
+        "province": "Camarines Sur",
+        "region": "Bicol",
+        "population": 196003,
+        "area_sqkm": 84.48,
+        "density": 2320,
+        "store_count": 152,
+        "total_sales": 8500000,
+        "growth_rate": 5.9,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.7309, 13.5992],
+            [123.7709, 13.5992],
+            [123.7709, 13.6392],
+            [123.7309, 13.6392],
+            [123.7309, 13.5992]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Batangas City",
+        "type": "City",
+        "province": "Batangas",
+        "region": "CALABARZON",
+        "population": 329874,
+        "area_sqkm": 282.96,
+        "density": 1166,
+        "store_count": 203,
+        "total_sales": 12100000,
+        "growth_rate": 6.7,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0382, 13.7365],
+            [121.0782, 13.7365],
+            [121.0782, 13.7765],
+            [121.0382, 13.7765],
+            [121.0382, 13.7365]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cabanatuan City",
+        "type": "City",
+        "province": "Nueva Ecija",
+        "region": "Central Luzon",
+        "population": 302231,
+        "area_sqkm": 286.67,
+        "density": 1054,
+        "store_count": 185,
+        "total_sales": 10200000,
+        "growth_rate": 4.3,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.9475, 15.4681],
+            [120.9875, 15.4681],
+            [120.9875, 15.5081],
+            [120.9475, 15.5081],
+            [120.9475, 15.4681]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+store_id,store_name,region,city,store_type,opening_date,is_active
+STR001,Scout Store James Ville Branch,Eastern Visayas,Maureen Ville,Regular,2024-06-10,True
+STR002,Scout Store Danielle Ville Branch,Bicol Region,Jennifer Ville,Regular,2022-04-29,True
+STR003,Scout Store Lake Mandyville Branch,National Capital Region,West Emilyland,Express,2021-05-21,True
+STR004,Scout Store Lindsay Ville Branch,Davao Region,Morenoville,Express,2023-08-02,True
+STR005,Scout Store Lake Devinstad Branch,Caraga,Kennedyhaven,Regular,2024-05-28,True
+STR006,Scout Store East Shannonhaven Branch,Cordillera Administrative Region,New Keith,Flagship,2024-05-28,True
+STR007,Scout Store Dean Ville Branch,National Capital Region,Annabury,Flagship,2023-12-07,True
+STR008,Scout Store Lake Erik Branch,Cagayan Valley,New Ryanshire,Regular,2023-04-08,True
+STR009,Scout Store Robert Ville Branch,Ilocos Region,Blairland,Express,2023-02-27,True
+STR010,Scout Store Jared Ville Branch,Central Luzon,Ponceburgh,Regular,2024-03-05,True
+STR011,Scout Store Joseph Ville Branch,Western Visayas,Richard Ville,Regular,2021-08-06,True
+STR012,Scout Store Leslie Ville Branch,Davao Region,East Meredithfurt,Flagship,2021-02-11,True
+STR013,Scout Store Larry Ville Branch,BARMM,New Markshire,Regular,2023-12-15,True
+STR014,Scout Store Jason Ville Branch,National Capital Region,Lutzmouth,Flagship,2024-02-29,True
+STR015,Scout Store New Tammyville Branch,SOCCSKSARGEN,Evan Ville,Regular,2022-06-22,True
+STR016,Scout Store Byrdfurt Branch,Northern Mindanao,Port Danieltown,Regular,2021-01-04,True
+STR017,Scout Store Kurt Ville Branch,National Capital Region,Lake Natalietown,Regular,2023-09-10,True
+STR018,Scout Store Ruizmouth Branch,National Capital Region,Jennifer Ville,Express,2023-09-24,True
+STR019,Scout Store New Jeffreyside Branch,Central Visayas,Sandra Ville,Regular,2024-01-06,True
+STR020,Scout Store East Shawn Branch,National Capital Region,Phillipsland,Regular,2023-06-12,True
+STR021,Scout Store Robertmouth Branch,Cagayan Valley,Bobby Ville,Regular,2020-09-11,True
+STR022,Scout Store Lake Erintown Branch,Eastern Visayas,Andersonton,Express,2024-09-25,True
+STR023,Scout Store Eric Ville Branch,MIMAROPA,Joyce Ville,Regular,2023-05-09,True
+STR024,Scout Store Jeffrey Ville Branch,Zamboanga Peninsula,Michael Ville,Regular,2021-02-04,True
+STR025,Scout Store Christina Ville Branch,Western Visayas,Jeremiah Ville,Regular,2021-05-30,True
+STR026,Scout Store New Keithhaven Branch,Bicol Region,David Ville,Regular,2023-09-09,True
+STR027,Scout Store South Angelaside Branch,CALABARZON,East Tiffany,Flagship,2025-07-24,True
+STR028,Scout Store West Sabrinabury Branch,National Capital Region,Amber Ville,Flagship,2024-06-30,True
+STR029,Scout Store Angela Ville Branch,Eastern Visayas,West Angelica,Regular,2024-01-24,True
+STR030,Scout Store New Jacobfort Branch,Bicol Region,Zacharymouth,Express,2022-05-26,True
+STR031,Scout Store South Joebury Branch,National Capital Region,Danielle Ville,Regular,2023-08-29,True
+STR032,Scout Store South Andrew Branch,Northern Mindanao,Robert Ville,Regular,2020-11-05,True
+STR033,Scout Store Zachary Ville Branch,National Capital Region,Kristina Ville,Regular,2023-07-06,True
+STR034,Scout Store Thompsonton Branch,National Capital Region,West Janet,Express,2023-12-18,True
+STR035,Scout Store Christopher Ville Branch,Davao Region,Antoniofort,Regular,2024-05-20,True
+STR036,Scout Store Stephen Ville Branch,Caraga,New Kyleland,Express,2023-07-21,True
+STR037,Scout Store Alyssa Ville Branch,National Capital Region,Gina Ville,Express,2022-07-26,True
+STR038,Scout Store Kevin Ville Branch,Western Visayas,Veronica Ville,Express,2020-12-20,True
+STR039,Scout Store East Lisa Branch,Caraga,Port Jeremiahborough,Regular,2023-08-22,True
+STR040,Scout Store Fordfort Branch,National Capital Region,Pachecoburgh,Regular,2022-08-18,True
+STR041,Scout Store East Amandachester Branch,CALABARZON,Lake Zacharyside,Express,2021-09-03,True
+STR042,Scout Store Troystad Branch,Caraga,Port Micheal,Flagship,2022-06-16,True
+STR043,Scout Store Joseph Ville Branch,Bicol Region,Todd Ville,Regular,2023-01-16,True
+STR044,Scout Store East Juanfort Branch,National Capital Region,Brandi Ville,Regular,2023-12-23,True
+STR045,Scout Store New Daniellebury Branch,Cagayan Valley,West Scottchester,Express,2022-08-29,True
+STR046,Scout Store New Tabitha Branch,Cagayan Valley,Julia Ville,Regular,2021-08-31,True
+STR047,Scout Store Brooksborough Branch,Zamboanga Peninsula,South Kellyland,Regular,2022-01-18,True
+STR048,Scout Store Anneland Branch,BARMM,Stevenview,Express,2020-09-12,True
+STR049,Scout Store Schmidtport Branch,Ilocos Region,Jonesstad,Regular,2022-09-17,True
+STR050,Scout Store James Ville Branch,Cagayan Valley,North Beth,Regular,2023-05-23,True
+STR051,Scout Store Hollandport Branch,National Capital Region,Stacy Ville,Regular,2023-10-24,True
+STR052,Scout Store Jodi Ville Branch,Bicol Region,Michaelhaven,Flagship,2024-11-27,True
+STR053,Scout Store Gregory Ville Branch,Ilocos Region,South Rachaelview,Express,2025-07-02,True
+STR054,Scout Store Randall Ville Branch,National Capital Region,Kimberly Ville,Regular,2021-10-10,True
+STR055,Scout Store Nicholas Ville Branch,Bicol Region,West Jenniferstad,Express,2021-03-27,True
+STR056,Scout Store Wrightmouth Branch,National Capital Region,Grace Ville,Regular,2024-05-31,True
+STR057,Scout Store East Marthastad Branch,Northern Mindanao,Justin Ville,Regular,2022-10-19,True
+STR058,Scout Store Maria Ville Branch,Northern Mindanao,Caleb Ville,Regular,2022-03-25,True
+STR059,Scout Store Katherine Ville Branch,Eastern Visayas,Larry Ville,Regular,2024-08-21,True
+STR060,Scout Store Jamie Ville Branch,Western Visayas,Andrew Ville,Flagship,2024-07-18,True
+STR061,Scout Store Reynoldstown Branch,SOCCSKSARGEN,Elizabeth Ville,Regular,2024-12-16,True
+STR062,Scout Store Allisonstad Branch,National Capital Region,Matthew Ville,Flagship,2021-10-12,True
+STR063,Scout Store Lee Ville Branch,Central Visayas,East Daniel,Regular,2023-11-25,True
+STR064,Scout Store Mark Ville Branch,National Capital Region,East Kathryn,Regular,2023-04-09,True
+STR065,Scout Store Courtney Ville Branch,National Capital Region,Jeffrey Ville,Regular,2023-08-18,True
+STR066,Scout Store Brian Ville Branch,National Capital Region,New Bradleyview,Regular,2025-09-03,True
+STR067,Scout Store West Thomasport Branch,Central Luzon,Leah Ville,Express,2023-12-23,True
+STR068,Scout Store Timothy Ville Branch,National Capital Region,David Ville,Regular,2022-03-02,True
+STR069,Scout Store Ashley Ville Branch,National Capital Region,Bellberg,Express,2024-07-17,True
+STR070,Scout Store East Eddiemouth Branch,Caraga,Benitezmouth,Regular,2020-12-24,True
+STR071,Scout Store William Ville Branch,Eastern Visayas,South Daniel,Express,2023-03-19,True
+STR072,Scout Store Robert Ville Branch,Western Visayas,West Darren,Regular,2025-07-24,True
+STR073,Scout Store East Michelle Branch,National Capital Region,Anna Ville,Flagship,2024-02-08,True
+STR074,Scout Store Peggy Ville Branch,Caraga,South Lindaville,Express,2021-09-22,True
+STR075,Scout Store Ashley Ville Branch,Eastern Visayas,Alexfort,Regular,2025-02-20,True
+STR076,Scout Store Angel Ville Branch,Central Luzon,Morganbury,Regular,2020-09-23,True
+STR077,Scout Store David Ville Branch,Caraga,New Gary,Express,2021-04-22,True
+STR078,Scout Store Angela Ville Branch,Davao Region,Michael Ville,Regular,2025-01-05,True
+STR079,Scout Store Port Lindseychester Branch,National Capital Region,North Stephanieland,Regular,2023-01-12,True
+STR080,Scout Store Kimberly Ville Branch,Caraga,John Ville,Regular,2024-02-09,True
+STR081,Scout Store Wesley Ville Branch,National Capital Region,Aaron Ville,Regular,2024-06-04,True
+STR082,Scout Store Timothy Ville Branch,Eastern Visayas,Melissa Ville,Flagship,2025-02-15,True
+STR083,Scout Store Lake Brianmouth Branch,National Capital Region,Lake Michelle,Regular,2025-08-15,True
+STR084,Scout Store Derek Ville Branch,Zamboanga Peninsula,East Donald,Regular,2020-12-13,True
+STR085,Scout Store Christopher Ville Branch,National Capital Region,James Ville,Regular,2022-12-17,True
+STR086,Scout Store Melissa Ville Branch,National Capital Region,South Lisaport,Regular,2021-10-19,True
+STR087,Scout Store East Ricky Branch,Northern Mindanao,Barneshaven,Regular,2023-07-23,True
+STR088,Scout Store Courtney Ville Branch,SOCCSKSARGEN,Nathan Ville,Regular,2023-08-08,True
+STR089,Scout Store Martha Ville Branch,Western Visayas,James Ville,Flagship,2021-06-06,True
+STR090,Scout Store Sean Ville Branch,Central Luzon,Brownland,Regular,2023-04-30,True
+STR091,Scout Store South Cynthia Branch,National Capital Region,Lake Robertchester,Express,2024-07-30,True
+STR092,Scout Store Knightport Branch,CALABARZON,Ralphfort,Express,2023-10-22,True
+STR093,Scout Store Troy Ville Branch,Eastern Visayas,Michelle Ville,Regular,2023-02-08,True
+STR094,Scout Store Colemanhaven Branch,Bicol Region,Janice Ville,Regular,2025-07-11,True
+STR095,Scout Store Michaelland Branch,Bicol Region,North Robertville,Regular,2021-07-14,True
+STR096,Scout Store Escobarhaven Branch,Northern Mindanao,Barkerport,Regular,2024-04-01,True
+STR097,Scout Store Joseph Ville Branch,National Capital Region,Angelica Ville,Regular,2024-08-16,True
+STR098,Scout Store Dustin Ville Branch,National Capital Region,Port Kimberlyborough,Express,2023-08-27,True
+STR099,Scout Store Sharonside Branch,BARMM,New Meganstad,Express,2022-06-04,True
+STR100,Scout Store West Christine Branch,Central Luzon,Nancy Ville,Flagship,2024-11-18,True

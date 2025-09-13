@@ -1,0 +1,103 @@
+{
+  "name": "@clodrep/cli",
+  "version": "1.0.0-alpha",
+  "description": "Claude-Parity Local CLI with MCP Bridge Integration",
+  "main": "dist/index.js",
+  "bin": {
+    "clodrep": "./bin/run"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "tsc && chmod +x bin/run",
+    "dev": "tsx src/index.ts",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:uat": "vitest tests/uat",
+    "lint": "eslint src/**/*.ts",
+    "bridge:start": "tsx src/bridge/server.ts",
+    "bridge:register": "tsx src/bridge/register.ts",
+    "setup": "tsx scripts/setup.ts",
+    "package": "pkg dist/index.js --out-path=packages",
+    "docker:build": "docker build -t clodrep-local .",
+    "docker:run": "docker run -it --rm clodrep-local"
+  },
+  "dependencies": {
+    "@oclif/core": "^3.15.1",
+    "@oclif/plugin-help": "^6.0.8",
+    "@oclif/plugin-plugins": "^4.1.8",
+    "ollama": "^0.5.0",
+    "ws": "^8.16.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.6",
+    "chromadb": "^1.7.3",
+    "commander": "^11.1.0",
+    "inquirer": "^9.2.12",
+    "chalk": "^5.3.0",
+    "ora": "^7.0.1",
+    "yaml": "^2.3.4",
+    "dockerode": "^4.0.2",
+    "tesseract.js": "^5.0.4",
+    "pdf-parse": "^1.1.1",
+    "mammoth": "^1.6.0",
+    "xlsx": "^0.18.5",
+    "node-fetch": "^3.3.2",
+    "readline": "^1.3.0",
+    "glob": "^10.3.10",
+    "chokidar": "^3.5.3",
+    "mime-types": "^2.1.35"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/ws": "^8.5.10",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/inquirer": "^9.0.7",
+    "@types/mime-types": "^2.1.4",
+    "typescript": "^5.3.3",
+    "tsx": "^4.6.2",
+    "vitest": "^1.1.0",
+    "@vitest/ui": "^1.1.0",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "pkg": "^5.8.1"
+  },
+  "keywords": [
+    "claude",
+    "cli",
+    "local",
+    "mcp",
+    "bridge",
+    "ai",
+    "assistant",
+    "offline",
+    "llm"
+  ],
+  "author": "Clodrep Team",
+  "license": "MIT",
+  "oclif": {
+    "bin": "clodrep",
+    "dirname": "clodrep",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "bridge": {
+        "description": "MCP bridge management commands"
+      },
+      "memory": {
+        "description": "Memory and context management"
+      },
+      "tools": {
+        "description": "Tool framework management"
+      }
+    }
+  }
+}

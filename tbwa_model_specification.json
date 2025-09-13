@@ -1,0 +1,19 @@
+{
+  "feature_importance": {
+    "multi_platform": 0.723,
+    "cultural_relevance": 0.205,
+    "social_purpose": 0.067,
+    "innovation_score": 0.005
+  },
+  "model_performance": {
+    "accuracy": 0.942,
+    "f1_score": 0.93,
+    "auc_roc": 0.96
+  },
+  "framework_weights": {
+    "social_purpose": 0.3,
+    "multi_platform": 0.25,
+    "creative_excellence": 0.25,
+    "cultural_relevance": 0.2
+  }
+}

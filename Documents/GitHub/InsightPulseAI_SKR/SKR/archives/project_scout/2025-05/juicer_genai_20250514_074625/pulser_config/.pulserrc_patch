@@ -1,0 +1,116 @@
+# .pulserrc patch for Juicer integration
+# Add this to your existing .pulserrc file
+
+# ------------------------------------------
+# Juicer Configuration for PowerBI-like BI in Pulser
+# ------------------------------------------
+
+[juicer]
+enabled = true
+version = "2.0.1"
+reference_id = "PULSER-2.0.1-JUICER-20250512"
+
+# Databricks integration
+[juicer.databricks]
+workspace_url = "https://adb-123456789.0.azuredatabricks.net"  # Replace with actual workspace URL
+api_token_env = "DATABRICKS_API_TOKEN"  # Token stored as environment variable
+notebooks_path = "/Shared/InsightPulseAI/Juicer"
+default_cluster_id = ""  # Optional: set a default compute cluster
+
+# Dashboard configuration
+[juicer.dashboard]
+url = "/dashboards/juicer"
+static_path = "./juicer-stack/dashboards"
+enable_embedding = true
+refresh_interval = 3600  # seconds
+
+# Brand detection settings
+[juicer.brand_detection]
+confidence_threshold = 80
+enable_sentiment = true
+sentiment_model = "vader"  # Options: vader, textblob, custom
+enable_fuzzy_matching = true
+
+# Database connections
+[juicer.database]
+azure_sql_connection = "mssql+pymssql://TBWA:R@nd0mPA$2025!@sqltbwaprojectscoutserver.database.windows.net/SQL-TBWA-ProjectScout-Reporting-Prod"
+bronze_table = "bronze_transcripts"
+silver_table = "silver_enriched_mentions"
+gold_table = "gold_transcript_summary"
+
+# Sketch generation
+[juicer.sketch]
+enable_auto_generation = true
+api_endpoint = "/api/sketch_generate"
+default_style = "clean"  # Options: rough, clean, detailed
+default_type = "diagram"  # Options: concept, flowchart, diagram
+
+# CLI configuration
+[juicer.cli]
+command_prefix = "juicer"
+enable_natural_language = true
+python_path = "~/bin/juicer"
+default_output = "rich"  # Options: rich, json, plain
+
+# Agent orchestration
+[juicer.agents]
+orchestrator = "claudia"
+visualization = "maya"
+entity_extraction = "echo"
+knowledge_integration = "kalaw"
+visual_rendering = "sunnies"
+
+# Commands registry
+[juicer.commands]
+query = { handler = "query", description = "Execute SQL or natural language queries" }
+notebook = { handler = "notebook", description = "Run a Databricks notebook" }
+dashboard = { handler = "dashboard", description = "View or generate a dashboard" }
+visualize = { handler = "visualize", description = "Generate visualization from data" }
+help = { handler = "help", description = "Show Juicer help information" }
+
+# Natural language patterns
+[juicer.nl_patterns]
+brand_query = ['show brand', 'get brand', 'find brand', 'display brand', 'brand mentions']
+agent_performance = ['agent performance', 'agent metrics', 'agent brand', 'agent comparison']
+sentiment_analysis = ['sentiment for', 'sentiment analysis', 'emotion analysis', 'feeling about']
+time_period = ['last 7 days', 'last 30 days', 'last month', 'last week', 'last quarter', 'year to date']
+
+# SQL templates (snippet)
+[juicer.sql_templates]
+brand_mentions = '''
+SELECT 
+  entity_normalized AS brand, 
+  COUNT(*) AS mention_count,
+  ROUND(AVG(sentiment_score) * 100, 1) AS avg_sentiment_pct
+FROM 
+  insight_pulse_ai.silver.transcript_entity_mentions
+WHERE 
+  entity_type = 'BRAND'
+  {% if brand %}AND entity_normalized LIKE '%{{ brand }}%'{% endif %}
+  {% if time_range %}AND detection_timestamp >= CURRENT_DATE - INTERVAL {{ time_range }}{% endif %}
+GROUP BY 
+  brand
+ORDER BY 
+  {% if order_by %}{{ order_by }}{% else %}mention_count DESC{% endif %}
+{% if limit %}LIMIT {{ limit }}{% endif %}
+'''
+
+# Pulser CLI hooks
+[pulser.commands.juicer]
+enabled = true
+handler = "./router/commands/juicer.js"
+description = "AI-BI analytics with Databricks integration"
+aliases = ["jcr", "bi", "analytics"]
+usage = "juicer <action> [options]"
+examples = [
+  "juicer query \"Show brand mentions for last 7 days\"",
+  "juicer notebook juicer_enrich_silver --params date=2025-05-01",
+  "juicer dashboard agent_brand_heatmap"
+]
+
+# GitHub Actions integration
+[ci_cd.github_actions]
+workflow_path = ".github/workflows/deploy-juicer.yml"
+enabled = true
+auto_deploy = true
+test_before_deploy = true

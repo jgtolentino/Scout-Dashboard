@@ -1,0 +1,91 @@
+{
+  "azureProjection": {
+    "daily": {
+      "currentRate": "32.06",
+      "projectedRate": "32.06",
+      "dailySavings": "0.00",
+      "savingsPercentage": "0.0"
+    },
+    "monthly": {
+      "currentMonthlyProjection": "961.70",
+      "optimizedMonthlyProjection": "961.70",
+      "monthlySavings": "0.00",
+      "annualSavings": "0.00"
+    },
+    "timestamp": "2025-05-22T03:23:30.159Z",
+    "dataSource": "Azure Cost Management",
+    "lastUpdated": "May 22, 2025 (awaiting May 23-24 refresh)"
+  },
+  "awsComparison": {
+    "azureDailyCost": "32.06",
+    "awsDailyCost": "27.25",
+    "dailySavings": "4.81",
+    "monthlyEquivalent": "817.53",
+    "monthlySavings": "144.27",
+    "annualSavings": "1755.29"
+  },
+  "gcpComparison": {
+    "azureDailyCost": "32.06",
+    "gcpDailyCost": "25.01",
+    "dailySavings": "7.05",
+    "monthlyEquivalent": "750.20",
+    "monthlySavings": "211.60",
+    "annualSavings": "2574.42"
+  },
+  "openSourceAnalysis": [
+    {
+      "azureService": "Databricks",
+      "openSourceAlternative": "Apache Spark + Jupyter",
+      "currentMonthlyCost": "400.00",
+      "potentialMonthlySavings": "340.00",
+      "implementationCost": "35000.00",
+      "monthlyMaintenanceCost": "100.00",
+      "netMonthlySavings": "240.00",
+      "breakEvenMonths": "145.8",
+      "recommendationScore": 134,
+      "recommended": true
+    },
+    {
+      "azureService": "SQL Database",
+      "openSourceAlternative": "PostgreSQL + Docker",
+      "currentMonthlyCost": "300.00",
+      "potentialMonthlySavings": "210.00",
+      "implementationCost": "15000.00",
+      "monthlyMaintenanceCost": "75.00",
+      "netMonthlySavings": "135.00",
+      "breakEvenMonths": "111.1",
+      "recommendationScore": 143,
+      "recommended": true
+    },
+    {
+      "azureService": "Power BI",
+      "openSourceAlternative": "Apache Superset + Grafana",
+      "currentMonthlyCost": "200.00",
+      "potentialMonthlySavings": "180.00",
+      "implementationCost": "15000.00",
+      "monthlyMaintenanceCost": "30.00",
+      "netMonthlySavings": "150.00",
+      "breakEvenMonths": "100.0",
+      "recommendationScore": 176,
+      "recommended": true
+    },
+    {
+      "azureService": "Data Factory",
+      "openSourceAlternative": "Apache Airflow",
+      "currentMonthlyCost": "150.00",
+      "potentialMonthlySavings": "112.50",
+      "implementationCost": "15000.00",
+      "monthlyMaintenanceCost": "22.50",
+      "netMonthlySavings": "90.00",
+      "breakEvenMonths": "166.7",
+      "recommendationScore": 170,
+      "recommended": true
+    }
+  ],
+  "summary": {
+    "currentMonthlySpend": "961.80",
+    "awsMonthlySavings": "144.27",
+    "gcpMonthlySavings": "211.60",
+    "totalOpenSourceSavings": "615.00"
+  }
+}

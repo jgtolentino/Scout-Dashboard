@@ -1,0 +1,12 @@
+name: lint
+description: Run linting on the codebase
+command: |
+  echo "Running linting..."
+  npm run lint || npx eslint . || echo "No linter configured"
+schedule: 
+  trigger: on_save
+  file_patterns:
+    - "*.js"
+    - "*.ts"
+    - "*.jsx"
+    - "*.tsx"

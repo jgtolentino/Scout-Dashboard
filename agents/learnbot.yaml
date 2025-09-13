@@ -1,0 +1,287 @@
+# LearnBot - Adult Learning Instructional Designer AI
+# Production-Grade Agent with Andragogy & Evidence-Based Learning Design
+# Pulser 4.x Compatible
+
+name: LearnBot
+codename: learnbot
+version: 4.1.0
+type: instructor
+persona: >
+  Senior analyst mentor - Ruth Colvin Clark's evidence-based clarity
+  combined with Malcolm Knowles' andragogical approach. Clear, concrete,
+  encourages exploration with immediate applicability focus.
+
+description: >
+  AI-powered instructional designer that transforms any dashboard,
+  workflow, or technical process into guided learning experiences.
+  Built on proven adult learning principles (Knowles, Merrill, Bloom)
+  with adaptive AI coaching and comprehensive analytics.
+
+# Core Instructional Design Capabilities
+capabilities:
+  # Adult Learning Theory Implementation
+  - andragogy_principles         # Self-direction, experience leverage, problem-orientation
+  - merrill_first_principles    # Task-centered, activation, demonstration, application, integration
+  - evidence_based_design       # Ruth Colvin Clark multimedia principles
+  - bloom_mastery_tracking      # 2-sigma problem targeting with adaptive assessment
+  
+  # AI-Assisted Learning Features
+  - contextual_qna              # Schema-aware RAG for "what does this mean?" queries
+  - adaptive_walkthroughs       # Multi-step tours with branching logic
+  - skill_progress_tracking     # xAPI-compliant learning record storage
+  - error_pattern_recognition   # Surfaces hints when users hesitate/error
+  - real_time_assessment        # Confidence scoring to avoid false fluency
+  
+  # Content Generation & Management
+  - rapid_content_creation      # Auto-generate courses from existing docs/schemas
+  - multimodal_asset_pipeline   # Text, interactive demos, scenario simulations
+  - doc_sync_embedding         # Vector store updates on content merge
+  - personalized_learning_paths # Adaptive sequencing based on competence model
+
+# Permissions & Access
+permissions:
+  - supabase.db:read
+  - supabase.storage:read
+  - supabase.functions:execute
+  - vector.search:read
+  - vector.embeddings:write
+  - analytics.metrics:write
+  - learning.records:admin
+  - content.generation:admin
+
+# Memory & Learning Context
+memory_tags:
+  - tutorial
+  - docs
+  - adult_learning
+  - instructional_design
+  - andragogy
+  - competence_model
+  - learning_analytics
+  - user_progress
+
+# Runtime Configuration
+entrypoint: "python -m agents.learnbot.main:LearnBot"
+runtime: "python3.9"
+timeout: 120
+memory_limit: "1GB"
+cpu_limit: "500m"
+
+# Triggers & Activation
+triggers:
+  ui_events:
+    - "learnbot:ask"
+    - "learnbot:startTour"
+    - "learnbot:getHint"
+    - "learnbot:trackProgress"
+  
+  cli_commands:
+    - "pulser help *"
+    - "pulser learn *"
+    - "pulser tutorial *"
+  
+  webhook_events:
+    - "docs/updated"
+    - "schema/changed"
+    - "user/onboarded"
+
+# Adult Learning Framework Implementation
+learning_frameworks:
+  knowles_andragogy:
+    self_direction: true
+    experience_leverage: true
+    readiness_to_learn: true
+    problem_orientation: true
+    internal_motivation: true
+    need_to_know: true
+  
+  merrill_principles:
+    task_centered: true
+    activation: true          # Prior knowledge activation
+    demonstration: true       # Show examples/demos
+    application: true         # Practice opportunities
+    integration: true         # Real-world application
+  
+  clark_evidence_based:
+    contiguity_principle: true    # Related info presented together
+    coherence_principle: true     # Exclude extraneous material  
+    modality_principle: true      # Graphics + narration vs text
+    redundancy_principle: true    # Graphics + narration vs both + text
+    personalization: true         # Conversational vs formal style
+
+# Learning Analytics & Assessment
+analytics_config:
+  bloom_2_sigma_target: 0.90    # Target 90% of learners achieving mastery
+  confidence_threshold: 0.85     # Minimum confidence before progression
+  mastery_criteria:
+    recall: 0.80                 # 80% accuracy on knowledge checks
+    application: 0.75            # 75% success on practical tasks
+    analysis: 0.70               # 70% on complex problem solving
+  
+  learning_metrics:
+    time_to_competence: true
+    completion_rates: true
+    confidence_scores: true
+    error_patterns: true
+    engagement_duration: true
+    help_seeking_behavior: true
+
+# xAPI Learning Record Store Configuration
+xapi_config:
+  endpoint: "${SUPABASE_URL}/rest/v1/rpc/xapi_statement"
+  actor_identifier: "user_id"
+  activity_base_uri: "https://tbwa.com/learning/"
+  
+  tracked_actions:
+    - "experienced"      # Content viewed
+    - "attempted"        # Assessment started
+    - "completed"        # Successfully finished
+    - "mastered"         # Achieved competence
+    - "asked"           # Help requested
+    - "explored"        # Self-directed discovery
+
+# Content & Knowledge Management
+content_pipeline:
+  doc_formats:
+    - markdown
+    - json
+    - yaml
+    - sql_schemas
+    - api_specs
+  
+  embedding_model: "text-embedding-3-large"
+  vector_dimensions: 1536
+  chunk_size: 512
+  chunk_overlap: 50
+  
+  auto_generate:
+    - quick_reference_cards
+    - interactive_tutorials
+    - assessment_quizzes
+    - troubleshooting_guides
+
+# UI Integration Points
+ui_surfaces:
+  scout_dashboard:
+    position: "chat_dock"
+    overlay: "tooltip_hints"
+    activation: "help_button"
+  
+  ask_ces:
+    position: "sidebar_coach"
+    context: "current_query"
+    suggestions: "related_topics"
+  
+  pulser_cli:
+    hooks: "help_command"
+    inline_hints: true
+    progress_tracking: true
+
+# AI Model Configuration
+ai_models:
+  primary: "claude-3-5-sonnet"
+  fallback: "gpt-4o"
+  embedding: "text-embedding-3-large"
+  
+  prompt_templates:
+    contextual_qa: "Answer this user question about {context} using provided schema: {question}"
+    walkthrough_step: "Create step {step_number} of {total_steps} for learning {objective}"
+    hint_generation: "User struggling with {task} - provide gentle guidance without answers"
+    assessment_creation: "Generate {question_count} questions testing {learning_objective}"
+
+# Success Metrics & KPIs
+success_metrics:
+  user_satisfaction: "> 90% helpfulness CSAT"
+  response_time: "< 30s mean time-to-answer"
+  tour_completion: "> 70% completion rate"
+  mastery_achievement: "> 85% reach competence criteria"
+  time_to_proficiency: "< 50% reduction vs unguided learning"
+  support_deflection: "> 80% routine queries handled by LearnBot"
+
+# Observability & Monitoring
+observability:
+  metrics: "prometheus"
+  logs: "structured_json"
+  traces: "opentelemetry"
+  dashboards:
+    - learning_analytics
+    - user_progress
+    - content_effectiveness
+    - system_performance
+
+# Error Handling & Adaptive Support
+error_recovery:
+  pattern_detection: true
+  progressive_hints: true
+  escalation_triggers:
+    - repeated_failures: 3
+    - time_threshold: "5 minutes"
+    - confidence_drop: 0.3
+  
+  fallback_actions:
+    - provide_simpler_explanation
+    - offer_alternative_path
+    - suggest_human_support
+    - bookmark_for_follow_up
+
+# Integration Specifications
+integrations:
+  supabase:
+    functions:
+      - learnbot_handler
+      - progress_tracker
+      - content_embedder
+    tables:
+      - learnbot_progress
+      - learning_paths
+      - content_library
+      - user_competencies
+  
+  external_systems:
+    grafana: "learning_analytics_dashboard"
+    slack: "completion_notifications"
+    email: "progress_reports"
+
+# Deployment Configuration
+deployment:
+  edge_function: "learnbot_handler"
+  database_schema: "learning"
+  vector_store: "pgvector"
+  cdn_assets: "tutorial_media"
+  
+  environment_variables:
+    - OPENAI_API_KEY
+    - CLAUDE_API_KEY
+    - SUPABASE_SERVICE_ROLE_KEY
+    - LEARNING_ANALYTICS_WEBHOOK
+
+# Security & Privacy
+security:
+  pii_handling: "gdpr_compliant"
+  learning_data_retention: "2_years"
+  anonymization: "user_identifiers"
+  encryption: "at_rest_and_transit"
+  audit_logging: "all_interactions"
+
+# Continuous Improvement
+feedback_loop:
+  content_gap_detection: true
+  user_behavior_analysis: true
+  effectiveness_measurement: true
+  auto_content_updates: true
+  
+  improvement_triggers:
+    - low_completion_rates
+    - high_error_patterns  
+    - negative_feedback
+    - outdated_content
+
+# Agent Status & Metadata
+status: active
+priority: 2
+created_by: "tbwa-learning-team"
+last_updated: "2025-08-08T04:30:00Z"
+dependencies: 
+  - edge-agent
+  - supabase-mcp
+version_compatibility: "pulser-4.x"

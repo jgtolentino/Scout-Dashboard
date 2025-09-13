@@ -1,0 +1,173 @@
+Here’s a clear **UI/UX & component-focused improvement guide** (an “afox”—Actionable Fixes and Optimizations eXpress) tailored to upgrade your [mockify-creator](https://github.com/jgtolentino/mockify-creator) dashboard to a Power BI–like experience while keeping your existing color palette and data output structure.
+
+---
+
+# 🦊 **AFOX: Power BI–Style Dashboard Overhaul for mockify-creator**
+
+### **1. Layout & Navigation**
+
+* **Top Bar:**
+
+  * Persist your primary color (blue) for header.
+  * Add global filter slicers (date, barangay, category, brand) to the top, in Power BI "pill" style, not scattered.
+  * Add a right-aligned action zone: Export, Help, User/Profile.
+
+* **Sidebar:**
+
+  * Use a collapsible sidebar (like Power BI) for navigating between sections: Dashboard / Transaction Trends / Product Mix / AI Insights.
+  * Highlight the active page with a color accent (not just bold text).
+
+---
+
+### **2. KPI Cards (Data Tiles Row)**
+
+* Place a row of four KPI cards at the top of the main content area:
+
+  * **Transactions** (count)
+  * **Avg Value** (₱)
+  * **Substitution Rate** (%)
+  * **Data Freshness** (% or status dot)
+* **Style:**
+
+  * Flat, modern, slight drop shadow, large number, label, and mini trend icon/arrow.
+  * Use your blue/gold for icons or highlights.
+  * Add subtle sparklines if possible.
+
+---
+
+### **3. Main Visual Area (Charts & Analysis)**
+
+* **Two-Column Responsive Grid:**
+
+  * **Left:**
+
+    * *Transaction Trends* panel
+
+      * Clustered bar for hourly/daily volume
+      * Line or bar for Peso value distribution
+      * All charts use soft palette, rounded corners, Power BI-like tooltips
+  * **Right:**
+
+    * *Product Mix & SKU Analysis* panel
+
+      * Donut/pie for category or brand mix
+      * Stacked bar or horizontal bar for top SKUs
+      * Sankey or simple flow for substitution patterns
+
+* **Interactivity:**
+
+  * Click or hover on any chart element to cross-filter/highlight other visuals.
+  * Add subtle animation for transitions (e.g., chart updates, filter changes).
+
+---
+
+### **4. Filters/Controls**
+
+* **At the Top:**
+
+  * Move all main filters to the top filter bar, using large, clear dropdowns or pill selectors.
+  * Show currently active filters as chips/pills for fast reset/clear.
+* **Quick Toggle Buttons:**
+
+  * For “All Brands”, “All Days”, etc., use Power BI-style pills.
+
+---
+
+### **5. AI Recommendation & Insights Panel**
+
+* **Expandable Card Panel** (bottom or right-side, not full width).
+
+  * Each recommendation in its own info card, color-coded by impact (e.g., red for urgent, blue for info, gold for opportunity).
+  * Add an action button per recommendation (e.g., “View Details”).
+  * **Contextual tips** in a separate, soft-colored callout box below.
+
+---
+
+### **6. Footer**
+
+* **Light, Minimal Footer:**
+
+  * Left: Records count, query time
+  * Right: Data freshness dot, © or logo
+  * Use a small status dot (Power BI–style) for freshness
+
+---
+
+### **7. Branding & Theme**
+
+* **Maintain your blue/gold palette throughout:**
+
+  * Use blue for active accents, gold for highlights.
+  * White/very-light backgrounds for cards and charts.
+  * Minimal borders—prefer whitespace and shadow.
+
+---
+
+### **8. Accessibility & Responsiveness**
+
+* All controls and cards should be accessible (tab, screen reader, contrast).
+* Responsive grid: Tiles and charts stack on mobile/tablet.
+
+---
+
+### **9. Example Component Code Patterns**
+
+*Assume React + Tailwind + Chart.js or Recharts for all code blocks.*
+
+**KPI Card Example:**
+
+```jsx
+<Card className="flex flex-col items-center shadow-md rounded-lg p-4 bg-white">
+  <span className="text-3xl font-bold text-blue-700">2,847</span>
+  <span className="text-xs text-gray-500 mt-1">Transactions</span>
+  <span className="text-green-500 text-sm mt-1">+3%</span>
+</Card>
+```
+
+**Filter Bar Example:**
+
+```jsx
+<div className="flex gap-3 p-4 bg-blue-50 rounded-lg shadow mb-6">
+  <Dropdown options={barangays} label="Barangay" />
+  <Dropdown options={categories} label="Category" />
+  <Dropdown options={brands} label="Brand" />
+  <DatePicker />
+  <button className="ml-auto btn btn-outline">Export</button>
+</div>
+```
+
+**Charts Grid Example:**
+
+```jsx
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <Card title="Transaction Trends">
+    <ClusteredBarChart data={hourlyData} />
+    <LineChart data={pesoValueData} />
+  </Card>
+  <Card title="Product Mix & SKU Analysis">
+    <DonutChart data={categoryData} />
+    <StackedBarChart data={skuData} />
+    <SankeyChart data={substitutionData} />
+  </Card>
+</div>
+```
+
+---
+
+## **Summary Checklist (For Your Dev/Design Team)**
+
+* [ ] Top filter bar with pill-style slicers/dropdowns
+* [ ] Sidebar nav for main dashboard sections
+* [ ] 4 modern KPI cards (transactions, avg value, etc.) at top
+* [ ] Two-column main grid: Trends (bar/line) & Product Mix (donut/stacked/Sankey)
+* [ ] Power BI-style chart visuals, tooltips, and cross-filtering
+* [ ] Expandable AI insights panel with action cards
+* [ ] Minimal, branded footer with live status
+* [ ] Keep all brand colors, but apply Power BI polish (padding, shadows, responsive)
+* [ ] Export & Help buttons in header
+* [ ] Accessibility and responsive grid
+
+---
+
+**Apply these fixes in [mockify-creator](https://github.com/jgtolentino/mockify-creator) to instantly “Power BI–ify” your dashboard while retaining your identity and data outputs.**
+Let me know if you want a full Figma export or a Notion/Markdown version for ticketing!

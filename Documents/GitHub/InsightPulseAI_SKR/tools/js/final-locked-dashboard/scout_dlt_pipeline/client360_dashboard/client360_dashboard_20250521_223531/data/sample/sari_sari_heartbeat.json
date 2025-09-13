@@ -1,0 +1,221 @@
+{
+  "simulated": true,
+  "meta": {
+    "data_type": "device_heartbeat",
+    "version": "1.0.0",
+    "generated_date": "2025-05-19T08:00:00+08:00",
+    "total_records": 10
+  },
+  "heartbeats": [
+    {
+      "device_id": "device-001",
+      "store_id": "sari-001",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "online",
+      "uptime_days": 42,
+      "battery_level": 78,
+      "storage_used_percent": 65,
+      "memory_used_percent": 42,
+      "cpu_load": 12,
+      "temperature": 38.5,
+      "network_strength": 4,
+      "last_sync_timestamp": "2025-05-19T07:55:00+08:00",
+      "firmware_version": "v2.5.1",
+      "errors": [],
+      "simulated": true
+    },
+    {
+      "device_id": "device-002",
+      "store_id": "sari-002",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "online",
+      "uptime_days": 15,
+      "battery_level": 92,
+      "storage_used_percent": 32,
+      "memory_used_percent": 38,
+      "cpu_load": 8,
+      "temperature": 37.2,
+      "network_strength": 5,
+      "last_sync_timestamp": "2025-05-19T07:55:00+08:00",
+      "firmware_version": "v2.5.1",
+      "errors": [],
+      "simulated": true
+    },
+    {
+      "device_id": "device-003",
+      "store_id": "sari-003",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "online",
+      "uptime_days": 7,
+      "battery_level": 45,
+      "storage_used_percent": 78,
+      "memory_used_percent": 55,
+      "cpu_load": 24,
+      "temperature": 41.3,
+      "network_strength": 2,
+      "last_sync_timestamp": "2025-05-19T07:45:00+08:00",
+      "firmware_version": "v2.5.0",
+      "errors": [
+        {
+          "code": "HIGH_TEMP_WARNING",
+          "message": "Device temperature above recommended threshold",
+          "severity": "warning",
+          "timestamp": "2025-05-19T07:50:12+08:00"
+        }
+      ],
+      "simulated": true
+    },
+    {
+      "device_id": "device-004",
+      "store_id": "sari-004",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "online",
+      "uptime_days": 28,
+      "battery_level": 85,
+      "storage_used_percent": 45,
+      "memory_used_percent": 32,
+      "cpu_load": 10,
+      "temperature": 36.8,
+      "network_strength": 4,
+      "last_sync_timestamp": "2025-05-19T07:55:00+08:00",
+      "firmware_version": "v2.5.1",
+      "errors": [],
+      "simulated": true
+    },
+    {
+      "device_id": "device-005",
+      "store_id": "sari-005",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "online",
+      "uptime_days": 3,
+      "battery_level": 98,
+      "storage_used_percent": 22,
+      "memory_used_percent": 27,
+      "cpu_load": 5,
+      "temperature": 35.9,
+      "network_strength": 5,
+      "last_sync_timestamp": "2025-05-19T07:55:00+08:00",
+      "firmware_version": "v2.5.1",
+      "errors": [],
+      "simulated": true
+    },
+    {
+      "device_id": "device-006",
+      "store_id": "sari-006",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "offline",
+      "uptime_days": 0,
+      "battery_level": 0,
+      "storage_used_percent": 67,
+      "memory_used_percent": 0,
+      "cpu_load": 0,
+      "temperature": 25.0,
+      "network_strength": 0,
+      "last_sync_timestamp": "2025-05-18T22:15:32+08:00",
+      "firmware_version": "v2.5.0",
+      "errors": [
+        {
+          "code": "POWER_FAILURE",
+          "message": "Device lost power connection",
+          "severity": "critical",
+          "timestamp": "2025-05-18T22:15:32+08:00"
+        }
+      ],
+      "simulated": true
+    },
+    {
+      "device_id": "device-007",
+      "store_id": "sari-007",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "online",
+      "uptime_days": 62,
+      "battery_level": 65,
+      "storage_used_percent": 82,
+      "memory_used_percent": 48,
+      "cpu_load": 15,
+      "temperature": 39.2,
+      "network_strength": 3,
+      "last_sync_timestamp": "2025-05-19T07:50:00+08:00",
+      "firmware_version": "v2.5.0",
+      "errors": [
+        {
+          "code": "STORAGE_WARNING",
+          "message": "Device storage approaching capacity",
+          "severity": "warning",
+          "timestamp": "2025-05-19T07:45:22+08:00"
+        }
+      ],
+      "simulated": true
+    },
+    {
+      "device_id": "device-008",
+      "store_id": "sari-008",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "online",
+      "uptime_days": 21,
+      "battery_level": 72,
+      "storage_used_percent": 55,
+      "memory_used_percent": 38,
+      "cpu_load": 12,
+      "temperature": 37.5,
+      "network_strength": 4,
+      "last_sync_timestamp": "2025-05-19T07:55:00+08:00",
+      "firmware_version": "v2.5.1",
+      "errors": [],
+      "simulated": true
+    },
+    {
+      "device_id": "device-009",
+      "store_id": "sari-009",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "online",
+      "uptime_days": 35,
+      "battery_level": 81,
+      "storage_used_percent": 48,
+      "memory_used_percent": 35,
+      "cpu_load": 9,
+      "temperature": 36.3,
+      "network_strength": 5,
+      "last_sync_timestamp": "2025-05-19T07:55:00+08:00",
+      "firmware_version": "v2.5.1",
+      "errors": [],
+      "simulated": true
+    },
+    {
+      "device_id": "device-010",
+      "store_id": "sari-010",
+      "timestamp": "2025-05-19T08:00:00+08:00",
+      "status": "degraded",
+      "uptime_days": 14,
+      "battery_level": 38,
+      "storage_used_percent": 92,
+      "memory_used_percent": 76,
+      "cpu_load": 35,
+      "temperature": 42.7,
+      "network_strength": 1,
+      "last_sync_timestamp": "2025-05-19T07:30:15+08:00",
+      "firmware_version": "v2.5.0",
+      "errors": [
+        {
+          "code": "STORAGE_CRITICAL",
+          "message": "Device storage critically low",
+          "severity": "critical", 
+          "timestamp": "2025-05-19T07:25:45+08:00"
+        },
+        {
+          "code": "HIGH_TEMP_WARNING",
+          "message": "Device temperature above recommended threshold",
+          "severity": "warning",
+          "timestamp": "2025-05-19T07:40:12+08:00"
+        },
+        {
+          "code": "LOW_BATTERY",
+          "message": "Device battery below 40%",
+          "severity": "warning",
+          "timestamp": "2025-05-19T07:35:22+08:00"
+        }
+      ],
+      "simulated": true
+    }
+  ]
+}

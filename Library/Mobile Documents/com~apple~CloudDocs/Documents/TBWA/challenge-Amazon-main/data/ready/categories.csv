@@ -1,0 +1,12 @@
+category_id,category_name,parent_category,is_active
+CAT001,Food & Beverages,Retail,True
+CAT002,Personal Care,Retail,True
+CAT003,Household Items,Retail,True
+CAT004,Snacks & Confectionery,Retail,True
+CAT005,Health & Wellness,Retail,True
+CAT006,Baby Care,Retail,True
+CAT007,Beverages,Consumer Goods,True
+CAT008,Canned & Jarred Goods,Consumer Goods,True
+CAT009,Dairy Products,Consumer Goods,True
+CAT010,Frozen Foods,Consumer Goods,True
+CAT011,School & Office Supplies,Consumer Goods,True

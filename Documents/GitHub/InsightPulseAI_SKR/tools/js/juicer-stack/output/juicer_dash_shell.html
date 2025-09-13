@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juicer - Brand Insights Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+  <style>
+    :root {
+      --primary: #3f51b5;
+      --primary-light: #7986cb;
+      --primary-dark: #303f9f;
+      --secondary: #ff4081;
+      --secondary-light: #ff79b0;
+      --secondary-dark: #c60055;
+      --text-primary: #212121;
+      --text-secondary: #757575;
+      --bg-light: #f5f7fa;
+      --border-color: #e0e0e0;
+      --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-primary);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .navbar-brand {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    
+    .nav-link {
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+    }
+    
+    .nav-link.active {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+    
+    .dash-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dash-card:hover {
+      box-shadow: var(--hover-shadow);
+    }
+    
+    .dash-card-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .dash-card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin: 0;
+      color: var(--text-primary);
+    }
+    
+    .dash-card-body {
+      padding: 1rem;
+      height: calc(100% - 54px);
+    }
+    
+    .dash-action-btn {
+      background: transparent;
+      border: none;
+      padding: 0.25rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-left: 0.5rem;
+    }
+    
+    .dash-action-btn:hover {
+      color: var(--primary);
+    }
+    
+    .dash-filter-bar {
+      background: white;
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .kpi-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--primary-dark);
+    }
+    
+    .kpi-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    
+    .kpi-trend {
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .kpi-trend-up {
+      color: #4caf50;
+    }
+    
+    .kpi-trend-down {
+      color: #f44336;
+    }
+    
+    .chart-container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      min-height: 200px;
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .data-table th {
+      font-weight: 600;
+      text-align: left;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.5rem 0.75rem;
+    }
+    
+    .data-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .sentiment-positive {
+      color: #4caf50;
+    }
+    
+    .sentiment-neutral {
+      color: #ff9800;
+    }
+    
+    .sentiment-negative {
+      color: #f44336;
+    }
+    
+    .brand-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      background-color: var(--primary-light);
+      color: white;
+    }
+    
+    /* Sketch SVG container styling */
+    .sketch-container {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sketch-container svg {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    
+    /* Make responsive on smaller screens */
+    @media (max-width: 992px) {
+      .row > [class*="col-"] {
+        margin-bottom: 1.5rem;
+      }
+    }
+    
+    /* Transcript highlight styling */
+    .transcript-highlight {
+      padding: 0.5rem;
+      border-left: 3px solid var(--primary);
+      margin-bottom: 0.75rem;
+      background-color: rgba(63, 81, 181, 0.05);
+      border-radius: 0 4px 4px 0;
+    }
+    
+    .transcript-highlight-text {
+      margin-bottom: 0.25rem;
+    }
+    
+    .transcript-metadata {
+      display: flex;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    
+    .transcript-metadata span {
+      margin-right: 0.75rem;
+    }
+    
+    /* Loading indicator */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    
+    .loading-spinner {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 3px solid rgba(63, 81, 181, 0.2);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <i class="bx bx-line-chart text-primary me-2"></i>
+        Juicer
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Brand Insights</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Agent Performance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Transcript Analysis</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sentiment Trends</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <button class="btn btn-outline-primary me-2" id="refreshBtn">
+            <i class="bx bx-refresh me-1"></i> Refresh
+          </button>
+          <button class="btn btn-primary" id="exportBtn">
+            <i class="bx bx-export me-1"></i> Export
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <div class="container-fluid py-4">
+    <!-- Filter Bar -->
+    <div class="dash-filter-bar mb-4">
+      <div class="row">
+        <div class="col-md-3">
+          <label class="form-label">Brand</label>
+          <select class="form-select" id="brandSelect">
+            <option value="all">All Brands</option>
+            <option value="Globe Telecom">Globe Telecom</option>
+            <option value="Smart Communications">Smart Communications</option>
+            <option value="PLDT">PLDT</option>
+            <option value="Sun Cellular">Sun Cellular</option>
+            <option value="Jollibee">Jollibee</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Date Range</label>
+          <select class="form-select" id="dateRangeSelect">
+            <option value="7d">Last 7 Days</option>
+            <option value="30d" selected>Last 30 Days</option>
+            <option value="90d">Last 90 Days</option>
+            <option value="ytd">Year to Date</option>
+            <option value="custom">Custom Range</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Agent</label>
+          <select class="form-select" id="agentSelect">
+            <option value="all">All Agents</option>
+            <option value="Alex Chen">Alex Chen</option>
+            <option value="Maria Rodriguez">Maria Rodriguez</option>
+            <option value="John Smith">John Smith</option>
+            <option value="Sarah Johnson">Sarah Johnson</option>
+            <option value="David Kim">David Kim</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Sentiment</label>
+          <select class="form-select" id="sentimentSelect">
+            <option value="all">All Sentiment</option>
+            <option value="positive">Positive</option>
+            <option value="neutral">Neutral</option>
+            <option value="negative">Negative</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- KPI Row -->
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <div class="dash-card">
+          <div class="dash-card-body">
+            <div class="kpi-label">Total Brand Mentions</div>
+            <div class="kpi-value">1,254</div>
+            <div class="kpi-trend kpi-trend-up">
+              <i class="bx bx-up-arrow-alt me-1"></i> 12.5% vs previous period
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="dash-card">
+          <div class="dash-card-body">
+            <div class="kpi-label">Average Sentiment Score</div>
+            <div class="kpi-value">76.2%</div>
+            <div class="kpi-trend kpi-trend-up">
+              <i class="bx bx-up-arrow-alt me-1"></i> 3.8% vs previous period
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="dash-card">
+          <div class="dash-card-body">
+            <div class="kpi-label">Unique Brands Mentioned</div>
+            <div class="kpi-value">42</div>
+            <div class="kpi-trend kpi-trend-up">
+              <i class="bx bx-up-arrow-alt me-1"></i> 5.0% vs previous period
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="dash-card">
+          <div class="dash-card-body">
+            <div class="kpi-label">Mentions/Conversation</div>
+            <div class="kpi-value">3.2</div>
+            <div class="kpi-trend kpi-trend-down">
+              <i class="bx bx-down-arrow-alt me-1"></i> 2.1% vs previous period
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Charts Row -->
+    <div class="row mb-4">
+      <div class="col-lg-8">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h5 class="dash-card-title">Brand Mentions Over Time</h5>
+            <div>
+              <button class="dash-action-btn" title="Download Chart">
+                <i class="bx bx-download"></i>
+              </button>
+              <button class="dash-action-btn" title="Expand">
+                <i class="bx bx-expand-alt"></i>
+              </button>
+              <button class="dash-action-btn" title="More Options">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dash-card-body">
+            <div class="chart-container">
+              <canvas id="brandMentionsChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h5 class="dash-card-title">Top Brands by Mention</h5>
+            <div>
+              <button class="dash-action-btn" title="Download Chart">
+                <i class="bx bx-download"></i>
+              </button>
+              <button class="dash-action-btn" title="Expand">
+                <i class="bx bx-expand-alt"></i>
+              </button>
+              <button class="dash-action-btn" title="More Options">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dash-card-body">
+            <div class="chart-container">
+              <canvas id="topBrandsChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sketch and Transcript Row -->
+    <div class="row mb-4">
+      <div class="col-lg-6">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h5 class="dash-card-title">Brand Relationship Diagram</h5>
+            <div>
+              <button class="dash-action-btn" title="Download SVG">
+                <i class="bx bx-download"></i>
+              </button>
+              <button class="dash-action-btn" title="Regenerate">
+                <i class="bx bx-refresh"></i>
+              </button>
+              <button class="dash-action-btn" title="More Options">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dash-card-body">
+            <div class="sketch-container" id="brandRelationshipSketch">
+              <!-- Sketch SVG will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h5 class="dash-card-title">Top Brand Mentions in Context</h5>
+            <div>
+              <button class="dash-action-btn" title="Filter">
+                <i class="bx bx-filter"></i>
+              </button>
+              <button class="dash-action-btn" title="Export">
+                <i class="bx bx-export"></i>
+              </button>
+              <button class="dash-action-btn" title="More Options">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dash-card-body">
+            <div class="transcript-highlights" id="transcriptHighlights">
+              <!-- Transcript highlights will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sentiment Analysis Row -->
+    <div class="row mb-4">
+      <div class="col-lg-4">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h5 class="dash-card-title">Sentiment Distribution</h5>
+            <div>
+              <button class="dash-action-btn" title="Download Chart">
+                <i class="bx bx-download"></i>
+              </button>
+              <button class="dash-action-btn" title="Expand">
+                <i class="bx bx-expand-alt"></i>
+              </button>
+              <button class="dash-action-btn" title="More Options">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dash-card-body">
+            <div class="chart-container">
+              <canvas id="sentimentChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h5 class="dash-card-title">Brand Sentiment Comparison</h5>
+            <div>
+              <button class="dash-action-btn" title="Download Chart">
+                <i class="bx bx-download"></i>
+              </button>
+              <button class="dash-action-btn" title="Expand">
+                <i class="bx bx-expand-alt"></i>
+              </button>
+              <button class="dash-action-btn" title="More Options">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dash-card-body">
+            <div class="chart-container">
+              <canvas id="brandSentimentChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Detailed Data Table -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h5 class="dash-card-title">Detailed Brand Mention Data</h5>
+            <div>
+              <button class="dash-action-btn" title="Download CSV">
+                <i class="bx bx-download"></i>
+              </button>
+              <button class="dash-action-btn" title="Filter">
+                <i class="bx bx-filter"></i>
+              </button>
+              <button class="dash-action-btn" title="More Options">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dash-card-body">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Brand</th>
+                    <th>Mentions</th>
+                    <th>Sentiment</th>
+                    <th>Top Agent</th>
+                    <th>Last Mentioned</th>
+                    <th>Trend</th>
+                  </tr>
+                </thead>
+                <tbody id="brandTableBody">
+                  <!-- Brand data will be inserted here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Application JavaScript -->
+  <script>
+    // Dashboard Configuration - This would normally be loaded from Juicer API
+    const dashboardConfig = {
+      title: "Brand Insights Dashboard",
+      description: "Analysis of brand mentions across agent conversations",
+      refreshInterval: 3600,  // In seconds
+      filters: {
+        brand: null,
+        dateRange: "30d",
+        agent: null,
+        sentiment: null
+      },
+      dataEndpoint: "/api/juicer/query"
+    };
+    
+    // Sample brand mention data - In production this would come from the Juicer API
+    const brandMentionData = {
+      totalMentions: 1254,
+      averageSentiment: 76.2,
+      uniqueBrands: 42,
+      mentionsPerConversation: 3.2,
+      trends: {
+        totalMentions: 12.5,
+        averageSentiment: 3.8,
+        uniqueBrands: 5.0,
+        mentionsPerConversation: -2.1
+      },
+      timeSeriesData: {
+        labels: ['Apr 1', 'Apr 2', 'Apr 3', 'Apr 4', 'Apr 5', 'Apr 6', 'Apr 7', 'Apr 8', 'Apr 9', 'Apr 10',
+                'Apr 11', 'Apr 12', 'Apr 13', 'Apr 14', 'Apr 15', 'Apr 16', 'Apr 17', 'Apr 18', 'Apr 19', 'Apr 20',
+                'Apr 21', 'Apr 22', 'Apr 23', 'Apr 24', 'Apr 25', 'Apr 26', 'Apr 27', 'Apr 28', 'Apr 29', 'Apr 30'],
+        datasets: [
+          {
+            label: 'Globe Telecom',
+            data: [12, 15, 10, 14, 16, 19, 22, 18, 20, 17, 15, 13, 16, 18, 21, 19, 17, 15, 13, 16, 18, 21, 23, 19, 17, 15, 18, 20, 22, 24],
+            borderColor: '#4285F4',
+            backgroundColor: 'rgba(66, 133, 244, 0.1)',
+            tension: 0.4
+          },
+          {
+            label: 'Smart Communications',
+            data: [8, 10, 7, 9, 12, 14, 11, 13, 9, 11, 13, 10, 8, 11, 13, 15, 12, 10, 9, 11, 14, 16, 13, 11, 9, 12, 14, 11, 13, 15],
+            borderColor: '#34A853',
+            backgroundColor: 'rgba(52, 168, 83, 0.1)',
+            tension: 0.4
+          },
+          {
+            label: 'PLDT',
+            data: [5, 7, 6, 4, 8, 6, 9, 7, 5, 8, 6, 4, 7, 5, 9, 6, 8, 7, 5, 8, 6, 9, 7, 5, 8, 6, 9, 7, 8, 6],
+            borderColor: '#FBBC05',
+            backgroundColor: 'rgba(251, 188, 5, 0.1)',
+            tension: 0.4
+          },
+          {
+            label: 'Jollibee',
+            data: [3, 4, 2, 5, 3, 6, 4, 2, 5, 3, 6, 4, 2, 5, 3, 6, 4, 2, 5, 3, 6, 4, 2, 5, 3, 6, 4, 5, 3, 6],
+            borderColor: '#EA4335',
+            backgroundColor: 'rgba(234, 67, 53, 0.1)',
+            tension: 0.4
+          }
+        ]
+      },
+      topBrands: {
+        labels: ['Globe Telecom', 'Smart Communications', 'PLDT', 'Sun Cellular', 'Jollibee'],
+        datasets: [{
+          label: 'Brand Mentions',
+          data: [423, 287, 156, 98, 64],
+          backgroundColor: [
+            'rgba(66, 133, 244, 0.8)',
+            'rgba(52, 168, 83, 0.8)',
+            'rgba(251, 188, 5, 0.8)',
+            'rgba(234, 67, 53, 0.8)',
+            'rgba(138, 78, 233, 0.8)'
+          ],
+          borderWidth: 0
+        }]
+      },
+      sentimentDistribution: {
+        labels: ['Positive', 'Neutral', 'Negative'],
+        datasets: [{
+          data: [65, 25, 10],
+          backgroundColor: ['#4caf50', '#ff9800', '#f44336'],
+          borderWidth: 0
+        }]
+      },
+      brandSentiment: {
+        labels: ['Globe Telecom', 'Smart Communications', 'PLDT', 'Sun Cellular', 'Jollibee'],
+        datasets: [{
+          label: 'Positive',
+          data: [62, 58, 45, 70, 85],
+          backgroundColor: 'rgba(76, 175, 80, 0.7)',
+        }, {
+          label: 'Neutral',
+          data: [28, 32, 40, 20, 10],
+          backgroundColor: 'rgba(255, 152, 0, 0.7)',
+        }, {
+          label: 'Negative',
+          data: [10, 10, 15, 10, 5],
+          backgroundColor: 'rgba(244, 67, 54, 0.7)',
+        }]
+      },
+      detailedBrandData: [
+        { brand: 'Globe Telecom', mentions: 423, sentiment: 82, topAgent: 'Alex Chen', lastMentioned: '2023-04-30', trend: 15.2 },
+        { brand: 'Smart Communications', mentions: 287, sentiment: 76, topAgent: 'Maria Rodriguez', lastMentioned: '2023-04-30', trend: 8.7 },
+        { brand: 'PLDT', mentions: 156, sentiment: 68, topAgent: 'John Smith', lastMentioned: '2023-04-29', trend: -2.3 },
+        { brand: 'Sun Cellular', mentions: 98, sentiment: 72, topAgent: 'Sarah Johnson', lastMentioned: '2023-04-28', trend: 5.1 },
+        { brand: 'Jollibee', mentions: 64, sentiment: 91, topAgent: 'David Kim', lastMentioned: '2023-04-30', trend: 22.5 },
+        { brand: 'McDonald\'s', mentions: 47, sentiment: 65, topAgent: 'Alex Chen', lastMentioned: '2023-04-27', trend: -1.2 },
+        { brand: 'KFC', mentions: 42, sentiment: 59, topAgent: 'John Smith', lastMentioned: '2023-04-29', trend: 3.8 },
+        { brand: 'Wendy\'s', mentions: 31, sentiment: 72, topAgent: 'Maria Rodriguez', lastMentioned: '2023-04-26', trend: 7.9 },
+        { brand: 'AT&T', mentions: 28, sentiment: 63, topAgent: 'Sarah Johnson', lastMentioned: '2023-04-28', trend: -5.4 },
+        { brand: 'Verizon', mentions: 21, sentiment: 58, topAgent: 'David Kim', lastMentioned: '2023-04-25', trend: -8.1 }
+      ],
+      transcriptHighlights: [
+        {
+          text: "I've been with Globe Telecom for over 5 years now and their customer service has always been excellent. The new unlimited data plan is exactly what I needed.",
+          brand: "Globe Telecom",
+          sentiment: 0.92,
+          agent: "Alex Chen",
+          customer: "C12345",
+          timestamp: "2023-04-30T14:32:45"
+        },
+        {
+          text: "I switched from Smart Communications to Globe because of their better coverage in my area, but I'm still keeping my Smart postpaid plan for work.",
+          brand: "Smart Communications, Globe",
+          sentiment: 0.68,
+          agent: "Maria Rodriguez",
+          customer: "C23456",
+          timestamp: "2023-04-30T10:15:22"
+        },
+        {
+          text: "PLDT's fiber service has been unreliable lately. I've had three outages this month alone.",
+          brand: "PLDT",
+          sentiment: 0.21,
+          agent: "John Smith",
+          customer: "C34567",
+          timestamp: "2023-04-29T16:48:33"
+        },
+        {
+          text: "After trying Jollibee's new chicken sandwich, I don't think I'll go back to McDonald's. It's that good!",
+          brand: "Jollibee, McDonald's",
+          sentiment: 0.88,
+          agent: "David Kim",
+          customer: "C45678",
+          timestamp: "2023-04-30T12:05:17"
+        }
+      ]
+    };
+    
+    // Sample brand relationship sketch SVG - In production this would be generated via the sketch generation API
+    const brandRelationshipSketchSVG = `
+    <svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#999" />
+        </marker>
+      </defs>
+      
+      <!-- Title -->
+      <text x="400" y="30" font-size="20" text-anchor="middle" font-weight="bold">Brand Relationship Map</text>
+      <text x="400" y="55" font-size="14" text-anchor="middle" fill="#666">Based on co-mentions in customer conversations</text>
+      
+      <!-- Globe Telecom -->
+      <circle cx="400" cy="200" r="70" fill="#4285F4" opacity="0.8" />
+      <text x="400" y="200" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Globe Telecom</text>
+      <text x="400" y="220" font-size="12" text-anchor="middle" fill="white">423 mentions</text>
+      
+      <!-- Smart Communications -->
+      <circle cx="200" cy="250" r="55" fill="#34A853" opacity="0.8" />
+      <text x="200" y="250" font-size="14" text-anchor="middle" fill="white" font-weight="bold">Smart</text>
+      <text x="200" y="270" font-size="11" text-anchor="middle" fill="white">287 mentions</text>
+      
+      <!-- PLDT -->
+      <circle cx="550" cy="300" r="45" fill="#FBBC05" opacity="0.8" />
+      <text x="550" y="300" font-size="14" text-anchor="middle" fill="white" font-weight="bold">PLDT</text>
+      <text x="550" y="320" font-size="11" text-anchor="middle" fill="white">156 mentions</text>
+      
+      <!-- Sun Cellular -->
+      <circle cx="300" cy="370" r="35" fill="#EA4335" opacity="0.8" />
+      <text x="300" y="370" font-size="12" text-anchor="middle" fill="white" font-weight="bold">Sun Cellular</text>
+      <text x="300" y="385" font-size="10" text-anchor="middle" fill="white">98 mentions</text>
+      
+      <!-- Jollibee -->
+      <circle cx="650" cy="180" r="30" fill="#8A4EE9" opacity="0.8" />
+      <text x="650" y="180" font-size="12" text-anchor="middle" fill="white" font-weight="bold">Jollibee</text>
+      <text x="650" y="195" font-size="10" text-anchor="middle" fill="white">64 mentions</text>
+      
+      <!-- Connection lines -->
+      <line x1="332" y1="215" x2="255" y2="240" stroke="#999" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+      <line x1="467" y1="220" x2="510" y2="280" stroke="#999" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+      <line x1="342" y1="265" x2="315" y2="335" stroke="#999" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+      <line x1="470" y1="190" x2="620" y2="180" stroke="#999" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+      <line x1="255" y1="280" x2="290" y2="335" stroke="#999" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+      
+      <!-- Co-mention strengths -->
+      <text x="290" y="215" font-size="11" fill="#666" transform="rotate(-15, 290, 215)">148 co-mentions</text>
+      <text x="490" y="240" font-size="11" fill="#666" transform="rotate(25, 490, 240)">92 co-mentions</text>
+      <text x="330" y="310" font-size="11" fill="#666" transform="rotate(60, 330, 310)">76 co-mentions</text>
+      <text x="545" y="170" font-size="11" fill="#666" transform="rotate(0, 545, 170)">24 co-mentions</text>
+      <text x="265" y="320" font-size="11" fill="#666" transform="rotate(60, 265, 320)">54 co-mentions</text>
+      
+      <!-- Legend -->
+      <rect x="50" y="430" width="700" height="1" fill="#ccc" />
+      <text x="50" y="450" font-size="12" fill="#666">Circle size represents mention volume</text>
+      <text x="300" y="450" font-size="12" fill="#666">Lines represent co-mentions in conversations</text>
+      <text x="600" y="450" font-size="12" fill="#666">Data period: Last 30 days</text>
+    </svg>
+    `;
+    
+    // Initialize dashboard charts when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Insert brand relationship sketch
+      document.getElementById('brandRelationshipSketch').innerHTML = brandRelationshipSketchSVG;
+      
+      // Initialize charts
+      initBrandMentionsChart();
+      initTopBrandsChart();
+      initSentimentChart();
+      initBrandSentimentChart();
+      
+      // Populate transcript highlights
+      populateTranscriptHighlights();
+      
+      // Populate brand data table
+      populateBrandTable();
+      
+      // Set up filter change handlers
+      setupFilterHandlers();
+      
+      // Setup refresh button
+      document.getElementById('refreshBtn').addEventListener('click', refreshDashboard);
+      
+      // Setup export button
+      document.getElementById('exportBtn').addEventListener('click', exportDashboard);
+    });
+    
+    // Initialize Brand Mentions Over Time chart
+    function initBrandMentionsChart() {
+      const ctx = document.getElementById('brandMentionsChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: brandMentionData.timeSeriesData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false
+              }
+            },
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: '#f0f0f0'
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // Initialize Top Brands by Mention chart
+    function initTopBrandsChart() {
+      const ctx = document.getElementById('topBrandsChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: brandMentionData.topBrands,
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                color: '#f0f0f0'
+              }
+            },
+            y: {
+              grid: {
+                display: false
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // Initialize Sentiment Distribution chart
+    function initSentimentChart() {
+      const ctx = document.getElementById('sentimentChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: brandMentionData.sentimentDistribution,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          },
+          cutout: '65%'
+        }
+      });
+    }
+    
+    // Initialize Brand Sentiment Comparison chart
+    function initBrandSentimentChart() {
+      const ctx = document.getElementById('brandSentimentChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: brandMentionData.brandSentiment,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top'
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false
+              }
+            },
+            y: {
+              beginAtZero: true,
+              stacked: true,
+              grid: {
+                color: '#f0f0f0'
+              },
+              ticks: {
+                callback: function(value) {
+                  return value + '%';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // Populate transcript highlights
+    function populateTranscriptHighlights() {
+      const container = document.getElementById('transcriptHighlights');
+      container.innerHTML = '';
+      
+      brandMentionData.transcriptHighlights.forEach(highlight => {
+        const sentimentClass = highlight.sentiment > 0.7 ? 'sentiment-positive' : 
+                             highlight.sentiment > 0.4 ? 'sentiment-neutral' : 'sentiment-neutral';
+        
+        const date = new Date(highlight.timestamp);
+        const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        
+        const brands = highlight.brand.split(',').map(brand => {
+          return `<span class="brand-badge">${brand.trim()}</span>`;
+        }).join('');
+        
+        const highlightHtml = `
+          <div class="transcript-highlight">
+            <p class="transcript-highlight-text">${highlight.text}</p>
+            <div class="transcript-metadata">
+              <span><i class="bx bx-user"></i> ${highlight.agent}</span>
+              <span><i class="bx bx-calendar"></i> ${formattedDate}</span>
+              <span class="${sentimentClass}"><i class="bx bx-smile"></i> ${Math.round(highlight.sentiment * 100)}%</span>
+            </div>
+            <div class="mt-1">
+              ${brands}
+            </div>
+          </div>
+        `;
+        
+        container.innerHTML += highlightHtml;
+      });
+    }
+    
+    // Populate brand data table
+    function populateBrandTable() {
+      const tableBody = document.getElementById('brandTableBody');
+      tableBody.innerHTML = '';
+      
+      brandMentionData.detailedBrandData.forEach(brand => {
+        const trendClass = brand.trend >= 0 ? 'kpi-trend-up' : 'kpi-trend-down';
+        const trendIcon = brand.trend >= 0 ? 'bx-up-arrow-alt' : 'bx-down-arrow-alt';
+        const sentimentClass = brand.sentiment > 75 ? 'sentiment-positive' : 
+                              brand.sentiment > 50 ? 'sentiment-neutral' : 'sentiment-negative';
+        
+        const rowHtml = `
+          <tr>
+            <td>${brand.brand}</td>
+            <td>${brand.mentions}</td>
+            <td class="${sentimentClass}">${brand.sentiment}%</td>
+            <td>${brand.topAgent}</td>
+            <td>${brand.lastMentioned}</td>
+            <td class="${trendClass}"><i class="bx ${trendIcon}"></i> ${Math.abs(brand.trend)}%</td>
+          </tr>
+        `;
+        
+        tableBody.innerHTML += rowHtml;
+      });
+    }
+    
+    // Set up filter change handlers
+    function setupFilterHandlers() {
+      const brandSelect = document.getElementById('brandSelect');
+      const dateRangeSelect = document.getElementById('dateRangeSelect');
+      const agentSelect = document.getElementById('agentSelect');
+      const sentimentSelect = document.getElementById('sentimentSelect');
+      
+      // Add event listeners
+      brandSelect.addEventListener('change', applyFilters);
+      dateRangeSelect.addEventListener('change', applyFilters);
+      agentSelect.addEventListener('change', applyFilters);
+      sentimentSelect.addEventListener('change', applyFilters);
+    }
+    
+    // Apply filters and refresh dashboard data
+    function applyFilters() {
+      // In a production app, this would make API calls to fetch filtered data
+      // For demo purposes, we'll just show a loading overlay
+      
+      // Get filter values
+      const brand = document.getElementById('brandSelect').value;
+      const dateRange = document.getElementById('dateRangeSelect').value;
+      const agent = document.getElementById('agentSelect').value;
+      const sentiment = document.getElementById('sentimentSelect').value;
+      
+      // Update filter state
+      dashboardConfig.filters.brand = brand !== 'all' ? brand : null;
+      dashboardConfig.filters.dateRange = dateRange;
+      dashboardConfig.filters.agent = agent !== 'all' ? agent : null;
+      dashboardConfig.filters.sentiment = sentiment !== 'all' ? sentiment : null;
+      
+      // Update UI to show loading state
+      const cards = document.querySelectorAll('.dash-card');
+      cards.forEach(card => {
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.className = 'loading-overlay';
+        loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
+        card.appendChild(loadingOverlay);
+      });
+      
+      // Simulate API delay
+      setTimeout(() => {
+        // Remove loading overlays
+        document.querySelectorAll('.loading-overlay').forEach(overlay => {
+          overlay.remove();
+        });
+        
+        // Update filter message
+        if (dashboardConfig.filters.brand) {
+          // If specific brand is selected, show filtered data message
+          const filterMsg = document.createElement('div');
+          filterMsg.className = 'alert alert-info mt-2 mb-4';
+          filterMsg.innerHTML = `<i class="bx bx-filter me-2"></i> Showing data filtered by: <strong>${dashboardConfig.filters.brand}</strong> for the last ${dateRange === '30d' ? '30 days' : dateRange === '7d' ? '7 days' : '90 days'}${dashboardConfig.filters.agent ? `, Agent: ${dashboardConfig.filters.agent}` : ''}`;
+          
+          // Insert after filter bar
+          const filterBar = document.querySelector('.dash-filter-bar');
+          if (filterBar.nextElementSibling.classList.contains('alert')) {
+            filterBar.nextElementSibling.remove();
+          }
+          filterBar.insertAdjacentElement('afterend', filterMsg);
+        } else {
+          // Remove any existing filter message
+          const filterBar = document.querySelector('.dash-filter-bar');
+          if (filterBar.nextElementSibling.classList.contains('alert')) {
+            filterBar.nextElementSibling.remove();
+          }
+        }
+      }, 1000);
+    }
+    
+    // Refresh dashboard data
+    function refreshDashboard() {
+      // In a production app, this would make API calls to fetch updated data
+      // For demo purposes, we'll just show a loading overlay and simulate refresh
+      
+      // Update UI to show loading state
+      const cards = document.querySelectorAll('.dash-card');
+      cards.forEach(card => {
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.className = 'loading-overlay';
+        loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
+        card.appendChild(loadingOverlay);
+      });
+      
+      // Simulate API delay
+      setTimeout(() => {
+        // Remove loading overlays
+        document.querySelectorAll('.loading-overlay').forEach(overlay => {
+          overlay.remove();
+        });
+        
+        // Show success toast
+        const toast = document.createElement('div');
+        toast.className = 'toast position-fixed bottom-0 end-0 m-3 bg-success text-white';
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        toast.innerHTML = `
+          <div class="toast-header bg-success text-white">
+            <i class="bx bx-check-circle me-2"></i>
+            <strong class="me-auto">Success</strong>
+            <small>Just now</small>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            Dashboard refreshed successfully.
+          </div>
+        `;
+        
+        document.body.appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast);
+        bsToast.show();
+        
+        // Auto remove toast after it's hidden
+        toast.addEventListener('hidden.bs.toast', function () {
+          toast.remove();
+        });
+      }, 1500);
+    }
+    
+    // Export dashboard
+    function exportDashboard() {
+      // In a production app, this would generate a PDF or Excel export
+      // For demo purposes, we'll just show a loading overlay and simulate export
+      
+      // Create loading overlay for body
+      const loadingOverlay = document.createElement('div');
+      loadingOverlay.className = 'position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center';
+      loadingOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+      loadingOverlay.style.zIndex = '9999';
+      loadingOverlay.innerHTML = `
+        <div class="bg-white p-4 rounded shadow-lg text-center">
+          <div class="spinner-border text-primary mb-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <h5>Exporting Dashboard...</h5>
+          <p class="mb-0 text-muted">This may take a moment</p>
+        </div>
+      `;
+      
+      document.body.appendChild(loadingOverlay);
+      
+      // Simulate export delay
+      setTimeout(() => {
+        // Remove loading overlay
+        loadingOverlay.remove();
+        
+        // Simulate download by creating a link
+        const link = document.createElement('a');
+        link.href = '#'; // In real app, this would be a URL to the generated file
+        link.download = 'Juicer_Brand_Insights_' + new Date().toISOString().split('T')[0] + '.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show success toast
+        const toast = document.createElement('div');
+        toast.className = 'toast position-fixed bottom-0 end-0 m-3 bg-success text-white';
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        toast.innerHTML = `
+          <div class="toast-header bg-success text-white">
+            <i class="bx bx-download me-2"></i>
+            <strong class="me-auto">Success</strong>
+            <small>Just now</small>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            Dashboard exported successfully.
+          </div>
+        `;
+        
+        document.body.appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast);
+        bsToast.show();
+        
+        // Auto remove toast after it's hidden
+        toast.addEventListener('hidden.bs.toast', function () {
+          toast.remove();
+        });
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

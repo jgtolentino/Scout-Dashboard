@@ -1,0 +1,29 @@
+icon_mapping:
+  # Map cell IDs to icon filenames (without .svg extension)
+  cells:
+    - id: "bronze_layer_box"
+      icon: "bronze_icon"
+      
+    - id: "silver_layer_box"
+      icon: "silver_icon"
+      
+    - id: "gold_layer_box"
+      icon: "gold_icon"
+      
+    - id: "qa_monitoring"
+      icon: "guardrails_icon"
+      
+    - id: "event_hub"
+      icon: "system_icon"
+      
+    - id: "event_hub_out"
+      icon: "interaction_icon"
+      
+  # Default icon placement properties
+  defaults:
+    x: 10
+    y: 10
+    width: 32
+    height: 32
+    align: "left"
+    valign: "top"

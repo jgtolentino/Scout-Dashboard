@@ -1,0 +1,869 @@
+[
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:01:12.345Z",
+    "session_id": "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
+    "transcript": "Pabili po ng dalawang Milo sachet at isang Palmolive shampoo.",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 2.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "entrance",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 35.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:03:45.123Z",
+    "session_id": "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
+    "transcript": "May stock pa ba kayo ng Coke in can? Dalawa po sana.",
+    "confidence": 0.88,
+    "language": "tl",
+    "audio_duration_sec": 1.8,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "drinks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 32.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:05:22.876Z",
+    "session_id": "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
+    "transcript": "Pakidagdag po ng Safeguard at Bear Brand. Magkano po lahat?",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.2,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "counter",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:10:05.432Z",
+    "session_id": "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+    "transcript": "Magkano yung Tide powder? Yung sachet lang po.",
+    "confidence": 0.87,
+    "language": "tl",
+    "audio_duration_sec": 1.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "hygiene",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:11:18.765Z",
+    "session_id": "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+    "transcript": "Nagbebenta ba kayo ng Smart load? Five hundred load po sana.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 2.7,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "counter",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:15:42.198Z",
+    "session_id": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t0u1v2",
+    "transcript": "May Nestlé Cream po ba kayo? Tsaka isang Kopiko 3-in-1.",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 2.9,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "entrance",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 33.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:17:30.876Z",
+    "session_id": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t0u1v2",
+    "transcript": "Pabili po ng Colgate at Great Taste White. Dalawang sachet lang.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 3.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "hygiene",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 31.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:20:15.432Z",
+    "session_id": "w3x4y5z6-a7b8-c9d0-e1f2-g3h4i5j6k7l8",
+    "transcript": "Magkano po yung Lucky Me Pancit Canton? Isang pack lang po.",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 1.9,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "food",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:22:07.654Z",
+    "session_id": "w3x4y5z6-a7b8-c9d0-e1f2-g3h4i5j6k7l8",
+    "transcript": "Pabili ng Sprite 250ml at dalawang Clover chips.",
+    "confidence": 0.88,
+    "language": "tl",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "snacks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:25:42.876Z",
+    "session_id": "m9n0o1p2-q3r4-s5t6-u7v8-w9x0y1z2a3b4",
+    "transcript": "Ate, may Nescafé 3-in-1 pa ba kayo? Yung box po sana.",
+    "confidence": 0.92,
+    "language": "tl",
+    "audio_duration_sec": 1.7,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "drinks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:27:30.123Z",
+    "session_id": "m9n0o1p2-q3r4-s5t6-u7v8-w9x0y1z2a3b4",
+    "transcript": "Pabili ng Gardenia loaf bread tsaka Eden cheese.",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 2.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "food",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:30:15.765Z",
+    "session_id": "c5d6e7f8-g9h0-i1j2-k3l4-m5n6o7p8q9r0",
+    "transcript": "May panty liners ba kayo? Yung Modess po.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 2.8,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "hygiene",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:32:22.432Z",
+    "session_id": "c5d6e7f8-g9h0-i1j2-k3l4-m5n6o7p8q9r0",
+    "transcript": "Pakidagdag na rin po ng C2 Apple. Yung bote po.",
+    "confidence": 0.87,
+    "language": "tl",
+    "audio_duration_sec": 1.6,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "drinks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 32.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:35:45.876Z",
+    "session_id": "s1t2u3v4-w5x6-y7z8-a9b0-c1d2e3f4g5h6",
+    "transcript": "Pabili po ng bigas, isang kilo, tsaka asukal na half kilo.",
+    "confidence": 0.93,
+    "language": "tl",
+    "audio_duration_sec": 1.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "grocery",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:37:18.123Z",
+    "session_id": "s1t2u3v4-w5x6-y7z8-a9b0-c1d2e3f4g5h6",
+    "transcript": "Pa-Smart load po, 50 pesos. Tsaka isang Chicosé.",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.4,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "counter",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:40:30.654Z",
+    "session_id": "i7j8k9l0-m1n2-o3p4-q5r6-s7t8u9v0w1x2",
+    "transcript": "Meron ba kayong Yakult? Isang pack po sana.",
+    "confidence": 0.94,
+    "language": "tl",
+    "audio_duration_sec": 1.4,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "drinks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 27.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:42:15.321Z",
+    "session_id": "i7j8k9l0-m1n2-o3p4-q5r6-s7t8u9v0w1x2",
+    "transcript": "Pabili po ng Mang Tomas siga at Magic Sarap.",
+    "confidence": 0.88,
+    "language": "tl",
+    "audio_duration_sec": 2.0,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "grocery",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:45:22.765Z",
+    "session_id": "y3z4a5b6-c7d8-e9f0-g1h2-i3j4k5l6m7n8",
+    "transcript": "May stock pa ba kayo ng Close Up? Yung red po sana.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "hygiene",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:47:30.432Z",
+    "session_id": "y3z4a5b6-c7d8-e9f0-g1h2-i3j4k5l6m7n8",
+    "transcript": "Dalawang Knorr cubes po, tsaka isang kamatis at sibuyas.",
+    "confidence": 0.92,
+    "language": "tl",
+    "audio_duration_sec": 2.6,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "grocery",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 31.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:50:15.876Z",
+    "session_id": "o9p0q1r2-s3t4-u5v6-w7x8-y9z0a1b2c3d4",
+    "transcript": "Pabili po ng Dove shampoo sachet at Rexona deodorant.",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 1.7,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "hygiene",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:52:07.123Z",
+    "session_id": "o9p0q1r2-s3t4-u5v6-w7x8-y9z0a1b2c3d4",
+    "transcript": "May Globe load din po ba kayo? Tsaka isang Chippy at Nova.",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "counter",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T09:01:12.345Z",
+    "session_id": "e5f6g7h8-i9j0-k1l2-m3n4-o5p6q7r8s9t0",
+    "transcript": "Pabili nga po ng dalawang Energen at isang Milo.",
+    "confidence": 0.93,
+    "language": "tl",
+    "audio_duration_sec": 2.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "drinks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T09:03:45.123Z",
+    "session_id": "e5f6g7h8-i9j0-k1l2-m3n4-o5p6q7r8s9t0",
+    "transcript": "May Downy fabric conditioner pa ba kayo? Yung sachet lang.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 1.8,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "hygiene",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T09:05:22.876Z",
+    "session_id": "u1v2w3x4-y5z6-a7b8-c9d0-e1f2g3h4i5j6",
+    "transcript": "Pabili po ng Cream-O at Hansel. Tig-isa lang po.",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 1.9,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "snacks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T09:07:30.432Z",
+    "session_id": "u1v2w3x4-y5z6-a7b8-c9d0-e1f2g3h4i5j6",
+    "transcript": "Magkano po yung Alaska evaporated milk? Dalawa po sana.",
+    "confidence": 0.88,
+    "language": "tl",
+    "audio_duration_sec": 2.7,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "grocery",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 31.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T09:10:15.765Z",
+    "session_id": "k7l8m9n0-o1p2-q3r4-s5t6-u7v8w9x0y1z2",
+    "transcript": "Pabili ng dalawang Skyflakes at isang Absolute mineral water.",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "snacks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T09:12:22.543Z",
+    "session_id": "k7l8m9n0-o1p2-q3r4-s5t6-u7v8w9x0y1z2",
+    "transcript": "Ate, magkano po yung Selecta ice cream na gallon?",
+    "confidence": 0.92,
+    "language": "tl",
+    "audio_duration_sec": 2.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "frozen",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T09:15:30.876Z",
+    "session_id": "a3b4c5d6-e7f8-g9h0-i1j2-k3l4m5n6o7p8",
+    "transcript": "May tinda po ba kayong candles at posporo?",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "household",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T09:17:45.123Z",
+    "session_id": "a3b4c5d6-e7f8-g9h0-i1j2-k3l4m5n6o7p8",
+    "transcript": "Magkano po yung Zonrox bleach? Yung maliit lang po.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 2.2,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "household",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T09:20:12.654Z",
+    "session_id": "q9r0s1t2-u3v4-w5x6-y7z8-a9b0c1d2e3f4",
+    "transcript": "Pabili po ng Biogesic at Neozep. Tig-isang tablet lang.",
+    "confidence": 0.87,
+    "language": "tl",
+    "audio_duration_sec": 2.4,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "medicine",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T09:22:30.321Z",
+    "session_id": "q9r0s1t2-u3v4-w5x6-y7z8-a9b0c1d2e3f4",
+    "transcript": "Pa-load po, Smart, one hundred. Tsaka isang Coke litro.",
+    "confidence": 0.93,
+    "language": "tl",
+    "audio_duration_sec": 2.6,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "counter",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 27.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T09:25:42.876Z",
+    "session_id": "g5h6i7j8-k9l0-m1n2-o3p4-q5r6s7t8u9v0",
+    "transcript": "Pabili po ng gatas, Nido po pala. Tsaka dalawang itlog.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 2.0,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "grocery",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T09:27:30.123Z",
+    "session_id": "g5h6i7j8-k9l0-m1n2-o3p4-q5r6s7t8u9v0",
+    "transcript": "May Dutchmill yogurt pa ba kayo? Strawberry po sana.",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "drinks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T09:30:15.432Z",
+    "session_id": "v1w2x3y4-z5a6-b7c8-d9e0-f1g2h3i4j5k6",
+    "transcript": "Pabili ng dalawang Marlboro lights. Magkano na po yun ngayon?",
+    "confidence": 0.92,
+    "language": "tl",
+    "audio_duration_sec": 2.4,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "counter",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T09:32:22.765Z",
+    "session_id": "v1w2x3y4-z5a6-b7c8-d9e0-f1g2h3i4j5k6",
+    "transcript": "Magkano po yung Emperador light? May sukli po ba sa five hundred?",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "alcohol",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 31.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T09:35:45.543Z",
+    "session_id": "l7m8n9o0-p1q2-r3s4-t5u6-v7w8x9y0z1a2",
+    "transcript": "May Oreo po ba kayo? Dalawang pack po, yung cookies and cream.",
+    "confidence": 0.88,
+    "language": "tl",
+    "audio_duration_sec": 2.2,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "snacks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T09:37:18.654Z",
+    "session_id": "l7m8n9o0-p1q2-r3s4-t5u6-v7w8x9y0z1a2",
+    "transcript": "Pabili po ng Baygon spray. Magkano po yun?",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 2.0,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "household",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T09:40:30.321Z",
+    "session_id": "b3c4d5e6-f7g8-h9i0-j1k2-l3m4n5o6p7q8",
+    "transcript": "May Joy dishwashing liquid pa po ba kayo? Tsaka isang Ariel detergent.",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.6,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "household",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T09:42:15.876Z",
+    "session_id": "b3c4d5e6-f7g8-h9i0-j1k2-l3m4n5o6p7q8",
+    "transcript": "Pabili po ng Chicharon ni Mang Juan at isang Coca-Cola zero.",
+    "confidence": 0.93,
+    "language": "tl",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "snacks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T09:45:22.123Z",
+    "session_id": "r9s0t1u2-v3w4-x5y6-z7a8-b9c0d1e2f3g4",
+    "transcript": "May Wrigley's Doublemint gum pa ba kayo? Pabili po ng tatlo.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 2.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "counter",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T09:47:30.654Z",
+    "session_id": "r9s0t1u2-v3w4-x5y6-z7a8-b9c0d1e2f3g4",
+    "transcript": "Ate, may Vicks VapoRub po ba kayo? Yung maliit lang.",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.2,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "medicine",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T09:50:15.321Z",
+    "session_id": "h5i6j7k8-l9m0-n1o2-p3q4-r5s6t7u8v9w0",
+    "transcript": "Pabili po ng Lucky Me Supreme, yung beef. Pati na rin isang Lipton tea.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 2.4,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "food",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 31.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T09:52:07.876Z",
+    "session_id": "h5i6j7k8-l9m0-n1o2-p3q4-r5s6t7u8v9w0",
+    "transcript": "Magkano yung Zagu? Yung strawberry po sana.",
+    "confidence": 0.88,
+    "language": "tl",
+    "audio_duration_sec": 1.7,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "drinks",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T09:55:30.123Z",
+    "session_id": "w1x2y3z4-a5b6-c7d8-e9f0-g1h2i3j4k5l6",
+    "transcript": "Pabili po ng San Mig Light. Apat po. May pangpababa po ba ng lagnat?",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "alcohol",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T09:57:45.654Z",
+    "session_id": "w1x2y3z4-a5b6-c7d8-e9f0-g1h2i3j4k5l6",
+    "transcript": "Magkano po yung tissue? Yung Kleenex po.",
+    "confidence": 0.92,
+    "language": "tl",
+    "audio_duration_sec": 1.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "hygiene",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T10:01:12.321Z",
+    "session_id": "m7n8o9p0-q1r2-s3t4-u5v6-w7x8y9z0a1b2",
+    "transcript": "Magkano po yung tatlong itlog tsaka sibuyas at kamatis?",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 2.2,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "grocery",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T10:03:45.876Z",
+    "session_id": "m7n8o9p0-q1r2-s3t4-u5v6-w7x8y9z0a1b2",
+    "transcript": "May GCash deposit po ba kayo? Tsaka pabili na rin po ng Silver Swan soy sauce.",
+    "confidence": 0.90,
+    "language": "tl",
+    "audio_duration_sec": 2.8,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "counter",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T10:05:22.543Z",
+    "session_id": "c3d4e5f6-g7h8-i9j0-k1l2-m3n4o5p6q7r8",
+    "transcript": "Pabili ng Betadine at cotton balls. Tsaka band-aid po.",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "medicine",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T10:07:30.654Z",
+    "session_id": "c3d4e5f6-g7h8-i9j0-k1l2-m3n4o5p6q7r8",
+    "transcript": "May Rejoice shampoo pa po ba kayo? Yung anti-dandruff po sana.",
+    "confidence": 0.93,
+    "language": "tl",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-113",
+      "location_zone": "hygiene",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T10:10:15.321Z",
+    "session_id": "s9t0u1v2-w3x4-y5z6-a7b8-c9d0e1f2g3h4",
+    "transcript": "Pabili po ng Ligo sardines at Argentina corned beef.",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 2.0,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "grocery",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T10:12:22.876Z",
+    "session_id": "s9t0u1v2-w3x4-y5z6-a7b8-c9d0e1f2g3h4",
+    "transcript": "Magkano po yung Johnsons Baby powder? Yung maliit lang po.",
+    "confidence": 0.92,
+    "language": "tl",
+    "audio_duration_sec": 2.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "sari-114",
+      "location_zone": "hygiene",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.0,
+      "simulated": true
+    }
+  }
+]

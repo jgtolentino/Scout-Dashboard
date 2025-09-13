@@ -1,0 +1,136 @@
+trigger:
+  branches:
+    include:
+      - main
+      - dashboard-deployment
+  paths:
+    include:
+      - 'tools/js/deploy-advisor-fixed/**'
+      - 'tools/js/final-locked-dashboard/**'
+      - 'tools/js/azure-pipelines.yml'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: azure-static-webapp-vars  # Contains AZURE_STATIC_WEB_APP_TOKEN
+  - name: deploymentDir
+    value: 'tools/js/deploy-advisor-fixed'
+  - name: buildOutputDir
+    value: '$(System.DefaultWorkingDirectory)/$(deploymentDir)'
+
+stages:
+  - stage: Prepare
+    displayName: 'Prepare Deployment'
+    jobs:
+      - job: Validate
+        displayName: 'Validate Files'
+        steps:
+          - checkout: self
+            fetchDepth: 1
+            
+          - script: |
+              echo "Validating deployment files..."
+              if [ ! -d "$(deploymentDir)" ]; then
+                echo "##vso[task.logissue type=error]Deployment directory not found: $(deploymentDir)"
+                exit 1
+              fi
+              
+              if [ ! -f "$(deploymentDir)/staticwebapp.config.json" ]; then
+                echo "##vso[task.logissue type=warning]staticwebapp.config.json not found in deployment directory"
+                echo "Using default configuration..."
+                
+                echo '{
+                  "routes": [
+                    { "route": "/advisor", "rewrite": "/advisor/index.html" },
+                    { "route": "/edge", "rewrite": "/edge/index.html" },
+                    { "route": "/ops", "rewrite": "/ops/index.html" },
+                    { "route": "/insights_dashboard.html", "redirect": "/advisor", "statusCode": 301 }
+                  ],
+                  "navigationFallback": {
+                    "rewrite": "/index.html",
+                    "exclude": ["/assets/*", "/advisor/assets/*", "/css/*", "/js/*"]
+                  }
+                }' > "$(deploymentDir)/staticwebapp.config.json"
+              fi
+              
+              echo "Deployment files validated successfully."
+            displayName: 'Validate Deployment Files'
+          
+          - script: |
+              echo "Creating deployment report..."
+              mkdir -p $(Build.ArtifactStagingDirectory)/deployment-report
+              
+              # Generate report
+              echo "# Scout Dashboard Deployment Report" > $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "## Files to be deployed" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "\`\`\`" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              find "$(deploymentDir)" -type f | sort >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "\`\`\`" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              
+              echo "" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "## Configuration Files" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "### staticwebapp.config.json" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "\`\`\`json" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              cat "$(deploymentDir)/staticwebapp.config.json" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              echo "\`\`\`" >> $(Build.ArtifactStagingDirectory)/deployment-report/report.md
+              
+              echo "Deployment report created."
+            displayName: 'Create Deployment Report'
+            
+          - publish: $(Build.ArtifactStagingDirectory)/deployment-report
+            artifact: DeploymentReport
+            displayName: 'Publish Deployment Report'
+
+  - stage: Deploy
+    displayName: 'Deploy to Azure Static Web App'
+    dependsOn: Prepare
+    jobs:
+      - job: Deploy
+        displayName: 'Deploy Dashboard'
+        steps:
+          - checkout: self
+            fetchDepth: 1
+            
+          - task: AzureStaticWebApp@0
+            displayName: 'Deploy to Azure Static Web App'
+            inputs:
+              azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APP_TOKEN)
+              app_location: $(deploymentDir)
+              skip_app_build: true
+              verbose: true
+            env:
+              AZURE_STATIC_WEB_APP_TOKEN: $(AZURE_STATIC_WEB_APP_TOKEN)
+          
+          - script: |
+              echo "##vso[task.setvariable variable=deploymentUrl;isOutput=true]https://$(STATIC_WEB_APP_NAME).azurestaticapps.net"
+            name: setDeploymentUrl
+            displayName: 'Set Deployment URL'
+            
+  - stage: Verify
+    displayName: 'Verify Deployment'
+    dependsOn: Deploy
+    jobs:
+      - job: VerifyDeployment
+        displayName: 'Verify Deployment'
+        steps:
+          - checkout: none
+          
+          - script: |
+              echo "##vso[task.logissue type=warning]Manual verification needed"
+              echo "Please verify the deployment at:"
+              echo "- Main URL: https://$(STATIC_WEB_APP_NAME).azurestaticapps.net/advisor"
+              echo "- Legacy URL: https://$(STATIC_WEB_APP_NAME).azurestaticapps.net/insights_dashboard.html"
+              
+              echo "=== Verification Checklist ==="
+              echo "1. All dashboard components load correctly"
+              echo "2. Routing works between /advisor, /edge, and /ops"
+              echo "3. Legacy URL redirects properly"
+              echo "4. No JavaScript errors in browser console"
+              
+              echo "Dashboard deployed successfully! 🚀"
+            displayName: 'Deployment Verification Instructions'

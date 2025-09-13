@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drill-Down Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .test-kpi {
+            padding: 1rem;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: rgba(0, 123, 255, 0.1);
+        }
+        .test-kpi:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .kpi-title {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 0.5rem;
+        }
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .test-log {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .log-entry {
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            background: white;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        .log-entry.success { border-left: 4px solid #28a745; }
+        .log-entry.error { border-left: 4px solid #dc3545; }
+        .log-entry.info { border-left: 4px solid #007bff; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Client360 Drill-Down Integration Test</h1>
+        <p>Click on any KPI tile below to test the drill-down functionality. Check the console and test log for detailed information.</p>
+        
+        <div class="test-grid">
+            <div class="test-kpi kpi-tile clickable" data-kpi="total-sales">
+                <div class="kpi-title">Total Sales</div>
+                <div class="kpi-value">₱2,450,000</div>
+            </div>
+            
+            <div class="test-kpi kpi-tile clickable" data-kpi="transactions">
+                <div class="kpi-title">Transactions</div>
+                <div class="kpi-value">15,432</div>
+            </div>
+            
+            <div class="test-kpi kpi-tile clickable" data-kpi="brand-sentiment">
+                <div class="kpi-title">Brand Sentiment</div>
+                <div class="kpi-value">87.5%</div>
+            </div>
+            
+            <div class="test-kpi kpi-tile clickable" data-kpi="conversion-rate">
+                <div class="kpi-title">Conversion Rate</div>
+                <div class="kpi-value">12.3%</div>
+            </div>
+            
+            <div class="test-kpi kpi-tile clickable" data-kpi="growth-rate">
+                <div class="kpi-title">Growth Rate</div>
+                <div class="kpi-value">+18.7%</div>
+            </div>
+            
+            <div class="test-kpi kpi-tile clickable" data-kpi="store-performance">
+                <div class="kpi-title">Store Performance</div>
+                <div class="kpi-value">94.2%</div>
+            </div>
+            
+            <div class="test-kpi kpi-tile clickable" data-kpi="regional-performance">
+                <div class="kpi-title">Regional Performance</div>
+                <div class="kpi-value">Metro: 85%</div>
+            </div>
+        </div>
+        
+        <div class="test-log">
+            <h3>Test Log</h3>
+            <div id="test-log-content"></div>
+        </div>
+    </div>
+
+    <script src="js/drilldown_handler.js"></script>
+    <script>
+        // Test logging functionality
+        const testLog = document.getElementById('test-log-content');
+        
+        function addLogEntry(message, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            testLog.appendChild(entry);
+            testLog.scrollTop = testLog.scrollHeight;
+        }
+        
+        // Override console methods to capture logs
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        
+        console.log = function(...args) {
+            originalConsoleLog.apply(console, args);
+            addLogEntry(args.join(' '), 'info');
+        };
+        
+        console.error = function(...args) {
+            originalConsoleError.apply(console, args);
+            addLogEntry(args.join(' '), 'error');
+        };
+        
+        // Test initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            addLogEntry('Test page loaded', 'success');
+            addLogEntry('Checking for DrillDownHandler...', 'info');
+            
+            setTimeout(() => {
+                if (window.drillDownHandler) {
+                    addLogEntry('✓ DrillDownHandler successfully initialized', 'success');
+                    
+                    // Count clickable KPI tiles
+                    const tiles = document.querySelectorAll('.kpi-tile.clickable[data-kpi]');
+                    addLogEntry(`✓ Found ${tiles.length} clickable KPI tiles`, 'success');
+                    
+                    // List all KPI types
+                    const kpiTypes = Array.from(tiles).map(tile => tile.getAttribute('data-kpi'));
+                    addLogEntry(`✓ KPI types: ${kpiTypes.join(', ')}`, 'success');
+                    
+                    // Test each KPI type
+                    kpiTypes.forEach(kpiType => {
+                        addLogEntry(`✓ KPI '${kpiType}' ready for testing`, 'info');
+                    });
+                    
+                } else {
+                    addLogEntry('✗ DrillDownHandler not found', 'error');
+                }
+            }, 1000);
+        });
+        
+        // Mock API responses for testing (since API may not be deployed yet)
+        if (window.fetch) {
+            const originalFetch = window.fetch;
+            window.fetch = function(url, options) {
+                if (url.includes('/api/drilldown/')) {
+                    addLogEntry(`API call intercepted: ${url}`, 'info');
+                    
+                    // Mock response based on KPI type
+                    const kpiType = url.split('/').pop();
+                    const mockData = getMockData(kpiType);
+                    
+                    return Promise.resolve({
+                        ok: true,
+                        status: 200,
+                        json: () => Promise.resolve(mockData)
+                    });
+                }
+                return originalFetch.apply(this, arguments);
+            };
+            
+            addLogEntry('✓ Mock API enabled for testing', 'success');
+        }
+        
+        function getMockData(kpiType) {
+            const mockResponses = {
+                'total-sales': {
+                    breakdown: [
+                        { category: 'Electronics', amount: 850000, change: 12.5 },
+                        { category: 'Clothing', amount: 650000, change: 8.3 },
+                        { category: 'Home & Garden', amount: 450000, change: -2.1 },
+                        { category: 'Food & Beverage', amount: 500000, change: 15.7 }
+                    ]
+                },
+                'transactions': {
+                    hourly: [
+                        { hour: 9, count: 245 }, { hour: 10, count: 567 }, { hour: 11, count: 789 },
+                        { hour: 12, count: 923 }, { hour: 13, count: 854 }, { hour: 14, count: 1123 },
+                        { hour: 15, count: 1345 }, { hour: 16, count: 1567 }, { hour: 17, count: 1234 },
+                        { hour: 18, count: 1056 }, { hour: 19, count: 876 }, { hour: 20, count: 654 }
+                    ]
+                },
+                'brand-sentiment': {
+                    brands: [
+                        { name: 'Brand A', sentiment: 0.87, mentions: 1245 },
+                        { name: 'Brand B', sentiment: 0.72, mentions: 987 },
+                        { name: 'Brand C', sentiment: 0.91, mentions: 756 },
+                        { name: 'Brand D', sentiment: 0.65, mentions: 543 }
+                    ]
+                },
+                'conversion-rate': {
+                    funnel: [
+                        { stage: 'Visitors', count: 125000, rate: 100 },
+                        { stage: 'Product Views', count: 87500, rate: 70 },
+                        { stage: 'Add to Cart', count: 35000, rate: 28 },
+                        { stage: 'Checkout', count: 17500, rate: 14 },
+                        { stage: 'Purchase', count: 15432, rate: 12.3 }
+                    ]
+                },
+                'growth-rate': {
+                    periods: [
+                        { period: 'Q1 2024', growth: 15.2, revenue: 2100000 },
+                        { period: 'Q4 2023', growth: 12.8, revenue: 1950000 },
+                        { period: 'Q3 2023', growth: 8.7, revenue: 1800000 },
+                        { period: 'Q2 2023', growth: 18.9, revenue: 1650000 }
+                    ]
+                },
+                'store-performance': {
+                    stores: [
+                        { name: 'SM Mall of Asia', location: 'Pasay', revenue: 450000, conversion_rate: 18.5 },
+                        { name: 'Ayala Malls Makati', location: 'Makati', revenue: 420000, conversion_rate: 16.8 },
+                        { name: 'SM Megamall', location: 'Mandaluyong', revenue: 380000, conversion_rate: 15.2 },
+                        { name: 'Trinoma', location: 'Quezon City', revenue: 360000, conversion_rate: 14.7 }
+                    ]
+                },
+                'regional-performance': {
+                    regions: [
+                        { name: 'Metro Manila', revenue: 1850000, store_count: 45, growth: 18.7 },
+                        { name: 'Cebu', revenue: 350000, store_count: 12, growth: 12.3 },
+                        { name: 'Davao', revenue: 250000, store_count: 8, growth: 15.1 },
+                        { name: 'Baguio', revenue: 180000, store_count: 6, growth: 9.8 }
+                    ]
+                }
+            };
+            
+            return mockResponses[kpiType] || { error: 'Mock data not found' };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# This hook captures if a clodrep command was used 
+# and ensures that tests pass after AI-generated changes
+
+# Check if this commit was triggered by a clodrep command
+CLODREP_CMD=$(git log -1 --format=%B | grep -E "^:clodrep")
+
+if [ -n "$CLODREP_CMD" ]; then
+  echo "🤖 AI-generated changes detected from clodrep command"
+  echo "Running tests to ensure changes are valid..."
+  
+  # Run tests
+  npm test
+  TEST_RESULT=$?
+  
+  if [ $TEST_RESULT -ne 0 ]; then
+    echo "❌ Tests failed after AI changes! Aborting commit."
+    echo "Please fix the failing tests before committing."
+    echo ""
+    echo "💡 Tip: Use the ai-test-loop.js script to automatically fix the issues:"
+    echo "  node scripts/ai-test-loop.js <file-path> \"Fix the failing tests\""
+    exit 1
+  else
+    echo "✅ All tests passed! Proceeding with commit."
+  fi
+fi
+
+exit 0

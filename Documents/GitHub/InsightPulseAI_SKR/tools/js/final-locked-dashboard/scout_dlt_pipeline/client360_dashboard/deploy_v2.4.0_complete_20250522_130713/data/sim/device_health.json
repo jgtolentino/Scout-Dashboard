@@ -1,0 +1,199 @@
+{
+  "summary": {
+    "total_devices": 1247,
+    "healthy": 1089,
+    "warning": 132,
+    "critical": 26,
+    "offline": 0,
+    "last_updated": "2025-05-22T11:30:00Z"
+  },
+  "devices": [
+    {
+      "id": "POS-MMA-001",
+      "name": "SM Mall of Asia - Main Counter",
+      "location": "Metro Manila",
+      "type": "POS Terminal",
+      "status": "healthy",
+      "health_score": 95,
+      "uptime": "99.8%",
+      "last_seen": "2025-05-22T11:29:45Z",
+      "metrics": {
+        "cpu_usage": 23,
+        "memory_usage": 45,
+        "disk_usage": 67,
+        "network_latency": 12,
+        "transaction_rate": 145
+      },
+      "alerts": []
+    },
+    {
+      "id": "POS-CEU-003",
+      "name": "Ayala Center Cebu - Electronics",
+      "location": "Cebu",
+      "type": "POS Terminal",
+      "status": "warning",
+      "health_score": 78,
+      "uptime": "96.2%",
+      "last_seen": "2025-05-22T11:28:12Z",
+      "metrics": {
+        "cpu_usage": 67,
+        "memory_usage": 78,
+        "disk_usage": 89,
+        "network_latency": 156,
+        "transaction_rate": 89
+      },
+      "alerts": [
+        {
+          "type": "warning",
+          "message": "High disk usage detected",
+          "timestamp": "2025-05-22T10:45:00Z"
+        }
+      ]
+    },
+    {
+      "id": "KIOSK-BGU-007",
+      "name": "Session Road Kiosk",
+      "location": "Baguio",
+      "type": "Self-Service Kiosk",
+      "status": "critical",
+      "health_score": 34,
+      "uptime": "87.1%",
+      "last_seen": "2025-05-22T11:15:22Z",
+      "metrics": {
+        "cpu_usage": 91,
+        "memory_usage": 94,
+        "disk_usage": 97,
+        "network_latency": 1245,
+        "transaction_rate": 12
+      },
+      "alerts": [
+        {
+          "type": "critical",
+          "message": "System overload - immediate attention required",
+          "timestamp": "2025-05-22T09:12:00Z"
+        },
+        {
+          "type": "warning",
+          "message": "Network connectivity issues",
+          "timestamp": "2025-05-22T08:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "TABLET-DAV-012",
+      "name": "Gaisano Mall Davao - Customer Service",
+      "location": "Davao",
+      "type": "Tablet POS",
+      "status": "healthy",
+      "health_score": 92,
+      "uptime": "99.1%",
+      "last_seen": "2025-05-22T11:29:55Z",
+      "metrics": {
+        "cpu_usage": 34,
+        "memory_usage": 52,
+        "disk_usage": 41,
+        "network_latency": 28,
+        "transaction_rate": 78
+      },
+      "alerts": []
+    },
+    {
+      "id": "POS-MMA-015",
+      "name": "Trinoma - Food Court",
+      "location": "Metro Manila",
+      "type": "POS Terminal",
+      "status": "warning",
+      "health_score": 71,
+      "uptime": "94.7%",
+      "last_seen": "2025-05-22T11:27:33Z",
+      "metrics": {
+        "cpu_usage": 56,
+        "memory_usage": 73,
+        "disk_usage": 68,
+        "network_latency": 89,
+        "transaction_rate": 156
+      },
+      "alerts": [
+        {
+          "type": "warning",
+          "message": "Intermittent connectivity issues",
+          "timestamp": "2025-05-22T10:15:00Z"
+        }
+      ]
+    },
+    {
+      "id": "SCANNER-CEU-008",
+      "name": "IT Park Scanner Station",
+      "location": "Cebu",
+      "type": "Barcode Scanner",
+      "status": "healthy",
+      "health_score": 88,
+      "uptime": "98.9%",
+      "last_seen": "2025-05-22T11:29:12Z",
+      "metrics": {
+        "cpu_usage": 12,
+        "memory_usage": 31,
+        "disk_usage": 45,
+        "network_latency": 34,
+        "transaction_rate": 234
+      },
+      "alerts": []
+    }
+  ],
+  "health_trends": [
+    {
+      "timestamp": "2025-05-22T08:00:00Z",
+      "healthy": 1067,
+      "warning": 145,
+      "critical": 35
+    },
+    {
+      "timestamp": "2025-05-22T09:00:00Z",
+      "healthy": 1078,
+      "warning": 138,
+      "critical": 31
+    },
+    {
+      "timestamp": "2025-05-22T10:00:00Z",
+      "healthy": 1085,
+      "warning": 135,
+      "critical": 27
+    },
+    {
+      "timestamp": "2025-05-22T11:00:00Z",
+      "healthy": 1089,
+      "warning": 132,
+      "critical": 26
+    }
+  ],
+  "location_summary": [
+    {
+      "location": "Metro Manila",
+      "total": 678,
+      "healthy": 589,
+      "warning": 71,
+      "critical": 18
+    },
+    {
+      "location": "Cebu",
+      "total": 234,
+      "healthy": 209,
+      "warning": 22,
+      "critical": 3
+    },
+    {
+      "location": "Davao",
+      "total": 187,
+      "healthy": 169,
+      "warning": 16,
+      "critical": 2
+    },
+    {
+      "location": "Baguio",
+      "total": 148,
+      "healthy": 122,
+      "warning": 23,
+      "critical": 3
+    }
+  ]
+}

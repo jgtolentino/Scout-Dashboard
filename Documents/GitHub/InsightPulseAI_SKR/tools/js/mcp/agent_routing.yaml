@@ -1,0 +1,314 @@
+name: mcp
+description: "Agent for handling specific tasks"
+# Agent Routing Profile for Pulser MCP Architecture
+# This file defines routing rules for directing tasks to appropriate environments
+# based on intent, agent capabilities, and context.
+
+version: "1.0"
+updated: "2025-05-13"
+
+# Default route when no specific match is found
+default_route:
+  agent: "Claudia"
+  target: "terminal"
+  bridge: "terminal_mcp_bridge"
+  priority: "medium"
+  fallback: "Echo"
+
+# Routing rules organized by primary intent patterns
+routes:
+  # 3D Design and Rendering Routes
+  - intent: "3D scene manipulation"
+    agent: "Claude"
+    target: "blender"
+    bridge: "blender_mcp_bridge"
+    priority: "high"
+    context: ["3D", "render", "scene", "model", "texture", "animation"]
+    filetypes: [".blend", ".obj", ".fbx", ".glb", ".gltf"]
+    fallback: "Maya"
+
+  - intent: "3D rendering or visualization"
+    agent: "Claude"
+    target: "blender"
+    bridge: "blender_mcp_bridge"
+    priority: "high"
+    context: ["render", "scene", "lighting", "camera", "material"]
+    examples:
+      - "Create a 3D scene with a table and chair"
+      - "Render the current scene with ambient lighting"
+      - "Add a texture to the selected object"
+    fallback: "Echo"
+
+  # Code Editing and Development Routes
+  - intent: "code editing"
+    agent: "Claude"
+    target: "vscode"
+    bridge: "vscode_mcp_bridge"
+    priority: "high"
+    context: ["code", "function", "class", "bug", "implementation", "algorithm"]
+    filetypes: [".js", ".py", ".html", ".css", ".ts", ".jsx", ".tsx", ".java", ".c", ".cpp", ".go", ".rs", ".php"]
+    examples:
+      - "Edit the file to fix the bug"
+      - "Create a new component for the dashboard"
+      - "Write a function that calculates statistics"
+    fallback: "Surf"
+
+  - intent: "web development"
+    agent: "Claude"
+    target: "vscode"
+    bridge: "vscode_mcp_bridge"
+    priority: "high"
+    context: ["HTML", "CSS", "JavaScript", "web", "frontend", "component", "UI"]
+    filetypes: [".html", ".css", ".js", ".jsx", ".tsx", ".vue", ".svelte"]
+    fallback: "Surf"
+
+  - intent: "data science or analytics"
+    agent: "Claude"
+    target: "jupyter"
+    bridge: "jupyter_mcp_bridge"
+    priority: "medium"
+    context: ["data", "analysis", "visualization", "pandas", "numpy", "machine learning", "statistics"]
+    filetypes: [".ipynb", ".py", ".csv", ".json", ".xlsx"]
+    fallback: "Tide"
+
+  # Terminal Automation Routes
+  - intent: "terminal automation"
+    agent: "Basher"
+    target: "terminal"
+    bridge: "terminal_mcp_bridge"
+    priority: "medium"
+    context: ["shell", "command", "script", "automation", "pipeline", "build", "deploy"]
+    examples:
+      - "Run the tests in the project directory"
+      - "Deploy the application to staging"
+      - "Install dependencies for the project"
+    fallback: "Claude"
+
+  - intent: "deployment or infrastructure"
+    agent: "Stacey"
+    target: "terminal"
+    bridge: "terminal_mcp_bridge"
+    priority: "high"
+    context: ["deploy", "kubernetes", "docker", "cloud", "infrastructure", "AWS", "Azure", "GCP"]
+    fallback: "Basher"
+
+  # Database and Data Validation Routes
+  - intent: "data validation or SQL query"
+    agent: "Tide"
+    target: "database"
+    bridge: "sql_query_router"
+    priority: "high"
+    context: ["database", "SQL", "query", "validation", "data", "CustomerID", "firmware", "device health"]
+    filetypes: [".sql", ".db", ".json", ".csv"]
+    examples:
+      - "Find devices with missing customer IDs"
+      - "Query the database for problematic device health metrics"
+      - "Create a report of all devices with firmware version below 2.0"
+    fallback: "Claude"
+
+  - intent: "device health monitoring"
+    agent: "Tide"
+    target: "database"
+    bridge: "sql_query_router"
+    priority: "high"
+    context: ["device", "health", "monitoring", "metrics", "firmware", "diagnostics"]
+    fallback: "Echo"
+
+  # Document and Knowledge Management Routes
+  - intent: "documentation or knowledge management"
+    agent: "Kalaw"
+    target: "vscode"
+    bridge: "vscode_mcp_bridge"
+    priority: "medium"
+    context: ["documentation", "knowledge", "wiki", "guide", "manual", "help"]
+    filetypes: [".md", ".txt", ".docx", ".pdf"]
+    fallback: "Claudia"
+
+  # Multi-tool Creative Workflows
+  - intent: "multi-environment creative workflow"
+    agent: "Maya"
+    target: "orchestrator"
+    bridge: "mcp_orchestrator"
+    priority: "high"
+    context: ["workflow", "multi-step", "creative", "project", "collaboration"]
+    description: "Routes to the orchestrator that can coordinate multiple environments"
+    examples:
+      - "Create a 3D visualization based on data from the analytics dashboard"
+      - "Generate a report with embedded visualizations from the rendering engine"
+    environment_chain:
+      - "database"
+      - "blender"
+      - "vscode"
+    fallback: "Claudia"
+
+  # QA and Testing Routes
+  - intent: "testing or quality assurance"
+    agent: "Caca"
+    target: "vscode"
+    bridge: "vscode_mcp_bridge"
+    priority: "medium"
+    context: ["test", "QA", "quality", "verification", "validation", "bugs"]
+    filetypes: [".test.js", ".spec.js", ".test.py", ".spec.py"]
+    examples:
+      - "Create unit tests for the device health monitor"
+      - "Run regression tests for the database validation"
+    fallback: "Surf"
+
+  # Sales and Finance Routes
+  - intent: "financial analysis or tracking"
+    agent: "Tala"
+    target: "database"
+    bridge: "sql_query_router"
+    priority: "medium"
+    context: ["finance", "invoice", "billing", "tracking", "revenue", "expenses"]
+    fallback: "Edge"
+
+  - intent: "sales or customer interaction"
+    agent: "Edge"
+    target: "dashboard"
+    bridge: "dashboard_mcp_bridge"
+    priority: "medium"
+    context: ["sales", "customer", "interaction", "lead", "opportunity", "CRM"]
+    fallback: "Claude"
+
+# Intent recognition patterns to help identify relevant routes
+intent_recognition:
+  3d_manipulation:
+    keywords: ["render", "3D", "model", "scene", "object", "texture", "animation", "blender"]
+    phrases:
+      - "create a 3D"
+      - "model a"
+      - "render the scene"
+      - "add material to"
+      - "position the camera"
+  
+  code_editing:
+    keywords: ["code", "function", "class", "bug", "feature", "implementation", "algorithm"]
+    phrases:
+      - "write a function"
+      - "fix the bug in"
+      - "create a new class"
+      - "implement the algorithm"
+      - "refactor the code"
+  
+  terminal_automation:
+    keywords: ["run", "execute", "script", "command", "shell", "bash", "terminal", "deploy"]
+    phrases:
+      - "run the command"
+      - "execute the script"
+      - "deploy the application"
+      - "build the project"
+  
+  data_validation:
+    keywords: ["data", "validate", "query", "database", "SQL", "metrics", "device", "customer"]
+    phrases:
+      - "query the database"
+      - "check device health"
+      - "validate customer data"
+      - "find missing entries"
+
+# Fallback cascades define what happens when primary route fails
+fallback_cascades:
+  creative:
+    sequence: ["Maya", "Claude", "Echo", "Claudia"] 
+  technical:
+    sequence: ["Surf", "Claude", "Basher", "Claudia"]
+  analytical:
+    sequence: ["Tide", "Claude", "Kalaw", "Claudia"]
+
+# Agent capabilities and specializations
+agent_capabilities:
+  Claude:
+    specializations: ["code generation", "creative tasks", "3D design guidance", "natural language understanding"]
+    environments: ["vscode", "blender", "terminal", "jupyter"]
+    skill_level: 10
+  
+  Claudia:
+    specializations: ["orchestration", "session sync", "task routing"]
+    environments: ["all"]
+    skill_level: 9
+  
+  Kalaw:
+    specializations: ["knowledge repo", "documentation", "metadata indexing"]
+    environments: ["vscode", "terminal"]
+    skill_level: 8
+  
+  Caca:
+    specializations: ["QA", "testing", "validation"]
+    environments: ["vscode", "terminal", "database"]
+    skill_level: 7
+  
+  Echo:
+    specializations: ["signal extraction", "visual parsing", "speech processing"]
+    environments: ["terminal", "media processors"]
+    skill_level: 8
+  
+  Maya:
+    specializations: ["workflow architecture", "diagramming", "visualization"]
+    environments: ["vscode", "blender", "orchestrator"]
+    skill_level: 9
+  
+  Basher:
+    specializations: ["shell commands", "system automation", "deployment"]
+    environments: ["terminal"]
+    skill_level: 9
+  
+  Edge:
+    specializations: ["sales", "customer interaction", "frontend UI"]
+    environments: ["dashboard", "terminal"]
+    skill_level: 7
+  
+  Tala: 
+    specializations: ["finance", "invoice tracking", "billing"]
+    environments: ["database", "dashboard"]
+    skill_level: 8
+  
+  Stacey:
+    specializations: ["deployment", "infrastructure", "DevOps"]
+    environments: ["terminal", "dashboard"]
+    skill_level: 9
+  
+  Surf:
+    specializations: ["complex engineering", "autonomous coding", "debugging"]
+    environments: ["vscode", "terminal"]
+    skill_level: 10
+  
+  Tide:
+    specializations: ["data analytics", "SQL", "validation", "health monitoring"]
+    environments: ["database", "jupyter", "dashboard"]
+    skill_level: 9
+
+# Synchronization settings for Claudia's memory management
+sync_config:
+  auto_sync: true
+  sync_frequency: 300  # seconds
+  sync_on_completion: true
+  memory_location: "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/.pulser_context.json"
+  session_history: "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/claude_sync_log"
+
+# Security and permission model
+security:
+  default_permissions: "read_only"
+  admin_agents: ["Claudia", "Claude"]
+  execution_timeouts:
+    blender: 120  # seconds
+    vscode: 60
+    terminal: 30
+    database: 60
+  
+  sandbox_restrictions:
+    blender:
+      filesystem: "project_only"
+      network: "disabled"
+    
+    vscode:
+      filesystem: "workspace_only"
+      terminal_execution: "prompt_user"
+    
+    terminal:
+      dangerous_commands: "prompt_user"
+      network_access: "local_only"
+    
+    database:
+      operations: ["SELECT", "ANALYZE"]
+      write_access: false

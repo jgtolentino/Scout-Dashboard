@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profiling - Scout Dashboard</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="./customer-profiling.css">
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <nav class="dashboard-nav">
+            <h1>Scout Dashboard</h1>
+            <ul>
+                <li><a href="/transactions">Transaction Trends</a></li>
+                <li><a href="/consumer-behavior">Consumer Behavior</a></li>
+                <li class="active"><a href="/customer-profiling">Customer Profiling</a></li>
+            </ul>
+        </nav>
+        
+        <main class="dashboard-content">
+            <header class="module-header">
+                <h2>Customer Profiling</h2>
+                <p>Analyze customer segments, lifetime value, and churn risk</p>
+            </header>
+            
+            <!-- Filters Section -->
+            <section class="filters-section">
+                <div class="filter-group">
+                    <label for="segment-filter">Customer Segment</label>
+                    <select id="segment-filter">
+                        <option value="">All Segments</option>
+                        <option value="VIP">VIP</option>
+                        <option value="High Value">High Value</option>
+                        <option value="Regular">Regular</option>
+                        <option value="New">New</option>
+                        <option value="At Risk">At Risk</option>
+                        <option value="Dormant">Dormant</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="ltv-filter">Min Lifetime Value</label>
+                    <input type="number" id="ltv-filter" placeholder="0" min="0">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="churn-filter">Max Churn Risk</label>
+                    <select id="churn-filter">
+                        <option value="">Any Risk Level</option>
+                        <option value="0.3">Low Risk (< 30%)</option>
+                        <option value="0.5">Medium Risk (< 50%)</option>
+                        <option value="0.7">High Risk (< 70%)</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="location-filter">Location</label>
+                    <input type="text" id="location-filter" placeholder="Search location...">
+                </div>
+                
+                <button id="apply-filters" class="btn-primary">Apply Filters</button>
+            </section>
+            
+            <!-- Summary Cards -->
+            <section class="summary-cards">
+                <div class="summary-card">
+                    <h3>Total Customers</h3>
+                    <p class="metric" id="total-customers">-</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Avg Lifetime Value</h3>
+                    <p class="metric" id="avg-ltv">-</p>
+                </div>
+                <div class="summary-card">
+                    <h3>At-Risk Customers</h3>
+                    <p class="metric" id="at-risk-count">-</p>
+                </div>
+                <div class="summary-card">
+                    <h3>VIP Customers</h3>
+                    <p class="metric" id="vip-count">-</p>
+                </div>
+            </section>
+            
+            <!-- Visualizations -->
+            <section class="visualizations">
+                <div class="chart-container">
+                    <h3>Customer Segment Distribution</h3>
+                    <div id="segment-distribution-chart"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Lifetime Value Analysis</h3>
+                    <div id="ltv-analysis-chart"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Churn Risk Distribution</h3>
+                    <div id="churn-prediction-chart"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Demographic Breakdown</h3>
+                    <div id="demographic-breakdown-chart"></div>
+                </div>
+            </section>
+            
+            <!-- Customer List -->
+            <section class="customer-list-section">
+                <h3>Customer Profiles</h3>
+                <div class="table-container">
+                    <table id="customer-table">
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Segment</th>
+                                <th>Lifetime Value</th>
+                                <th>Churn Risk</th>
+                                <th>Total Spent</th>
+                                <th>Transactions</th>
+                                <th>Last Purchase</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customer-tbody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <button id="prev-page" disabled>Previous</button>
+                    <span id="page-info">Page 1</span>
+                    <button id="next-page">Next</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="./customer-profiling.js"></script>
+</body>
+</html>

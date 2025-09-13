@@ -1,0 +1,519 @@
+{
+  "stores": [
+    {
+      "StoreID": 1,
+      "StoreName": "Village Shop #1",
+      "Location": "Navotas",
+      "Size": "Extra Large",
+      "GeoLatitude": 14.605357,
+      "GeoLongitude": 121.024033,
+      "ManagerName": "Manager 1",
+      "ManagerContactInfo": "manager1@example.com",
+      "DeviceName": "Store Device 1",
+      "DeviceID": "DEVICE-1006"
+    },
+    {
+      "StoreID": 2,
+      "StoreName": "Fresh Market #2",
+      "Location": "Pasay",
+      "Size": "Extra Large",
+      "GeoLatitude": 14.77385,
+      "GeoLongitude": 120.937764,
+      "ManagerName": "Manager 2",
+      "ManagerContactInfo": "manager2@example.com",
+      "DeviceName": "Store Device 2",
+      "DeviceID": "DEVICE-1009"
+    },
+    {
+      "StoreID": 3,
+      "StoreName": "Quick Shop #3",
+      "Location": "Pasig",
+      "Size": "Large",
+      "GeoLatitude": 14.554862,
+      "GeoLongitude": 121.030249,
+      "ManagerName": "Manager 3",
+      "ManagerContactInfo": "manager3@example.com",
+      "DeviceName": "Store Device 3",
+      "DeviceID": "DEVICE-1006"
+    },
+    {
+      "StoreID": 4,
+      "StoreName": "Local Grocer #4",
+      "Location": "Valenzuela",
+      "Size": "Large",
+      "GeoLatitude": 14.54262,
+      "GeoLongitude": 121.007193,
+      "ManagerName": "Manager 4",
+      "ManagerContactInfo": "manager4@example.com",
+      "DeviceName": "Store Device 4",
+      "DeviceID": "DEVICE-1007"
+    },
+    {
+      "StoreID": 5,
+      "StoreName": "Village Shop #5",
+      "Location": "Mandaluyong",
+      "Size": "Medium",
+      "GeoLatitude": 14.489901,
+      "GeoLongitude": 120.95843,
+      "ManagerName": "Manager 5",
+      "ManagerContactInfo": "manager5@example.com",
+      "DeviceName": "Store Device 5",
+      "DeviceID": "DEVICE-1007"
+    }
+  ],
+  "brands": [
+    {
+      "BrandID": 1,
+      "BrandName": "Mega Brand",
+      "Category": "Food",
+      "Variations": "[\"Mega Brand Original\",\"Mega Brand Extra\"]",
+      "IsMonitored": 1
+    },
+    {
+      "BrandID": 2,
+      "BrandName": "Super Clean",
+      "Category": "Pet Care",
+      "Variations": "[\"Super Clean Original\",\"Super Clean Extra\"]",
+      "IsMonitored": 1
+    },
+    {
+      "BrandID": 3,
+      "BrandName": "Quick Snack",
+      "Category": "Personal Care",
+      "Variations": "[\"Quick Snack Original\",\"Quick Snack Extra\"]",
+      "IsMonitored": 1
+    },
+    {
+      "BrandID": 4,
+      "BrandName": "Fresh Foods",
+      "Category": "Baking",
+      "Variations": "[\"Fresh Foods Original\",\"Fresh Foods Extra\"]",
+      "IsMonitored": 0
+    },
+    {
+      "BrandID": 5,
+      "BrandName": "Sparkle",
+      "Category": "Pet Care",
+      "Variations": "[\"Sparkle Original\",\"Sparkle Extra\"]",
+      "IsMonitored": 1
+    }
+  ],
+  "products": [
+    {
+      "ProductID": 1,
+      "ProductName": "Dish Soap",
+      "Category": "Food",
+      "Aliases": "[\"Dish Soap Alt\",\"Dish Soap 2\"]",
+      "BrandID": 16
+    },
+    {
+      "ProductID": 2,
+      "ProductName": "Laundry Detergent",
+      "Category": "Canned Goods",
+      "Aliases": "[\"Laundry Detergent Alt\",\"Laundry Detergent 2\"]",
+      "BrandID": 14
+    },
+    {
+      "ProductID": 3,
+      "ProductName": "Shampoo",
+      "Category": "Health",
+      "Aliases": "[\"Shampoo Alt\",\"Shampoo 2\"]",
+      "BrandID": 14
+    },
+    {
+      "ProductID": 4,
+      "ProductName": "Toothpaste",
+      "Category": "Dairy",
+      "Aliases": "[\"Toothpaste Alt\",\"Toothpaste 2\"]",
+      "BrandID": 15
+    },
+    {
+      "ProductID": 5,
+      "ProductName": "Coffee",
+      "Category": "Personal Care",
+      "Aliases": "[\"Coffee Alt\",\"Coffee 2\"]",
+      "BrandID": 1
+    }
+  ],
+  "customers": [
+    {
+      "FacialID": "FACE-1001",
+      "Age": 70,
+      "Gender": "Female",
+      "Emotion": "Surprised",
+      "LastUpdateDate": "2025-02-11 16:00:16"
+    },
+    {
+      "FacialID": "FACE-1002",
+      "Age": 18,
+      "Gender": "Unknown",
+      "Emotion": "Thoughtful",
+      "LastUpdateDate": "2025-02-19 15:36:40"
+    },
+    {
+      "FacialID": "FACE-1003",
+      "Age": 61,
+      "Gender": "Other",
+      "Emotion": "Thoughtful",
+      "LastUpdateDate": "2025-04-05 17:57:31"
+    },
+    {
+      "FacialID": "FACE-1004",
+      "Age": 41,
+      "Gender": "Female",
+      "Emotion": "Thoughtful",
+      "LastUpdateDate": "2025-04-22 15:50:40"
+    },
+    {
+      "FacialID": "FACE-1005",
+      "Age": 56,
+      "Gender": "Unknown",
+      "Emotion": "Thoughtful",
+      "LastUpdateDate": "2025-02-23 16:28:21"
+    }
+  ],
+  "interactions": [
+    {
+      "InteractionID": "INT-10001",
+      "StoreID": 11,
+      "ProductID": 25,
+      "TransactionDate": "2025-03-21 10:56:19",
+      "DeviceID": "DEVICE-1008",
+      "FacialID": "FACE-1019",
+      "Gender": "Other",
+      "Age": 59,
+      "EmotionalState": "Interested",
+      "TranscriptionText": "Customer asking about Frozen Vegetables. Asked about promotions."
+    },
+    {
+      "InteractionID": "INT-10002",
+      "StoreID": 8,
+      "ProductID": 6,
+      "TransactionDate": "2025-02-27 00:25:38",
+      "DeviceID": "DEVICE-1006",
+      "FacialID": "FACE-1008",
+      "Gender": "Male",
+      "Age": 27,
+      "EmotionalState": "Neutral",
+      "TranscriptionText": "Customer asking about Flour. Asked about promotions."
+    },
+    {
+      "InteractionID": "INT-10003",
+      "StoreID": 7,
+      "ProductID": 34,
+      "TransactionDate": "2025-03-24 11:50:39",
+      "DeviceID": "DEVICE-1002",
+      "FacialID": "FACE-1018",
+      "Gender": "Female",
+      "Age": 25,
+      "EmotionalState": "Thoughtful",
+      "TranscriptionText": "Customer asking about Sugar. Mentioned price comparison."
+    },
+    {
+      "InteractionID": "INT-10004",
+      "StoreID": 9,
+      "ProductID": 2,
+      "TransactionDate": "2025-02-03 14:03:32",
+      "DeviceID": "DEVICE-1006",
+      "FacialID": "FACE-1009",
+      "Gender": "Female",
+      "Age": 43,
+      "EmotionalState": "Thoughtful",
+      "TranscriptionText": "Customer asking about Salt. Asked about promotions."
+    },
+    {
+      "InteractionID": "INT-10005",
+      "StoreID": 8,
+      "ProductID": 44,
+      "TransactionDate": "2025-05-12 11:50:50",
+      "DeviceID": "DEVICE-1005",
+      "FacialID": "FACE-1030",
+      "Gender": "Other",
+      "Age": 54,
+      "EmotionalState": "Neutral",
+      "TranscriptionText": "Customer asking about Crackers. Mentioned price comparison."
+    }
+  ],
+  "transactionItems": [
+    {
+      "TransactionItemID": 1,
+      "InteractionID": "INT-10001",
+      "ProductID": 10,
+      "Quantity": 1,
+      "UnitPrice": 436.79,
+      "RequestSequence": 0,
+      "RequestMethod": "Availability Check"
+    },
+    {
+      "TransactionItemID": 2,
+      "InteractionID": "INT-10001",
+      "ProductID": 12,
+      "Quantity": 3,
+      "UnitPrice": 72.89,
+      "RequestSequence": 1,
+      "RequestMethod": "Price Check"
+    },
+    {
+      "TransactionItemID": 3,
+      "InteractionID": "INT-10001",
+      "ProductID": 20,
+      "Quantity": 3,
+      "UnitPrice": 178.81,
+      "RequestSequence": 2,
+      "RequestMethod": "Price Check"
+    },
+    {
+      "TransactionItemID": 4,
+      "InteractionID": "INT-10001",
+      "ProductID": 36,
+      "Quantity": 1,
+      "UnitPrice": 493.26,
+      "RequestSequence": 3,
+      "RequestMethod": "Direct Request"
+    },
+    {
+      "TransactionItemID": 5,
+      "InteractionID": "INT-10001",
+      "ProductID": 11,
+      "Quantity": 5,
+      "UnitPrice": 63.4,
+      "RequestSequence": 4,
+      "RequestMethod": "Price Check"
+    }
+  ],
+  "deviceLogs": [
+    {
+      "LogID": 1,
+      "DeviceID": "DEVICE-1005",
+      "StoreID": 1,
+      "EventTimestamp": "2025-02-26 15:02:06",
+      "EventType": "Connection",
+      "Payload": "{\"status\":\"success\",\"details\":\"Event details for log 1\",\"value\":96}"
+    },
+    {
+      "LogID": 2,
+      "DeviceID": "DEVICE-1003",
+      "StoreID": 14,
+      "EventTimestamp": "2025-01-11 05:43:50",
+      "EventType": "Disconnection",
+      "Payload": "{\"status\":\"success\",\"details\":\"Event details for log 2\",\"value\":79}"
+    },
+    {
+      "LogID": 3,
+      "DeviceID": "DEVICE-1001",
+      "StoreID": 8,
+      "EventTimestamp": "2025-03-12 07:58:11",
+      "EventType": "Disconnection",
+      "Payload": "{\"status\":\"success\",\"details\":\"Event details for log 3\",\"value\":53}"
+    },
+    {
+      "LogID": 4,
+      "DeviceID": "DEVICE-1003",
+      "StoreID": 8,
+      "EventTimestamp": "2025-02-26 23:23:14",
+      "EventType": "Status",
+      "Payload": "{\"status\":\"success\",\"details\":\"Event details for log 4\",\"value\":72}"
+    },
+    {
+      "LogID": 5,
+      "DeviceID": "DEVICE-1003",
+      "StoreID": 4,
+      "EventTimestamp": "2025-01-18 03:59:50",
+      "EventType": "Startup",
+      "Payload": "{\"status\":\"success\",\"details\":\"Event details for log 5\",\"value\":24}"
+    }
+  ],
+  "visionDetections": [
+    {
+      "DetectionID": 1,
+      "StoreID": 7,
+      "DeviceID": "DEVICE-1002",
+      "Timestamp": "2025-04-11 21:57:40",
+      "DetectedObject": "Display",
+      "Confidence": 0.5019,
+      "ImageURL": "https://storage.example.com/images/detection-1.jpg"
+    },
+    {
+      "DetectionID": 2,
+      "StoreID": 11,
+      "DeviceID": "DEVICE-1005",
+      "Timestamp": "2025-01-16 20:20:31",
+      "DetectedObject": "Cash Register",
+      "Confidence": 0.9507,
+      "ImageURL": "https://storage.example.com/images/detection-2.jpg"
+    },
+    {
+      "DetectionID": 3,
+      "StoreID": 12,
+      "DeviceID": "DEVICE-1003",
+      "Timestamp": "2025-03-19 11:04:35",
+      "DetectedObject": "Display",
+      "Confidence": 0.9485,
+      "ImageURL": "https://storage.example.com/images/detection-3.jpg"
+    },
+    {
+      "DetectionID": 4,
+      "StoreID": 15,
+      "DeviceID": "DEVICE-1007",
+      "Timestamp": "2025-01-25 14:38:52",
+      "DetectedObject": "Person",
+      "Confidence": 0.8708,
+      "ImageURL": "https://storage.example.com/images/detection-4.jpg"
+    },
+    {
+      "DetectionID": 5,
+      "StoreID": 13,
+      "DeviceID": "DEVICE-1001",
+      "Timestamp": "2025-03-09 23:43:35",
+      "DetectedObject": "Basket",
+      "Confidence": 0.5071,
+      "ImageURL": "https://storage.example.com/images/detection-5.jpg"
+    }
+  ],
+  "transcriptions": [
+    {
+      "TranscriptID": 1,
+      "StoreID": 7,
+      "FacialID": "FACE-1023",
+      "DeviceID": "DEVICE-1003",
+      "Timestamp": "2025-01-22 10:08:01",
+      "TranscriptText": "Is this on sale Yogurt? I appreciate your help.",
+      "AudioURL": "https://storage.example.com/audio/transcript-1.wav",
+      "Language": "en-PH"
+    },
+    {
+      "TranscriptID": 2,
+      "StoreID": 12,
+      "FacialID": "FACE-1026",
+      "DeviceID": "DEVICE-1007",
+      "Timestamp": "2025-05-12 13:45:10",
+      "TranscriptText": "Is this on sale Coffee? I appreciate your help.",
+      "AudioURL": "https://storage.example.com/audio/transcript-2.wav",
+      "Language": "en-PH"
+    },
+    {
+      "TranscriptID": 3,
+      "StoreID": 2,
+      "FacialID": "FACE-1049",
+      "DeviceID": "DEVICE-1005",
+      "Timestamp": "2025-05-16 23:27:37",
+      "TranscriptText": "I'm looking for Bread? Thank you.",
+      "AudioURL": "https://storage.example.com/audio/transcript-3.wav",
+      "Language": "en-PH"
+    },
+    {
+      "TranscriptID": 4,
+      "StoreID": 9,
+      "FacialID": "FACE-1034",
+      "DeviceID": "DEVICE-1005",
+      "Timestamp": "2025-02-10 06:46:08",
+      "TranscriptText": "Where can I find Bread? I'll take that.",
+      "AudioURL": "https://storage.example.com/audio/transcript-4.wav",
+      "Language": "en-PH"
+    },
+    {
+      "TranscriptID": 5,
+      "StoreID": 13,
+      "FacialID": "FACE-1037",
+      "DeviceID": "DEVICE-1005",
+      "Timestamp": "2025-04-13 03:19:05",
+      "TranscriptText": "Is this on sale Honey? I appreciate your help.",
+      "AudioURL": "https://storage.example.com/audio/transcript-5.wav",
+      "Language": "en-PH"
+    }
+  ],
+  "sessionMatches": [
+    {
+      "SessionMatchID": 1,
+      "InteractionID": "INT-10051",
+      "TranscriptID": 37,
+      "DetectionID": 61,
+      "MatchConfidence": 0.9566,
+      "TimeOffsetMs": 401,
+      "MatchMethod": "TimestampCorrelation",
+      "CreatedAt": "2025-05-20 04:51:53"
+    },
+    {
+      "SessionMatchID": 2,
+      "InteractionID": "INT-10009",
+      "TranscriptID": 72,
+      "DetectionID": 19,
+      "MatchConfidence": 0.9215,
+      "TimeOffsetMs": 3667,
+      "MatchMethod": "TimestampCorrelation",
+      "CreatedAt": "2025-05-20 04:51:53"
+    },
+    {
+      "SessionMatchID": 3,
+      "InteractionID": "INT-10047",
+      "TranscriptID": 67,
+      "DetectionID": 70,
+      "MatchConfidence": 0.9573,
+      "TimeOffsetMs": 1896,
+      "MatchMethod": "TimestampCorrelation",
+      "CreatedAt": "2025-05-20 04:51:53"
+    },
+    {
+      "SessionMatchID": 4,
+      "InteractionID": "INT-10028",
+      "TranscriptID": 79,
+      "DetectionID": 51,
+      "MatchConfidence": 0.8802,
+      "TimeOffsetMs": 3834,
+      "MatchMethod": "TimestampCorrelation",
+      "CreatedAt": "2025-05-20 04:51:53"
+    },
+    {
+      "SessionMatchID": 5,
+      "InteractionID": "INT-10041",
+      "TranscriptID": 51,
+      "DetectionID": 90,
+      "MatchConfidence": 0.9715,
+      "TimeOffsetMs": 4079,
+      "MatchMethod": "TimestampCorrelation",
+      "CreatedAt": "2025-05-20 04:51:53"
+    }
+  ],
+  "salesInteractionBrands": [
+    {
+      "BrandID": 2,
+      "InteractionID": "INT-10001",
+      "BrandName": "Premium Select",
+      "Confidence": 0.7993,
+      "Source": "Audio",
+      "CreatedAt": "2025-05-20 04:51:53"
+    },
+    {
+      "BrandID": 8,
+      "InteractionID": "INT-10056",
+      "BrandName": "Daily Essentials",
+      "Confidence": 0.9655,
+      "Source": "Combined",
+      "CreatedAt": "2025-05-20 04:51:53"
+    },
+    {
+      "BrandID": 12,
+      "InteractionID": "INT-10030",
+      "BrandName": "Sparkle",
+      "Confidence": 0.7541,
+      "Source": "Visual",
+      "CreatedAt": "2025-05-20 04:51:53"
+    },
+    {
+      "BrandID": 5,
+      "InteractionID": "INT-10096",
+      "BrandName": "Premium Select",
+      "Confidence": 0.958,
+      "Source": "Audio",
+      "CreatedAt": "2025-05-20 04:51:53"
+    },
+    {
+      "BrandID": 18,
+      "InteractionID": "INT-10039",
+      "BrandName": "Morning Fresh",
+      "Confidence": 0.9839,
+      "Source": "Visual",
+      "CreatedAt": "2025-05-20 04:51:53"
+    }
+  ]
+}

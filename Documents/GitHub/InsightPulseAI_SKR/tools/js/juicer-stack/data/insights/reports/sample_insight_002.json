@@ -1,0 +1,29 @@
+{
+  "id": "INS-002-2025-05-13-002",
+  "timestamp": "2025-05-13T15:45:00Z",
+  "model": "gpt4",
+  "type": "marketing",
+  "status": "completed",
+  "source": {
+    "dataLake": "azure-adls",
+    "table": "campaign_performance",
+    "queryId": "MKT-2025-Q2-007"
+  },
+  "insight": {
+    "title": "Social Media Ad Performance Correlation with Weather Patterns",
+    "summary": "Analysis of Q1 2025 social media campaigns reveals a strong correlation between ad performance and local weather conditions. Click-through rates increased by 31% during rainy days in target regions, while conversion rates were 18% higher during periods of extreme temperatures (both hot and cold).",
+    "confidence": 0.92,
+    "keywords": ["social media", "weather patterns", "click-through rate", "conversion optimization", "seasonal targeting"],
+    "recommendations": [
+      "Implement dynamic weather-based ad targeting",
+      "Increase ad spend during forecasted rain for key regions",
+      "Develop creative variations specifically for extreme weather conditions"
+    ]
+  },
+  "metadata": {
+    "processingTime": 5.8,
+    "tokenCount": 2103,
+    "dataPoints": 1872,
+    "version": "1.0.3"
+  }
+}

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juicer Insights Dashboard</title>
+  
+  <!-- TBWA Design System -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --tbwa-primary: #ff3300;
+      --tbwa-secondary: #002b49;
+      --tbwa-light: #f8f9fa;
+      --tbwa-dark: #212529;
+      --tbwa-success: #28a745;
+      --tbwa-warning: #ffc107;
+      --tbwa-danger: #dc3545;
+      --tbwa-info: #17a2b8;
+      --insight-general: #8a4fff;
+      --insight-brand: #00a3e0;
+      --insight-sentiment: #ff7e47;
+      --insight-trend: #00c389;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: var(--tbwa-dark);
+    }
+    
+    .header {
+      background-color: var(--tbwa-secondary);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      height: 40px;
+    }
+    
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+      margin-bottom: 20px;
+      border: none;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .card-header {
+      border-radius: 10px 10px 0 0 !important;
+      padding: 0.75rem 1.25rem;
+      font-weight: 600;
+    }
+    
+    .card-insight-general .card-header {
+      background-color: var(--insight-general);
+      color: white;
+    }
+    
+    .card-insight-brand .card-header {
+      background-color: var(--insight-brand);
+      color: white;
+    }
+    
+    .card-insight-sentiment .card-header {
+      background-color: var(--insight-sentiment);
+      color: white;
+    }
+    
+    .card-insight-trend .card-header {
+      background-color: var(--insight-trend);
+      color: white;
+    }
+    
+    .confidence-badge {
+      float: right;
+      padding: 0.25rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    
+    .confidence-high {
+      background-color: var(--tbwa-success);
+      color: white;
+    }
+    
+    .confidence-medium {
+      background-color: var(--tbwa-warning);
+      color: var(--tbwa-dark);
+    }
+    
+    .confidence-low {
+      background-color: var(--tbwa-danger);
+      color: white;
+    }
+    
+    .brand-tag {
+      display: inline-block;
+      background-color: var(--tbwa-secondary);
+      color: white;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+    }
+    
+    .tag {
+      display: inline-block;
+      background-color: #e9ecef;
+      color: var(--tbwa-dark);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+    }
+    
+    .actions-section {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #dee2e6;
+    }
+    
+    .action-item {
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-left: 4px solid var(--tbwa-info);
+      background-color: #f8f9fa;
+    }
+    
+    .action-high {
+      border-left-color: var(--tbwa-danger);
+    }
+    
+    .action-medium {
+      border-left-color: var(--tbwa-warning);
+    }
+    
+    .action-low {
+      border-left-color: var(--tbwa-info);
+    }
+    
+    .chart-container {
+      height: 350px;
+      margin-bottom: 20px;
+    }
+    
+    .filter-bar {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+    
+    .time-period-label {
+      color: var(--tbwa-secondary);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .insight-count-card {
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .insight-count {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1;
+    }
+    
+    .insight-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin-top: 0.5rem;
+    }
+    
+    .trend-indicator {
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+    
+    .trend-up {
+      color: var(--tbwa-success);
+    }
+    
+    .trend-down {
+      color: var(--tbwa-danger);
+    }
+    
+    .footer {
+      background-color: var(--tbwa-secondary);
+      color: white;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+    
+    /* Custom toggle switch for dark mode */
+    .dark-mode-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+    
+    .dark-mode-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .dark-mode-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 30px;
+    }
+    
+    .dark-mode-slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .dark-mode-slider {
+      background-color: var(--tbwa-primary);
+    }
+    
+    input:checked + .dark-mode-slider:before {
+      transform: translateX(30px);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .insight-count {
+        font-size: 2rem;
+      }
+      
+      .chart-container {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="m-0 d-flex align-items-center">
+            <img src="../public/images/prompt-lab-icon.svg" alt="Juicer Logo" class="logo me-2">
+            <span>Juicer Insights</span>
+          </h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="d-flex justify-content-end align-items-center">
+            <span class="me-2">Dark Mode</span>
+            <label class="dark-mode-switch mb-0">
+              <input type="checkbox" id="darkModeToggle">
+              <span class="dark-mode-slider"></span>
+            </label>
+            <button class="btn btn-outline-light ms-3">
+              <i class="fas fa-sync-alt me-1"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <!-- Filters and Controls -->
+    <div class="filter-bar mb-4">
+      <div class="row">
+        <div class="col-md-3">
+          <label for="timeRange" class="form-label">Time Range</label>
+          <select class="form-select" id="timeRange">
+            <option value="7">Last 7 days</option>
+            <option value="14">Last 14 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="brandFilter" class="form-label">Brand</label>
+          <select class="form-select" id="brandFilter">
+            <option value="all" selected>All Brands</option>
+            <option value="Jollibee">Jollibee</option>
+            <option value="McDonald's">McDonald's</option>
+            <option value="KFC">KFC</option>
+            <option value="Burger King">Burger King</option>
+            <option value="Wendy's">Wendy's</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="insightType" class="form-label">Insight Type</label>
+          <select class="form-select" id="insightType">
+            <option value="all" selected>All Types</option>
+            <option value="general">General</option>
+            <option value="brand">Brand</option>
+            <option value="sentiment">Sentiment</option>
+            <option value="trend">Trend</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="confidenceFilter" class="form-label">Min. Confidence</label>
+          <select class="form-select" id="confidenceFilter">
+            <option value="0.5">50%</option>
+            <option value="0.7" selected>70%</option>
+            <option value="0.8">80%</option>
+            <option value="0.9">90%</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <div class="card insight-count-card">
+          <div class="card-body">
+            <h5 class="insight-count">124</h5>
+            <p class="insight-label">Total Insights</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up"></i> 12% from last period
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card insight-count-card">
+          <div class="card-body">
+            <h5 class="insight-count">57</h5>
+            <p class="insight-label">Brand Insights</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up"></i> 8% from last period
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card insight-count-card">
+          <div class="card-body">
+            <h5 class="insight-count">42</h5>
+            <p class="insight-label">Sentiment Insights</p>
+            <p class="trend-indicator trend-down">
+              <i class="fas fa-arrow-down"></i> 3% from last period
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card insight-count-card">
+          <div class="card-body">
+            <h5 class="insight-count">82%</h5>
+            <p class="insight-label">Average Confidence</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up"></i> 5% from last period
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Insights by Brand</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" id="brandChart">
+              <!-- Chart will be rendered here -->
+              <canvas id="brandInsightsChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Sentiment Trends</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" id="sentimentChart">
+              <!-- Chart will be rendered here -->
+              <canvas id="sentimentTrendsChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Tags -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Trending Tags</h5>
+          </div>
+          <div class="card-body">
+            <div id="tagCloud" class="d-flex flex-wrap">
+              <span class="tag" style="font-size: 1.5rem;">pricing</span>
+              <span class="tag" style="font-size: 1.3rem;">quality</span>
+              <span class="tag" style="font-size: 1.2rem;">service</span>
+              <span class="tag" style="font-size: 1.4rem;">app</span>
+              <span class="tag" style="font-size: 1rem;">menu</span>
+              <span class="tag" style="font-size: 1.1rem;">delivery</span>
+              <span class="tag" style="font-size: 1.3rem;">value</span>
+              <span class="tag" style="font-size: 1.2rem;">speed</span>
+              <span class="tag" style="font-size: 0.9rem;">cleanliness</span>
+              <span class="tag" style="font-size: 1.1rem;">family</span>
+              <span class="tag" style="font-size: 1rem;">promotion</span>
+              <span class="tag" style="font-size: 0.9rem;">convenience</span>
+              <span class="tag" style="font-size: 1.2rem;">loyalty</span>
+              <span class="tag" style="font-size: 1.1rem;">taste</span>
+              <span class="tag" style="font-size: 0.9rem;">location</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Insights Cards -->
+    <h4 class="mb-3">Top Insights</h4>
+    <div class="row mb-4" id="insightsContainer">
+      <!-- General Insight -->
+      <div class="col-lg-6">
+        <div class="card card-insight-general">
+          <div class="card-header">
+            <span class="badge bg-light text-dark me-2">General</span>
+            Increasing focus on value meals across all demographics
+            <span class="confidence-badge confidence-high">85% confidence</span>
+          </div>
+          <div class="card-body">
+            <p>Analysis of 327 transcripts reveals that 64% of customers mention value when discussing meal options. This represents an increasing trend compared to previous periods. Supporting evidence includes consistent mentions across different demographic segments and geographical locations. Customer quotes like "I really appreciate their value meals during these tough economic times" highlight this pattern.</p>
+            
+            <div class="mb-3">
+              <span class="brand-tag">Jollibee</span>
+              <span class="brand-tag">McDonald's</span>
+              <span class="brand-tag">KFC</span>
+            </div>
+            
+            <div>
+              <span class="tag">pricing</span>
+              <span class="tag">value</span>
+              <span class="tag">economy</span>
+              <span class="tag">family</span>
+            </div>
+            
+            <div class="actions-section">
+              <h6>Recommended Actions</h6>
+              <div class="action-item action-high">
+                <div class="d-flex justify-content-between">
+                  <div><strong>Develop new value meal options</strong></div>
+                  <div><span class="badge bg-danger">High Priority</span></div>
+                </div>
+                <div class="text-muted small">Marketing Team • Due May 15, 2025</div>
+              </div>
+              <div class="action-item action-medium">
+                <div class="d-flex justify-content-between">
+                  <div><strong>Update promotional materials to emphasize value</strong></div>
+                  <div><span class="badge bg-warning text-dark">Medium Priority</span></div>
+                </div>
+                <div class="text-muted small">Marketing Team • Due May 22, 2025</div>
+              </div>
+            </div>
+            
+            <div class="mt-3 text-end">
+              <small class="text-muted">Generated by Claude • May 2, 2025</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Brand Insight -->
+      <div class="col-lg-6">
+        <div class="card card-insight-brand">
+          <div class="card-header">
+            <span class="badge bg-light text-dark me-2">Brand</span>
+            Brand loyalty stronger for customers using rewards programs
+            <span class="confidence-badge confidence-high">92% confidence</span>
+          </div>
+          <div class="card-body">
+            <p>Data from recent interactions shows Jollibee is frequently associated with loyalty programs, with 78% of mentions having positive sentiment. This has increased by 12% over the last 30 days. Competitive analysis shows this is above the industry average. Customers consistently mention rewards points accumulation and special member-only deals as key drivers of repeat visits.</p>
+            
+            <div class="mb-3">
+              <span class="brand-tag">Jollibee</span>
+            </div>
+            
+            <div>
+              <span class="tag">loyalty</span>
+              <span class="tag">rewards</span>
+              <span class="tag">app</span>
+              <span class="tag">repeat</span>
+            </div>
+            
+            <div class="actions-section">
+              <h6>Recommended Actions</h6>
+              <div class="action-item action-high">
+                <div class="d-flex justify-content-between">
+                  <div><strong>Enhance mobile app rewards features</strong></div>
+                  <div><span class="badge bg-danger">High Priority</span></div>
+                </div>
+                <div class="text-muted small">Development Team • Due May 30, 2025</div>
+              </div>
+              <div class="action-item action-low">
+                <div class="d-flex justify-content-between">
+                  <div><strong>Create member-exclusive menu items</strong></div>
+                  <div><span class="badge bg-info">Low Priority</span></div>
+                </div>
+                <div class="text-muted small">Product Team • Due June 15, 2025</div>
+              </div>
+            </div>
+            
+            <div class="mt-3 text-end">
+              <small class="text-muted">Generated by OpenAI • May 3, 2025</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sentiment Insight -->
+      <div class="col-lg-6">
+        <div class="card card-insight-sentiment">
+          <div class="card-header">
+            <span class="badge bg-light text-dark me-2">Sentiment</span>
+            Positive sentiment toward expanded vegetarian options
+            <span class="confidence-badge confidence-medium">76% confidence</span>
+          </div>
+          <div class="card-body">
+            <p>A recurring theme in 32% of analyzed conversations is the connection between vegetarian menu options and positive sentiment. This insight has a correlation coefficient of 0.83 with purchase intent, suggesting it's a significant factor in customer decision-making. Customers express appreciation for healthier alternatives while maintaining the signature flavor profiles.</p>
+            
+            <div class="mb-3">
+              <span class="brand-tag">KFC</span>
+              <span class="brand-tag">Burger King</span>
+            </div>
+            
+            <div>
+              <span class="tag">vegetarian</span>
+              <span class="tag">health</span>
+              <span class="tag">menu</span>
+              <span class="tag">alternatives</span>
+            </div>
+            
+            <div class="actions-section">
+              <h6>Recommended Actions</h6>
+              <div class="action-item action-medium">
+                <div class="d-flex justify-content-between">
+                  <div><strong>Expand vegetarian menu offerings</strong></div>
+                  <div><span class="badge bg-warning text-dark">Medium Priority</span></div>
+                </div>
+                <div class="text-muted small">Product Team • Due June 10, 2025</div>
+              </div>
+              <div class="action-item action-medium">
+                <div class="d-flex justify-content-between">
+                  <div><strong>Highlight health benefits in marketing</strong></div>
+                  <div><span class="badge bg-warning text-dark">Medium Priority</span></div>
+                </div>
+                <div class="text-muted small">Marketing Team • Due May 25, 2025</div>
+              </div>
+            </div>
+            
+            <div class="mt-3 text-end">
+              <small class="text-muted">Generated by Claude • May 5, 2025</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Trend Insight -->
+      <div class="col-lg-6">
+        <div class="card card-insight-trend">
+          <div class="card-header">
+            <span class="badge bg-light text-dark me-2">Trend</span>
+            Rising preference for breakfast items throughout the day
+            <span class="confidence-badge confidence-high">88% confidence</span>
+          </div>
+          <div class="card-body">
+            <p>Analysis of 215 transcripts reveals a growing customer demand for breakfast items to be available throughout the day, with 47% of customers expressing this preference. This represents a 23% increase from previous analysis periods. The trend is particularly strong among younger demographics and app users who place orders outside traditional breakfast hours.</p>
+            
+            <div class="mb-3">
+              <span class="brand-tag">McDonald's</span>
+              <span class="brand-tag">Jollibee</span>
+              <span class="brand-tag">Wendy's</span>
+            </div>
+            
+            <div>
+              <span class="tag">breakfast</span>
+              <span class="tag">all-day</span>
+              <span class="tag">menu</span>
+              <span class="tag">convenience</span>
+            </div>
+            
+            <div class="actions-section">
+              <h6>Recommended Actions</h6>
+              <div class="action-item action-high">
+                <div class="d-flex justify-content-between">
+                  <div><strong>Extend breakfast hours in select locations</strong></div>
+                  <div><span class="badge bg-danger">High Priority</span></div>
+                </div>
+                <div class="text-muted small">Operations Team • Due May 20, 2025</div>
+              </div>
+              <div class="action-item action-medium">
+                <div class="d-flex justify-content-between">
+                  <div><strong>Update app to allow all-day breakfast ordering</strong></div>
+                  <div><span class="badge bg-warning text-dark">Medium Priority</span></div>
+                </div>
+                <div class="text-muted small">Development Team • Due June 5, 2025</div>
+              </div>
+            </div>
+            
+            <div class="mt-3 text-end">
+              <small class="text-muted">Generated by DeepSeek • May 4, 2025</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Load More Button -->
+    <div class="text-center mb-4">
+      <button class="btn btn-outline-secondary px-4">
+        <i class="fas fa-sync me-2"></i> Load More Insights
+      </button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 InsightPulseAI - Juicer</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <p class="mb-0">Powered by Pulser Agents: Claudia, Maya, Kalaw, Echo, and Sunnies</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+    });
+    
+    // Initialize charts when document is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Brand Insights Chart
+      const brandCtx = document.getElementById('brandInsightsChart').getContext('2d');
+      const brandChart = new Chart(brandCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Jollibee', 'McDonald\'s', 'KFC', 'Burger King', 'Wendy\'s', 'Pizza Hut'],
+          datasets: [
+            {
+              label: 'Insight Count',
+              data: [42, 35, 28, 22, 15, 10],
+              backgroundColor: '#00a3e0',
+              borderWidth: 0
+            },
+            {
+              label: 'Avg. Confidence (%)',
+              data: [88, 82, 79, 86, 81, 75],
+              backgroundColor: '#ff3300',
+              borderWidth: 0,
+              type: 'line',
+              yAxisID: 'y1'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Insights'
+              }
+            },
+            y1: {
+              position: 'right',
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Confidence %'
+              },
+              grid: {
+                drawOnChartArea: false
+              }
+            }
+          }
+        }
+      });
+      
+      // Sentiment Trends Chart
+      const sentimentCtx = document.getElementById('sentimentTrendsChart').getContext('2d');
+      const sentimentChart = new Chart(sentimentCtx, {
+        type: 'line',
+        data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+          datasets: [
+            {
+              label: 'Jollibee',
+              data: [72, 75, 78, 82],
+              borderColor: '#ff3300',
+              backgroundColor: 'rgba(255, 51, 0, 0.1)',
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'McDonald\'s',
+              data: [68, 70, 69, 71],
+              borderColor: '#ffcc00',
+              backgroundColor: 'rgba(255, 204, 0, 0.1)',
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'KFC',
+              data: [65, 68, 67, 70],
+              borderColor: '#00a3e0',
+              backgroundColor: 'rgba(0, 163, 224, 0.1)',
+              tension: 0.4,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Sentiment Score (%)'
+              }
+            }
+          }
+        }
+      });
+      
+      // Filter event handlers
+      document.getElementById('timeRange').addEventListener('change', updateDashboard);
+      document.getElementById('brandFilter').addEventListener('change', updateDashboard);
+      document.getElementById('insightType').addEventListener('change', updateDashboard);
+      document.getElementById('confidenceFilter').addEventListener('change', updateDashboard);
+      
+      function updateDashboard() {
+        // In a real application, this would fetch new data based on filters
+        console.log('Updating dashboard with new filters...');
+        // Simulate loading
+        const refreshBtn = document.querySelector('.btn-outline-light');
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Refreshing...';
+        setTimeout(() => {
+          refreshBtn.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Refresh';
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>

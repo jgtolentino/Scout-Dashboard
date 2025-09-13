@@ -1,0 +1,59 @@
+#!/bin/bash
+# Pulser aliases and helper functions
+
+# Main Pulser GUI launcher
+alias pulser='/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/pulser up'
+
+# CLI fallback when GUI is not needed
+alias pulser-cli='/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/pulser cli'
+
+# Memory-aware launcher that loads previous context
+pulser-memory() {
+  echo "[SESSION CONTINUE] $(date +'%Y-%m-%d %H:%M:%S')" >> /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/claude_logs/pulser_session.log
+  echo "Loading Pulser with memory context..."
+  cat /Users/tbwa/pulser_claude_primer.txt
+  echo ""
+  echo "Use :verify-docket or :task commands to continue your workflow"
+  
+  # Launch the actual pulser
+  /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/pulser cli
+}
+
+# Command tracking for Pulser
+pulser-log() {
+  echo "[COMMAND] $(date +'%Y-%m-%d %H:%M:%S') $*" >> /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/claude_logs/pulser_session.log
+  echo "$*"
+}
+
+# Shortcuts for common Pulser commands
+alias :task='pulser-log :task'
+alias :verify-docket='pulser-log :verify-docket'
+alias :pulseops='pulser-log :pulseops'
+
+# LinkedIn ads specific helpers
+pulser-linkedin-status() {
+  echo "📊 LinkedIn Ads System Status"
+  echo "----------------------------"
+  grep "\[TASK\] linkedin" /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/claude_logs/pulser_session.log | tail -5
+}
+
+# Print help information
+pulser-help() {
+  echo "🧠 Pulser Command Aliases"
+  echo "-----------------------"
+  echo "pulser               - Launch Pulser GUI in browser"
+  echo "pulser-cli           - Run Pulser in CLI mode"
+  echo "pulser-memory        - Launch memory-aware Pulser with Claude context"
+  echo "pulser-linkedin-status - Show LinkedIn ads system status"
+  echo ":task               - Execute a Pulser task (logged)"
+  echo ":verify-docket      - Verify Pulser docket structure (logged)"
+  echo ":pulseops           - Enter Pulser operations mode (logged)"
+  echo "#clodrep            - Execute external API integration with Mistral LLM"
+  echo "                      Usage: #clodrep <endpoint> <action> [params...]"
+  echo "pulser-help         - Show this help information"
+}
+
+# Make terminal instructions easier to see
+echo "✅ Pulser aliases loaded. Type 'pulser-help' for command list."
+# FORCE OVERRIDE: CLI-only mode (added Fri May  2 10:44:43 PST 2025)
+alias pulser='/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/pulser_cli_only.sh'

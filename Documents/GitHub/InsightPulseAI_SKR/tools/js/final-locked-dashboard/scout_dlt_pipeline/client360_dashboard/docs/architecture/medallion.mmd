@@ -1,0 +1,23 @@
+graph LR
+    subgraph Bronze
+        BD[bronze_device_logs]
+        BT[bronze_transcriptions]
+        BV[bronze_vision_detections]
+    end
+    subgraph Silver
+        SD[silver_device_events]
+        ST[silver_transcripts]
+        SV[silver_detections]
+    end
+    subgraph Gold
+        GI[gold_sales_interaction]
+        GK[gold_kpis]
+    end
+
+    Edge --> BD & BT & BV
+    BD -->|clean| SD
+    BT -->|curate| ST
+    BV -->|label| SV
+    ST --> GI
+    SV --> GI
+    GI --> GK

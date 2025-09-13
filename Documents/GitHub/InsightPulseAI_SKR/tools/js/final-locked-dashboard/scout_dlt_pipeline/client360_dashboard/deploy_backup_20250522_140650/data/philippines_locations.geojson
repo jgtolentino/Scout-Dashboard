@@ -1,0 +1,469 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [120.982239, 14.537842]
+      },
+      "properties": {
+        "store_id": "STORE-001",
+        "store_name": "SM Mall of Asia - Del Monte Corner",
+        "brand_focus": "Del Monte",
+        "store_type": "Mall Outlet",
+        "address": "SM Mall of Asia, Pasay City, Metro Manila",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "Pasay",
+        "status": "active",
+        "performance_score": 98.5,
+        "monthly_revenue": 1250000,
+        "customer_rating": 4.7,
+        "manager": "Maria Santos",
+        "device_id": "DEVICE-1006",
+        "brands_carried": ["Del Monte", "Oishi", "Alaska", "Peerless"],
+        "size_category": "Large",
+        "sales_growth": 12.5,
+        "foot_traffic": 8450,
+        "popup_title": "SM Mall of Asia - Del Monte Corner",
+        "popup_subtitle": "Performance: 98.5% | Revenue: ₱1.25M"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.055842, 14.623080]
+      },
+      "properties": {
+        "store_id": "STORE-002",
+        "store_name": "Robinsons Galleria - FMCG Hub",
+        "brand_focus": "Multi-Brand",
+        "store_type": "Mall Outlet",
+        "address": "Robinsons Galleria, Quezon City, Metro Manila",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "Quezon City",
+        "status": "active",
+        "performance_score": 94.2,
+        "monthly_revenue": 1100000,
+        "customer_rating": 4.5,
+        "manager": "Jose Reyes",
+        "device_id": "DEVICE-1009",
+        "brands_carried": ["Del Monte", "Oishi", "Alaska"],
+        "size_category": "Large",
+        "sales_growth": 8.7,
+        "foot_traffic": 7230,
+        "popup_title": "Robinsons Galleria - FMCG Hub",
+        "popup_subtitle": "Performance: 94.2% | Revenue: ₱1.10M"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [120.968147, 14.654021]
+      },
+      "properties": {
+        "store_id": "STORE-003",
+        "store_name": "Ayala Cloverleaf - Alaska Premium",
+        "brand_focus": "Alaska",
+        "store_type": "Mall Outlet",
+        "address": "Ayala Malls Cloverleaf, Balintawak, Quezon City",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "Quezon City",
+        "status": "active",
+        "performance_score": 91.8,
+        "monthly_revenue": 890000,
+        "customer_rating": 4.6,
+        "manager": "Ana Cruz",
+        "device_id": "DEVICE-1007",
+        "brands_carried": ["Alaska", "Del Monte"],
+        "size_category": "Medium",
+        "sales_growth": 6.4,
+        "foot_traffic": 5680,
+        "popup_title": "Ayala Cloverleaf - Alaska Premium",
+        "popup_subtitle": "Performance: 91.8% | Revenue: ₱890K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.056042, 14.625386]
+      },
+      "properties": {
+        "store_id": "STORE-004",
+        "store_name": "Gateway Mall - Oishi Snack Zone",
+        "brand_focus": "Oishi",
+        "store_type": "Mall Outlet",
+        "address": "Gateway Mall, Cubao, Quezon City",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "Quezon City",
+        "status": "warning",
+        "performance_score": 87.3,
+        "monthly_revenue": 750000,
+        "customer_rating": 4.3,
+        "manager": "Carlos Mendoza",
+        "device_id": "DEVICE-1002",
+        "brands_carried": ["Oishi", "Del Monte"],
+        "size_category": "Medium",
+        "sales_growth": 4.2,
+        "foot_traffic": 4920,
+        "popup_title": "Gateway Mall - Oishi Snack Zone",
+        "popup_subtitle": "Performance: 87.3% | Revenue: ₱750K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.010661, 14.652936]
+      },
+      "properties": {
+        "store_id": "STORE-005",
+        "store_name": "Trinoma - Peerless Kitchen Corner",
+        "brand_focus": "Peerless",
+        "store_type": "Mall Outlet",
+        "address": "Trinoma Mall, Quezon City, Metro Manila",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "Quezon City",
+        "status": "active",
+        "performance_score": 93.7,
+        "monthly_revenue": 980000,
+        "customer_rating": 4.8,
+        "manager": "Elena Fernandez",
+        "device_id": "DEVICE-1004",
+        "brands_carried": ["Peerless", "Alaska", "Del Monte"],
+        "size_category": "Large",
+        "sales_growth": 9.8,
+        "foot_traffic": 6540,
+        "popup_title": "Trinoma - Peerless Kitchen Corner",
+        "popup_subtitle": "Performance: 93.7% | Revenue: ₱980K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.056755, 14.585239]
+      },
+      "properties": {
+        "store_id": "STORE-006",
+        "store_name": "SM Megamall - FMCG Superstore",
+        "brand_focus": "Multi-Brand",
+        "store_type": "Supermarket",
+        "address": "SM Megamall, Mandaluyong City, Metro Manila",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "Mandaluyong",
+        "status": "active",
+        "performance_score": 97.1,
+        "monthly_revenue": 1450000,
+        "customer_rating": 4.9,
+        "manager": "Roberto Villanueva",
+        "device_id": "DEVICE-1012",
+        "brands_carried": ["Del Monte", "Oishi", "Alaska", "Peerless"],
+        "size_category": "Extra Large",
+        "sales_growth": 15.2,
+        "foot_traffic": 12300,
+        "popup_title": "SM Megamall - FMCG Superstore",
+        "popup_subtitle": "Performance: 97.1% | Revenue: ₱1.45M"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.050339, 14.602036]
+      },
+      "properties": {
+        "store_id": "STORE-007",
+        "store_name": "Greenhills - Del Monte Fresh Corner",
+        "brand_focus": "Del Monte",
+        "store_type": "Convenience Store",
+        "address": "Greenhills Shopping Center, San Juan City",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "San Juan",
+        "status": "warning",
+        "performance_score": 85.6,
+        "monthly_revenue": 420000,
+        "customer_rating": 4.2,
+        "manager": "Patricia Gomez",
+        "device_id": "DEVICE-1015",
+        "brands_carried": ["Del Monte", "Alaska"],
+        "size_category": "Small",
+        "sales_growth": 2.8,
+        "foot_traffic": 2840,
+        "popup_title": "Greenhills - Del Monte Fresh Corner",
+        "popup_subtitle": "Performance: 85.6% | Revenue: ₱420K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.077283, 14.609542]
+      },
+      "properties": {
+        "store_id": "STORE-008",
+        "store_name": "Eastwood Mall - Tech Snack Hub",
+        "brand_focus": "Oishi",
+        "store_type": "Mall Outlet",
+        "address": "Eastwood Mall, Libis, Quezon City",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "Quezon City",
+        "status": "critical",
+        "performance_score": 76.4,
+        "monthly_revenue": 590000,
+        "customer_rating": 3.8,
+        "manager": "Michael Torres",
+        "device_id": "DEVICE-1018",
+        "brands_carried": ["Oishi"],
+        "size_category": "Medium",
+        "sales_growth": -1.2,
+        "foot_traffic": 3210,
+        "popup_title": "Eastwood Mall - Tech Snack Hub",
+        "popup_subtitle": "Performance: 76.4% | Revenue: ₱590K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.102840, 14.657900]
+      },
+      "properties": {
+        "store_id": "STORE-009",
+        "store_name": "Marikina Market - Sari-Sari Plus",
+        "brand_focus": "Multi-Brand",
+        "store_type": "Sari-Sari Store",
+        "address": "Marikina Public Market, Marikina City",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "Marikina",
+        "status": "active",
+        "performance_score": 89.2,
+        "monthly_revenue": 180000,
+        "customer_rating": 4.4,
+        "manager": "Lourdes Aquino",
+        "device_id": "DEVICE-1021",
+        "brands_carried": ["Del Monte", "Alaska", "Peerless"],
+        "size_category": "Small",
+        "sales_growth": 18.5,
+        "foot_traffic": 1920,
+        "popup_title": "Marikina Market - Sari-Sari Plus",
+        "popup_subtitle": "Performance: 89.2% | Revenue: ₱180K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.042843, 14.428070]
+      },
+      "properties": {
+        "store_id": "STORE-010",
+        "store_name": "Alabang Town Center - Premium FMCG",
+        "brand_focus": "Multi-Brand",
+        "store_type": "Mall Outlet",
+        "address": "Alabang Town Center, Muntinlupa City",
+        "region": "NCR",
+        "province": "Metro Manila",
+        "city": "Muntinlupa",
+        "status": "active",
+        "performance_score": 95.8,
+        "monthly_revenue": 1320000,
+        "customer_rating": 4.6,
+        "manager": "Richard Santos",
+        "device_id": "DEVICE-1025",
+        "brands_carried": ["Del Monte", "Oishi", "Alaska", "Peerless"],
+        "size_category": "Large",
+        "sales_growth": 11.3,
+        "foot_traffic": 9870,
+        "popup_title": "Alabang Town Center - Premium FMCG",
+        "popup_subtitle": "Performance: 95.8% | Revenue: ₱1.32M"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.175284, 14.594180]
+      },
+      "properties": {
+        "store_id": "STORE-011",
+        "store_name": "Antipolo Supermart - Mountain Fresh",
+        "brand_focus": "Del Monte",
+        "store_type": "Supermarket",
+        "address": "Antipolo City, Rizal Province",
+        "region": "CALABARZON",
+        "province": "Rizal",
+        "city": "Antipolo",
+        "status": "active",
+        "performance_score": 90.4,
+        "monthly_revenue": 680000,
+        "customer_rating": 4.3,
+        "manager": "Grace Morales",
+        "device_id": "DEVICE-1028",
+        "brands_carried": ["Del Monte", "Alaska"],
+        "size_category": "Medium",
+        "sales_growth": 7.8,
+        "foot_traffic": 4560,
+        "popup_title": "Antipolo Supermart - Mountain Fresh",
+        "popup_subtitle": "Performance: 90.4% | Revenue: ₱680K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.165070, 13.941070]
+      },
+      "properties": {
+        "store_id": "STORE-012",
+        "store_name": "Lipa City Central - Batangas Hub",
+        "brand_focus": "Multi-Brand",
+        "store_type": "Supermarket",
+        "address": "Lipa City, Batangas Province",
+        "region": "CALABARZON",
+        "province": "Batangas",
+        "city": "Lipa",
+        "status": "active",
+        "performance_score": 88.7,
+        "monthly_revenue": 950000,
+        "customer_rating": 4.4,
+        "manager": "Ferdinand Dela Cruz",
+        "device_id": "DEVICE-1031",
+        "brands_carried": ["Del Monte", "Oishi", "Alaska", "Peerless"],
+        "size_category": "Large",
+        "sales_growth": 9.2,
+        "foot_traffic": 6780,
+        "popup_title": "Lipa City Central - Batangas Hub",
+        "popup_subtitle": "Performance: 88.7% | Revenue: ₱950K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [120.688670, 15.051570]
+      },
+      "properties": {
+        "store_id": "STORE-013",
+        "store_name": "San Fernando Pampanga - Central Luzon Hub",
+        "brand_focus": "Multi-Brand",
+        "store_type": "Supermarket",
+        "address": "San Fernando, Pampanga Province",
+        "region": "Central Luzon",
+        "province": "Pampanga",
+        "city": "San Fernando",
+        "status": "active",
+        "performance_score": 92.1,
+        "monthly_revenue": 1080000,
+        "customer_rating": 4.5,
+        "manager": "Josephine Flores",
+        "device_id": "DEVICE-1034",
+        "brands_carried": ["Del Monte", "Oishi", "Alaska", "Peerless"],
+        "size_category": "Large",
+        "sales_growth": 10.5,
+        "foot_traffic": 7890,
+        "popup_title": "San Fernando Pampanga - Central Luzon Hub",
+        "popup_subtitle": "Performance: 92.1% | Revenue: ₱1.08M"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [122.570370, 10.717000]
+      },
+      "properties": {
+        "store_id": "STORE-014",
+        "store_name": "Iloilo City Center - Visayas Gateway",
+        "brand_focus": "Multi-Brand",
+        "store_type": "Mall Outlet",
+        "address": "Iloilo City, Iloilo Province",
+        "region": "Western Visayas",
+        "province": "Iloilo",
+        "city": "Iloilo City",
+        "status": "active",
+        "performance_score": 86.3,
+        "monthly_revenue": 720000,
+        "customer_rating": 4.2,
+        "manager": "Carmen Valdez",
+        "device_id": "DEVICE-1037",
+        "brands_carried": ["Del Monte", "Oishi", "Alaska"],
+        "size_category": "Medium",
+        "sales_growth": 6.8,
+        "foot_traffic": 5240,
+        "popup_title": "Iloilo City Center - Visayas Gateway",
+        "popup_subtitle": "Performance: 86.3% | Revenue: ₱720K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [123.906830, 10.323890]
+      },
+      "properties": {
+        "store_id": "STORE-015",
+        "store_name": "Cebu IT Park - Tech District Store",
+        "brand_focus": "Oishi",
+        "store_type": "Convenience Store",
+        "address": "Cebu IT Park, Lahug, Cebu City",
+        "region": "Central Visayas",
+        "province": "Cebu",
+        "city": "Cebu City",
+        "status": "active",
+        "performance_score": 88.9,
+        "monthly_revenue": 380000,
+        "customer_rating": 4.7,
+        "manager": "Jonathan Lim",
+        "device_id": "DEVICE-1040",
+        "brands_carried": ["Oishi", "Del Monte"],
+        "size_category": "Small",
+        "sales_growth": 14.2,
+        "foot_traffic": 3450,
+        "popup_title": "Cebu IT Park - Tech District Store",
+        "popup_subtitle": "Performance: 88.9% | Revenue: ₱380K"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [125.612830, 7.067880]
+      },
+      "properties": {
+        "store_id": "STORE-016",
+        "store_name": "Davao Abreeza - Mindanao Hub",
+        "brand_focus": "Multi-Brand",
+        "store_type": "Mall Outlet",
+        "address": "Abreeza Mall, Davao City",
+        "region": "Davao Region",
+        "province": "Davao del Sur",
+        "city": "Davao City",
+        "status": "active",
+        "performance_score": 84.6,
+        "monthly_revenue": 890000,
+        "customer_rating": 4.3,
+        "manager": "Allan Rodriguez",
+        "device_id": "DEVICE-1043",
+        "brands_carried": ["Del Monte", "Alaska", "Peerless"],
+        "size_category": "Large",
+        "sales_growth": 5.7,
+        "foot_traffic": 6120,
+        "popup_title": "Davao Abreeza - Mindanao Hub",
+        "popup_subtitle": "Performance: 84.6% | Revenue: ₱890K"
+      }
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+---
+# Market Intelligence Agent Configuration
+# Version: 1.0.0
+# This file configures the MarketAgent for external data integration with Pulser
+name: market_agent
+version: "1.0.0"
+description: "Market Intelligence Agent for enriching insights with external market and competitor data"
+
+# Define the trigger patterns that activate market intelligence functionality
+triggers:
+  # Command patterns that directly invoke market intelligence
+  commands:
+    - pattern: "^:market\\s+(.+)$"
+      description: "Direct market intelligence command"
+      action: "execute_market_command"
+      priority: 100
+    
+    - pattern: "^:competitor\\s+(.+)$"
+      description: "Direct competitor analysis command"
+      action: "execute_competitor_command"
+      priority: 100
+    
+  # Natural language patterns that suggest market intelligence queries
+  natural_language:
+    - pattern: "(market|industry).+(data|analysis|report|trend)"
+      description: "Market intelligence query"
+      action: "market_intelligence_query"
+      priority: 85
+    
+    - pattern: "(competitor|competition).+(analysis|data|comparison)"
+      description: "Competitor analysis query"
+      action: "competitor_analysis_query"
+      priority: 85
+    
+    - pattern: "(brand|company).+(context|position|standing)"
+      description: "Brand market position query"
+      action: "brand_context_query"
+      priority: 80
+
+# Agent routing configuration
+routing:
+  # Define MarketAgent capabilities
+  handlers:
+    - name: "MarketAgent"
+      capabilities:
+        - "market_intelligence"
+        - "competitor_analysis"
+        - "industry_trends"
+        - "financial_metrics"
+        - "social_listening"
+      priority: 85
+  
+  # Define collaborations with other agents
+  collaborations:
+    - agents: ["MarketAgent", "Echo"]
+      purpose: "Enrich brand mentions with external sentiment context"
+      
+    - agents: ["MarketAgent", "Claudia"]
+      purpose: "Route market queries to appropriate data sources"
+      
+    - agents: ["MarketAgent", "Sunnies"]
+      purpose: "Generate visualizations combining internal and external data"
+
+# API provider configurations
+api_providers:
+  - name: "bloomberg"
+    description: "Bloomberg Enterprise API for financial data"
+    data_types:
+      - "company_profile"
+      - "financials"
+      - "market_data"
+      - "news"
+    credential_key: "bloomberg-api-key"
+    
+  - name: "spglobal"
+    description: "S&P Global Market Intelligence for industry analysis"
+    data_types:
+      - "company_fundamentals"
+      - "industry_analysis"
+      - "peer_comparison"
+      - "credit_ratings"
+    credential_key: "spglobal-api-key"
+    
+  - name: "brandwatch"
+    description: "Brandwatch Consumer Intelligence for social sentiment"
+    data_types:
+      - "brand_mentions"
+      - "sentiment_analysis"
+      - "social_trends"
+      - "influencer_analysis"
+    credential_key: "brandwatch-api-credentials"
+    
+  - name: "crunchbase"
+    description: "Crunchbase for startup and competitor intelligence"
+    data_types:
+      - "company_profiles"
+      - "funding_rounds"
+      - "acquisitions"
+      - "key_people"
+    credential_key: "crunchbase-api-key"
+
+# Action handlers map trigger actions to specific implementations
+action_handlers:
+  execute_market_command:
+    description: "Execute a market intelligence command directly"
+    implementation: "market_command_executor"
+    params:
+      timeout_seconds: 300
+      capture_output: true
+  
+  execute_competitor_command:
+    description: "Execute a competitor analysis command directly"
+    implementation: "competitor_command_executor"
+    params:
+      timeout_seconds: 300
+      capture_output: true
+  
+  market_intelligence_query:
+    description: "Process a natural language market intelligence query"
+    implementation: "market_nl_converter"
+    params:
+      data_sources: ["bloomberg", "spglobal"]
+      default_time_range: "30d"
+  
+  competitor_analysis_query:
+    description: "Process a natural language competitor analysis query"
+    implementation: "competitor_nl_converter"
+    params:
+      data_sources: ["crunchbase", "brandwatch", "spglobal"]
+      default_time_range: "90d"
+  
+  brand_context_query:
+    description: "Process a natural language brand context query"
+    implementation: "brand_context_converter"
+    params:
+      data_sources: ["brandwatch", "bloomberg", "spglobal"]
+      include_social: true
+      include_financials: true
+
+# Dashboard integrations
+dashboard_integrations:
+  - name: "market_context_panel"
+    description: "Add market context to brand dashboards"
+    dashboard: "insights_dashboard"
+    component_id: "market-context-panel"
+    data_sources: ["bloomberg", "spglobal"]
+    refresh_interval: 3600
+  
+  - name: "competitor_comparison"
+    description: "Add competitor comparison to brand dashboards"
+    dashboard: "insights_dashboard"
+    component_id: "competitor-comparison"
+    data_sources: ["crunchbase", "brandwatch"]
+    refresh_interval: 7200
+  
+  - name: "external_sentiment"
+    description: "Add external sentiment comparison"
+    dashboard: "agent_brand_heatmap"
+    component_id: "external-sentiment"
+    data_sources: ["brandwatch"]
+    refresh_interval: 3600
+
+# Help documentation
+help:
+  overview: |
+    MarketAgent enhances Juicer dashboards with external market intelligence,
+    competitor analysis, and industry context from professional data providers.
+  
+  commands:
+    - name: ":market overview"
+      syntax: ":market overview [brand]"
+      description: "Get a market overview for a brand"
+      example: ":market overview Jollibee"
+    
+    - name: ":market trends"
+      syntax: ":market trends [industry] [--period period]"
+      description: "Show industry trends"
+      example: ":market trends restaurant --period 90d"
+    
+    - name: ":competitor compare"
+      syntax: ":competitor compare [brand] [--vs competitor1,competitor2]"
+      description: "Compare a brand with its competitors"
+      example: ":competitor compare Globe --vs Smart,PLDT"
+    
+    - name: ":competitor profile"
+      syntax: ":competitor profile [company]"
+      description: "Get detailed profile on a competitor"
+      example: ":competitor profile Smart Communications"

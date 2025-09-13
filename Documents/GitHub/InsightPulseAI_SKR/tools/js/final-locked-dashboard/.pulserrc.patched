@@ -1,0 +1,56 @@
+# Pulser Configuration for Dashboard Deployment
+# Tag: dashboard_scope_locked_v3
+# Patch ID: dashboard-final-alignment-v3
+# Patch ID: enforcement-language-hardening-v1
+
+# Dashboard Structure Definition
+dashboards:
+  - name: "System Architecture & QA"
+    path: "/qa.html"
+    access: "internal_only"
+    description: "System monitoring, QA, metrics dashboard"
+    
+  - name: "Scout Advanced Analytics"
+    path: "/insights_dashboard.html"
+    access: "internal_only"
+    description: "Advanced GenAI insights and analytics"
+    
+  - name: "Scout Advanced Analytics (Market Intelligence)"
+    path: "/retail_edge/retail_edge_dashboard.html"
+    access: "client_facing"
+    description: "Client-facing retail metrics dashboard"
+
+# Client Context Configuration
+client_context:
+  primary_client: "TBWA"
+  deployment_type: "white_labeled"
+  client_facing_dashboards:
+    - "Scout Advanced Analytics (Market Intelligence)"
+  internal_dashboards:
+    - "System Architecture & QA"
+    - "Scout Advanced Analytics"
+  
+# Deployment Security Rules
+security:
+  # ENFORCE: internal dashboards are NEVER accessible to clients
+  prevent_client_access_to_internal: true
+  # ENFORCE: No InsightPulseAI branding in client dashboards. PR merge is blocked if branding is detected.
+  prevent_internal_branding_in_client_dashboards: true
+  # ENFORCE: All routes are properly secured and redirects verified
+  enforce_route_security: true
+
+# Deployment Tracking
+deployment:
+  tag: "dashboard_scope_locked_v3"
+  patch_id: "dashboard-final-alignment-v3"
+  last_updated: $(date +"%Y-%m-%d %H:%M:%S")
+  deployment_url: "https://gentle-rock-04e54f40f.6.azurestaticapps.net"
+  
+# Fallback Handling
+fallback:
+  # Fallback is triggered ONLY if primary route is unreachable
+  enabled: true
+  # All fallback events are logged in system_trace.json
+  log_all_fallbacks: true
+  # Block deployment if fallback tests fail
+  require_fallback_tests: true

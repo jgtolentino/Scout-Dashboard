@@ -1,0 +1,210 @@
+{
+  "type": "FeatureCollection",
+  "name": "Philippine Regions",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "130000000",
+        "region_name": "National Capital Region",
+        "region_abbr": "NCR"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.9, 14.4], [121.1, 14.4], [121.1, 14.8], [120.9, 14.8], [120.9, 14.4]]]
+      }
+    },
+    {
+      "type": "Feature", 
+      "properties": {
+        "psgc_code": "010000000",
+        "region_name": "Ilocos Region",
+        "region_abbr": "Region I"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.0, 15.5], [121.0, 15.5], [121.0, 18.5], [120.0, 18.5], [120.0, 15.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "020000000", 
+        "region_name": "Cagayan Valley",
+        "region_abbr": "Region II"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.0, 16.0], [122.5, 16.0], [122.5, 18.5], [121.0, 18.5], [121.0, 16.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "030000000",
+        "region_name": "Central Luzon", 
+        "region_abbr": "Region III"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.3, 14.5], [121.2, 14.5], [121.2, 16.0], [120.3, 16.0], [120.3, 14.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "040000000",
+        "region_name": "CALABARZON",
+        "region_abbr": "Region IV-A"
+      },
+      "geometry": {
+        "type": "Polygon", 
+        "coordinates": [[[120.8, 13.8], [122.0, 13.8], [122.0, 15.0], [120.8, 15.0], [120.8, 13.8]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "170000000",
+        "region_name": "MIMAROPA",
+        "region_abbr": "Region IV-B"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[119.5, 12.0], [121.5, 12.0], [121.5, 14.0], [119.5, 14.0], [119.5, 12.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "050000000",
+        "region_name": "Bicol Region",
+        "region_abbr": "Region V"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[122.5, 12.5], [124.5, 12.5], [124.5, 14.5], [122.5, 14.5], [122.5, 12.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "060000000",
+        "region_name": "Western Visayas",
+        "region_abbr": "Region VI"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.0, 10.0], [123.0, 10.0], [123.0, 12.0], [121.0, 12.0], [121.0, 10.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "070000000",
+        "region_name": "Central Visayas",
+        "region_abbr": "Region VII"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[123.0, 9.5], [125.0, 9.5], [125.0, 11.5], [123.0, 11.5], [123.0, 9.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "080000000",
+        "region_name": "Eastern Visayas",
+        "region_abbr": "Region VIII"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[124.5, 10.0], [126.0, 10.0], [126.0, 12.5], [124.5, 12.5], [124.5, 10.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "090000000",
+        "region_name": "Zamboanga Peninsula",
+        "region_abbr": "Region IX"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[122.0, 6.5], [123.5, 6.5], [123.5, 8.5], [122.0, 8.5], [122.0, 6.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "100000000",
+        "region_name": "Northern Mindanao",
+        "region_abbr": "Region X"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[123.5, 8.0], [125.5, 8.0], [125.5, 9.5], [123.5, 9.5], [123.5, 8.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "110000000",
+        "region_name": "Davao Region",
+        "region_abbr": "Region XI"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[125.0, 6.0], [126.5, 6.0], [126.5, 8.0], [125.0, 8.0], [125.0, 6.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "120000000",
+        "region_name": "SOCCSKSARGEN",
+        "region_abbr": "Region XII"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[124.0, 5.5], [125.5, 5.5], [125.5, 7.0], [124.0, 7.0], [124.0, 5.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "160000000",
+        "region_name": "Caraga",
+        "region_abbr": "Region XIII"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[125.5, 8.0], [126.5, 8.0], [126.5, 10.0], [125.5, 10.0], [125.5, 8.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "150000000",
+        "region_name": "Autonomous Region in Muslim Mindanao",
+        "region_abbr": "ARMM"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[119.5, 4.5], [122.0, 4.5], [122.0, 7.0], [119.5, 7.0], [119.5, 4.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "psgc_code": "140000000",
+        "region_name": "Cordillera Administrative Region",
+        "region_abbr": "CAR"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.5, 16.5], [121.5, 16.5], [121.5, 17.5], [120.5, 17.5], [120.5, 16.5]]]
+      }
+    }
+  ]
+}

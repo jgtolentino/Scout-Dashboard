@@ -1,0 +1,230 @@
+Here’s an expanded `/public/data/sim/brands.json` that includes **all** of the brands you listed (not just the top 6), each with a placeholder `value` and `pct` which you can replace with your own synthetic or real numbers. Drop this file into `public/data/sim/brands.json` and your grid will render every entry.
+
+```json
+[
+  {
+    "brand": "Alaska Milk Corporation",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Alaska Evaporated Milk",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Alaska Condensed Milk",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Alaska Powdered Milk",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Krem-Top (Coffee Creamer)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Alpine (Evaporated & Condensed Milk)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Cow Bell (Powdered Milk)",
+    "value": 0,
+    "pct": 0
+  },
+
+  {
+    "brand": "Oishi Prawn Crackers",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Oishi Pillows",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Oishi Marty's",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Oishi Ridges",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Oishi Bread Pan",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Gourmet Picks",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Crispy Patata",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Smart C+ (Vitamin Drinks)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Oaties",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Hi-Ho",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Rinbee",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Deli Mex",
+    "value": 0,
+    "pct": 0
+  },
+
+  {
+    "brand": "Champion (Detergent, Fabric Conditioner)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Calla (Personal Care Products)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Hana (Shampoo and Conditioner)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Cyclone (Bleach)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Pride (Dishwashing Liquid)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Care Plus (Alcohol and Hand Sanitizer)",
+    "value": 0,
+    "pct": 0
+  },
+
+  {
+    "brand": "Del Monte Pineapple (Juice, Chunks, Slices)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Del Monte Tomato Sauce & Ketchup",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Del Monte Spaghetti Sauce",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Del Monte Fruit Cocktail",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Del Monte Pasta",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "S&W (Premium Fruit & Vegetable Products)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Today's (Budget-Friendly Product Line)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Fit 'n Right (Juice Drinks)",
+    "value": 0,
+    "pct": 0
+  },
+
+  {
+    "brand": "Winston",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Camel",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Mevius (formerly Mild Seven)",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "LD",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Mighty",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Caster",
+    "value": 0,
+    "pct": 0
+  },
+  {
+    "brand": "Glamour",
+    "value": 0,
+    "pct": 0
+  }
+]
+```
+
+> **Next steps:**
+> • Replace each `"value": 0` and `"pct": 0` with your generated or real numbers.
+> • Your front-end will now render **all** these brands in the Top Brands chart.
+> • If you want to randomize values for “demo” mode, you can write a small script to inject random `value`/`pct` before build.Yes — the `/public/data/sim/brands.json` file now includes every brand you listed, ready for you to drop into your project. To recap:
+
+1. **File Location**
+   `public/data/sim/brands.json`
+
+2. **Contents**
+
+   * All brands under Alaska, Oishi, Peerless, Del Monte, JTI
+   * Each entry has `"brand"`, `"value"`, and `"pct"` fields.
+
+3. **Next Steps**
+
+   * Update each `"value"` and `"pct"` with either your synthetic data generator or real values.
+   * Deploy your front-end (`npm run build && swa deploy`) and switch on **Simulated Data** to see them in action.
+
+Let me know if you need help wiring in a randomizer script to auto-populate those values for demo mode!

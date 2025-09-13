@@ -1,0 +1,276 @@
+.sidebar {
+  display: flex;
+  height: 100%;
+  background-color: #252526;
+  color: #e5e5e5;
+  position: relative;
+}
+
+.sidebar-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 48px;
+  background-color: #333333;
+  border-right: 1px solid #3c3c3c;
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
+  border: none;
+  color: #cccccc;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.tab-button:hover {
+  background-color: #2a2a2a;
+}
+
+.tab-button.active {
+  color: #ffffff;
+  background-color: #252526;
+}
+
+.tab-button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #0e639c;
+}
+
+.sidebar-content {
+  flex: 1;
+  width: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #bbbbbb;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.panel-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+  color: #cccccc;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.action-button:hover {
+  background-color: #383838;
+}
+
+.workspace-header {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #cccccc;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.workspace-header h4 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.file-tree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.file-tree-item {
+  position: relative;
+}
+
+.file-tree-item-content {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.2s;
+}
+
+.file-tree-item-content:hover {
+  background-color: #2a2a2a;
+}
+
+.file-icon {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 16px;
+  min-width: 16px;
+}
+
+.file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.directory > .file-tree {
+  padding-left: 12px;
+}
+
+.empty-state {
+  padding: 16px;
+  text-align: center;
+  color: #bbbbbb;
+  font-size: 13px;
+}
+
+.new-file-button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #0e639c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s;
+}
+
+.new-file-button:hover {
+  background-color: #1177bb;
+}
+
+.new-item input {
+  flex: 1;
+  background-color: #3c3c3c;
+  border: none;
+  color: #ffffff;
+  outline: none;
+  padding: 2px 0;
+  font-size: 13px;
+}
+
+.search-input-container {
+  padding: 8px 12px;
+}
+
+.search-input {
+  width: 100%;
+  background-color: #3c3c3c;
+  border: none;
+  color: #ffffff;
+  outline: none;
+  padding: 6px 8px;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+.search-results {
+  padding: 12px;
+}
+
+.text-muted {
+  color: #bbbbbb;
+  font-size: 13px;
+  text-align: center;
+  padding: 12px;
+}
+
+.context-menu {
+  position: fixed;
+  background-color: #252526;
+  border: 1px solid #3c3c3c;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  min-width: 160px;
+}
+
+.context-menu ul {
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+}
+
+.context-menu li {
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}
+
+.context-menu li:hover {
+  background-color: #2a2a2a;
+}
+
+.context-menu .divider {
+  height: 1px;
+  background-color: #3c3c3c;
+  margin: 4px 0;
+  padding: 0;
+}
+
+.context-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+/* Icons */
+.icon-explorer, .icon-search, .icon-git, .icon-extensions, 
+.icon-new-file, .icon-new-folder, .icon-refresh, .icon-collapse {
+  font-size: 16px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icon-explorer::before { content: '📁'; }
+.icon-search::before { content: '🔍'; }
+.icon-git::before { content: '📊'; }
+.icon-extensions::before { content: '🧩'; }
+.icon-new-file::before { content: '📄'; }
+.icon-new-folder::before { content: '📁'; }
+.icon-refresh::before { content: '🔄'; }
+.icon-collapse::before { content: '⏪'; }

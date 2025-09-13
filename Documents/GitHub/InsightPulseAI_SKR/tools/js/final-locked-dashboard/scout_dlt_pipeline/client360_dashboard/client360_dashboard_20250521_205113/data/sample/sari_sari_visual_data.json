@@ -1,0 +1,276 @@
+{
+  "simulated": true,
+  "meta": {
+    "data_type": "visual_detections",
+    "version": "1.0.0",
+    "generated_date": "2025-05-19T08:00:00+08:00",
+    "total_records": 15
+  },
+  "detections": [
+    {
+      "detection_id": "vis-001-0519-0001",
+      "store_id": "sari-001",
+      "device_id": "device-001",
+      "session_id": "session-001-0519-0800",
+      "timestamp": "2025-05-19T08:15:10+08:00",
+      "detection_type": "product",
+      "confidence": 0.95,
+      "detected_objects": [
+        {"label": "Rice 1kg", "product_id": "prod-001", "confidence": 0.97, "bounding_box": [0.2, 0.3, 0.35, 0.48]},
+        {"label": "Instant Coffee", "product_id": "prod-023", "confidence": 0.92, "bounding_box": [0.5, 0.4, 0.65, 0.55]}
+      ],
+      "image_reference": "img-001-0519-0815.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-001-0519-0002",
+      "store_id": "sari-001",
+      "device_id": "device-001",
+      "session_id": "session-001-0519-0800",
+      "timestamp": "2025-05-19T08:45:05+08:00",
+      "detection_type": "product",
+      "confidence": 0.92,
+      "detected_objects": [
+        {"label": "Canned Sardines", "product_id": "prod-015", "confidence": 0.94, "bounding_box": [0.3, 0.35, 0.45, 0.5]},
+        {"label": "Bread", "product_id": "prod-032", "confidence": 0.89, "bounding_box": [0.55, 0.4, 0.75, 0.6]}
+      ],
+      "image_reference": "img-001-0519-0845.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-002-0519-0001",
+      "store_id": "sari-002",
+      "device_id": "device-002",
+      "session_id": "session-002-0519-0830",
+      "timestamp": "2025-05-19T08:35:30+08:00",
+      "detection_type": "product",
+      "confidence": 0.96,
+      "detected_objects": [
+        {"label": "Soft Drinks 1L", "product_id": "prod-008", "confidence": 0.97, "bounding_box": [0.25, 0.3, 0.4, 0.5]},
+        {"label": "Soft Drinks 1L", "product_id": "prod-008", "confidence": 0.96, "bounding_box": [0.45, 0.3, 0.6, 0.5]},
+        {"label": "Bread", "product_id": "prod-032", "confidence": 0.95, "bounding_box": [0.65, 0.35, 0.85, 0.55]}
+      ],
+      "image_reference": "img-002-0519-0835.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-003-0519-0001",
+      "store_id": "sari-003",
+      "device_id": "device-003",
+      "session_id": "session-003-0519-0900",
+      "timestamp": "2025-05-19T09:12:25+08:00",
+      "detection_type": "product",
+      "confidence": 0.98,
+      "detected_objects": [
+        {"label": "LPG Small Tank", "product_id": "prod-078", "confidence": 0.98, "bounding_box": [0.3, 0.2, 0.7, 0.8]}
+      ],
+      "image_reference": "img-003-0519-0912.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-004-0519-0001",
+      "store_id": "sari-004",
+      "device_id": "device-004",
+      "session_id": "session-004-0519-0830",
+      "timestamp": "2025-05-19T08:55:10+08:00",
+      "detection_type": "product",
+      "confidence": 0.91,
+      "detected_objects": [
+        {"label": "Vegetables Assorted", "product_id": "prod-045", "confidence": 0.88, "bounding_box": [0.2, 0.25, 0.5, 0.55]},
+        {"label": "Instant Coffee", "product_id": "prod-023", "confidence": 0.94, "bounding_box": [0.55, 0.3, 0.7, 0.45]},
+        {"label": "Candy", "product_id": "prod-089", "confidence": 0.92, "bounding_box": [0.75, 0.35, 0.85, 0.45]}
+      ],
+      "image_reference": "img-004-0519-0855.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-005-0519-0001",
+      "store_id": "sari-005",
+      "device_id": "device-005",
+      "session_id": "session-005-0519-0900",
+      "timestamp": "2025-05-19T09:23:00+08:00",
+      "detection_type": "product",
+      "confidence": 0.97,
+      "detected_objects": [
+        {"label": "Instant Noodles", "product_id": "prod-012", "confidence": 0.95, "bounding_box": [0.2, 0.3, 0.35, 0.45]},
+        {"label": "Instant Noodles", "product_id": "prod-012", "confidence": 0.96, "bounding_box": [0.4, 0.3, 0.55, 0.45]},
+        {"label": "Instant Noodles", "product_id": "prod-012", "confidence": 0.97, "bounding_box": [0.6, 0.3, 0.75, 0.45]},
+        {"label": "Instant Noodles", "product_id": "prod-012", "confidence": 0.96, "bounding_box": [0.8, 0.3, 0.95, 0.45]},
+        {"label": "Instant Noodles", "product_id": "prod-012", "confidence": 0.94, "bounding_box": [0.3, 0.5, 0.45, 0.65]}
+      ],
+      "image_reference": "img-005-0519-0923.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-006-0519-0001",
+      "store_id": "sari-006",
+      "device_id": "device-006",
+      "session_id": "session-006-0519-0830",
+      "timestamp": "2025-05-19T08:40:50+08:00",
+      "detection_type": "product",
+      "confidence": 0.93,
+      "detected_objects": [
+        {"label": "School Notebook", "product_id": "prod-056", "confidence": 0.92, "bounding_box": [0.25, 0.3, 0.4, 0.5]},
+        {"label": "School Notebook", "product_id": "prod-056", "confidence": 0.91, "bounding_box": [0.45, 0.3, 0.6, 0.5]},
+        {"label": "School Notebook", "product_id": "prod-056", "confidence": 0.93, "bounding_box": [0.65, 0.3, 0.8, 0.5]},
+        {"label": "Candy", "product_id": "prod-089", "confidence": 0.95, "bounding_box": [0.3, 0.6, 0.7, 0.75]}
+      ],
+      "image_reference": "img-006-0519-0840.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-007-0519-0001",
+      "store_id": "sari-007",
+      "device_id": "device-007",
+      "session_id": "session-007-0519-0900",
+      "timestamp": "2025-05-19T09:05:30+08:00",
+      "detection_type": "product",
+      "confidence": 0.94,
+      "detected_objects": [
+        {"label": "Rice 1kg", "product_id": "prod-001", "confidence": 0.95, "bounding_box": [0.2, 0.3, 0.35, 0.48]},
+        {"label": "Rice 1kg", "product_id": "prod-001", "confidence": 0.94, "bounding_box": [0.4, 0.3, 0.55, 0.48]},
+        {"label": "Canned Sardines", "product_id": "prod-015", "confidence": 0.92, "bounding_box": [0.6, 0.35, 0.75, 0.5]},
+        {"label": "Canned Sardines", "product_id": "prod-015", "confidence": 0.93, "bounding_box": [0.8, 0.35, 0.95, 0.5]},
+        {"label": "Bread", "product_id": "prod-032", "confidence": 0.96, "bounding_box": [0.4, 0.55, 0.6, 0.75]}
+      ],
+      "image_reference": "img-007-0519-0905.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-008-0519-0001",
+      "store_id": "sari-008",
+      "device_id": "device-008",
+      "session_id": "session-008-0519-0830",
+      "timestamp": "2025-05-19T08:45:00+08:00",
+      "detection_type": "product",
+      "confidence": 0.97,
+      "detected_objects": [
+        {"label": "Cigarettes", "product_id": "prod-067", "confidence": 0.97, "bounding_box": [0.4, 0.3, 0.6, 0.7]}
+      ],
+      "image_reference": "img-008-0519-0845.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-009-0519-0001",
+      "store_id": "sari-009",
+      "device_id": "device-009",
+      "session_id": "session-009-0519-0830", 
+      "timestamp": "2025-05-19T08:32:20+08:00",
+      "detection_type": "product",
+      "confidence": 0.96,
+      "detected_objects": [
+        {"label": "Cooked Meal", "product_id": "prod-098", "confidence": 0.96, "bounding_box": [0.3, 0.25, 0.7, 0.65]},
+        {"label": "Soft Drinks 1L", "product_id": "prod-008", "confidence": 0.97, "bounding_box": [0.75, 0.3, 0.9, 0.5]}
+      ],
+      "image_reference": "img-009-0519-0832.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-010-0519-0001",
+      "store_id": "sari-010",
+      "device_id": "device-010",
+      "session_id": "session-010-0519-0900",
+      "timestamp": "2025-05-19T09:10:40+08:00",
+      "detection_type": "product",
+      "confidence": 0.95,
+      "detected_objects": [
+        {"label": "Cigarettes", "product_id": "prod-067", "confidence": 0.96, "bounding_box": [0.3, 0.3, 0.5, 0.5]},
+        {"label": "Beer", "product_id": "prod-099", "confidence": 0.94, "bounding_box": [0.55, 0.25, 0.7, 0.45]},
+        {"label": "Beer", "product_id": "prod-099", "confidence": 0.95, "bounding_box": [0.75, 0.25, 0.9, 0.45]},
+        {"label": "Beer", "product_id": "prod-099", "confidence": 0.93, "bounding_box": [0.65, 0.5, 0.8, 0.7]}
+      ],
+      "image_reference": "img-010-0519-0910.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-001-0519-0003",
+      "store_id": "sari-001",
+      "device_id": "device-001",
+      "session_id": "session-001-0519-1030",
+      "timestamp": "2025-05-19T10:30:05+08:00",
+      "detection_type": "product",
+      "confidence": 0.93,
+      "detected_objects": [
+        {"label": "Rice 1kg", "product_id": "prod-001", "confidence": 0.97, "bounding_box": [0.2, 0.3, 0.35, 0.48]},
+        {"label": "Rice 1kg", "product_id": "prod-001", "confidence": 0.96, "bounding_box": [0.4, 0.3, 0.55, 0.48]},
+        {"label": "Rice 1kg", "product_id": "prod-001", "confidence": 0.95, "bounding_box": [0.6, 0.3, 0.75, 0.48]},
+        {"label": "Rice 1kg", "product_id": "prod-001", "confidence": 0.94, "bounding_box": [0.8, 0.3, 0.95, 0.48]},
+        {"label": "Rice 1kg", "product_id": "prod-001", "confidence": 0.93, "bounding_box": [0.3, 0.55, 0.45, 0.73]},
+        {"label": "Canned Sardines", "product_id": "prod-015", "confidence": 0.92, "bounding_box": [0.5, 0.55, 0.65, 0.7]},
+        {"label": "Canned Sardines", "product_id": "prod-015", "confidence": 0.91, "bounding_box": [0.7, 0.55, 0.85, 0.7]},
+        {"label": "Canned Sardines", "product_id": "prod-015", "confidence": 0.9, "bounding_box": [0.6, 0.75, 0.75, 0.9]}
+      ],
+      "image_reference": "img-001-0519-1030.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-003-0519-0003",
+      "store_id": "sari-003",
+      "device_id": "device-003",
+      "session_id": "session-003-0519-1130",
+      "timestamp": "2025-05-19T11:32:10+08:00",
+      "detection_type": "shelf",
+      "confidence": 0.88,
+      "detected_objects": [
+        {"label": "Cigarettes Shelf", "product_id": null, "confidence": 0.88, "bounding_box": [0.1, 0.2, 0.9, 0.8]}
+      ],
+      "shelf_analysis": {
+        "shelf_id": "shelf-003-A",
+        "out_of_stock_items": ["prod-068", "prod-069"],
+        "low_stock_items": ["prod-067"],
+        "fully_stocked_items": ["prod-065", "prod-066", "prod-070"],
+        "stock_level_percent": 72,
+        "planogram_compliance": 0.85
+      },
+      "image_reference": "img-003-0519-1132.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-005-0519-0003",
+      "store_id": "sari-005",
+      "device_id": "device-005",
+      "session_id": "session-005-0519-1400",
+      "timestamp": "2025-05-19T14:22:55+08:00",
+      "detection_type": "shelf",
+      "confidence": 0.91,
+      "detected_objects": [
+        {"label": "Cleaning Products Shelf", "product_id": null, "confidence": 0.91, "bounding_box": [0.1, 0.2, 0.9, 0.8]}
+      ],
+      "shelf_analysis": {
+        "shelf_id": "shelf-005-C",
+        "out_of_stock_items": ["prod-124"],
+        "low_stock_items": ["prod-123", "prod-125"],
+        "fully_stocked_items": ["prod-120", "prod-121", "prod-122"],
+        "stock_level_percent": 68,
+        "planogram_compliance": 0.92
+      },
+      "image_reference": "img-005-0519-1422.jpg",
+      "simulated": true
+    },
+    {
+      "detection_id": "vis-007-0519-0003",
+      "store_id": "sari-007",
+      "device_id": "device-007",
+      "session_id": "session-007-0519-1430",
+      "timestamp": "2025-05-19T14:45:25+08:00",
+      "detection_type": "customer",
+      "confidence": 0.85,
+      "detected_objects": [
+        {"label": "Person", "product_id": null, "confidence": 0.92, "bounding_box": [0.3, 0.2, 0.7, 0.9]}
+      ],
+      "customer_analysis": {
+        "customer_count": 1,
+        "estimated_age_range": "30-40",
+        "dwell_time_seconds": 125,
+        "attention_zones": [
+          {"zone_id": "shelf-A", "dwell_time_percent": 45},
+          {"zone_id": "shelf-B", "dwell_time_percent": 35},
+          {"zone_id": "counter", "dwell_time_percent": 20}
+        ],
+        "interaction_products": ["prod-001", "prod-032"]
+      },
+      "image_reference": "img-007-0519-1445.jpg",
+      "simulated": true
+    }
+  ]
+}

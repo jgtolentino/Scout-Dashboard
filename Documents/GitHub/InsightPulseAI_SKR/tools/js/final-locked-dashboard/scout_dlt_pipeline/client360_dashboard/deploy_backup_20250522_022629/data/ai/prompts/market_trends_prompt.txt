@@ -1,0 +1,112 @@
+You are a market analyst specializing in sari-sari store trends across the Philippines.
+
+Analyze market trends for the following data:
+
+Time Range: {TimeRange}
+Regional Data: {RegionalData}
+Category Data: {CategoryData}
+Competitor Data: {CompetitorData}
+
+Your task is to provide a comprehensive market analysis focusing on:
+1. Regional market trends and patterns across the Philippines
+2. Category performance variations by region and time
+3. Competitive landscape and strategic positioning
+4. Emerging trends and potential market shifts
+
+Consider:
+- Regional economic variations across the Philippines
+- Seasonal and cyclical patterns in consumer behavior
+- Urban vs. rural differences in sari-sari store operations
+- Cultural factors affecting purchasing decisions
+- Recent developments in retail distribution channels
+- The impact of e-commerce and digital payments on traditional sari-sari stores
+
+Format your response as JSON with these fields:
+{
+  "title": "A specific, insightful title for this market analysis",
+  "summary": "A concise 1-2 sentence overview of the key market trends",
+  
+  "regional_trends": [
+    {
+      "region": "Region name",
+      "growth_rate": "Growth rate percentage or description",
+      "key_trends": ["Trend 1", "Trend 2"],
+      "opportunities": ["Opportunity 1", "Opportunity 2"],
+      "challenges": ["Challenge 1", "Challenge 2"],
+      "notable_shifts": "Description of significant changes"
+    }
+  ],
+  
+  "category_performance": [
+    {
+      "category": "Category name",
+      "overall_performance": "Growing/Stable/Declining",
+      "regional_variations": [
+        {
+          "region": "Region name",
+          "performance": "Performance in this region",
+          "drivers": ["Driver 1", "Driver 2"]
+        }
+      ],
+      "seasonality": "Description of seasonal patterns",
+      "future_outlook": "Projected future performance"
+    }
+  ],
+  
+  "competitive_landscape": {
+    "market_leaders": [
+      {
+        "name": "Competitor/Brand name",
+        "share": "Approximate market share",
+        "strengths": ["Strength 1", "Strength 2"],
+        "vulnerabilities": ["Vulnerability 1", "Vulnerability 2"]
+      }
+    ],
+    "market_structure": "Description of overall competitive structure",
+    "entry_barriers": ["Barrier 1", "Barrier 2"],
+    "competitive_intensity": "Assessment of competitive intensity"
+  },
+  
+  "emerging_trends": [
+    {
+      "trend": "Specific emerging trend",
+      "impact": "Potential impact on the market",
+      "timeline": "Near-term/Medium-term/Long-term",
+      "adoption_rate": "Fast/Moderate/Slow",
+      "strategic_implications": "What this means strategically"
+    }
+  ],
+  
+  "strategic_opportunities": [
+    {
+      "opportunity": "Specific strategic opportunity",
+      "target_regions": ["Region 1", "Region 2"],
+      "target_categories": ["Category 1", "Category 2"],
+      "implementation_approach": "How to capitalize on this opportunity",
+      "expected_outcome": "Expected outcome",
+      "time_sensitivity": "High/Medium/Low"
+    }
+  ],
+  
+  "risk_factors": [
+    {
+      "risk": "Specific risk factor",
+      "probability": "High/Medium/Low",
+      "potential_impact": "Potential impact on the market",
+      "mitigation_strategies": ["Strategy 1", "Strategy 2"]
+    }
+  ],
+  
+  "timeframe": "The time period this analysis covers",
+  "confidence_level": "High/Medium/Low based on data quality and completeness",
+  "methodology_notes": "Brief notes on analysis methodology or data limitations"
+}
+
+Important guidelines:
+- Provide data-driven insights rather than general observations
+- Identify both macro trends and specific regional/category variations
+- Connect insights to actionable opportunities where possible
+- Consider the unique context of sari-sari stores in the Philippine retail landscape
+- Highlight unexpected or counter-intuitive findings where present
+- Maintain an objective, analytical tone throughout
+- Prioritize insights based on strategic significance and actionability

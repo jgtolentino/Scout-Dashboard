@@ -1,0 +1,131 @@
+# ETL Audit CI/CD Configuration
+# Include this in your primary CI/CD workflow
+
+version: "1.0"
+description: "Scout ETL Pipeline Auditing Jobs"
+
+# ETL Audit Job - Run after all transformation steps
+jobs:
+  - name: etl_audit
+    description: "Run quality checks and audits on the Scout ETL pipeline"
+    on: pipeline_success
+    needs: [gold_aggregates] # This job depends on gold layer transformation
+    timeout: 900 # 15 minutes timeout
+    run: |
+      # Create output directory
+      mkdir -p logs/etl_audit/$(date +%Y-%m-%d)
+      export AUDIT_LOG_DIR=logs/etl_audit/$(date +%Y-%m-%d)
+      
+      # 1. Run Caca data quality checks
+      echo "Running ETL quality checks..."
+      caca run --config etl_quality_checks.yaml --output $AUDIT_LOG_DIR/etl_audit.json
+      
+      # 2. Fingerprint schemas & capture row counts
+      echo "Auditing schema stability..."
+      pulse-review audit-schema \
+        --schema-dir dbt_project/models \
+        --out $AUDIT_LOG_DIR/schema_diff.json \
+        --compare-to schema_registry/baseline
+      
+      echo "Auditing row counts..."
+      pulse-review audit-rowcounts \
+        --target-database scout_lakehouse \
+        --out $AUDIT_LOG_DIR/counts.json \
+        --history-file metrics/rowcount_history.jsonl \
+        --append-history
+      
+      # 3. Trace ETL operations through Tide
+      echo "Recording ETL trace..."
+      tide record-trace \
+        --operation "etl_pipeline_run" \
+        --components "bronze,silver,gold" \
+        --artifacts "$AUDIT_LOG_DIR/etl_audit.json,$AUDIT_LOG_DIR/schema_diff.json,$AUDIT_LOG_DIR/counts.json" \
+        --out $AUDIT_LOG_DIR/tide_trace.json
+      
+      # 4. Check for errors and warnings
+      echo "Evaluating audit results..."
+      jq '.checks[] | select(.severity == "ERROR" and .status == "FAILED")' $AUDIT_LOG_DIR/etl_audit.json > $AUDIT_LOG_DIR/errors.json
+      ERROR_COUNT=$(jq length $AUDIT_LOG_DIR/errors.json)
+      WARNING_COUNT=$(jq '.checks[] | select(.severity == "WARN" and .status == "FAILED")' $AUDIT_LOG_DIR/etl_audit.json | jq -s length)
+      
+      # 5. Generate audit summary
+      echo "Generating audit summary..."
+      cat > $AUDIT_LOG_DIR/summary.md << EOF
+      # ETL Audit Summary - $(date +%Y-%m-%d)
+      
+      ## Results Overview
+      - **Status**: ${ERROR_COUNT:-0} errors, ${WARNING_COUNT:-0} warnings
+      - **Pipeline**: $([ "$ERROR_COUNT" -eq 0 ] && echo "✅ PASSED" || echo "❌ FAILED")
+      - **Schema Stability**: $([ -s "$AUDIT_LOG_DIR/schema_diff.json" ] && echo "⚠️ CHANGES DETECTED" || echo "✅ STABLE")
+      - **Run ID**: $(cat $AUDIT_LOG_DIR/tide_trace.json | jq -r '.trace_id')
+      
+      ## Details
+      - Check full logs in \`$AUDIT_LOG_DIR/\`
+      - Schema changes: $([ -s "$AUDIT_LOG_DIR/schema_diff.json" ] && echo "Yes - review required" || echo "None")
+      - Row count anomalies: $(jq '.anomalies | length' $AUDIT_LOG_DIR/counts.json) tables
+      EOF
+      
+      # 6. Push audit results to storage
+      pulse-review upload-audit \
+        --source-dir $AUDIT_LOG_DIR \
+        --target "s3://scout-qa-metrics/etl-audits/$(date +%Y-%m-%d)" \
+        --summary $AUDIT_LOG_DIR/summary.md
+      
+      # 7. Send notifications
+      if [ "$ERROR_COUNT" -gt 0 ]; then
+        pulse-review notify \
+          --channel "slack:etl-alerts" \
+          --message "❌ ETL Pipeline FAILED with $ERROR_COUNT errors. See $AUDIT_LOG_DIR/summary.md for details."
+          --attach $AUDIT_LOG_DIR/summary.md
+        # Exit with error to fail the CI job
+        exit 1
+      elif [ "$WARNING_COUNT" -gt 0 ]; then
+        pulse-review notify \
+          --channel "slack:etl-alerts" \
+          --message "⚠️ ETL Pipeline completed with $WARNING_COUNT warnings. See $AUDIT_LOG_DIR/summary.md for details."
+          --attach $AUDIT_LOG_DIR/summary.md
+      else
+        pulse-review notify \
+          --channel "slack:etl-status" \
+          --message "✅ ETL Pipeline completed successfully. All quality checks passed."
+      fi
+      
+      # 8. Generate dashboard update
+      echo "Updating ETL quality dashboard..."
+      cd dashboards
+      etl-quality-dashboard update \
+        --data-dir ../$AUDIT_LOG_DIR \
+        --output etl_quality/index.html
+      
+      # Success!
+      echo "ETL audit complete! Summary available at $AUDIT_LOG_DIR/summary.md"
+
+# Weekly comprehensive ETL health report job
+jobs:
+  - name: weekly_etl_health_report
+    description: "Generate weekly ETL health report with trends and insights"
+    schedule: "0 8 * * MON" # Run every Monday at 8am
+    run: |
+      # Set up report directory
+      REPORT_DATE=$(date +%Y-%m-%d)
+      REPORT_DIR=reports/etl_health/$REPORT_DATE
+      mkdir -p $REPORT_DIR
+      
+      # Generate comprehensive report using Claudia
+      claudia run etl-health-report \
+        --lookback 7 \
+        --output-dir $REPORT_DIR \
+        --format html,pdf,md
+      
+      # Email the report to stakeholders
+      pulse-review notify \
+        --channel "email:data-team@insightpulseai.com" \
+        --subject "Weekly ETL Health Report - $REPORT_DATE" \
+        --message "Weekly ETL health report is attached. See the dashboard for more details." \
+        --attach $REPORT_DIR/etl_health_report.pdf
+      
+      # Update health dashboard
+      cd dashboards
+      etl-health-dashboard update \
+        --data-dir ../$REPORT_DIR \
+        --output etl_health/index.html

@@ -1,0 +1,98 @@
+name: Advisor QA Check (Caca)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to check (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+  push:
+    paths:
+      - 'deploy-ready/advisor/**'
+      - 'docs/README_PRD_ADVISOR.md'
+      - 'staticwebapp.config.json'
+
+jobs:
+  qa_caca:
+    runs-on: ubuntu-latest
+    name: Independent QA Verification
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: |
+          npm install puppeteer
+          npm install js-yaml
+          npm install typescript
+          npm install @types/node @types/js-yaml
+
+      - name: Create Output Directories
+        run: |
+          mkdir -p qa/tmp
+          mkdir -p qa/snapshots
+          mkdir -p qa_reports
+
+      - name: Run Caca QA Validation
+        uses: ./qa-caca-core
+        with:
+          prd_path: docs/README_PRD_ADVISOR.md
+          target_path: deploy-ready/advisor
+          out_path: qa_reports/advisor-${{ github.event.inputs.version || 'v1.0.0' }}
+
+      - name: Upload QA Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: caca-qa-reports
+          path: qa_reports/
+
+      - name: Upload QA Screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: caca-qa-screenshots
+          path: qa/snapshots/
+
+      - name: Comment on PR if applicable
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs');
+            const reportPath = 'qa_reports/advisor-${{ github.event.inputs.version || "v1.0.0" }}/qa_report.yaml';
+            if (fs.existsSync(reportPath)) {
+              const yaml = require('js-yaml');
+              const report = yaml.load(fs.readFileSync(reportPath, 'utf8'));
+              
+              let comment = '## 🧪 Caca QA Verification Report\n\n';
+              comment += '| Check | Status |\n';
+              comment += '|-------|--------|\n';
+              
+              for (const [check, result] of Object.entries(report)) {
+                const icon = result ? '✅' : '❌';
+                comment += `| ${check} | ${icon} ${result} |\n`;
+              }
+              
+              comment += '\n![Screenshot](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/caca-qa-screenshots/screenshot.png)';
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+      - name: Notify on Failure
+        if: failure()
+        run: |
+          echo "QA verification failed!"
+          # In a real environment, this would notify via webhook
+          # curl -H "Content-Type: application/json" -d "{\"text\":\"QA failed for Advisor Dashboard\"}" "https://company.webhook.office.com/webhookb2/..."

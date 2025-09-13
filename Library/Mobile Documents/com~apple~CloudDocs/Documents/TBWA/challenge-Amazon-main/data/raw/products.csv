@@ -1,0 +1,496 @@
+product_id,product_name,brand_id,category_id,unit_price,unit_size,is_active
+PRD001,Lay's Noodles,BRD035,CAT001,63.06,Small,True
+PRD002,Ligo Rice,BRD015,CAT001,102.95,Large,True
+PRD003,Pepsi Rice,BRD027,CAT001,87.13,Family Size,True
+PRD004,Pepsi Vinegar,BRD027,CAT001,45.05,Small,True
+PRD005,Ligo Vinegar,BRD015,CAT001,20.83,Small,True
+PRD006,Oreo Cooking Oil,BRD038,CAT001,21.1,Large,True
+PRD007,Ariel Cooking Oil,BRD020,CAT001,85.22,Family Size,True
+PRD008,Ricoa Cooking Oil,BRD003,CAT001,47.42,Large,True
+PRD009,Ligo Noodles,BRD015,CAT001,132.22,Family Size,True
+PRD010,Palmolive Soy Sauce,BRD016,CAT001,102.2,Medium,True
+PRD011,Monde Nissin Rice,BRD007,CAT001,97.43,Family Size,True
+PRD012,Tide Vinegar,BRD019,CAT001,42.22,Medium,True
+PRD013,CDO Rice,BRD013,CAT001,110.44,Large,True
+PRD014,Colgate Soy Sauce,BRD021,CAT001,91.29,Family Size,True
+PRD015,Argentina Vinegar,BRD012,CAT001,93.38,Medium,True
+PRD016,Century Tuna Soy Sauce,BRD011,CAT001,123.1,Large,True
+PRD017,Jack 'n Jill Noodles,BRD006,CAT001,64.01,Large,True
+PRD018,Ricoa Noodles,BRD003,CAT001,112.23,Small,True
+PRD019,Oreo Soy Sauce,BRD038,CAT001,21.94,Medium,True
+PRD020,CDO Noodles,BRD013,CAT001,94.42,Small,True
+PRD021,Dove Vinegar,BRD034,CAT001,86.41,Family Size,True
+PRD022,Coca-Cola Rice,BRD026,CAT001,115.35,Family Size,True
+PRD023,Monde Nissin Noodles,BRD007,CAT001,70.14,Large,True
+PRD024,Hapee Noodles,BRD023,CAT001,125.43,Medium,True
+PRD025,Pantene Soy Sauce,BRD033,CAT001,117.37,Large,True
+PRD026,Monde Nissin Vinegar,BRD007,CAT001,42.05,Small,True
+PRD027,Procter & Gamble Noodles,BRD030,CAT001,79.79,Large,True
+PRD028,Maggi Cooking Oil,BRD040,CAT001,135.99,Small,True
+PRD029,Oral-B Cooking Oil,BRD025,CAT001,26.01,Large,True
+PRD030,Joy Vinegar,BRD018,CAT001,130.34,Small,True
+PRD031,KitKat Soy Sauce,BRD037,CAT001,79.08,Small,True
+PRD032,Johnson & Johnson Vinegar,BRD031,CAT001,145.05,Large,True
+PRD033,Ariel Vinegar,BRD020,CAT001,122.7,Large,True
+PRD034,Lay's Noodles,BRD035,CAT001,111.59,Large,True
+PRD035,Huggies Rice,BRD046,CAT001,65.42,Small,True
+PRD036,Pringles Cooking Oil,BRD036,CAT001,46.31,Medium,True
+PRD037,Ligo Noodles,BRD015,CAT001,75.26,Family Size,True
+PRD038,San Miguel Noodles,BRD009,CAT001,141.49,Small,True
+PRD039,Universal Robina Corporation Vinegar,BRD008,CAT001,57.87,Large,True
+PRD040,Pepsi Cooking Oil,BRD027,CAT001,39.0,Family Size,True
+PRD041,Head & Shoulders Vinegar,BRD032,CAT001,128.99,Large,True
+PRD042,Enfamil Cooking Oil,BRD048,CAT001,16.63,Small,True
+PRD043,Huggies Soy Sauce,BRD046,CAT001,36.15,Medium,True
+PRD044,Magnolia Cooking Oil,BRD010,CAT001,35.34,Family Size,True
+PRD045,Pepsi Soy Sauce,BRD027,CAT001,59.14,Large,True
+PRD046,Century Tuna Shampoo,BRD011,CAT002,144.36,Medium,True
+PRD047,Dove Soap,BRD034,CAT002,275.08,Family Size,True
+PRD048,Johnson's Baby Soap,BRD047,CAT002,226.42,Large,True
+PRD049,Pringles Shampoo,BRD036,CAT002,208.98,Medium,True
+PRD050,Similac Deodorant,BRD049,CAT002,168.92,Family Size,True
+PRD051,Huggies Deodorant,BRD046,CAT002,299.2,Medium,True
+PRD052,Universal Robina Corporation Toothpaste,BRD008,CAT002,199.39,Family Size,True
+PRD053,Sensodyne Toothpaste,BRD024,CAT002,293.62,Medium,True
+PRD054,Magnolia Deodorant,BRD010,CAT002,259.37,Small,True
+PRD055,Pampers Deodorant,BRD045,CAT002,53.66,Medium,True
+PRD056,Johnson & Johnson Lotion,BRD031,CAT002,182.31,Medium,True
+PRD057,Ligo Toothpaste,BRD015,CAT002,188.99,Family Size,True
+PRD058,Close-Up Toothpaste,BRD022,CAT002,143.23,Large,True
+PRD059,Lay's Lotion,BRD035,CAT002,87.83,Family Size,True
+PRD060,Colgate Lotion,BRD021,CAT002,119.17,Family Size,True
+PRD061,Ricoa Toothpaste,BRD003,CAT002,152.24,Family Size,True
+PRD062,Johnson's Baby Soap,BRD047,CAT002,61.97,Medium,True
+PRD063,Spam Soap,BRD014,CAT002,26.67,Large,True
+PRD064,Unilever Deodorant,BRD029,CAT002,64.29,Large,True
+PRD065,Nestle Soap,BRD028,CAT002,180.27,Family Size,True
+PRD066,Oreo Toothpaste,BRD038,CAT002,225.89,Medium,True
+PRD067,Tide Shampoo,BRD019,CAT002,274.17,Family Size,True
+PRD068,Rebisco Shampoo,BRD002,CAT002,282.78,Medium,True
+PRD069,Rebisco Soap,BRD002,CAT002,214.78,Medium,True
+PRD070,Lay's Shampoo,BRD035,CAT002,277.83,Large,True
+PRD071,Oral-B Toothpaste,BRD025,CAT002,271.03,Small,True
+PRD072,Close-Up Toothpaste,BRD022,CAT002,142.56,Family Size,True
+PRD073,Head & Shoulders Lotion,BRD032,CAT002,235.53,Small,True
+PRD074,Similac Toothpaste,BRD049,CAT002,233.73,Medium,True
+PRD075,Universal Robina Corporation Deodorant,BRD008,CAT002,178.72,Small,True
+PRD076,Century Tuna Shampoo,BRD011,CAT002,282.12,Small,True
+PRD077,Century Tuna Toothpaste,BRD011,CAT002,81.47,Small,True
+PRD078,Universal Robina Corporation Deodorant,BRD008,CAT002,217.81,Small,True
+PRD079,Procter & Gamble Toothpaste,BRD030,CAT002,93.08,Family Size,True
+PRD080,Pampers Soap,BRD045,CAT002,251.8,Medium,True
+PRD081,Jack 'n Jill Lotion,BRD006,CAT002,114.85,Medium,True
+PRD082,Johnson & Johnson Soap,BRD031,CAT002,122.42,Family Size,True
+PRD083,Jack 'n Jill Soap,BRD006,CAT002,164.65,Small,True
+PRD084,Pantene Deodorant,BRD033,CAT002,258.18,Family Size,True
+PRD085,Coca-Cola Deodorant,BRD026,CAT002,132.46,Medium,True
+PRD086,Maggi Deodorant,BRD040,CAT002,237.76,Family Size,True
+PRD087,Johnson's Baby Soap,BRD047,CAT002,219.19,Family Size,True
+PRD088,CDO Shampoo,BRD013,CAT002,202.17,Small,True
+PRD089,Ovaltine Soap,BRD044,CAT002,48.26,Family Size,True
+PRD090,Pantene Shampoo,BRD033,CAT002,291.13,Family Size,True
+PRD091,Pantene Bleach,BRD033,CAT003,113.22,Medium,True
+PRD092,Unilever Dishwashing Liquid,BRD029,CAT003,84.41,Large,True
+PRD093,KitKat Bleach,BRD037,CAT003,139.52,Medium,True
+PRD094,Pringles Dishwashing Liquid,BRD036,CAT003,81.33,Family Size,True
+PRD095,Oral-B Dishwashing Liquid,BRD025,CAT003,168.22,Small,True
+PRD096,Pepsi Fabric Conditioner,BRD027,CAT003,80.68,Small,True
+PRD097,Palmolive Detergent,BRD016,CAT003,237.67,Family Size,True
+PRD098,Pantene Detergent,BRD033,CAT003,105.56,Medium,True
+PRD099,San Miguel Bleach,BRD009,CAT003,210.15,Small,True
+PRD100,Pantene Detergent,BRD033,CAT003,120.62,Medium,True
+PRD101,Argentina Detergent,BRD012,CAT003,77.59,Medium,True
+PRD102,San Miguel Fabric Conditioner,BRD009,CAT003,36.35,Medium,True
+PRD103,San Miguel Dishwashing Liquid,BRD009,CAT003,122.82,Family Size,True
+PRD104,Lipton Bleach,BRD042,CAT003,130.99,Medium,True
+PRD105,Oral-B Dishwashing Liquid,BRD025,CAT003,65.83,Family Size,True
+PRD106,Tide Bleach,BRD019,CAT003,220.55,Medium,True
+PRD107,Knorr Fabric Conditioner,BRD041,CAT003,191.72,Large,True
+PRD108,Coca-Cola Detergent,BRD026,CAT003,140.14,Family Size,True
+PRD109,Rebisco Dishwashing Liquid,BRD002,CAT003,45.34,Medium,True
+PRD110,Hapee Dishwashing Liquid,BRD023,CAT003,210.39,Small,True
+PRD111,Oreo Bleach,BRD038,CAT003,109.28,Large,True
+PRD112,Ligo Detergent,BRD015,CAT003,37.78,Small,True
+PRD113,Head & Shoulders Fabric Conditioner,BRD032,CAT003,129.99,Large,True
+PRD114,Century Tuna Bleach,BRD011,CAT003,132.09,Medium,True
+PRD115,Magnolia Dishwashing Liquid,BRD010,CAT003,106.38,Family Size,True
+PRD116,Magnolia Detergent,BRD010,CAT003,79.79,Large,True
+PRD117,Maggi Dishwashing Liquid,BRD040,CAT003,40.15,Medium,True
+PRD118,CDO Bleach,BRD013,CAT003,159.48,Family Size,True
+PRD119,Head & Shoulders Bleach,BRD032,CAT003,173.8,Large,True
+PRD120,Pantene Detergent,BRD033,CAT003,100.03,Small,True
+PRD121,Oreo Detergent,BRD038,CAT003,137.23,Medium,True
+PRD122,Pampers Dishwashing Liquid,BRD045,CAT003,114.36,Family Size,True
+PRD123,Lay's Dishwashing Liquid,BRD035,CAT003,82.22,Small,True
+PRD124,Oral-B Dishwashing Liquid,BRD025,CAT003,43.11,Large,True
+PRD125,CDO Detergent,BRD013,CAT003,50.17,Large,True
+PRD126,Ricoa Dishwashing Liquid,BRD003,CAT003,82.41,Small,True
+PRD127,KitKat Detergent,BRD037,CAT003,126.59,Large,True
+PRD128,Enfamil Dishwashing Liquid,BRD048,CAT003,242.65,Family Size,True
+PRD129,Close-Up Fabric Conditioner,BRD022,CAT003,206.2,Medium,True
+PRD130,Pampers Detergent,BRD045,CAT003,111.96,Small,True
+PRD131,San Miguel Dishwashing Liquid,BRD009,CAT003,43.92,Small,True
+PRD132,Coca-Cola Bleach,BRD026,CAT003,90.36,Family Size,True
+PRD133,Milo Detergent,BRD043,CAT003,189.6,Large,True
+PRD134,Jack 'n Jill Dishwashing Liquid,BRD006,CAT003,145.79,Medium,True
+PRD135,Tide Detergent,BRD019,CAT003,249.03,Small,True
+PRD136,Oreo Chocolate,BRD038,CAT004,65.86,Medium,True
+PRD137,Jack 'n Jill Crackers,BRD006,CAT004,57.18,Medium,True
+PRD138,Maggi Crackers,BRD040,CAT004,68.76,Large,True
+PRD139,Ligo Chips,BRD015,CAT004,79.07,Family Size,True
+PRD140,Century Tuna Chips,BRD011,CAT004,10.43,Medium,True
+PRD141,Unilever Chocolate,BRD029,CAT004,33.94,Family Size,True
+PRD142,Johnson's Baby Candy,BRD047,CAT004,67.52,Small,True
+PRD143,Pantene Biscuits,BRD033,CAT004,34.35,Large,True
+PRD144,Oreo Candy,BRD038,CAT004,25.81,Family Size,True
+PRD145,Dove Chips,BRD034,CAT004,41.86,Medium,True
+PRD146,Coca-Cola Crackers,BRD026,CAT004,53.51,Medium,True
+PRD147,Palmolive Crackers,BRD016,CAT004,67.85,Family Size,True
+PRD148,Boy Bawang Biscuits,BRD004,CAT004,27.8,Medium,True
+PRD149,Lipton Chocolate,BRD042,CAT004,77.39,Medium,True
+PRD150,Oishi Crackers,BRD005,CAT004,31.66,Large,True
+PRD151,Milo Crackers,BRD043,CAT004,18.72,Medium,True
+PRD152,Jack 'n Jill Crackers,BRD006,CAT004,61.62,Small,True
+PRD153,Monde Nissin Biscuits,BRD007,CAT004,67.12,Small,True
+PRD154,Pepsi Crackers,BRD027,CAT004,39.22,Small,True
+PRD155,Boy Bawang Candy,BRD004,CAT004,56.85,Large,True
+PRD156,Boy Bawang Crackers,BRD004,CAT004,69.72,Medium,True
+PRD157,Safeguard Chocolate,BRD017,CAT004,38.56,Small,True
+PRD158,Palmolive Chocolate,BRD016,CAT004,13.47,Small,True
+PRD159,Joy Chips,BRD018,CAT004,16.95,Family Size,True
+PRD160,KitKat Chips,BRD037,CAT004,75.42,Medium,True
+PRD161,Pringles Candy,BRD036,CAT004,64.31,Small,True
+PRD162,Rebisco Crackers,BRD002,CAT004,23.65,Family Size,True
+PRD163,Tide Biscuits,BRD019,CAT004,55.47,Medium,True
+PRD164,San Miguel Biscuits,BRD009,CAT004,74.4,Medium,True
+PRD165,Palmolive Biscuits,BRD016,CAT004,25.09,Medium,True
+PRD166,Dove Candy,BRD034,CAT004,55.69,Small,True
+PRD167,Magnolia Candy,BRD010,CAT004,60.99,Small,True
+PRD168,Lay's Biscuits,BRD035,CAT004,79.95,Large,True
+PRD169,Lay's Chocolate,BRD035,CAT004,79.43,Large,True
+PRD170,Similac Chips,BRD049,CAT004,28.78,Medium,True
+PRD171,Maggi Candy,BRD040,CAT004,59.16,Small,True
+PRD172,Johnson & Johnson Chips,BRD031,CAT004,77.41,Large,True
+PRD173,Ariel Biscuits,BRD020,CAT004,25.43,Small,True
+PRD174,Argentina Biscuits,BRD012,CAT004,23.3,Medium,True
+PRD175,Pampers Chips,BRD045,CAT004,41.24,Small,True
+PRD176,Safeguard Crackers,BRD017,CAT004,76.35,Family Size,True
+PRD177,CDO Crackers,BRD013,CAT004,65.49,Medium,True
+PRD178,Boy Bawang Candy,BRD004,CAT004,25.9,Medium,True
+PRD179,Pampers Chips,BRD045,CAT004,63.5,Small,True
+PRD180,Century Tuna Crackers,BRD011,CAT004,13.83,Medium,True
+PRD181,Ovaltine Cough Syrup,BRD044,CAT005,55.77,Family Size,True
+PRD182,Oreo Pain Reliever,BRD038,CAT005,385.36,Medium,True
+PRD183,Pantene Pain Reliever,BRD033,CAT005,169.51,Small,True
+PRD184,Nestle Pain Reliever,BRD028,CAT005,127.74,Family Size,True
+PRD185,Lay's Band-aids,BRD035,CAT005,458.76,Family Size,True
+PRD186,Colgate Vitamins,BRD021,CAT005,157.98,Medium,True
+PRD187,Lipton Band-aids,BRD042,CAT005,54.24,Small,True
+PRD188,Boy Bawang Band-aids,BRD004,CAT005,252.52,Large,True
+PRD189,Ricoa Band-aids,BRD003,CAT005,498.27,Medium,True
+PRD190,Dove Vitamins,BRD034,CAT005,262.25,Large,True
+PRD191,Boy Bawang Pain Reliever,BRD004,CAT005,144.74,Medium,True
+PRD192,Argentina Pain Reliever,BRD012,CAT005,126.85,Family Size,True
+PRD193,Universal Robina Corporation Band-aids,BRD008,CAT005,103.89,Medium,True
+PRD194,Ricoa Vitamins,BRD003,CAT005,92.55,Small,True
+PRD195,Huggies Pain Reliever,BRD046,CAT005,248.83,Small,True
+PRD196,Lipton Vitamins,BRD042,CAT005,328.81,Small,True
+PRD197,Joy Cough Syrup,BRD018,CAT005,243.94,Family Size,True
+PRD198,Huggies Band-aids,BRD046,CAT005,294.53,Family Size,True
+PRD199,Century Tuna Pain Reliever,BRD011,CAT005,321.8,Small,True
+PRD200,Ovaltine Vitamins,BRD044,CAT005,201.58,Medium,True
+PRD201,Oreo Pain Reliever,BRD038,CAT005,296.43,Small,True
+PRD202,Enfamil Cough Syrup,BRD048,CAT005,275.14,Family Size,True
+PRD203,Ligo Vitamins,BRD015,CAT005,380.68,Large,True
+PRD204,Hapee Cough Syrup,BRD023,CAT005,464.92,Medium,True
+PRD205,Johnson & Johnson Pain Reliever,BRD031,CAT005,488.44,Medium,True
+PRD206,Enfamil Pain Reliever,BRD048,CAT005,362.67,Large,True
+PRD207,Ligo Vitamins,BRD015,CAT005,461.58,Large,True
+PRD208,Pantene Pain Reliever,BRD033,CAT005,261.49,Medium,True
+PRD209,Safeguard Band-aids,BRD017,CAT005,434.56,Family Size,True
+PRD210,Tide Vitamins,BRD019,CAT005,56.14,Medium,True
+PRD211,Pampers Cough Syrup,BRD045,CAT005,227.34,Large,True
+PRD212,Milo Band-aids,BRD043,CAT005,487.38,Medium,True
+PRD213,Pampers Pain Reliever,BRD045,CAT005,445.97,Large,True
+PRD214,Close-Up Band-aids,BRD022,CAT005,323.86,Medium,True
+PRD215,San Miguel Pain Reliever,BRD009,CAT005,421.8,Small,True
+PRD216,Spam Cough Syrup,BRD014,CAT005,472.12,Family Size,True
+PRD217,Johnson's Baby Vitamins,BRD047,CAT005,161.4,Medium,True
+PRD218,Huggies Pain Reliever,BRD046,CAT005,218.12,Family Size,True
+PRD219,Nestle Cough Syrup,BRD028,CAT005,68.15,Small,True
+PRD220,Oral-B Band-aids,BRD025,CAT005,97.76,Large,True
+PRD221,Knorr Pain Reliever,BRD041,CAT005,330.23,Small,True
+PRD222,Joy Vitamins,BRD018,CAT005,426.37,Medium,True
+PRD223,Dove Pain Reliever,BRD034,CAT005,403.61,Large,True
+PRD224,Ligo Cough Syrup,BRD015,CAT005,228.6,Large,True
+PRD225,Knorr Cough Syrup,BRD041,CAT005,424.62,Medium,True
+PRD226,Rebisco Baby Shampoo,BRD002,CAT006,391.35,Small,True
+PRD227,Century Tuna Baby Shampoo,BRD011,CAT006,749.45,Large,True
+PRD228,Hapee Baby Shampoo,BRD023,CAT006,349.53,Small,True
+PRD229,Magnolia Baby Food,BRD010,CAT006,301.74,Large,True
+PRD230,KitKat Baby Shampoo,BRD037,CAT006,520.97,Small,True
+PRD231,Unilever Baby Shampoo,BRD029,CAT006,281.73,Family Size,True
+PRD232,Huggies Baby Food,BRD046,CAT006,388.47,Large,True
+PRD233,Similac Baby Powder,BRD049,CAT006,284.66,Large,True
+PRD234,Knorr Baby Shampoo,BRD041,CAT006,607.1,Small,True
+PRD235,Palmolive Baby Food,BRD016,CAT006,246.92,Family Size,True
+PRD236,Oral-B Baby Food,BRD025,CAT006,567.73,Small,True
+PRD237,Enfamil Baby Powder,BRD048,CAT006,473.97,Family Size,True
+PRD238,Century Tuna Baby Shampoo,BRD011,CAT006,495.89,Small,True
+PRD239,Magnolia Baby Shampoo,BRD010,CAT006,538.75,Medium,True
+PRD240,Joy Baby Shampoo,BRD018,CAT006,180.18,Medium,True
+PRD241,Ricoa Baby Shampoo,BRD003,CAT006,551.78,Small,True
+PRD242,Pepsi Diapers,BRD027,CAT006,749.25,Small,True
+PRD243,Colgate Diapers,BRD021,CAT006,378.06,Medium,True
+PRD244,Tide Baby Shampoo,BRD019,CAT006,656.28,Large,True
+PRD245,Lay's Baby Food,BRD035,CAT006,703.51,Medium,True
+PRD246,Johnson's Baby Baby Shampoo,BRD047,CAT006,447.25,Small,True
+PRD247,Coca-Cola Baby Powder,BRD026,CAT006,317.58,Small,True
+PRD248,Similac Baby Shampoo,BRD049,CAT006,472.48,Family Size,True
+PRD249,Magnolia Diapers,BRD010,CAT006,278.36,Small,True
+PRD250,Enfamil Baby Food,BRD048,CAT006,567.94,Small,True
+PRD251,Procter & Gamble Baby Food,BRD030,CAT006,224.78,Medium,True
+PRD252,CDO Diapers,BRD013,CAT006,596.51,Family Size,True
+PRD253,Lay's Baby Powder,BRD035,CAT006,634.97,Medium,True
+PRD254,Johnson's Baby Baby Shampoo,BRD047,CAT006,491.09,Family Size,True
+PRD255,Rebisco Baby Powder,BRD002,CAT006,352.1,Medium,True
+PRD256,Lay's Diapers,BRD035,CAT006,765.37,Medium,True
+PRD257,Universal Robina Corporation Baby Shampoo,BRD008,CAT006,114.65,Large,True
+PRD258,CDO Baby Powder,BRD013,CAT006,171.68,Medium,True
+PRD259,Argentina Baby Powder,BRD012,CAT006,259.49,Large,True
+PRD260,Ariel Baby Shampoo,BRD020,CAT006,235.21,Family Size,True
+PRD261,Oreo Diapers,BRD038,CAT006,396.97,Family Size,True
+PRD262,Similac Baby Powder,BRD049,CAT006,451.51,Family Size,True
+PRD263,Hapee Diapers,BRD023,CAT006,123.08,Family Size,True
+PRD264,Nestle Baby Food,BRD028,CAT006,576.92,Large,True
+PRD265,Monde Nissin Baby Powder,BRD007,CAT006,179.17,Medium,True
+PRD266,San Miguel Diapers,BRD009,CAT006,386.12,Medium,True
+PRD267,Tide Baby Shampoo,BRD019,CAT006,360.57,Small,True
+PRD268,Enfamil Baby Shampoo,BRD048,CAT006,167.87,Large,True
+PRD269,Huggies Diapers,BRD046,CAT006,408.1,Large,True
+PRD270,Lucky Me! Diapers,BRD001,CAT006,736.88,Large,True
+PRD271,Lucky Me! Coffee,BRD001,CAT007,12.39,Medium,True
+PRD272,Milo Juice,BRD043,CAT007,55.91,Small,True
+PRD273,Argentina Coffee,BRD012,CAT007,30.38,Medium,True
+PRD274,Oishi Coffee,BRD005,CAT007,17.92,Family Size,True
+PRD275,Magnolia Juice,BRD010,CAT007,35.91,Medium,True
+PRD276,Close-Up Tea,BRD022,CAT007,58.17,Family Size,True
+PRD277,Dove Soft Drinks,BRD034,CAT007,12.81,Large,True
+PRD278,Coca-Cola Coffee,BRD026,CAT007,41.36,Large,True
+PRD279,Magnolia Soft Drinks,BRD010,CAT007,55.59,Family Size,True
+PRD280,Ricoa Juice,BRD003,CAT007,12.39,Large,True
+PRD281,Safeguard Juice,BRD017,CAT007,24.2,Small,True
+PRD282,Ricoa Coffee,BRD003,CAT007,38.85,Large,True
+PRD283,Colgate Juice,BRD021,CAT007,51.09,Medium,True
+PRD284,Argentina Water,BRD012,CAT007,12.43,Family Size,True
+PRD285,Tide Tea,BRD019,CAT007,39.55,Family Size,True
+PRD286,Sensodyne Tea,BRD024,CAT007,56.57,Family Size,True
+PRD287,Palmolive Juice,BRD016,CAT007,57.54,Small,True
+PRD288,Maggi Juice,BRD040,CAT007,54.93,Family Size,True
+PRD289,Milo Soft Drinks,BRD043,CAT007,12.71,Small,True
+PRD290,Magnolia Soft Drinks,BRD010,CAT007,21.38,Large,True
+PRD291,Unilever Soft Drinks,BRD029,CAT007,24.55,Medium,True
+PRD292,Pringles Juice,BRD036,CAT007,28.53,Large,True
+PRD293,Unilever Soft Drinks,BRD029,CAT007,13.23,Large,True
+PRD294,Boy Bawang Coffee,BRD004,CAT007,51.08,Family Size,True
+PRD295,Procter & Gamble Tea,BRD030,CAT007,16.41,Medium,True
+PRD296,Safeguard Coffee,BRD017,CAT007,53.45,Large,True
+PRD297,Lay's Coffee,BRD035,CAT007,21.34,Large,True
+PRD298,CDO Water,BRD013,CAT007,27.11,Large,True
+PRD299,Palmolive Coffee,BRD016,CAT007,56.36,Large,True
+PRD300,CDO Juice,BRD013,CAT007,33.3,Large,True
+PRD301,Rebisco Water,BRD002,CAT007,37.55,Medium,True
+PRD302,Ritz Tea,BRD039,CAT007,41.76,Small,True
+PRD303,San Miguel Water,BRD009,CAT007,21.57,Family Size,True
+PRD304,Maggi Juice,BRD040,CAT007,35.69,Family Size,True
+PRD305,Rebisco Tea,BRD002,CAT007,13.63,Family Size,True
+PRD306,Oreo Soft Drinks,BRD038,CAT007,18.33,Small,True
+PRD307,Johnson's Baby Water,BRD047,CAT007,24.57,Family Size,True
+PRD308,Hapee Water,BRD023,CAT007,23.72,Large,True
+PRD309,Lay's Soft Drinks,BRD035,CAT007,58.59,Family Size,True
+PRD310,Unilever Coffee,BRD029,CAT007,27.84,Small,True
+PRD311,Lipton Tea,BRD042,CAT007,18.4,Large,True
+PRD312,Ritz Juice,BRD039,CAT007,54.4,Small,True
+PRD313,Nestle Juice,BRD028,CAT007,35.1,Small,True
+PRD314,Dove Coffee,BRD034,CAT007,26.67,Large,True
+PRD315,Lucky Me! Juice,BRD001,CAT007,21.91,Small,True
+PRD316,Oishi Canned Meat,BRD005,CAT008,63.28,Family Size,True
+PRD317,Oishi Canned Fish,BRD005,CAT008,32.63,Medium,True
+PRD318,Oishi Pickles,BRD005,CAT008,61.47,Small,True
+PRD319,Spam Pickles,BRD014,CAT008,96.67,Small,True
+PRD320,Ricoa Pickles,BRD003,CAT008,87.68,Medium,True
+PRD321,Close-Up Pickles,BRD022,CAT008,111.4,Large,True
+PRD322,Lay's Pickles,BRD035,CAT008,84.51,Small,True
+PRD323,Johnson & Johnson Canned Meat,BRD031,CAT008,62.81,Small,True
+PRD324,Ritz Canned Meat,BRD039,CAT008,53.12,Medium,True
+PRD325,Palmolive Jam,BRD016,CAT008,111.81,Large,True
+PRD326,Tide Pickles,BRD019,CAT008,87.16,Large,True
+PRD327,Colgate Jam,BRD021,CAT008,29.64,Large,True
+PRD328,Knorr Jam,BRD041,CAT008,56.48,Medium,True
+PRD329,Milo Canned Meat,BRD043,CAT008,87.64,Small,True
+PRD330,Milo Pickles,BRD043,CAT008,108.48,Medium,True
+PRD331,Head & Shoulders Canned Fish,BRD032,CAT008,60.81,Medium,True
+PRD332,Dove Canned Fish,BRD034,CAT008,26.2,Small,True
+PRD333,Close-Up Pickles,BRD022,CAT008,28.15,Large,True
+PRD334,Dove Pickles,BRD034,CAT008,61.97,Large,True
+PRD335,Unilever Jam,BRD029,CAT008,62.94,Medium,True
+PRD336,Magnolia Jam,BRD010,CAT008,100.05,Small,True
+PRD337,KitKat Canned Meat,BRD037,CAT008,68.33,Small,True
+PRD338,Johnson & Johnson Canned Fish,BRD031,CAT008,117.9,Small,True
+PRD339,Ritz Canned Meat,BRD039,CAT008,78.92,Medium,True
+PRD340,Milo Canned Fish,BRD043,CAT008,100.33,Large,True
+PRD341,Jack 'n Jill Canned Meat,BRD006,CAT008,39.2,Small,True
+PRD342,Joy Canned Fish,BRD018,CAT008,110.56,Medium,True
+PRD343,Pringles Pickles,BRD036,CAT008,75.38,Small,True
+PRD344,Ligo Pickles,BRD015,CAT008,64.13,Small,True
+PRD345,Pampers Pickles,BRD045,CAT008,93.51,Family Size,True
+PRD346,Procter & Gamble Canned Meat,BRD030,CAT008,85.84,Large,True
+PRD347,Oreo Canned Meat,BRD038,CAT008,48.61,Family Size,True
+PRD348,Sensodyne Canned Meat,BRD024,CAT008,112.82,Large,True
+PRD349,Palmolive Canned Fish,BRD016,CAT008,52.3,Medium,True
+PRD350,Palmolive Canned Fish,BRD016,CAT008,70.46,Family Size,True
+PRD351,Maggi Canned Fish,BRD040,CAT008,100.5,Small,True
+PRD352,Knorr Canned Fish,BRD041,CAT008,114.25,Large,True
+PRD353,Palmolive Pickles,BRD016,CAT008,103.26,Medium,True
+PRD354,KitKat Pickles,BRD037,CAT008,79.35,Family Size,True
+PRD355,KitKat Canned Fish,BRD037,CAT008,55.71,Large,True
+PRD356,Unilever Canned Fish,BRD029,CAT008,75.31,Small,True
+PRD357,Ritz Canned Fish,BRD039,CAT008,61.79,Large,True
+PRD358,Head & Shoulders Pickles,BRD032,CAT008,33.71,Large,True
+PRD359,Palmolive Canned Meat,BRD016,CAT008,65.05,Family Size,True
+PRD360,Head & Shoulders Canned Meat,BRD032,CAT008,97.35,Family Size,True
+PRD361,Century Tuna Yogurt,BRD011,CAT009,79.89,Medium,True
+PRD362,Rebisco Milk,BRD002,CAT009,69.85,Medium,True
+PRD363,Ovaltine Cheese,BRD044,CAT009,171.48,Family Size,True
+PRD364,Oreo Cheese,BRD038,CAT009,93.3,Family Size,True
+PRD365,Johnson & Johnson Yogurt,BRD031,CAT009,133.65,Family Size,True
+PRD366,Sensodyne Cheese,BRD024,CAT009,80.19,Medium,True
+PRD367,Milo Milk,BRD043,CAT009,199.94,Small,True
+PRD368,CDO Milk,BRD013,CAT009,143.36,Medium,True
+PRD369,Century Tuna Milk,BRD011,CAT009,171.82,Medium,True
+PRD370,Enfamil Yogurt,BRD048,CAT009,130.72,Family Size,True
+PRD371,Oral-B Butter,BRD025,CAT009,181.06,Large,True
+PRD372,Lucky Me! Milk,BRD001,CAT009,145.91,Family Size,True
+PRD373,Lay's Milk,BRD035,CAT009,78.44,Medium,True
+PRD374,Enfamil Cheese,BRD048,CAT009,54.29,Small,True
+PRD375,Coca-Cola Yogurt,BRD026,CAT009,32.32,Large,True
+PRD376,Ritz Cheese,BRD039,CAT009,172.34,Small,True
+PRD377,Lucky Me! Cheese,BRD001,CAT009,168.86,Large,True
+PRD378,Jack 'n Jill Butter,BRD006,CAT009,143.85,Small,True
+PRD379,Colgate Milk,BRD021,CAT009,36.16,Family Size,True
+PRD380,CDO Milk,BRD013,CAT009,140.82,Medium,True
+PRD381,Similac Milk,BRD049,CAT009,36.83,Medium,True
+PRD382,Pantene Milk,BRD033,CAT009,185.0,Small,True
+PRD383,Enfamil Milk,BRD048,CAT009,62.25,Large,True
+PRD384,Head & Shoulders Cheese,BRD032,CAT009,61.82,Family Size,True
+PRD385,Ovaltine Milk,BRD044,CAT009,37.53,Small,True
+PRD386,Lucky Me! Milk,BRD001,CAT009,187.51,Large,True
+PRD387,Lay's Yogurt,BRD035,CAT009,103.67,Large,True
+PRD388,Rebisco Butter,BRD002,CAT009,172.51,Large,True
+PRD389,Ovaltine Butter,BRD044,CAT009,79.13,Medium,True
+PRD390,Palmolive Yogurt,BRD016,CAT009,68.27,Small,True
+PRD391,Similac Milk,BRD049,CAT009,181.01,Large,True
+PRD392,Unilever Milk,BRD029,CAT009,118.94,Medium,True
+PRD393,Safeguard Butter,BRD017,CAT009,134.15,Family Size,True
+PRD394,Sensodyne Yogurt,BRD024,CAT009,172.19,Medium,True
+PRD395,Ovaltine Milk,BRD044,CAT009,185.52,Large,True
+PRD396,Lipton Cheese,BRD042,CAT009,67.54,Large,True
+PRD397,Magnolia Milk,BRD010,CAT009,141.54,Family Size,True
+PRD398,Unilever Milk,BRD029,CAT009,154.76,Small,True
+PRD399,Coca-Cola Milk,BRD026,CAT009,39.62,Small,True
+PRD400,Johnson & Johnson Butter,BRD031,CAT009,76.24,Large,True
+PRD401,Oreo Cheese,BRD038,CAT009,129.34,Small,True
+PRD402,Colgate Cheese,BRD021,CAT009,47.48,Medium,True
+PRD403,Joy Cheese,BRD018,CAT009,32.87,Large,True
+PRD404,Milo Milk,BRD043,CAT009,52.28,Medium,True
+PRD405,Oral-B Milk,BRD025,CAT009,163.72,Small,True
+PRD406,Jack 'n Jill Frozen Meat,BRD006,CAT010,59.59,Large,True
+PRD407,Safeguard Ice Cream,BRD017,CAT010,134.58,Small,True
+PRD408,Johnson's Baby Frozen Meat,BRD047,CAT010,215.11,Family Size,True
+PRD409,Ovaltine Frozen Meat,BRD044,CAT010,185.72,Small,True
+PRD410,Ariel Ice Cream,BRD020,CAT010,87.13,Medium,True
+PRD411,Argentina Frozen Meat,BRD012,CAT010,203.87,Family Size,True
+PRD412,Tide Frozen Vegetables,BRD019,CAT010,103.68,Medium,True
+PRD413,Oreo Ice Cream,BRD038,CAT010,122.91,Small,True
+PRD414,Pepsi Ice Cream,BRD027,CAT010,261.21,Small,True
+PRD415,Pepsi Frozen Meat,BRD027,CAT010,294.58,Medium,True
+PRD416,Rebisco Frozen Meat,BRD002,CAT010,278.51,Large,True
+PRD417,Joy Frozen Meat,BRD018,CAT010,122.53,Small,True
+PRD418,Oral-B Frozen Meat,BRD025,CAT010,297.28,Family Size,True
+PRD419,Universal Robina Corporation Frozen Vegetables,BRD008,CAT010,206.11,Small,True
+PRD420,Close-Up Frozen Vegetables,BRD022,CAT010,296.62,Large,True
+PRD421,CDO Ice Cream,BRD013,CAT010,177.67,Medium,True
+PRD422,Argentina Frozen Meat,BRD012,CAT010,57.41,Small,True
+PRD423,KitKat Frozen Meat,BRD037,CAT010,245.63,Small,True
+PRD424,Century Tuna Ice Cream,BRD011,CAT010,49.03,Small,True
+PRD425,CDO Frozen Vegetables,BRD013,CAT010,167.7,Small,True
+PRD426,Enfamil Frozen Vegetables,BRD048,CAT010,143.61,Medium,True
+PRD427,Boy Bawang Ice Cream,BRD004,CAT010,179.91,Large,True
+PRD428,Maggi Frozen Meat,BRD040,CAT010,102.41,Medium,True
+PRD429,Knorr Ice Cream,BRD041,CAT010,199.8,Medium,True
+PRD430,CDO Ice Cream,BRD013,CAT010,189.39,Medium,True
+PRD431,Oishi Ice Cream,BRD005,CAT010,56.64,Medium,True
+PRD432,Milo Ice Cream,BRD043,CAT010,200.98,Small,True
+PRD433,Ligo Frozen Meat,BRD015,CAT010,187.04,Large,True
+PRD434,Ligo Frozen Vegetables,BRD015,CAT010,124.4,Medium,True
+PRD435,Ricoa Ice Cream,BRD003,CAT010,103.35,Medium,True
+PRD436,Tide Frozen Vegetables,BRD019,CAT010,216.57,Family Size,True
+PRD437,Century Tuna Frozen Meat,BRD011,CAT010,272.03,Small,True
+PRD438,Joy Ice Cream,BRD018,CAT010,245.92,Small,True
+PRD439,Magnolia Frozen Vegetables,BRD010,CAT010,236.96,Small,True
+PRD440,Ricoa Frozen Vegetables,BRD003,CAT010,207.83,Family Size,True
+PRD441,Oral-B Ice Cream,BRD025,CAT010,93.87,Large,True
+PRD442,Nestle Frozen Meat,BRD028,CAT010,43.41,Large,True
+PRD443,Pantene Ice Cream,BRD033,CAT010,54.61,Small,True
+PRD444,Pepsi Frozen Vegetables,BRD027,CAT010,206.13,Family Size,True
+PRD445,Johnson & Johnson Ice Cream,BRD031,CAT010,110.63,Medium,True
+PRD446,Close-Up Frozen Vegetables,BRD022,CAT010,147.95,Large,True
+PRD447,Joy Ice Cream,BRD018,CAT010,44.17,Small,True
+PRD448,Coca-Cola Frozen Vegetables,BRD026,CAT010,74.67,Family Size,True
+PRD449,Palmolive Frozen Meat,BRD016,CAT010,198.95,Family Size,True
+PRD450,Palmolive Ice Cream,BRD016,CAT010,59.45,Medium,True
+PRD451,San Miguel Notebook,BRD009,CAT011,94.53,Medium,True
+PRD452,Magnolia Eraser,BRD010,CAT011,144.49,Medium,True
+PRD453,CDO Pencil,BRD013,CAT011,135.92,Medium,True
+PRD454,Ligo Notebook,BRD015,CAT011,92.26,Small,True
+PRD455,Oishi Pencil,BRD005,CAT011,108.74,Family Size,True
+PRD456,Maggi Eraser,BRD040,CAT011,94.09,Family Size,True
+PRD457,Ovaltine Pencil,BRD044,CAT011,52.61,Family Size,True
+PRD458,Lucky Me! Pencil,BRD001,CAT011,126.14,Medium,True
+PRD459,Pepsi Notebook,BRD027,CAT011,15.67,Large,True
+PRD460,Ritz Notebook,BRD039,CAT011,81.94,Family Size,True
+PRD461,Pepsi Eraser,BRD027,CAT011,143.44,Medium,True
+PRD462,CDO Notebook,BRD013,CAT011,46.12,Large,True
+PRD463,Lucky Me! Pencil,BRD001,CAT011,111.48,Family Size,True
+PRD464,Jack 'n Jill Pen,BRD006,CAT011,28.6,Large,True
+PRD465,Oral-B Pencil,BRD025,CAT011,20.06,Large,True
+PRD466,Enfamil Notebook,BRD048,CAT011,121.38,Small,True
+PRD467,Pringles Notebook,BRD036,CAT011,37.51,Small,True
+PRD468,Colgate Notebook,BRD021,CAT011,10.19,Small,True
+PRD469,Knorr Notebook,BRD041,CAT011,125.35,Medium,True
+PRD470,Sensodyne Pen,BRD024,CAT011,39.57,Large,True
+PRD471,KitKat Notebook,BRD037,CAT011,79.6,Small,True
+PRD472,Ariel Pen,BRD020,CAT011,50.32,Medium,True
+PRD473,Sensodyne Notebook,BRD024,CAT011,37.13,Small,True
+PRD474,Oreo Eraser,BRD038,CAT011,87.27,Large,True
+PRD475,Safeguard Pen,BRD017,CAT011,100.1,Family Size,True
+PRD476,Pringles Notebook,BRD036,CAT011,36.64,Family Size,True
+PRD477,Lucky Me! Eraser,BRD001,CAT011,47.86,Large,True
+PRD478,Lipton Eraser,BRD042,CAT011,148.57,Medium,True
+PRD479,Dove Pen,BRD034,CAT011,6.38,Large,True
+PRD480,Pampers Eraser,BRD045,CAT011,108.29,Family Size,True
+PRD481,Sensodyne Eraser,BRD024,CAT011,92.3,Large,True
+PRD482,Pampers Eraser,BRD045,CAT011,123.28,Family Size,True
+PRD483,Huggies Notebook,BRD046,CAT011,71.08,Medium,True
+PRD484,Century Tuna Notebook,BRD011,CAT011,115.5,Family Size,True
+PRD485,Tide Pencil,BRD019,CAT011,111.68,Medium,True
+PRD486,Unilever Eraser,BRD029,CAT011,106.03,Medium,True
+PRD487,Lay's Pencil,BRD035,CAT011,42.28,Large,True
+PRD488,Sensodyne Pen,BRD024,CAT011,132.49,Family Size,True
+PRD489,Ovaltine Eraser,BRD044,CAT011,113.23,Family Size,True
+PRD490,Universal Robina Corporation Eraser,BRD008,CAT011,53.37,Family Size,True
+PRD491,Ariel Eraser,BRD020,CAT011,15.33,Large,True
+PRD492,Head & Shoulders Notebook,BRD032,CAT011,51.44,Family Size,True
+PRD493,CDO Eraser,BRD013,CAT011,18.02,Large,True
+PRD494,Rebisco Eraser,BRD002,CAT011,44.13,Large,True
+PRD495,Joy Pencil,BRD018,CAT011,36.9,Medium,True

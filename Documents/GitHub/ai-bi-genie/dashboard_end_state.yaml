@@ -1,0 +1,8 @@
+agent_integration:
+  cesai:
+    status: active
+    purpose: creative_insights_assistant
+    route: /ask-ces
+    context: product-mix + consumer-insights
+    source: /public/ai/ask_ces_steps.md
+    modal_mount: true 

@@ -1,0 +1,86 @@
+# Shared Claude Code & Pulser configuration for .zshrc
+# Add these lines to your .zshrc file to enable integration between Claude Code and Pulser
+
+# Define shared working directory for both Pulser and Claude Code
+export CLAUDE_PULSER_HOME="$HOME/ClaudePulser"
+
+# Ensure shared directories exist
+if [ ! -d "$CLAUDE_PULSER_HOME" ]; then
+  mkdir -p "$CLAUDE_PULSER_HOME"
+  mkdir -p "$CLAUDE_PULSER_HOME/.context_memory"
+  mkdir -p "$CLAUDE_PULSER_HOME/.config"
+  mkdir -p "$CLAUDE_PULSER_HOME/tasks"
+  mkdir -p "$CLAUDE_PULSER_HOME/projects"
+fi
+
+# Create shared memory file if it doesn't exist
+if [ ! -f "$CLAUDE_PULSER_HOME/.context_memory/session_context.txt" ]; then
+  echo "# Shared context memory between Claude Code and Pulser\n# Created $(date)" > "$CLAUDE_PULSER_HOME/.context_memory/session_context.txt"
+fi
+
+# Claude Code alias (forces shared memory and consistent CWD)
+alias claude="/opt/homebrew/bin/claude --cwd $CLAUDE_PULSER_HOME --memory $CLAUDE_PULSER_HOME/.context_memory/session_context.txt"
+
+# Pulser alias with Claude compatibility
+alias pulser="$HOME/Documents/GitHub/InsightPulseAI_SKR/tools/pulser_claude_wrapper.sh --shared-memory $CLAUDE_PULSER_HOME/.context_memory/session_context.txt --cwd $CLAUDE_PULSER_HOME"
+
+# Claude-style command aliases for Pulser (ensures slash command compatibility)
+alias /help='pulser :help'
+alias /config='pulser :config'
+alias /think='pulser :think'
+alias /think-harder='pulser :think-harder'
+alias /ultrathink='pulser :think-deeper'
+alias /vim='pulser :vim-mode'
+alias /memory='pulser :context'
+alias /history='pulser :history'
+alias /task='pulser :task'
+alias /multimodal='pulser :multimodal'
+alias /voice='pulser :voice'
+
+# Unified environment functions
+function link_claude_pulser() {
+  # Run the integration setup script
+  bash "$HOME/Documents/GitHub/InsightPulseAI_SKR/tools/link_claude_pulser.sh"
+}
+
+function claude_pulser_help() {
+  echo "🧠 Claude Code & Pulser Integration"
+  echo "--------------------------------"
+  echo "claude               - Launch Claude Code CLI (shared context)"
+  echo "pulser               - Launch Pulser CLI (shared context)"
+  echo "link_claude_pulser   - (Re)setup the integrated environment"
+  echo ""
+  echo "Shared Working Directory: $CLAUDE_PULSER_HOME"
+  echo "Shared Memory File: $CLAUDE_PULSER_HOME/.context_memory/session_context.txt"
+  echo ""
+  echo "Both environments share:"
+  echo "• Working directory"
+  echo "• Context memory"
+  echo "• Task definitions"
+  echo "• Command syntax (/ and : prefixes work in both)"
+}
+alias cp_help='claude_pulser_help'
+
+# Python virtual environment for tools
+if [ -d "$CLAUDE_PULSER_HOME/.venv" ]; then
+  # Use existing virtual environment
+  alias cp_activate="source $CLAUDE_PULSER_HOME/.venv/bin/activate"
+else
+  # Setup function to create a new virtual environment
+  function cp_setup_venv() {
+    echo "Setting up Python virtual environment for Claude-Pulser integration..."
+    python3 -m venv "$CLAUDE_PULSER_HOME/.venv"
+    source "$CLAUDE_PULSER_HOME/.venv/bin/activate"
+    pip install --upgrade pip
+    pip install pyaml pydantic psutil rich tqdm openai
+    echo "Virtual environment created and activated!"
+  }
+fi
+
+# Setup on first run if needed
+if [ ! -f "$CLAUDE_PULSER_HOME/.config/setup_complete" ]; then
+  echo "🧠 Claude-Pulser integration needs setup. Run 'link_claude_pulser' to initialize."
+fi
+
+# Make terminal instructions easier to see
+echo -e "\033[1m✅ Claude-Pulser integration loaded. Type 'cp_help' for command list.\033[0m"

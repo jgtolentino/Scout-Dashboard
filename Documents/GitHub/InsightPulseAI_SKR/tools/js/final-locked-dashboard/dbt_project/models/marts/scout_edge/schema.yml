@@ -1,0 +1,328 @@
+version: 2
+
+models:
+  - name: sales_interaction_brands
+    description: >
+      This model represents sales interactions that include brand mentions.
+      It serves as the foundation for choropleth map visualizations in the Scout Edge dashboard.
+    columns:
+      - name: InteractionBrandID
+        description: Unique identifier for each brand interaction record
+        tests:
+          - unique
+          - not_null
+      - name: TransactionID
+        description: Identifier linking to the original transaction
+        tests:
+          - not_null
+      - name: BrandID
+        description: Identifier of the brand mentioned in the transaction
+        tests:
+          - not_null
+      - name: BrandName
+        description: Name of the brand
+        tests:
+          - not_null
+      - name: MentionCount
+        description: Number of times the brand was mentioned in the transaction
+        tests:
+          - not_null
+      - name: StoreID
+        description: Identifier of the store where the transaction occurred
+        tests:
+          - not_null
+      - name: RegionID
+        description: Identifier of the geographic region
+        tests:
+          - not_null
+      - name: Region
+        description: Name of the geographic region
+        tests:
+          - not_null
+      - name: City
+        description: City name
+        tests:
+          - not_null
+      - name: Barangay
+        description: Barangay name
+        tests:
+          - not_null
+      - name: TransactionDate
+        description: Date when the transaction occurred
+        tests:
+          - not_null
+      - name: TransactionAmount
+        description: Total amount of the transaction
+        tests:
+          - not_null
+      - name: AttributedAmount
+        description: Amount attributed to the specific brand
+      - name: IsTopBrand
+        description: Flag indicating if this was the dominant brand in the transaction
+        tests:
+          - not_null
+      - name: MentionSource
+        description: Source of the brand mention (product, transcript, bundle)
+        tests:
+          - not_null
+      - name: CreatedAt
+        description: Timestamp when the record was created
+        tests:
+          - not_null
+      - name: UpdatedAt
+        description: Timestamp when the record was last updated
+        tests:
+          - not_null
+
+  - name: top_brands
+    description: >
+      This model identifies and ranks the top brands by various geographic levels.
+      It drives the brand-focused visualizations in the Scout Edge dashboard.
+    columns:
+      - name: TopBrandID
+        description: Unique identifier for each top brand record
+        tests:
+          - unique
+          - not_null
+      - name: BrandID
+        description: Identifier of the brand
+        tests:
+          - not_null
+      - name: BrandName
+        description: Name of the brand
+        tests:
+          - not_null
+      - name: Region
+        description: Geographic region
+        tests:
+          - not_null
+      - name: City
+        description: City name
+        tests:
+          - not_null
+      - name: Barangay
+        description: Barangay name
+        tests:
+          - not_null
+      - name: TransactionCount
+        description: Number of transactions involving this brand
+        tests:
+          - not_null
+      - name: MentionCount
+        description: Total number of mentions of this brand
+        tests:
+          - not_null
+      - name: TotalSales
+        description: Total sales amount associated with this brand
+        tests:
+          - not_null
+      - name: UniqueCustomers
+        description: Number of unique customers who purchased this brand
+        tests:
+          - not_null
+      - name: BrandRank
+        description: Rank of the brand within its geographic location
+        tests:
+          - not_null
+      - name: RegionalBrandRank
+        description: Rank of the brand within its region
+        tests:
+          - not_null
+      - name: OverallBrandRank
+        description: Overall rank of the brand across all locations
+        tests:
+          - not_null
+      - name: IsTopBrandInLocation
+        description: Flag indicating if this is the top brand in its location
+        tests:
+          - not_null
+      - name: IsTopBrandInRegion
+        description: Flag indicating if this is the top brand in its region
+        tests:
+          - not_null
+      - name: IsOverallTopTen
+        description: Flag indicating if this brand is in the overall top 10
+        tests:
+          - not_null
+      - name: GeneratedAt
+        description: Timestamp when the record was generated
+        tests:
+          - not_null
+
+  - name: top_combos
+    description: >
+      This model identifies common brand combinations purchased together.
+      It supports the combo analysis features of the Scout Edge dashboard.
+    columns:
+      - name: ComboID
+        description: Unique identifier for each brand combination
+        tests:
+          - unique
+          - not_null
+      - name: ComboName
+        description: Name of the brand combination (Brand1 + Brand2 + ...)
+        tests:
+          - not_null
+      - name: Region
+        description: Geographic region
+        tests:
+          - not_null
+      - name: City
+        description: City name
+        tests:
+          - not_null
+      - name: Barangay
+        description: Barangay name
+        tests:
+          - not_null
+      - name: TransactionCount
+        description: Number of transactions containing this brand combination
+        tests:
+          - not_null
+      - name: TotalSales
+        description: Total sales amount for transactions with this combo
+        tests:
+          - not_null
+      - name: AvgTransactionValue
+        description: Average transaction value for this combination
+        tests:
+          - not_null
+      - name: StoreCount
+        description: Number of stores where this combo was purchased
+        tests:
+          - not_null
+      - name: StoreIDList
+        description: Comma-separated list of store IDs where the combo appears
+        tests:
+          - not_null
+      - name: ComboRank
+        description: Rank of the combo within its geographic location
+        tests:
+          - not_null
+      - name: RegionalComboRank
+        description: Rank of the combo within its region
+        tests:
+          - not_null
+      - name: OverallComboRank
+        description: Overall rank of the combo across all locations
+        tests:
+          - not_null
+      - name: IsTopComboInLocation
+        description: Flag indicating if this is the top combo in its location
+        tests:
+          - not_null
+      - name: IsTopComboInRegion
+        description: Flag indicating if this is the top combo in its region
+        tests:
+          - not_null
+      - name: IsOverallTopTen
+        description: Flag indicating if this combo is in the overall top 10
+        tests:
+          - not_null
+      - name: GeneratedAt
+        description: Timestamp when the record was generated
+        tests:
+          - not_null
+
+  - name: store_metrics
+    description: >
+      This model provides comprehensive metrics for each store.
+      It drives the store performance dashboards in Scout Edge.
+    columns:
+      - name: StoreID
+        description: Unique identifier for the store
+        tests:
+          - unique
+          - not_null
+      - name: StoreName
+        description: Name of the store
+        tests:
+          - not_null
+      - name: StoreType
+        description: Type or category of the store
+        tests:
+          - not_null
+      - name: Region
+        description: Geographic region where the store is located
+        tests:
+          - not_null
+      - name: City
+        description: City where the store is located
+        tests:
+          - not_null
+      - name: Barangay
+        description: Barangay where the store is located
+        tests:
+          - not_null
+      - name: Latitude
+        description: Geographic latitude of the store location
+      - name: Longitude
+        description: Geographic longitude of the store location
+      - name: TotalTransactions90d
+        description: Total number of transactions in the last 90 days
+        tests:
+          - not_null
+      - name: TotalCustomers90d
+        description: Total number of unique customers in the last 90 days
+        tests:
+          - not_null
+      - name: TotalSales90d
+        description: Total sales amount in the last 90 days
+        tests:
+          - not_null
+      - name: TotalItems90d
+        description: Total number of items sold in the last 90 days
+        tests:
+          - not_null
+      - name: AvgTransactionValue90d
+        description: Average transaction value in the last 90 days
+      - name: TotalSales30d
+        description: Total sales amount in the last 30 days
+        tests:
+          - not_null
+      - name: TotalTransactions30d
+        description: Total number of transactions in the last 30 days
+        tests:
+          - not_null
+      - name: TotalSales7d
+        description: Total sales amount in the last 7 days
+        tests:
+          - not_null
+      - name: TotalTransactions7d
+        description: Total number of transactions in the last 7 days
+        tests:
+          - not_null
+      - name: UniqueBrands
+        description: Number of unique brands sold at this store
+      - name: TopBrand
+        description: Name of the top-selling brand at this store
+      - name: TopBrandMentions
+        description: Number of mentions of the top brand
+      - name: TopBrandPercentage
+        description: Percentage of transactions featuring the top brand
+      - name: SecondBrand
+        description: Name of the second most popular brand at this store
+      - name: SecondBrandMentions
+        description: Number of mentions of the second most popular brand
+      - name: TopCombo
+        description: Most popular brand combination at this store
+      - name: TopComboTransactions
+        description: Number of transactions featuring the top combo
+      - name: UniqueComboCount
+        description: Number of unique brand combinations sold at this store
+      - name: SalesGrowth30d
+        description: Sales growth rate over the last 30 days compared to previous 30 days
+      - name: TransactionGrowth30d
+        description: Transaction growth rate over last 30 days compared to previous 30 days
+      - name: OverallSalesRank
+        description: Rank of the store by sales among all stores
+        tests:
+          - not_null
+      - name: RegionalSalesRank
+        description: Rank of the store by sales within its region
+        tests:
+          - not_null
+      - name: GeneratedAt
+        description: Timestamp when the record was generated
+        tests:
+          - not_null

@@ -1,0 +1,770 @@
+{
+  "brands": [
+    {
+      "brand_id": "NESTLE",
+      "name": "Nestlé",
+      "description": "Global food and drink processing conglomerate corporation with a significant presence in Philippine households",
+      "logo_url": "https://storage.googleapis.com/tbwa-product-images/brands/nestle_logo.png",
+      "website_url": "https://www.nestle.com.ph",
+      "country_of_origin": "Switzerland",
+      "founded_year": 1866,
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "brand_id": "COCACOLA",
+      "name": "Coca-Cola",
+      "description": "The world's largest beverage company, with popular carbonated drinks in the Philippines",
+      "logo_url": "https://storage.googleapis.com/tbwa-product-images/brands/cocacola_logo.png",
+      "website_url": "https://www.coca-cola.com.ph",
+      "country_of_origin": "United States",
+      "founded_year": 1892,
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "brand_id": "MONDE",
+      "name": "Monde Nissin",
+      "description": "Leading food manufacturer in the Philippines producing biscuits, crackers, and instant noodles",
+      "logo_url": "https://storage.googleapis.com/tbwa-product-images/brands/monde_logo.png",
+        "website_url": "https://www.mondenissin.com",
+        "country_of_origin": "Philippines",
+        "founded_year": 1979,
+        "meta": {
+          "created_at": "2025-05-10T00:00:00Z",
+          "updated_at": "2025-05-10T00:00:00Z",
+          "source_system": "PIM_EXPORT"
+        }
+    },
+    {
+      "brand_id": "URC",
+      "name": "Universal Robina Corporation",
+      "description": "One of the largest branded food product companies in the Philippines",
+      "logo_url": "https://storage.googleapis.com/tbwa-product-images/brands/urc_logo.png",
+      "website_url": "https://www.urc.com.ph",
+      "country_of_origin": "Philippines",
+      "founded_year": 1954,
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "brand_id": "PG",
+      "name": "Procter & Gamble",
+      "description": "American multinational consumer goods corporation with popular personal care and cleaning products",
+      "logo_url": "https://storage.googleapis.com/tbwa-product-images/brands/pg_logo.png",
+      "website_url": "https://www.pg.com.ph",
+      "country_of_origin": "United States",
+      "founded_year": 1837,
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "source_system": "PIM_EXPORT"
+      }
+    }
+  ],
+  "categories": [
+    {
+      "category_id": "BEVERAGES",
+      "name": "Beverages",
+      "description": "Drinks and liquid refreshments",
+      "level": 0,
+      "path": [],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z"
+      }
+    },
+    {
+      "category_id": "COFFEE",
+      "name": "Coffee",
+      "description": "Coffee products including instant, ground, and 3-in-1 variants",
+      "parent_category_id": "BEVERAGES",
+      "level": 1,
+      "path": ["BEVERAGES"],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z"
+      }
+    },
+    {
+      "category_id": "SOFTDRINKS",
+      "name": "Carbonated Drinks",
+      "description": "Carbonated beverages and sodas",
+      "parent_category_id": "BEVERAGES",
+      "level": 1,
+      "path": ["BEVERAGES"],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z"
+      }
+    },
+    {
+      "category_id": "RTD_TEA",
+      "name": "Ready-to-Drink Tea",
+      "description": "Bottled or canned tea beverages ready for consumption",
+      "parent_category_id": "BEVERAGES",
+      "level": 1,
+      "path": ["BEVERAGES"],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z"
+      }
+    },
+    {
+      "category_id": "SNACKS",
+      "name": "Snacks",
+      "description": "Packaged foods eaten between meals",
+      "level": 0,
+      "path": [],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z"
+      }
+    },
+    {
+      "category_id": "CHIPS",
+      "name": "Chips",
+      "description": "Savory, crispy snack foods made from potatoes or corn",
+      "parent_category_id": "SNACKS",
+      "level": 1,
+      "path": ["SNACKS"],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z"
+      }
+    },
+    {
+      "category_id": "BISCUITS",
+      "name": "Biscuits",
+      "description": "Sweet or savory cookies and crackers",
+      "parent_category_id": "SNACKS",
+      "level": 1,
+      "path": ["SNACKS"],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z"
+      }
+    },
+    {
+      "category_id": "PERSONAL_CARE",
+      "name": "Personal Care",
+      "description": "Hygiene and grooming products",
+      "level": 0,
+      "path": [],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z"
+      }
+    },
+    {
+      "category_id": "SHAMPOO",
+      "name": "Shampoo",
+      "description": "Hair cleaning products",
+      "parent_category_id": "PERSONAL_CARE",
+      "level": 1,
+      "path": ["PERSONAL_CARE"],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z"
+      }
+    }
+  ],
+  "products": [
+    {
+      "product_id": "NES-3IN1-CLASSIC",
+      "name": "Nescafé Classic 3-in-1",
+      "description": "Instant coffee mix with creamer and sugar",
+      "brand_id": "NESTLE",
+      "category_id": "BEVERAGES",
+      "subcategory_id": "COFFEE",
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/products/nescafe_3in1_classic.png",
+          "alt_text": "Nescafé Classic 3-in-1 Coffee Mix",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "product_id": "NES-MILO-3IN1",
+      "name": "Milo 3-in-1",
+      "description": "Chocolate malt drink with milk and sugar",
+      "brand_id": "NESTLE",
+      "category_id": "BEVERAGES",
+      "subcategory_id": "CHOCOLATE_DRINKS",
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/products/milo_3in1.png",
+          "alt_text": "Milo 3-in-1 Chocolate Malt Drink",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "product_id": "COKE-CAN",
+      "name": "Coca-Cola",
+      "description": "Carbonated soft drink",
+      "brand_id": "COCACOLA",
+      "category_id": "BEVERAGES",
+      "subcategory_id": "SOFTDRINKS",
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/products/coca_cola_can.png",
+          "alt_text": "Coca-Cola Can",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "product_id": "SPRITE-CAN",
+      "name": "Sprite",
+      "description": "Lemon-lime flavored soft drink",
+      "brand_id": "COCACOLA",
+      "category_id": "BEVERAGES",
+      "subcategory_id": "SOFTDRINKS",
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/products/sprite_can.png",
+          "alt_text": "Sprite Can",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "product_id": "C2-GREEN-TEA",
+      "name": "C2 Green Tea",
+      "description": "Ready-to-drink green tea",
+      "brand_id": "URC",
+      "category_id": "BEVERAGES",
+      "subcategory_id": "RTD_TEA",
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/products/c2_green_tea.png",
+          "alt_text": "C2 Green Tea Bottle",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "product_id": "CHIPPY-BBQ",
+      "name": "Chippy Barbecue",
+      "description": "Corn chips with barbecue flavor",
+      "brand_id": "URC",
+      "category_id": "SNACKS",
+      "subcategory_id": "CHIPS",
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/products/chippy_bbq.png",
+          "alt_text": "Chippy Barbecue Corn Chips",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "product_id": "MONDE-CREAM-O",
+      "name": "Cream-O",
+      "description": "Chocolate sandwich cookies with vanilla cream filling",
+      "brand_id": "MONDE",
+      "category_id": "SNACKS",
+      "subcategory_id": "BISCUITS",
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/products/cream_o.png",
+          "alt_text": "Cream-O Chocolate Sandwich Cookies",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "product_id": "MONDE-SKYFLAKES",
+      "name": "Skyflakes",
+      "description": "Plain crackers",
+      "brand_id": "MONDE",
+      "category_id": "SNACKS",
+      "subcategory_id": "BISCUITS",
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/products/skyflakes.png",
+          "alt_text": "Skyflakes Crackers",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT"
+      }
+    },
+    {
+      "product_id": "PG-SAFEGUARD",
+      "name": "Safeguard",
+      "description": "Antibacterial soap",
+      "brand_id": "PG",
+      "category_id": "PERSONAL_CARE",
+      "subcategory_id": "SOAP",
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/products/safeguard.png",
+          "alt_text": "Safeguard Antibacterial Soap",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT"
+      }
+    }
+  ],
+  "skus": [
+    {
+      "sku_id": "NES3IN1-001",
+      "product_id": "NES-3IN1-CLASSIC",
+      "barcode": "4800361354136",
+      "upc": "4800361354136",
+      "name": "Nescafé Classic 3-in-1 Original",
+      "variant": "Sachet",
+      "size": "20g",
+      "weight": {
+        "value": 20,
+        "unit": "g"
+      },
+      "price": {
+        "base": 8.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "High",
+        "quantity": 500,
+        "reorder_point": 100
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/nescafe_3in1_sachet.png",
+          "alt_text": "Nescafé Classic 3-in-1 Sachet",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "NES3IN1-002",
+      "product_id": "NES-3IN1-CLASSIC",
+      "barcode": "4800361354159",
+      "upc": "4800361354159",
+      "name": "Nescafé Classic 3-in-1 Original",
+      "variant": "Box (10 sachets)",
+      "size": "200g",
+      "weight": {
+        "value": 200,
+        "unit": "g"
+      },
+      "price": {
+        "base": 75.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "Medium",
+        "quantity": 150,
+        "reorder_point": 30
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/nescafe_3in1_box.png",
+          "alt_text": "Nescafé Classic 3-in-1 Box with 10 sachets",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "MILO3IN1-001",
+      "product_id": "NES-MILO-3IN1",
+      "barcode": "4800361376398",
+      "upc": "4800361376398",
+      "name": "Milo 3-in-1",
+      "variant": "Sachet",
+      "size": "22g",
+      "weight": {
+        "value": 22,
+        "unit": "g"
+      },
+      "price": {
+        "base": 10.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "High",
+        "quantity": 450,
+        "reorder_point": 90
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/milo_3in1_sachet.png",
+          "alt_text": "Milo 3-in-1 Sachet",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "MILO3IN1-002",
+      "product_id": "NES-MILO-3IN1",
+      "barcode": "4800361376404",
+      "upc": "4800361376404",
+      "name": "Milo 3-in-1",
+      "variant": "Box (8 sachets)",
+      "size": "176g",
+      "weight": {
+        "value": 176,
+        "unit": "g"
+      },
+      "price": {
+        "base": 72.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "Medium",
+        "quantity": 120,
+        "reorder_point": 25
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/milo_3in1_box.png",
+          "alt_text": "Milo 3-in-1 Box with 8 sachets",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "KOCCA330-001",
+      "product_id": "COKE-CAN",
+      "barcode": "5449000000996",
+      "upc": "5449000000996",
+      "name": "Coca-Cola",
+      "variant": "Can",
+      "size": "330ml",
+      "weight": {
+        "value": 350,
+        "unit": "g"
+      },
+      "price": {
+        "base": 35.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "High",
+        "quantity": 300,
+        "reorder_point": 60
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/coca_cola_can_330ml.png",
+          "alt_text": "Coca-Cola 330ml Can",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "SPRITE330-001",
+      "product_id": "SPRITE-CAN",
+      "barcode": "5449000027849",
+      "upc": "5449000027849",
+      "name": "Sprite",
+      "variant": "Can",
+      "size": "330ml",
+      "weight": {
+        "value": 350,
+        "unit": "g"
+      },
+      "price": {
+        "base": 35.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "High",
+        "quantity": 280,
+        "reorder_point": 60
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/sprite_can_330ml.png",
+          "alt_text": "Sprite 330ml Can",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "C2GT500-001",
+      "product_id": "C2-GREEN-TEA",
+      "barcode": "4800016055509",
+      "upc": "4800016055509",
+      "name": "C2 Green Tea",
+      "variant": "Apple",
+      "size": "500ml",
+      "weight": {
+        "value": 530,
+        "unit": "g"
+      },
+      "price": {
+        "base": 25.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "High",
+        "quantity": 250,
+        "reorder_point": 50
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/c2_green_tea_apple_500ml.png",
+          "alt_text": "C2 Green Tea Apple 500ml Bottle",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "CHIPPY25G-001",
+      "product_id": "CHIPPY-BBQ",
+      "barcode": "4800016250123",
+      "upc": "4800016250123",
+      "name": "Chippy Barbecue",
+      "variant": "Regular",
+      "size": "25g",
+      "weight": {
+        "value": 25,
+        "unit": "g"
+      },
+      "price": {
+        "base": 9.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "High",
+        "quantity": 400,
+        "reorder_point": 80
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/chippy_bbq_25g.png",
+          "alt_text": "Chippy Barbecue 25g",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "CREAMO2PK-001",
+      "product_id": "MONDE-CREAM-O",
+      "barcode": "4800092115638",
+      "upc": "4800092115638",
+      "name": "Cream-O",
+      "variant": "2-pack",
+      "size": "30g",
+      "weight": {
+        "value": 30,
+        "unit": "g"
+      },
+      "price": {
+        "base": 10.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "High",
+        "quantity": 350,
+        "reorder_point": 70
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/cream_o_2pack.png",
+          "alt_text": "Cream-O 2-pack",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "SKYFLAKES-001",
+      "product_id": "MONDE-SKYFLAKES",
+      "barcode": "4800092100122",
+      "upc": "4800092100122",
+      "name": "Skyflakes",
+      "variant": "Regular (3 pcs)",
+      "size": "30g",
+      "weight": {
+        "value": 30,
+        "unit": "g"
+      },
+      "price": {
+        "base": 8.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "High",
+        "quantity": 380,
+        "reorder_point": 75
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/skyflakes_3pcs.png",
+          "alt_text": "Skyflakes 3 pieces",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    },
+    {
+      "sku_id": "SAFEGUARD-001",
+      "product_id": "PG-SAFEGUARD",
+      "barcode": "4902430171212",
+      "upc": "4902430171212",
+      "name": "Safeguard",
+      "variant": "Pure White",
+      "size": "90g",
+      "weight": {
+        "value": 90,
+        "unit": "g"
+      },
+      "price": {
+        "base": 25.00,
+        "currency": "PHP"
+      },
+      "inventory": {
+        "stock_level": "Medium",
+        "quantity": 100,
+        "reorder_point": 25
+      },
+      "images": [
+        {
+          "url": "https://storage.googleapis.com/tbwa-product-images/skus/safeguard_pure_white_90g.png",
+          "alt_text": "Safeguard Pure White 90g",
+          "is_primary": true
+        }
+      ],
+      "meta": {
+        "created_at": "2025-05-10T00:00:00Z",
+        "updated_at": "2025-05-10T00:00:00Z",
+        "status": "active",
+        "source_system": "PIM_EXPORT",
+        "last_sync_date": "2025-05-19T00:00:00Z"
+      }
+    }
+  ]
+}

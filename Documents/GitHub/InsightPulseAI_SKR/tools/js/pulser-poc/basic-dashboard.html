@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Brand Dashboard - Standalone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .status {
+            text-align: center;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .card h3 {
+            margin: 0 0 10px 0;
+            color: #666;
+        }
+        .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .chart {
+            margin: 20px 0;
+            height: 200px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .bar {
+            position: absolute;
+            bottom: 0;
+            background: #4CAF50;
+            transition: all 0.3s;
+        }
+        .bar:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Basic Brand Dashboard</h1>
+        <div class="status">✅ Standalone Mode - No Server Required</div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>Total Brands</h3>
+                <div class="value" id="totalBrands">0</div>
+            </div>
+            <div class="card">
+                <h3>Top Brand</h3>
+                <div class="value" id="topBrand">-</div>
+            </div>
+            <div class="card">
+                <h3>Total Revenue</h3>
+                <div class="value" id="totalRevenue">₱0</div>
+            </div>
+            <div class="card">
+                <h3>Categories</h3>
+                <div class="value" id="categories">0</div>
+            </div>
+        </div>
+        
+        <h2>Top 10 Brands Performance</h2>
+        <div class="chart" id="chart"></div>
+        
+        <h2>Brand Leaderboard</h2>
+        <table id="leaderboard">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Brand</th>
+                    <th>Category</th>
+                    <th>Performance</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Sample data - first 20 Philippine brands
+        const brands = [
+            { name: "San Miguel Beer", category: "Beverages", performance: 95 },
+            { name: "Jollibee", category: "Food Service", performance: 92 },
+            { name: "Lucky Me!", category: "Food", performance: 90 },
+            { name: "Globe Telecom", category: "Telecom", performance: 88 },
+            { name: "Smart Communications", category: "Telecom", performance: 87 },
+            { name: "Goldilocks", category: "Food Service", performance: 85 },
+            { name: "Bench", category: "Apparel", performance: 83 },
+            { name: "Penshoppe", category: "Apparel", performance: 82 },
+            { name: "Chowking", category: "Food Service", performance: 80 },
+            { name: "C2 Cool & Clean", category: "Beverages", performance: 78 },
+            { name: "Max's Restaurant", category: "Food Service", performance: 77 },
+            { name: "Mercury Drug", category: "Retail", performance: 75 },
+            { name: "SM Supermalls", category: "Retail", performance: 73 },
+            { name: "Mang Inasal", category: "Food Service", performance: 72 },
+            { name: "Red Ribbon", category: "Food Service", performance: 70 },
+            { name: "Greenwich Pizza", category: "Food Service", performance: 68 },
+            { name: "Century Tuna", category: "Food", performance: 67 },
+            { name: "Magnolia Ice Cream", category: "Food", performance: 65 },
+            { name: "Kopiko", category: "Beverages", performance: 63 },
+            { name: "Jack 'n Jill", category: "Food", performance: 60 }
+        ];
+
+        // Calculate statistics
+        function calculateStats() {
+            const totalBrands = brands.length;
+            const topBrand = brands.sort((a, b) => b.performance - a.performance)[0];
+            const totalRevenue = brands.reduce((sum, brand) => sum + (brand.performance * 1000000), 0);
+            const categories = [...new Set(brands.map(b => b.category))].length;
+
+            // Update UI
+            document.getElementById('totalBrands').textContent = totalBrands;
+            document.getElementById('topBrand').textContent = topBrand.name;
+            document.getElementById('totalRevenue').textContent = '₱' + (totalRevenue / 1000000).toFixed(0) + 'M';
+            document.getElementById('categories').textContent = categories;
+        }
+
+        // Create simple bar chart
+        function createChart() {
+            const chartEl = document.getElementById('chart');
+            const top10 = brands.sort((a, b) => b.performance - a.performance).slice(0, 10);
+            const maxPerf = Math.max(...top10.map(b => b.performance));
+            
+            top10.forEach((brand, index) => {
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.left = (index * 10) + '%';
+                bar.style.width = '9%';
+                bar.style.height = (brand.performance / maxPerf * 100) + '%';
+                bar.style.background = `hsl(${120 * brand.performance / 100}, 70%, 50%)`;
+                bar.title = `${brand.name}: ${brand.performance}`;
+                chartEl.appendChild(bar);
+            });
+        }
+
+        // Create leaderboard
+        function createLeaderboard() {
+            const tbody = document.getElementById('tableBody');
+            const sortedBrands = brands.sort((a, b) => b.performance - a.performance);
+            
+            sortedBrands.forEach((brand, index) => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><strong>${brand.name}</strong></td>
+                    <td>${brand.category}</td>
+                    <td>
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 100px; height: 20px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin-right: 10px;">
+                                <div style="width: ${brand.performance}%; height: 100%; background: #4CAF50;"></div>
+                            </div>
+                            ${brand.performance}%
+                        </div>
+                    </td>
+                `;
+            });
+        }
+
+        // Initialize dashboard
+        window.onload = function() {
+            calculateStats();
+            createChart();
+            createLeaderboard();
+        };
+    </script>
+</body>
+</html>

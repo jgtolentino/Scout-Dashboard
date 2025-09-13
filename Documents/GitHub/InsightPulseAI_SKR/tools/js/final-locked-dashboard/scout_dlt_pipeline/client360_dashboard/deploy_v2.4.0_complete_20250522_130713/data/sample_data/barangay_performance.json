@@ -1,0 +1,532 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2025-05-21T00:00:00Z",
+    "source": "fmcg_store_locations",
+    "description": "Barangay-level FMCG performance metrics",
+    "simulated": true
+  },
+  "data": [
+    {
+      "barangay_id": "NCR-MKT-POB",
+      "barangay": "Poblacion",
+      "city_municipality": "Makati City",
+      "province": "Metro Manila",
+      "region": "NCR",
+      "store_count": 134,
+      "store_types": {
+        "Sari-Sari Store": 98,
+        "Mini Mart": 21,
+        "Convenience Store": 12,
+        "Specialty Store": 3
+      },
+      "sales": {
+        "total": 8756900,
+        "average_per_store": 65350,
+        "growth_rate": 12.7
+      },
+      "product_categories": {
+        "Beverage": 37.8,
+        "Snack": 28.6,
+        "Dairy": 15.3,
+        "Household": 10.5,
+        "Personal Care": 7.8
+      },
+      "top_brands": [
+        {"brand": "Del Monte", "share": 24.5},
+        {"brand": "Oishi", "share": 21.7},
+        {"brand": "Alaska", "share": 16.8},
+        {"brand": "Peerless", "share": 12.4},
+        {"brand": "Smart C+", "share": 8.3}
+      ],
+      "demographics": {
+        "population": 65430,
+        "household_count": 15670,
+        "avg_household_size": 4.2,
+        "avg_household_income": "Middle to Upper",
+        "urbanization": "Highly Urban"
+      }
+    },
+    {
+      "barangay_id": "CVIS-CEB-LHG",
+      "barangay": "Lahug",
+      "city_municipality": "Cebu City",
+      "province": "Cebu",
+      "region": "Central Visayas",
+      "store_count": 156,
+      "store_types": {
+        "Sari-Sari Store": 127,
+        "Mini Mart": 18,
+        "Convenience Store": 8,
+        "Specialty Store": 3
+      },
+      "sales": {
+        "total": 6789200,
+        "average_per_store": 43520,
+        "growth_rate": 14.2
+      },
+      "product_categories": {
+        "Snack": 34.7,
+        "Beverage": 32.5,
+        "Dairy": 16.8,
+        "Household": 9.2,
+        "Personal Care": 6.8
+      },
+      "top_brands": [
+        {"brand": "Oishi", "share": 26.8},
+        {"brand": "Del Monte", "share": 23.5},
+        {"brand": "Alaska", "share": 18.3},
+        {"brand": "Smart C+", "share": 12.7},
+        {"brand": "Peerless", "share": 9.8}
+      ],
+      "demographics": {
+        "population": 87650,
+        "household_count": 21440,
+        "avg_household_size": 4.1,
+        "avg_household_income": "Middle",
+        "urbanization": "Urban"
+      }
+    },
+    {
+      "barangay_id": "DAV-DVO-POB",
+      "barangay": "Poblacion",
+      "city_municipality": "Davao City",
+      "province": "Davao del Sur",
+      "region": "Davao",
+      "store_count": 178,
+      "store_types": {
+        "Sari-Sari Store": 152,
+        "Mini Mart": 16,
+        "Convenience Store": 7,
+        "Specialty Store": 3
+      },
+      "sales": {
+        "total": 7123400,
+        "average_per_store": 40020,
+        "growth_rate": 13.7
+      },
+      "product_categories": {
+        "Snack": 31.5,
+        "Beverage": 29.8,
+        "Household": 18.7,
+        "Dairy": 14.5,
+        "Personal Care": 5.5
+      },
+      "top_brands": [
+        {"brand": "Oishi", "share": 24.5},
+        {"brand": "Peerless", "share": 22.7},
+        {"brand": "Del Monte", "share": 19.8},
+        {"brand": "Alaska", "share": 17.6},
+        {"brand": "Champion", "share": 10.2}
+      ],
+      "demographics": {
+        "population": 96540,
+        "household_count": 23870,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Middle",
+        "urbanization": "Urban"
+      }
+    },
+    {
+      "barangay_id": "CAR-BGU-BRN",
+      "barangay": "Burnham",
+      "city_municipality": "Baguio City",
+      "province": "Benguet",
+      "region": "CAR",
+      "store_count": 87,
+      "store_types": {
+        "Sari-Sari Store": 67,
+        "Mini Mart": 11,
+        "Convenience Store": 6,
+        "Specialty Store": 3
+      },
+      "sales": {
+        "total": 3876000,
+        "average_per_store": 44550,
+        "growth_rate": 10.2
+      },
+      "product_categories": {
+        "Dairy": 27.8,
+        "Beverage": 26.5,
+        "Snack": 24.8,
+        "Household": 12.5,
+        "Personal Care": 8.4
+      },
+      "top_brands": [
+        {"brand": "Alaska", "share": 25.7},
+        {"brand": "Del Monte", "share": 23.8},
+        {"brand": "Oishi", "share": 18.5},
+        {"brand": "Champion", "share": 14.7},
+        {"brand": "Peerless", "share": 11.8}
+      ],
+      "demographics": {
+        "population": 34560,
+        "household_count": 8760,
+        "avg_household_size": 3.9,
+        "avg_household_income": "Middle to Upper",
+        "urbanization": "Urban"
+      }
+    },
+    {
+      "barangay_id": "WVIS-ILO-CTP",
+      "barangay": "City Proper",
+      "city_municipality": "Iloilo City",
+      "province": "Iloilo",
+      "region": "Western Visayas",
+      "store_count": 143,
+      "store_types": {
+        "Sari-Sari Store": 112,
+        "Mini Mart": 19,
+        "Convenience Store": 8,
+        "Specialty Store": 4
+      },
+      "sales": {
+        "total": 5612000,
+        "average_per_store": 39240,
+        "growth_rate": 11.7
+      },
+      "product_categories": {
+        "Snack": 32.7,
+        "Beverage": 28.9,
+        "Dairy": 17.6,
+        "Household": 13.5,
+        "Personal Care": 7.3
+      },
+      "top_brands": [
+        {"brand": "Oishi", "share": 25.8},
+        {"brand": "Alaska", "share": 21.7},
+        {"brand": "Del Monte", "share": 19.8},
+        {"brand": "Champion", "share": 16.7},
+        {"brand": "Smart C+", "share": 8.7}
+      ],
+      "demographics": {
+        "population": 76540,
+        "household_count": 18970,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Middle",
+        "urbanization": "Urban"
+      }
+    },
+    {
+      "barangay_id": "ILO-LAO-SNL",
+      "barangay": "San Nicolas",
+      "city_municipality": "Laoag City",
+      "province": "Ilocos Norte",
+      "region": "Ilocos",
+      "store_count": 98,
+      "store_types": {
+        "Sari-Sari Store": 82,
+        "Mini Mart": 10,
+        "Convenience Store": 4,
+        "Specialty Store": 2
+      },
+      "sales": {
+        "total": 3123000,
+        "average_per_store": 31870,
+        "growth_rate": 9.8
+      },
+      "product_categories": {
+        "Beverage": 34.5,
+        "Snack": 28.7,
+        "Dairy": 18.9,
+        "Household": 10.8,
+        "Personal Care": 7.1
+      },
+      "top_brands": [
+        {"brand": "Del Monte", "share": 26.7},
+        {"brand": "Oishi", "share": 23.5},
+        {"brand": "Alaska", "share": 19.8},
+        {"brand": "Fit 'n Right", "share": 12.3},
+        {"brand": "Champion", "share": 9.8}
+      ],
+      "demographics": {
+        "population": 45670,
+        "household_count": 11450,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Middle",
+        "urbanization": "Urban"
+      }
+    },
+    {
+      "barangay_id": "EVIS-LEY-ABU",
+      "barangay": "Abucay",
+      "city_municipality": "Tacloban City",
+      "province": "Leyte",
+      "region": "Eastern Visayas",
+      "store_count": 123,
+      "store_types": {
+        "Sari-Sari Store": 105,
+        "Mini Mart": 12,
+        "Convenience Store": 4,
+        "Specialty Store": 2
+      },
+      "sales": {
+        "total": 4567000,
+        "average_per_store": 37130,
+        "growth_rate": 12.5
+      },
+      "product_categories": {
+        "Beverage": 31.8,
+        "Snack": 29.7,
+        "Dairy": 19.5,
+        "Household": 12.3,
+        "Personal Care": 6.7
+      },
+      "top_brands": [
+        {"brand": "Del Monte", "share": 25.8},
+        {"brand": "Alaska", "share": 22.7},
+        {"brand": "Oishi", "share": 19.5},
+        {"brand": "Peerless", "share": 17.8},
+        {"brand": "Champion", "share": 9.7}
+      ],
+      "demographics": {
+        "population": 67890,
+        "household_count": 16780,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Middle to Lower",
+        "urbanization": "Urban"
+      }
+    },
+    {
+      "barangay_id": "BIC-CMS-CNP",
+      "barangay": "Concepcion Pequeña",
+      "city_municipality": "Naga City",
+      "province": "Camarines Sur",
+      "region": "Bicol",
+      "store_count": 103,
+      "store_types": {
+        "Sari-Sari Store": 89,
+        "Mini Mart": 8,
+        "Convenience Store": 4,
+        "Specialty Store": 2
+      },
+      "sales": {
+        "total": 3456000,
+        "average_per_store": 33550,
+        "growth_rate": 10.8
+      },
+      "product_categories": {
+        "Snack": 33.5,
+        "Beverage": 30.8,
+        "Dairy": 17.9,
+        "Household": 10.5,
+        "Personal Care": 7.3
+      },
+      "top_brands": [
+        {"brand": "Oishi", "share": 27.8},
+        {"brand": "Smart C+", "share": 19.7},
+        {"brand": "Del Monte", "share": 18.9},
+        {"brand": "Alaska", "share": 16.5},
+        {"brand": "Fit 'n Right", "share": 9.8}
+      ],
+      "demographics": {
+        "population": 54320,
+        "household_count": 13580,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Middle to Lower",
+        "urbanization": "Urban"
+      }
+    },
+    {
+      "barangay_id": "CALB-BTG-KMI",
+      "barangay": "Kumintang Ilaya",
+      "city_municipality": "Batangas City",
+      "province": "Batangas",
+      "region": "CALABARZON",
+      "store_count": 134,
+      "store_types": {
+        "Sari-Sari Store": 113,
+        "Mini Mart": 14,
+        "Convenience Store": 5,
+        "Specialty Store": 2
+      },
+      "sales": {
+        "total": 5432000,
+        "average_per_store": 40540,
+        "growth_rate": 13.2
+      },
+      "product_categories": {
+        "Beverage": 32.7,
+        "Dairy": 24.8,
+        "Snack": 22.5,
+        "Household": 13.7,
+        "Personal Care": 6.3
+      },
+      "top_brands": [
+        {"brand": "Del Monte", "share": 24.7},
+        {"brand": "Alaska", "share": 23.8},
+        {"brand": "Peerless", "share": 19.5},
+        {"brand": "Oishi", "share": 17.8},
+        {"brand": "Champion", "share": 9.8}
+      ],
+      "demographics": {
+        "population": 76540,
+        "household_count": 18970,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Middle",
+        "urbanization": "Urban"
+      }
+    },
+    {
+      "barangay_id": "NCR-MRK-BRK",
+      "barangay": "Barangka",
+      "city_municipality": "Marikina City",
+      "province": "Metro Manila",
+      "region": "NCR",
+      "store_count": 112,
+      "store_types": {
+        "Sari-Sari Store": 87,
+        "Mini Mart": 15,
+        "Convenience Store": 8,
+        "Specialty Store": 2
+      },
+      "sales": {
+        "total": 5123000,
+        "average_per_store": 45740,
+        "growth_rate": 11.7
+      },
+      "product_categories": {
+        "Snack": 31.5,
+        "Beverage": 28.7,
+        "Household": 18.9,
+        "Dairy": 14.8,
+        "Personal Care": 6.1
+      },
+      "top_brands": [
+        {"brand": "Oishi", "share": 25.7},
+        {"brand": "Champion", "share": 21.8},
+        {"brand": "Del Monte", "share": 18.9},
+        {"brand": "Fit 'n Right", "share": 14.7},
+        {"brand": "Alaska", "share": 12.5}
+      ],
+      "demographics": {
+        "population": 67890,
+        "household_count": 16970,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Middle",
+        "urbanization": "Urban"
+      }
+    },
+    {
+      "barangay_id": "NCR-MNL-MLT",
+      "barangay": "Malate",
+      "city_municipality": "Manila City",
+      "province": "Metro Manila",
+      "region": "NCR",
+      "store_count": 145,
+      "store_types": {
+        "Sari-Sari Store": 98,
+        "Mini Mart": 28,
+        "Convenience Store": 15,
+        "Specialty Store": 4
+      },
+      "sales": {
+        "total": 9786000,
+        "average_per_store": 67490,
+        "growth_rate": 14.7
+      },
+      "product_categories": {
+        "Beverage": 34.7,
+        "Snack": 30.5,
+        "Dairy": 17.8,
+        "Household": 10.3,
+        "Personal Care": 6.7
+      },
+      "top_brands": [
+        {"brand": "Del Monte", "share": 25.7},
+        {"brand": "Oishi", "share": 23.8},
+        {"brand": "Smart C+", "share": 17.9},
+        {"brand": "Alaska", "share": 15.8},
+        {"brand": "Peerless", "share": 12.5}
+      ],
+      "demographics": {
+        "population": 98760,
+        "household_count": 24690,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Middle",
+        "urbanization": "Highly Urban"
+      }
+    },
+    {
+      "barangay_id": "NCR-PSG-KPT",
+      "barangay": "Kapitolyo",
+      "city_municipality": "Pasig City",
+      "province": "Metro Manila",
+      "region": "NCR",
+      "store_count": 98,
+      "store_types": {
+        "Sari-Sari Store": 65,
+        "Mini Mart": 22,
+        "Convenience Store": 9,
+        "Specialty Store": 2
+      },
+      "sales": {
+        "total": 6789000,
+        "average_per_store": 69280,
+        "growth_rate": 15.7
+      },
+      "product_categories": {
+        "Beverage": 33.7,
+        "Snack": 28.9,
+        "Dairy": 19.7,
+        "Household": 11.5,
+        "Personal Care": 6.2
+      },
+      "top_brands": [
+        {"brand": "Del Monte", "share": 27.8},
+        {"brand": "Alaska", "share": 21.5},
+        {"brand": "Oishi", "share": 19.7},
+        {"brand": "Peerless", "share": 15.8},
+        {"brand": "Smart C+", "share": 10.7}
+      ],
+      "demographics": {
+        "population": 54320,
+        "household_count": 13580,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Upper Middle",
+        "urbanization": "Highly Urban"
+      }
+    },
+    {
+      "barangay_id": "NCR-MND-WWK",
+      "barangay": "Wack Wack",
+      "city_municipality": "Mandaluyong City",
+      "province": "Metro Manila",
+      "region": "NCR",
+      "store_count": 68,
+      "store_types": {
+        "Sari-Sari Store": 45,
+        "Mini Mart": 14,
+        "Supermarket": 2,
+        "Convenience Store": 5,
+        "Specialty Store": 2
+      },
+      "sales": {
+        "total": 8765000,
+        "average_per_store": 128900,
+        "growth_rate": 9.7
+      },
+      "product_categories": {
+        "Beverage": 32.8,
+        "Dairy": 24.7,
+        "Snack": 21.5,
+        "Household": 14.8,
+        "Personal Care": 6.2
+      },
+      "top_brands": [
+        {"brand": "Del Monte", "share": 26.7},
+        {"brand": "Alaska", "share": 24.8},
+        {"brand": "Peerless", "share": 18.7},
+        {"brand": "Oishi", "share": 16.9},
+        {"brand": "Champion", "share": 9.8}
+      ],
+      "demographics": {
+        "population": 42360,
+        "household_count": 10590,
+        "avg_household_size": 4.0,
+        "avg_household_income": "Upper Middle to High",
+        "urbanization": "Highly Urban"
+      }
+    }
+  ]
+}

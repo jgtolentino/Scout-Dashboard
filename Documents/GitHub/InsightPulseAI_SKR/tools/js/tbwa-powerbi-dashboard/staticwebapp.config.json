@@ -1,0 +1,35 @@
+{
+  "routes": [
+    {
+      "route": "/advisor",
+      "rewrite": "/advisor.html"
+    },
+    {
+      "route": "/reports",
+      "rewrite": "/reports.html"
+    },
+    {
+      "route": "/analytics",
+      "rewrite": "/analytics.html"
+    },
+    {
+      "route": "/settings",
+      "rewrite": "/settings.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*", "/css/*", "/js/*", "/*.svg", "/*.ico"]
+  },
+  "mimeTypes": {
+    ".json": "text/json",
+    ".css": "text/css",
+    ".js": "text/javascript"
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
+    }
+  }
+}

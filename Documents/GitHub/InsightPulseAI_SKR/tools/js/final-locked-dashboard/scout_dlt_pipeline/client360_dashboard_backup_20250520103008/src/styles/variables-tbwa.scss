@@ -1,0 +1,55 @@
+// src/styles/variables-tbwa.scss
+:root {
+  /* TBWA Color System - Core Brand Colors */
+  --color-primary: #002B80; // TBWA navy
+  --color-primary-dark: #001e5c; // TBWA navy dark
+  --color-secondary: #00C3EC; // TBWA cyan
+  --color-secondary-dark: #00a3c6; // TBWA cyan dark
+  --color-success: #00A551; // TBWA green
+  --color-warning: #ffa500; // Warning orange
+  --color-danger: #E60028; // TBWA red
+  --color-info: #17a2b8; // Info blue
+  --color-light: #f8f9fa; // Light gray
+  --color-dark: #4B4F56; // TBWA grey
+  
+  /* TBWA Color System - RGB Values for opacity/alpha usage */
+  --color-primary-rgb: 0, 43, 128; // TBWA navy RGB
+  --color-secondary-rgb: 0, 195, 236; // TBWA cyan RGB
+  --color-success-rgb: 0, 165, 81; // TBWA green RGB
+  --color-danger-rgb: 230, 0, 40; // TBWA red RGB
+  --color-warning-rgb: 255, 165, 0; // Warning orange RGB
+  --color-dark-rgb: 75, 79, 86; // TBWA grey RGB
+  
+  // Text colors
+  --text-primary: #212529;
+  --text-secondary: #4B4F56; // TBWA grey
+  --text-light: #f8f9fa;
+  
+  // Background colors
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  
+  // Border colors
+  --border-color: #dee2e6;
+  --border-radius: 0.25rem;
+  
+  // Spacing
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 3rem;
+  
+  // Font settings
+  --font-family-base: 'Helvetica Neue', Arial, sans-serif;
+  --font-family-heading: 'Helvetica Neue', Arial, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --font-size-base: 1rem;
+  --line-height-base: 1.5;
+  
+  // Box shadows
+  --box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}

@@ -1,0 +1,601 @@
+{
+  "data": {
+    "timestamp": "2025-05-14T15:00:00.000Z",
+    "overview": {
+      "kpis": [
+        {
+          "name": "Total Sales",
+          "value": "$2,458,721",
+          "change": 12.4,
+          "trend": "up"
+        },
+        {
+          "name": "Conversion Rate",
+          "value": "3.8%",
+          "change": 0.6,
+          "trend": "up"
+        },
+        {
+          "name": "Avg Order Value",
+          "value": "$142.35",
+          "change": 5.2,
+          "trend": "up"
+        },
+        {
+          "name": "Customer Satisfaction",
+          "value": "4.7/5",
+          "change": 0.3,
+          "trend": "up"
+        }
+      ],
+      "alerts": [
+        {
+          "type": "risk",
+          "urgency": "high",
+          "title": "Coffee Maker Reliability Concerns",
+          "summary": "Growing pattern of customer complaints about early failures",
+          "insightId": "ins-10002"
+        },
+        {
+          "type": "opportunity",
+          "urgency": "medium",
+          "title": "Size Inclusivity Gap",
+          "summary": "Significant demand for extended sizes in Premium Denim Jacket",
+          "insightId": "ins-10003"
+        },
+        {
+          "type": "competitive",
+          "urgency": "high",
+          "title": "Competitor Launch Detected",
+          "summary": "FitTrack preparing Ultra Pro release within 4-6 weeks",
+          "insightId": "ins-10004"
+        }
+      ]
+    },
+    "customerProfile": {
+      "segments": [
+        {
+          "name": "Loyal Customers",
+          "percentage": 28,
+          "growth": 3.2,
+          "avgSpend": "$215.45"
+        },
+        {
+          "name": "Regular Shoppers",
+          "percentage": 35,
+          "growth": 1.8,
+          "avgSpend": "$142.30"
+        },
+        {
+          "name": "Occasional Buyers",
+          "percentage": 24,
+          "growth": -0.5,
+          "avgSpend": "$87.65"
+        },
+        {
+          "name": "First-time Customers",
+          "percentage": 13,
+          "growth": 2.4,
+          "avgSpend": "$68.20"
+        }
+      ],
+      "demographics": {
+        "ageGroups": [
+          {
+            "range": "18-24",
+            "percentage": 18
+          },
+          {
+            "range": "25-34",
+            "percentage": 32
+          },
+          {
+            "range": "35-44",
+            "percentage": 25
+          },
+          {
+            "range": "45-54",
+            "percentage": 15
+          },
+          {
+            "range": "55+",
+            "percentage": 10
+          }
+        ],
+        "gender": {
+          "male": 48,
+          "female": 51,
+          "other": 1
+        },
+        "topRegions": [
+          {
+            "name": "North America",
+            "percentage": 45
+          },
+          {
+            "name": "Europe",
+            "percentage": 30
+          },
+          {
+            "name": "Asia",
+            "percentage": 15
+          },
+          {
+            "name": "Australia/NZ",
+            "percentage": 7
+          },
+          {
+            "name": "Other",
+            "percentage": 3
+          }
+        ]
+      },
+      "behaviors": {
+        "channelPreference": [
+          {
+            "channel": "Mobile App",
+            "percentage": 42
+          },
+          {
+            "channel": "Website",
+            "percentage": 35
+          },
+          {
+            "channel": "In-store",
+            "percentage": 18
+          },
+          {
+            "channel": "Phone",
+            "percentage": 5
+          }
+        ],
+        "purchaseFrequency": [
+          {
+            "frequency": "Weekly",
+            "percentage": 12
+          },
+          {
+            "frequency": "Monthly",
+            "percentage": 38
+          },
+          {
+            "frequency": "Quarterly",
+            "percentage": 32
+          },
+          {
+            "frequency": "Annually",
+            "percentage": 18
+          }
+        ]
+      }
+    },
+    "storePerformance": {
+      "topStores": [
+        {
+          "id": 112,
+          "name": "North Flagship",
+          "sales": "$412,584",
+          "growth": 14.2,
+          "traffic": 28450
+        },
+        {
+          "id": 143,
+          "name": "East Center",
+          "sales": "$376,921",
+          "growth": 9.8,
+          "traffic": 25120
+        },
+        {
+          "id": 119,
+          "name": "South Hub",
+          "sales": "$325,478",
+          "growth": 11.5,
+          "traffic": 23850
+        },
+        {
+          "id": 156,
+          "name": "West Express",
+          "sales": "$305,691",
+          "growth": 7.2,
+          "traffic": 22015
+        },
+        {
+          "id": 127,
+          "name": "Central Mall",
+          "sales": "$284,729",
+          "growth": 5.8,
+          "traffic": 20380
+        }
+      ],
+      "regionPerformance": [
+        {
+          "region": "North",
+          "storeCount": 12,
+          "totalSales": "$1,245,672",
+          "growth": 12.8,
+          "avgTransactionValue": "$135.42"
+        },
+        {
+          "region": "East",
+          "storeCount": 15,
+          "totalSales": "$1,542,321",
+          "growth": 9.5,
+          "avgTransactionValue": "$128.67"
+        },
+        {
+          "region": "South",
+          "storeCount": 10,
+          "totalSales": "$985,432",
+          "growth": 11.2,
+          "avgTransactionValue": "$122.34"
+        },
+        {
+          "region": "West",
+          "storeCount": 8,
+          "totalSales": "$865,290",
+          "growth": 7.8,
+          "avgTransactionValue": "$145.21"
+        },
+        {
+          "region": "Central",
+          "storeCount": 5,
+          "totalSales": "$542,781",
+          "growth": 6.4,
+          "avgTransactionValue": "$118.45"
+        }
+      ],
+      "hourlyPatterns": {
+        "weekday": [
+          {
+            "hour": "9-10",
+            "traffic": 425,
+            "conversion": 2.8
+          },
+          {
+            "hour": "10-11",
+            "traffic": 580,
+            "conversion": 3.2
+          },
+          {
+            "hour": "11-12",
+            "traffic": 745,
+            "conversion": 3.5
+          },
+          {
+            "hour": "12-13",
+            "traffic": 920,
+            "conversion": 3.8
+          },
+          {
+            "hour": "13-14",
+            "traffic": 865,
+            "conversion": 4.2
+          },
+          {
+            "hour": "14-15",
+            "traffic": 720,
+            "conversion": 3.9
+          },
+          {
+            "hour": "15-16",
+            "traffic": 680,
+            "conversion": 3.7
+          },
+          {
+            "hour": "16-17",
+            "traffic": 820,
+            "conversion": 4.1
+          },
+          {
+            "hour": "17-18",
+            "traffic": 950,
+            "conversion": 4.5
+          },
+          {
+            "hour": "18-19",
+            "traffic": 875,
+            "conversion": 4.3
+          },
+          {
+            "hour": "19-20",
+            "traffic": 710,
+            "conversion": 3.8
+          },
+          {
+            "hour": "20-21",
+            "traffic": 485,
+            "conversion": 3.2
+          }
+        ],
+        "weekend": [
+          {
+            "hour": "9-10",
+            "traffic": 520,
+            "conversion": 3.1
+          },
+          {
+            "hour": "10-11",
+            "traffic": 785,
+            "conversion": 3.4
+          },
+          {
+            "hour": "11-12",
+            "traffic": 1120,
+            "conversion": 3.8
+          },
+          {
+            "hour": "12-13",
+            "traffic": 1345,
+            "conversion": 4.2
+          },
+          {
+            "hour": "13-14",
+            "traffic": 1420,
+            "conversion": 4.5
+          },
+          {
+            "hour": "14-15",
+            "traffic": 1380,
+            "conversion": 4.6
+          },
+          {
+            "hour": "15-16",
+            "traffic": 1290,
+            "conversion": 4.4
+          },
+          {
+            "hour": "16-17",
+            "traffic": 1185,
+            "conversion": 4.1
+          },
+          {
+            "hour": "17-18",
+            "traffic": 1050,
+            "conversion": 3.9
+          },
+          {
+            "hour": "18-19",
+            "traffic": 940,
+            "conversion": 3.7
+          },
+          {
+            "hour": "19-20",
+            "traffic": 825,
+            "conversion": 3.5
+          },
+          {
+            "hour": "20-21",
+            "traffic": 645,
+            "conversion": 3.2
+          }
+        ]
+      }
+    },
+    "productIntelligence": {
+      "topProducts": [
+        {
+          "id": "p-7890",
+          "name": "Smartphone X200",
+          "category": "Electronics",
+          "brand": "TechVision",
+          "sales": "$458,925",
+          "units": 574,
+          "growth": 18.5
+        },
+        {
+          "id": "p-4567",
+          "name": "Coffee Maker Deluxe",
+          "category": "Home Goods",
+          "brand": "HomeCafe",
+          "sales": "$128,950",
+          "units": 992,
+          "growth": 12.3
+        },
+        {
+          "id": "p-2345",
+          "name": "Premium Denim Jacket",
+          "category": "Apparel",
+          "brand": "UrbanStyle",
+          "sales": "$115,782",
+          "units": 776,
+          "growth": 15.8
+        },
+        {
+          "id": "p-5678",
+          "name": "Smart Watch Pro",
+          "category": "Electronics",
+          "brand": "TechVision",
+          "sales": "$102,450",
+          "units": 342,
+          "growth": 22.4
+        },
+        {
+          "id": "p-8901",
+          "name": "Wireless Earbuds Pro",
+          "category": "Electronics",
+          "brand": "TechVision",
+          "sales": "$87,642",
+          "units": 584,
+          "growth": 9.7
+        }
+      ],
+      "categoryPerformance": [
+        {
+          "category": "Electronics",
+          "sales": "$852,450",
+          "units": 3254,
+          "growth": 15.2,
+          "margin": 42.8
+        },
+        {
+          "category": "Apparel",
+          "sales": "$458,920",
+          "units": 5842,
+          "growth": 8.7,
+          "margin": 58.5
+        },
+        {
+          "category": "Home Goods",
+          "sales": "$325,845",
+          "units": 2845,
+          "growth": 12.4,
+          "margin": 45.2
+        },
+        {
+          "category": "Food & Beverage",
+          "sales": "$184,625",
+          "units": 7458,
+          "growth": 5.8,
+          "margin": 32.5
+        },
+        {
+          "category": "Health & Beauty",
+          "sales": "$162,740",
+          "units": 3845,
+          "growth": 9.2,
+          "margin": 62.4
+        }
+      ],
+      "brandPerformance": [
+        {
+          "brand": "TechVision",
+          "sales": "$712,450",
+          "units": 2485,
+          "growth": 17.8,
+          "marketShare": 28.5
+        },
+        {
+          "brand": "UrbanStyle",
+          "sales": "$345,785",
+          "units": 4250,
+          "growth": 12.4,
+          "marketShare": 13.8
+        },
+        {
+          "brand": "HomeCafe",
+          "sales": "$245,820",
+          "units": 1845,
+          "growth": 10.2,
+          "marketShare": 9.8
+        },
+        {
+          "brand": "HealthPlus",
+          "sales": "$128,450",
+          "units": 2845,
+          "growth": 8.5,
+          "marketShare": 5.1
+        },
+        {
+          "brand": "FoodFresh",
+          "sales": "$98,745",
+          "units": 3654,
+          "growth": 4.2,
+          "marketShare": 3.9
+        }
+      ]
+    },
+    "advancedAnalytics": {
+      "marketBasketAnalysis": [
+        {
+          "product1": "Smartphone X200",
+          "product2": "Wireless Earbuds Pro",
+          "confidence": 0.68,
+          "lift": 2.8
+        },
+        {
+          "product1": "Coffee Maker Deluxe",
+          "product2": "Premium Coffee Beans",
+          "confidence": 0.75,
+          "lift": 3.2
+        },
+        {
+          "product1": "Premium Denim Jacket",
+          "product2": "Graphic T-Shirt",
+          "confidence": 0.58,
+          "lift": 2.4
+        },
+        {
+          "product1": "Smart Watch Pro",
+          "product2": "Fitness Band",
+          "confidence": 0.48,
+          "lift": 1.9
+        },
+        {
+          "product1": "Wireless Earbuds Pro",
+          "product2": "Charging Dock Plus",
+          "confidence": 0.62,
+          "lift": 2.5
+        }
+      ],
+      "customerSegmentInsights": [
+        {
+          "segment": "Tech Enthusiasts",
+          "size": "22% of customer base",
+          "growth": 15.4,
+          "avgSpend": "$285.45",
+          "topProducts": ["Smartphone X200", "Smart Watch Pro", "Wireless Earbuds Pro"],
+          "keyBehaviors": ["Early adoption", "Multiple device ownership", "High research time"]
+        },
+        {
+          "segment": "Fashion Forward",
+          "size": "18% of customer base",
+          "growth": 12.8,
+          "avgSpend": "$215.30",
+          "topProducts": ["Premium Denim Jacket", "Designer Sunglasses", "Leather Boots"],
+          "keyBehaviors": ["Brand sensitive", "Social media sharing", "Seasonal shopping"]
+        },
+        {
+          "segment": "Home Improvers",
+          "size": "15% of customer base",
+          "growth": 9.2,
+          "avgSpend": "$178.65",
+          "topProducts": ["Coffee Maker Deluxe", "Smart Home Hub", "Kitchen Accessories"],
+          "keyBehaviors": ["Quality focus", "Extended research", "High review engagement"]
+        },
+        {
+          "segment": "Wellness Focused",
+          "size": "12% of customer base",
+          "growth": 18.5,
+          "avgSpend": "$145.80",
+          "topProducts": ["Smart Watch Pro", "Organic Foods", "Fitness Equipment"],
+          "keyBehaviors": ["Health tracking", "Regular purchase patterns", "Community engagement"]
+        }
+      ],
+      "predictiveInsights": [
+        {
+          "type": "Trend Prediction",
+          "title": "Smartphone Photography Focus",
+          "prediction": "Camera quality will continue to emerge as the primary purchase driver for smartphones over the next 2-3 quarters, with night photography capabilities becoming a key differentiator",
+          "confidence": 0.92,
+          "supportingData": "Based on 456 brand mentions with 82% positive sentiment around camera features"
+        },
+        {
+          "type": "Risk Alert",
+          "title": "Coffee Maker Quality Issues",
+          "prediction": "Product reliability concerns for the Coffee Maker Deluxe will likely escalate in the next 30 days without intervention, potentially resulting in 15-20% sales decline",
+          "confidence": 0.87,
+          "supportingData": "Based on 215% increase in early failure complaints focused on specific manufacturing batch"
+        },
+        {
+          "type": "Market Opportunity",
+          "title": "Size Inclusivity Gap",
+          "prediction": "Expanding Premium Denim Jacket to extended sizes could generate $2.2-2.8M in incremental revenue within 12 months",
+          "confidence": 0.89,
+          "supportingData": "Based on search analysis showing high interest but low conversion for extended sizes"
+        },
+        {
+          "type": "Competitive Intelligence",
+          "title": "Competitor Launch Window",
+          "prediction": "FitTrack will likely launch their Ultra Pro smartwatch between June 15-30, 2025, featuring battery life improvements that exceed current market leaders",
+          "confidence": 0.85,
+          "supportingData": "Based on supply chain signals, patent filings, and influencer chatter patterns"
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "timestamp": "2025-05-14T15:00:00.000Z",
+    "source": "simulated",
+    "endpoint": "dashboard-summary"
+  }
+}

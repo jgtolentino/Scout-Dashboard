@@ -1,0 +1,86 @@
+{
+  "status": "success",
+  "timestamp": "2025-05-22T13:45:00Z",
+  "data": [
+    {
+      "brand": "Coca-Cola",
+      "value": 2850000,
+      "pct": 18.5,
+      "change": 12.3,
+      "changeType": "increase",
+      "category": "Beverages",
+      "marketShare": 34.2,
+      "stores": 156,
+      "topSku": "Coca-Cola Classic 12oz"
+    },
+    {
+      "brand": "Pepsi",
+      "value": 2420000,
+      "pct": 15.7,
+      "change": 8.9,
+      "changeType": "increase",
+      "category": "Beverages",
+      "marketShare": 28.1,
+      "stores": 134,
+      "topSku": "Pepsi Cola 12oz"
+    },
+    {
+      "brand": "Nestlé",
+      "value": 1980000,
+      "pct": 12.8,
+      "change": 5.2,
+      "changeType": "increase",
+      "category": "Food & Snacks",
+      "marketShare": 22.7,
+      "stores": 189,
+      "topSku": "KitKat 4-Pack"
+    },
+    {
+      "brand": "Unilever",
+      "value": 1650000,
+      "pct": 10.7,
+      "change": -2.1,
+      "changeType": "decrease",
+      "category": "Personal Care",
+      "marketShare": 19.3,
+      "stores": 198,
+      "topSku": "Dove Beauty Bar"
+    },
+    {
+      "brand": "P&G",
+      "value": 1420000,
+      "pct": 9.2,
+      "change": 3.8,
+      "changeType": "increase",
+      "category": "Household",
+      "marketShare": 16.8,
+      "stores": 167,
+      "topSku": "Tide Detergent 1kg"
+    },
+    {
+      "brand": "Mondelez",
+      "value": 1180000,
+      "pct": 7.6,
+      "change": 7.4,
+      "changeType": "increase",
+      "category": "Snacks",
+      "marketShare": 14.2,
+      "stores": 145,
+      "topSku": "Oreo Original Pack"
+    }
+  ],
+  "summary": {
+    "totalBrands": 6,
+    "totalValue": 11500000,
+    "totalStores": 989,
+    "averageGrowth": 5.9,
+    "topPerformer": "Coca-Cola",
+    "fastestGrowing": "Coca-Cola"
+  },
+  "metadata": {
+    "period": "Last 30 days",
+    "currency": "PHP",
+    "lastUpdated": "2025-05-22T13:45:00Z",
+    "dataSource": "client360_demo"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "version": "v2.4.2-demo",
+  "buildDate": "2025-05-22T13:30:00Z",
+  "environment": "production",
+  "features": {
+    "demoMode": true,
+    "interactiveElements": true,
+    "consolidatedData": true,
+    "smokeTests": true,
+    "emptyPlaceholdersEliminated": true
+  },
+  "components": {
+    "demoDataLoader": "1.0.0",
+    "enhancedSmokeTest": "1.0.0",
+    "navigationSystem": "2.4.0",
+    "kpiTiles": "2.4.0",
+    "interactiveMap": "2.4.0",
+    "deviceHealthGrid": "2.4.0",
+    "tagsDropdown": "2.4.0",
+    "insightsPanel": "2.4.0"
+  },
+  "dataStructure": {
+    "navigationItems": 9,
+    "kpiMetrics": 7,
+    "mapStores": 10,
+    "deviceCount": 1247,
+    "tagFilters": 10,
+    "aiInsights": 3
+  },
+  "interactivity": {
+    "clickableNavigation": true,
+    "clickableKpiTiles": true,
+    "clickableMapMarkers": true,
+    "clickableDevices": true,
+    "clickableTags": true,
+    "clickableInsights": true,
+    "workingDrawers": true,
+    "workingModals": true
+  },
+  "testing": {
+    "smokeTestSuite": "enhanced",
+    "totalTests": 25,
+    "expectedPassRate": "100%",
+    "autoTestUrl": "?autotest=true"
+  },
+  "deployment": {
+    "platform": "Azure Static Web Apps",
+    "cdn": "enabled",
+    "compression": "enabled"
+  }
+}

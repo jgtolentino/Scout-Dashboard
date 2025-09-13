@@ -1,0 +1,93 @@
+name: brands-reference-update
+description: Apply brand reference update for FMCG sari-sari products
+
+tasks:
+  - name: Backup current brand reference table
+    command: |
+      az sql db export --admin-password $(DB_PASSWORD) \
+        --admin-user $(DB_USER) \
+        --server $(DB_SERVER) \
+        --database $(DB_NAME) \
+        --storage-key $(STORAGE_KEY) \
+        --storage-key-type StorageAccessKey \
+        --storage-uri $(BACKUP_URI)/client_brands_$(date +%Y%m%d%H%M%S).bacpac
+
+  - name: Execute brand reference patch
+    command: |
+      sqlcmd -S $(DB_SERVER) -d $(DB_NAME) -U $(DB_USER) -P $(DB_PASSWORD) \
+        -i ./sql/brand_reference_patch.sql -o ./logs/brand_update_$(date +%Y%m%d%H%M%S).log
+
+  - name: Verify brand reference update
+    command: |
+      sqlcmd -S $(DB_SERVER) -d $(DB_NAME) -U $(DB_USER) -P $(DB_PASSWORD) \
+        -Q "SELECT COUNT(*) AS BrandCount FROM dbo.ClientBrandsReference WHERE IsSariSariFriendly = 1" \
+        -o ./logs/brand_verification_$(date +%Y%m%d%H%M%S).log
+
+  - name: Update dashboard configuration
+    command: |
+      # Add brand reference access to dashboard config
+      node ./scripts/update_dashboard_config.js --add-data-source="client-brands-reference"
+
+  - name: Restart API services
+    command: |
+      az webapp restart --name $(API_APP_NAME) --resource-group $(RESOURCE_GROUP)
+
+parameters:
+  - name: DB_SERVER
+    description: Azure SQL Server name
+    default: client360-sql-server.database.windows.net
+    
+  - name: DB_NAME
+    description: Database name
+    default: client360-db
+    
+  - name: DB_USER
+    description: Database username
+    secure: true
+    
+  - name: DB_PASSWORD
+    description: Database password
+    secure: true
+    
+  - name: STORAGE_KEY
+    description: Azure Storage account key
+    secure: true
+    
+  - name: BACKUP_URI
+    description: Azure Storage URI for backups
+    default: https://client360storage.blob.core.windows.net/dbbackups
+    
+  - name: API_APP_NAME
+    description: Azure Web App name for API
+    default: client360-api
+    
+  - name: RESOURCE_GROUP
+    description: Azure resource group
+    default: client360-resources
+
+validation:
+  - type: sql-rowcount
+    query: "SELECT COUNT(*) FROM dbo.ClientBrandsReference WHERE IsSariSariFriendly = 1"
+    minimum: 50
+    
+  - type: sql-check
+    query: "SELECT TOP 1 1 FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'vw_SariSariBrandInsights'"
+    expected: 1
+    
+  - type: sql-check
+    query: "SELECT TOP 1 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_NAME = 'sp_GetSariSariBrands'"
+    expected: 1
+
+notifications:
+  - type: email
+    to: ops@tbwa.com
+    subject: "Client360 - Brand Reference Update Status"
+    body: |
+      The FMCG sari-sari brand reference update has completed.
+      
+      Results:
+      - Added/updated {{validation.sql-rowcount}} sari-sari friendly brands
+      - Created views: {{validation.sql-check[0]}} 
+      - Created stored procedures: {{validation.sql-check[1]}}
+      
+      Check logs for details: ./logs/brand_update_*.log

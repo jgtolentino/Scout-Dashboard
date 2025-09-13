@@ -1,0 +1,11 @@
+{
+  "transcript": "Schedule a call with Jake about the new dashboard project tomorrow at 2 PM",
+  "confidence": 0.96,
+  "source": "echo.stt",
+  "session_id": "test_session_001",
+  "metadata": {
+    "test_mode": true,
+    "device": "development",
+    "bypass_execution": false
+  }
+}

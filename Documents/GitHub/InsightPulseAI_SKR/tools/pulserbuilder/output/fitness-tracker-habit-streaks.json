@@ -1,0 +1,965 @@
+{
+  "metadata": {
+    "prompt": "fitness tracker with habit streaks",
+    "timestamp": "2025-05-16T20:30:45Z",
+    "model": "claude-3-opus-20240229",
+    "agent": "maya",
+    "version": "2.0.0"
+  },
+  "components": [
+    {
+      "id": "nav-header",
+      "type": "NavigationBar",
+      "props": {
+        "title": "FitStreak",
+        "fixed": true,
+        "showProfileIcon": true
+      },
+      "styles": {
+        "backgroundColor": "#1a202c",
+        "color": "white"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 1
+      }
+    },
+    {
+      "id": "dashboard-container",
+      "type": "Container",
+      "props": {
+        "fluid": true
+      },
+      "styles": {
+        "padding": "1.5rem",
+        "backgroundColor": "#f7fafc"
+      },
+      "layout": {
+        "x": 0,
+        "y": 1,
+        "w": 12,
+        "h": 11
+      },
+      "children": [
+        {
+          "id": "welcome-section",
+          "type": "Container",
+          "props": {},
+          "styles": {
+            "marginBottom": "2rem"
+          },
+          "children": [
+            {
+              "id": "welcome-heading",
+              "type": "Heading",
+              "props": {
+                "level": "h1",
+                "text": "Welcome back, Alex!"
+              },
+              "styles": {
+                "fontSize": "1.875rem",
+                "fontWeight": "bold",
+                "color": "#2d3748",
+                "marginBottom": "0.5rem"
+              }
+            },
+            {
+              "id": "today-date",
+              "type": "Text",
+              "props": {
+                "text": "Thursday, May 16, 2025"
+              },
+              "styles": {
+                "color": "#718096",
+                "fontSize": "1rem"
+              }
+            }
+          ]
+        },
+        {
+          "id": "stats-grid",
+          "type": "Grid",
+          "props": {
+            "cols": 3,
+            "spacing": 2
+          },
+          "styles": {
+            "marginBottom": "2rem"
+          },
+          "children": [
+            {
+              "id": "stat-card-steps",
+              "type": "Card",
+              "props": {
+                "elevation": 1,
+                "rounded": true
+              },
+              "styles": {
+                "backgroundColor": "white",
+                "padding": "1.5rem",
+                "borderRadius": "0.75rem"
+              },
+              "children": [
+                {
+                  "id": "steps-icon",
+                  "type": "Icon",
+                  "props": {
+                    "name": "footsteps",
+                    "size": "xl"
+                  },
+                  "styles": {
+                    "color": "#3182ce",
+                    "marginBottom": "1rem"
+                  }
+                },
+                {
+                  "id": "steps-count",
+                  "type": "Heading",
+                  "props": {
+                    "level": "h2",
+                    "text": "8,432"
+                  },
+                  "styles": {
+                    "fontSize": "2.25rem",
+                    "fontWeight": "bold",
+                    "color": "#2d3748",
+                    "marginBottom": "0.5rem"
+                  }
+                },
+                {
+                  "id": "steps-label",
+                  "type": "Text",
+                  "props": {
+                    "text": "Steps today"
+                  },
+                  "styles": {
+                    "color": "#718096",
+                    "fontSize": "0.875rem"
+                  }
+                },
+                {
+                  "id": "steps-progress",
+                  "type": "Progress",
+                  "props": {
+                    "value": 70,
+                    "max": 100,
+                    "showLabel": false
+                  },
+                  "styles": {
+                    "marginTop": "0.75rem",
+                    "height": "0.375rem",
+                    "borderRadius": "0.5rem",
+                    "backgroundColor": "#e2e8f0"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "stat-card-calories",
+              "type": "Card",
+              "props": {
+                "elevation": 1,
+                "rounded": true
+              },
+              "styles": {
+                "backgroundColor": "white",
+                "padding": "1.5rem",
+                "borderRadius": "0.75rem"
+              },
+              "children": [
+                {
+                  "id": "calories-icon",
+                  "type": "Icon",
+                  "props": {
+                    "name": "fire",
+                    "size": "xl"
+                  },
+                  "styles": {
+                    "color": "#e53e3e",
+                    "marginBottom": "1rem"
+                  }
+                },
+                {
+                  "id": "calories-count",
+                  "type": "Heading",
+                  "props": {
+                    "level": "h2",
+                    "text": "437"
+                  },
+                  "styles": {
+                    "fontSize": "2.25rem",
+                    "fontWeight": "bold",
+                    "color": "#2d3748",
+                    "marginBottom": "0.5rem"
+                  }
+                },
+                {
+                  "id": "calories-label",
+                  "type": "Text",
+                  "props": {
+                    "text": "Calories burned"
+                  },
+                  "styles": {
+                    "color": "#718096",
+                    "fontSize": "0.875rem"
+                  }
+                },
+                {
+                  "id": "calories-progress",
+                  "type": "Progress",
+                  "props": {
+                    "value": 43,
+                    "max": 100,
+                    "showLabel": false
+                  },
+                  "styles": {
+                    "marginTop": "0.75rem",
+                    "height": "0.375rem",
+                    "borderRadius": "0.5rem",
+                    "backgroundColor": "#e2e8f0"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "stat-card-streak",
+              "type": "Card",
+              "props": {
+                "elevation": 1,
+                "rounded": true
+              },
+              "styles": {
+                "backgroundColor": "white",
+                "padding": "1.5rem",
+                "borderRadius": "0.75rem"
+              },
+              "children": [
+                {
+                  "id": "streak-icon",
+                  "type": "Icon",
+                  "props": {
+                    "name": "lightning-bolt",
+                    "size": "xl"
+                  },
+                  "styles": {
+                    "color": "#ecc94b",
+                    "marginBottom": "1rem"
+                  }
+                },
+                {
+                  "id": "streak-count",
+                  "type": "Heading",
+                  "props": {
+                    "level": "h2",
+                    "text": "12"
+                  },
+                  "styles": {
+                    "fontSize": "2.25rem",
+                    "fontWeight": "bold",
+                    "color": "#2d3748",
+                    "marginBottom": "0.5rem"
+                  }
+                },
+                {
+                  "id": "streak-label",
+                  "type": "Text",
+                  "props": {
+                    "text": "Day streak"
+                  },
+                  "styles": {
+                    "color": "#718096",
+                    "fontSize": "0.875rem"
+                  }
+                },
+                {
+                  "id": "streak-badge",
+                  "type": "Badge",
+                  "props": {
+                    "text": "New Record!",
+                    "variant": "success"
+                  },
+                  "styles": {
+                    "marginTop": "0.75rem",
+                    "backgroundColor": "#c6f6d5",
+                    "color": "#2f855a",
+                    "fontSize": "0.75rem",
+                    "fontWeight": "medium",
+                    "padding": "0.25rem 0.5rem",
+                    "borderRadius": "0.25rem"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "habit-tracker-section",
+          "type": "Container",
+          "props": {},
+          "styles": {
+            "marginBottom": "2.5rem"
+          },
+          "children": [
+            {
+              "id": "habit-heading",
+              "type": "Heading",
+              "props": {
+                "level": "h2",
+                "text": "Habit Streaks"
+              },
+              "styles": {
+                "fontSize": "1.5rem",
+                "fontWeight": "bold",
+                "color": "#2d3748",
+                "marginBottom": "1rem"
+              }
+            },
+            {
+              "id": "habit-cards",
+              "type": "Grid",
+              "props": {
+                "cols": 1,
+                "spacing": 1
+              },
+              "children": [
+                {
+                  "id": "habit-morning-run",
+                  "type": "Card",
+                  "props": {
+                    "elevation": 1,
+                    "rounded": true
+                  },
+                  "styles": {
+                    "backgroundColor": "white",
+                    "padding": "1.25rem",
+                    "borderRadius": "0.75rem",
+                    "marginBottom": "1rem"
+                  },
+                  "children": [
+                    {
+                      "id": "habit-run-header",
+                      "type": "Flex",
+                      "props": {
+                        "justify": "space-between",
+                        "align": "center"
+                      },
+                      "children": [
+                        {
+                          "id": "habit-run-info",
+                          "type": "Flex",
+                          "props": {
+                            "direction": "column"
+                          },
+                          "children": [
+                            {
+                              "id": "habit-run-title",
+                              "type": "Heading",
+                              "props": {
+                                "level": "h3",
+                                "text": "Morning Run"
+                              },
+                              "styles": {
+                                "fontSize": "1.125rem",
+                                "fontWeight": "semibold",
+                                "color": "#2d3748"
+                              }
+                            },
+                            {
+                              "id": "habit-run-subtitle",
+                              "type": "Text",
+                              "props": {
+                                "text": "5km run before 8AM"
+                              },
+                              "styles": {
+                                "color": "#718096",
+                                "fontSize": "0.875rem"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "id": "habit-run-streak",
+                          "type": "Badge",
+                          "props": {
+                            "text": "16 day streak",
+                            "variant": "primary"
+                          },
+                          "styles": {
+                            "backgroundColor": "#ebf8ff",
+                            "color": "#3182ce",
+                            "padding": "0.375rem 0.75rem",
+                            "borderRadius": "9999px",
+                            "fontWeight": "medium"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "habit-run-calendar",
+                      "type": "StreakCalendar",
+                      "props": {
+                        "days": 7,
+                        "completed": [0, 1, 2, 3, 4, 5, 6],
+                        "showLabels": true
+                      },
+                      "styles": {
+                        "marginTop": "1rem"
+                      }
+                    },
+                    {
+                      "id": "habit-run-actions",
+                      "type": "Flex",
+                      "props": {
+                        "justify": "space-between",
+                        "align": "center"
+                      },
+                      "styles": {
+                        "marginTop": "1rem"
+                      },
+                      "children": [
+                        {
+                          "id": "habit-run-time",
+                          "type": "Text",
+                          "props": {
+                            "text": "Next: Tomorrow, 7:00 AM"
+                          },
+                          "styles": {
+                            "color": "#718096",
+                            "fontSize": "0.875rem"
+                          }
+                        },
+                        {
+                          "id": "habit-run-complete",
+                          "type": "Button",
+                          "props": {
+                            "text": "Complete",
+                            "variant": "primary",
+                            "size": "sm",
+                            "disabled": true
+                          },
+                          "styles": {
+                            "backgroundColor": "#3182ce",
+                            "color": "white",
+                            "fontWeight": "medium",
+                            "opacity": 0.5
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "habit-workout",
+                  "type": "Card",
+                  "props": {
+                    "elevation": 1,
+                    "rounded": true
+                  },
+                  "styles": {
+                    "backgroundColor": "white",
+                    "padding": "1.25rem",
+                    "borderRadius": "0.75rem",
+                    "marginBottom": "1rem"
+                  },
+                  "children": [
+                    {
+                      "id": "habit-workout-header",
+                      "type": "Flex",
+                      "props": {
+                        "justify": "space-between",
+                        "align": "center"
+                      },
+                      "children": [
+                        {
+                          "id": "habit-workout-info",
+                          "type": "Flex",
+                          "props": {
+                            "direction": "column"
+                          },
+                          "children": [
+                            {
+                              "id": "habit-workout-title",
+                              "type": "Heading",
+                              "props": {
+                                "level": "h3",
+                                "text": "Strength Training"
+                              },
+                              "styles": {
+                                "fontSize": "1.125rem",
+                                "fontWeight": "semibold",
+                                "color": "#2d3748"
+                              }
+                            },
+                            {
+                              "id": "habit-workout-subtitle",
+                              "type": "Text",
+                              "props": {
+                                "text": "30 min resistance workout"
+                              },
+                              "styles": {
+                                "color": "#718096",
+                                "fontSize": "0.875rem"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "id": "habit-workout-streak",
+                          "type": "Badge",
+                          "props": {
+                            "text": "8 day streak",
+                            "variant": "primary"
+                          },
+                          "styles": {
+                            "backgroundColor": "#ebf8ff",
+                            "color": "#3182ce",
+                            "padding": "0.375rem 0.75rem",
+                            "borderRadius": "9999px",
+                            "fontWeight": "medium"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "habit-workout-calendar",
+                      "type": "StreakCalendar",
+                      "props": {
+                        "days": 7,
+                        "completed": [0, 2, 3, 4, 5, 6],
+                        "showLabels": true
+                      },
+                      "styles": {
+                        "marginTop": "1rem"
+                      }
+                    },
+                    {
+                      "id": "habit-workout-actions",
+                      "type": "Flex",
+                      "props": {
+                        "justify": "space-between",
+                        "align": "center"
+                      },
+                      "styles": {
+                        "marginTop": "1rem"
+                      },
+                      "children": [
+                        {
+                          "id": "habit-workout-time",
+                          "type": "Text",
+                          "props": {
+                            "text": "Today, 6:00 PM"
+                          },
+                          "styles": {
+                            "color": "#718096",
+                            "fontSize": "0.875rem"
+                          }
+                        },
+                        {
+                          "id": "habit-workout-complete",
+                          "type": "Button",
+                          "props": {
+                            "text": "Complete",
+                            "variant": "primary",
+                            "size": "sm"
+                          },
+                          "styles": {
+                            "backgroundColor": "#3182ce",
+                            "color": "white",
+                            "fontWeight": "medium"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "habit-meditation",
+                  "type": "Card",
+                  "props": {
+                    "elevation": 1,
+                    "rounded": true
+                  },
+                  "styles": {
+                    "backgroundColor": "white",
+                    "padding": "1.25rem",
+                    "borderRadius": "0.75rem"
+                  },
+                  "children": [
+                    {
+                      "id": "habit-meditation-header",
+                      "type": "Flex",
+                      "props": {
+                        "justify": "space-between",
+                        "align": "center"
+                      },
+                      "children": [
+                        {
+                          "id": "habit-meditation-info",
+                          "type": "Flex",
+                          "props": {
+                            "direction": "column"
+                          },
+                          "children": [
+                            {
+                              "id": "habit-meditation-title",
+                              "type": "Heading",
+                              "props": {
+                                "level": "h3",
+                                "text": "Mindfulness Meditation"
+                              },
+                              "styles": {
+                                "fontSize": "1.125rem",
+                                "fontWeight": "semibold",
+                                "color": "#2d3748"
+                              }
+                            },
+                            {
+                              "id": "habit-meditation-subtitle",
+                              "type": "Text",
+                              "props": {
+                                "text": "10 min guided meditation"
+                              },
+                              "styles": {
+                                "color": "#718096",
+                                "fontSize": "0.875rem"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "id": "habit-meditation-streak",
+                          "type": "Badge",
+                          "props": {
+                            "text": "5 day streak",
+                            "variant": "primary"
+                          },
+                          "styles": {
+                            "backgroundColor": "#ebf8ff",
+                            "color": "#3182ce",
+                            "padding": "0.375rem 0.75rem",
+                            "borderRadius": "9999px",
+                            "fontWeight": "medium"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "habit-meditation-calendar",
+                      "type": "StreakCalendar",
+                      "props": {
+                        "days": 7,
+                        "completed": [2, 3, 4, 5, 6],
+                        "showLabels": true
+                      },
+                      "styles": {
+                        "marginTop": "1rem"
+                      }
+                    },
+                    {
+                      "id": "habit-meditation-actions",
+                      "type": "Flex",
+                      "props": {
+                        "justify": "space-between",
+                        "align": "center"
+                      },
+                      "styles": {
+                        "marginTop": "1rem"
+                      },
+                      "children": [
+                        {
+                          "id": "habit-meditation-time",
+                          "type": "Text",
+                          "props": {
+                            "text": "Today, 9:00 PM"
+                          },
+                          "styles": {
+                            "color": "#718096",
+                            "fontSize": "0.875rem"
+                          }
+                        },
+                        {
+                          "id": "habit-meditation-complete",
+                          "type": "Button",
+                          "props": {
+                            "text": "Complete",
+                            "variant": "primary",
+                            "size": "sm"
+                          },
+                          "styles": {
+                            "backgroundColor": "#3182ce",
+                            "color": "white",
+                            "fontWeight": "medium"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "add-habit-btn",
+              "type": "Button",
+              "props": {
+                "text": "Add New Habit",
+                "variant": "outline",
+                "size": "md",
+                "iconPosition": "left",
+                "icon": "plus"
+              },
+              "styles": {
+                "marginTop": "1.5rem",
+                "borderColor": "#a0aec0",
+                "color": "#4a5568",
+                "borderRadius": "0.375rem",
+                "fontWeight": "medium"
+              }
+            }
+          ]
+        },
+        {
+          "id": "weekly-progress-section",
+          "type": "Container",
+          "props": {},
+          "styles": {},
+          "children": [
+            {
+              "id": "progress-heading",
+              "type": "Heading",
+              "props": {
+                "level": "h2",
+                "text": "Weekly Progress"
+              },
+              "styles": {
+                "fontSize": "1.5rem",
+                "fontWeight": "bold",
+                "color": "#2d3748",
+                "marginBottom": "1rem"
+              }
+            },
+            {
+              "id": "progress-chart",
+              "type": "Card",
+              "props": {
+                "elevation": 1,
+                "rounded": true
+              },
+              "styles": {
+                "backgroundColor": "white",
+                "padding": "1.5rem",
+                "borderRadius": "0.75rem"
+              },
+              "children": [
+                {
+                  "id": "progress-tabs",
+                  "type": "Tabs",
+                  "props": {
+                    "defaultTab": "steps",
+                    "variant": "line"
+                  },
+                  "children": [
+                    {
+                      "id": "tab-steps",
+                      "type": "Tab",
+                      "props": {
+                        "key": "steps",
+                        "label": "Steps"
+                      },
+                      "children": [
+                        {
+                          "id": "steps-chart",
+                          "type": "BarChart",
+                          "props": {
+                            "data": [
+                              { "day": "Mon", "value": 6542 },
+                              { "day": "Tue", "value": 7205 },
+                              { "day": "Wed", "value": 9125 },
+                              { "day": "Thu", "value": 8432 },
+                              { "day": "Fri", "value": 0 },
+                              { "day": "Sat", "value": 0 },
+                              { "day": "Sun", "value": 0 }
+                            ],
+                            "xField": "day",
+                            "yField": "value",
+                            "height": 250
+                          },
+                          "styles": {
+                            "marginTop": "1rem"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "tab-calories",
+                      "type": "Tab",
+                      "props": {
+                        "key": "calories",
+                        "label": "Calories"
+                      },
+                      "children": [
+                        {
+                          "id": "calories-chart",
+                          "type": "BarChart",
+                          "props": {
+                            "data": [
+                              { "day": "Mon", "value": 320 },
+                              { "day": "Tue", "value": 385 },
+                              { "day": "Wed", "value": 492 },
+                              { "day": "Thu", "value": 437 },
+                              { "day": "Fri", "value": 0 },
+                              { "day": "Sat", "value": 0 },
+                              { "day": "Sun", "value": 0 }
+                            ],
+                            "xField": "day",
+                            "yField": "value",
+                            "height": 250
+                          },
+                          "styles": {
+                            "marginTop": "1rem"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "tab-workouts",
+                      "type": "Tab",
+                      "props": {
+                        "key": "workouts",
+                        "label": "Workouts"
+                      },
+                      "children": [
+                        {
+                          "id": "workouts-chart",
+                          "type": "BarChart",
+                          "props": {
+                            "data": [
+                              { "day": "Mon", "value": 2 },
+                              { "day": "Tue", "value": 1 },
+                              { "day": "Wed", "value": 2 },
+                              { "day": "Thu", "value": 1 },
+                              { "day": "Fri", "value": 0 },
+                              { "day": "Sat", "value": 0 },
+                              { "day": "Sun", "value": 0 }
+                            ],
+                            "xField": "day",
+                            "yField": "value",
+                            "height": 250
+                          },
+                          "styles": {
+                            "marginTop": "1rem"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bottom-nav",
+      "type": "BottomNavigation",
+      "props": {
+        "fixed": true,
+        "items": [
+          {
+            "icon": "home",
+            "label": "Dashboard",
+            "active": true
+          },
+          {
+            "icon": "calendar",
+            "label": "Habits"
+          },
+          {
+            "icon": "activity",
+            "label": "Workouts"
+          },
+          {
+            "icon": "chart-bar",
+            "label": "Progress"
+          },
+          {
+            "icon": "user",
+            "label": "Profile"
+          }
+        ]
+      },
+      "styles": {
+        "backgroundColor": "white",
+        "borderTop": "1px solid #e2e8f0"
+      },
+      "layout": {
+        "x": 0,
+        "y": 12,
+        "w": 12,
+        "h": 1
+      }
+    }
+  ],
+  "theme": {
+    "colors": {
+      "primary": "#3182ce",
+      "secondary": "#718096",
+      "accent": "#ecc94b",
+      "background": "#f7fafc",
+      "card": "#ffffff",
+      "text": "#2d3748",
+      "muted": "#a0aec0",
+      "success": "#48bb78",
+      "warning": "#ed8936",
+      "danger": "#e53e3e"
+    },
+    "fonts": {
+      "body": "Inter, system-ui, sans-serif",
+      "heading": "Inter, system-ui, sans-serif"
+    },
+    "spacing": {
+      "base": "1rem",
+      "xs": "0.25rem",
+      "sm": "0.5rem",
+      "md": "1rem",
+      "lg": "1.5rem",
+      "xl": "2rem"
+    },
+    "borderRadius": {
+      "none": "0",
+      "sm": "0.25rem",
+      "md": "0.375rem",
+      "lg": "0.5rem",
+      "xl": "0.75rem",
+      "full": "9999px"
+    }
+  },
+  "responsive": {
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px"
+    },
+    "mobilePriority": true
+  },
+  "recommendations": [
+    {
+      "type": "feature",
+      "title": "Notifications",
+      "description": "Add notification system to remind users of upcoming habits"
+    },
+    {
+      "type": "feature",
+      "title": "Achievement Badges",
+      "description": "Add milestone badges for completing streaks of different lengths"
+    },
+    {
+      "type": "ux",
+      "title": "Custom Habit Icons",
+      "description": "Allow users to customize icons for different types of habits"
+    }
+  ]
+}

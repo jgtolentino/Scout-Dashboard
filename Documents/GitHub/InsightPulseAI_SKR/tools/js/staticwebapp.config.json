@@ -1,0 +1,38 @@
+{
+  "routes": [
+    {
+      "route": "/api/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/api/premium-insights",
+      "allowedRoles": ["Gold", "Platinum"]
+    },
+    {
+      "route": "/*",
+      "rewrite": "/index.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  },
+  "responseOverrides": {
+    "404": { "rewrite": "/index.html" }
+  },
+  "cors": {
+    "allowedOrigins": [
+      "https://thankful-sea-06d26c00f.6.azurestaticapps.net"
+    ],
+    "allowedMethods": [ "GET", "POST", "OPTIONS" ],
+    "allowedHeaders": [ "Content-Type", "Authorization" ]
+  },
+  "globalHeaders": {
+    "content-security-policy": "default-src 'self' 'unsafe-inline' *.azurestaticapps.net *.azure.com"
+  },
+  "securityHeaders": {
+    "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "DENY",
+    "permissions-policy": "geolocation=(), microphone=()"
+  }
+} < /dev/null

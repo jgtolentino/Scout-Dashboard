@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Project Guard - Commit message hook
+# Validates commit messages contain required Task ID
+#
+
+commit_message_file="$1"
+commit_message=$(cat "$commit_message_file")
+
+echo "🛡️  Project Guard: Validating commit message..."
+
+# Run the commit message validator
+python3 tools/project_guard/check_project_files.py --validate-commit "$commit_message"
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "❌ COMMIT BLOCKED: Invalid commit message"
+    echo ""
+    echo "Commit messages must include a Task ID matching pattern:"
+    echo "  (TASK|SCOUT|CES|ADS|NB)-[number]"
+    echo ""
+    echo "Examples:"
+    echo "  TASK-123: Add user authentication"
+    echo "  SCOUT-456: Fix dashboard loading issue"
+    echo "  CES-789: Update campaign metrics"
+    echo ""
+    echo "To bypass this check, include 'NO-TASK' in your commit message"
+    echo "Merge commits are automatically allowed"
+    exit 1
+fi
+
+echo "✅ Commit message validation passed"

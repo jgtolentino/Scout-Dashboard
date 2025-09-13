@@ -1,0 +1,185 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "NCR",
+        "city": "Pasig",
+        "barangay": "San Miguel"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.0642, 14.5731], [121.0742, 14.5731], [121.0742, 14.5831], [121.0642, 14.5831], [121.0642, 14.5731]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "NCR",
+        "city": "Quezon City",
+        "barangay": "Batasan Hills"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.0842, 14.6731], [121.0942, 14.6731], [121.0942, 14.6831], [121.0842, 14.6831], [121.0842, 14.6731]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "NCR",
+        "city": "Manila",
+        "barangay": "Tondo"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.9642, 14.6131], [120.9742, 14.6131], [120.9742, 14.6231], [120.9642, 14.6231], [120.9642, 14.6131]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "NCR",
+        "city": "Mandaluyong",
+        "barangay": "Addition Hills"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.0242, 14.5831], [121.0342, 14.5831], [121.0342, 14.5931], [121.0242, 14.5931], [121.0242, 14.5831]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Region IV-A",
+        "city": "Tagaytay",
+        "barangay": "Mendez"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.9342, 14.1131], [120.9442, 14.1131], [120.9442, 14.1231], [120.9342, 14.1231], [120.9342, 14.1131]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Region III",
+        "city": "Angeles",
+        "barangay": "Balibago"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.5842, 15.1631], [120.5942, 15.1631], [120.5942, 15.1731], [120.5842, 15.1731], [120.5842, 15.1631]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Region VII",
+        "city": "Cebu City",
+        "barangay": "Lahug"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[123.8942, 10.3231], [123.9042, 10.3231], [123.9042, 10.3331], [123.8942, 10.3331], [123.8942, 10.3231]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Region XI",
+        "city": "Davao City",
+        "barangay": "Poblacion"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[125.6042, 7.0631], [125.6142, 7.0631], [125.6142, 7.0731], [125.6042, 7.0731], [125.6042, 7.0631]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Region I",
+        "city": "Dagupan",
+        "barangay": "Central"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.3242, 16.0431], [120.3342, 16.0431], [120.3342, 16.0531], [120.3242, 16.0531], [120.3242, 16.0431]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "NCR",
+        "city": "Makati",
+        "barangay": "Poblacion"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.0242, 14.5631], [121.0342, 14.5631], [121.0342, 14.5731], [121.0242, 14.5731], [121.0242, 14.5631]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Region VI",
+        "city": "Iloilo City",
+        "barangay": "City Proper"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[122.5642, 10.6931], [122.5742, 10.6931], [122.5742, 10.7031], [122.5642, 10.7031], [122.5642, 10.6931]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Region III",
+        "city": "Baguio",
+        "barangay": "Session Road"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.5842, 16.4131], [120.5942, 16.4131], [120.5942, 16.4231], [120.5842, 16.4231], [120.5842, 16.4131]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Region X",
+        "city": "Cagayan de Oro",
+        "barangay": "Divisoria"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[124.6442, 8.4731], [124.6542, 8.4731], [124.6542, 8.4831], [124.6442, 8.4831], [124.6442, 8.4731]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Region IV-A",
+        "city": "Batangas City",
+        "barangay": "Poblacion"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.0542, 13.7531], [121.0642, 13.7531], [121.0642, 13.7631], [121.0542, 13.7631], [121.0542, 13.7531]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "NCR",
+        "city": "Caloocan",
+        "barangay": "Bagong Silang"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.0342, 14.7531], [121.0442, 14.7531], [121.0442, 14.7631], [121.0342, 14.7631], [121.0342, 14.7531]]]
+      }
+    }
+  ]
+}

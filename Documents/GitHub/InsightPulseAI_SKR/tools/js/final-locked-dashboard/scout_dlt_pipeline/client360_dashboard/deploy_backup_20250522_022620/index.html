@@ -1,0 +1,111 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client360 Dashboard</title>
+  <script src="/js/theme-selector.js"></script>
+  <link rel="stylesheet" href="/css/global_search.css">
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+  <div class="theme-selector">
+    <label for="theme-select">Theme:</label>
+    <select id="theme-select">
+      <option value="tbwa">TBWA</option>
+      <option value="sarisari">Sari Sari</option>
+    </select>
+  </div>
+
+  <header class="header">
+    <div class="header-container">
+      <div class="header-logo"></div>
+      <h1 class="header-title">Client360 Dashboard</h1>
+      <div class="header-controls">
+        <div class="global-search">
+          <input type="text" id="global-search-input" placeholder="Search stores, campaigns, insights..." aria-label="Global search">
+          <button id="global-search-button" aria-label="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="control-buttons">
+          <button id="export-button" class="control-button" aria-label="Export data">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+            <span>Export</span>
+          </button>
+          <div class="data-source-toggle">
+            <span class="toggle-label">Data source:</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="data-source-toggle">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-value" id="data-source-value">Live</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="data-freshness">Data refreshed: <span id="data-refresh-time">Today at 09:15 AM</span></div>
+    
+    <\!-- Dashboard content goes here -->
+    <section class="kpi-section">
+      <h2 class="section-title">Key Performance Indicators</h2>
+      <div class="kpi-grid">
+        <\!-- KPI cards will be populated dynamically -->
+      </div>
+    </section>
+
+    <\!-- Rollback dashboard component -->
+    <section class="rollback-dashboard">
+      <div class="rollback-dashboard-header">
+        <h3>System Rollback</h3>
+        <div class="status-indicator active">System Ready</div>
+      </div>
+      <div class="rollback-dashboard-content">
+        <p>You can safely rollback the system to a previous known stable version if needed.</p>
+        
+        <div class="version-info">
+          <div class="version-label">Current Version:</div>
+          <div class="version-value">v2.3.1-20250519-prod</div>
+        </div>
+        
+        <div class="version-info">
+          <div class="version-label">Rollback Target:</div>
+          <div class="version-value">v2.2.0-20250415-stable</div>
+        </div>
+      </div>
+      <div class="rollback-dashboard-actions">
+        <button class="btn-rollback">Rollback System</button>
+        <button class="btn-verify">Verify Current State</button>
+      </div>
+      <div class="rollback-dashboard-log">
+        <pre>[2025-05-19 14:22:15] System verification complete
+[2025-05-19 14:22:10] All services operational
+[2025-05-19 14:21:58] Checking system state...</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <p>&copy; 2025 TBWA Client360</p>
+        <p>Version 2.3.1</p>
+      </div>
+      <div class="data-disclaimer">
+        Data provided for demonstration purposes.
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/global_search.js"></script>
+</body>
+</html>

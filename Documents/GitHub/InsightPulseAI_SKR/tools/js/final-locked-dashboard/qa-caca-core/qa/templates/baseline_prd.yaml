@@ -1,0 +1,11 @@
+title: "Retail Advisor Dashboard"
+components:
+  - KpiCard
+  - InsightCard
+  - AssistantPanel
+routes:
+  - /advisor
+  - /analytics
+toggles:
+  - real/simulated data
+  - internal/client mode

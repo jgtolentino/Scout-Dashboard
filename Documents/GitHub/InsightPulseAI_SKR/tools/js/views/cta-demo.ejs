@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulser CTA Preview Tool</title>
+    <meta name="description" content="Generate and preview effective call-to-action components for your marketing campaigns">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Base styles -->
+    <link rel="stylesheet" href="/styles/base.css">
+
+    <!-- Page-specific styles -->
+    <% if (styles && styles.length) { %>
+        <% styles.forEach(function(style) { %>
+            <link rel="stylesheet" href="<%= style %>">
+        <% }); %>
+    <% } %>
+</head>
+<body>
+    <header class="app-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="/">
+                        <img src="/images/insightpulseai-logo.png" alt="InsightPulseAI">
+                        <span>Pulser 2.0</span>
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/tools">Tools</a></li>
+                        <li><a href="/demos" class="active">Demos</a></li>
+                        <li><a href="/docs">Documentation</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Pulser CTA Preview Tool</h1>
+                <p class="subtitle">Generate and preview effective call-to-action elements</p>
+            </div>
+
+            <div class="demo-description">
+                <p>
+                    This tool helps you create compelling call-to-action content optimized for your specific marketing needs.
+                    Generate conversion-focused CTAs tailored to different industries, audiences, and promotional goals.
+                </p>
+            </div>
+
+            <!-- CTA Demo container - Component will be mounted here -->
+            <div id="cta-demo-container"></div>
+
+            <div class="component-reference">
+                <h3>Pulser CTA Component Versions</h3>
+                <div class="component-examples">
+                    <div class="component-example">
+                        <h4>Default:</h4>
+                        <div class="example-cta">
+                            <div class="cta-block">
+                                <div class="cta-product">PULSER</div>
+                                <div class="cta-tier">CODE</div>
+                                <div class="cta-description">Now included with Edge Tier</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="component-example">
+                        <h4>Custom Colors:</h4>
+                        <div class="example-cta custom-colors">
+                            <div class="cta-block">
+                                <div class="cta-product">PULSER</div>
+                                <div class="cta-tier">CODE</div>
+                                <div class="cta-description">Optimized for Branding Teams</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="component-example">
+                        <h4>Custom Text:</h4>
+                        <div class="example-cta custom-text">
+                            <div class="cta-block">
+                                <div class="cta-product">PULSER 2.0</div>
+                                <div class="cta-tier">CORE</div>
+                                <div class="cta-description">Included in Edge Plan</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="technical-notes">
+                <h3>Implementation Notes</h3>
+                <p>
+                    This demo uses the following components:
+                </p>
+                <ul>
+                    <li><strong>Prompt Executor:</strong> Handles prompt processing for optimized marketing copy</li>
+                    <li><strong>Prompt Library:</strong> Uses templates from <code>/SKR/prompt_library/cta_generator</code></li>
+                    <li><strong>Rendering Engine:</strong> Processes parameters for dynamic preview generation</li>
+                </ul>
+                <p>
+                    All generated CTAs are aligned with Pulser branding guidelines and optimized for conversion.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright">
+                    &copy; <%= new Date().getFullYear() %> InsightPulseAI. All rights reserved.
+                </div>
+                <div class="footer-links">
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/terms">Terms of Use</a>
+                    <a href="/contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Additional styles for component examples -->
+    <style>
+        .component-reference {
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .component-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .component-example h4 {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .example-cta {
+            background-color: #fff;
+            border-radius: 6px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .cta-block {
+            text-align: center;
+        }
+
+        .cta-product {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .cta-tier {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #4a6cf7;
+            margin: 0.3rem 0;
+        }
+
+        .cta-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .custom-colors .cta-tier {
+            color: #e44d26;
+        }
+
+        .custom-text .cta-product {
+            font-size: 1.2rem;
+        }
+
+        .custom-text .cta-tier {
+            font-size: 1.6rem;
+            color: #38b2ac;
+        }
+    </style>
+
+    <!-- Base scripts -->
+    <script src="/scripts/app.js"></script>
+
+    <!-- Page-specific scripts -->
+    <% if (scripts && scripts.length) { %>
+        <% scripts.forEach(function(script) { %>
+            <script src="<%= script %>"></script>
+        <% }); %>
+    <% } %>
+
+    <!-- Initialize CTA Demo component -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('cta-demo-container');
+            if (container && window.CTADemo) {
+                new CTADemo(container);
+            }
+        });
+    </script>
+</body>
+</html>

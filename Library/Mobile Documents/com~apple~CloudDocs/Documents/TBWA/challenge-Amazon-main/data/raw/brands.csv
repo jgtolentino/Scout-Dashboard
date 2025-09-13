@@ -1,0 +1,50 @@
+brand_id,brand_name,brand_type,established_year,is_active
+BRD001,Lucky Me!,Local,2001,True
+BRD002,Rebisco,Local,1964,True
+BRD003,Ricoa,Local,2010,True
+BRD004,Boy Bawang,Local,1970,True
+BRD005,Oishi,Local,1973,True
+BRD006,Jack 'n Jill,Local,1952,True
+BRD007,Monde Nissin,Local,1971,True
+BRD008,Universal Robina Corporation,Local,2002,True
+BRD009,San Miguel,Local,1951,True
+BRD010,Magnolia,Local,1979,True
+BRD011,Century Tuna,Local,1987,True
+BRD012,Argentina,Local,1951,True
+BRD013,CDO,Local,2013,True
+BRD014,Spam,Local,2009,True
+BRD015,Ligo,Local,1970,True
+BRD016,Palmolive,Local,1982,True
+BRD017,Safeguard,Local,2007,True
+BRD018,Joy,Local,1971,True
+BRD019,Tide,Local,1998,True
+BRD020,Ariel,Local,2008,True
+BRD021,Colgate,Local,1991,True
+BRD022,Close-Up,Local,2009,True
+BRD023,Hapee,Local,1964,True
+BRD024,Sensodyne,Local,2011,True
+BRD025,Oral-B,Local,2011,True
+BRD026,Coca-Cola,International,1996,True
+BRD027,Pepsi,International,2011,True
+BRD028,Nestle,International,2000,True
+BRD029,Unilever,International,2004,True
+BRD030,Procter & Gamble,International,2013,True
+BRD031,Johnson & Johnson,International,1952,True
+BRD032,Head & Shoulders,International,2000,True
+BRD033,Pantene,International,1956,True
+BRD034,Dove,International,1970,True
+BRD035,Lay's,International,1988,True
+BRD036,Pringles,International,1967,True
+BRD037,KitKat,International,1953,True
+BRD038,Oreo,International,2009,True
+BRD039,Ritz,International,1963,True
+BRD040,Maggi,International,1958,True
+BRD041,Knorr,International,2002,True
+BRD042,Lipton,International,1951,True
+BRD043,Milo,International,2009,True
+BRD044,Ovaltine,International,1993,True
+BRD045,Pampers,International,1957,True
+BRD046,Huggies,International,1996,True
+BRD047,Johnson's Baby,International,1984,True
+BRD048,Enfamil,International,1985,True
+BRD049,Similac,International,1999,True

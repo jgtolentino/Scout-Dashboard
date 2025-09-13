@@ -1,0 +1,183 @@
+name: Snow White
+identifier: snowwhite
+version: 1.0.0
+description: >
+  White-Labeling & Rebranding Agent for client-facing exports This agent provides enterprise-grade functionality with comprehensive error handling, performance optimization, and full observability for production environments.
+
+role:
+  primary: White-Labeling & Rebranding
+  secondary: IP Protection
+capabilities:
+  - Converts internal references to client-facing aliases
+  - Manages alias maps for client deployments
+  - Applies licensing and compliance filters
+  - Scrubs metadata and audit trails
+  - Formats assets for client delivery
+  - Works with Maya and Claudia for final exports
+commands:
+  - name: whitelabel
+    description: Apply white-labeling to resources
+    subcommands:
+      - name: deploy-client
+        description: White-label resources and deploy to client-facing repo
+        arguments:
+          - name: client-name
+            description: Name of the client for customization
+            required: true
+          - name: output-dir
+            description: Output directory for white-labeled assets
+            required: false
+            default: "./client-facing"
+      - name: preview
+        description: Preview white-labeled resources without deployment
+        arguments:
+          - name: file
+            description: File to preview white-labeling changes
+            required: true
+      - name: check
+        description: Check for non-compliant internal references
+        arguments:
+          - name: directory
+            description: Directory to check for internal references
+            required: true
+  - name: aliasmap
+    description: Manage white-labeling alias maps
+    subcommands:
+      - name: show
+        description: Display current alias map
+      - name: edit
+        description: Edit the alias map
+        arguments:
+          - name: alias
+            description: Internal name to alias
+            required: true
+          - name: replacement
+            description: Client-facing replacement
+            required: true
+      - name: import
+        description: Import alias map from file
+        arguments:
+          - name: file
+            description: File containing alias mapping
+            required: true
+      - name: export
+        description: Export current alias map to file
+        arguments:
+          - name: file
+            description: Output file for alias map
+            required: true
+  - name: scrub
+    description: Scrub internal references and metadata
+    subcommands:
+      - name: insight-metadata
+        description: Clean metadata from insights
+        arguments:
+          - name: target
+            description: Target file or directory to scrub
+            required: true
+      - name: audit-trails
+        description: Remove internal audit trails
+        arguments:
+          - name: target
+            description: Target file or directory to scrub
+            required: true
+      - name: agent-refs
+        description: Remove agent references
+        arguments:
+          - name: target
+            description: Target file or directory to scrub
+            required: true
+dependencies:
+  agents:
+    - maya # For documentation coordination
+    - claudia # For task orchestration
+  tools:
+    - whitelabel.sh
+    - whitelabel_simple.sh
+    - dual_repo_push.sh
+config:
+  alias_map_path: "./client-facing/alias_map.yaml"
+  license_template_path: "./client-facing/LICENSE.txt"
+  notice_template_path: "./client-facing/NOTICE.md"
+  default_replacements:
+    - internal: "InsightPulseAI"
+      client: "CLIENT_SYSTEM"
+    - internal: "Pulser"
+      client: "Analytics Core"
+    - internal: "Claudia"
+      client: "TaskRouter"
+    - internal: "Kalaw"
+      client: "KnowledgeBase"
+    - internal: "Echo"
+      client: "SignalExtractor"
+    - internal: "Maya"
+      client: "DocumentManager"
+    - internal: "Caca"
+      client: "QualityValidator"
+    - internal: "Sunnies"
+      client: "Visualizer"
+hooks:
+  pre_whitelabel:
+    - "verify_intellectual_property.sh"
+  post_whitelabel:
+    - "verify_client_branding.sh"
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+observability:
+  logging:
+    level: info
+    format: json
+    outputs:
+      - stdout
+      - file: /logs/agent.log
+  tracing:
+    enabled: true
+    provider: opentelemetry
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    provider: prometheus
+    endpoint: /metrics
+integrations:
+  - pulser_core
+  - external_api
+interactions:
+  - pulser_core
+  - juicer_stack

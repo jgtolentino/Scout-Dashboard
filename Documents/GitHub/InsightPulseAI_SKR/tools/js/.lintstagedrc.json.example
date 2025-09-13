@@ -1,0 +1,19 @@
+{
+  "*.{js,jsx,ts,tsx}": [
+    "eslint --fix",
+    "prettier --write"
+  ],
+  "*.{css,scss}": [
+    "stylelint --fix",
+    "prettier --write"
+  ],
+  "*.{json,md}": [
+    "prettier --write"
+  ],
+  "staticwebapp.config.json": [
+    "npx ajv validate -s schemas/staticwebapp.schema.json -d"
+  ],
+  "*.dlt.json": [
+    "npx ajv validate -s schemas/dlt.schema.json -d"
+  ]
+}

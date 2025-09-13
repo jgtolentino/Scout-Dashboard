@@ -1,0 +1,266 @@
+/* Power BI Specific Styling */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --tbwa-yellow: 255 207 0;
+    --tbwa-yellow-light: rgba(255, 207, 0, 0.15);
+    --tbwa-yellow-hover: rgba(255, 207, 0, 0.9);
+    --tbwa-black: 0 0 0;
+    --animation-timing: 0.3s ease-in-out;
+  }
+  
+  /* Power BI specific fonts */
+  @font-face {
+    font-family: 'Segoe UI';
+    src: url('/fonts/segoe-ui.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Segoe UI';
+    src: url('/fonts/segoe-ui-semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+@layer components {
+  /* Power BI Card Styling */
+  .powerbi-card {
+    @apply bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden transition-all;
+  }
+  
+  .powerbi-card-header {
+    @apply p-3 border-b border-gray-100 flex justify-between items-center;
+  }
+  
+  .powerbi-card-title {
+    @apply text-sm font-semibold text-gray-800;
+  }
+  
+  .powerbi-card-body {
+    @apply p-3;
+  }
+  
+  /* Power BI Focus Mode */
+  .powerbi-card.focused {
+    @apply fixed inset-4 z-50 h-auto w-auto;
+  }
+  
+  .powerbi-card.focused .powerbi-card-body {
+    @apply h-[calc(100%-3rem)];
+  }
+  
+  /* Power BI KPI Indicator */
+  .powerbi-kpi {
+    @apply flex flex-col items-center justify-center h-full;
+  }
+  
+  .powerbi-kpi-value {
+    @apply text-3xl font-semibold text-gray-900;
+  }
+  
+  .powerbi-kpi-label {
+    @apply text-sm text-gray-500 mt-1;
+  }
+  
+  .powerbi-kpi-trend {
+    @apply flex items-center text-xs mt-1;
+  }
+  
+  .powerbi-kpi-trend.positive {
+    @apply text-green-600;
+  }
+  
+  .powerbi-kpi-trend.negative {
+    @apply text-red-600;
+  }
+  
+  /* Power BI Toolbar Buttons */
+  .toolbar-button {
+    @apply flex items-center px-3 py-1.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 
+           border border-gray-300 rounded-md shadow-sm transition-colors duration-150;
+  }
+  
+  .toolbar-button.active {
+    @apply bg-gray-100;
+  }
+  
+  /* Power BI Dropdown Menu */
+  .toolbar-dropdown {
+    @apply absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 
+           ring-1 ring-black ring-opacity-5 z-10 focus:outline-none;
+  }
+  
+  .toolbar-dropdown-item {
+    @apply flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left;
+  }
+  
+  /* Power BI Filter Styles */
+  .powerbi-filter-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+  
+  .powerbi-filter-select {
+    @apply block w-full mt-1 rounded-md border-gray-300 shadow-sm 
+           focus:border-tbwa-yellow focus:ring-tbwa-yellow sm:text-sm;
+  }
+  
+  .powerbi-filter-checkbox {
+    @apply h-4 w-4 text-tbwa-yellow focus:ring-tbwa-yellow border-gray-300 rounded;
+  }
+  
+  .powerbi-filter-radio {
+    @apply h-4 w-4 text-tbwa-yellow focus:ring-tbwa-yellow border-gray-300;
+  }
+  
+  /* Power BI Loading Indicator */
+  .powerbi-loading {
+    @apply flex justify-center items-center p-6;
+  }
+  
+  .powerbi-loading-spinner {
+    @apply animate-spin rounded-full h-10 w-10 border-b-2 border-tbwa-yellow;
+  }
+  
+  /* Power BI Data Refresh Badge */
+  .data-refresh-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800;
+  }
+  
+  .data-refresh-badge.realtime {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  .data-refresh-badge.powerbi {
+    @apply bg-blue-100 text-blue-800;
+  }
+  
+  /* Power BI Drilldown */
+  .powerbi-drill-path {
+    @apply flex items-center text-xs text-gray-500 mb-2;
+  }
+  
+  .powerbi-drill-level {
+    @apply hover:text-gray-900 hover:underline cursor-pointer;
+  }
+  
+  .powerbi-drill-separator {
+    @apply mx-1;
+  }
+  
+  /* Power BI Focus Mode Button */
+  .focus-button {
+    @apply p-1 rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-100;
+  }
+  
+  /* Power BI Empty State */
+  .powerbi-empty-state {
+    @apply flex flex-col items-center justify-center h-full p-6 text-center;
+  }
+  
+  .powerbi-empty-state-icon {
+    @apply h-12 w-12 text-gray-400 mb-3;
+  }
+  
+  .powerbi-empty-state-text {
+    @apply text-sm text-gray-500;
+  }
+  
+  /* Power BI Tooltip */
+  .powerbi-tooltip {
+    @apply absolute z-50 px-3 py-2 text-sm text-white bg-gray-900 rounded-md shadow-lg;
+  }
+  
+  /* Power BI Slicer */
+  .powerbi-slicer {
+    @apply px-3 py-2 rounded-md bg-gray-50 mb-4;
+  }
+  
+  .powerbi-slicer-title {
+    @apply text-xs font-medium text-gray-500 uppercase tracking-wider mb-2;
+  }
+  
+  .powerbi-slicer-options {
+    @apply space-y-1;
+  }
+  
+  /* Power BI Alert Badge */
+  .powerbi-alert {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .powerbi-alert-info {
+    @apply bg-blue-100 text-blue-800;
+  }
+  
+  .powerbi-alert-success {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  .powerbi-alert-warning {
+    @apply bg-tbwa-yellow bg-opacity-20 text-tbwa-black;
+  }
+  
+  .powerbi-alert-error {
+    @apply bg-red-100 text-red-800;
+  }
+  
+  /* Power BI Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out forwards;
+  }
+  
+  @keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.3s ease-in-out forwards;
+  }
+  
+  /* Print styles for Power BI dashboard */
+  @media print {
+    body {
+      @apply bg-white;
+    }
+    
+    .powerbi-toolbar,
+    .powerbi-filter-pane,
+    .focus-button,
+    .toolbar-button,
+    .powerbi-card-header button {
+      @apply hidden;
+    }
+    
+    .powerbi-card {
+      @apply border shadow-none break-inside-avoid mb-4;
+    }
+    
+    .powerbi-card-body {
+      @apply h-auto;
+    }
+    
+    .container {
+      @apply max-w-none mx-0;
+    }
+  }
+}

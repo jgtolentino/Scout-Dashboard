@@ -1,0 +1,118 @@
+/* Sidebar.css */
+
+.sidebar {
+  width: 220px;
+  height: 100%;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.tools-section {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-color);
+  opacity: 0.6;
+  padding: 0 16px;
+  margin-bottom: 8px;
+}
+
+.tool-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tool-item {
+  margin: 2px 0;
+}
+
+.tool-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: background-color 0.2s;
+  border-radius: 0;
+}
+
+.tool-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.tool-button:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tool-icon {
+  width: 20px;
+  margin-right: 12px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.tool-label {
+  font-size: 14px;
+}
+
+.ai-tools {
+  margin-top: auto;
+}
+
+.ai-tools .tool-button {
+  color: var(--primary-color);
+}
+
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+.help-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: background-color 0.2s;
+}
+
+.help-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.help-icon {
+  margin-right: 8px;
+}
+
+/* Mode-specific sidebar styling */
+.deck-sidebar .tool-button:hover {
+  background-color: rgba(104, 76, 180, 0.1);
+}
+
+.webapp-sidebar .tool-button:hover {
+  background-color: rgba(25, 118, 210, 0.1);
+}
+
+.mobile-sidebar .tool-button:hover {
+  background-color: rgba(46, 125, 50, 0.1);
+}

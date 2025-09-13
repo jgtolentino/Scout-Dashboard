@@ -1,0 +1,154 @@
+name: Weekly Dashboard Screenshots
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment for screenshots'
+        required: true
+        default: 'prod'
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+      dashboardUrl:
+        description: 'Custom dashboard URL (optional)'
+        required: false
+        type: string
+
+jobs:
+  capture_dashboard:
+    name: Capture Dashboard Screenshots
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install Puppeteer
+        run: npm install -g puppeteer
+      
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+      
+      - name: Set Dashboard URL
+        id: set-url
+        run: |
+          # Set default URLs based on environment
+          if [[ "${{ github.event.inputs.environment }}" == "dev" ]]; then
+            DEFAULT_URL="https://dev-juicer-insights-dashboard.azurestaticapps.net"
+          elif [[ "${{ github.event.inputs.environment }}" == "staging" ]]; then
+            DEFAULT_URL="https://staging-juicer-insights-dashboard.azurestaticapps.net"
+          else
+            DEFAULT_URL="https://gentle-rock-04e54f40f.6.azurestaticapps.net"
+          fi
+          
+          # Use custom URL if provided, otherwise use default
+          DASHBOARD_URL="${{ github.event.inputs.dashboardUrl }}"
+          if [[ -z "$DASHBOARD_URL" ]]; then
+            DASHBOARD_URL="$DEFAULT_URL"
+          fi
+          
+          echo "DASHBOARD_URL=$DASHBOARD_URL" >> $GITHUB_ENV
+          echo "Environment: ${{ github.event.inputs.environment || 'prod' }}"
+          echo "Dashboard URL: $DASHBOARD_URL"
+      
+      - name: Create Required Directories
+        run: |
+          mkdir -p tools/js/juicer-stack/assets/screenshots
+          mkdir -p tools/js/juicer-stack/assets/thumbnails
+          mkdir -p tools/js/juicer-stack/assets/reports
+          mkdir -p tools/js/juicer-stack/docs/images/archive
+      
+      - name: Capture Dashboard Screenshot
+        run: |
+          chmod +x tools/js/juicer-stack/tools/shogun_dashboard_capture.sh
+          cd tools/js/juicer-stack/tools
+          ./shogun_dashboard_capture.sh ${{ env.DASHBOARD_URL }}
+        continue-on-error: true
+      
+      - name: Generate Thumbnail and Compressed Versions
+        run: |
+          chmod +x tools/js/juicer-stack/tools/generate_thumbnails.sh
+          cd tools/js/juicer-stack/tools
+          ./generate_thumbnails.sh
+        continue-on-error: true
+      
+      - name: Upload Screenshot Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: weekly-dashboard-screenshots
+          path: |
+            tools/js/juicer-stack/assets/screenshots/*
+            tools/js/juicer-stack/assets/thumbnails/*
+            tools/js/juicer-stack/assets/reports/*
+            tools/js/juicer-stack/docs/images/*
+        continue-on-error: true
+      
+      - name: Commit Changes (if automated run)
+        if: github.event_name == 'schedule'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add only the specific files we've modified
+          git add tools/js/juicer-stack/docs/images/latest_dashboard.png
+          git add tools/js/juicer-stack/docs/images/archive/
+          
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "📊 Auto-update dashboard screenshots [weekly]"
+            git push
+          fi
+        continue-on-error: true
+      
+      - name: Generate Status Report
+        run: |
+          TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+          ENVIRONMENT="${{ github.event.inputs.environment || 'prod' }}"
+          
+          echo "## Dashboard Screenshot Report" > screenshot_report.md
+          echo "**Date:** $TIMESTAMP" >> screenshot_report.md
+          echo "**Environment:** $ENVIRONMENT" >> screenshot_report.md
+          echo "**URL:** ${{ env.DASHBOARD_URL }}" >> screenshot_report.md
+          echo "" >> screenshot_report.md
+          echo "### Generated Files" >> screenshot_report.md
+          echo "- Latest Dashboard: \`docs/images/latest_dashboard.png\`" >> screenshot_report.md
+          echo "- Archive: \`docs/images/archive/dashboard_*.png\`" >> screenshot_report.md
+          echo "- Thumbnail: \`assets/thumbnails/retail_dashboard_*_thumb.png\`" >> screenshot_report.md
+          echo "- Compressed: \`assets/reports/retail_dashboard_*_compressed.jpg\`" >> screenshot_report.md
+          echo "- HTML Gallery: \`assets/reports/dashboard_preview.html\`" >> screenshot_report.md
+          
+          cat screenshot_report.md
+      
+      - name: Notify on Completion
+        if: github.event_name == 'schedule'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const reportContent = fs.readFileSync('screenshot_report.md', 'utf8');
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '📊 Weekly Dashboard Screenshot Captured',
+              body: reportContent,
+              labels: ['documentation', 'automated', 'visual-qa']
+            });
+        continue-on-error: true

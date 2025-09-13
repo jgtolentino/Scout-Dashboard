@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: int_sales_interaction_brands
+    description: "Exploded sales transaction data with brand and geographical information"
+    columns:
+      - name: transaction_id
+        description: "Unique identifier for the transaction"
+        tests:
+          - not_null
+      - name: store_id
+        description: "Identifier for the store where the transaction occurred"
+        tests:
+          - not_null
+      - name: transaction_date
+        description: "Date and time of the transaction"
+        tests:
+          - not_null
+      - name: total_amount
+        description: "Total monetary amount of the transaction"
+        tests:
+          - not_null
+      - name: payment_method
+        description: "Method of payment used"
+      - name: customer_id
+        description: "Identifier for the customer, if available"
+      - name: product_id
+        description: "Identifier for the product"
+        tests:
+          - not_null
+      - name: quantity
+        description: "Quantity of the product purchased"
+        tests:
+          - not_null
+      - name: item_price
+        description: "Price of the individual item"
+        tests:
+          - not_null
+      - name: product_name
+        description: "Name of the product"
+      - name: brand_standardized
+        description: "Standardized brand name"
+      - name: category
+        description: "Product category"
+      - name: subcategory
+        description: "Product subcategory"
+      - name: latitude
+        description: "Geographical latitude of the store location"
+      - name: longitude
+        description: "Geographical longitude of the store location"
+      - name: city
+        description: "City where the store is located"
+      - name: state
+        description: "State or province where the store is located"
+      - name: country
+        description: "Country where the store is located"
+      - name: geo_point
+        description: "Geographical point representation of the store location"
