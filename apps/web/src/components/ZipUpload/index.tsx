@@ -64,7 +64,7 @@ export const ZipUpload: React.FC<ZipUploadProps> = ({
       formData.append('source', source);
       formData.append('processImmediately', 'true');
 
-      const response = await fetch('/api/upload', {
+      const response = await fetch('/api/v5/upload', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${await getAuthToken()}`

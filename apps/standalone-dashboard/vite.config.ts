@@ -12,5 +12,13 @@ export default defineConfig({
   server: {
     port: 5173,
     open: true,
+    proxy: {
+      // Proxy Scout AI router requests to Supabase Edge Functions
+      '/api/scout-ai': {
+        target: process.env.VITE_SUPABASE_FUNCTIONS_URL || 'http://localhost:54321/functions/v1',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/scout-ai/, '/scout_ai_router')
+      }
+    }
   },
 })

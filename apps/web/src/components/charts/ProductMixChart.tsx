@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useId, useMemo } from 'react'
 import {
   PieChart,
   Pie,
@@ -22,6 +22,7 @@ const COLORS = ['#6366F1', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#3B82F6'
 
 export const ProductMixChart: React.FC = () => {
   const { filters, getFilterQuery } = useFilters()
+  const chartId = useId()
 
   const { data, isLoading } = useQuery({
     queryKey: ['product-mix', filters],
@@ -87,10 +88,19 @@ export const ProductMixChart: React.FC = () => {
     return `${entry.percentage.toFixed(0)}%`
   }
 
+  // Generate accessibility summary
+  const chartSummary = useMemo(() => {
+    if (!chartData?.length) return 'No product mix data available.'
+    const totalRevenue = chartData.reduce((sum, d) => sum + d.value, 0)
+    const topCategory = chartData[0]
+    const categoriesAbove10Percent = chartData.filter(d => d.percentage >= 10).length
+    return `Product mix pie chart showing ${chartData.length} categories. Total revenue: ₱${totalRevenue.toLocaleString()}. Top category: ${topCategory?.name} at ${topCategory?.percentage.toFixed(1)}% (₱${topCategory?.value.toLocaleString()}). ${categoriesAbove10Percent} categories represent 10% or more of total revenue.`
+  }, [chartData])
+
   return (
-    <div className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl">
+    <figure className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl" aria-labelledby={`${chartId}-title`} aria-describedby={`${chartId}-desc`}>
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold">Product Mix</h3>
+        <h3 id={`${chartId}-title`} className="text-xl font-semibold">Product Mix</h3>
         <select className="px-3 py-1 text-sm border border-gray-300 rounded-lg bg-white">
           <option>By Revenue</option>
           <option>By Volume</option>
@@ -98,7 +108,13 @@ export const ProductMixChart: React.FC = () => {
         </select>
       </div>
 
-      <ResponsiveContainer width="100%" height={300}>
+      <div 
+        className="focus:outline-none focus:ring-4 focus:ring-blue-500/35 focus:rounded-lg" 
+        tabIndex={0}
+        role="img"
+        aria-label="Product mix pie chart showing revenue distribution by category"
+      >
+        <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
             data={chartData}
@@ -117,6 +133,9 @@ export const ProductMixChart: React.FC = () => {
           <Tooltip content={<CustomTooltip />} />
         </PieChart>
       </ResponsiveContainer>
+      </div>
+      
+      <p id={`${chartId}-desc`} className="sr-only">{chartSummary}</p>
 
       <div className="mt-6 space-y-2">
         {chartData.map((item, index) => (
@@ -139,6 +158,6 @@ export const ProductMixChart: React.FC = () => {
           <span className="font-semibold">₱{chartData.reduce((sum, d) => sum + d.value, 0).toLocaleString()}</span>
         </div>
       </div>
-    </div>
+    </figure>
   )
 }

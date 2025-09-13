@@ -5,7 +5,7 @@
 CREATE SCHEMA IF NOT EXISTS analytics;
 
 -- User Activity Tracking Table
-CREATE TABLE IF NOT EXISTS analytics.user_activity (
+CREATE TABLE IF NOT EXISTS analytics.scout_user_activity (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   event_type TEXT NOT NULL CHECK (event_type IN ('page_view', 'button_click', 'form_submit', 'api_call')),
@@ -38,7 +38,7 @@ CREATE POLICY "Service role can insert activity" ON analytics.user_activity
 CREATE SCHEMA IF NOT EXISTS expense;
 
 -- Expense table with OCR data
-CREATE TABLE IF NOT EXISTS expense.expenses (
+CREATE TABLE IF NOT EXISTS expense.scout_expenses (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   merchant_name TEXT,
@@ -79,7 +79,7 @@ CREATE POLICY "Users can update own pending expenses" ON expense.expenses
   FOR UPDATE USING (auth.uid() = user_id AND status = 'pending_review');
 
 -- Function to get activity summary
-CREATE OR REPLACE FUNCTION get_activity_summary(p_user_id UUID)
+CREATE OR REPLACE FUNCTION get_activity_summary_scout(p_user_id UUID)
 RETURNS JSON AS $$
 DECLARE
   result JSON;
@@ -105,7 +105,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- Function to auto-update updated_at
-CREATE OR REPLACE FUNCTION update_updated_at_column()
+CREATE OR REPLACE FUNCTION update_updated_at_column_scout()
 RETURNS TRIGGER AS $$
 BEGIN
   NEW.updated_at = NOW();

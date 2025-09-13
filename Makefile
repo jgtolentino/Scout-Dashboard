@@ -1,4 +1,4 @@
-.PHONY: env token-guard revoke-token tokens check \
+.PHONY: env token-guard revoke-token tokens check \ pivots-test pivots-xlsx
 		v7-setup v7-deploy v7-migrate v7-test v7-build \
 		agents-build agents-deploy agents-test \
 		mcp-build mcp-test semantic-validate \
@@ -242,3 +242,13 @@ dev: env
 # Smoke test agent endpoints
 agents-smoke:
 	@./scripts/smoke_agents.sh
+
+# Verify pivot views return rows and show coverage KPI
+pivots-test: pivots-views
+	./scripts/sql.sh -d "$(DB)" -Q "SELECT TOP 5 * FROM gold.v_pivot_default;"
+	./scripts/sql.sh -d "$(DB)" -Q "SELECT * FROM gold.v_nielsen_coverage_summary;"
+
+# Build an Excel workbook wired to CSVs from pivots-export
+pivots-xlsx:
+	python3 scripts/build_pivots_xlsx.py --csvdir out/pivots --out out/Scout_Pivots_Nielsen.xlsx
+	@echo "Workbook at out/Scout_Pivots_Nielsen.xlsx"

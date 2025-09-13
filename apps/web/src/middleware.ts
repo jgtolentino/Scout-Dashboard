@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { log } from 'observability/log';
+import { log } from './observability/log';
 import { handleApiError } from '@/lib/errors/api-error-handler';
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'];

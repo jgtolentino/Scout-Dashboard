@@ -9,51 +9,45 @@ app = Dash(
     title="Amazon Dashboard",
     external_stylesheets=[dbc.themes.BOOTSTRAP],
     suppress_callback_exceptions=True,
-    dev_tools_silence_routes_logging=True,
 )
 server = app.server
 
 # Import Scout DAL functions (with error handling for missing modules)
 try:
-    from scout.dal import trend, top, geo, ai
-    from scout.spec_validate import validate_spec
+    from scout.dal import trend, top, geo, recommend
     SCOUT_AVAILABLE = True
 except ImportError:
     SCOUT_AVAILABLE = False
     print("⚠️ Scout DAL not available - install dependencies: pip install jsonschema requests")
 
-# --- JSON Prompting API (InsightSpec / RecommendationSpec)
-@server.route("/api/ai", methods=["POST"])
-def api_ai():
+# --- Scout API Routes: Only proxy to Edge Functions with CSV fallback
+@server.route("/api/scout/insights", methods=["POST"])
+def api_insights():
     if not SCOUT_AVAILABLE:
         return jsonify({"error": "Scout DAL not available"}), 503
+    
+    payload = request.get_json(force=True) or {}
     try:
-        payload = request.get_json(force=True, silent=False)
-        ok, errs = validate_spec(payload or {})
-        if not ok:
-            return jsonify({"error":"invalid_spec","details":errs}), 400
-        return jsonify(ai(payload))
+        mode = payload.get("mode")
+        if mode == "top":
+            return jsonify(top(payload))
+        if mode == "geo":
+            return jsonify(geo(payload))
+        return jsonify(trend(payload))
     except Exception as e:
-        return jsonify({"error":str(e)}), 500
+        # Optional CSV fallback if you pass a loader
+        return jsonify({"error": str(e)}), 502
 
-# --- Thin read APIs backing callbacks
-@server.route("/api/trend", methods=["POST"])
-def api_trend():
+@server.route("/api/scout/recommend", methods=["POST"])
+def api_recommend():
     if not SCOUT_AVAILABLE:
         return jsonify({"error": "Scout DAL not available"}), 503
-    return jsonify(trend(request.get_json(force=True) or {}))
-
-@server.route("/api/top", methods=["POST"])  
-def api_top():
-    if not SCOUT_AVAILABLE:
-        return jsonify({"error": "Scout DAL not available"}), 503
-    return jsonify(top(request.get_json(force=True) or {}))
-
-@server.route("/api/geo", methods=["POST"])
-def api_geo():
-    if not SCOUT_AVAILABLE:
-        return jsonify({"error": "Scout DAL not available"}), 503
-    return jsonify(geo(request.get_json(force=True) or {}))
+    
+    payload = request.get_json(force=True) or {}
+    try:
+        return jsonify(recommend(payload))
+    except Exception as e:
+        return jsonify({"error": str(e)}), 502
 
 # sidebar
 sidebar = html.Div(

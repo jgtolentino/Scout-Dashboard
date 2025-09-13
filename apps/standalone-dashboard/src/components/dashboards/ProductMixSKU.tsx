@@ -16,7 +16,9 @@ import {
   Line,
 } from 'recharts';
 import { Package, TrendingUp, Award, GitBranch } from 'lucide-react';
-import useDataStore from '@/store/dataStore';
+import useDataStore from '../../store/dataStore';
+import { DataVisualizationKit } from '../widgets/DataVisualizationKit';
+import { ResponsiveChart } from '../widgets/ResponsiveChart';
 
 interface ProductMixSKUProps {
   filters: {
@@ -181,7 +183,7 @@ export default function ProductMixSKU({ filters }: ProductMixSKUProps) {
           <h3 className="text-lg font-semibold mb-4">Category Performance</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart 
-              data={categoryBreakdown} 
+              data={categoryBreakdown || []} 
               layout="horizontal"
               margin={{ top: 20, right: 60, bottom: 20, left: 100 }}
             >
@@ -219,7 +221,7 @@ export default function ProductMixSKU({ filters }: ProductMixSKUProps) {
                   fill: 'white',
                   fontSize: 12,
                   fontWeight: 600,
-                  formatter: (value: any, entry: any) => entry.category
+                  formatter: (value: any, entry: any) => entry?.payload?.category || entry?.category || ''
                 }}
               />
             </BarChart>
@@ -231,7 +233,7 @@ export default function ProductMixSKU({ filters }: ProductMixSKUProps) {
           <h3 className="text-lg font-semibold mb-4">Top Brands Performance</h3>
           <ResponsiveContainer width="100%" height={350}>
             <BarChart 
-              data={brandPerformance.slice(0, 8)} 
+              data={(brandPerformance || []).slice(0, 8)} 
               layout="horizontal"
               margin={{ top: 20, right: 60, bottom: 20, left: 80 }}
             >
@@ -269,7 +271,7 @@ export default function ProductMixSKU({ filters }: ProductMixSKUProps) {
                   fill: 'white',
                   fontSize: 12,
                   fontWeight: 600,
-                  formatter: (value: any, entry: any) => entry.brand
+                  formatter: (value: any, entry: any) => entry?.payload?.brand || entry?.brand || ''
                 }}
               />
             </BarChart>
@@ -334,7 +336,7 @@ export default function ProductMixSKU({ filters }: ProductMixSKUProps) {
         <h3 className="text-lg font-semibold mb-4">Brand Category Relationships</h3>
         <ResponsiveContainer width="100%" height={400}>
           <Treemap
-            data={treemapData}
+            data={treemapData || []}
             dataKey="size"
             aspectRatio={4 / 3}
             stroke="#fff"
@@ -345,6 +347,52 @@ export default function ProductMixSKU({ filters }: ProductMixSKUProps) {
             ))}
           </Treemap>
         </ResponsiveContainer>
+      </div>
+
+      {/* Advanced Visualizations Section */}
+      <div className="col-span-full mt-8 border-t pt-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <Package className="h-6 w-6 text-purple-600" />
+          Advanced Product Visualizations
+          <span className="text-sm font-normal text-gray-500 ml-2">(Figma r19 Kit)</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Data Visualization Kit */}
+          <div className="lg:col-span-2">
+            <DataVisualizationKit 
+              props={{ 
+                title: "Product Mix Analytics Suite", 
+                chartTypes: ["treemap", "sankey", "radar"],
+                interactiveMode: true,
+                dataSource: "product-analytics"
+              }} 
+              data={null} 
+            />
+          </div>
+          
+          {/* Responsive Chart */}
+          <ResponsiveChart 
+            props={{ 
+              title: "Category Performance Matrix", 
+              chartType: "bubble",
+              responsive: true,
+              showLegend: true
+            }} 
+            data={null} 
+          />
+          
+          {/* Interactive Chart */}
+          <InteractiveChart 
+            props={{ 
+              title: "SKU Performance Analysis", 
+              chartType: "waterfall",
+              showControls: true,
+              dataFilters: ["category", "brand", "revenue"]
+            }} 
+            data={null} 
+          />
+        </div>
       </div>
     </div>
   );

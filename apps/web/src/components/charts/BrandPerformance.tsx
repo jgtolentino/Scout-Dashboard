@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useId, useMemo } from 'react'
 import {
   BarChart,
   Bar,
@@ -25,6 +25,7 @@ interface BrandData {
 
 export const BrandPerformance: React.FC = () => {
   const { filters, getFilterQuery } = useFilters()
+  const chartId = useId()
 
   const { data, isLoading } = useQuery({
     queryKey: ['brand-performance', filters],
@@ -103,10 +104,20 @@ export const BrandPerformance: React.FC = () => {
     return null
   }
 
+  // Generate accessibility summary
+  const chartSummary = useMemo(() => {
+    if (!chartData?.length) return 'No brand performance data available.'
+    const totalRevenue = chartData.reduce((sum, d) => sum + d.revenue, 0)
+    const avgGrowth = chartData.reduce((sum, d) => sum + d.growth, 0) / chartData.length
+    const topBrand = chartData[0]
+    const positiveGrowthBrands = chartData.filter(d => d.growth > 0).length
+    return `Brand performance chart showing ${chartData.length} brands. Total revenue: ₱${totalRevenue.toLocaleString()}. Average growth: ${avgGrowth.toFixed(1)}%. Top performer: ${topBrand?.brand} with ₱${topBrand?.revenue.toLocaleString()} revenue and ${topBrand?.growth}% growth. ${positiveGrowthBrands} of ${chartData.length} brands showing positive growth.`
+  }, [chartData])
+
   return (
-    <div className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl">
+    <figure className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl" aria-labelledby={`${chartId}-title`} aria-describedby={`${chartId}-desc`}>
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold">Brand Performance</h3>
+        <h3 id={`${chartId}-title`} className="text-xl font-semibold">Brand Performance</h3>
         <div className="flex gap-2">
           <button className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-lg">
             Revenue
@@ -120,7 +131,13 @@ export const BrandPerformance: React.FC = () => {
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={400}>
+      <div 
+        className="focus:outline-none focus:ring-4 focus:ring-blue-500/35 focus:rounded-lg" 
+        tabIndex={0}
+        role="img"
+        aria-label="Brand performance bar chart showing revenue, growth, and market share data"
+      >
+        <ResponsiveContainer width="100%" height={400}>
         <BarChart 
           data={chartData} 
           margin={{ top: 20, right: 30, left: 40, bottom: 60 }}
@@ -152,6 +169,9 @@ export const BrandPerformance: React.FC = () => {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
+      </div>
+      
+      <p id={`${chartId}-desc`} className="sr-only">{chartSummary}</p>
 
       {/* Summary Stats */}
       <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-gray-200">
@@ -173,6 +193,6 @@ export const BrandPerformance: React.FC = () => {
           <p className="text-xs text-gray-500">YoY</p>
         </div>
       </div>
-    </div>
+    </figure>
   )
 }

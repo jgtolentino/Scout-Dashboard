@@ -3,14 +3,18 @@
 ## Current Sprint
 
 ### In Progress
-- [ ] Task description
+- [ ] Consolidate overlapping RLS policies identified in the hardening report
 
 ### TODO
-- [ ] Task description
-- [ ] Task description
+- [ ] Enable RLS on exposed tables without protection  
+- [ ] Clean up duplicate indexes to reduce storage overhead
+- [ ] Configure Supabase Auth security settings (OTP expiry ≤ 10 min, leaked password protection)
+- [ ] Audit SECURITY DEFINER functions for privilege escalation risks
+- [ ] Revoke SELECT on materialized views from anon/authenticated unless justified
 
 ### Completed
-- [x] Task description ✅ 2024-XX-XX
+- [x] Add hardening SQL analysis scripts (preview/apply mode) ✅ 2025-09-14
+- [x] Add RLS policy overlap reporting ✅ 2025-09-14
 
 ## Backlog
 

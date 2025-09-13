@@ -35,7 +35,7 @@ CREATE SCHEMA IF NOT EXISTS metadata;
 -- =============================================================================
 
 -- Data lineage tracking
-CREATE TABLE metadata.data_lineage (
+CREATE TABLE metadata.scout_data_lineage (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   source_schema TEXT NOT NULL,
   source_table TEXT NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE metadata.data_lineage (
 );
 
 -- Data quality rules
-CREATE TABLE metadata.data_quality_rules (
+CREATE TABLE metadata.scout_data_quality_rules (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   schema_name TEXT NOT NULL,
   table_name TEXT NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE metadata.data_quality_rules (
 );
 
 -- ETL job tracking
-CREATE TABLE metadata.etl_jobs (
+CREATE TABLE metadata.scout_etl_jobs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   job_name TEXT UNIQUE NOT NULL,
   source_layer TEXT CHECK (source_layer IN ('bronze', 'silver', 'gold')),
@@ -78,7 +78,7 @@ CREATE TABLE metadata.etl_jobs (
 );
 
 -- Data freshness tracking
-CREATE TABLE metadata.data_freshness (
+CREATE TABLE metadata.scout_data_freshness (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   schema_name TEXT NOT NULL,
   table_name TEXT NOT NULL,
@@ -161,7 +161,7 @@ FROM operations.stores;
 -- =============================================================================
 
 -- Silver HR - Cleaned employee data with business rules
-CREATE TABLE silver_hr.employees_validated (
+CREATE TABLE silver_hr.scout_employees_validated (
   id UUID PRIMARY KEY,
   employee_id TEXT NOT NULL,
   email TEXT NOT NULL,
@@ -195,7 +195,7 @@ CREATE TABLE silver_hr.employees_validated (
 );
 
 -- Silver Financial - Validated financial transactions
-CREATE TABLE silver_financial.cash_advances_validated (
+CREATE TABLE silver_financial.ces_cash_advances_validated (
   id UUID PRIMARY KEY,
   user_id UUID NOT NULL,
   amount NUMERIC NOT NULL,
@@ -240,7 +240,7 @@ CREATE TABLE silver_financial.cash_advances_validated (
 );
 
 -- Silver Operations - Enriched transaction data
-CREATE TABLE silver_operations.transactions_enriched (
+CREATE TABLE silver_operations.scout_transactions_enriched (
   transaction_id UUID PRIMARY KEY,
   store_id UUID,
   customer_id UUID,
@@ -350,7 +350,7 @@ FROM silver_metrics sm;
 CREATE SCHEMA IF NOT EXISTS etl;
 
 -- Bronze to Silver ETL for HR
-CREATE OR REPLACE FUNCTION etl.bronze_to_silver_hr()
+CREATE OR REPLACE FUNCTION etl.bronze_to_silver_hr_scout()
 RETURNS VOID AS $$
 DECLARE
   processed_count INTEGER;
@@ -389,7 +389,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- Bronze to Silver ETL for Financial
-CREATE OR REPLACE FUNCTION etl.bronze_to_silver_financial()
+CREATE OR REPLACE FUNCTION etl.bronze_to_silver_financial_scout()
 RETURNS VOID AS $$
 DECLARE
   processed_count INTEGER;
@@ -432,7 +432,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE SCHEMA IF NOT EXISTS quality;
 
 -- Function to check data quality across silver layer
-CREATE OR REPLACE FUNCTION quality.check_silver_data_quality()
+CREATE OR REPLACE FUNCTION quality.check_silver_data_quality_scout()
 RETURNS TABLE (
   schema_name TEXT,
   table_name TEXT,
@@ -480,7 +480,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- =============================================================================
 
 -- Master ETL orchestration function
-CREATE OR REPLACE FUNCTION etl.run_medallion_pipeline()
+CREATE OR REPLACE FUNCTION etl.run_medallion_pipeline_scout()
 RETURNS JSONB AS $$
 DECLARE
   start_time TIMESTAMP := NOW();

@@ -1,7 +1,7 @@
 -- Complete platform setup
 CREATE TYPE IF NOT EXISTS user_role AS ENUM ('executive', 'hr_manager', 'finance_manager', 'employee');
 
-CREATE TABLE IF NOT EXISTS public.user_roles (
+CREATE TABLE IF NOT EXISTS public.scout_user_roles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id),
   role user_role NOT NULL,

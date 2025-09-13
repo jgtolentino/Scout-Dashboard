@@ -19,6 +19,9 @@ import {
 import { Clock, TrendingUp, ShoppingCart, DollarSign, Package } from 'lucide-react';
 import useDataStore from '@/store/dataStore';
 import { aggregateData } from '@/utils/dataProcessing';
+import { StockChart } from '../widgets/StockChart';
+import { FinancialMetrics } from '../widgets/FinancialMetrics';
+import { InteractiveChart } from '../widgets/InteractiveChart';
 import { format } from 'date-fns';
 
 interface TransactionTrendsProps {
@@ -334,6 +337,49 @@ export default function TransactionTrends({ filters }: TransactionTrendsProps) {
           <p className="text-dashboard-600 font-medium">
             Heatmap visualization showing peak transaction times by barangay
           </p>
+        </div>
+      </div>
+
+      {/* Financial Analysis Section */}
+      <div className="col-span-full mt-8 border-t pt-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <TrendingUp className="h-6 w-6 text-green-600" />
+          Financial Market Analysis
+          <span className="text-sm font-normal text-gray-500 ml-2">(Stockbot-style insights)</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Stock Chart */}
+          <div className="lg:col-span-2">
+            <StockChart 
+              props={{ 
+                title: "Transaction Value Trends (Market-style)", 
+                symbol: "SCOUT:TXN",
+                timeframe: "1M"
+              }} 
+              data={null} 
+            />
+          </div>
+          
+          {/* Financial Metrics */}
+          <FinancialMetrics 
+            props={{ 
+              title: "Transaction Metrics", 
+              showTrends: true,
+              layout: "compact"
+            }} 
+            data={null} 
+          />
+          
+          {/* Interactive Chart */}
+          <InteractiveChart 
+            props={{ 
+              title: "Transaction Volume Analysis", 
+              chartType: "line",
+              showControls: true
+            }} 
+            data={null} 
+          />
         </div>
       </div>
     </div>

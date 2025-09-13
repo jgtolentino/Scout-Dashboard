@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useId, useMemo } from 'react';
 import * as echarts from 'echarts/core';
 import { MapChart } from 'echarts/charts';
 import { 
@@ -22,6 +22,12 @@ echarts.use([
   LegendComponent
 ]);
 
+// CVD-safe Viridis color palette - perceptually uniform and colorblind-friendly
+const VIRIDIS_PALETTE = ['#440154', '#443983', '#31688e', '#21918c', '#35b779', '#8fd744', '#fde725'];
+
+// Color scale modes
+type ScaleMode = 'linear' | 'quantile';
+
 type Row = { 
   region: string; 
   revenuePhp: number; 
@@ -32,9 +38,25 @@ type Row = {
   deltaPct?: number | null;
 };
 
-const ChoroplethMap: React.FC<{ data: Row[]; title?: string }> = ({ data, title }) => {
+interface ChoroplethMapProps {
+  data: Row[];
+  title?: string;
+  scaleMode?: ScaleMode;
+}
+
+const ChoroplethMap: React.FC<ChoroplethMapProps> = ({ data, title, scaleMode = 'linear' }) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<echarts.ECharts | null>(null);
+  const chartId = useId();
+  
+  // Generate accessibility summary
+  const accessibilitySummary = useMemo(() => {
+    if (!data?.length) return 'No regional data available.';
+    const totalRevenue = data.reduce((sum, d) => sum + d.revenuePhp, 0);
+    const avgMarketShare = data.reduce((sum, d) => sum + (d.ourSharePct || 0), 0) / data.filter(d => d.ourSharePct !== null).length;
+    const highestRegion = data.reduce((max, d) => d.revenuePhp > max.revenuePhp ? d : max);
+    return `Choropleth map showing revenue data across ${data.length} regions. Total revenue: ₱${totalRevenue.toLocaleString()}. Average market share: ${avgMarketShare.toFixed(1)}%. Highest revenue region: ${highestRegion.region} with ₱${highestRegion.revenuePhp.toLocaleString()}.`;
+  }, [data]);
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -87,11 +109,15 @@ const ChoroplethMap: React.FC<{ data: Row[]; title?: string }> = ({ data, title 
         min: 0,
         max: Math.max(...data.map(d => d.revenuePhp), 1000000),
         inRange: {
-          color: ['#e0f2fe', '#7dd3fc', '#38bdf8', '#0284c7', '#075985']
+          color: VIRIDIS_PALETTE
         },
         text: ['High', 'Low'],
         calculable: true,
-        formatter: (value: number) => '₱' + (value / 1000000).toFixed(1) + 'M'
+        formatter: (value: number) => '₱' + (value / 1000000).toFixed(1) + 'M',
+        // Accessibility: Add title for screen readers
+        textStyle: {
+          fontSize: 12
+        }
       },
       series: [
         {
@@ -144,18 +170,31 @@ const ChoroplethMap: React.FC<{ data: Row[]; title?: string }> = ({ data, title 
   // If no data, show a placeholder
   if (!data || data.length === 0) {
     return (
-      <div className="rounded-lg border p-4">
+      <figure className="rounded-lg border p-4" role="img" aria-label="No regional revenue data available">
         <div className="text-sm text-muted-foreground mb-4">{title ?? 'Revenue by Region'}</div>
         <div className="flex items-center justify-center h-[420px] text-gray-400">
           No data available
         </div>
-      </div>
+      </figure>
     );
   }
 
   return (
-    <div className="rounded-lg border bg-white p-4">
-      <div ref={chartRef} style={{ height: 480, width: '100%' }} />
+    <figure 
+      className="rounded-lg border bg-white p-4" 
+      aria-labelledby={`${chartId}-title`} 
+      aria-describedby={`${chartId}-desc`}
+    >
+      <h3 id={`${chartId}-title`} className="sr-only">{title ?? 'Revenue by Region'}</h3>
+      <div 
+        ref={chartRef} 
+        style={{ height: 480, width: '100%' }}
+        className="focus-visible-ring"
+        tabIndex={0}
+        role="img"
+        aria-label={`Interactive choropleth map showing ${title ?? 'revenue by region'}`}
+      />
+      <p id={`${chartId}-desc`} className="sr-only">{accessibilitySummary}</p>
       
       {/* Summary Stats */}
       <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t">
@@ -176,7 +215,7 @@ const ChoroplethMap: React.FC<{ data: Row[]; title?: string }> = ({ data, title 
           <div className="text-sm font-semibold">{data.length}</div>
         </div>
       </div>
-    </div>
+    </figure>
   );
 };
 

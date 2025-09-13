@@ -5,7 +5,7 @@ CREATE SCHEMA IF NOT EXISTS creative_ops;
 CREATE EXTENSION IF NOT EXISTS vector;
 
 -- Assets table with vector embeddings
-CREATE TABLE IF NOT EXISTS creative_ops.assets (
+CREATE TABLE IF NOT EXISTS creative_ops.scout_assets (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     campaign_id UUID,
     storage_url TEXT NOT NULL,
@@ -22,7 +22,7 @@ USING ivfflat (embed vector_cosine_ops)
 WITH (lists = 100);
 
 -- Prompts table for tracking queries
-CREATE TABLE IF NOT EXISTS creative_ops.prompts (
+CREATE TABLE IF NOT EXISTS creative_ops.scout_prompts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     asset_id UUID REFERENCES creative_ops.assets(id) ON DELETE CASCADE,
     prompt TEXT NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS creative_ops.prompts (
 );
 
 -- Campaigns table
-CREATE TABLE IF NOT EXISTS creative_ops.campaigns (
+CREATE TABLE IF NOT EXISTS creative_ops.scout_campaigns (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
     brand TEXT,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS creative_ops.campaigns (
 );
 
 -- Palette analysis results
-CREATE TABLE IF NOT EXISTS creative_ops.palette_analysis (
+CREATE TABLE IF NOT EXISTS creative_ops.scout_palette_analysis (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     asset_id UUID REFERENCES creative_ops.assets(id) ON DELETE CASCADE,
     dominant_colors TEXT[],
@@ -59,7 +59,7 @@ REFERENCES creative_ops.campaigns(id)
 ON DELETE SET NULL;
 
 -- Create updated_at trigger
-CREATE OR REPLACE FUNCTION creative_ops.update_updated_at()
+CREATE OR REPLACE FUNCTION creative_ops.update_updated_at_scout()
 RETURNS TRIGGER AS $$
 BEGIN
     NEW.updated_at = NOW();
@@ -73,7 +73,7 @@ FOR EACH ROW
 EXECUTE FUNCTION creative_ops.update_updated_at();
 
 -- Vector similarity search function
-CREATE OR REPLACE FUNCTION creative_ops.search_similar_assets(
+CREATE OR REPLACE FUNCTION creative_ops.search_similar_assets_scout(
     query_embedding vector(1536),
     match_count INT DEFAULT 10,
     threshold FLOAT DEFAULT 0.7

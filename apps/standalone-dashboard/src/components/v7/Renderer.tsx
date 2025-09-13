@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as R from "@/src/components/widgets";
-import { WIDGETS } from "@/src/components/widgets";
+import { WIDGETS } from "@/components/widgets";
 import { lintConfig, lintRuntime } from "@/src/lib/design/design-lint";
 import DesignCoach from "@/src/components/dev/DesignCoach";
 import { adapt } from "@/src/lib/adapters/amazon";
@@ -99,7 +98,7 @@ export default function V7Renderer({ pageId }: { pageId: string }) {
       <h1 className="text-2xl font-bold mb-6">{page.title}</h1>
       <Grid>
         {page.layout.map((block: any, i: number) => {
-          const Widget = (WIDGETS as any)[block.widget];
+          const Widget = WIDGETS[block.widget as keyof typeof WIDGETS];
           if (!Widget) {
             return (
               <Cell key={i} w={block.w} h={block.h}>

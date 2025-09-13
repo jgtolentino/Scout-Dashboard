@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useId, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
 import { useFilters } from '../../context/FilterContext'
@@ -25,6 +25,7 @@ const getHeatColor = (value: number, max: number) => {
 
 export const TimeHeatMap: React.FC = () => {
   const { filters } = useFilters()
+  const chartId = useId()
 
   const { data, isLoading } = useQuery({
     queryKey: ['time-heat-map', filters],
@@ -75,10 +76,21 @@ export const TimeHeatMap: React.FC = () => {
   const heatData = data || []
   const maxValue = Math.max(...heatData.map(d => d.value))
 
+  // Generate accessibility summary
+  const chartSummary = useMemo(() => {
+    if (!heatData?.length) return 'No time-based transaction data available.'
+    const peakHours = heatData
+      .filter(d => d.value > maxValue * 0.8)
+      .map(d => `${d.day} ${d.hour}:00`)
+      .slice(0, 3)
+    const avgTransactions = heatData.reduce((sum, d) => sum + d.value, 0) / heatData.length
+    return `Time heat map showing transaction patterns across 7 days and 24 hours. Maximum transactions: ${maxValue} per hour. Average: ${avgTransactions.toFixed(0)} transactions per hour. Peak times include: ${peakHours.join(', ')}.`
+  }, [heatData, maxValue])
+
   return (
-    <div className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl">
+    <figure className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl" aria-labelledby={`${chartId}-title`} aria-describedby={`${chartId}-desc`}>
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold">Peak Hours Analysis</h3>
+        <h3 id={`${chartId}-title`} className="text-xl font-semibold">Peak Hours Analysis</h3>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-600">Transactions per hour</span>
           <div className="flex gap-1 items-center">
@@ -96,8 +108,14 @@ export const TimeHeatMap: React.FC = () => {
       </div>
 
       {/* Heat Map Grid */}
-      <div className="overflow-x-auto">
+      <div 
+        className="overflow-x-auto focus-visible-ring" 
+        tabIndex={0}
+        role="img"
+        aria-label="Heat map grid showing transaction intensity by day and hour"
+      >
         <div className="min-w-[800px]">
+          <p id={`${chartId}-desc`} className="sr-only">{chartSummary}</p>
           {/* Hour labels */}
           <div className="flex gap-1 mb-2 ml-12">
             {hours.map(hour => (
@@ -155,6 +173,6 @@ export const TimeHeatMap: React.FC = () => {
           </p>
         </div>
       </div>
-    </div>
+    </figure>
   )
 }

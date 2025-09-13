@@ -66,7 +66,7 @@ export async function GET(req: NextRequest) {
       `,
       servers: [
         {
-          url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+          url: import.meta.env.VITE_APP_URL || 'http://localhost:3000',
           description: 'Development server',
         },
         {

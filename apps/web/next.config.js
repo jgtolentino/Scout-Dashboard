@@ -121,6 +121,28 @@ const nextConfig = {
               chunks: 'all',
               enforce: true,
             },
+            // Scout v7 specific bundles
+            scoutWidgets: {
+              name: 'scout-widgets',
+              test: /[\\/]components[\\/]widgets[\\/]/,
+              chunks: 'all',
+              priority: 30,
+              enforce: true,
+            },
+            scoutCharts: {
+              name: 'scout-charts',
+              test: /[\\/]components[\\/]charts[\\/]/,
+              chunks: 'all',
+              priority: 25,
+              enforce: true,
+            },
+            scoutCore: {
+              name: 'scout-core',
+              test: /[\\/](hooks|lib|types)[\\/].*scout.*\.(ts|tsx|js|jsx)$/,
+              chunks: 'all',
+              priority: 20,
+              enforce: true,
+            },
           },
         },
       };

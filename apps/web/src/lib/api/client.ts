@@ -15,7 +15,7 @@ export class ApiClient {
   private headers: Record<string, string>;
 
   constructor(config: ApiClientConfig = {}) {
-    this.baseUrl = config.baseUrl || process.env.NEXT_PUBLIC_API_URL || '';
+    this.baseUrl = config.baseUrl || import.meta.env.VITE_API_URL || '';
     this.version = config.version || 'v1';
     this.headers = {
       'Content-Type': 'application/json',

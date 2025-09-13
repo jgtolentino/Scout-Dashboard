@@ -28,7 +28,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Scout Dashboard v5.0',
   description: 'Enterprise Data Platform with Medallion Architecture',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  metadataBase: new URL(import.meta.env.VITE_APP_URL || 'http://localhost:3000'),
   openGraph: {
     title: 'Scout Dashboard v5.0',
     description: 'Enterprise Data Platform with Medallion Architecture',
@@ -102,12 +102,12 @@ export default async function RootLayout({
         </noscript>
         
         {/* Supabase preconnect if configured */}
-        {process.env.NEXT_PUBLIC_SUPABASE_URL && (
-          <link rel="preconnect" href={process.env.NEXT_PUBLIC_SUPABASE_URL} />
+        {import.meta.env.VITE_SUPABASE_URL && (
+          <link rel="preconnect" href={import.meta.env.VITE_SUPABASE_URL} />
         )}
         
         {/* Sentry preconnect if configured */}
-        {process.env.NEXT_PUBLIC_SENTRY_DSN && (
+        {import.meta.env.VITE_SENTRY_DSN && (
           <link rel="preconnect" href="https://sentry.io" />
         )}
         

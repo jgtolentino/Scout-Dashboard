@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useId, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getGeographicInsights } from '../../services/gold'
 import { useFilters } from '../../context/FilterContext'
@@ -30,6 +30,7 @@ const getHeatColor = (value: number, max: number) => {
 export const RegionalHeatMap: React.FC = () => {
   const { filters } = useFilters()
   const [viewMode, setViewMode] = useState<'revenue' | 'transactions' | 'customers'>('revenue')
+  const chartId = useId()
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['geographic-insights', filters],
@@ -93,10 +94,27 @@ export const RegionalHeatMap: React.FC = () => {
     return acc
   }, {} as Record<string, RegionData[]>)
 
+  // Generate accessibility summary
+  const chartSummary = useMemo(() => {
+    if (!mapData?.length) return 'No regional performance data available.'
+    const totalRegions = Object.keys(regionGroups).length
+    const totalLocations = mapData.length
+    const currentMetric = viewMode === 'revenue' ? 'revenue' : viewMode === 'transactions' ? 'transactions' : 'customers'
+    const totalValue = mapData.reduce((sum, d) => 
+      sum + (viewMode === 'revenue' ? d.revenue : viewMode === 'transactions' ? d.transactions : d.customers), 0
+    )
+    const topLocation = mapData.reduce((max, d) => {
+      const value = viewMode === 'revenue' ? d.revenue : viewMode === 'transactions' ? d.transactions : d.customers
+      const maxValue = viewMode === 'revenue' ? max.revenue : viewMode === 'transactions' ? max.transactions : max.customers
+      return value > maxValue ? d : max
+    })
+    return `Regional heat map showing ${currentMetric} across ${totalRegions} regions and ${totalLocations} locations. Total ${currentMetric}: ${totalValue.toLocaleString()}. Top performing location: ${topLocation?.location} in ${topLocation?.region}.`
+  }, [mapData, regionGroups, viewMode])
+
   return (
-    <div className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl">
+    <figure className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl" aria-labelledby={`${chartId}-title`} aria-describedby={`${chartId}-desc`}>
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold">Regional Performance Heat Map</h3>
+        <h3 id={`${chartId}-title`} className="text-xl font-semibold">Regional Performance Heat Map</h3>
         <div className="flex gap-2">
           <button 
             onClick={() => setViewMode('revenue')}
@@ -132,7 +150,13 @@ export const RegionalHeatMap: React.FC = () => {
       </div>
 
       {/* Heat Map Grid */}
-      <div className="space-y-4">
+      <div 
+        className="space-y-4 focus-visible-ring" 
+        tabIndex={0}
+        role="img"
+        aria-label={`Regional heat map showing ${viewMode} data by location`}
+      >
+        <p id={`${chartId}-desc`} className="sr-only">{chartSummary}</p>
         {Object.entries(regionGroups).map(([region, provinces]) => (
           <div key={region}>
             <h4 className="text-sm font-medium text-gray-700 mb-2">{region}</h4>
@@ -214,6 +238,6 @@ export const RegionalHeatMap: React.FC = () => {
           </p>
         </div>
       </div>
-    </div>
+    </figure>
   )
 }

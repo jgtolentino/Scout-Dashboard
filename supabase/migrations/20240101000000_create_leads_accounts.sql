@@ -1,5 +1,5 @@
 -- Create leads table
-CREATE TABLE IF NOT EXISTS public.leads (
+CREATE TABLE IF NOT EXISTS public.scout_leads (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   email TEXT UNIQUE NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.leads (
 );
 
 -- Create accounts table
-CREATE TABLE IF NOT EXISTS public.accounts (
+CREATE TABLE IF NOT EXISTS public.scout_accounts (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   owner_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS public.accounts (
 );
 
 -- Create lead_accounts junction table for many-to-many relationship
-CREATE TABLE IF NOT EXISTS public.lead_accounts (
+CREATE TABLE IF NOT EXISTS public.scout_lead_accounts (
   lead_id UUID REFERENCES public.leads(id) ON DELETE CASCADE,
   account_id UUID REFERENCES public.accounts(id) ON DELETE CASCADE,
   created_at TIMESTAMPTZ DEFAULT NOW(),
@@ -96,7 +96,7 @@ CREATE POLICY "Users can manage lead-account relationships for their accounts" O
   );
 
 -- Create functions for updated_at trigger
-CREATE OR REPLACE FUNCTION public.handle_updated_at()
+CREATE OR REPLACE FUNCTION public.handle_updated_at_scout()
 RETURNS TRIGGER AS $$
 BEGIN
   NEW.updated_at = NOW();

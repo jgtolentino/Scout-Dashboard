@@ -19,6 +19,10 @@ import {
 } from 'lucide-react';
 import { ChartErrorBoundary } from '../ErrorBoundary';
 import useDataStore from '@/store/dataStore';
+import { DataVisualizationKit } from '../widgets/DataVisualizationKit';
+import { ResponsiveChart } from '../widgets/ResponsiveChart';
+import { StockChart } from '../widgets/StockChart';
+import { InteractiveChart } from '../widgets/InteractiveChart';
 
 interface CompetitiveAnalysisProps {
   filters: {
@@ -502,6 +506,75 @@ export default function CompetitiveAnalysis({ filters }: CompetitiveAnalysisProp
               }}
             </ParentSize>
           </ChartErrorBoundary>
+        </div>
+      </div>
+
+      {/* Advanced Competitive Intelligence */}
+      <div className="col-span-full mt-8 border-t pt-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <Target className="h-6 w-6 text-red-600" />
+          Advanced Competitive Intelligence
+          <span className="text-sm font-normal text-gray-500 ml-2">(Market Analysis + Stockbot Insights)</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Competitive Analytics Suite */}
+          <div className="lg:col-span-2">
+            <DataVisualizationKit 
+              props={{ 
+                title: "Market Competition Analytics Suite", 
+                chartTypes: ["sankey", "bubble", "waterfall"],
+                interactiveMode: true,
+                dataSource: "competitive-intelligence"
+              }} 
+              data={null} 
+            />
+          </div>
+          
+          {/* Market Share Evolution */}
+          <StockChart 
+            props={{ 
+              title: "Brand Market Share Trends (Market-style)", 
+              symbol: "SCOUT:MKT",
+              timeframe: "6M",
+              comparison: true
+            }} 
+            data={null} 
+          />
+          
+          {/* Competitive Position Matrix */}
+          <ResponsiveChart 
+            props={{ 
+              title: "Competitive Position Matrix", 
+              chartType: "scatter",
+              responsive: true,
+              showLegend: true,
+              axes: ["market_share", "growth_rate"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Brand Performance Analytics */}
+          <InteractiveChart 
+            props={{ 
+              title: "Brand Performance Analyzer", 
+              chartType: "radar",
+              showControls: true,
+              metrics: ["awareness", "preference", "loyalty", "value"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Competitive Threat Analysis */}
+          <InteractiveChart 
+            props={{ 
+              title: "Competitive Threat Monitor", 
+              chartType: "gauge",
+              showControls: true,
+              alerts: ["new_entrants", "price_wars", "market_shifts"]
+            }} 
+            data={null} 
+          />
         </div>
       </div>
     </div>

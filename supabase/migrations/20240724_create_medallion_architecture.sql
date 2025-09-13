@@ -2,7 +2,7 @@
 -- Bronze → Silver → Gold layers for 105+ features
 
 -- Bronze Layer: Raw data ingestion
-CREATE TABLE IF NOT EXISTS bronze_ingestion (
+CREATE TABLE IF NOT EXISTS scout_bronze_ingestion (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   batch_id TEXT NOT NULL,
   source TEXT NOT NULL, -- 'scout_dashboard', 'sari_iq', 'similarweb'
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS bronze_ingestion (
 );
 
 -- Silver Layer: Cleansed and standardized data
-CREATE TABLE IF NOT EXISTS silver_curated (
+CREATE TABLE IF NOT EXISTS scout_silver_curated (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   batch_id TEXT NOT NULL,
   source TEXT NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS silver_curated (
 );
 
 -- Gold Layer: Business-ready insights and analytics
-CREATE TABLE IF NOT EXISTS gold_insights (
+CREATE TABLE IF NOT EXISTS scout_gold_insights (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   batch_id TEXT NOT NULL,
   analytics_type TEXT NOT NULL, -- 'executive_summary', 'market_intelligence', etc.
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS gold_insights (
 );
 
 -- SuqiBot operation logs
-CREATE TABLE IF NOT EXISTS suqi_bot_logs (
+CREATE TABLE IF NOT EXISTS scout_suqi_bot_logs (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   operation TEXT NOT NULL,
   status TEXT NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS suqi_bot_logs (
 );
 
 -- Analytics cache for real-time performance
-CREATE TABLE IF NOT EXISTS analytics_cache (
+CREATE TABLE IF NOT EXISTS scout_analytics_cache (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   metric_type TEXT NOT NULL,
   metric_data JSONB NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS analytics_cache (
 );
 
 -- Feature usage tracking
-CREATE TABLE IF NOT EXISTS feature_usage (
+CREATE TABLE IF NOT EXISTS scout_feature_usage (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   feature_id TEXT NOT NULL,
   source TEXT NOT NULL, -- 'scout', 'sari_iq', 'similarweb'

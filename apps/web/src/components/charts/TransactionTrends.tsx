@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useId, useMemo } from 'react'
 import {
   LineChart,
   Line,
@@ -25,6 +25,7 @@ interface TrendData {
 
 export const TransactionTrends: React.FC = () => {
   const { filters, getFilterQuery } = useFilters()
+  const chartId = useId()
 
   const { data, isLoading } = useQuery({
     queryKey: ['transaction-trends', filters],
@@ -77,10 +78,21 @@ export const TransactionTrends: React.FC = () => {
     { date: 'Jan 7', revenue: 162000, transactions: 425, avg_basket: 381 },
   ]
 
+  // Generate accessibility summary
+  const chartSummary = useMemo(() => {
+    if (!chartData?.length) return 'No transaction data available.'
+    const totalRevenue = chartData.reduce((sum, d) => sum + d.revenue, 0)
+    const totalTransactions = chartData.reduce((sum, d) => sum + d.transactions, 0)
+    const avgBasket = totalRevenue / totalTransactions
+    const firstDate = chartData[0]?.date
+    const lastDate = chartData[chartData.length - 1]?.date
+    return `Transaction trends from ${firstDate} to ${lastDate}. Total revenue: ₱${totalRevenue.toLocaleString()}. Total transactions: ${totalTransactions.toLocaleString()}. Average basket size: ₱${Math.round(avgBasket)}.`
+  }, [chartData])
+
   return (
-    <div className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl">
+    <figure className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl" aria-labelledby={`${chartId}-title`} aria-describedby={`${chartId}-desc`}>
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold">Transaction Trends</h3>
+        <h3 id={`${chartId}-title`} className="text-xl font-semibold">Transaction Trends</h3>
         <div className="flex gap-2">
           <button className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-lg">
             7D
@@ -94,8 +106,14 @@ export const TransactionTrends: React.FC = () => {
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={300}>
-        <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+      <div 
+        className="focus:outline-none focus:ring-4 focus:ring-blue-500/35 focus:rounded-lg" 
+        tabIndex={0}
+        role="img"
+        aria-label="Transaction trends area chart showing revenue and transaction count over time"
+      >
+        <ResponsiveContainer width="100%" height={300}>
+          <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#6366F1" stopOpacity={0.8}/>
@@ -156,8 +174,11 @@ export const TransactionTrends: React.FC = () => {
             strokeWidth={2}
             dot={{ fill: '#8B5CF6', r: 3 }}
           />
-        </AreaChart>
-      </ResponsiveContainer>
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+      
+      <p id={`${chartId}-desc`} className="sr-only">{chartSummary}</p>
 
       <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-gray-200">
         <div>
@@ -173,6 +194,6 @@ export const TransactionTrends: React.FC = () => {
           <p className="text-lg font-semibold">₱{Math.round(chartData.reduce((sum, d) => sum + d.avg_basket, 0) / chartData.length)}</p>
         </div>
       </div>
-    </div>
+    </figure>
   )
 }

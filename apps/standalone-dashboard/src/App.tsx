@@ -9,7 +9,7 @@ import DashboardOverview from '@/components/dashboards/DashboardOverview';
 import CompetitiveAnalysis from '@/components/dashboards/CompetitiveAnalysis';
 import GeographicAnalysis from '@/components/dashboards/GeographicAnalysis';
 import DataManager from '@/components/DataManager';
-import AssistantPanel from '@/components/AssistantPanel';
+import { ScoutAIAssistant } from '@/components/suqi/ScoutAIAssistant';
 import { 
   TrendingUp, 
   ShoppingBag, 
@@ -351,7 +351,10 @@ function App() {
               </button>
             </div>
             <div className="flex-1 overflow-hidden">
-              <AssistantPanel filters={filters} currentView={currentView} />
+              <ScoutAIAssistant 
+                context="executive" 
+                className="h-full"
+              />
             </div>
           </div>
         </div>

@@ -23,6 +23,10 @@ import {
 } from 'recharts';
 import { Users, ShoppingCart, ThumbsUp, TrendingUp, Clock, Smartphone } from 'lucide-react';
 import useDataStore from '@/store/dataStore';
+import { DataVisualizationKit } from '../widgets/DataVisualizationKit';
+import { ResponsiveChart } from '../widgets/ResponsiveChart';
+import { FinancialMetrics } from '../widgets/FinancialMetrics';
+import { InteractiveChart } from '../widgets/InteractiveChart';
 
 interface ConsumerBehaviorProps {
   filters: {
@@ -404,6 +408,75 @@ export default function ConsumerBehavior({ filters }: ConsumerBehaviorProps) {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Advanced Behavioral Analytics Section */}
+      <div className="col-span-full mt-8 border-t pt-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <Users className="h-6 w-6 text-blue-600" />
+          Advanced Behavioral Analytics
+          <span className="text-sm font-normal text-gray-500 ml-2">(Figma r19 Kit + Financial Insights)</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Behavioral Data Visualization Kit */}
+          <div className="lg:col-span-2">
+            <DataVisualizationKit 
+              props={{ 
+                title: "Consumer Journey Analytics Suite", 
+                chartTypes: ["sankey", "radar", "network"],
+                interactiveMode: true,
+                dataSource: "behavioral-analytics"
+              }} 
+              data={null} 
+            />
+          </div>
+          
+          {/* Purchase Pattern Analysis */}
+          <ResponsiveChart 
+            props={{ 
+              title: "Purchase Pattern Matrix", 
+              chartType: "heatmap",
+              responsive: true,
+              showLegend: true,
+              dimensions: ["frequency", "timing", "category"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Consumer Lifetime Value */}
+          <FinancialMetrics 
+            props={{ 
+              title: "Consumer Lifetime Value Metrics", 
+              showTrends: true,
+              layout: "behavioral",
+              metrics: ["CLV", "CAC", "retention"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Interactive Decision Tree */}
+          <InteractiveChart 
+            props={{ 
+              title: "Purchase Decision Flow Analysis", 
+              chartType: "tree",
+              showControls: true,
+              dataFilters: ["decision_factor", "outcome", "segment"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Behavioral Insights Dashboard */}
+          <InteractiveChart 
+            props={{ 
+              title: "Real-time Behavior Insights", 
+              chartType: "gauge",
+              showControls: true,
+              metrics: ["engagement", "conversion", "satisfaction"]
+            }} 
+            data={null} 
+          />
         </div>
       </div>
     </div>

@@ -1,3 +1,34 @@
+
+## [7.0.1] — 2025-09-14 (Security & Performance Hardening)
+
+### Added
+- SQL hardening analysis: `supabase/migrations/20250913204116_hardening_analysis.sql` (preview/apply mode)
+- RLS policy overlap report: `supabase/migrations/20250913204303_rls_policy_overlap_report.sql`
+- Database connection script: `scripts/db/run-hardening-analysis.sh` with Bruno-style env injection
+- Bruno collections for database operations in `.bruno/collections/supabase/`
+
+### Security
+- **CRITICAL**: Identified 146+ tables in exposed schemas without Row Level Security
+- **HIGH**: Found 108 foreign key constraints missing covering indexes (performance impact)
+- Guidance to enable **Leaked password protection** and set **OTP expiry ≤ 10 minutes** in Supabase Auth
+- SECURITY DEFINER functions and materialized views flagged for privilege review
+
+### Performance
+- Automated detection of missing FK-covering indexes (ready to apply via `apply := true`)
+- No duplicate indexes found (good database hygiene)
+- Connection pooler configured for `aws-0-ap-southeast-1.pooler.supabase.com:6543`
+
+### Changed
+- Updated connection scripts to use correct database password vs service role key distinction
+- Enhanced Bruno environment configuration for secure database access
+
+## [7.0.0-alpha.2] — 2025-09-13 (Docs & Workbench)
+
+### Added
+* PRD.md, CLAUDE.md, PLANNING.md, TASKS.md under /docs
+* Tasks snapshot exporter: scripts/docs/export-tasks.sh
+* Auditor CI already installed; docs referenced in PRD/Planning
+
 # Changelog
 
 All notable changes to this project will be documented in this file.

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useId, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
 import { useFilters } from '../../context/FilterContext'
@@ -32,6 +32,7 @@ const insightColors = {
 export const AIInsightsPanel: React.FC = () => {
   const { filters } = useFilters()
   const [selectedType, setSelectedType] = useState<string>('all')
+  const chartId = useId()
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['ai-insights', filters],
@@ -109,12 +110,24 @@ export const AIInsightsPanel: React.FC = () => {
 
   const insights = data || []
 
+  // Generate accessibility summary
+  const chartSummary = useMemo(() => {
+    if (!insights?.length) return 'No AI insights available.'
+    const insightTypeCounts = insights.reduce((acc, insight) => {
+      acc[insight.type] = (acc[insight.type] || 0) + 1
+      return acc
+    }, {} as Record<string, number>)
+    const avgConfidence = insights.reduce((sum, i) => sum + i.confidence, 0) / insights.length
+    const highConfidenceInsights = insights.filter(i => i.confidence > 0.8).length
+    return `AI insights panel showing ${insights.length} insights: ${Object.entries(insightTypeCounts).map(([type, count]) => `${count} ${type}${count > 1 ? 's' : ''}`).join(', ')}. Average confidence: ${Math.round(avgConfidence * 100)}%. ${highConfidenceInsights} insights have high confidence (80%+).`
+  }, [insights])
+
   return (
-    <div className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl">
+    <section className="backdrop-blur-lg bg-white/90 border border-gray-200 rounded-2xl p-6 shadow-xl" aria-labelledby={`${chartId}-title`} aria-describedby={`${chartId}-desc`}>
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-2">
           <Sparkles className="w-6 h-6 text-primary" />
-          <h3 className="text-xl font-semibold">AI Insights</h3>
+          <h3 id={`${chartId}-title`} className="text-xl font-semibold">AI Insights</h3>
         </div>
         <button 
           onClick={() => refetch()}
@@ -155,7 +168,13 @@ export const AIInsightsPanel: React.FC = () => {
       </div>
 
       {/* Insights List */}
-      <div className="space-y-4 max-h-[500px] overflow-y-auto">
+      <div 
+        className="space-y-4 max-h-[500px] overflow-y-auto focus-visible-ring" 
+        tabIndex={0}
+        role="region"
+        aria-label="AI insights list"
+      >
+        <p id={`${chartId}-desc`} className="sr-only">{chartSummary}</p>
         {insights.map((insight) => (
           <div
             key={insight.id}
@@ -203,6 +222,6 @@ export const AIInsightsPanel: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

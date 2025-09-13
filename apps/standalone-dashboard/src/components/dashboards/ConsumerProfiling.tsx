@@ -18,6 +18,10 @@ import {
 } from 'recharts';
 import { Users, MapPin, Calendar, TrendingUp, User, Home } from 'lucide-react';
 import useDataStore from '@/store/dataStore';
+import { DataVisualizationKit } from '../widgets/DataVisualizationKit';
+import { ResponsiveChart } from '../widgets/ResponsiveChart';
+import { FinancialMetrics } from '../widgets/FinancialMetrics';
+import { InteractiveChart } from '../widgets/InteractiveChart';
 
 interface ConsumerProfilingProps {
   filters: {
@@ -463,6 +467,74 @@ export default function ConsumerProfiling({ filters }: ConsumerProfilingProps) {
             content={<CustomTreemapContent />}
           />
         </ResponsiveContainer>
+      </div>
+      {/* Advanced Profiling Analytics Section */}
+      <div className="col-span-full mt-8 border-t pt-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <User className="h-6 w-6 text-indigo-600" />
+          Advanced Consumer Profiling
+          <span className="text-sm font-normal text-gray-500 ml-2">(Figma r19 Kit + Demographic Analytics)</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Consumer Profiling Suite */}
+          <div className="lg:col-span-2">
+            <DataVisualizationKit 
+              props={{ 
+                title: "Demographic Analytics Suite", 
+                chartTypes: ["bubble", "treemap", "radar"],
+                interactiveMode: true,
+                dataSource: "demographic-analytics"
+              }} 
+              data={null} 
+            />
+          </div>
+          
+          {/* Location Intelligence */}
+          <ResponsiveChart 
+            props={{ 
+              title: "Geographic Distribution Matrix", 
+              chartType: "map",
+              responsive: true,
+              showLegend: true,
+              layers: ["region", "density", "spending"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Demographic Value Analysis */}
+          <FinancialMetrics 
+            props={{ 
+              title: "Demographic Value Metrics", 
+              showTrends: true,
+              layout: "demographic",
+              metrics: ["segment_value", "lifetime_spend", "acquisition_cost"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Interactive Persona Builder */}
+          <InteractiveChart 
+            props={{ 
+              title: "Dynamic Persona Builder", 
+              chartType: "network",
+              showControls: true,
+              dataFilters: ["age", "location", "behavior", "spend_pattern"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Predictive Profiling */}
+          <InteractiveChart 
+            props={{ 
+              title: "Predictive Consumer Segments", 
+              chartType: "scatter",
+              showControls: true,
+              analytics: ["propensity", "churn_risk", "growth_potential"]
+            }} 
+            data={null} 
+          />
+        </div>
       </div>
     </div>
   );

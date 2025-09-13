@@ -5,7 +5,7 @@
 CREATE SCHEMA IF NOT EXISTS audit;
 
 -- MCP audit logs table
-CREATE TABLE IF NOT EXISTS audit.mcp_audit_logs (
+CREATE TABLE IF NOT EXISTS audit.scout_mcp_audit_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   mcp_server_name TEXT NOT NULL,
   operation_type TEXT NOT NULL CHECK (operation_type IN ('SELECT', 'INSERT', 'UPDATE', 'DELETE', 'DDL', 'FUNCTION')),
@@ -37,7 +37,7 @@ CREATE POLICY "Service role read access" ON audit.mcp_audit_logs
   USING (true);
 
 -- Security alerts table
-CREATE TABLE IF NOT EXISTS audit.mcp_security_alerts (
+CREATE TABLE IF NOT EXISTS audit.scout_mcp_security_alerts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   severity TEXT NOT NULL CHECK (severity IN ('low', 'medium', 'high', 'critical')),
   description TEXT NOT NULL,
@@ -66,7 +66,7 @@ CREATE POLICY "Security alert access" ON audit.mcp_security_alerts
   );
 
 -- Rate limit violations table
-CREATE TABLE IF NOT EXISTS audit.mcp_rate_limit_violations (
+CREATE TABLE IF NOT EXISTS audit.scout_mcp_rate_limit_violations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   mcp_server_name TEXT NOT NULL,
   user_context TEXT NOT NULL,
@@ -115,7 +115,7 @@ GROUP BY mcp_server_name, hour
 ORDER BY hour DESC, mcp_server_name;
 
 -- Function to get audit statistics
-CREATE OR REPLACE FUNCTION audit.get_mcp_audit_stats(
+CREATE OR REPLACE FUNCTION audit.get_mcp_audit_stats_scout(
   p_mcp_server TEXT DEFAULT NULL,
   p_time_range INTERVAL DEFAULT INTERVAL '24 hours'
 )

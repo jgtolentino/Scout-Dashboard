@@ -13,7 +13,7 @@ CREATE TYPE IF NOT EXISTS user_role AS ENUM (
 );
 
 -- Create role assignments table
-CREATE TABLE IF NOT EXISTS public.user_roles (
+CREATE TABLE IF NOT EXISTS public.scout_user_roles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   role user_role NOT NULL,

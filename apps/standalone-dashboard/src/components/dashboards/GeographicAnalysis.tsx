@@ -14,6 +14,10 @@ import {
 } from 'lucide-react';
 import { ChartErrorBoundary } from '../ErrorBoundary';
 import useDataStore from '@/store/dataStore';
+import { DataVisualizationKit } from '../widgets/DataVisualizationKit';
+import { ResponsiveChart } from '../widgets/ResponsiveChart';
+import { StockChart } from '../widgets/StockChart';
+import { InteractiveChart } from '../widgets/InteractiveChart';
 
 // Fix for default markers in react-leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -530,6 +534,77 @@ export default function GeographicAnalysis({ filters }: GeographicAnalysisProps)
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* Advanced Geographic Intelligence */}
+      <div className="col-span-full mt-8 border-t pt-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <MapPin className="h-6 w-6 text-green-600" />
+          Advanced Geographic Intelligence
+          <span className="text-sm font-normal text-gray-500 ml-2">(Location Analytics + Market Insights)</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Geographic Analytics Suite */}
+          <div className="lg:col-span-2">
+            <DataVisualizationKit 
+              props={{ 
+                title: "Geospatial Analytics Suite", 
+                chartTypes: ["map", "heatmap", "flow"],
+                interactiveMode: true,
+                dataSource: "geographic-intelligence",
+                layers: ["regions", "density", "performance"]
+              }} 
+              data={null} 
+            />
+          </div>
+          
+          {/* Regional Performance Trends */}
+          <StockChart 
+            props={{ 
+              title: "Regional Performance Trends (Market-style)", 
+              symbol: "SCOUT:GEO",
+              timeframe: "1Y",
+              comparison: true,
+              regions: true
+            }} 
+            data={null} 
+          />
+          
+          {/* Location Performance Matrix */}
+          <ResponsiveChart 
+            props={{ 
+              title: "Location Performance Matrix", 
+              chartType: "bubble",
+              responsive: true,
+              showLegend: true,
+              dimensions: ["population", "revenue", "growth"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Market Penetration Analysis */}
+          <InteractiveChart 
+            props={{ 
+              title: "Market Penetration Analyzer", 
+              chartType: "map",
+              showControls: true,
+              layers: ["penetration", "competition", "opportunity"]
+            }} 
+            data={null} 
+          />
+          
+          {/* Location Intelligence Dashboard */}
+          <InteractiveChart 
+            props={{ 
+              title: "Real-time Location Intelligence", 
+              chartType: "dashboard",
+              showControls: true,
+              metrics: ["foot_traffic", "conversion", "expansion_score"]
+            }} 
+            data={null} 
+          />
         </div>
       </div>
     </div>

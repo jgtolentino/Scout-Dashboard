@@ -16,7 +16,7 @@ export function initSentry(config: Partial<SentryConfig> = {}) {
   const isProduction = environment === 'production';
 
   Sentry.init({
-    dsn: config.dsn || process.env.NEXT_PUBLIC_SENTRY_DSN,
+    dsn: config.dsn || import.meta.env.VITE_SENTRY_DSN,
     environment: config.environment || environment,
     
     // Performance Monitoring

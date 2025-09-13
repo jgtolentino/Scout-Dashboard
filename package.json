@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "TBWA Platform - Multi-domain AI and analytics suite",
   "scripts": {
+    "db:link": "supabase link --project-ref $SUPABASE_PROJECT_REF",
+    "db:diff": "supabase db diff -f \"supabase/migrations/$(date +%Y%m%d%H%M%S)_manual.sql\"",
+    "db:push": "supabase db push",
+    "db:reset": "supabase db reset",
+    "db:pull": "supabase db pull",
+    "db:preview:start": "supabase start",
+    "db:drift": "supabase db diff -f /tmp/drift.sql && (test ! -s /tmp/drift.sql || (echo 'Drift detected -> /tmp/drift.sql'; exit 2))",
     "guard:scan": "python3 tools/project_guard/check_project_files.py --scan",
     "guard:report": "python3 tools/project_guard/check_project_files.py --report",
     "guard:fix": "python3 tools/project_guard/check_project_files.py --auto-fix",

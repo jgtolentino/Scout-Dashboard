@@ -3,6 +3,11 @@
 # Role: UI/UX Designer & System Architect
 ##############################################
 
+metadata:
+  id: maya-v2
+  type: designer
+  name: Maya UI/UX Designer
+  
 name: maya
 version: 2.0.0
 description: "UI/UX Designer specialized in translating requirements into beautiful interfaces"

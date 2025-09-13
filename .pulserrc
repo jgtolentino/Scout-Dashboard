@@ -68,15 +68,56 @@ agents:
       - SQLExecutor
       - HTTPClient
 
+  # Claude Node - Code execution and reasoning
   claude:
-    model: claude-3-opus-20240229
+    model: claude-3-5-sonnet
     max_tokens: 4096
     temperature: 0.7
     priority: 3
+    role: code_orchestrator
+    node_type: reasoning_model
+    permissions:
+      - fs:read
+      - fs:write
+      - github:write
+      - supabase:read
+      - supabase:write
     tools:
       - SQLExecutor
       - HTTPClient
       - FileManager
+    capabilities:
+      - code_generation
+      - code_execution
+      - file_operations
+      - git_operations
+      - context_sharing
+    memory_store: "supabase_pgvector"
+
+  # ChatGPT Node - Planning and reasoning
+  chatgpt:
+    model: gpt-4-turbo
+    max_tokens: 4096
+    temperature: 0.7
+    priority: 14
+    role: reasoning_orchestrator
+    node_type: reasoning_model
+    permissions:
+      - supabase:read
+      - supabase:write
+      - mcp:call
+    tools:
+      - HTTPClient
+      - SupabaseMCP
+      - EmbeddingsSearch
+    capabilities:
+      - strategic_planning
+      - embeddings_search
+      - context_synthesis
+      - task_routing
+      - memory_retrieval
+    memory_store: "supabase_pgvector"
+    mcp_endpoint: "chatgpt-desktop"
     
   tableau:
     model: claude-3-sonnet-20240229
@@ -85,6 +126,209 @@ agents:
     priority: 4
     tools:
       - SQLExecutor
+      
+  # DataOS Docs Extractor - Documentation extraction & diff engine
+  dataos-extractor:
+    path: "/Users/tbwa/agents/dataos-docs-extractor.yaml"
+    status: active
+    priority: 5
+    persona: technical_analyst
+    model: claude-3-5-sonnet
+    capabilities:
+      - full_site_extraction
+      - dynamic_content_render
+      - semantic_diff
+      - visual_diff
+      - archive_management
+      - change_analytics
+    tools:
+      - HTTPClient
+      - FileManager
+      
+  # Socket MCP - Enhanced build guardrail & dependency validation
+  socket-mcp:
+    path: "/Users/tbwa/agents/socket-mcp.yaml"
+    status: active
+    priority: 6
+    persona: reliability_engineer
+    model: claude-3-5-sonnet
+    capabilities:
+      - dependency_scoring
+      - vulnerability_scanning
+      - local_artifact_scanning
+      - build_failure_diagnostics
+      - error_recovery
+      - security_scanning
+    tools:
+      - HTTPClient
+      - FileManager
+
+  # ToolSync - Supabase Edge Function for schema/view sync
+  toolsync:
+    path: "/Users/tbwa/agents/toolsync.yaml"
+    status: active
+    priority: 7
+    persona: technical_analyst
+    model: claude-3-5-sonnet
+    capabilities:
+      - schema_introspection
+      - view_creation
+      - rls_policy_management
+      - migration_tracking
+    tools:
+      - SQLExecutor
+      - HTTPClient
+
+  # Isko - Deep-research SKU scraper
+  isko:
+    path: "/Users/tbwa/agents/isko.yaml"
+    status: active
+    priority: 8
+    persona: data_collector
+    model: claude-3-5-sonnet
+    capabilities:
+      - web_scraping
+      - image_extraction
+      - sku_cataloging
+      - brand_recognition
+      - data_enrichment
+      - storage_management
+    tools:
+      - HTTPClient
+      - FileManager
+
+  # Enhanced-WrenAI - NL→SQL engine
+  enhanced-wrenai:
+    path: "/Users/tbwa/agents/enhanced-wrenai.yaml"
+    status: active
+    priority: 9
+    persona: query_specialist
+    model: claude-3-5-sonnet
+    capabilities:
+      - nl_to_sql_conversion
+      - query_optimization
+      - rag_retrieval
+      - schema_awareness
+      - query_routing
+      - result_formatting
+    tools:
+      - SQLExecutor
+      - HTTPClient
+
+  # Data Fabcon - Data profiling + ingestion scorer
+  data-fabcon:
+    path: "/Users/tbwa/agents/data_fabcon.yaml"
+    status: active
+    priority: 10
+    persona: data_engineer
+    model: claude-3-5-sonnet
+    capabilities:
+      - data_profiling
+      - complexity_scoring
+      - quality_assessment
+      - pipeline_optimization
+      - medallion_architecture
+      - schema_analysis
+    tools:
+      - SQLExecutor
+      - HTTPClient
+
+  # ChartVision - Screenshot-to-React dashboard generator
+  chartvision:
+    path: "/Users/tbwa/agents/chartvision.yaml"
+    status: active
+    priority: 11
+    persona: ui_developer
+    model: claude-3-5-sonnet
+    capabilities:
+      - image_analysis
+      - react_generation
+      - tsx_code_output
+      - dal_integration
+      - component_styling
+      - responsive_design
+    tools:
+      - HTTPClient
+      - FileManager
+
+  # TestSprite - Regression & vibe-coded test automation
+  testsprite:
+    path: "/Users/tbwa/agents/testsprite.yaml"
+    status: active
+    priority: 12
+    persona: test_engineer
+    model: claude-3-5-sonnet
+    capabilities:
+      - regression_testing
+      - vibe_testing
+      - ui_validation
+      - data_validation
+      - test_reporting
+      - issue_tracking
+    tools:
+      - HTTPClient
+      - SQLExecutor
+
+  # Sari-Sari Expert Bot - Retail advisory chat agent
+  sari-sari-expert:
+    path: "/Users/tbwa/agents/sari-sari-expert.yaml"
+    status: active
+    priority: 13
+    persona: retail_advisor
+    model: claude-3-5-sonnet
+    capabilities:
+      - retail_advisory
+      - inventory_analysis
+      - pricing_strategy
+      - trend_analysis
+      - chat_interface
+      - data_integration
+    tools:
+      - SQLExecutor
+      - HTTPClient
+
+# Routing Rules for Co-Orchestrated Models
+routing:
+  # Embeddings search → ChatGPT for context → Claude for execution
+  embeddings_search:
+    primary: chatgpt
+    handoff_to: claude
+    triggers: ["search_context", "retrieve_memory", "find_similar"]
+    
+  # Code generation → Claude primary → ChatGPT for review
+  code_generation:
+    primary: claude
+    review_with: chatgpt
+    triggers: ["write_code", "debug", "refactor", "generate_script"]
+    
+  # Strategic planning → ChatGPT primary → Claude for implementation
+  strategic_planning:
+    primary: chatgpt
+    handoff_to: claude
+    triggers: ["plan_project", "analyze_requirements", "design_system"]
+    
+  # Data analysis → shared between both models
+  data_analysis:
+    primary: chatgpt
+    secondary: claude
+    triggers: ["analyze_data", "create_insights", "generate_report"]
+
+# Shared Memory Configuration
+memory:
+  store_type: "supabase_pgvector"
+  table: "agent_memory"
+  embedding_dimension: 1536
+  similarity_threshold: 0.8
+  max_context_entries: 10
+  retention_days: 30
+  
+# Context Injection Rules
+context_injection:
+  enabled: true
+  auto_inject: true
+  inject_for_models: ["chatgpt", "claude"]
+  max_context_tokens: 2000
+  relevance_threshold: 0.75
 
 # Environment settings
 environment:
@@ -93,6 +337,8 @@ environment:
   MYSQL_DATABASE: gagambi_db
   MYSQL_USER: TBWA
   API_BASE_URL: http://localhost:8000
+  SUPABASE_URL: https://cxzllzyxwpyptfretryc.supabase.co
+  SUPABASE_SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN4emxsenlod3B5cHRmcmV0cnljIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5MjEyNzQ2NCwiZXhwIjoyMDA3NzAzNDY0fQ.p_JOlDfWt--VgKVuuVKojT6Bb2O-NhfnX6Qyhe9Xm9s
 
 # Logging configuration
 logging:
