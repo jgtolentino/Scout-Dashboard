@@ -1,0 +1,66 @@
+meta {
+  name: Deploy Schema Migration
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{supabaseUrl}}/rest/v1/rpc/deploy_schema_migration
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{supabaseKey}}
+}
+
+headers {
+  Content-Type: application/json
+  apikey: {{supabaseKey}}
+  Authorization: Bearer {{supabaseKey}}
+}
+
+body:json {
+  {
+    "migration_files": [
+      "20250914_platinum_layer_complete.sql"
+    ],
+    "seed_files": [
+      "seed_platinum_complete.sql"  
+    ],
+    "dry_run": false,
+    "validate_only": false
+  }
+}
+
+pre-request {
+  console.log('🗄️ Deploying schema migration...');
+  console.log('📊 Creating Platinum layer tables');
+  console.log('🔒 Applying RLS policies');
+  console.log('📈 Creating performance indexes');
+}
+
+post-response {
+  if (res.status === 200) {
+    console.log('✅ Schema migration deployed');
+    console.log('📊 Platinum tables created');
+    console.log('🔐 Security policies active'); 
+    console.log('⚡ Performance indexes ready');
+  } else {
+    console.error('❌ Schema deployment failed:', res.body);
+  }
+}
+
+tests {
+  test("Schema deployment successful", function () {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Migration applied successfully", function () {
+    expect(res.body).to.have.property('migration_status', 'success');
+  });
+  
+  test("RLS policies enabled", function () {
+    expect(res.body.security_policies).to.be.greaterThan(0);
+  });
+}

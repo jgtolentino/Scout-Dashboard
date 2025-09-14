@@ -1,0 +1,129 @@
+version: 2
+
+sources:
+  - name: scout
+    description: "Scout retail analytics data source"
+    schema: scout
+    tables:
+      - name: transactions
+        description: "Raw transaction data from retail stores"
+        columns:
+          - name: id
+            description: "Primary key"
+            tests:
+              - unique
+              - not_null
+          - name: peso_value
+            description: "Transaction value in Philippine pesos"
+            tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  min_value: 0.01
+                  max_value: 1000000
+          - name: transaction_date
+            description: "Date of transaction"
+            tests:
+              - not_null
+          - name: province
+            description: "Province where transaction occurred"
+          - name: brand
+            description: "Product brand"
+          - name: category
+            description: "Product category"
+          - name: basket_size
+            description: "Number of items in transaction"
+            tests:
+              - dbt_utils.accepted_range:
+                  min_value: 1
+                  max_value: 100
+          - name: tenant_id
+            description: "Multi-tenant identifier"
+            tests:
+              - not_null
+
+  - name: dimensions
+    description: "Master data and dimensional tables"
+    schema: public
+    tables:
+      - name: ph_provinces
+        description: "Philippines provinces and regions"
+        columns:
+          - name: province_code
+            description: "Province code"
+            tests:
+              - unique
+              - not_null
+          - name: province_name
+            description: "Province name"
+            tests:
+              - not_null
+          - name: region_name
+            description: "Region name"
+            tests:
+              - not_null
+              
+      - name: master_brands
+        description: "Master brand data"
+        columns:
+          - name: id
+            description: "Brand ID"
+            tests:
+              - unique
+              - not_null
+          - name: name
+            description: "Brand name"
+            tests:
+              - not_null
+              
+      - name: master_categories
+        description: "Master category data"
+        columns:
+          - name: id
+            description: "Category ID"
+            tests:
+              - unique
+              - not_null
+          - name: name
+            description: "Category name"
+            tests:
+              - not_null
+
+models:
+  - name: bronze_transactions
+    description: "Raw transactions with basic validation"
+    columns:
+      - name: transaction_id
+        description: "Unique transaction identifier"
+        tests:
+          - unique
+          - not_null
+      - name: peso_value
+        description: "Transaction amount"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: "{{ var('transaction_threshold') }}"
+      - name: transaction_date
+        description: "Transaction date"
+        tests:
+          - not_null
+      - name: province_raw
+        description: "Raw province string"
+      - name: brand_raw
+        description: "Raw brand string"  
+      - name: category_raw
+        description: "Raw category string"
+      - name: basket_size
+        description: "Items in basket"
+      - name: tenant_id
+        description: "Tenant identifier"
+        tests:
+          - not_null
+      - name: created_at
+        description: "Record creation timestamp"
+        tests:
+          - not_null
+      - name: _source_file
+        description: "Source data file"
+      - name: _ingestion_timestamp
+        description: "Data ingestion timestamp"

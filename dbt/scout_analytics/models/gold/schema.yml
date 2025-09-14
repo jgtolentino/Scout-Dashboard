@@ -1,0 +1,130 @@
+version: 2
+
+models:
+  - name: mart_transaction_summary
+    description: "Business-ready transaction metrics by date and geography"
+    columns:
+      - name: date_key
+        description: "Date key YYYYMMDD"
+        tests:
+          - not_null
+      - name: province_key
+        description: "Province dimension key"
+        tests:
+          - not_null
+      - name: transaction_count
+        description: "Number of transactions"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: total_sales
+        description: "Total sales in PHP"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: avg_transaction_value
+        description: "Average transaction value"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: avg_basket_size
+        description: "Average items per transaction"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+
+  - name: mart_brand_performance
+    description: "Brand performance metrics"
+    columns:
+      - name: brand_key
+        description: "Brand dimension key"
+        tests:
+          - not_null
+      - name: date_key
+        description: "Date key YYYYMMDD"
+        tests:
+          - not_null
+      - name: sales_amount
+        description: "Brand sales amount"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: transaction_count
+        description: "Number of brand transactions"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: market_share
+        description: "Brand market share percentage"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+
+  - name: mart_geographic_performance
+    description: "Geographic performance analysis"
+    columns:
+      - name: province_key
+        description: "Province dimension key"
+        tests:
+          - not_null
+      - name: region_name
+        description: "Region name"
+        tests:
+          - not_null
+      - name: total_sales
+        description: "Total provincial sales"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: sales_per_capita
+        description: "Sales per capita estimate"
+      - name: market_penetration
+        description: "Market penetration score"
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+
+  - name: kpi_daily_summary
+    description: "Daily KPI rollup for dashboards"
+    columns:
+      - name: report_date
+        description: "Report date"
+        tests:
+          - unique
+          - not_null
+      - name: total_transactions
+        description: "Daily transaction count"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: total_sales
+        description: "Daily sales amount"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+      - name: avg_transaction_value
+        description: "Daily average transaction value"
+        tests:
+          - not_null
+      - name: unique_provinces
+        description: "Number of active provinces"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+      - name: top_performing_province
+        description: "Highest sales province"
+        tests:
+          - not_null
