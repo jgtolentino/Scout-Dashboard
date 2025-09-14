@@ -389,21 +389,39 @@
         "Subscription support for real-time updates"
       ],
       "release": "v0.5.0-enterprise"
+    },
+    "SCOUT-RPC-001": {
+      "title": "Link & Extract RPC Implementation",
+      "category": "analytics",
+      "priority": "high",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-14",
+      "completed": "2025-01-14",
+      "description": "Single RPC to link face events to transactions and extract brands from transcripts",
+      "acceptance_criteria": [
+        "link_and_extract_rpc function implemented",
+        "Service role security restrictions enforced",
+        "Bruno test suite created and passing",
+        "Individual face_match_rpc and brand_extract_rpc wrappers",
+        "Smoke test validation scripts"
+      ],
+      "release": "v0.3.0-enhancements"
     }
   },
   "statistics": {
-    "total_tasks": 21,
-    "completed": 13,
+    "total_tasks": 22,
+    "completed": 14,
     "in_progress": 2, 
     "not_started": 6,
     "by_priority": {
-      "high": 8,
+      "high": 9,
       "medium": 9,
       "low": 4
     },
     "by_category": {
       "core": 3,
-      "analytics": 3,
+      "analytics": 4,
       "mcp": 7,
       "security": 1,
       "performance": 1,
