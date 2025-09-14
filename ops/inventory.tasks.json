@@ -10,7 +10,13 @@
     "SCOUT-DB-001", 
     "SCOUT-DB-003",
     "SCOUT-DB-004",
-    "SCOUT-OBS-002"
+    "SCOUT-OBS-002",
+    "SCOUT-MCP-001",
+    "SCOUT-MCP-002", 
+    "SCOUT-MCP-003",
+    "SCOUT-MCP-004",
+    "SCOUT-MCP-005",
+    "SCOUT-MCP-006"
   ],
   "in_progress": [
     "SCOUT-OBS-003",
@@ -41,6 +47,16 @@
     "secrets_management": "✅ Complete - All secrets in Keychain",
     "bruno_tests": "✅ Passing - Health check (2/2), Platinum installer (6/6)",
     "platinum_layer": "✅ Deployed - recommendations, agent_insights, chat_conversations tables exist",
-    "database_access": "✅ Working - Both pooler (6543) and direct (5432) connections validated"
+    "database_access": "✅ Working - Both pooler (6543) and direct (5432) connections validated",
+    "mcp_integration": "✅ Complete - Two MindsDB instances with Claude Desktop/CLI integration",
+    "kpi_automation": "✅ Active - Hourly KPI snapshots to analytics_snap.kpi_hourly"
+  },
+  "mcp_tasks": {
+    "SCOUT-MCP-001": "✅ Spin up MindsDB (Docker) with MCP enabled",
+    "SCOUT-MCP-002": "✅ Create mindsdb_desktop_ro/mindsdb_code_ro/mindsdb_code_ingest roles + grants", 
+    "SCOUT-MCP-003": "✅ Register supabase_ds_* datasources on both instances",
+    "SCOUT-MCP-004": "✅ Claude Desktop + Code CLI MCP configuration",
+    "SCOUT-MCP-005": "✅ Verify role isolation and safe analytics access",
+    "SCOUT-MCP-006": "✅ Hourly KPI job writing to analytics_snap.kpi_hourly"
   }
 }

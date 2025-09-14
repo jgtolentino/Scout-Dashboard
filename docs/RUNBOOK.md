@@ -16,6 +16,13 @@
 - **Inventory (redacted)**: `./ops/secrets_inventory.sh`
 - **Validate required**: `./ops/secrets_validate.sh poc`
 
+### MindsDB MCP Integration
+- **Start instances**: `./ops/mindsdb/start_instances.sh`
+- **Register datasources**: `./ops/mindsdb/register_datasources.sh`
+- **Configure Claude**: `./ops/mindsdb/configure_claude.sh`
+- **KPI job**: `./ops/mindsdb/create_kpi_job.sh`
+- **CLI wrapper**: `./ops/mindsdb/claude_code_env.sh`
+
 ### Local Development
 - **Start local DB**: `supabase start` (DB on 54322)
 - **Apply migrations**: `supabase db reset` (applies 000_init.sql)
@@ -45,6 +52,7 @@
 - **SCOUT-DB-003**: Remote apply (direct 5432 connection validated)
 - **SCOUT-DB-004**: Read-only RPC guard (health RPC passing)
 - **SCOUT-OBS-002**: Database timeouts (statement_timeout configured)
+- **SCOUT-MCP-001-006**: Complete MindsDB MCP integration with Claude Desktop/CLI
 
 ### 🔄 In Progress
 - **SCOUT-OBS-003**: CI health workflow (drafted, needs GitHub secrets)

@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mindsdb-desktop:
+    image: mindsdb/mindsdb:latest
+    container_name: mindsdb-desktop
+    restart: unless-stopped
+    environment:
+      MINDSDB_APIS: "http,mysql,mcp"
+      MINDSDB_CONFIG_PATH: "/root/mindsdb_config"
+    ports:
+      - "47334:47334"   # HTTP & MCP SSE
+      - "47335:47335"   # MySQL wire protocol
+    volumes:
+      - ./mdb_data_desktop:/root/mdb_storage
+      - ./config_desktop:/root/mindsdb_config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:47334/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  mindsdb-code:
+    image: mindsdb/mindsdb:latest
+    container_name: mindsdb-code
+    restart: unless-stopped
+    environment:
+      MINDSDB_APIS: "http,mysql,mcp"
+      MINDSDB_CONFIG_PATH: "/root/mindsdb_config"
+    ports:
+      - "57334:57334"   # HTTP & MCP SSE  
+      - "57335:57335"   # MySQL wire protocol
+    volumes:
+      - ./mdb_data_code:/root/mdb_storage
+      - ./config_code:/root/mindsdb_config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:57334/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  default:
+    name: scout-mindsdb
