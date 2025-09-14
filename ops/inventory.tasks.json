@@ -24,7 +24,13 @@
       "description": "MCP integration, security hardening, and performance optimizations",
       "tasks": ["SCOUT-MCP-001", "SCOUT-MCP-002", "SCOUT-MCP-003", "SCOUT-MCP-004", "SCOUT-MCP-005", "SCOUT-MCP-006", "SCOUT-MCP-007", "SCOUT-SEC-001", "SCOUT-PERF-001"]
     },
-    "v0.4.0-realtime": {
+    "v0.4.0-s3-first": {
+      "status": "released",
+      "date": "2025-01-14",
+      "description": "S3-first ETL pipeline with GitHub Actions automation",
+      "tasks": ["SCOUT-GHA-DRV-001", "SCOUT-GHA-S3-001", "SCOUT-GHA-WKR-001", "SCOUT-CRON-001", "SCOUT-OBS-007"]
+    },
+    "v0.5.0-realtime": {
       "status": "planned",
       "target_date": "2025-02-01",
       "description": "Real-time features and enhanced user experience",
@@ -65,8 +71,16 @@
       "description": "Monitoring, logging, and system visibility"
     },
     "integration": {
-      "name": "External Integrations",
+      "name": "External Integrations", 
       "description": "Third-party service integrations and APIs"
+    },
+    "automation": {
+      "name": "CI/CD Automation",
+      "description": "GitHub Actions workflows and automated processes"
+    },
+    "etl": {
+      "name": "ETL Pipelines",
+      "description": "Extract, Transform, Load data processing workflows"
     }
   },
   "tasks": {
@@ -407,16 +421,101 @@
         "Smoke test validation scripts"
       ],
       "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-GHA-DRV-001": {
+      "title": "Drive to S3 Bronze Sync",
+      "category": "automation",
+      "priority": "high",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-14",
+      "completed": "2025-01-14",
+      "description": "GitHub Actions workflow to sync Google Drive to S3 Bronze using rclone",
+      "acceptance_criteria": [
+        "Scheduled workflow runs every 10 minutes",
+        "Uses Google Drive Service Account authentication",
+        "Syncs to s3://{bucket}/drive/ prefix",
+        "Provides sync summary and verification"
+      ],
+      "release": "v0.4.0-s3-first"
+    },
+    "SCOUT-GHA-S3-001": {
+      "title": "S3 Scan and Enqueue",
+      "category": "automation", 
+      "priority": "high",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-14",
+      "completed": "2025-01-14",
+      "description": "GitHub Actions workflow to scan S3 buckets and enqueue new objects for processing",
+      "acceptance_criteria": [
+        "Scheduled workflow runs every 5 minutes",
+        "Scans drive/ and azure/ prefixes",
+        "Calls ops.enqueue_if_new() RPC for each object",
+        "Provides queue status reporting"
+      ],
+      "release": "v0.4.0-s3-first"
+    },
+    "SCOUT-GHA-WKR-001": {
+      "title": "S3 Ingest Worker",
+      "category": "etl",
+      "priority": "high",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-14",
+      "completed": "2025-01-14",
+      "description": "GitHub Actions workflow to stream S3 objects directly into Postgres tables",
+      "acceptance_criteria": [
+        "Scheduled workflow runs every 5 minutes",
+        "Processes up to 200 objects per batch",
+        "Supports CSV (auto-schema) and JSON/JSONL formats",
+        "Loads into stage.{table_name} tables"
+      ],
+      "release": "v0.4.0-s3-first"
+    },
+    "SCOUT-CRON-001": {
+      "title": "ETL Scheduled Jobs",
+      "category": "etl",
+      "priority": "high", 
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-14",
+      "completed": "2025-01-14",
+      "description": "pg_cron scheduled jobs for link & extract pipeline with metrics persistence",
+      "acceptance_criteria": [
+        "link_and_extract_rpc scheduled every 5 minutes",
+        "Run metrics stored in analytics_snap.etl_runs",
+        "Error handling and Slack alerting",
+        "Stall detection and notifications"
+      ],
+      "release": "v0.4.0-s3-first"
+    },
+    "SCOUT-OBS-007": {
+      "title": "ETL Observability Dashboard",
+      "category": "observability",
+      "priority": "medium",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-14",
+      "completed": "2025-01-14",
+      "description": "Dashboard views and alerting for ETL pipeline monitoring",
+      "acceptance_criteria": [
+        "analytics.v_etl_last_24h view for dashboard consumption", 
+        "ETL stall detection and alerting",
+        "Processing summary and queue depth monitoring",
+        "Integration with Next.js dashboard components"
+      ],
+      "release": "v0.4.0-s3-first"
     }
   },
   "statistics": {
-    "total_tasks": 22,
-    "completed": 14,
+    "total_tasks": 27,
+    "completed": 19,
     "in_progress": 2, 
     "not_started": 6,
     "by_priority": {
-      "high": 9,
-      "medium": 9,
+      "high": 13,
+      "medium": 10,
       "low": 4
     },
     "by_category": {
@@ -427,8 +526,10 @@
       "performance": 1,
       "realtime": 2,
       "ux": 1,
-      "observability": 1,
-      "integration": 1
+      "observability": 2,
+      "integration": 1,
+      "automation": 2,
+      "etl": 3
     }
   }
 }
