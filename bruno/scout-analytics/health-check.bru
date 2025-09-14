@@ -1,0 +1,52 @@
+meta {
+  name: Health Check
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{SUPABASE_URL}}/rest/v1/rpc/install_platinum_layer_rpc
+  body: json
+  auth: none
+}
+
+headers {
+  apikey: {{SUPABASE_SERVICE_KEY}}
+  Authorization: Bearer {{SUPABASE_SERVICE_KEY}}
+  Content-Type: application/json
+  Prefer: params=single-object
+}
+
+body:json {
+  {
+    "request_data": {
+      "action": "health_check"
+    }
+  }
+}
+
+script:pre-request {
+  console.log('🔍 Running health check...');
+  console.log('Testing authentication with service role key');
+}
+
+script:post-response {
+  if (res.status === 200) {
+    console.log('✅ Health check passed');
+    console.log('🔑 Authentication working correctly');
+  } else {
+    console.error('❌ Health check failed:', res.status, res.body);
+  }
+}
+
+tests {
+  test("Health check successful", function () {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response contains expected data", function () {
+    expect(res.body).to.have.property('success', true);
+    expect(res.body).to.have.property('message');
+    expect(res.body).to.have.property('components');
+  });
+}

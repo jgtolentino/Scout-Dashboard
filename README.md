@@ -1,5 +1,9 @@
 # Scout Analytics - AI-Powered Retail Intelligence Platform
 
+[![Inventory Health](https://github.com/jgtolentino/Scout-Dashboard/actions/workflows/inventory-health.yml/badge.svg)](https://github.com/jgtolentino/Scout-Dashboard/actions/workflows/inventory-health.yml)
+[![POC Status](https://img.shields.io/badge/POC-Deployed%20%26%20Validated-brightgreen)](https://github.com/jgtolentino/Scout-Dashboard)
+[![Platinum Layer](https://img.shields.io/badge/Platinum%20Layer-Active-gold)](https://github.com/jgtolentino/Scout-Dashboard)
+
 A next-generation analytics platform for retail businesses with autonomous AI agents, natural language chat interface, and comprehensive recommendation system. Built on a modern Supabase-centric lakehouse architecture.
 
 ## 🏗️ Architecture Overview

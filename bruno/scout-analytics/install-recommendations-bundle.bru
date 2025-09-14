@@ -1,11 +1,11 @@
 meta {
-  name: Install recommendations bundle
+  name: Install Platinum Layer
   type: http
   seq: 1
 }
 
 post {
-  url: {{supabaseUrl}}/rest/v1/rpc/install_platinum_layer
+  url: {{supabaseUrl}}/functions/v1/install-platinum-layer
   body: json
   auth: bearer
 }
@@ -22,24 +22,35 @@ headers {
 
 body:json {
   {
-    "schema_version": "v1.0.0",
-    "deployment_mode": "production", 
-    "include_seed_data": true,
-    "tenant_id": "default"
+    "action": "install_platinum_layer",
+    "components": [
+      "7_tier_recommendations",
+      "ai_agent_infrastructure", 
+      "rag_chat_interface",
+      "vector_embeddings",
+      "security_policies"
+    ],
+    "options": {
+      "create_tables": true,
+      "seed_data": true,
+      "enable_rls": true,
+      "create_indexes": true
+    }
   }
 }
 
-pre-request {
+script:pre-request {
   // Bruno-Orchestrated Deployment: Zero credentials in code
   // All secrets are injected via environment variables
   console.log('🚀 Starting Platinum Layer deployment...');
   console.log('📊 Installing 7-tier recommendation system');
   console.log('🤖 Installing AI agent infrastructure');
   console.log('💬 Installing RAG chat interface');
+  console.log('🧠 Installing vector embeddings');
   console.log('🔒 All credentials secured via environment');
 }
 
-post-response {
+script:post-response {
   // Verify deployment success
   if (res.status === 200) {
     console.log('✅ Platinum Layer deployed successfully');

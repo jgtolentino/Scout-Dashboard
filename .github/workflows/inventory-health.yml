@@ -1,0 +1,48 @@
+name: Scout Analytics - Inventory Health
+on: 
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    # Run health checks daily at 9 AM PH time (1 AM UTC)
+    - cron: '0 1 * * *'
+
+jobs:
+  inventory-health:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      SUPABASE_PG_URL_REMOTE: ${{ secrets.SUPABASE_PG_URL_REMOTE }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client curl jq
+      
+      - name: Validate required secrets
+        run: |
+          if [[ -z "$SUPABASE_URL" ]]; then echo "❌ SUPABASE_URL secret missing"; exit 1; fi
+          if [[ -z "$SUPABASE_SERVICE_KEY" ]]; then echo "❌ SUPABASE_SERVICE_KEY secret missing"; exit 1; fi
+          if [[ -z "$SUPABASE_PG_URL_REMOTE" ]]; then echo "❌ SUPABASE_PG_URL_REMOTE secret missing"; exit 1; fi
+          echo "✅ All required secrets present"
+      
+      - name: Run inventory health checks
+        run: |
+          chmod +x ./ops/inventory.check.sh
+          ./ops/inventory.check.sh
+      
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "🚨 Scout Analytics health check failed!"
+          echo "Check the logs above for details"
+          # Future: Add Slack/email notification here

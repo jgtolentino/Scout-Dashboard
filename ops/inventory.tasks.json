@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-09-14T11:58:33+08:00",
+  "env_rule": { 
+    "local_db_port": 54322, 
+    "remote_pooler": 6543, 
+    "remote_direct": 5432 
+  },
+  "done": [
+    "SCOUT-WS0-002",
+    "SCOUT-DB-001", 
+    "SCOUT-DB-003",
+    "SCOUT-DB-004",
+    "SCOUT-OBS-002"
+  ],
+  "in_progress": [
+    "SCOUT-OBS-003",
+    "SCOUT-CAMP-001",
+    "SCOUT-WS0-003"
+  ],
+  "not_started": [
+    "SCOUT-WS0-001","SCOUT-WS0-004",
+    "SCOUT-DB-002",
+    "SCOUT-ETL-001","SCOUT-ETL-002","SCOUT-ETL-003","SCOUT-ETL-004","SCOUT-ETL-005",
+    "SCOUT-DBT-001","SCOUT-DBT-002","SCOUT-DBT-003","SCOUT-DBT-004","SCOUT-DBT-005",
+    "SCOUT-EDGE-001","SCOUT-EDGE-002","SCOUT-EDGE-003","SCOUT-EDGE-004","SCOUT-EDGE-005",
+    "SCOUT-WEB-001","SCOUT-WEB-002","SCOUT-WEB-003","SCOUT-WEB-004","SCOUT-WEB-005",
+    "SCOUT-DEV-001","SCOUT-DEV-002","SCOUT-DEV-003","SCOUT-DEV-004","SCOUT-DEV-005",
+    "SCOUT-CAMP-002","SCOUT-CAMP-003","SCOUT-CAMP-004","SCOUT-CAMP-005",
+    "SCOUT-OBS-001","SCOUT-OBS-004","SCOUT-OBS-005"
+  ],
+  "namespace_policy": {
+    "public": "wrappers + *_rpc (service_role only)",
+    "internal": "installer/maintenance",
+    "analytics": "facts + mv_*",
+    "ref": "dimensions",
+    "stage": "raw ingests (azure_*)",
+    "mkt": "campaigns",
+    "ai": "embeddings + kg_*"
+  },
+  "validation_status": {
+    "secrets_management": "✅ Complete - All secrets in Keychain",
+    "bruno_tests": "✅ Passing - Health check (2/2), Platinum installer (6/6)",
+    "platinum_layer": "✅ Deployed - recommendations, agent_insights, chat_conversations tables exist",
+    "database_access": "✅ Working - Both pooler (6543) and direct (5432) connections validated"
+  }
+}

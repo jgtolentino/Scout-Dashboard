@@ -33,14 +33,14 @@ body:json {
   }
 }
 
-pre-request {
+script:pre-request {
   console.log('🗄️ Deploying schema migration...');
   console.log('📊 Creating Platinum layer tables');
   console.log('🔒 Applying RLS policies');
   console.log('📈 Creating performance indexes');
 }
 
-post-response {
+script:post-response {
   if (res.status === 200) {
     console.log('✅ Schema migration deployed');
     console.log('📊 Platinum tables created');

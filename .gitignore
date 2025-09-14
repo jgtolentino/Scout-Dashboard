@@ -20,6 +20,10 @@ out/
 .env.test.local
 .env.production.local
 
+# Bruno secrets
+bruno/**/.env
+bruno/**/.env.*
+
 # Debug
 npm-debug.log*
 yarn-debug.log*

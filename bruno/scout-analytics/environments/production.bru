@@ -1,10 +1,8 @@
 vars {
-  supabaseUrl: {{process.env.SUPABASE_URL}}
-  supabaseKey: {{process.env.SUPABASE_SERVICE_ROLE}}
-  dbUrl: {{process.env.SUPABASE_DB_URL}}
-  baseUrl: {{process.env.NEXT_PUBLIC_SUPABASE_URL}}
+  SUPABASE_URL: https://cxzllzyxwpyptfretryc.supabase.co
+  SUPABASE_SERVICE_KEY: {{process.env.SUPABASE_SERVICE_KEY}}
 }
+
 vars:secret [
-  supabaseKey,
-  dbUrl
+  SUPABASE_SERVICE_KEY
 ]

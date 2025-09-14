@@ -1,0 +1,89 @@
+meta {
+  name: Install Platinum Layer (RPC)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{SUPABASE_URL}}/rest/v1/rpc/install_platinum_layer_rpc
+  body: json
+  auth: none
+}
+
+headers {
+  apikey: {{SUPABASE_SERVICE_KEY}}
+  Authorization: Bearer {{SUPABASE_SERVICE_KEY}}
+  Content-Type: application/json
+  Prefer: params=single-object
+}
+
+body:json {
+  {
+    "request_data": {
+      "action": "install_platinum_layer",
+      "components": [
+        "7_tier_recommendations",
+        "ai_agent_infrastructure", 
+        "rag_chat_interface",
+        "vector_embeddings",
+        "security_policies"
+      ],
+      "options": {
+        "create_tables": true,
+        "seed_data": true,
+        "enable_rls": true,
+        "create_indexes": true
+      }
+    }
+  }
+}
+
+script:pre-request {
+  // Bruno-Orchestrated Deployment: Zero credentials in code
+  // All secrets are injected via environment variables
+  console.log('🚀 Starting Platinum Layer deployment via RPC...');
+  console.log('📊 Installing 7-tier recommendation system');
+  console.log('🤖 Installing AI agent infrastructure');
+  console.log('💬 Installing RAG chat interface');
+  console.log('🧠 Installing vector embeddings');
+  console.log('🔒 All credentials secured via environment');
+}
+
+script:post-response {
+  // Verify deployment success
+  if (res.status === 200 && res.body.success) {
+    console.log('✅ Platinum Layer deployed successfully via RPC');
+    console.log('🎯 Components installed:', res.body.components);
+    console.log('🕐 Installation time:', res.body.installation_time);
+    console.log('📊 Details:', JSON.stringify(res.body.details, null, 2));
+  } else {
+    console.error('❌ Deployment failed:', res.body);
+  }
+}
+
+tests {
+  test("Deployment successful", function () {
+    expect(res.status).to.be.oneOf([200, 201, 204]);
+  });
+  
+  test("Response contains success confirmation", function () {
+    expect(res.body).to.have.property('success', true);
+  });
+  
+  test("Components were installed", function () {
+    expect(res.body.components).to.be.an('array');
+    expect(res.body.components.length).to.be.greaterThan(0);
+  });
+  
+  test("Recommendations table exists", function () {
+    expect(res.body.components).to.include('recommendations');
+  });
+  
+  test("AI infrastructure deployed", function () {
+    expect(res.body.components).to.include('agent_insights');
+  });
+  
+  test("Chat infrastructure deployed", function () {
+    expect(res.body.components).to.include('chat_conversations');
+  });
+}

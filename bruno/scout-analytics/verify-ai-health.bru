@@ -18,14 +18,14 @@ headers {
   Authorization: Bearer {{supabaseKey}}
 }
 
-pre-request {
+script:pre-request {
   console.log('🔍 Checking AI agent health...');
   console.log('📊 Verifying agent insights');
   console.log('🤖 Testing recommendation system');
   console.log('💬 Validating chat interface');
 }
 
-post-response {
+script:post-response {
   if (res.status === 200) {
     console.log('✅ AI systems healthy');
     console.log(`📊 Found ${res.body.insights?.length || 0} active insights`);
