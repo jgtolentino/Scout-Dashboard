@@ -1,6 +1,27 @@
-# Scout Analytics - MindsDB MCP Integration
+# MindsDB MCP Ops Documentation
 
-Complete setup for two isolated MindsDB instances providing MCP (Model Context Protocol) access to Supabase with proper role-based security.
+Complete operational documentation for MindsDB MCP (Model Context Protocol) integration with automated health monitoring.
+
+## Health Monitoring
+
+### CI/CD Health Checks
+- **Workflow**: `.github/workflows/mindsdb-health.yml`
+- **Schedule**: Every 4 hours + on MindsDB changes
+- **Checks**: Instance health, KPI freshness, connectivity
+
+### Instance Health Endpoints
+```bash
+# Desktop instance (Claude Desktop MCP)
+curl -sf http://localhost:47334/api/status
+
+# Code instance (Claude Code CLI MCP)
+curl -sf http://localhost:57334/api/status
+```
+
+### KPI Data Validation
+- **Source**: `kpi_metrics` table with `source = 'mindsdb'`
+- **Freshness**: Must be updated within 6 hours
+- **Access**: Via Supabase pooler connection
 
 ## Architecture Overview
 
@@ -24,12 +45,12 @@ Complete setup for two isolated MindsDB instances providing MCP (Model Context P
 
 ### Database Roles
 - **mindsdb_desktop_ro**: Most restrictive, analytics views only
-- **mindsdb_code_ro**: Broader reads (analytics + ref tables), still read-only
+- **mindsdb_code_ro**: Broader reads (analytics + ref tables), read-only
 - **mindsdb_code_ingest**: Write-only to `analytics_snap.kpi_hourly`
 
 ### Instance Isolation
-- **Desktop**: Safe for ad-hoc analysis, limited schema access
-- **Code**: Broader access for orchestration, can schedule jobs and write snapshots
+- **Desktop (47334)**: Safe for ad-hoc analysis, limited schema access
+- **Code (57334)**: Broader access for orchestration, job scheduling, snapshot writes
 
 ## Quick Start
 
@@ -63,6 +84,28 @@ Complete setup for two isolated MindsDB instances providing MCP (Model Context P
 # Creates hourly KPI snapshot job
 ```
 
+### 6. Health Check
+```bash
+./health.sh
+# Local health validation script
+```
+
+## Health Check Script
+
+The `health.sh` script provides comprehensive local health validation:
+
+- **Instance Status**: Checks both MindsDB instances are running
+- **API Health**: Validates REST API endpoints
+- **Database Connectivity**: Tests all datasource connections
+- **KPI Freshness**: Verifies recent data updates
+- **Job Status**: Checks scheduled job execution
+
+Usage:
+```bash
+chmod +x ./health.sh
+./health.sh
+```
+
 ## Usage Patterns
 
 ### Claude Desktop (Analyst)
@@ -70,104 +113,149 @@ Complete setup for two isolated MindsDB instances providing MCP (Model Context P
 - Query: *"Show me the latest recommendations by tier"*
 - Access: Read-only views, safest for exploration
 
-### Claude Code CLI (Orchestrator)  
+### Claude Code CLI (Orchestrator)
 - Start with: `./claude_code_env.sh`
 - Access: Analytics + ref tables, can create jobs
 - Use for: Automated queries, scheduled jobs, federated analysis
 
-## File Structure
-
-```
-ops/mindsdb/
-├── README.md                 # This file
-├── docker-compose.mcp.yml    # Two MindsDB containers
-├── setup_roles.sh           # Create DB roles + Keychain storage
-├── start_instances.sh       # Start Docker containers
-├── register_datasources.sh  # Register Supabase connections
-├── configure_claude.sh      # Setup MCP for Claude Desktop/CLI
-├── create_kpi_job.sh        # Hourly KPI snapshot job
-└── claude_code_env.sh       # CLI wrapper (created by configure_claude.sh)
-```
-
-## Management Commands
+## Operational Commands
 
 ### Container Management
 ```bash
-# Status
+# Status check
 docker compose -f docker-compose.mcp.yml ps
 
-# Logs
+# View logs
 docker compose -f docker-compose.mcp.yml logs -f
 
-# Stop
+# Stop instances
 docker compose -f docker-compose.mcp.yml down
 
-# Restart
+# Restart instances
 docker compose -f docker-compose.mcp.yml restart
 ```
 
-### MindsDB API Access
+### Health Monitoring
 ```bash
-# Desktop instance (47334)
+# Check instance health
 curl -s http://127.0.0.1:47334/api/status | jq .
-
-# Code instance (57334)  
 curl -s http://127.0.0.1:57334/api/status | jq .
 
-# List jobs
+# List active jobs
 curl -s http://127.0.0.1:57334/api/projects/mindsdb/jobs | jq .
 
-# SQL query
+# Execute test query
 curl -s -X POST http://127.0.0.1:57334/api/sql/query \
   -H "Content-Type: application/json" \
-  -d '{"query":"SELECT 1 as test;"}'
+  -d '{"query":"SELECT 1 as health_check;"}'
 ```
 
-### Database Verification
+### KPI Data Verification
 ```bash
-# Check KPI snapshots
+# Check recent KPI data
 source ../secrets_export.sh remote
 psql "$SUPABASE_PG_URL_REMOTE" -c "
-  SELECT snapshot_ts, metric, value 
-  FROM analytics_snap.kpi_hourly 
-  ORDER BY snapshot_ts DESC LIMIT 10;
+  SELECT 
+    MAX(updated_at) as last_update,
+    COUNT(*) as total_records
+  FROM kpi_metrics 
+  WHERE source = 'mindsdb'
+  AND updated_at > NOW() - INTERVAL '24 hours';
 "
 ```
 
 ## Troubleshooting
 
-### MindsDB Won't Start
-- Check Docker daemon is running
-- Verify ports 47334/47335 and 57334/57335 are free
-- Check logs: `docker compose -f docker-compose.mcp.yml logs`
+### Common Issues
 
-### MCP Connection Failed  
+**MindsDB Instance Unreachable**
+- Check Docker containers: `docker ps`
+- Verify ports not in use: `lsof -i :47334 -i :57334`
+- Check instance logs: `docker logs mindsdb-desktop`
+
+**MCP Connection Failed**
 - Restart Claude Desktop after config changes
-- Verify mcp-remote is available: `npx -y mcp-remote --help`
-- Check MindsDB SSE endpoint: `curl http://127.0.0.1:47334/sse`
+- Verify mcp-remote availability: `npx -y mcp-remote --help`
+- Test SSE endpoint: `curl http://127.0.0.1:47334/sse`
 
-### Database Access Issues
-- Verify roles exist: `\du` in psql as postgres user  
+**Stale KPI Data**
+- Check job execution: Visit MindsDB UI at http://localhost:57334
+- Verify write permissions: Test manual INSERT to analytics_snap
+- Check datasource connectivity from MindsDB
+
+**Database Connection Issues**
+- Verify roles exist: `\du` in psql as postgres user
 - Check Keychain credentials: `./ops/secrets_inventory.sh`
 - Test direct connection with role credentials
 
-### Job Execution Failures
-- Check job logs in MindsDB UI or via API
-- Verify write permissions: try manual INSERT
-- Check datasource health: query read datasource first
+### Health Check Failure Recovery
+
+1. **Check Instance Status**
+   ```bash
+   ./health.sh
+   ```
+
+2. **Restart Unhealthy Instances**
+   ```bash
+   docker compose -f docker-compose.mcp.yml restart
+   ```
+
+3. **Verify Configuration**
+   ```bash
+   ./configure_claude.sh
+   ```
+
+4. **Test Connections**
+   ```bash
+   curl -s http://localhost:47334/api/status
+   curl -s http://localhost:57334/api/status
+   ```
+
+## CI/CD Integration
+
+### GitHub Actions Workflow
+- **File**: `.github/workflows/mindsdb-health.yml`
+- **Triggers**: Schedule (4h), workflow_dispatch, MindsDB changes
+- **Timeout**: 10 minutes
+- **Notifications**: Failure alerts with diagnostic info
+
+### Environment Variables
+- `SUPABASE_POOLER_URL`: Database connection for KPI checks
+- Auto-configured via secrets injection
+
+### Health Check Criteria
+- ✅ Both instances respond to `/api/status`
+- ✅ KPI data updated within 6 hours
+- ✅ Local health script passes
+- ❌ Any failure triggers notification
 
 ## Security Best Practices
 
-1. **Principle of Least Privilege**: Each role has minimum required permissions
-2. **Network Isolation**: Bind to localhost only, use VPN for remote access  
+1. **Principle of Least Privilege**: Minimal required permissions per role
+2. **Network Isolation**: Localhost binding only, VPN for remote access
 3. **Credential Management**: All passwords in Keychain, never in code
-4. **Audit Logging**: Monitor MindsDB access logs and Supabase queries
-5. **Role Separation**: Keep analyst (desktop) and orchestrator (CLI) access distinct
+4. **Audit Logging**: Monitor MindsDB and Supabase query logs
+5. **Role Separation**: Distinct analyst vs orchestrator access patterns
+
+## File Structure
+
+```
+ops/mindsdb/
+├── README.md                 # This documentation
+├── docker-compose.mcp.yml    # Two MindsDB containers
+├── setup_roles.sh           # Create DB roles + Keychain storage
+├── start_instances.sh       # Start Docker containers  
+├── register_datasources.sh  # Register Supabase connections
+├── configure_claude.sh      # Setup MCP for Claude Desktop/CLI
+├── create_kpi_job.sh        # Hourly KPI snapshot job
+├── health.sh               # Local health check script
+└── claude_code_env.sh       # CLI wrapper (auto-generated)
+```
 
 ## Next Steps
 
-1. **Add More Datasources**: Register Azure SQL, Snowflake, etc. on Code instance
-2. **Expand Jobs**: Create more sophisticated KPI calculations and exports
-3. **Dashboard Integration**: Query `analytics_snap.kpi_hourly` from Next.js frontend
-4. **Alerting**: Add job failure notifications and anomaly detection
-5. **Performance Monitoring**: Track query performance and resource usage
+1. **Enhanced Monitoring**: Add Grafana dashboards for MindsDB metrics
+2. **Alerting Integration**: Slack/email notifications for health failures
+3. **Performance Optimization**: Query caching and connection pooling
+4. **Security Hardening**: API authentication and SSL/TLS termination
+5. **Scaling**: Load balancing for multiple MindsDB instances

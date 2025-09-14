@@ -1,6 +1,7 @@
 # Scout Analytics - AI-Powered Retail Intelligence Platform
 
 [![Inventory Health](https://github.com/jgtolentino/Scout-Dashboard/actions/workflows/inventory-health.yml/badge.svg)](https://github.com/jgtolentino/Scout-Dashboard/actions/workflows/inventory-health.yml)
+[![MindsDB Health](https://github.com/jgtolentino/Scout-Dashboard/actions/workflows/mindsdb-health.yml/badge.svg)](https://github.com/jgtolentino/Scout-Dashboard/actions/workflows/mindsdb-health.yml)
 [![POC Status](https://img.shields.io/badge/POC-Deployed%20%26%20Validated-brightgreen)](https://github.com/jgtolentino/Scout-Dashboard)
 [![Platinum Layer](https://img.shields.io/badge/Platinum%20Layer-Active-gold)](https://github.com/jgtolentino/Scout-Dashboard)
 

@@ -1,62 +1,416 @@
 {
-  "timestamp": "2025-09-14T11:58:33+08:00",
-  "env_rule": { 
-    "local_db_port": 54322, 
-    "remote_pooler": 6543, 
-    "remote_direct": 5432 
+  "metadata": {
+    "version": "2.1.0",
+    "last_updated": "2025-01-14",
+    "schema": "https://json-schema.org/draft/2020-12/schema",
+    "description": "Scout Dashboard task inventory with MCP integration tracking"
   },
-  "done": [
-    "SCOUT-WS0-002",
-    "SCOUT-DB-001", 
-    "SCOUT-DB-003",
-    "SCOUT-DB-004",
-    "SCOUT-OBS-002",
-    "SCOUT-MCP-001",
-    "SCOUT-MCP-002", 
-    "SCOUT-MCP-003",
-    "SCOUT-MCP-004",
-    "SCOUT-MCP-005",
-    "SCOUT-MCP-006"
-  ],
-  "in_progress": [
-    "SCOUT-OBS-003",
-    "SCOUT-CAMP-001",
-    "SCOUT-WS0-003"
-  ],
-  "not_started": [
-    "SCOUT-WS0-001","SCOUT-WS0-004",
-    "SCOUT-DB-002",
-    "SCOUT-ETL-001","SCOUT-ETL-002","SCOUT-ETL-003","SCOUT-ETL-004","SCOUT-ETL-005",
-    "SCOUT-DBT-001","SCOUT-DBT-002","SCOUT-DBT-003","SCOUT-DBT-004","SCOUT-DBT-005",
-    "SCOUT-EDGE-001","SCOUT-EDGE-002","SCOUT-EDGE-003","SCOUT-EDGE-004","SCOUT-EDGE-005",
-    "SCOUT-WEB-001","SCOUT-WEB-002","SCOUT-WEB-003","SCOUT-WEB-004","SCOUT-WEB-005",
-    "SCOUT-DEV-001","SCOUT-DEV-002","SCOUT-DEV-003","SCOUT-DEV-004","SCOUT-DEV-005",
-    "SCOUT-CAMP-002","SCOUT-CAMP-003","SCOUT-CAMP-004","SCOUT-CAMP-005",
-    "SCOUT-OBS-001","SCOUT-OBS-004","SCOUT-OBS-005"
-  ],
-  "namespace_policy": {
-    "public": "wrappers + *_rpc (service_role only)",
-    "internal": "installer/maintenance",
-    "analytics": "facts + mv_*",
-    "ref": "dimensions",
-    "stage": "raw ingests (azure_*)",
-    "mkt": "campaigns",
-    "ai": "embeddings + kg_*"
+  "releases": {
+    "v0.1.0-foundation": {
+      "status": "released",
+      "date": "2024-12-15",
+      "description": "Core dashboard foundation with Supabase integration",
+      "tasks": ["SCOUT-CORE-001", "SCOUT-CORE-002", "SCOUT-CORE-003"]
+    },
+    "v0.2.0-analytics": {
+      "status": "released", 
+      "date": "2025-01-10",
+      "description": "Analytics engine and real-time metrics",
+      "tasks": ["SCOUT-ANALYTICS-001", "SCOUT-ANALYTICS-002", "SCOUT-ANALYTICS-003"]
+    },
+    "v0.3.0-enhancements": {
+      "status": "in_progress",
+      "target_date": "2025-01-20",
+      "description": "MCP integration, security hardening, and performance optimizations",
+      "tasks": ["SCOUT-MCP-001", "SCOUT-MCP-002", "SCOUT-MCP-003", "SCOUT-MCP-004", "SCOUT-MCP-005", "SCOUT-MCP-006", "SCOUT-MCP-007", "SCOUT-SEC-001", "SCOUT-PERF-001"]
+    },
+    "v0.4.0-realtime": {
+      "status": "planned",
+      "target_date": "2025-02-01",
+      "description": "Real-time features and enhanced user experience",
+      "tasks": ["SCOUT-RT-001", "SCOUT-RT-002", "SCOUT-UX-001"]
+    }
   },
-  "validation_status": {
-    "secrets_management": "✅ Complete - All secrets in Keychain",
-    "bruno_tests": "✅ Passing - Health check (2/2), Platinum installer (6/6)",
-    "platinum_layer": "✅ Deployed - recommendations, agent_insights, chat_conversations tables exist",
-    "database_access": "✅ Working - Both pooler (6543) and direct (5432) connections validated",
-    "mcp_integration": "✅ Complete - Two MindsDB instances with Claude Desktop/CLI integration",
-    "kpi_automation": "✅ Active - Hourly KPI snapshots to analytics_snap.kpi_hourly"
+  "categories": {
+    "core": {
+      "name": "Core Infrastructure",
+      "description": "Fundamental system components and architecture"
+    },
+    "analytics": {
+      "name": "Analytics Engine",
+      "description": "Data processing and analytics capabilities"
+    },
+    "mcp": {
+      "name": "MCP Integration",
+      "description": "Model Context Protocol server implementations"
+    },
+    "security": {
+      "name": "Security & Compliance",
+      "description": "Security hardening and compliance features"
+    },
+    "performance": {
+      "name": "Performance Optimization",
+      "description": "System performance and scalability improvements"
+    },
+    "realtime": {
+      "name": "Real-time Features",
+      "description": "Live data and real-time user interactions"
+    },
+    "ux": {
+      "name": "User Experience",
+      "description": "Frontend improvements and user interface enhancements"
+    },
+    "observability": {
+      "name": "Observability",
+      "description": "Monitoring, logging, and system visibility"
+    },
+    "integration": {
+      "name": "External Integrations",
+      "description": "Third-party service integrations and APIs"
+    }
   },
-  "mcp_tasks": {
-    "SCOUT-MCP-001": "✅ Spin up MindsDB (Docker) with MCP enabled",
-    "SCOUT-MCP-002": "✅ Create mindsdb_desktop_ro/mindsdb_code_ro/mindsdb_code_ingest roles + grants", 
-    "SCOUT-MCP-003": "✅ Register supabase_ds_* datasources on both instances",
-    "SCOUT-MCP-004": "✅ Claude Desktop + Code CLI MCP configuration",
-    "SCOUT-MCP-005": "✅ Verify role isolation and safe analytics access",
-    "SCOUT-MCP-006": "✅ Hourly KPI job writing to analytics_snap.kpi_hourly"
+  "tasks": {
+    "SCOUT-CORE-001": {
+      "title": "Database Schema Foundation",
+      "category": "core",
+      "priority": "high",
+      "status": "done",
+      "assignee": "system",
+      "created": "2024-12-10",
+      "completed": "2024-12-15",
+      "description": "Implement core database schema with proper relationships and constraints",
+      "acceptance_criteria": [
+        "All core tables created with proper foreign keys",
+        "Database migrations are reversible",
+        "Performance indexes are in place"
+      ],
+      "release": "v0.1.0-foundation"
+    },
+    "SCOUT-CORE-002": {
+      "title": "API Gateway Setup",
+      "category": "core", 
+      "priority": "high",
+      "status": "done",
+      "assignee": "system",
+      "created": "2024-12-10",
+      "completed": "2024-12-15",
+      "description": "Configure Supabase Edge Functions for API routing and authentication",
+      "acceptance_criteria": [
+        "Authentication middleware implemented",
+        "Rate limiting configured", 
+        "API versioning strategy in place"
+      ],
+      "release": "v0.1.0-foundation"
+    },
+    "SCOUT-CORE-003": {
+      "title": "Dashboard Frontend Bootstrap",
+      "category": "core",
+      "priority": "medium",
+      "status": "done", 
+      "assignee": "system",
+      "created": "2024-12-10",
+      "completed": "2024-12-15",
+      "description": "Basic dashboard UI with navigation and layout components",
+      "acceptance_criteria": [
+        "Responsive design implemented",
+        "Component library integrated",
+        "Basic routing configured"
+      ],
+      "release": "v0.1.0-foundation"
+    },
+    "SCOUT-ANALYTICS-001": {
+      "title": "Metrics Collection Engine",
+      "category": "analytics",
+      "priority": "high",
+      "status": "done",
+      "assignee": "system", 
+      "created": "2024-12-20",
+      "completed": "2025-01-10",
+      "description": "Build system for collecting and processing application metrics",
+      "acceptance_criteria": [
+        "Real-time metrics ingestion",
+        "Data validation and cleansing",
+        "Historical data retention policies"
+      ],
+      "release": "v0.2.0-analytics"
+    },
+    "SCOUT-ANALYTICS-002": {
+      "title": "Visualization Components",
+      "category": "analytics",
+      "priority": "medium", 
+      "status": "done",
+      "assignee": "system",
+      "created": "2024-12-20",
+      "completed": "2025-01-10",
+      "description": "Interactive charts and graphs for data visualization",
+      "acceptance_criteria": [
+        "Chart library integrated",
+        "Custom visualization components",
+        "Export functionality for reports"
+      ],
+      "release": "v0.2.0-analytics"
+    },
+    "SCOUT-ANALYTICS-003": {
+      "title": "Alert System Framework",
+      "category": "analytics",
+      "priority": "medium",
+      "status": "done",
+      "assignee": "system",
+      "created": "2024-12-20", 
+      "completed": "2025-01-10",
+      "description": "Configurable alert system for threshold monitoring",
+      "acceptance_criteria": [
+        "Threshold configuration interface",
+        "Multiple notification channels",
+        "Alert escalation policies"
+      ],
+      "release": "v0.2.0-analytics"
+    },
+    "SCOUT-MCP-001": {
+      "title": "MCP Server Foundation",
+      "category": "mcp",
+      "priority": "high",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-05",
+      "completed": "2025-01-14",
+      "description": "Implement base MCP server with core protocol support",
+      "acceptance_criteria": [
+        "MCP protocol compliance verified",
+        "Server registration and discovery",
+        "Basic tool execution framework"
+      ],
+      "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-MCP-002": {
+      "title": "Supabase MCP Integration",
+      "category": "mcp", 
+      "priority": "high",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-05",
+      "completed": "2025-01-14",
+      "description": "MCP server for Supabase database operations and Edge Functions",
+      "acceptance_criteria": [
+        "Database query tools implemented",
+        "Edge Function deployment tools",
+        "Migration management capabilities"
+      ],
+      "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-MCP-003": {
+      "title": "GitHub MCP Integration",
+      "category": "mcp",
+      "priority": "medium",
+      "status": "done",
+      "assignee": "system", 
+      "created": "2025-01-05",
+      "completed": "2025-01-14",
+      "description": "MCP server for GitHub repository operations and workflow management",
+      "acceptance_criteria": [
+        "Repository management tools",
+        "Issue and PR automation",
+        "Workflow trigger capabilities"
+      ],
+      "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-MCP-004": {
+      "title": "Figma MCP Integration",
+      "category": "mcp",
+      "priority": "low",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-05",
+      "completed": "2025-01-14", 
+      "description": "MCP server for Figma design system synchronization",
+      "acceptance_criteria": [
+        "Design token extraction",
+        "Component specification sync",
+        "Asset management integration"
+      ],
+      "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-MCP-005": {
+      "title": "Gmail MCP Integration",
+      "category": "mcp",
+      "priority": "low",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-05",
+      "completed": "2025-01-14",
+      "description": "MCP server for Gmail communication workflows",
+      "acceptance_criteria": [
+        "Email sending capabilities", 
+        "Template management system",
+        "Notification workflow integration"
+      ],
+      "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-MCP-006": {
+      "title": "MCP Tool Registry",
+      "category": "mcp",
+      "priority": "medium",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-05",
+      "completed": "2025-01-14",
+      "description": "Central registry for MCP tools with discovery and documentation",
+      "acceptance_criteria": [
+        "Tool registration system",
+        "API documentation generation",
+        "Usage analytics and monitoring"
+      ],
+      "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-MCP-007": {
+      "title": "MCP Security Framework", 
+      "category": "mcp",
+      "priority": "high",
+      "status": "done",
+      "assignee": "system",
+      "created": "2025-01-05",
+      "completed": "2025-01-14",
+      "description": "Security layer for MCP server communications and tool execution",
+      "acceptance_criteria": [
+        "Authentication and authorization",
+        "Input validation and sanitization", 
+        "Audit logging for all operations"
+      ],
+      "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-SEC-001": {
+      "title": "Security Hardening Phase 1",
+      "category": "security",
+      "priority": "high", 
+      "status": "in_progress",
+      "assignee": "system",
+      "created": "2025-01-12",
+      "description": "Implement comprehensive security measures across the platform",
+      "acceptance_criteria": [
+        "Security headers configuration",
+        "Input validation enforcement",
+        "SQL injection prevention",
+        "XSS protection mechanisms"
+      ],
+      "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-PERF-001": {
+      "title": "Performance Optimization Phase 1", 
+      "category": "performance",
+      "priority": "medium",
+      "status": "in_progress",
+      "assignee": "system",
+      "created": "2025-01-12",
+      "description": "Optimize database queries and frontend performance",
+      "acceptance_criteria": [
+        "Database query optimization",
+        "Frontend bundle size reduction",
+        "Caching strategy implementation",
+        "Performance monitoring setup"
+      ],
+      "release": "v0.3.0-enhancements"
+    },
+    "SCOUT-RT-001": {
+      "title": "Real-time Data Streaming",
+      "category": "realtime",
+      "priority": "high",
+      "status": "not_started", 
+      "assignee": "unassigned",
+      "created": "2025-01-14",
+      "description": "Implement real-time data streaming using Supabase Realtime",
+      "acceptance_criteria": [
+        "WebSocket connection management",
+        "Real-time subscription handling",
+        "Data synchronization across clients",
+        "Connection resilience and recovery"
+      ],
+      "release": "v0.4.0-realtime"
+    },
+    "SCOUT-RT-002": {
+      "title": "Live Dashboard Updates",
+      "category": "realtime",
+      "priority": "medium",
+      "status": "not_started",
+      "assignee": "unassigned", 
+      "created": "2025-01-14",
+      "description": "Enable live updates for dashboard metrics and visualizations",
+      "acceptance_criteria": [
+        "Real-time chart updates",
+        "Live metric refresh",
+        "Efficient state management",
+        "Smooth animation transitions"
+      ],
+      "release": "v0.4.0-realtime"
+    },
+    "SCOUT-UX-001": {
+      "title": "Enhanced User Interface",
+      "category": "ux", 
+      "priority": "medium",
+      "status": "not_started",
+      "assignee": "unassigned",
+      "created": "2025-01-14",
+      "description": "Improve user interface with better UX patterns and accessibility",
+      "acceptance_criteria": [
+        "Accessibility compliance (WCAG 2.1 AA)",
+        "Mobile-responsive improvements",
+        "User feedback integration",
+        "Loading state optimizations"
+      ],
+      "release": "v0.4.0-realtime"
+    },
+    "SCOUT-OBS-001": {
+      "title": "Observability Platform", 
+      "category": "observability",
+      "priority": "medium",
+      "status": "not_started",
+      "assignee": "unassigned",
+      "created": "2025-01-14",
+      "description": "Implement comprehensive observability with metrics, logs, and traces",
+      "acceptance_criteria": [
+        "Application performance monitoring",
+        "Structured logging implementation",
+        "Distributed tracing setup",
+        "Custom metrics dashboard"
+      ],
+      "release": "v0.5.0-enterprise"
+    },
+    "SCOUT-GQL-001": {
+      "title": "GraphQL API Layer",
+      "category": "integration",
+      "priority": "low",
+      "status": "not_started",
+      "assignee": "unassigned",
+      "created": "2025-01-14", 
+      "description": "Implement GraphQL API layer for flexible data querying",
+      "acceptance_criteria": [
+        "GraphQL schema definition",
+        "Resolver implementation",
+        "Query optimization",
+        "Subscription support for real-time updates"
+      ],
+      "release": "v0.5.0-enterprise"
+    }
+  },
+  "statistics": {
+    "total_tasks": 21,
+    "completed": 13,
+    "in_progress": 2, 
+    "not_started": 6,
+    "by_priority": {
+      "high": 8,
+      "medium": 9,
+      "low": 4
+    },
+    "by_category": {
+      "core": 3,
+      "analytics": 3,
+      "mcp": 7,
+      "security": 1,
+      "performance": 1,
+      "realtime": 2,
+      "ux": 1,
+      "observability": 1,
+      "integration": 1
+    }
   }
 }

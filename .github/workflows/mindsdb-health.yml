@@ -1,0 +1,80 @@
+name: MindsDB Health Check
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'  # Every 4 hours
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['ops/mindsdb/**']
+
+jobs:
+  mindsdb-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Check MindsDB Desktop Instance
+      run: |
+        echo "🔍 Checking MindsDB Desktop (port 47334)..."
+        if curl -sf --max-time 30 "http://localhost:47334/api/status" > /dev/null 2>&1; then
+          echo "✅ Desktop instance healthy"
+        else
+          echo "❌ Desktop instance unhealthy or unreachable"
+          exit 1
+        fi
+        
+    - name: Check MindsDB Code Instance  
+      run: |
+        echo "🔍 Checking MindsDB Code (port 57334)..."
+        if curl -sf --max-time 30 "http://localhost:57334/api/status" > /dev/null 2>&1; then
+          echo "✅ Code instance healthy"
+        else
+          echo "❌ Code instance unhealthy or unreachable"
+          exit 1
+        fi
+        
+    - name: Verify KPI Data Freshness
+      env:
+        SUPABASE_POOLER_URL: ${{ secrets.SUPABASE_POOLER_URL }}
+      run: |
+        echo "🔍 Checking KPI data freshness..."
+        
+        # Query last KPI update via Supabase pooler
+        LAST_UPDATE=$(psql "$SUPABASE_POOLER_URL" -t -c "
+          SELECT MAX(updated_at) FROM kpi_metrics 
+          WHERE source = 'mindsdb'
+        " 2>/dev/null | xargs)
+        
+        if [ -z "$LAST_UPDATE" ]; then
+          echo "❌ No KPI data found from MindsDB"
+          exit 1
+        fi
+        
+        # Check if data is within last 6 hours
+        CUTOFF=$(date -u -d '6 hours ago' '+%Y-%m-%d %H:%M:%S')
+        
+        if [[ "$LAST_UPDATE" > "$CUTOFF" ]]; then
+          echo "✅ KPI data is fresh (last update: $LAST_UPDATE)"
+        else
+          echo "⚠️ KPI data is stale (last update: $LAST_UPDATE)"
+          exit 1
+        fi
+        
+    - name: Run Local Health Script
+      run: |
+        chmod +x ./ops/mindsdb/health.sh
+        ./ops/mindsdb/health.sh
+        
+    - name: Notify on Failure
+      if: failure()
+      run: |
+        echo "🚨 MindsDB health check failed!"
+        echo "Check the logs above for specific failure details."
+        echo "Common issues:"
+        echo "- MindsDB instances not running"
+        echo "- Database connectivity issues" 
+        echo "- Stale KPI data"

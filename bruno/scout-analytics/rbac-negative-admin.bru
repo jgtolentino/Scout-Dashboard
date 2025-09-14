@@ -1,0 +1,30 @@
+meta {
+  name: RBAC - Admin functions with anon key (should fail)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{SUPABASE_URL}}/rest/v1/rpc/install_platinum_layer_rpc
+  body: json({})
+}
+
+headers {
+  apikey: {{SUPABASE_ANON_KEY}}
+  Authorization: Bearer {{SUPABASE_ANON_KEY}}
+  Content-Type: application/json
+  Prefer: params=single-object
+}
+
+tests {
+  test("Should deny admin RPC with anon key", function() {
+    expect(res.status).to.be.oneOf([401, 403, 404]);
+  });
+  
+  test("Should not expose sensitive error details", function() {
+    const body = res.body;
+    expect(body).to.not.contain('password');
+    expect(body).to.not.contain('secret');
+    expect(body).to.not.contain('internal');
+  });
+}
