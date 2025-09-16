@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scout Analytics Dashboard - Redirecting...</title>
+    <meta http-equiv="refresh" content="0; url=https://scout-dashboard-deploy.vercel.app/">
+    <link rel="canonical" href="https://scout-dashboard-deploy.vercel.app/">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        p {
+            margin: 0 0 2rem 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .spinner {
+            margin: 2rem auto;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .redirect-link {
+            color: white;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .redirect-link:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Scout Analytics Dashboard</h1>
+        <p>Redirecting you to the new analytics platform...</p>
+        <div class="spinner"></div>
+        <p>If you're not redirected automatically, <a href="https://scout-dashboard-deploy.vercel.app/" class="redirect-link">click here</a>.</p>
+    </div>
+    
+    <script>
+        // Immediate redirect as backup
+        setTimeout(() => {
+            window.location.href = 'https://scout-dashboard-deploy.vercel.app/';
+        }, 1000);
+    </script>
+</body>
+</html>
