@@ -1,29 +1,38 @@
-import { serverSupabase } from "@/lib/supabase/server"
 import { NextRequest, NextResponse } from "next/server"
+import AnalyticsService from "@/lib/services/analytics"
+import { TransactionFilters } from "@/lib/dal/transactions"
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
+    
+    // Parse query parameters
+    const filters: TransactionFilters = {
+      dateFrom: searchParams.get("from") || "2024-01-01",
+      dateTo: searchParams.get("to") || "2025-12-31",
+      regions: searchParams.get("regions")?.split(",").filter(Boolean),
+      provinces: searchParams.get("provinces")?.split(",").filter(Boolean),
+      stores: searchParams.get("stores")?.split(",").filter(Boolean),
+      brands: searchParams.get("brands")?.split(",").filter(Boolean),
+      categories: searchParams.get("categories")?.split(",").filter(Boolean)
+    }
+    
     const group = searchParams.get("group") || "category"
     
-    const supabase = serverSupabase()
+    const analyticsService = new AnalyticsService()
+    const result = await analyticsService.getDashboardData("product-mix", filters, false)
+
+    if (result.error) {
+      console.error("Analytics service error:", result.error)
+      return NextResponse.json({ error: result.error }, { status: 500 })
+    }
+
+    let processedData = result.data?.productMix || []
     
+    // Process data based on grouping preference
     if (group === "category") {
-      // Group by product category
-      const { data, error } = await supabase
-        .from("v_product_mix")
-        .select("product_category, n:n.sum(), total_sales:total_sales.sum()")
-        .not("product_category", "eq", "unknown")
-        .order("n", { ascending: false })
-        .limit(20)
-
-      if (error) {
-        console.error("Supabase error:", error)
-        return NextResponse.json({ error: error.message }, { status: 500 })
-      }
-
-      // Aggregate by category
-      const aggregated = (data || []).reduce((acc: any[], curr: any) => {
+      // Aggregate by product category
+      const aggregated = processedData.reduce((acc: any[], curr: any) => {
         const existing = acc.find(item => item.product_category === curr.product_category)
         if (existing) {
           existing.n += curr.n || 0
@@ -37,25 +46,13 @@ export async function GET(req: NextRequest) {
         }
         return acc
       }, [])
-
-      return NextResponse.json({ rows: aggregated.sort((a, b) => b.n - a.n) })
-      
+      processedData = aggregated.filter(item => item.product_category !== "unknown")
+        .sort((a, b) => b.n - a.n)
+        .slice(0, 20)
+        
     } else if (group === "brand") {
-      // Group by brand
-      const { data, error } = await supabase
-        .from("v_product_mix")
-        .select("brand_name, n:n.sum(), total_sales:total_sales.sum()")
-        .not("brand_name", "eq", "unknown")
-        .order("n", { ascending: false })
-        .limit(20)
-
-      if (error) {
-        console.error("Supabase error:", error)
-        return NextResponse.json({ error: error.message }, { status: 500 })
-      }
-
       // Aggregate by brand
-      const aggregated = (data || []).reduce((acc: any[], curr: any) => {
+      const aggregated = processedData.reduce((acc: any[], curr: any) => {
         const existing = acc.find(item => item.brand_name === curr.brand_name)
         if (existing) {
           existing.n += curr.n || 0
@@ -69,23 +66,24 @@ export async function GET(req: NextRequest) {
         }
         return acc
       }, [])
-
-      return NextResponse.json({ rows: aggregated.sort((a, b) => b.n - a.n) })
+      processedData = aggregated.filter(item => item.brand_name !== "unknown")
+        .sort((a, b) => b.n - a.n)
+        .slice(0, 20)
     } else {
-      // Return both category and brand data
-      const { data, error } = await supabase
-        .from("v_product_mix")
-        .select("*")
-        .order("n", { ascending: false })
-        .limit(50)
-
-      if (error) {
-        console.error("Supabase error:", error)
-        return NextResponse.json({ error: error.message }, { status: 500 })
-      }
-
-      return NextResponse.json({ rows: data || [] })
+      // Return raw data, limited
+      processedData = processedData.sort((a: any, b: any) => (b.n || 0) - (a.n || 0))
+        .slice(0, 50)
     }
+
+    // Return product mix data in expected format
+    return NextResponse.json({ 
+      rows: processedData,
+      meta: {
+        group,
+        filters_applied: Object.keys(filters).filter(key => filters[key as keyof TransactionFilters]),
+        total_records: processedData.length
+      }
+    })
   } catch (error) {
     console.error("API error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
