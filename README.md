@@ -270,4 +270,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **🎉 Ready to transform your retail analytics with AI!**
 
-For questions or support, please create an issue in the repository or contact the development team.
+For questions or support, please create an issue in the repository or contact the development team.# Trigger deployment

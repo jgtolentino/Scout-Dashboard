@@ -2,15 +2,15 @@
 
 import { useMemo, useState } from "react"
 import useSWR from "swr"
-import { SVGMap } from "react-svg-map"
-import philippines from "@svg-maps/philippines"
+import Map from "react-map-gl"
+import type { MapLayerMouseEvent } from "react-map-gl"
 import { scaleQuantize } from "d3-scale"
 import { extent } from "d3-array"
 import { format } from "d3-format"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { normalizeProvinceName } from "@/lib/utils"
 import type { GeoData } from "@/lib/types/transactions"
-import "react-svg-map/lib/index.css"
+import "mapbox-gl/dist/mapbox-gl.css"
 
 type GeoResponse = { 
   rows: GeoData[]
@@ -34,15 +34,15 @@ export function GeoChoroplethPH({
   const { data, error, isLoading } = useSWR<GeoResponse>("/api/scout/geo", fetcher)
   const rows = data?.rows || []
 
-  const { colorScale, dataByProvince, extent: [min, max] } = useMemo(() => {
-    const map = new Map<string, number>()
+  const { mapData, colorScale, extent: [min, max] } = useMemo(() => {
+    const dataByProvince = new Map<string, number>()
     
     rows.forEach(row => {
       const key = normalizeProvinceName(row.province)
-      map.set(key, row[metric])
+      dataByProvince.set(key, row[metric])
     })
 
-    const values = Array.from(map.values()).filter(v => v > 0)
+    const values = Array.from(dataByProvince.values()).filter(v => v > 0)
     const [min, max] = values.length ? extent(values) as [number, number] : [0, 1]
 
     const scale = scaleQuantize<string>()
@@ -52,9 +52,19 @@ export function GeoChoroplethPH({
         "#38bdf8", "#0ea5e9", "#0284c7", "#0369a1"
       ])
 
+    // Create choropleth expression for Mapbox
+    const choroplethExpression: any = ["case"]
+    
+    dataByProvince.forEach((value, province) => {
+      choroplethExpression.push(["==", ["get", "name"], province])
+      choroplethExpression.push(scale(value))
+    })
+    
+    choroplethExpression.push("#e5e7eb") // default color
+
     return { 
+      mapData: { dataByProvince, choroplethExpression },
       colorScale: scale, 
-      dataByProvince: map, 
       extent: [min, max] 
     }
   }, [rows, metric])
@@ -63,23 +73,25 @@ export function GeoChoroplethPH({
     ? format("₱,.0f") 
     : format(",d")
 
-  const handleMouseMove = (event: React.MouseEvent) => {
-    const target = event.target as SVGElement
-    const name = target.getAttribute("name") || ""
-    const key = normalizeProvinceName(name)
-    const value = dataByProvince.get(key)
+  const handleMapClick = (event: MapLayerMouseEvent) => {
+    if (event.features && event.features[0]) {
+      const feature = event.features[0]
+      const name = feature.properties?.name || ""
+      const key = normalizeProvinceName(name)
+      const value = mapData.dataByProvince.get(key)
 
-    if (value !== undefined) {
-      setTooltip({
-        show: true,
-        content: `${name}: ${formatter(value)}`,
-        x: event.clientX + 10,
-        y: event.clientY - 10
-      })
+      if (value !== undefined) {
+        setTooltip({
+          show: true,
+          content: `${name}: ${formatter(value)}`,
+          x: event.point.x + 10,
+          y: event.point.y - 10
+        })
+      }
     }
   }
 
-  const handleMouseLeave = () => {
+  const handleMapLeave = () => {
     setTooltip(prev => ({ ...prev, show: false }))
   }
 
@@ -128,48 +140,30 @@ export function GeoChoroplethPH({
       
       <CardContent>
         <div className="relative">
-          <div className="aspect-[4/3] w-full">
-            <SVGMap
-              map={philippines}
-              className="h-full w-full"
-              locationClassName={(location) => {
-                const name = location?.getAttribute("name") || ""
-                const key = normalizeProvinceName(name)
-                const value = dataByProvince.get(key)
-                
-                return `transition-all duration-200 ${
-                  value !== undefined ? 'cursor-pointer hover:stroke-2' : 'opacity-40'
-                }`
+          <div className="h-96 w-full rounded-lg overflow-hidden">
+            <Map
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || 'pk.demo.token'}
+              initialViewState={{
+                longitude: 121.7740,
+                latitude: 12.8797,
+                zoom: 5.5
               }}
-              onLocationMouseOver={(event) => {
-                const target = event.target as SVGElement
-                const name = target.getAttribute("name") || ""
-                const key = normalizeProvinceName(name)
-                const value = dataByProvince.get(key)
-                
-                if (value !== undefined) {
-                  target.style.fill = colorScale(value)
-                } else {
-                  target.style.fill = "#e5e7eb"
-                }
-                
-                handleMouseMove(event as any)
-              }}
-              onLocationMouseOut={(event) => {
-                const target = event.target as SVGElement
-                const name = target.getAttribute("name") || ""
-                const key = normalizeProvinceName(name)
-                const value = dataByProvince.get(key)
-                
-                if (value !== undefined) {
-                  target.style.fill = colorScale(value)
-                } else {
-                  target.style.fill = "#e5e7eb"
-                }
-                
-                handleMouseLeave()
-              }}
-            />
+              style={{width: '100%', height: '100%'}}
+              mapStyle="mapbox://styles/mapbox/light-v9"
+              interactiveLayerIds={['philippines-fill']}
+              onClick={handleMapClick}
+              onMouseLeave={handleMapLeave}
+            >
+              {/* For now, show a simple fallback message */}
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+                <div className="text-center">
+                  <p className="text-gray-600 mb-2">Interactive Philippines Map</p>
+                  <p className="text-sm text-gray-500">
+                    {rows.length > 0 ? `${rows.length} provinces with data` : 'Loading geographic data...'}
+                  </p>
+                </div>
+              </div>
+            </Map>
           </div>
 
           {/* Tooltip */}
@@ -194,6 +188,19 @@ export function GeoChoroplethPH({
             />
           ))}
           <span className="text-xs text-muted-foreground ml-2">High</span>
+        </div>
+
+        {/* Development Note */}
+        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+          <p className="text-sm text-blue-700">
+            <strong>Development Note:</strong> This component has been updated to use Mapbox GL JS instead of the missing @svg-maps/philippines package. 
+            To fully implement the choropleth map, you'll need to:
+          </p>
+          <ul className="text-sm text-blue-600 mt-2 list-disc list-inside">
+            <li>Add a valid Mapbox access token to NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN</li>
+            <li>Include Philippines administrative boundaries GeoJSON data</li>
+            <li>Configure the choropleth layer styling</li>
+          </ul>
         </div>
       </CardContent>
     </Card>
