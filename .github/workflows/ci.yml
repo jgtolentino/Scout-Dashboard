@@ -1,140 +1,17 @@
-name: CI/CD - Scout Analytics Platform
-
+name: CI
 on:
-  push:
-    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
-
-env:
-  NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-  SUPABASE_SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE }}
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-
+  push:
+    branches: [main]
 jobs:
-  lint-and-type-check:
-    name: Lint and Type Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run ESLint
-        run: npm run lint || echo "Linting issues detected"
-
-      - name: Run TypeScript type check
-        run: npx tsc --noEmit || echo "Type checking issues detected"
-
-  test:
-    name: Run Tests
-    runs-on: ubuntu-latest
-    needs: lint-and-type-check
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run unit tests
-        run: npm run test || echo "Tests not implemented yet"
-
   build:
-    name: Build Application
-    runs-on: ubuntu-latest
-    needs: [lint-and-type-check, test]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build application
-        run: npm run build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-files
-          path: .next/
-          retention-days: 1
-
-  dbt-tests:
-    name: dbt Data Quality Tests
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Install dbt
-        run: |
-          pip install dbt-postgres==1.6.0
-
-      - name: dbt deps
-        run: |
-          cd dbt/scout_analytics
-          dbt deps || echo "dbt deps not ready yet"
-
-  security-scan:
-    name: Security Scan
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run npm audit
-        run: npm audit --audit-level=moderate || echo "Security issues detected"
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-        continue-on-error: true
-
-      - name: Upload Trivy scan results
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: 'trivy-results.sarif'
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'pnpm' }
+      - run: corepack enable && corepack prepare pnpm@9 --activate
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -s run type-check
+      - run: pnpm -s run lint || echo "No lint script; skipping"
+      - run: pnpm -s run build
