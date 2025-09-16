@@ -30,7 +30,7 @@ class TransactionDAL extends BaseDAL {
     
     return this.executeQuery<TrendData[]>(
       async (client) => {
-        let query = client
+        let query = (client as any)
           .from('v_trends_daily')
           .select('day, tx_count, sales, avg_transaction')
           .order('day', { ascending: true })
@@ -59,7 +59,7 @@ class TransactionDAL extends BaseDAL {
     
     return this.executeQuery<BehaviorData[]>(
       async (client) => {
-        let query = client
+        let query = (client as any)
           .from('v_behavior_patterns')
           .select('request_type, n, acceptance_rate')
           .order('n', { ascending: false })
@@ -88,7 +88,7 @@ class TransactionDAL extends BaseDAL {
     
     return this.executeQuery<ProductMixData[]>(
       async (client) => {
-        let query = client
+        let query = (client as any)
           .from('v_product_mix')
           .select('product_category, brand_name, n, total_sales')
           .order('total_sales', { ascending: false })
@@ -123,7 +123,7 @@ class TransactionDAL extends BaseDAL {
     
     return this.executeQuery<ProfilingData[]>(
       async (client) => {
-        let query = client
+        let query = (client as any)
           .from('v_consumer_profiling')
           .select('gender, age_bracket, n, avg_spend')
           .order('n', { ascending: false })
@@ -158,7 +158,7 @@ class TransactionDAL extends BaseDAL {
     
     return this.executeQuery<GeoData[]>(
       async (client) => {
-        let query = client
+        let query = (client as any)
           .from('v_geo_province')
           .select('province, tx_count, sales, avg_transaction, region_name, province_code')
           .order('tx_count', { ascending: false })
@@ -193,7 +193,7 @@ class TransactionDAL extends BaseDAL {
     
     return this.executeQuery<TimeHeatmapData[]>(
       async (client) => {
-        let query = client
+        let query = (client as any)
           .from('v_time_heatmap')
           .select('time_of_day, day_of_week, tx_count, avg_value')
           .order('day_of_week', { ascending: true })
@@ -223,7 +223,7 @@ class TransactionDAL extends BaseDAL {
     
     return this.executeQuery<CompetitiveData[]>(
       async (client) => {
-        let query = client
+        let query = (client as any)
           .from('v_competitive_analysis')
           .select(`
             brand_name, 

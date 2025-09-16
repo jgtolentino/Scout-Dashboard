@@ -117,7 +117,7 @@ class BaseDAL {
   ): Promise<{ data: T | null; error: string | null }> {
     return this.executeQuery<T>(
       async (client) => {
-        const { data, error } = await client.rpc('execute_sql', {
+        const { data, error } = await (client as any).rpc('execute_sql', {
           query_text: query,
           params: params
         })

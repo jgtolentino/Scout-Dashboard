@@ -210,9 +210,9 @@ export default function AgentInsightPanel({
                     </div>
 
                     {/* Metrics */}
-                    {insight.metrics && Object.keys(insight.metrics).length > 0 && (
+                    {insight.evidence?.metrics && Object.keys(insight.evidence.metrics).length > 0 && (
                       <div className="flex gap-2 flex-wrap">
-                        {Object.entries(insight.metrics).slice(0, 3).map(([key, value]) => (
+                        {Object.entries(insight.evidence.metrics).slice(0, 3).map(([key, value]) => (
                           <div key={key} className="flex items-center gap-1 text-xs bg-muted px-2 py-1 rounded">
                             <BarChart3 className="h-3 w-3" />
                             <span className="font-medium">{key}:</span>
@@ -230,7 +230,7 @@ export default function AgentInsightPanel({
                           {insight.recommendations.slice(0, 2).map((rec, index) => (
                             <li key={index} className="flex items-start gap-1">
                               <Zap className="h-3 w-3 mt-0.5 flex-shrink-0" />
-                              {rec}
+                              {typeof rec === 'string' ? rec : rec.statement}
                             </li>
                           ))}
                         </ul>

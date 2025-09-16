@@ -154,11 +154,10 @@ export function ProfilingPanel() {
                 <YAxis yAxisId="left" tickFormatter={formatNumber} />
                 <YAxis yAxisId="right" orientation="right" tickFormatter={(v) => formatCurrency(v)} />
                 <Tooltip 
-                  formatter={[
-                    (value: number, name: string) => name === 'avg_spend' 
-                      ? [formatCurrency(value), 'Avg Spend'] 
-                      : [formatNumber(value), 'Count']
-                  ]} 
+                  formatter={(value: any, name: string) => name === 'avg_spend' 
+                    ? [formatCurrency(value), 'Avg Spend'] 
+                    : [formatNumber(value), 'Count']
+                  } 
                 />
                 <Bar yAxisId="left" dataKey="n" fill="#8884d8" name="count" />
                 <Bar yAxisId="right" dataKey="avg_spend" fill="#82ca9d" name="avg_spend" />
@@ -180,11 +179,10 @@ export function ProfilingPanel() {
                 <YAxis yAxisId="left" tickFormatter={formatNumber} />
                 <YAxis yAxisId="right" orientation="right" tickFormatter={(v) => formatCurrency(v)} />
                 <Tooltip 
-                  formatter={[
-                    (value: number, name: string) => name === 'avg_spend' 
-                      ? [formatCurrency(value), 'Avg Spend'] 
-                      : [formatNumber(value), 'Count']
-                  ]} 
+                  formatter={(value: any, name: string) => name === 'avg_spend' 
+                    ? [formatCurrency(value), 'Avg Spend'] 
+                    : [formatNumber(value), 'Count']
+                  } 
                 />
                 <Bar yAxisId="left" dataKey="n" fill="#8884d8" name="count" />
                 <Bar yAxisId="right" dataKey="avg_spend" fill="#ff7300" name="avg_spend" />
@@ -208,12 +206,11 @@ export function ProfilingPanel() {
               <YAxis dataKey="avg_spend" tickFormatter={(v) => formatCurrency(v)} name="Avg Spend" />
               <ZAxis range={[64, 144]} />
               <Tooltip 
-                formatter={[
-                  (value: number, name: string) => name === 'avg_spend' 
-                    ? [formatCurrency(value), 'Avg Spend'] 
-                    : [formatNumber(value), 'Customer Count']
-                ]}
-                labelFormatter={(label, payload) => {
+                formatter={(value: any, name: string) => name === 'avg_spend' 
+                  ? [formatCurrency(value), 'Avg Spend'] 
+                  : [formatNumber(value), 'Customer Count']
+                }
+                labelFormatter={(label, payload: any) => {
                   if (payload && payload[0]) {
                     const data = payload[0].payload
                     return `${data.gender} - ${data.age_bracket}`

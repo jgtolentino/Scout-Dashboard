@@ -114,7 +114,7 @@ export function TrendsPanel() {
               <YAxis tickFormatter={formatNumber} />
               <Tooltip 
                 labelFormatter={(value) => new Date(value).toLocaleDateString()}
-                formatter={[(value: number) => [formatNumber(value), 'Transactions']]}
+                formatter={(value: any) => [formatNumber(value), 'Transactions']}
               />
               <Area 
                 type="monotone" 
@@ -145,7 +145,7 @@ export function TrendsPanel() {
               <YAxis tickFormatter={(value) => formatCurrency(value)} />
               <Tooltip 
                 labelFormatter={(value) => new Date(value).toLocaleDateString()}
-                formatter={[(value: number) => [formatCurrency(value), 'Sales']]}
+                formatter={(value: any) => [formatCurrency(value), 'Sales']}
               />
               <Line 
                 type="monotone" 

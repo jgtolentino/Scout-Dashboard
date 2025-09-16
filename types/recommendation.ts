@@ -492,12 +492,19 @@ export type AgentInsightResponse = ApiResponse<{
   };
 }>;
 
-export type ChatResponse = ApiResponse<{
+export interface ChatRequest {
+  message: string;
+  conversationId?: string;
+  context?: DashboardContext;
+  filters?: Record<string, any>;
+}
+
+export interface ChatResponse {
   message: ChatMessage;
-  conversation_updated: boolean;
-  generated_insights?: string[];
-  suggested_followups?: string[];
-}>;
+  conversationId?: string;
+  suggestions?: string[];
+  actions?: any[];
+}
 
 export type SemanticSearchResponse = ApiResponse<{
   results: SemanticSearchResult[];

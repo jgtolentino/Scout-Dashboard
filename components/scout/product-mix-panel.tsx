@@ -132,7 +132,7 @@ export function ProductMixPanel() {
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
                 </Pie>
-                <Tooltip formatter={[(value: number, name: string) => [formatNumber(value), 'Transactions']]} />
+                <Tooltip formatter={(value: any) => [formatNumber(value), 'Transactions']} />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -149,7 +149,7 @@ export function ProductMixPanel() {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" tickFormatter={formatNumber} />
                 <YAxis dataKey="product_category" type="category" width={100} />
-                <Tooltip formatter={[(value: number) => [formatNumber(value), 'Transactions']]} />
+                <Tooltip formatter={(value: any) => [formatNumber(value), 'Transactions']} />
                 <Bar dataKey="n" fill="#8884d8" />
               </BarChart>
             </ResponsiveContainer>
@@ -170,7 +170,7 @@ export function ProductMixPanel() {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="brand_name" angle={-45} textAnchor="end" height={80} />
                 <YAxis tickFormatter={formatCurrency} />
-                <Tooltip formatter={[(value: number) => [formatCurrency(value), 'Sales']]} />
+                <Tooltip formatter={(value: any) => [formatCurrency(value), 'Sales']} />
                 <Bar dataKey="total_sales" fill="#82ca9d" />
               </BarChart>
             </ResponsiveContainer>
@@ -190,11 +190,10 @@ export function ProductMixPanel() {
                 <YAxis yAxisId="left" tickFormatter={formatNumber} />
                 <YAxis yAxisId="right" orientation="right" tickFormatter={(v) => `${v.toFixed(0)}%`} />
                 <Tooltip 
-                  formatter={[
-                    (value: number, name: string) => name === 'cumulative' 
-                      ? [`${value.toFixed(1)}%`, 'Cumulative %'] 
-                      : [formatNumber(value), 'Transactions']
-                  ]} 
+                  formatter={(value: any, name: string) => name === 'cumulative' 
+                    ? [`${value.toFixed(1)}%`, 'Cumulative %'] 
+                    : [formatNumber(value), 'Transactions']
+                  } 
                 />
                 <Bar yAxisId="left" dataKey="n" fill="#8884d8" />
                 <Line yAxisId="right" type="monotone" dataKey="cumulative" stroke="#ff7300" strokeWidth={3} />

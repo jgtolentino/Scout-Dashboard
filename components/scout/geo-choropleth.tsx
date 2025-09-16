@@ -2,8 +2,7 @@
 
 import { useMemo, useState } from "react"
 import useSWR from "swr"
-import Map from "react-map-gl"
-import type { MapLayerMouseEvent } from "react-map-gl"
+import { Map as MapGL, type MapMouseEvent } from "react-map-gl/mapbox"
 import { scaleQuantize } from "d3-scale"
 import { extent } from "d3-array"
 import { format } from "d3-format"
@@ -73,7 +72,7 @@ export function GeoChoroplethPH({
     ? format("₱,.0f") 
     : format(",d")
 
-  const handleMapClick = (event: MapLayerMouseEvent) => {
+  const handleMapClick = (event: MapMouseEvent) => {
     if (event.features && event.features[0]) {
       const feature = event.features[0]
       const name = feature.properties?.name || ""
@@ -141,7 +140,7 @@ export function GeoChoroplethPH({
       <CardContent>
         <div className="relative">
           <div className="h-96 w-full rounded-lg overflow-hidden">
-            <Map
+            <MapGL
               mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || 'pk.demo.token'}
               initialViewState={{
                 longitude: 121.7740,
@@ -163,7 +162,7 @@ export function GeoChoroplethPH({
                   </p>
                 </div>
               </div>
-            </Map>
+            </MapGL>
           </div>
 
           {/* Tooltip */}

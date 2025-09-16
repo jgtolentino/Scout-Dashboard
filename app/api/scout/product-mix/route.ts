@@ -46,8 +46,8 @@ export async function GET(req: NextRequest) {
         }
         return acc
       }, [])
-      processedData = aggregated.filter(item => item.product_category !== "unknown")
-        .sort((a, b) => b.n - a.n)
+      processedData = aggregated.filter((item: any) => item.product_category !== "unknown")
+        .sort((a: any, b: any) => b.n - a.n)
         .slice(0, 20)
         
     } else if (group === "brand") {
@@ -66,8 +66,8 @@ export async function GET(req: NextRequest) {
         }
         return acc
       }, [])
-      processedData = aggregated.filter(item => item.brand_name !== "unknown")
-        .sort((a, b) => b.n - a.n)
+      processedData = aggregated.filter((item: any) => item.brand_name !== "unknown")
+        .sort((a: any, b: any) => b.n - a.n)
         .slice(0, 20)
     } else {
       // Return raw data, limited

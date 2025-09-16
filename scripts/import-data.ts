@@ -24,8 +24,8 @@ async function populateMasterData(supabase: any, data: ImportRecord[]) {
   console.log("🔄 Populating master data tables...")
   
   // Get unique categories and brands from import data
-  const categories = [...new Set(data.map(row => row.Category).filter(Boolean))]
-  const brands = [...new Set(data.map(row => row.Brand).filter(Boolean))]
+  const categories = [...new Set(data.map(row => row.Category).filter(Boolean))] as string[]
+  const brands = [...new Set(data.map(row => row.Brand).filter(Boolean))] as string[]
   
   // Insert categories if they don't exist
   if (categories.length > 0) {

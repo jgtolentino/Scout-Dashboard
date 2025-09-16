@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { Recommendation, RecoTier, RecoStatus } from '@/types/recommendation'
+import { Recommendation, RecoTier, RecommendationStatus } from '@/types/recommendation'
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const tier = searchParams.get('tier') as RecoTier | null
-    const status = searchParams.get('status') as RecoStatus | null
+    const status = searchParams.get('status') as RecommendationStatus | null
     const limit = parseInt(searchParams.get('limit') || '10')
 
     const cookieStore = cookies()
@@ -75,9 +75,9 @@ export async function POST(request: NextRequest) {
     } = body
 
     // Validate required fields
-    if (!tier || !title || !description) {
+    if (!tier || !title) {
       return NextResponse.json(
-        { error: 'tier, title, and description are required' },
+        { error: 'tier and title are required' },
         { status: 400 }
       )
     }
@@ -95,19 +95,29 @@ export async function POST(request: NextRequest) {
       }
     )
 
+    // Map API fields to Recommendation interface
     const recommendation: Partial<Recommendation> = {
       tier,
-      title,
-      description,
-      reasoning,
-      priority: priority || 'medium',
-      scope: scope || {},
-      status: 'pending',
-      impact_estimate: impact_estimate || 'unknown',
-      confidence_score: confidence_score || 0.5,
-      source_data: source_data || {},
-      expires_at: expires_at || null,
+      mode: 'prescriptive', // Default analytics mode
+      statement: title, // Map title to statement
+      scope: scope || {}, // Use provided scope or empty object
+      status: 'proposed',
+      confidence: confidence_score || 0.5, // Map confidence_score to confidence
       tenant_id: 'default' // In production, extract from auth
+    }
+
+    // Add rationale if we have description or reasoning
+    if (description || reasoning || source_data) {
+      recommendation.rationale = {
+        evidence: description ? [description] : undefined,
+        drivers: reasoning ? [reasoning] : undefined,
+        current_state: source_data || undefined
+      }
+    }
+
+    // Add expected impact if provided
+    if (impact_estimate && typeof impact_estimate === 'object') {
+      recommendation.expected_impact = impact_estimate
     }
 
     const { data, error } = await supabase

@@ -142,7 +142,7 @@ export function BehaviorPanel() {
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
                 </Pie>
-                <Tooltip formatter={[(value: number) => [formatNumber(value), 'Requests']]} />
+                <Tooltip formatter={(value: any) => [formatNumber(value), 'Requests']} />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -163,7 +163,7 @@ export function BehaviorPanel() {
                   domain={[0, 1]}
                 />
                 <Tooltip 
-                  formatter={[(value: number) => [`${(value * 100).toFixed(1)}%`, 'Acceptance Rate']]}
+                  formatter={(value: any) => [`${(value * 100).toFixed(1)}%`, 'Acceptance Rate']}
                 />
                 <Bar dataKey="acceptance_rate" fill="#82ca9d" />
               </BarChart>

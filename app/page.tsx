@@ -19,9 +19,17 @@ export default function ScoutDashboard() {
                 Real-time retail transaction analytics and consumer insights
               </p>
             </div>
-            <div className="text-right">
-              <div className="text-sm text-muted-foreground">Last Updated</div>
-              <div className="text-sm font-medium">{new Date().toLocaleString()}</div>
+            <div className="flex items-center gap-4">
+              <a 
+                href="/dashboard/crosstabs" 
+                className="text-sm bg-primary text-primary-foreground px-3 py-2 rounded-md hover:bg-primary/90 transition-colors"
+              >
+                Cross-Tab Analytics
+              </a>
+              <div className="text-right">
+                <div className="text-sm text-muted-foreground">Last Updated</div>
+                <div className="text-sm font-medium">{new Date().toLocaleString()}</div>
+              </div>
             </div>
           </div>
         </div>

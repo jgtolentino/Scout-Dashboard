@@ -152,7 +152,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ 
       contentTypes: stats || [],
-      totalEmbeddings: stats?.reduce((sum, item) => sum + (item.count || 0), 0) || 0
+      totalEmbeddings: stats?.reduce((sum, item: any) => sum + (item.count || 0), 0) || 0
     })
 
   } catch (error) {

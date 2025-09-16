@@ -68,7 +68,7 @@ export default function FloatingChat({ context, filters, className }: FloatingCh
           conversation_id: data.conversationId,
           role: 'user',
           content: userMessage,
-          created_at: new Date().toISOString()
+          timestamp: new Date().toISOString()
         },
         data.message
       ])
@@ -84,7 +84,7 @@ export default function FloatingChat({ context, filters, className }: FloatingCh
         conversation_id: conversationId || 'error',
         role: 'assistant',
         content: 'Sorry, I encountered an error processing your message. Please try again.',
-        created_at: new Date().toISOString()
+        timestamp: new Date().toISOString()
       }])
     } finally {
       setIsLoading(false)
@@ -125,7 +125,7 @@ export default function FloatingChat({ context, filters, className }: FloatingCh
           <span className="font-medium">Scout AI</span>
           {context && (
             <Badge variant="secondary" className="text-xs">
-              {context}
+              {typeof context === 'string' ? context : context.current_page}
             </Badge>
           )}
         </div>

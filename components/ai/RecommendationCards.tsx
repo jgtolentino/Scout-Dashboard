@@ -19,11 +19,11 @@ import {
   DollarSign,
   TestTube
 } from 'lucide-react'
-import { Recommendation, RecoTier, RecoStatus } from '@/types/recommendation'
+import { Recommendation, RecoTier, RecommendationStatus } from '@/types/recommendation'
 
 interface RecommendationCardsProps {
   tier?: RecoTier
-  status?: RecoStatus
+  status?: RecommendationStatus
   limit?: number
   className?: string
 }
@@ -74,10 +74,12 @@ const tierConfig = {
 }
 
 const statusConfig = {
-  pending: { icon: Clock, color: 'text-yellow-600', label: 'Pending' },
-  approved: { icon: CheckCircle, color: 'text-green-600', label: 'Approved' },
+  proposed: { icon: Clock, color: 'text-blue-600', label: 'Proposed' },
+  queued: { icon: Clock, color: 'text-orange-600', label: 'Queued' },
+  in_progress: { icon: TrendingUp, color: 'text-purple-600', label: 'In Progress' },
+  implemented: { icon: CheckCircle, color: 'text-green-600', label: 'Implemented' },
   rejected: { icon: XCircle, color: 'text-red-600', label: 'Rejected' },
-  implemented: { icon: CheckCircle, color: 'text-blue-600', label: 'Implemented' }
+  archived: { icon: XCircle, color: 'text-gray-600', label: 'Archived' }
 }
 
 const priorityConfig = {
@@ -126,7 +128,7 @@ export default function RecommendationCards({
     }
   }
 
-  const updateRecommendationStatus = async (id: string, newStatus: RecoStatus) => {
+  const updateRecommendationStatus = async (id: string, newStatus: RecommendationStatus) => {
     try {
       const response = await fetch(`/api/ai/recommendations?id=${id}`, {
         method: 'PATCH',
@@ -228,10 +230,10 @@ export default function RecommendationCards({
             {recommendations.map((recommendation) => {
               const tierInfo = tierConfig[recommendation.tier]
               const statusInfo = statusConfig[recommendation.status]
-              const priorityInfo = priorityConfig[recommendation.priority]
+              const priorityInfo = priorityConfig.medium // Default since no priority field
               const TierIcon = tierInfo.icon
               const StatusIcon = statusInfo.icon
-              const timeRemaining = formatTimeRemaining(recommendation.expires_at)
+              const timeRemaining = null // No expires_at field in interface
 
               return (
                 <Card key={recommendation.id} className="border-l-4" style={{ borderLeftColor: tierInfo.color.replace('bg-', '#') }}>
@@ -259,13 +261,13 @@ export default function RecommendationCards({
                     {/* Title and Priority */}
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <h4 className="font-medium text-sm">{recommendation.title}</h4>
+                        <h4 className="font-medium text-sm">{recommendation.statement}</h4>
                         <Badge className={`text-xs ${priorityInfo.color}`}>
                           {priorityInfo.label}
                         </Badge>
                       </div>
                       <p className="text-xs text-muted-foreground line-clamp-2">
-                        {recommendation.description}
+                        {recommendation.rationale?.evidence?.[0] || 'No description available'}
                       </p>
                     </div>
 
@@ -276,9 +278,9 @@ export default function RecommendationCards({
                         <span>{statusInfo.label}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        {recommendation.confidence_score && (
+                        {recommendation.confidence && (
                           <span>
-                            {Math.round(recommendation.confidence_score * 100)}% confidence
+                            {Math.round(recommendation.confidence * 100)}% confidence
                           </span>
                         )}
                         {timeRemaining && (
@@ -290,14 +292,14 @@ export default function RecommendationCards({
                     </div>
 
                     {/* Action Buttons */}
-                    {recommendation.status === 'pending' && (
+                    {recommendation.status === 'proposed' && (
                       <div className="flex gap-2 pt-2">
                         <Button
                           size="sm"
                           className="h-6 text-xs"
-                          onClick={() => updateRecommendationStatus(recommendation.id, 'approved')}
+                          onClick={() => updateRecommendationStatus(recommendation.id, 'queued')}
                         >
-                          Approve
+                          Queue
                         </Button>
                         <Button
                           size="sm"
@@ -311,16 +313,18 @@ export default function RecommendationCards({
                     )}
 
                     {/* Reasoning (expandable) */}
-                    {recommendation.reasoning && (
+                    {recommendation.rationale?.evidence && (
                       <>
                         <Separator />
                         <details className="group">
                           <summary className="text-xs text-muted-foreground cursor-pointer hover:text-foreground">
-                            View reasoning
+                            View evidence
                           </summary>
-                          <p className="text-xs mt-2 text-muted-foreground">
-                            {recommendation.reasoning}
-                          </p>
+                          <div className="text-xs mt-2 text-muted-foreground space-y-1">
+                            {recommendation.rationale.evidence.map((item, idx) => (
+                              <p key={idx}>• {item}</p>
+                            ))}
+                          </div>
                         </details>
                       </>
                     )}

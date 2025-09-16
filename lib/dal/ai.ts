@@ -30,7 +30,8 @@ class AIDAL extends BaseDAL {
     return this.executeQuery<ChatMessage>(
       async (client) => {
         const { data, error } = await client
-          .from('platinum.chat_messages')
+          .schema('platinum')
+          .from('chat_messages')
           .insert([message])
           .select()
           .single()
@@ -46,7 +47,8 @@ class AIDAL extends BaseDAL {
     return this.executeQuery<ChatMessage[]>(
       async (client) => {
         const { data, error } = await client
-          .from('platinum.chat_messages')
+          .schema('platinum')
+          .from('chat_messages')
           .select('*')
           .eq('conversation_id', conversationId)
           .order('created_at', { ascending: true })
@@ -69,7 +71,7 @@ class AIDAL extends BaseDAL {
       async (client) => {
         // First, get the data context for AI analysis
         const contextQuery = this.buildContextQuery(params)
-        const { data: contextData, error: contextError } = await client.rpc('get_ai_context', {
+        const { data: contextData, error: contextError } = await (client as any).rpc('get_ai_context', {
           analysis_type: params.analysisType,
           filters: params.filters || {},
           timeframe: params.timeframe || '30d'
@@ -85,7 +87,8 @@ class AIDAL extends BaseDAL {
         
         // Store insights for tracking
         const { error: storeError } = await client
-          .from('platinum.ai_insights')
+          .schema('platinum')
+          .from('ai_insights')
           .insert(insights.map(insight => ({
             ...insight,
             created_at: new Date().toISOString(),
@@ -115,7 +118,7 @@ class AIDAL extends BaseDAL {
     return this.executeQuery<RecommendationData[]>(
       async (client) => {
         // Get recent performance data for recommendations
-        const { data: performanceData, error: perfError } = await client.rpc('get_recommendation_context', {
+        const { data: performanceData, error: perfError } = await (client as any).rpc('get_recommendation_context', {
           section,
           user_context: userContext
         })
@@ -144,7 +147,7 @@ class AIDAL extends BaseDAL {
       async (client) => {
         // Use PostgreSQL full-text search for now
         // In production, this would use vector embeddings
-        const { data, error } = await client.rpc('semantic_search', {
+        const { data, error } = await (client as any).rpc('semantic_search', {
           search_query: query,
           filters: filters,
           limit: 20
@@ -169,7 +172,7 @@ class AIDAL extends BaseDAL {
     
     return this.executeQuery<any[]>(
       async (client) => {
-        const { data, error } = await client.rpc('detect_anomalies', {
+        const { data, error } = await (client as any).rpc('detect_anomalies', {
           metric_name: metric,
           time_window: timeframe,
           sensitivity_threshold: sensitivity
@@ -198,7 +201,7 @@ class AIDAL extends BaseDAL {
         const predictions = []
         
         for (const metric of metrics) {
-          const { data: historicalData, error } = await client
+          const { data: historicalData, error } = await (client as any)
             .from('v_trends_daily')
             .select(`day, ${metric}`)
             .order('day', { ascending: false })

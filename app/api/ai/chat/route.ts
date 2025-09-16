@@ -28,7 +28,10 @@ export async function POST(request: NextRequest) {
     }
 
     const response: ChatResponse = {
-      message: result.response,
+      message: {
+        ...result.response,
+        timestamp: new Date().toISOString()
+      } as any, // Cast to any to handle type mismatch
       conversationId: result.response.conversation_id,
       suggestions: result.suggestions || [
         'Show me sales trends for the last 30 days',
