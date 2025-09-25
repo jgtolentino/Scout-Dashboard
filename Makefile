@@ -1,4 +1,4 @@
-.PHONY: env token-guard revoke-token tokens check \ pivots-test pivots-xlsx
+.PHONY: env token-guard revoke-token tokens check \ pivots-test pivots-xlsx pivots-ci
 		v7-setup v7-deploy v7-migrate v7-test v7-build \
 		agents-build agents-deploy agents-test \
 		mcp-build mcp-test semantic-validate \
@@ -252,3 +252,11 @@ pivots-test: pivots-views
 pivots-xlsx:
 	python3 scripts/build_pivots_xlsx.py --csvdir out/pivots --out out/Scout_Pivots_Nielsen.xlsx
 	@echo "Workbook at out/Scout_Pivots_Nielsen.xlsx"
+
+# CI orchestration: build views, export CSVs, build XLSX, enforce coverage gate
+pivots-ci:
+	./scripts/sql.sh -d "$(DB)" -i sql/migrations/20250926_11_gold_pivot_views.sql
+	./scripts/sql.sh -d "$(DB)" -i sql/migrations/20250926_12_nielsen_coverage_view.sql
+	$(MAKE) pivots-export DB="$(DB)"
+	$(MAKE) pivots-xlsx
+	DB="$(DB)" MIN_PROD="$(MIN_PROD)" MIN_LINE="$(MIN_LINE)" bash scripts/check_nielsen_coverage.sh
