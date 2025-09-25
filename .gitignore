@@ -86,3 +86,7 @@ next.config.original.js# Large Files
 *.dmg
 *.app/
 Electron Framework
+
+# Build outputs
+out/
+*.csv
