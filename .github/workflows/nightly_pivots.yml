@@ -24,6 +24,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install xlsxwriter pandas
 
+      - name: Install bc
+        run: sudo apt-get update && sudo apt-get install -y bc
+
       - name: DB ENV
         run: |
           echo "DB=${{ secrets.SCOUT_PROD_DB_NAME }}" >> $GITHUB_ENV
