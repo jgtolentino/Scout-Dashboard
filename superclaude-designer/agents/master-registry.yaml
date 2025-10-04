@@ -1,6 +1,6 @@
 version: 1.0.0
-updated_at: '2025-08-21T07:01:22.445925'
-total_agents: 59
+updated_at: '2025-10-05T04:45:00.000000'
+total_agents: 64
 agents:
   adsbot:
     title: adsbot
@@ -47,11 +47,21 @@ agents:
     type: traditional
     department: agents
     file: agents/caca.yaml
+  cloud-architect:
+    title: cloud-architect
+    type: traditional
+    department: engineering
+    file: agents/cloud-architect.yaml
   content-creator:
     title: content-creator
     type: traditional
     department: marketing
     file: agents/content-creator.yaml
+  database-architect:
+    title: database-architect
+    type: traditional
+    department: engineering
+    file: agents/database-architect.yaml
   devops-automator:
     title: devops-automator
     type: traditional
@@ -107,6 +117,11 @@ agents:
     type: traditional
     department: engineering
     file: agents/frontend-developer.yaml
+  fullstack-developer:
+    title: fullstack-developer
+    type: traditional
+    department: engineering
+    file: agents/fullstack-developer.yaml
   growth-hacker:
     title: growth-hacker
     type: traditional
@@ -147,6 +162,11 @@ agents:
     type: traditional
     department: engineering
     file: agents/mobile-app-builder.yaml
+  ml-engineer:
+    title: ml-engineer
+    type: traditional
+    department: engineering
+    file: agents/ml-engineer.yaml
   performance-benchmarker:
     title: performance-benchmarker
     type: traditional
@@ -202,6 +222,11 @@ agents:
     type: traditional
     department: agents
     file: agents/scout-ai-combo.yaml
+  security-engineer:
+    title: security-engineer
+    type: traditional
+    department: engineering
+    file: agents/security-engineer.yaml
   sprint-prioritizer:
     title: sprint-prioritizer
     type: traditional

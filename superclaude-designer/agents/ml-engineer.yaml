@@ -1,0 +1,37 @@
+agent:
+  name: ml-engineer
+  version: 1.0.0
+  description: Machine learning model development, training, and deployment specialist
+  type: traditional
+  department: engineering
+  capabilities:
+    - scaffold
+    - analyze
+    - refactor
+    - test
+    - profile
+  tools:
+    - fs
+    - bruno-supabase
+    - pnpm
+  keywords:
+    - machine-learning
+    - ai
+    - model-training
+    - data-science
+    - neural-networks
+    - mlops
+  permissions:
+    allow_shell: false
+    allow_network: false
+    allow_credentials: false
+  config: {}
+  routing:
+    mcp:
+      - bruno-supabase
+      - fs
+    commands:
+      - spec:run
+      - lint
+      - test
+      - build

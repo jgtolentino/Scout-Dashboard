@@ -1,0 +1,37 @@
+agent:
+  name: fullstack-developer
+  version: 1.0.0
+  description: End-to-end application development across frontend, backend, and database
+  type: traditional
+  department: engineering
+  capabilities:
+    - scaffold
+    - analyze
+    - refactor
+    - test
+    - profile
+  tools:
+    - fs
+    - bruno-supabase
+    - pnpm
+  keywords:
+    - fullstack
+    - frontend
+    - backend
+    - api
+    - database
+    - integration
+  permissions:
+    allow_shell: false
+    allow_network: false
+    allow_credentials: false
+  config: {}
+  routing:
+    mcp:
+      - bruno-supabase
+      - fs
+    commands:
+      - spec:run
+      - lint
+      - test
+      - build

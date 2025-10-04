@@ -1,0 +1,37 @@
+agent:
+  name: database-architect
+  version: 1.0.0
+  description: Database schema design, optimization, and data modeling specialist
+  type: traditional
+  department: engineering
+  capabilities:
+    - scaffold
+    - analyze
+    - refactor
+    - test
+    - profile
+  tools:
+    - fs
+    - bruno-supabase
+    - pnpm
+  keywords:
+    - database
+    - schema
+    - sql
+    - migrations
+    - indexing
+    - query-optimization
+  permissions:
+    allow_shell: false
+    allow_network: false
+    allow_credentials: false
+  config: {}
+  routing:
+    mcp:
+      - bruno-supabase
+      - fs
+    commands:
+      - spec:run
+      - lint
+      - test
+      - build
