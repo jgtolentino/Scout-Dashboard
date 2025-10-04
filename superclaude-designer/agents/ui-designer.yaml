@@ -1,0 +1,31 @@
+agent:
+  name: ui-designer
+  version: 1.0.0
+  description: ''
+  type: traditional
+  department: design
+  capabilities:
+    - scaffold
+    - analyze
+    - refactor
+    - test
+    - profile
+  tools:
+    - fs
+    - bruno-supabase
+    - pnpm
+  keywords: []
+  permissions:
+    allow_shell: false
+    allow_network: false
+    allow_credentials: false
+  config: {}
+  routing:
+    mcp:
+      - bruno-supabase
+      - fs
+    commands:
+      - spec:run
+      - lint
+      - test
+      - build

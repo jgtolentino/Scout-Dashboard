@@ -1,0 +1,15 @@
+frontend-developer.yaml
+backend-architect.yaml
+devops-automator.yaml
+ai-engineer.yaml
+ui-designer.yaml
+performance-benchmarker.yaml
+test-writer-fixer.yaml
+api-tester.yaml
+rapid-prototyper.yaml
+mobile-app-builder.yaml
+database-architect.yaml
+security-engineer.yaml
+cloud-architect.yaml
+ml-engineer.yaml
+fullstack-developer.yaml

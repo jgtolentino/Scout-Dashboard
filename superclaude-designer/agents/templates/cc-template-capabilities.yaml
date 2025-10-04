@@ -1,0 +1,22 @@
+capabilities:
+  - "scaffold"
+  - "analyze"
+  - "refactor"
+  - "test"
+  - "profile"
+routing:
+  mcp:
+    - "bruno-supabase"   # read-only RPCs/views via Bruno proxy
+    - "fs"               # repo-scoped filesystem MCP
+  commands:
+    - "spec:run"
+    - "lint"
+    - "test"
+    - "build"
+tools:
+  - type: "mcp"
+    ref: "fs"
+  - type: "mcp"
+    ref: "bruno-supabase"
+  - type: "cli"
+    ref: "pnpm"

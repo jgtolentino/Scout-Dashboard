@@ -1,0 +1,86 @@
+meta {
+  name: Agent Migration
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/execute-script
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "script": "migrate-agents",
+    "description": "Migrate 59 agents → superclaude-designer, enrich 15 templates, validate & report"
+  }
+}
+
+script:pre-request {
+  // Validate script exists
+  const { exec } = require('child_process');
+  const scriptPath = bru.cwd() + '/../scripts/migrate-agents.sh';
+
+  exec(`test -f ${scriptPath}`, (error) => {
+    if (error) {
+      throw new Error(`Migration script not found: ${scriptPath}`);
+    }
+  });
+}
+
+script:post-response {
+  // Parse response and report status
+  const result = res.body;
+
+  if (result.success) {
+    console.log('✅ Migration completed successfully');
+    console.log('📊 Report:', result.reportPath);
+  } else {
+    console.error('❌ Migration failed:', result.error);
+  }
+}
+
+docs {
+  # Agent Migration - SuperClaude Designer
+
+  Executes the one-shot migration script that:
+
+  1. Copies 59 agents from supa-dash-agent
+  2. Enriches 15 Claude Code Template agents with capabilities/tools/MCP routing
+  3. Merges master-registry.yaml (deduped)
+  4. Validates all agent YAML files against schema
+  5. Sets up Bruno-gated MCP configuration
+  6. Generates comprehensive migration report
+
+  ## Security
+
+  - Zero-credential policy enforced
+  - All secrets Bruno-gated via keychain
+  - Filesystem MCP scoped to repo root
+  - Supabase MCP read-only via proxy
+
+  ## Output
+
+  - `agents/` - Enriched agent definitions
+  - `agents/master-registry.yaml` - Merged registry
+  - `.claude/.mcp.json` - MCP server config
+  - `.claude/POLICY.md` - Security policy
+  - `reports/AGENTS_MIGRATION.md` - Migration report
+
+  ## Run Directly
+
+  ```bash
+  ./scripts/migrate-agents.sh
+  ```
+
+  Or via Bruno:
+
+  ```bash
+  bru run bruno/agent-migration.bru
+  ```
+}

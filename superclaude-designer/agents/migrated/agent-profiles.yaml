@@ -1,0 +1,14 @@
+agent:
+  name: agent-profiles
+  version: 1.0.0
+  description: ''
+  type: traditional
+  department: unified-agents
+  capabilities: []
+  tools: []
+  keywords: []
+  permissions:
+    allow_shell: false
+    allow_network: false
+    allow_credentials: false
+  config: {}
