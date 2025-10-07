@@ -1,0 +1,188 @@
+# Dash Agent Configuration for Pulser CLI Integration
+# Version: 1.0
+# Last updated: 2025-05-15
+# This file registers the dashboard deployment commands with Pulser CLI
+
+name: "Dash"
+description: >
+  "Dashboard deployment agent for Scout Projects" This agent provides enterprise-grade functionality with comprehensive error handling, performance optimization, and full observability for production environments.
+
+version: "1.0.0"
+author: "InsightPulseAI Team"
+type: "command_agent"
+# Agent profiles for different contexts
+profiles:
+  - id: "dashboard_deploy"
+    name: "Dashboard Deployment"
+    description: "Handles Scout dashboard deployment operations"
+    capabilities:
+      - "deploy"
+      - "package"
+      - "build"
+      - "azure_upload"
+  - id: "dashboard_verify"
+    name: "Dashboard Verification"
+    description: "Verifies dashboard style compliance and quality"
+    capabilities:
+      - "style_verification"
+      - "accessibility_testing"
+      - "performance_monitoring"
+# Command registrations
+commands:
+  - trigger: ":dash-deploy all"
+    script: "tools/js/final-locked-dashboard/tools/cli/deploy_dashboards.sh"
+    description: "Full deployment of Scout dashboards with clean URL structure"
+    profile: "dashboard_deploy"
+    options:
+      - flag: "--deploy"
+        description: "Automatically deploy to Azure after packaging"
+        default: true
+  - trigger: ":dash-deploy build"
+    script: "tools/js/final-locked-dashboard/tools/cli/deploy_dashboards.sh"
+    description: "Build dashboard deployment files without deploying"
+    profile: "dashboard_deploy"
+    options:
+      - flag: "--no-deploy"
+        description: "Skip the deployment phase"
+        default: true
+      - flag: "--output"
+        description: "Output directory for the build"
+        type: "string"
+        example: "./custom-output"
+  - trigger: ":dash-deploy zip"
+    script: "tools/js/final-locked-dashboard/tools/cli/deploy_dashboards.sh"
+    description: "Create ZIP package from build files"
+    profile: "dashboard_deploy"
+    options:
+      - flag: "--no-build"
+        description: "Skip the build phase, use existing files"
+        default: true
+      - flag: "--source"
+        description: "Source directory with built files"
+        type: "string"
+        example: "./deploy-ready"
+      - flag: "--zip"
+        description: "Path to save the ZIP package"
+        type: "string"
+        example: "./my-package.zip"
+  - trigger: ":dash-deploy azure"
+    script: "tools/js/final-locked-dashboard/tools/cli/deploy_dashboards.sh"
+    description: "Deploy pre-packaged dashboard to Azure"
+    profile: "dashboard_deploy"
+    options:
+      - flag: "--no-build"
+        description: "Skip the build phase"
+        default: true
+      - flag: "--deploy"
+        description: "Perform Azure deployment"
+        default: true
+      - flag: "--zip"
+        description: "Path to the ZIP package to deploy"
+        type: "string"
+        example: "./scout_dashboards.zip"
+  - trigger: ":dash-deploy help"
+    script: "tools/js/final-locked-dashboard/tools/cli/deploy_dashboards.sh"
+    description: "Show help for the dashboard deployment commands"
+    profile: "dashboard_deploy"
+    options:
+      - flag: "--help"
+        description: "Show help information"
+        default: true
+# Environment settings
+environment:
+  variables:
+    - name: "APP_NAME"
+      value: "tbwa-juicer-insights-dashboard"
+      description: "Azure Static Web App name"
+    - name: "RESOURCE_GROUP"
+      value: "RG-TBWA-ProjectScout-Juicer"
+      description: "Azure Resource Group"
+    - name: "KEYVAULT_NAME"
+      value: "kv-tbwa-juicer-insights2"
+      description: "Azure Key Vault name for token retrieval"
+    - name: "TOKEN_SECRET_NAME"
+      value: "AZURE-STATIC-WEB-APPS-API-TOKEN"
+      description: "Key Vault secret name for deployment token"
+# Documentation and help
+documentation:
+  usage_examples:
+    - description: "Full deployment with defaults"
+      command: ":dash-deploy all"
+    - description: "Build files to a custom directory"
+      command: ":dash-deploy build --output ./custom-output"
+    - description: "Create package from custom directory"
+      command: ":dash-deploy zip --source ./custom-output --zip ./custom-package.zip"
+    - description: "Deploy custom package"
+      command: ":dash-deploy azure --zip ./custom-package.zip"
+  related_docs:
+    - "tools/js/final-locked-dashboard/docs/SOP_DEPLOYMENT.md"
+    - "tools/js/final-locked-dashboard/README_DEPLOYMENT.md"
+    - "tools/js/final-locked-dashboard/POWER_BI_STYLE_GUIDE.md"
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+lifecycle:
+  on_start:
+    - action: validate_environment
+    - action: load_configuration
+    - action: initialize_connections
+  on_ready:
+    - action: register_with_discovery
+    - action: start_health_checks
+  on_shutdown:
+    - action: deregister_from_discovery
+    - action: cleanup_resources
+    - action: save_state
+observability:
+  logging:
+    level: info
+    format: json
+    outputs:
+      - stdout
+      - file: /logs/agent.log
+  tracing:
+    enabled: true
+    provider: opentelemetry
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    provider: prometheus
+    endpoint: /metrics
+resource_quota: 5000_tokens_per_min
+timeout_ms: 90000

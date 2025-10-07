@@ -1,0 +1,59 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "**/.env.*local",
+    ".env",
+    "tsconfig.json"
+  ],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:seed": {
+      "cache": false
+    },
+    "db:status": {
+      "cache": false
+    },
+    "process": {
+      "cache": false
+    },
+    "search": {
+      "cache": false
+    },
+    "audit": {
+      "cache": false
+    },
+    "deploy:dev": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "deploy:prod": {
+      "dependsOn": ["build", "test", "lint"],
+      "cache": false
+    }
+  }
+}

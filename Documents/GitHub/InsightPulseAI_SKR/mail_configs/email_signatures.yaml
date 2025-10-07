@@ -1,0 +1,89 @@
+signatures:
+  - email: jake.tolentino@insightpulseai.com
+    name: Jake Tolentino
+    title: CEO & Principal Data Scientist
+    phone: "+1 (XXX) XXX-XXXX"
+    template: |
+      Jake Tolentino
+      CEO & Principal Data Scientist
+      InsightPulseAI
+      
+      E: jake.tolentino@insightpulseai.com
+      W: insightpulseai.com
+      
+      InsightPulseAI: Turning data into strategic action.
+  
+  - email: info@insightpulseai.com
+    name: InsightPulseAI Team
+    title: Information Desk
+    template: |
+      InsightPulseAI Team
+      Information Desk
+      
+      E: info@insightpulseai.com
+      W: insightpulseai.com
+      
+      InsightPulseAI: Turning data into strategic action.
+  
+  - email: business@insightpulseai.com
+    name: InsightPulseAI
+    title: Business Development
+    template: |
+      Business Development Team
+      InsightPulseAI
+      
+      E: business@insightpulseai.com
+      W: insightpulseai.com
+      
+      Schedule a consultation: [calendar link]
+      
+      InsightPulseAI: Turning data into strategic action.
+  
+  - email: ceo@insightpulseai.com
+    name: Jake Tolentino
+    title: Chief Executive Officer
+    phone: "+1 (XXX) XXX-XXXX"
+    template: |
+      Jake Tolentino
+      Chief Executive Officer
+      InsightPulseAI
+      
+      E: ceo@insightpulseai.com
+      W: insightpulseai.com
+      
+      InsightPulseAI: Turning data into strategic action.
+  
+  - email: team@insightpulseai.com
+    name: InsightPulseAI Team
+    title: Collective Intelligence Unit
+    template: |
+      InsightPulseAI Team
+      Collective Intelligence Unit
+      
+      E: team@insightpulseai.com
+      W: insightpulseai.com
+      
+      InsightPulseAI: Turning data into strategic action.
+
+html_template: |
+  <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333333; line-height: 1.4;">
+    <p style="margin-bottom: 10px;">
+      <strong style="color: #0055A4;">{name}</strong><br>
+      <span style="color: #666666;">{title}</span><br>
+      <span style="color: #333333;">InsightPulseAI</span>
+    </p>
+    
+    <p style="margin-bottom: 10px;">
+      <span style="color: #666666;">E:</span> <a href="mailto:{email}" style="color: #0055A4; text-decoration: none;">{email}</a><br>
+      {#phone}<span style="color: #666666;">P:</span> <a href="tel:{phone}" style="color: #0055A4; text-decoration: none;">{phone}</a><br>{/phone}
+      <span style="color: #666666;">W:</span> <a href="https://insightpulseai.com" style="color: #0055A4; text-decoration: none;">insightpulseai.com</a>
+    </p>
+    
+    <p style="border-top: 1px solid #dddddd; padding-top: 10px; color: #0055A4; font-style: italic;">
+      InsightPulseAI: Turning data into strategic action.
+    </p>
+  </div>
+
+generated_by: kath
+updated: 2025-04-22
+status: active

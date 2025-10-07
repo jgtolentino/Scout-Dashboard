@@ -1,0 +1,7 @@
+{
+  "kpis": [
+    { "name": "Brand Loyalty", "dimension": "Store", "type": "bar" },
+    { "name": "Top-Selling SKUs", "dimension": "SKU", "type": "ranked_table" },
+    { "name": "Customer Sentiment", "dimension": "Time", "type": "line" }
+  ]
+}

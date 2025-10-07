@@ -1,0 +1,15 @@
+{
+  "query_context": "Show competitive intel for ready-to-drink tea in Metro Manila",
+  "user_context": {
+    "tenant_id": "demo-tenant",
+    "role": "executive"
+  },
+  "search_scope": {
+    "include_domains": ["beverage", "tea", "competitive"],
+    "time_range": {
+      "start": "2025-04-01T00:00:00Z",
+      "end": "2025-06-30T23:59:59Z"
+    }
+  },
+  "retrieval_depth": "medium"
+}

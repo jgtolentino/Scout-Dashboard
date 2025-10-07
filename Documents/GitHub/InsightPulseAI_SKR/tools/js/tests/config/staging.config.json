@@ -1,0 +1,39 @@
+{
+  "baseUrl": "https://stage-scout-dashboard.azurewebsites.net",
+  "apiBaseUrl": "https://stage-scout-api.azurewebsites.net/api/v1",
+  "testCredentials": {
+    "username": "test-automation-user",
+    "password": "DO-NOT-HARDCODE-USE-ENV-VARIABLES"
+  },
+  "timeouts": {
+    "default": 5000,
+    "navigation": 10000,
+    "apiCall": 15000
+  },
+  "testDataFiles": {
+    "sampleData": "./test-data/staging/sample_data.json",
+    "mockResponses": "./test-data/staging/mock_responses.json"
+  },
+  "features": {
+    "genaiEnabled": true,
+    "dataToggleEnabled": true,
+    "visualSynthEnabled": true
+  },
+  "screenSizes": [
+    {
+      "name": "desktop",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "name": "tablet",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "mobile",
+      "width": 375,
+      "height": 667
+    }
+  ]
+}

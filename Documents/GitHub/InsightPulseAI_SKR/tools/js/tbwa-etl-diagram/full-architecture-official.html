@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="azure-well-architected" content="https://learn.microsoft.com/azure/well-architected/">
+  <title>TBWA Full Azure ETL Architecture</title>
+  <style>
+    :root {
+      --tbwa-yellow: rgba(255, 207, 0, 0.1);
+      --tbwa-yellow-border: rgba(255, 207, 0, 0.8);
+      --tbwa-slate: rgba(75, 85, 99, 0.1);
+      --tbwa-slate-border: rgba(75, 85, 99, 0.8);
+      --tbwa-red: rgba(239, 68, 68, 0.1);
+      --tbwa-red-border: rgba(239, 68, 68, 0.8);
+      --tbwa-blue: rgba(59, 130, 246, 0.1);
+      --tbwa-blue-border: rgba(59, 130, 246, 0.8);
+      --azure-blue: #0078D4;
+      --connector-gray: #6b7280;
+    }
+    
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+      background: #f9fafb; 
+      color: #1f2937; 
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 { 
+      text-align: center; 
+      margin-bottom: 2rem; 
+      font-size: 2rem;
+      font-weight: 600;
+    }
+    
+    .pillar {
+      margin: 2.5rem 0;
+      padding: 1.75rem;
+      border: 2px dashed #e5e7eb;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    h3 {
+      text-align: center;
+      margin-top: 0;
+      font-size: 1.5rem;
+      margin-bottom: 1.75rem;
+      color: #111827;
+    }
+    
+    /* Pillar color schemes */
+    .security {
+      background-color: var(--tbwa-slate);
+      border-color: var(--tbwa-slate-border);
+    }
+    
+    .reliability-ingestion {
+      background-color: var(--tbwa-yellow);
+      border-color: var(--tbwa-yellow-border);
+    }
+    
+    .performance-transformation {
+      background-color: var(--tbwa-red);
+      border-color: var(--tbwa-red-border);
+    }
+    
+    .operational-bi {
+      background-color: var(--tbwa-blue);
+      border-color: var(--tbwa-blue-border);
+    }
+    
+    /* Component blocks */
+    .component-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+    
+    .component {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 140px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    
+    .component:hover {
+      transform: translateY(-5px);
+    }
+    
+    .component img {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 12px;
+      transition: filter 0.3s;
+    }
+    
+    .component:hover img {
+      filter: brightness(1.1);
+    }
+    
+    .component span {
+      font-weight: 500;
+      font-size: 0.95rem;
+      max-width: 100%;
+    }
+    
+    /* Connector styling */
+    .connector {
+      position: relative;
+      height: 2px;
+      width: 40px;
+      background: var(--connector-gray);
+    }
+    
+    .connector.dashed {
+      background: none;
+      border-top: 2px dashed var(--connector-gray);
+    }
+    
+    .connector::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: -4px;
+      border: 6px solid transparent;
+      border-left-color: var(--connector-gray);
+    }
+    
+    /* Layer labels */
+    .layer-label {
+      display: block;
+      font-size: 0.8rem;
+      margin-top: 5px;
+      color: #4b5563;
+      font-style: italic;
+    }
+    
+    /* Medallion stages */
+    .medallion-stages {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .dlp-label {
+      display: block;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-top: 5px;
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e5e7eb;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+    
+    footer a {
+      color: var(--azure-blue);
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>TBWA Azure ETL Architecture</h1>
+
+  <!-- Security -->
+  <div class="pillar security">
+    <h3>Security (Well-Architected Pillar)</h3>
+    <div class="component-row">
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Identity/AzureActiveDirectory.svg" alt="Azure Active Directory"/>
+        <span>Azure AD</span>
+      </div>
+      <div class="connector"></div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Networking/AzureFrontDoor.svg" alt="Azure Front Door"/>
+        <span>Front Door</span>
+      </div>
+      <div class="connector"></div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Networking/AzureDns.svg" alt="Azure DNS"/>
+        <span>DNS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reliability & Ingestion -->
+  <div class="pillar reliability-ingestion">
+    <h3>Reliability & Ingestion (Well-Architected Pillars)</h3>
+    <div class="component-row">
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Integration/AzureDataFactory.svg" alt="Azure Data Factory"/>
+        <span>Data Factory</span>
+      </div>
+      <div class="connector"></div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Integration/AzureEventHubs.svg" alt="Azure Event Hubs"/>
+        <span>Event Hubs</span>
+        <span class="layer-label">Stream Ingestion</span>
+      </div>
+      <div class="connector dashed"></div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Storage/AzureBlobStorage.svg" alt="Azure Blob Storage"/>
+        <span>Blob Storage</span>
+        <span class="layer-label">Batch Ingestion</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance & Data Transformation -->
+  <div class="pillar performance-transformation">
+    <h3>Performance & Data Transformation (Well-Architected Pillar)</h3>
+    <div class="component-row">
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/AzureDatabricks.svg" alt="Azure Databricks"/>
+        <span>Databricks</span>
+        <span class="dlp-label">DLT Medallion</span>
+      </div>
+    </div>
+    
+    <div class="medallion-stages">
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Storage/AzureDataLakeStorageGen1.svg" alt="Bronze Layer"/>
+        <span>Raw Ingestion</span>
+        <span class="layer-label">Bronze Δ</span>
+      </div>
+      <div class="connector"></div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Storage/AzureDataLakeStorageGen1.svg" alt="Silver Layer"/>
+        <span>Staging & Cleansing</span>
+        <span class="layer-label">Silver Δ</span>
+      </div>
+      <div class="connector"></div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Storage/AzureDataLakeStorageGen1.svg" alt="Gold Layer"/>
+        <span>Curated Tables</span>
+        <span class="layer-label">Gold Δ</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Operational Excellence & BI -->
+  <div class="pillar operational-bi">
+    <h3>Operational Excellence & BI (Well-Architected Pillars)</h3>
+    <div class="component-row">
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/AI%20Machine%20Learning/AzureMachineLearning.svg" alt="Azure Machine Learning"/>
+        <span>Feature Store & RAG</span>
+      </div>
+      <div class="connector"></div>
+      <div class="component">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/PowerBI.svg" alt="Azure Power BI"/>
+        <span>Dashboard & BI</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Icons from <a href="https://learn.microsoft.com/azure/architecture/icons/" target="_blank">Microsoft Azure Architecture Icons</a></p>
+    <p>Used under Microsoft's icon terms &mdash; see official docs for guidelines.</p>
+    <p>Aligned with <a href="https://learn.microsoft.com/azure/well-architected/" target="_blank">Azure Well-Architected Framework</a> pillars.</p>
+  </footer>
+</body>
+</html>

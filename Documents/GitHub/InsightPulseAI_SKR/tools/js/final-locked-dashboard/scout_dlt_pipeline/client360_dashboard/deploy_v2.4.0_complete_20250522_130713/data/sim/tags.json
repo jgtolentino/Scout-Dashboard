@@ -1,0 +1,135 @@
+{
+  "tags": [
+    {
+      "id": "region-metro",
+      "label": "Metro Manila",
+      "category": "region",
+      "count": 45,
+      "color": "#007bff",
+      "active": true
+    },
+    {
+      "id": "region-cebu",
+      "label": "Cebu",
+      "category": "region", 
+      "count": 12,
+      "color": "#28a745",
+      "active": false
+    },
+    {
+      "id": "brand-electronics",
+      "label": "Electronics",
+      "category": "brand",
+      "count": 234,
+      "color": "#ffc107",
+      "active": true
+    },
+    {
+      "id": "brand-clothing",
+      "label": "Clothing & Fashion",
+      "category": "brand",
+      "count": 189,
+      "color": "#dc3545",
+      "active": false
+    },
+    {
+      "id": "sentiment-positive",
+      "label": "Positive Sentiment",
+      "category": "sentiment",
+      "count": 1547,
+      "color": "#28a745",
+      "active": true
+    },
+    {
+      "id": "sentiment-neutral",
+      "label": "Neutral",
+      "category": "sentiment",
+      "count": 432,
+      "color": "#6c757d",
+      "active": false
+    },
+    {
+      "id": "performance-high",
+      "label": "High Performance",
+      "category": "performance",
+      "count": 67,
+      "color": "#17a2b8",
+      "active": true
+    },
+    {
+      "id": "store-flagship",
+      "label": "Flagship Stores",
+      "category": "store_type",
+      "count": 8,
+      "color": "#6f42c1",
+      "active": false
+    },
+    {
+      "id": "period-q1-2024",
+      "label": "Q1 2024",
+      "category": "time_period",
+      "count": 92,
+      "color": "#fd7e14",
+      "active": true
+    },
+    {
+      "id": "growth-accelerating",
+      "label": "Accelerating Growth",
+      "category": "growth",
+      "count": 23,
+      "color": "#20c997",
+      "active": false
+    }
+  ],
+  "categories": [
+    {
+      "id": "region",
+      "label": "Geographic Region",
+      "icon": "🌍",
+      "description": "Filter by geographic location"
+    },
+    {
+      "id": "brand",
+      "label": "Brand Category",
+      "icon": "🏷️",
+      "description": "Filter by product or brand category"
+    },
+    {
+      "id": "sentiment",
+      "label": "Sentiment Analysis",
+      "icon": "😊",
+      "description": "Filter by customer sentiment"
+    },
+    {
+      "id": "performance",
+      "label": "Performance Level",
+      "icon": "📊",
+      "description": "Filter by performance metrics"
+    },
+    {
+      "id": "store_type",
+      "label": "Store Type",
+      "icon": "🏪",
+      "description": "Filter by store category"
+    },
+    {
+      "id": "time_period",
+      "label": "Time Period",
+      "icon": "📅",
+      "description": "Filter by time range"
+    },
+    {
+      "id": "growth",
+      "label": "Growth Pattern",
+      "icon": "📈",
+      "description": "Filter by growth characteristics"
+    }
+  ],
+  "search_suggestions": [
+    "Metro Manila high performance",
+    "Electronics positive sentiment",
+    "Q1 2024 flagship stores",
+    "Cebu accelerating growth",
+    "Clothing neutral sentiment"
+  ]
+}

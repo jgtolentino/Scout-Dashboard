@@ -1,0 +1,108 @@
+// src/themes/tbwa.scss
+@import '../styles/variables-tbwa';
+@import '../styles/common';
+@import '../styles/modern-dashboard';
+@import '../styles/utility-classes';
+
+:root {
+  --logo-url: url('/assets/logos/tbwa-logo.svg');
+}
+
+// TBWA specific overrides
+.header {
+  background-color: var(--color-primary); // TBWA navy
+  color: #ffffff;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 3px solid var(--color-secondary); // TBWA cyan
+}
+
+.sidebar {
+  background-color: #f0f0f0;
+  border-right: 3px solid var(--color-secondary); // TBWA cyan
+}
+
+// TBWA specific components
+.tbwa-disruption-banner {
+  background-color: var(--color-secondary); // TBWA cyan
+  color: var(--color-primary); // TBWA navy
+  padding: var(--spacing-md);
+  text-align: center;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-lg);
+}
+
+// Enhanced KPI cards for TBWA
+.kpi-card {
+  border-left: 4px solid var(--color-secondary); // TBWA cyan
+  
+  .value {
+    color: var(--color-primary); // TBWA navy
+    font-weight: 700;
+  }
+}
+
+// TBWA branded charts
+.chart-container {
+  .chart-title {
+    color: var(--color-primary); // TBWA navy
+    border-bottom: 2px solid var(--color-secondary); // TBWA cyan
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+// Map customization for TBWA
+.map-container {
+  border: 1px solid var(--color-secondary); // TBWA cyan
+  box-shadow: var(--box-shadow);
+}
+
+// Custom TBWA-styled buttons
+.btn-tbwa {
+  background-color: var(--color-secondary); // TBWA cyan
+  color: var(--color-primary); // TBWA navy
+  border: none;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  &:hover {
+    background-color: var(--color-secondary-dark); // Darker cyan
+  }
+}
+
+// TBWA footer styling
+.footer {
+  background-color: var(--color-primary); // TBWA navy 
+  color: #ffffff;
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+  
+  a {
+    color: var(--color-secondary); // TBWA cyan
+    
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}
+
+// TBWA branded data indicators
+.data-freshness {
+  background-color: var(--color-secondary); // TBWA cyan
+  color: var(--color-primary); // TBWA navy
+  font-weight: var(--font-weight-bold);
+}
+
+// Special callout sections
+.tbwa-callout {
+  background-color: rgba(0, 195, 236, 0.1); // Light cyan
+  border-left: 4px solid var(--color-secondary); // TBWA cyan
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  
+  h3 {
+    color: var(--color-primary); // TBWA navy
+    margin-bottom: var(--spacing-sm);
+  }
+}

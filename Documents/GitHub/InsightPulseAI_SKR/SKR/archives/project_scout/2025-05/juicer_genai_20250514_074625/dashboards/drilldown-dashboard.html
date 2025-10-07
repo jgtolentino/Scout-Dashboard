@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand to SKU Drilldown Dashboard</title>
+  
+  <!-- Bootstrap and Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/tbwa-theme.css">
+  
+  <style>
+    :root {
+      --drill-primary: #5352ed;
+      --drill-secondary: #342b64;
+      --drill-success: #2ed573;
+      --drill-warning: #ffa502;
+      --drill-danger: #ff6b81;
+      --drill1-color: #342b64;
+      --drill2-color: #5352ed;
+      --drill3-color: #2ed573;
+      --drill4-color: #ff6b81;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7f9;
+      color: #333;
+    }
+    
+    .header {
+      background-color: var(--drill-secondary);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      height: 40px;
+    }
+    
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      border: none;
+    }
+    
+    .card-header {
+      border-radius: 10px 10px 0 0 !important;
+      padding: 0.75rem 1.25rem;
+      font-weight: 600;
+    }
+    
+    .chart-container {
+      height: 350px;
+      margin-bottom: 10px;
+    }
+    
+    .data-source-badge {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    
+    .real-data {
+      background-color: #C6F6D5;
+      color: #276749;
+      border: 1px solid #68D391;
+    }
+    
+    .mixed-data {
+      background-color: #E9D8FD;
+      color: #553C9A;
+      border: 1px solid #B794F4;
+    }
+    
+    .mock-data {
+      background-color: #FEEBC8;
+      color: #9C4221;
+      border: 1px solid #F6AD55;
+    }
+    
+    .breadcrumb-container {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 10px 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    .breadcrumb-container .breadcrumb {
+      margin-bottom: 0;
+    }
+    
+    .breadcrumb-item.active {
+      font-weight: 600;
+      color: var(--drill-primary);
+    }
+    
+    .drill-level {
+      display: none;
+    }
+    
+    .drill-level.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .brand-bar {
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .brand-bar:hover {
+      opacity: 0.8;
+      transform: translateY(-2px);
+    }
+    
+    .category-slice {
+      cursor: pointer;
+    }
+    
+    .product-row {
+      cursor: pointer;
+    }
+    
+    .product-row:hover {
+      background-color: rgba(83, 82, 237, 0.1);
+    }
+    
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0;
+    }
+    
+    .metric-label {
+      color: #718096;
+      font-size: 0.9rem;
+    }
+    
+    .trend-up {
+      color: var(--drill-success);
+    }
+    
+    .trend-down {
+      color: var(--drill-danger);
+    }
+    
+    .progress {
+      height: 8px;
+      margin-top: 8px;
+    }
+    
+    .progress-bar-drill1 {
+      background-color: var(--drill1-color);
+    }
+    
+    .progress-bar-drill2 {
+      background-color: var(--drill2-color);
+    }
+    
+    .progress-bar-drill3 {
+      background-color: var(--drill3-color);
+    }
+    
+    .progress-bar-drill4 {
+      background-color: var(--drill4-color);
+    }
+    
+    .summary-card {
+      border-left: 4px solid var(--drill-primary);
+      background-color: rgba(83, 82, 237, 0.05);
+    }
+    
+    .summary-card h5 {
+      color: var(--drill-primary);
+    }
+    
+    .table-responsive {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .footer {
+      background-color: var(--drill-secondary);
+      color: white;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="m-0 d-flex align-items-center">
+            <img src="/images/default-tool-icon.svg" alt="Drilldown Dashboard" class="logo me-2">
+            <span>Brand to SKU Drilldown</span>
+          </h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="d-flex justify-content-end align-items-center">
+            <button class="btn btn-outline-light ms-3" id="refreshButton">
+              <i class="fas fa-sync-alt me-1"></i> Refresh Data
+            </button>
+            <a href="/dashboards/" class="btn btn-light ms-3">
+              <i class="fas fa-th-large me-1"></i> All Dashboards
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <!-- Data Source Info -->
+    <div class="alert alert-info d-flex align-items-center mb-4">
+      <i class="fas fa-info-circle me-2"></i>
+      <div>
+        This dashboard provides hierarchical data analysis from brand level down to individual SKUs. Click on any element to drill deeper.
+      </div>
+    </div>
+    
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" id="drillBreadcrumb">
+          <li class="breadcrumb-item active" aria-current="page" data-level="1">Brands</li>
+          <li class="breadcrumb-item d-none" data-level="2">Category: <span id="selectedCategory">-</span></li>
+          <li class="breadcrumb-item d-none" data-level="3">Product: <span id="selectedProduct">-</span></li>
+          <li class="breadcrumb-item d-none" data-level="4">SKU: <span id="selectedSKU">-</span></li>
+        </ol>
+      </nav>
+      
+      <button class="btn btn-sm btn-outline-secondary float-end" id="resetDrill">
+        <i class="fas fa-home me-1"></i> Reset to Top Level
+      </button>
+    </div>
+    
+    <!-- Drill Level 1: Brands -->
+    <div class="drill-level active" id="drillLevel1">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">Brand Interaction Analysis</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="row mb-4">
+                <div class="col-md-3">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                      <p class="metric-value">6,842</p>
+                      <p class="metric-label">Total Interactions</p>
+                      <p class="mb-0 text-success">
+                        <i class="fas fa-arrow-up me-1"></i>12.3% vs. last period
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                      <p class="metric-value">12</p>
+                      <p class="metric-label">Active Brands</p>
+                      <p class="mb-0 text-success">
+                        <i class="fas fa-plus me-1"></i>2 new this period
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                      <p class="metric-value">76.2%</p>
+                      <p class="metric-label">Positive Sentiment</p>
+                      <p class="mb-0 text-success">
+                        <i class="fas fa-arrow-up me-1"></i>3.5% vs. last period
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                      <p class="metric-value">$84.21</p>
+                      <p class="metric-label">Avg Transaction Value</p>
+                      <p class="mb-0 text-danger">
+                        <i class="fas fa-arrow-down me-1"></i>2.1% vs. last period
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="brandBarChart"></canvas>
+              </div>
+              <p class="small text-muted text-center">Click on any brand to see category breakdown</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Drill Level 2: Categories -->
+    <div class="drill-level" id="drillLevel2">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="card summary-card">
+            <div class="card-body">
+              <h5>Brand Summary: <span id="brandNameSummary">-</span></h5>
+              <div class="row">
+                <div class="col-md-3">
+                  <p class="mb-1">Total Interactions</p>
+                  <h4 id="brandInteractions">-</h4>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1">Market Share</p>
+                  <h4 id="brandMarketShare">-</h4>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1">Growth Rate</p>
+                  <h4 id="brandGrowth">-</h4>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1">Sentiment Score</p>
+                  <h4 id="brandSentiment">-</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">Category Distribution</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="categoryPieChart"></canvas>
+              </div>
+              <p class="small text-muted text-center">Click on any category segment to see products</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">Category Trend (Last 12 Months)</h5>
+              <span class="data-source-badge mixed-data">
+                <i class="fas fa-database me-1"></i> Mixed Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="categoryTrendChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-white">
+              <h5 class="card-title mb-0">Category Performance Metrics</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Interactions</th>
+                      <th>Sentiment</th>
+                      <th>Growth</th>
+                      <th>Revenue</th>
+                      <th>Performance</th>
+                    </tr>
+                  </thead>
+                  <tbody id="categoryTableBody">
+                    <!-- Category data will be dynamically added here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Drill Level 3: Products -->
+    <div class="drill-level" id="drillLevel3">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="card summary-card">
+            <div class="card-body">
+              <h5>Category Summary: <span id="categoryNameSummary">-</span></h5>
+              <div class="row">
+                <div class="col-md-3">
+                  <p class="mb-1">Products</p>
+                  <h4 id="categoryProductCount">-</h4>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1">Total Interactions</p>
+                  <h4 id="categoryInteractions">-</h4>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1">Avg. Sentiment</p>
+                  <h4 id="categorySentiment">-</h4>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1">YoY Change</p>
+                  <h4 id="categoryYoY">-</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">Product Comparison</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="productComparisonChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-white">
+              <h5 class="card-title mb-0">Product Details</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Product Name</th>
+                      <th>SKU Count</th>
+                      <th>Interactions</th>
+                      <th>Price Range</th>
+                      <th>Avg. Rating</th>
+                      <th>Sentiment</th>
+                      <th>Details</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productTableBody">
+                    <!-- Product data will be dynamically added here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Drill Level 4: SKUs -->
+    <div class="drill-level" id="drillLevel4">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="card summary-card">
+            <div class="card-body">
+              <h5>Product Summary: <span id="productNameSummary">-</span></h5>
+              <div class="row">
+                <div class="col-md-3">
+                  <p class="mb-1">SKU Count</p>
+                  <h4 id="productSKUCount">-</h4>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1">Price Range</p>
+                  <h4 id="productPriceRange">-</h4>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1">Avg. Rating</p>
+                  <h4 id="productRating">-</h4>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1">Market Position</p>
+                  <h4 id="productPosition">-</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">SKU Performance</h5>
+              <span class="data-source-badge real-data">
+                <i class="fas fa-database me-1"></i> Real Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="skuPerformanceChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">Customer Demographics</h5>
+              <span class="data-source-badge mixed-data">
+                <i class="fas fa-database me-1"></i> Mixed Data
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="demographicsChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-white">
+              <h5 class="card-title mb-0">SKU Detailed Breakdown</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>SKU ID</th>
+                      <th>Variant</th>
+                      <th>Price</th>
+                      <th>Stock Level</th>
+                      <th>Interactions</th>
+                      <th>Sentiment</th>
+                      <th>Promotion Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="skuTableBody">
+                    <!-- SKU data will be dynamically added here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-white">
+              <h5 class="card-title mb-0">Customer Transcript Analysis</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Interaction ID</th>
+                      <th>Customer Age</th>
+                      <th>Gender</th>
+                      <th>Transcript Excerpt</th>
+                      <th>Sentiment</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="transcriptTableBody">
+                    <!-- Transcript data will be dynamically added here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 Scout Analytics Platform</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <p class="mb-0">Data updated: <span id="lastUpdated">May 13, 2025 09:45 AM</span></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+  
+  <script>
+    // State management
+    const drillState = {
+      currentLevel: 1,
+      brand: null,
+      category: null,
+      product: null,
+      sku: null
+    };
+    
+    // Mock data - in production, this would come from API calls
+    const mockData = {
+      brands: [
+        { id: 'b1', name: 'Jollibee', interactions: 1842, marketShare: '24.3%', growth: '+8.2%', sentiment: '86.5%' },
+        { id: 'b2', name: 'McDonald\'s', interactions: 1654, marketShare: '21.8%', growth: '+4.1%', sentiment: '79.2%' },
+        { id: 'b3', name: 'KFC', interactions: 1247, marketShare: '16.5%', growth: '+5.7%', sentiment: '81.3%' },
+        { id: 'b4', name: 'Burger King', interactions: 1102, marketShare: '14.6%', growth: '-2.1%', sentiment: '72.8%' },
+        { id: 'b5', name: 'Wendy\'s', interactions: 835, marketShare: '11.0%', growth: '+12.3%', sentiment: '84.1%' },
+        { id: 'b6', name: 'Pizza Hut', interactions: 722, marketShare: '9.5%', growth: '-0.9%', sentiment: '76.4%' }
+      ],
+      categories: {
+        'b1': [
+          { id: 'c1', name: 'Chicken', interactions: 745, sentiment: '88.2%', growth: '+10.3%', revenue: '$425K' },
+          { id: 'c2', name: 'Burgers', interactions: 523, sentiment: '84.1%', growth: '+7.5%', revenue: '$318K' },
+          { id: 'c3', name: 'Sides', interactions: 312, sentiment: '79.3%', growth: '+5.2%', revenue: '$187K' },
+          { id: 'c4', name: 'Desserts', interactions: 262, sentiment: '91.7%', growth: '+12.4%', revenue: '$156K' }
+        ],
+        'b2': [
+          { id: 'c5', name: 'Burgers', interactions: 705, sentiment: '81.3%', growth: '+3.2%', revenue: '$515K' },
+          { id: 'c6', name: 'Chicken', interactions: 412, sentiment: '77.8%', growth: '+2.1%', revenue: '$285K' },
+          { id: 'c7', name: 'Breakfast', interactions: 342, sentiment: '82.4%', growth: '+8.7%', revenue: '$254K' },
+          { id: 'c8', name: 'Desserts', interactions: 195, sentiment: '84.5%', growth: '+5.9%', revenue: '$132K' }
+        ]
+      },
+      products: {
+        'c1': [
+          { id: 'p1', name: 'Chickenjoy', skuCount: 4, interactions: 420, priceRange: '$4.99-$10.99', rating: '4.7', sentiment: '91.2%' },
+          { id: 'p2', name: 'Chicken Sandwich', skuCount: 3, interactions: 215, priceRange: '$4.49-$8.99', rating: '4.5', sentiment: '87.5%' },
+          { id: 'p3', name: 'Chicken Strips', skuCount: 2, interactions: 110, priceRange: '$3.99-$7.99', rating: '4.2', sentiment: '83.4%' }
+        ],
+        'c5': [
+          { id: 'p4', name: 'Big Mac', skuCount: 2, interactions: 325, priceRange: '$4.69-$7.99', rating: '4.6', sentiment: '86.5%' },
+          { id: 'p5', name: 'Quarter Pounder', skuCount: 3, interactions: 245, priceRange: '$5.29-$8.99', rating: '4.4', sentiment: '82.7%' },
+          { id: 'p6', name: 'McDouble', skuCount: 2, interactions: 135, priceRange: '$2.99-$5.99', rating: '4.1', sentiment: '79.3%' }
+        ]
+      },
+      skus: {
+        'p1': [
+          { id: 'sku1', variant: '1pc w/ Rice', price: '$4.99', stock: 'High', interactions: 145, sentiment: '89.5%', promotion: 'None' },
+          { id: 'sku2', variant: '2pc w/ Rice', price: '$7.99', stock: 'High', interactions: 165, sentiment: '92.7%', promotion: '10% Off' },
+          { id: 'sku3', variant: 'Bucket - 6pc', price: '$10.99', stock: 'Medium', interactions: 110, sentiment: '90.3%', promotion: 'BOGO' }
+        ],
+        'p4': [
+          { id: 'sku4', variant: 'Regular', price: '$4.69', stock: 'High', interactions: 185, sentiment: '85.2%', promotion: 'None' },
+          { id: 'sku5', variant: 'Double', price: '$7.99', stock: 'Medium', interactions: 140, sentiment: '87.8%', promotion: '15% Off' }
+        ]
+      },
+      transcripts: {
+        'p1': [
+          { id: 'int1', age: 28, gender: 'F', excerpt: '"The Chickenjoy is consistently crispy and juicy. Best fried chicken around!"', sentiment: 'Positive', date: '2025-05-10' },
+          { id: 'int2', age: 35, gender: 'M', excerpt: '"Love the spicy Chickenjoy but sometimes it\'s inconsistent between locations."', sentiment: 'Mixed', date: '2025-05-08' },
+          { id: 'int3', age: 22, gender: 'F', excerpt: '"Chickenjoy with gravy is my comfort food. Worth every penny."', sentiment: 'Positive', date: '2025-05-05' }
+        ],
+        'p4': [
+          { id: 'int4', age: 32, gender: 'M', excerpt: '"Big Mac tastes the same everywhere I go, which is why I keep ordering it."', sentiment: 'Positive', date: '2025-05-12' },
+          { id: 'int5', age: 19, gender: 'F', excerpt: '"The Big Mac is good but a bit pricey compared to other options."', sentiment: 'Mixed', date: '2025-05-09' },
+          { id: 'int6', age: 45, gender: 'M', excerpt: '"Been eating Big Macs for 20 years and the quality has stayed consistent."', sentiment: 'Positive', date: '2025-05-07' }
+        ]
+      }
+    };
+    
+    // Initialize when document is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize the Level 1 (Brands) view
+      initBrandView();
+      
+      // Set up breadcrumb navigation
+      setupBreadcrumbNavigation();
+      
+      // Set up reset button
+      document.getElementById('resetDrill').addEventListener('click', resetDrilldown);
+      
+      // Set up refresh button
+      document.getElementById('refreshButton').addEventListener('click', refreshDashboard);
+    });
+    
+    // Initialize Brand View (Level 1)
+    function initBrandView() {
+      const ctx = document.getElementById('brandBarChart').getContext('2d');
+      
+      // Prepare data for chart
+      const brands = mockData.brands;
+      const labels = brands.map(brand => brand.name);
+      const data = brands.map(brand => brand.interactions);
+      const bgColors = [
+        'rgba(83, 82, 237, 0.8)',
+        'rgba(255, 107, 129, 0.8)',
+        'rgba(46, 213, 115, 0.8)',
+        'rgba(255, 165, 2, 0.8)',
+        'rgba(32, 191, 243, 0.8)',
+        'rgba(153, 102, 255, 0.8)'
+      ];
+      
+      // Create bar chart
+      const brandChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Interactions',
+            data: data,
+            backgroundColor: bgColors,
+            borderColor: bgColors.map(color => color.replace('0.8', '1')),
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const brandIndex = context.dataIndex;
+                  const brand = brands[brandIndex];
+                  return [
+                    `Interactions: ${brand.interactions}`,
+                    `Market Share: ${brand.marketShare}`,
+                    `Growth: ${brand.growth}`,
+                    `Sentiment: ${brand.sentiment}`
+                  ];
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Interactions'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Brand'
+              }
+            }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              drillToBrand(brands[index]);
+            }
+          }
+        }
+      });
+    }
+    
+    // Drill down to Brand (Level 2)
+    function drillToBrand(brand) {
+      // Update state
+      drillState.currentLevel = 2;
+      drillState.brand = brand;
+      
+      // Update breadcrumb
+      updateBreadcrumb();
+      
+      // Update brand summary
+      document.getElementById('brandNameSummary').textContent = brand.name;
+      document.getElementById('brandInteractions').textContent = brand.interactions;
+      document.getElementById('brandMarketShare').textContent = brand.marketShare;
+      document.getElementById('brandGrowth').textContent = brand.growth;
+      document.getElementById('brandSentiment').textContent = brand.sentiment;
+      
+      // Show level 2 and hide others
+      showDrillLevel(2);
+      
+      // Initialize category charts and tables
+      initCategoryView(brand.id);
+    }
+    
+    // Initialize Category View (Level 2)
+    function initCategoryView(brandId) {
+      const categories = mockData.categories[brandId] || [];
+      
+      // Pie Chart for Category Distribution
+      const pieCtx = document.getElementById('categoryPieChart').getContext('2d');
+      const pieChart = new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+          labels: categories.map(cat => cat.name),
+          datasets: [{
+            data: categories.map(cat => cat.interactions),
+            backgroundColor: [
+              'rgba(83, 82, 237, 0.8)',
+              'rgba(46, 213, 115, 0.8)',
+              'rgba(255, 107, 129, 0.8)',
+              'rgba(255, 165, 2, 0.8)'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const catIndex = context.dataIndex;
+                  const category = categories[catIndex];
+                  const percent = Math.round((category.interactions / categories.reduce((acc, cat) => acc + cat.interactions, 0)) * 100);
+                  return [
+                    `${category.name}: ${category.interactions} (${percent}%)`,
+                    `Sentiment: ${category.sentiment}`,
+                    `Growth: ${category.growth}`
+                  ];
+                }
+              }
+            }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              drillToCategory(categories[index]);
+            }
+          }
+        }
+      });
+      
+      // Line Chart for Category Trends
+      const trendCtx = document.getElementById('categoryTrendChart').getContext('2d');
+      const months = ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'];
+      
+      // Generate some trend data
+      const trendData = {};
+      categories.forEach(cat => {
+        const baseValue = cat.interactions / 12;
+        const trend = Array(12).fill().map((_, i) => {
+          const growthFactor = parseFloat(cat.growth) / 100;
+          const randomFactor = (Math.random() * 0.2) - 0.1; // -10% to +10% random variation
+          const monthFactor = 1 + (i / 11) * growthFactor;
+          return Math.round(baseValue * monthFactor * (1 + randomFactor));
+        });
+        trendData[cat.name] = trend;
+      });
+      
+      const trendChart = new Chart(trendCtx, {
+        type: 'line',
+        data: {
+          labels: months,
+          datasets: categories.map((cat, index) => ({
+            label: cat.name,
+            data: trendData[cat.name],
+            borderColor: [
+              'rgba(83, 82, 237, 1)',
+              'rgba(46, 213, 115, 1)',
+              'rgba(255, 107, 129, 1)',
+              'rgba(255, 165, 2, 1)'
+            ][index % 4],
+            backgroundColor: [
+              'rgba(83, 82, 237, 0.1)',
+              'rgba(46, 213, 115, 0.1)',
+              'rgba(255, 107, 129, 0.1)',
+              'rgba(255, 165, 2, 0.1)'
+            ][index % 4],
+            tension: 0.4,
+            fill: 'origin'
+          }))
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Monthly Interactions'
+              }
+            }
+          }
+        }
+      });
+      
+      // Populate category table
+      const tableBody = document.getElementById('categoryTableBody');
+      tableBody.innerHTML = '';
+      
+      categories.forEach(cat => {
+        const growthClass = cat.growth.includes('+') ? 'text-success' : 'text-danger';
+        const row = document.createElement('tr');
+        row.className = 'product-row';
+        row.innerHTML = `
+          <td>${cat.name}</td>
+          <td>${cat.interactions}</td>
+          <td>${cat.sentiment}</td>
+          <td class="${growthClass}">${cat.growth}</td>
+          <td>${cat.revenue}</td>
+          <td>
+            <div class="progress">
+              <div class="progress-bar progress-bar-drill2" role="progressbar" 
+                style="width: ${parseInt(cat.sentiment)}%" 
+                aria-valuenow="${parseInt(cat.sentiment)}" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </td>
+        `;
+        
+        row.addEventListener('click', () => drillToCategory(cat));
+        tableBody.appendChild(row);
+      });
+    }
+    
+    // Drill down to Category (Level 3)
+    function drillToCategory(category) {
+      // Update state
+      drillState.currentLevel = 3;
+      drillState.category = category;
+      
+      // Update breadcrumb
+      document.getElementById('selectedCategory').textContent = category.name;
+      updateBreadcrumb();
+      
+      // Update category summary
+      document.getElementById('categoryNameSummary').textContent = category.name;
+      
+      // Get products for this category
+      const products = mockData.products[category.id] || [];
+      document.getElementById('categoryProductCount').textContent = products.length;
+      document.getElementById('categoryInteractions').textContent = category.interactions;
+      document.getElementById('categorySentiment').textContent = category.sentiment;
+      document.getElementById('categoryYoY').textContent = category.growth;
+      
+      // Show level 3 and hide others
+      showDrillLevel(3);
+      
+      // Initialize product charts and tables
+      initProductView(category.id);
+    }
+    
+    // Initialize Product View (Level 3)
+    function initProductView(categoryId) {
+      const products = mockData.products[categoryId] || [];
+      
+      // Bar Chart for Product Comparison
+      const productCtx = document.getElementById('productComparisonChart').getContext('2d');
+      
+      const productChart = new Chart(productCtx, {
+        type: 'bar',
+        data: {
+          labels: products.map(prod => prod.name),
+          datasets: [
+            {
+              label: 'Interactions',
+              data: products.map(prod => prod.interactions),
+              backgroundColor: 'rgba(83, 82, 237, 0.8)',
+              borderColor: 'rgba(83, 82, 237, 1)',
+              borderWidth: 1,
+              order: 1
+            },
+            {
+              label: 'Sentiment %',
+              data: products.map(prod => parseFloat(prod.sentiment)),
+              backgroundColor: 'rgba(255, 107, 129, 0)',
+              borderColor: 'rgba(255, 107, 129, 1)',
+              borderWidth: 2,
+              type: 'line',
+              yAxisID: 'y1',
+              order: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Interactions'
+              }
+            },
+            y1: {
+              position: 'right',
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Sentiment %'
+              },
+              grid: {
+                drawOnChartArea: false
+              }
+            }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              drillToProduct(products[index]);
+            }
+          }
+        }
+      });
+      
+      // Populate product table
+      const tableBody = document.getElementById('productTableBody');
+      tableBody.innerHTML = '';
+      
+      products.forEach(prod => {
+        const row = document.createElement('tr');
+        row.className = 'product-row';
+        row.innerHTML = `
+          <td>${prod.name}</td>
+          <td>${prod.skuCount}</td>
+          <td>${prod.interactions}</td>
+          <td>${prod.priceRange}</td>
+          <td>${prod.rating} <i class="fas fa-star text-warning"></i></td>
+          <td>${prod.sentiment}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary view-details-btn">
+              <i class="fas fa-chart-line me-1"></i> View SKUs
+            </button>
+          </td>
+        `;
+        
+        // Add click handler
+        row.addEventListener('click', () => drillToProduct(prod));
+        row.querySelector('.view-details-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          drillToProduct(prod);
+        });
+        
+        tableBody.appendChild(row);
+      });
+    }
+    
+    // Drill down to Product (Level 4)
+    function drillToProduct(product) {
+      // Update state
+      drillState.currentLevel = 4;
+      drillState.product = product;
+
+      // Update breadcrumb
+      document.getElementById('selectedProduct').textContent = product.name;
+      updateBreadcrumb();
+
+      // Update product summary
+      document.getElementById('productNameSummary').textContent = product.name;
+      document.getElementById('productSKUCount').textContent = product.skuCount;
+      document.getElementById('productPriceRange').textContent = product.priceRange;
+      document.getElementById('productRating').textContent = product.rating;
+
+      // Calculate market position
+      const position = parseFloat(product.sentiment) > 85 ? 'Premium' :
+                      parseFloat(product.sentiment) > 80 ? 'Strong' :
+                      parseFloat(product.sentiment) > 75 ? 'Competitive' : 'Challenged';
+      document.getElementById('productPosition').textContent = position;
+
+      // Show level 4 and hide others
+      showDrillLevel(4);
+
+      // Initialize SKU charts and tables
+      initSKUView(product.id);
+    }
+
+    // Function to show a specific SKU's details
+    function showSku(sku) {
+      // Set the current SKU
+      drillState.sku = sku;
+
+      // Update breadcrumb
+      document.getElementById('selectedSKU').textContent = sku.variant;
+      updateBreadcrumb();
+
+      // Highlight the selected SKU in the table
+      const rows = document.querySelectorAll('#skuTableBody tr');
+      rows.forEach(row => {
+        row.classList.remove('table-primary');
+        if (row.querySelector('td').textContent === sku.id) {
+          row.classList.add('table-primary');
+          row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+
+      // Show SKU-specific details in a modal or panel
+      const modalContent = `
+        <div class="modal fade" id="skuDetailModal" tabindex="-1" aria-labelledby="skuDetailModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="skuDetailModalLabel">${sku.variant} Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <h6>SKU Information</h6>
+                    <table class="table table-sm">
+                      <tr>
+                        <th>SKU ID</th>
+                        <td>${sku.id}</td>
+                      </tr>
+                      <tr>
+                        <th>Variant</th>
+                        <td>${sku.variant}</td>
+                      </tr>
+                      <tr>
+                        <th>Price</th>
+                        <td>${sku.price}</td>
+                      </tr>
+                      <tr>
+                        <th>Stock Level</th>
+                        <td><span class="badge bg-${sku.stock === 'High' ? 'success' : sku.stock === 'Medium' ? 'warning' : 'danger'}">${sku.stock}</span></td>
+                      </tr>
+                      <tr>
+                        <th>Promotion</th>
+                        <td>${sku.promotion === 'None' ? '-' : `<span class="badge bg-info">${sku.promotion}</span>`}</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Performance Metrics</h6>
+                    <table class="table table-sm">
+                      <tr>
+                        <th>Interactions</th>
+                        <td>${sku.interactions}</td>
+                      </tr>
+                      <tr>
+                        <th>Sentiment</th>
+                        <td>${sku.sentiment}</td>
+                      </tr>
+                      <tr>
+                        <th>Customer Rating</th>
+                        <td>4.6 <i class="fas fa-star text-warning"></i></td>
+                      </tr>
+                      <tr>
+                        <th>Repeat Purchase</th>
+                        <td>68%</td>
+                      </tr>
+                      <tr>
+                        <th>Growth (MoM)</th>
+                        <td class="text-success">+8.2%</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <h6>Recent Customer Comments</h6>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="d-flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-user-circle fa-2x text-secondary"></i>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">Customer ID: #45928</h6>
+                        <p class="mb-1">"The ${sku.variant} exceeded my expectations. Great value for the price!"</p>
+                        <div class="text-muted small">May 10, 2025 - Sentiment: <span class="text-success">Positive</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-user-circle fa-2x text-secondary"></i>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">Customer ID: #36712</h6>
+                        <p class="mb-1">"I've been purchasing the ${sku.variant} regularly. Consistent quality every time."</p>
+                        <div class="text-muted small">May 7, 2025 - Sentiment: <span class="text-success">Positive</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">View Full Report</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Remove any existing modal
+      const existingModal = document.getElementById('skuDetailModal');
+      if (existingModal) {
+        existingModal.remove();
+      }
+
+      // Add the modal to the DOM
+      document.body.insertAdjacentHTML('beforeend', modalContent);
+
+      // Show the modal
+      const modal = new bootstrap.Modal(document.getElementById('skuDetailModal'));
+      modal.show();
+    }
+    
+    // Initialize SKU View (Level 4)
+    function initSKUView(productId) {
+      const skus = mockData.skus[productId] || [];
+      const transcripts = mockData.transcripts[productId] || [];
+      
+      // Horizontal Bar Chart for SKU Performance
+      const skuCtx = document.getElementById('skuPerformanceChart').getContext('2d');
+      
+      const skuChart = new Chart(skuCtx, {
+        type: 'bar',
+        data: {
+          labels: skus.map(sku => sku.variant),
+          datasets: [
+            {
+              label: 'Interactions',
+              data: skus.map(sku => sku.interactions),
+              backgroundColor: 'rgba(46, 213, 115, 0.8)',
+              borderColor: 'rgba(46, 213, 115, 1)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Interactions'
+              }
+            }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const skuIndex = context.dataIndex;
+                  const sku = skus[skuIndex];
+                  return [
+                    `Interactions: ${sku.interactions}`,
+                    `Sentiment: ${sku.sentiment}`,
+                    `Price: ${sku.price}`,
+                    `Stock: ${sku.stock}`
+                  ];
+                }
+              }
+            }
+          }
+        }
+      });
+      
+      // Doughnut Chart for Demographics
+      const demoCtx = document.getElementById('demographicsChart').getContext('2d');
+      
+      // Extract demographics from transcripts
+      const genderCount = transcripts.reduce((acc, t) => {
+        acc[t.gender] = (acc[t.gender] || 0) + 1;
+        return acc;
+      }, {});
+      
+      const ageGroups = {
+        '18-24': 0,
+        '25-34': 0,
+        '35-44': 0,
+        '45+': 0
+      };
+      
+      transcripts.forEach(t => {
+        if (t.age < 25) ageGroups['18-24']++;
+        else if (t.age < 35) ageGroups['25-34']++;
+        else if (t.age < 45) ageGroups['35-44']++;
+        else ageGroups['45+']++;
+      });
+      
+      const demoChart = new Chart(demoCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Male', 'Female', '18-24', '25-34', '35-44', '45+'],
+          datasets: [{
+            data: [
+              genderCount['M'] || 0,
+              genderCount['F'] || 0,
+              ageGroups['18-24'],
+              ageGroups['25-34'],
+              ageGroups['35-44'],
+              ageGroups['45+']
+            ],
+            backgroundColor: [
+              'rgba(83, 82, 237, 0.8)',
+              'rgba(255, 107, 129, 0.8)',
+              'rgba(46, 213, 115, 0.8)',
+              'rgba(255, 165, 2, 0.8)',
+              'rgba(32, 191, 243, 0.8)',
+              'rgba(153, 102, 255, 0.8)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right'
+            }
+          }
+        }
+      });
+      
+      // Populate SKU table
+      const skuTableBody = document.getElementById('skuTableBody');
+      skuTableBody.innerHTML = '';
+
+      skus.forEach(sku => {
+        const row = document.createElement('tr');
+        row.style.cursor = 'pointer';
+        row.innerHTML = `
+          <td>${sku.id}</td>
+          <td>${sku.variant}</td>
+          <td>${sku.price}</td>
+          <td><span class="badge bg-${sku.stock === 'High' ? 'success' : sku.stock === 'Medium' ? 'warning' : 'danger'}">${sku.stock}</span></td>
+          <td>${sku.interactions}</td>
+          <td>${sku.sentiment}</td>
+          <td>
+            ${sku.promotion === 'None' ? '-' : `<span class="badge bg-info">${sku.promotion}</span>`}
+            <button class="btn btn-sm btn-outline-primary ms-2 view-sku-btn">
+              <i class="fas fa-info-circle"></i> Details
+            </button>
+          </td>
+        `;
+
+        // Add click handler for the row
+        row.addEventListener('click', () => showSku(sku));
+
+        // Add click handler for the Details button
+        row.querySelector('.view-sku-btn').addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent row click event
+          showSku(sku);
+        });
+
+        skuTableBody.appendChild(row);
+      });
+      
+      // Populate transcript table
+      const transcriptTableBody = document.getElementById('transcriptTableBody');
+      transcriptTableBody.innerHTML = '';
+      
+      transcripts.forEach(tr => {
+        const sentimentClass = tr.sentiment === 'Positive' ? 'success' : 
+                              tr.sentiment === 'Negative' ? 'danger' : 'warning';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${tr.id}</td>
+          <td>${tr.age}</td>
+          <td>${tr.gender}</td>
+          <td>${tr.excerpt}</td>
+          <td><span class="badge bg-${sentimentClass}">${tr.sentiment}</span></td>
+          <td>${tr.date}</td>
+        `;
+        transcriptTableBody.appendChild(row);
+      });
+    }
+    
+    // Helper Functions
+    
+    // Show a specific drill level and hide others
+    function showDrillLevel(level) {
+      const allLevels = document.querySelectorAll('.drill-level');
+      allLevels.forEach(el => {
+        el.classList.remove('active');
+      });
+      
+      document.getElementById(`drillLevel${level}`).classList.add('active');
+    }
+    
+    // Update breadcrumb based on current state
+    function updateBreadcrumb() {
+      const breadcrumb = document.getElementById('drillBreadcrumb');
+      const items = breadcrumb.querySelectorAll('.breadcrumb-item');
+      
+      // Reset all items
+      items.forEach(item => {
+        item.classList.add('d-none');
+        item.classList.remove('active');
+      });
+      
+      // Show appropriate items based on current level
+      for (let i = 1; i <= drillState.currentLevel; i++) {
+        const item = breadcrumb.querySelector(`[data-level="${i}"]`);
+        item.classList.remove('d-none');
+        
+        if (i === drillState.currentLevel) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      }
+      
+      // Update displayed values
+      if (drillState.brand) {
+        document.getElementById('selectedCategory').textContent = drillState.category ? drillState.category.name : '-';
+      }
+      
+      if (drillState.product) {
+        document.getElementById('selectedProduct').textContent = drillState.product.name;
+      }
+      
+      if (drillState.sku) {
+        document.getElementById('selectedSKU').textContent = drillState.sku.variant;
+      }
+    }
+    
+    // Setup breadcrumb navigation
+    function setupBreadcrumbNavigation() {
+      const breadcrumb = document.getElementById('drillBreadcrumb');
+      
+      breadcrumb.addEventListener('click', (e) => {
+        const item = e.target.closest('.breadcrumb-item');
+        if (!item) return;
+        
+        const level = parseInt(item.getAttribute('data-level'), 10);
+        if (level < drillState.currentLevel) {
+          switch(level) {
+            case 1:
+              resetDrilldown();
+              break;
+            case 2:
+              drillToBrand(drillState.brand);
+              break;
+            case 3:
+              drillToCategory(drillState.category);
+              break;
+          }
+        }
+      });
+    }
+    
+    // Reset drilldown to top level
+    function resetDrilldown() {
+      drillState.currentLevel = 1;
+      drillState.brand = null;
+      drillState.category = null;
+      drillState.product = null;
+      drillState.sku = null;
+      
+      updateBreadcrumb();
+      showDrillLevel(1);
+    }
+    
+    // Refresh dashboard data
+    function refreshDashboard() {
+      const button = document.getElementById('refreshButton');
+      button.disabled = true;
+      button.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Refreshing...';
+      
+      // Simulate API delay
+      setTimeout(() => {
+        // Update timestamp
+        const now = new Date();
+        document.getElementById('lastUpdated').textContent = now.toLocaleString();
+        
+        // Reset to current state
+        switch(drillState.currentLevel) {
+          case 1:
+            initBrandView();
+            break;
+          case 2:
+            drillToBrand(drillState.brand);
+            break;
+          case 3:
+            drillToCategory(drillState.category);
+            break;
+          case 4:
+            drillToProduct(drillState.product);
+            break;
+        }
+        
+        // Re-enable button
+        button.disabled = false;
+        button.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Refresh Data';
+        
+        // Show success message
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success alert-dismissible fade show';
+        alertDiv.innerHTML = `
+          <i class="fas fa-check-circle me-2"></i>
+          Dashboard refreshed successfully.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        document.querySelector('main').insertBefore(alertDiv, document.querySelector('main').firstChild);
+        
+        // Auto-dismiss after 3 seconds
+        setTimeout(() => {
+          const bsAlert = new bootstrap.Alert(alertDiv);
+          bsAlert.close();
+        }, 3000);
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "version": "v2.4.0",
+    "generatedAt": "2025-05-22T10:30:00Z",
+    "dataSource": "simulated"
+  },
+  "insights": [
+    {
+      "id": "ins_001",
+      "type": "trend",
+      "category": "sales",
+      "title": "Rising Product Category",
+      "description": "Personal care products have shown a 15% increase in sales over the last quarter, significantly outperforming other categories.",
+      "confidence": 0.92,
+      "relevance": "high",
+      "actionable": true,
+      "relatedEntities": ["personal_care", "Q2_2025"]
+    },
+    {
+      "id": "ins_002",
+      "type": "anomaly",
+      "category": "inventory",
+      "title": "Unusual Stock Depletion",
+      "description": "Store #1052 is experiencing unusually rapid depletion of dairy products compared to historical patterns and nearby stores.",
+      "confidence": 0.87,
+      "relevance": "medium",
+      "actionable": true,
+      "relatedEntities": ["store_1052", "dairy", "inventory_alert"]
+    },
+    {
+      "id": "ins_003",
+      "type": "correlation",
+      "category": "marketing",
+      "title": "Promotion Effectiveness",
+      "description": "Digital coupon campaigns show 1.8x higher conversion rates than print media for the 18-34 demographic across all regions.",
+      "confidence": 0.95,
+      "relevance": "high",
+      "actionable": true,
+      "relatedEntities": ["digital_coupons", "print_media", "demographics_18_34"]
+    }
+  ]
+}

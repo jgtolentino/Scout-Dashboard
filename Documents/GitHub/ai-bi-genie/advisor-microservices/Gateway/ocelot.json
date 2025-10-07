@@ -1,0 +1,162 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "advisor-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/advisor/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 60,
+        "Limit": 100
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5000,
+        "TimeoutValue": 10000
+      },
+      "CacheOptions": {
+        "TtlSeconds": 300,
+        "Region": "advisor-cache"
+      },
+      "Key": "advisor-api"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "resource-graph-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/resources/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 60,
+        "Limit": 200
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5000,
+        "TimeoutValue": 15000
+      },
+      "Key": "resource-graph-api"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "metrics-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/metrics/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 60,
+        "Limit": 500
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 5,
+        "DurationOfBreak": 3000,
+        "TimeoutValue": 8000
+      },
+      "CacheOptions": {
+        "TtlSeconds": 60,
+        "Region": "metrics-cache"
+      },
+      "Key": "metrics-api"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "streamlit-app",
+          "Port": 8501
+        }
+      ],
+      "UpstreamPathTemplate": "/dashboard/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "Key": "streamlit-dashboard"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://ai-bi-genie-gateway.azurefd.net",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Rate limit exceeded. Please try again later.",
+      "HttpStatusCode": 429,
+      "ClientIdHeader": "X-Client-Id"
+    },
+    "QoSOptions": {
+      "ExceptionsAllowedBeforeBreaking": 3,
+      "DurationOfBreak": 5000,
+      "TimeoutValue": 10000
+    },
+    "LoadBalancerOptions": {
+      "Type": "RoundRobin",
+      "Key": "ServiceName",
+      "Expiry": 300000
+    },
+    "HttpHandlerOptions": {
+      "AllowAutoRedirect": false,
+      "UseCookieContainer": false,
+      "UseTracing": true,
+      "UseProxy": true,
+      "MaxConnectionsPerServer": 100
+    },
+    "ServiceDiscoveryProvider": {
+      "Scheme": "http",
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "Consul",
+      "Token": "MyToken",
+      "ConfigurationKey": "AI-BI-Genie",
+      "PollingInterval": 100,
+      "Namespace": "ai-bi-genie"
+    },
+    "RequestIdKey": "X-Request-ID",
+    "DownstreamScheme": "http"
+  }
+}

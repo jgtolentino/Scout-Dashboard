@@ -1,0 +1,101 @@
+name: Process Signed ZIP
+
+on:
+  workflow_dispatch:
+    inputs:
+      signed_url:
+        description: "Supabase signed URL to a .zip/.jsonl/.json under scout-ingest"
+        required: true
+        type: string
+        default: "https://cxzllzyxwpyptfretryc.supabase.co/storage/v1/object/sign/scout-ingest/edge-inbox/json.zip?token=..."
+      description:
+        description: "Optional description for this processing run"
+        required: false
+        type: string
+        default: "Manual ZIP processing via GitHub Actions"
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    env:
+      FUNCTIONS_BASE: https://cxzllzyxwpyptfretryc.functions.supabase.co
+    steps:
+      - name: Validate Input
+        run: |
+          URL="${{ github.event.inputs.signed_url }}"
+          echo "🔍 Validating signed URL..."
+          echo "URL: $URL"
+          
+          # Basic URL validation
+          if [[ ! "$URL" =~ ^https://cxzllzyxwpyptfretryc\.supabase\.co/storage/v1/object/sign/scout-ingest/ ]]; then
+            echo "❌ Invalid URL format. Must be a signed URL for scout-ingest bucket."
+            exit 1
+          fi
+          
+          echo "✅ URL format validation passed"
+
+      - name: Process via Edge Function
+        id: process
+        run: |
+          echo "🚀 Processing signed ZIP via Edge Function..."
+          echo "📁 Description: ${{ github.event.inputs.description }}"
+          echo ""
+          
+          RESPONSE=$(curl -fsS -X POST "$FUNCTIONS_BASE/process-signed-zip" \
+            -H "Content-Type: application/json" \
+            -d "{\"signed_url\":\"${{ github.event.inputs.signed_url }}\"}")
+          
+          echo "📥 Response:"
+          echo "$RESPONSE" | jq '.'
+          
+          # Parse response
+          SUCCESS=$(echo "$RESPONSE" | jq -r '.success // false')
+          if [ "$SUCCESS" = "true" ]; then
+            STAGED=$(echo "$RESPONSE" | jq -r '.staged // 0')
+            INSERTED=$(echo "$RESPONSE" | jq -r '.inserted // 0')
+            FILE_SIZE=$(echo "$RESPONSE" | jq -r '.file_size // 0')
+            
+            echo ""
+            echo "✅ Processing completed successfully!"
+            echo "📊 Results:"
+            echo "   • File size: $(numfmt --to=iec --suffix=B $FILE_SIZE)"
+            echo "   • Records staged: $STAGED"
+            echo "   • Records inserted to bronze: $INSERTED"
+            
+            # Set outputs for follow-up steps
+            echo "staged=$STAGED" >> $GITHUB_OUTPUT
+            echo "inserted=$INSERTED" >> $GITHUB_OUTPUT
+            echo "file_size=$FILE_SIZE" >> $GITHUB_OUTPUT
+          else
+            ERROR=$(echo "$RESPONSE" | jq -r '.error // "Unknown error"')
+            echo ""
+            echo "❌ Processing failed!"
+            echo "Error: $ERROR"
+            exit 1
+          fi
+
+      - name: Process to Silver Layer
+        if: steps.process.outputs.inserted > 0
+        run: |
+          echo "🔄 Processing bronze → silver transformation..."
+          
+          # This would typically be done via another Edge Function or RPC call
+          echo "Bronze records available: ${{ steps.process.outputs.inserted }}"
+          echo "Silver processing would happen here (via scheduled job or trigger)"
+          
+          echo "✅ Bronze layer populated - ready for silver processing"
+
+      - name: Summary
+        run: |
+          echo ""
+          echo "🎉 PROCESSING SUMMARY"
+          echo "===================="
+          echo "📁 Source: ${{ github.event.inputs.signed_url }}"
+          echo "📊 Staged: ${{ steps.process.outputs.staged }}"
+          echo "💾 Inserted: ${{ steps.process.outputs.inserted }}"
+          echo "📏 File Size: $(numfmt --to=iec --suffix=B ${{ steps.process.outputs.file_size }})"
+          echo ""
+          echo "🔗 Next steps:"
+          echo "• Check bronze layer: SELECT COUNT(*) FROM scout.bronze_edge_raw WHERE ingested_at >= NOW() - INTERVAL '10 minutes';"
+          echo "• Process to silver: SELECT scout.process_bronze_to_silver();"
+          echo "• View gold metrics: SELECT * FROM scout.gold_daily_revenue ORDER BY date DESC LIMIT 7;"

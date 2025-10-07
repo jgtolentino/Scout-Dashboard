@@ -1,0 +1,34 @@
+{
+  "salesByRegion": [
+    { "region": "North", "value": 4200 },
+    { "region": "South", "value": 3500 },
+    { "region": "East", "value": 5100 },
+    { "region": "West", "value": 6200 }
+  ],
+  "salesByCategory": [
+    { "category": "Electronics", "value": 7500 },
+    { "category": "Clothing", "value": 4800 },
+    { "category": "Food", "value": 3200 },
+    { "category": "Home", "value": 3600 }
+  ],
+  "salesTrend": [
+    { "month": "Jan", "value": 7200 },
+    { "month": "Feb", "value": 6800 },
+    { "month": "Mar", "value": 8100 },
+    { "month": "Apr", "value": 8900 },
+    { "month": "May", "value": 9300 },
+    { "month": "Jun", "value": 10200 },
+    { "month": "Jul", "value": 11500 },
+    { "month": "Aug", "value": 12100 },
+    { "month": "Sep", "value": 11800 },
+    { "month": "Oct", "value": 10900 },
+    { "month": "Nov", "value": 11200 },
+    { "month": "Dec", "value": 12800 }
+  ],
+  "kpis": {
+    "totalSales": 982500,
+    "averageOrder": 125,
+    "customerCount": 31456,
+    "conversionRate": "8.72"
+  }
+}

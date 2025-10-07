@@ -1,0 +1,93 @@
+{
+  "timestamp": "2025-05-12T16:22:08.214Z",
+  "diagram_path": "/Users/tbwa/Downloads/Updated_project_scout_with_genai.drawio",
+  "output_directory": "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images",
+  "checks": [
+    {
+      "category": "Setup",
+      "name": "Directory Structure",
+      "result": "pass",
+      "details": {
+        "directories": [
+          "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images",
+          "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images/archive",
+          "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/architecture_src"
+        ]
+      }
+    },
+    {
+      "category": "Setup",
+      "name": "Diagram Archiving",
+      "result": "pass",
+      "details": {
+        "source": "/Users/tbwa/Downloads/Updated_project_scout_with_genai.drawio",
+        "destination": "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/architecture_src/Updated_project_scout_with_genai.drawio"
+      }
+    },
+    {
+      "category": "Structure",
+      "name": "Component Labeling",
+      "result": "pass",
+      "details": "30 labeled components out of 33 total shapes (91% labeled)"
+    },
+    {
+      "category": "Structure",
+      "name": "Component Connections",
+      "result": "pass",
+      "details": "25 connections found (minimum expected: 5)"
+    },
+    {
+      "category": "Structure",
+      "name": "Medallion Layer Structure",
+      "result": "pass",
+      "details": "Found 4 layers: bronze, silver, gold, platinum"
+    },
+    {
+      "category": "Style",
+      "name": "Visual Consistency",
+      "result": "pass",
+      "details": "Using 32 distinct styles (good)"
+    },
+    {
+      "category": "Structure",
+      "name": "Overall Structure",
+      "result": "pass",
+      "details": {
+        "vertices": 33,
+        "edges": 25,
+        "textElements": 30,
+        "layersIdentified": [
+          "bronze",
+          "silver",
+          "gold",
+          "platinum"
+        ]
+      }
+    },
+    {
+      "category": "Tools",
+      "name": "draw.io CLI",
+      "result": "warning",
+      "details": "draw.io CLI not found - manual export required"
+    },
+    {
+      "category": "Exports",
+      "name": "Generated Exports",
+      "result": "warning",
+      "details": "Manual export required"
+    },
+    {
+      "category": "Visual",
+      "name": "Render Check",
+      "result": "warning",
+      "details": "Failed to take screenshot of rendered diagram"
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "passed": 7,
+    "warnings": 3,
+    "failed": 0
+  },
+  "exports": []
+}

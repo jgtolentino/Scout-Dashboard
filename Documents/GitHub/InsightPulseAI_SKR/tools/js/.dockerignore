@@ -1,0 +1,36 @@
+# Node.js dependencies
+node_modules
+npm-debug.log
+
+# Development files
+.git
+.github
+.gitignore
+.eslintrc
+.prettierrc
+*.md
+!README.md
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+coverage
+.nyc_output
+dist
+build
+
+# Environment files
+.env
+.env.*
+
+# Test files
+__tests__
+*.test.js
+*.spec.js
+
+# Other
+*.log
+.vscode
+.idea

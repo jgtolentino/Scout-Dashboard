@@ -1,0 +1,395 @@
+name: DeepSiteRunner
+alias: deepsite_runner
+version: "1.0.0"
+description: |
+  Local deployment agent for the Hugging Face DeepSite AI website builder.
+  Provides secure offline deployment with .env injection for local inference.
+  Integrates with creative app building workflows.
+
+agent:
+  type: system_executor
+  model: claude-3-5-sonnet
+  temperature: 0.1
+  max_tokens: 2000
+
+permissions:
+  - read:env
+  - write:temp
+  - execute:bash
+  - clone:git
+
+environment:
+  HUGGINGFACEHUB_API_TOKEN: ${HUGGINGFACEHUB_API_TOKEN}
+  PYTHON_VERSION: ${PYTHON_VERSION:-python3}
+  VENV_PATH: ${VENV_PATH:-/tmp/deepsite_venv}
+  DEEPSITE_PATH: ${DEEPSITE_PATH:-/tmp/deep_site_local}
+
+capabilities:
+  - huggingface_space_cloning
+  - python_environment_setup
+  - streamlit_deployment
+  - secure_token_injection
+  - local_ai_inference
+
+inputs:
+  - name: hf_space_repo
+    type: string
+    description: Hugging Face Space repository URL
+    required: false
+    default: "https://huggingface.co/spaces/enzostvs/deepsite"
+  - name: deployment_port
+    type: integer
+    description: Port for local deployment
+    required: false
+    default: 8501
+  - name: auto_open_browser
+    type: boolean
+    description: Automatically open browser after deployment
+    required: false
+    default: true
+  - name: cleanup_existing
+    type: boolean
+    description: Clean up existing installation
+    required: false
+    default: false
+
+outputs:
+  - name: deployment_url
+    type: string
+    description: Local deployment URL
+  - name: deployment_status
+    type: string
+    description: Status of deployment
+  - name: log_output
+    type: string
+    description: Installation and deployment logs
+
+routes:
+  - match: ":setup*"
+    handler: setup_deepsite_handler
+    description: Setup and deploy DeepSite locally
+  - match: ":deploy*"
+    handler: deploy_deepsite_handler
+    description: Deploy existing DeepSite installation
+  - match: ":cleanup*"
+    handler: cleanup_deepsite_handler
+    description: Clean up DeepSite installation
+
+handlers:
+  setup_deepsite_handler: |
+    import os
+    import subprocess
+    import sys
+    from pathlib import Path
+    
+    def run(hf_space_repo=None, deployment_port=8501, auto_open_browser=True, cleanup_existing=False):
+        if hf_space_repo is None:
+            hf_space_repo = "https://huggingface.co/spaces/enzostvs/deepsite"
+        
+        deepsite_path = os.getenv("DEEPSITE_PATH", "/tmp/deep_site_local")
+        venv_path = os.getenv("VENV_PATH", "/tmp/deepsite_venv")
+        hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+        
+        if not hf_token:
+            return {
+                "deployment_url": None,
+                "deployment_status": "failed",
+                "log_output": "❌ HUGGINGFACEHUB_API_TOKEN not found in environment"
+            }
+        
+        logs = []
+        
+        try:
+            # Cleanup existing installation if requested
+            if cleanup_existing:
+                logs.append("🧹 Cleaning up existing installation...")
+                subprocess.run(["rm", "-rf", deepsite_path], check=False)
+                subprocess.run(["rm", "-rf", venv_path], check=False)
+            
+            # Clone DeepSite repository
+            logs.append("🚀 Cloning DeepSite Hugging Face Space...")
+            if not os.path.exists(deepsite_path):
+                result = subprocess.run([
+                    "git", "clone", hf_space_repo, deepsite_path
+                ], capture_output=True, text=True)
+                
+                if result.returncode != 0:
+                    logs.append(f"❌ Git clone failed: {result.stderr}")
+                    return {
+                        "deployment_url": None,
+                        "deployment_status": "failed",
+                        "log_output": "\\n".join(logs)
+                    }
+                logs.append("✅ Repository cloned successfully")
+            else:
+                logs.append("ℹ️ Repository already exists, skipping clone")
+            
+            # Create .env file with secure token
+            logs.append("🔒 Injecting secure Hugging Face token...")
+            env_file = os.path.join(deepsite_path, ".env")
+            with open(env_file, "w") as f:
+                f.write(f"HUGGINGFACEHUB_API_TOKEN={hf_token}\\n")
+                f.write(f"PORT={deployment_port}\\n")
+            logs.append("✅ Environment file created")
+            
+            # Create Python virtual environment
+            logs.append("🐍 Creating virtual environment...")
+            if not os.path.exists(venv_path):
+                result = subprocess.run([
+                    sys.executable, "-m", "venv", venv_path
+                ], capture_output=True, text=True)
+                
+                if result.returncode != 0:
+                    logs.append(f"❌ Virtual environment creation failed: {result.stderr}")
+                    return {
+                        "deployment_url": None,
+                        "deployment_status": "failed",
+                        "log_output": "\\n".join(logs)
+                    }
+                logs.append("✅ Virtual environment created")
+            else:
+                logs.append("ℹ️ Virtual environment already exists")
+            
+            # Install dependencies
+            logs.append("📦 Installing dependencies...")
+            pip_path = os.path.join(venv_path, "bin", "pip")
+            requirements_path = os.path.join(deepsite_path, "requirements.txt")
+            
+            if os.path.exists(requirements_path):
+                result = subprocess.run([
+                    pip_path, "install", "-r", requirements_path
+                ], capture_output=True, text=True, cwd=deepsite_path)
+                
+                if result.returncode != 0:
+                    logs.append(f"❌ Dependency installation failed: {result.stderr}")
+                    return {
+                        "deployment_url": None,
+                        "deployment_status": "failed",
+                        "log_output": "\\n".join(logs)
+                    }
+                logs.append("✅ Dependencies installed successfully")
+            else:
+                # Install basic requirements if no requirements.txt
+                basic_deps = ["streamlit", "gradio", "huggingface_hub", "transformers"]
+                for dep in basic_deps:
+                    subprocess.run([pip_path, "install", dep], capture_output=True)
+                logs.append("✅ Basic dependencies installed")
+            
+            # Deploy the application
+            logs.append("🚀 Starting DeepSite deployment...")
+            deployment_url = f"http://localhost:{deployment_port}"
+            
+            # Find the main application file
+            app_files = ["app.py", "main.py", "streamlit_app.py", "gradio_app.py"]
+            app_file = None
+            
+            for file in app_files:
+                if os.path.exists(os.path.join(deepsite_path, file)):
+                    app_file = file
+                    break
+            
+            if not app_file:
+                logs.append("❌ No application entrypoint found")
+                return {
+                    "deployment_url": None,
+                    "deployment_status": "failed",
+                    "log_output": "\\n".join(logs)
+                }
+            
+            # Start the application (non-blocking)
+            python_path = os.path.join(venv_path, "bin", "python")
+            
+            if "streamlit" in app_file or app_file == "app.py":
+                cmd = [python_path, "-m", "streamlit", "run", app_file, "--server.port", str(deployment_port)]
+            elif "gradio" in app_file:
+                cmd = [python_path, app_file]
+            else:
+                cmd = [python_path, app_file]
+            
+            logs.append(f"🏃 Starting application with command: {' '.join(cmd)}")
+            
+            # Start process in background
+            process = subprocess.Popen(
+                cmd, 
+                cwd=deepsite_path,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            
+            # Wait a moment to check if it started successfully
+            import time
+            time.sleep(3)
+            
+            if process.poll() is None:
+                logs.append(f"✅ DeepSite deployed successfully at {deployment_url}")
+                
+                # Auto-open browser if requested
+                if auto_open_browser:
+                    try:
+                        import webbrowser
+                        webbrowser.open(deployment_url)
+                        logs.append("🌐 Browser opened automatically")
+                    except:
+                        logs.append("⚠️ Could not open browser automatically")
+                
+                return {
+                    "deployment_url": deployment_url,
+                    "deployment_status": "success",
+                    "log_output": "\\n".join(logs)
+                }
+            else:
+                stdout, stderr = process.communicate()
+                logs.append(f"❌ Application failed to start: {stderr}")
+                return {
+                    "deployment_url": None,
+                    "deployment_status": "failed",
+                    "log_output": "\\n".join(logs)
+                }
+                
+        except Exception as e:
+            logs.append(f"❌ Unexpected error: {str(e)}")
+            return {
+                "deployment_url": None,
+                "deployment_status": "failed",
+                "log_output": "\\n".join(logs)
+            }
+
+  deploy_deepsite_handler: |
+    import os
+    import subprocess
+    import sys
+    
+    def run(deployment_port=8501, auto_open_browser=True):
+        deepsite_path = os.getenv("DEEPSITE_PATH", "/tmp/deep_site_local")
+        venv_path = os.getenv("VENV_PATH", "/tmp/deepsite_venv")
+        
+        if not os.path.exists(deepsite_path):
+            return {
+                "deployment_url": None,
+                "deployment_status": "failed",
+                "log_output": "❌ DeepSite not found. Run :setup first."
+            }
+        
+        logs = ["🚀 Deploying existing DeepSite installation..."]
+        
+        try:
+            # Find application file
+            app_files = ["app.py", "main.py", "streamlit_app.py", "gradio_app.py"]
+            app_file = None
+            
+            for file in app_files:
+                if os.path.exists(os.path.join(deepsite_path, file)):
+                    app_file = file
+                    break
+            
+            if not app_file:
+                return {
+                    "deployment_url": None,
+                    "deployment_status": "failed",
+                    "log_output": "❌ No application entrypoint found"
+                }
+            
+            # Start deployment
+            python_path = os.path.join(venv_path, "bin", "python")
+            deployment_url = f"http://localhost:{deployment_port}"
+            
+            if "streamlit" in app_file or app_file == "app.py":
+                cmd = [python_path, "-m", "streamlit", "run", app_file, "--server.port", str(deployment_port)]
+            else:
+                cmd = [python_path, app_file]
+            
+            logs.append(f"🏃 Starting: {' '.join(cmd)}")
+            
+            process = subprocess.Popen(
+                cmd,
+                cwd=deepsite_path,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            
+            # Auto-open browser
+            if auto_open_browser:
+                try:
+                    import webbrowser
+                    webbrowser.open(deployment_url)
+                    logs.append("🌐 Browser opened")
+                except:
+                    pass
+            
+            logs.append(f"✅ DeepSite running at {deployment_url}")
+            
+            return {
+                "deployment_url": deployment_url,
+                "deployment_status": "success",
+                "log_output": "\\n".join(logs)
+            }
+            
+        except Exception as e:
+            return {
+                "deployment_url": None,
+                "deployment_status": "failed",
+                "log_output": f"❌ Deployment failed: {str(e)}"
+            }
+
+  cleanup_deepsite_handler: |
+    import os
+    import subprocess
+    import shutil
+    
+    def run():
+        deepsite_path = os.getenv("DEEPSITE_PATH", "/tmp/deep_site_local")
+        venv_path = os.getenv("VENV_PATH", "/tmp/deepsite_venv")
+        
+        logs = ["🧹 Cleaning up DeepSite installation..."]
+        
+        try:
+            # Remove directories
+            if os.path.exists(deepsite_path):
+                shutil.rmtree(deepsite_path)
+                logs.append("✅ DeepSite directory removed")
+            
+            if os.path.exists(venv_path):
+                shutil.rmtree(venv_path)
+                logs.append("✅ Virtual environment removed")
+            
+            logs.append("✅ Cleanup completed successfully")
+            
+            return {
+                "deployment_url": None,
+                "deployment_status": "cleaned",
+                "log_output": "\\n".join(logs)
+            }
+            
+        except Exception as e:
+            return {
+                "deployment_url": None,
+                "deployment_status": "failed",
+                "log_output": f"❌ Cleanup failed: {str(e)}"
+            }
+
+config:
+  default_port: 8501
+  supported_frameworks:
+    - streamlit
+    - gradio
+    - flask
+    - fastapi
+  timeout: 300
+  retry_attempts: 3
+
+integration:
+  creative_app_workflow: true
+  app_genie: true
+  auto_deploy: false
+  bruno_safe: true
+
+workflows:
+  - name: setup_and_deploy
+    steps:
+      - setup_deepsite_handler
+      - deploy_deepsite_handler
+  - name: quick_deploy
+    steps:
+      - deploy_deepsite_handler

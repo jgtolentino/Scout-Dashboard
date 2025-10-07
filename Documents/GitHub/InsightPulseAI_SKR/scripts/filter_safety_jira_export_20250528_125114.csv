@@ -1,0 +1,21 @@
+Summary,Issue Type,Description,Component,Labels,Priority,Assignee,Epic,Story Points
+Fix unsafe .length access in FilterContext.tsx,Bug,Add optional chaining (?.) to all .length uses in FilterContext.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",High,,Filter Safety Hardening,2
+Fix unsafe .length access in ConsumerInsights.tsx,Bug,Add optional chaining (?.) to all .length uses in ConsumerInsights.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",High,,Filter Safety Hardening,2
+Fix unsafe .length access in ProductMixFilters.tsx,Bug,Add optional chaining (?.) to all .length uses in ProductMixFilters.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",High,,Filter Safety Hardening,2
+Fix Array.from wrapper removal in ProductMixFilters.tsx,Task,Replace Array.from wrappers with direct assignment where safe in ProductMixFilters.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",Medium,,Filter Safety Hardening,1
+Fix Array.from wrapper removal in FilterSummary.tsx,Task,Replace Array.from wrappers with direct assignment where safe in FilterSummary.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",Medium,,Filter Safety Hardening,1
+Fix unsafe .map calls in ConsumerInsights.tsx,Bug,Update all .map calls to use ?.map for null-safety in ConsumerInsights.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",High,,Filter Safety Hardening,2
+Fix unsafe .map calls in PurchasePatterns.tsx,Bug,Update all .map calls to use ?.map for null-safety in PurchasePatterns.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",High,,Filter Safety Hardening,2
+Fix unsafe .map calls in charts/*.tsx,Bug,Update all .map calls to use ?.map for null-safety in charts/*.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",High,,Filter Safety Hardening,2
+Fix filter reset edge cases in FilterContext.tsx,Bug,Handle undefined/null in filter reset scenarios in FilterContext.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",High,,Filter Safety Hardening,2
+Fix filter reset edge cases in types/filters.ts,Bug,Handle undefined/null in filter reset scenarios in types/filters.ts to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",High,,Filter Safety Hardening,2
+Fix console.error cleanup in ErrorBoundary.tsx,Task,Replace console.error with proper error handling in ErrorBoundary.tsx to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",Medium,,Filter Safety Hardening,1
+Fix console.error cleanup in useSupabaseQuery.ts,Task,Replace console.error with proper error handling in useSupabaseQuery.ts to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",Medium,,Filter Safety Hardening,1
+Fix console.error cleanup in dashboard.ts,Task,Replace console.error with proper error handling in dashboard.ts to prevent runtime errors.,Filter Safety,"filter-hardening,sprint-3.5",Medium,,Filter Safety Hardening,1
+Implement RFM Customer Segmentation,Story,"Implement Recency, Frequency, Monetary customer segments",Analytics,"sprint-3.5,feature",High,,Customer Analytics Enhancement,5
+Implement Loyalty Score Dashboard,Feature,Create loyalty metrics and scoring visualization,Consumer Insights,"sprint-3.5,feature",Medium,,Customer Analytics Enhancement,3
+Implement Churn Prediction Interface,Story,Build UI for churn risk indicators and predictions,Analytics,"sprint-3.5,feature",Medium,,Customer Analytics Enhancement,5
+Implement Drill-through Analytics,Feature,Connect segment views to detailed customer analytics,Analytics,"sprint-3.5,feature",Medium,,Customer Analytics Enhancement,3
+Achieve 100% test coverage for FilterContext,Task,Write comprehensive tests for all filter mutations and edge cases,Filter Safety,"test,coverage,filter-hardening",High,,Filter Safety Hardening,3
+Document filter reset edge cases,Task,Create technical documentation for all filter reset scenarios and state transitions,Docs,"filter-hardening,docs",Medium,,Filter Safety Hardening,2
+Set up automated filter safety linting,Task,Configure ESLint rules to catch unsafe array access patterns,DevOps,"automation,filter-hardening",Medium,,Filter Safety Hardening,2

@@ -1,0 +1,36 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Get the list of staged files
+files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx)$')
+
+if [ -n "$files" ]; then
+  # Run ESLint on staged files
+  echo "Running ESLint on staged files..."
+  npx eslint --fix $files
+  
+  # Run Prettier on staged files
+  echo "Running Prettier on staged files..."
+  npx prettier --write $files
+  
+  # Add back the fixed files to staging
+  git add $files
+fi
+
+# Run schema validation on staticwebapp.config.json files
+echo "Validating schemas..."
+for config_file in $(git diff --cached --name-only | grep staticwebapp.config.json); do
+  if [ -f "$config_file" ]; then
+    echo "Validating $config_file..."
+    npx ajv validate -s schemas/staticwebapp.schema.json -d $config_file || exit 1
+  fi
+done
+
+# Run tests
+echo "Running tests..."
+npm test || { 
+  echo "Tests failed. Commit aborted."; 
+  exit 1; 
+}
+
+exit 0

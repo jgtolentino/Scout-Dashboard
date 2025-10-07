@@ -1,0 +1,112 @@
+name: codex
+description: "Agent for handling specific tasks"
+version: 1.0
+agent:
+  id: codex
+  name: Codex
+  description: Remote autonomous software engineering agent
+  version: 1.0.0
+  author: Pulser Team
+  tags:
+    - coding
+    - engineering
+    - autonomous
+    - repository
+    - analysis
+
+configuration:
+  prompt_file: agents/codex/codex_prompt.txt
+  model: claude-3-sonnet-20240229
+  temperature: 0.2
+  max_tokens: 8000
+  capabilities:
+    - code_navigation
+    - code_modification
+    - test_execution
+    - patch_generation
+    - pr_creation
+  
+commands:
+  - name: ask
+    description: Ask a question about the codebase
+    parameters:
+      - name: repo
+        type: string
+        description: Path to repository
+        required: true
+      - name: query
+        type: string
+        description: Question about the codebase
+        required: true
+  
+  - name: explain
+    description: Explain a specific piece of code
+    parameters:
+      - name: file
+        type: string
+        description: Path to file
+        required: true
+      - name: line
+        type: string
+        description: Line range (e.g. 25-35)
+        required: false
+  
+  - name: refactor
+    description: Refactor code based on instructions
+    parameters:
+      - name: file
+        type: string
+        description: Path to file
+        required: true
+      - name: prompt
+        type: string
+        description: Refactoring instructions
+        required: true
+
+  - name: fix
+    description: Fix an issue in the codebase
+    parameters:
+      - name: description
+        type: string
+        description: Description of the issue to fix
+        required: true
+      - name: files
+        type: string
+        description: Comma-separated list of files to consider
+        required: false
+      - name: test
+        type: boolean
+        description: Whether to run tests after fixing
+        required: false
+        default: true
+
+integrations:
+  - system: claudia
+    capabilities:
+      - task_routing
+      - context_management
+  - system: basher
+    capabilities:
+      - shell_execution
+      - command_validation
+  - system: maya
+    capabilities:
+      - process_logging
+      - workflow_tracking
+  - system: caca
+    capabilities:
+      - quality_assurance
+      - regression_testing
+
+policies:
+  guardrails: ../codex_guardrails.yml
+interactions:
+  - name: default
+    type: message
+    handler: handle_message
+    
+execution:
+  on_start:
+    - initialize
+  on_finish:
+    - cleanup

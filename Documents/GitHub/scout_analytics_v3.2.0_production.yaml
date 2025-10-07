@@ -1,0 +1,91 @@
+---
+# Scout Analytics Dashboard v3.2.0 - Production Specification
+# Clean promotion: v2.1 → v3.2.0 (v3.1 skipped entirely)
+
+metadata:
+  name: scout-analytics-dashboard
+  version: "3.2.0"
+  description: "AI-Powered Retail Intelligence Platform - Production Ready"
+  promotion_date: "2025-06-16"
+  baseline: "v2.1 stable branch"
+  deployment_url: "https://scout-mvp.vercel.app"
+  
+upgrade_path:
+  from: "v2.1"
+  to: "v3.2.0"
+  skip_versions: ["v3.1"]
+  strategy: "clean_promotion"
+  
+verification:
+  production_url: "https://scout-mvp.vercel.app"
+  content_size: "35KB"
+  loading_checks: "✅ No loading spinners detected"
+  functionality: "✅ Full dashboard operational"
+  
+components:
+  layout:
+    source: "Cruip UI from v2.1 stable"
+    status: "restored"
+    navigation: "sidebar retained from v2.1"
+    
+  kpi_cards:
+    source: "v2.1 baseline"
+    enhancement: "guarded with fallback loader"
+    status: "production_ready"
+    
+  ai_agents:
+    retailbot: "re-enabled with production response testing"
+    learnbot: "integrated tooltip module + page help"
+    vibetestbot: "optional QA view, hidden by default"
+    
+  database:
+    primary: "Supabase live queries"
+    fallback: "SKIP_DATA flag for safe mode"
+    rls_policies: "enabled"
+    
+  features:
+    ai_flags: "controlled via .env.production"
+    qa_validation: "KeyKey + Caca hooks activated"
+    error_handling: "ErrorBoundary.tsx implemented"
+    rehydration_safety: "layout test included"
+
+environment:
+  production:
+    skip_mock_data: true
+    layout_restore: true
+    safe_mode_fallback: true
+    enable_ai: true
+    fail_safe_ui: true
+    
+qa_modes:
+  keykey: "verify --env .env.production"
+  caca: "audit-ui --page all"
+  fallback_guards: "fallbackStats enabled"
+  error_boundaries: "ErrorBoundary.tsx active"
+  
+git_state:
+  repository: "https://github.com/jgtolentino/Creative-Campaign-Analysis-System.git"
+  current_branch: "release/v3.2.0"
+  baseline_commit: "ff5c1c2 (v2.1 stable)"
+  promotion_ready: true
+  tags_sequence: "v1.0.0 → v1.1.1 → v2.1.2 → [v3.2.0 pending]"
+  
+deployment:
+  provider: "vercel"
+  auto_deploy: true
+  build_command: "npm run build"
+  output_directory: "dist"
+  node_version: "18.x"
+  
+success_criteria:
+  ✅ site_loads: "without JavaScript errors"
+  ✅ main_heading: "visible and functional"
+  ✅ api_endpoints: "return data (not errors)"
+  ✅ build_size: "reasonable (<10MB)"
+  ✅ core_functionality: "dashboards + data visualization working"
+  ✅ ai_integration: "RetailBot, LearnBot operational"
+  ✅ fallback_safety: "graceful degradation implemented"
+
+final_status: "PRODUCTION_VERIFIED"
+lock_version: "v3.2.0"
+promotion_complete: true

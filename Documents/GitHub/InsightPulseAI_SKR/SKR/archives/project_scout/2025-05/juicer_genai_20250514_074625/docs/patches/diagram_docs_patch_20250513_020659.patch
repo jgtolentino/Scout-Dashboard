@@ -1,0 +1,67 @@
+# Architecture Diagram Documentation Patch
+# Generated: Tue 13 May 2025 02:06:59 PST
+# Diagram: AZURE_ARCHITECTURE_PRO
+#
+# This patch updates documentation files with references to the new architecture diagram.
+# Apply with: patch -p0 < /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/patches/diagram_docs_patch_20250513_020659.patch
+
+--- /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/README_FINAL.md	2025-05-13 01:49:11
++++ docs/README_FINAL.md	2025-05-13 02:06:59
+@@ -79,6 +79,7 @@
+ - **v2.0** - Current version with GenAI Platinum layer integration
+ 
+ ## Architecture Diagram
++## Architecture Diagram
+ <!-- ARCHITECTURE_DIAGRAM_SECTION -->
+ 
+ <img src="docs/images/AZURE_ARCHITECTURE_PRO.svg" alt="Architecture Diagram" width="800">
+@@ -86,4 +87,9 @@
+ *Architecture diagram showing the Project Scout medallion data flow with GenAI integration*
+ 
+ [View full-size diagram](docs/images/AZURE_ARCHITECTURE_PRO.png) | [View SVG](docs/images/AZURE_ARCHITECTURE_PRO.svg)
++<img src="docs/images/AZURE_ARCHITECTURE_PRO.svg" alt="Architecture Diagram" width="800">
+ 
++*Architecture diagram showing the Project Scout medallion data flow with GenAI integration*
++
++[View full-size diagram](docs/images/AZURE_ARCHITECTURE_PRO.png) | [View SVG](docs/images/AZURE_ARCHITECTURE_PRO.svg)
++
+--- /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/STAKEHOLDER_BRIEF.md	2025-05-13 01:49:11
++++ docs/STAKEHOLDER_BRIEF.md	2025-05-13 02:06:59
+@@ -103,6 +103,7 @@
+ 
+ *This document is intended for stakeholders and provides a high-level overview of the Juicer GenAI Insights system. For technical details, please refer to the documentation provided in the project repository.*
+ ## System Architecture
++## System Architecture
+ <!-- SYSTEM_ARCHITECTURE_SECTION -->
+ 
+ <img src="docs/images/AZURE_ARCHITECTURE_PRO.svg" alt="Architecture Diagram" width="800">
+@@ -110,4 +111,9 @@
+ *Architecture diagram showing the Project Scout medallion data flow with GenAI integration*
+ 
+ [View full-size diagram](docs/images/AZURE_ARCHITECTURE_PRO.png) | [View SVG](docs/images/AZURE_ARCHITECTURE_PRO.svg)
++<img src="docs/images/AZURE_ARCHITECTURE_PRO.svg" alt="Architecture Diagram" width="800">
+ 
++*Architecture diagram showing the Project Scout medallion data flow with GenAI integration*
++
++[View full-size diagram](docs/images/AZURE_ARCHITECTURE_PRO.png) | [View SVG](docs/images/AZURE_ARCHITECTURE_PRO.svg)
++
+--- /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/QA_CHECKLIST_PROJECT_SCOUT.md	2025-05-13 01:49:11
++++ docs/QA_CHECKLIST_PROJECT_SCOUT.md	2025-05-13 02:06:59
+@@ -114,6 +114,7 @@
+ - [Azure Architecture Center](https://docs.microsoft.com/en-us/azure/architecture/)
+ - [Medallion Architecture Pattern](https://databricks.com/glossary/medallion-architecture)
+ ## QA Reference Diagram
++## QA Reference Diagram
+ <!-- QA_REFERENCE_DIAGRAM_SECTION -->
+ 
+ <img src="docs/images/AZURE_ARCHITECTURE_PRO.svg" alt="Architecture Diagram" width="800">
+@@ -121,4 +122,9 @@
+ *Architecture diagram showing the Project Scout medallion data flow with GenAI integration*
+ 
+ [View full-size diagram](docs/images/AZURE_ARCHITECTURE_PRO.png) | [View SVG](docs/images/AZURE_ARCHITECTURE_PRO.svg)
++<img src="docs/images/AZURE_ARCHITECTURE_PRO.svg" alt="Architecture Diagram" width="800">
+ 
++*Architecture diagram showing the Project Scout medallion data flow with GenAI integration*
++
++[View full-size diagram](docs/images/AZURE_ARCHITECTURE_PRO.png) | [View SVG](docs/images/AZURE_ARCHITECTURE_PRO.svg)
++

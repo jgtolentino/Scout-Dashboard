@@ -1,0 +1,54 @@
+{
+  "data": [
+    {
+      "id": "bm-001",
+      "brandName": "Coffee Supreme",
+      "storeId": "store-123",
+      "mentionCount": 245,
+      "sentimentScore": 0.78,
+      "mentionSource": "customer_feedback",
+      "date": "2025-05-12T00:00:00Z"
+    },
+    {
+      "id": "bm-002",
+      "brandName": "Premium Eats",
+      "storeId": "store-456",
+      "mentionCount": 189,
+      "sentimentScore": 0.65,
+      "mentionSource": "social_media",
+      "date": "2025-05-12T00:00:00Z"
+    },
+    {
+      "id": "bm-003",
+      "brandName": "Quick Bites",
+      "storeId": "store-789",
+      "mentionCount": 211,
+      "sentimentScore": 0.42,
+      "mentionSource": "customer_survey",
+      "date": "2025-05-12T00:00:00Z"
+    },
+    {
+      "id": "bm-004",
+      "brandName": "Coffee Supreme",
+      "storeId": "store-123",
+      "mentionCount": 132,
+      "sentimentScore": 0.81,
+      "mentionSource": "social_media",
+      "date": "2025-05-13T00:00:00Z"
+    },
+    {
+      "id": "bm-005",
+      "brandName": "Fresh Delights",
+      "storeId": "store-456",
+      "mentionCount": 156,
+      "sentimentScore": 0.72,
+      "mentionSource": "customer_feedback",
+      "date": "2025-05-13T00:00:00Z"
+    }
+  ],
+  "metadata": {
+    "totalCount": 5,
+    "source": "simulated",
+    "timestamp": "2025-05-14T10:00:00Z"
+  }
+}

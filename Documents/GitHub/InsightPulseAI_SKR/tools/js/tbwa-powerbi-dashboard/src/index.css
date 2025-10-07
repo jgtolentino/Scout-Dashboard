@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --tbwa-yellow: 255 207 0;
+    --tbwa-black: 0 0 0;
+  }
+}
+
+@layer components {
+  /* PowerBI-like card styling */
+  .chart-card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden transition-all;
+  }
+  
+  .chart-card-header {
+    @apply p-4 border-b border-gray-100 flex justify-between items-center;
+  }
+  
+  .chart-card-title {
+    @apply text-sm font-medium text-gray-700;
+  }
+  
+  .chart-card-body {
+    @apply p-4;
+  }
+  
+  /* PowerBI-like toggle styling */
+  .data-toggle {
+    @apply inline-flex rounded-md shadow-sm overflow-hidden;
+  }
+  
+  .data-toggle-option {
+    @apply px-3 py-1.5 text-sm font-medium border border-gray-300 first:rounded-l-md last:rounded-r-md;
+  }
+  
+  .data-toggle-option-selected {
+    @apply bg-tbwa-yellow text-black border-tbwa-yellow;
+  }
+  
+  .data-toggle-option-unselected {
+    @apply bg-white text-gray-700 hover:bg-gray-50;
+  }
+  
+  /* PowerBI-like button styling */
+  .btn-primary {
+    @apply bg-tbwa-yellow hover:bg-tbwa-yellow/90 text-black font-medium py-2 px-4 rounded;
+  }
+  
+  .btn-outline {
+    @apply border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded;
+  }
+  
+  /* PowerBI-like filter styling */
+  .filter-dropdown {
+    @apply relative bg-white border border-gray-300 rounded-md shadow-sm px-3 py-1.5 text-sm;
+  }
+  
+  /* PowerBI-like table styling */
+  .data-table {
+    @apply min-w-full divide-y divide-gray-200;
+  }
+  
+  .data-table-header {
+    @apply bg-gray-50;
+  }
+  
+  .data-table-header-cell {
+    @apply py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+  }
+  
+  .data-table-row {
+    @apply hover:bg-gray-50;
+  }
+  
+  .data-table-cell {
+    @apply py-3 px-4 text-sm text-gray-800 border-b border-gray-100;
+  }
+}

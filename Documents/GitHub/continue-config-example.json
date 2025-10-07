@@ -1,0 +1,121 @@
+{
+  "models": [
+    {
+      "title": "LM Studio - DeepSeek",
+      "provider": "lmstudio",
+      "model": "deepseek-r1:7b",
+      "apiBase": "http://localhost:1234/v1",
+      "contextLength": 4096,
+      "completionOptions": {
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "max_tokens": 2048
+      }
+    },
+    {
+      "title": "Ollama - CodeLlama",
+      "provider": "ollama",
+      "model": "codellama:7b",
+      "apiBase": "http://localhost:11434",
+      "contextLength": 4096
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "LM Studio Autocomplete",
+    "provider": "lmstudio",
+    "model": "AUTODETECT",
+    "apiBase": "http://localhost:1234/v1",
+    "completionOptions": {
+      "temperature": 0.2,
+      "max_tokens": 150
+    }
+  },
+  "telemetry": {
+    "enabled": false
+  },
+  "analytics": {
+    "enabled": false
+  },
+  "contextProviders": [
+    {
+      "name": "code",
+      "params": {
+        "maxChars": 10000
+      }
+    },
+    {
+      "name": "diff",
+      "params": {}
+    },
+    {
+      "name": "terminal",
+      "params": {
+        "maxLines": 100
+      }
+    },
+    {
+      "name": "problems",
+      "params": {}
+    },
+    {
+      "name": "folder",
+      "params": {}
+    }
+  ],
+  "slashCommands": [
+    {
+      "name": "edit",
+      "description": "Edit selected code"
+    },
+    {
+      "name": "comment",
+      "description": "Add comments to code"
+    },
+    {
+      "name": "share",
+      "description": "Export conversation"
+    },
+    {
+      "name": "cmd",
+      "description": "Generate terminal commands"
+    }
+  ],
+  "customCommands": [
+    {
+      "name": "test",
+      "prompt": "Write comprehensive unit tests for the selected code. Use the appropriate testing framework based on the language.",
+      "description": "Generate unit tests"
+    },
+    {
+      "name": "explain",
+      "prompt": "Explain the selected code in detail. Break down what it does, why it's written this way, and any potential improvements.",
+      "description": "Explain code functionality"
+    },
+    {
+      "name": "refactor",
+      "prompt": "Refactor the selected code to improve readability, performance, and maintainability. Explain the changes made.",
+      "description": "Improve code quality"
+    },
+    {
+      "name": "fix",
+      "prompt": "Debug and fix any issues in the selected code. Explain what was wrong and how you fixed it.",
+      "description": "Fix bugs in code"
+    },
+    {
+      "name": "document",
+      "prompt": "Add comprehensive documentation to the selected code including docstrings, type hints, and inline comments where appropriate.",
+      "description": "Add documentation"
+    }
+  ],
+  "allowAnonymousTelemetry": false,
+  "embeddingsProvider": {
+    "provider": "transformers.js"
+  },
+  "requestOptions": {
+    "timeout": 30000
+  },
+  "experimental": {
+    "quickActions": true,
+    "contextMenuCommands": true
+  }
+}

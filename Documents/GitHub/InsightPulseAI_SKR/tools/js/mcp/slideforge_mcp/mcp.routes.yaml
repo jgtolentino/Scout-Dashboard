@@ -1,0 +1,99 @@
+routes:
+  /generate_deck:
+    POST:
+      description: Generate a slide deck from a topic prompt
+      handler: agents/deckgen.agent.yaml
+      next: /render_slides
+      params:
+        - name: topic
+          type: string
+          required: true
+          description: The topic or description for the slide deck
+        - name: slides
+          type: integer
+          required: false
+          default: 5
+          description: Number of slides to generate
+        - name: output_file
+          type: string
+          required: false
+          description: Output filename (without extension)
+
+  /render_slides:
+    POST:
+      description: Render slide JSON into HTML/React components
+      handler: agents/slidebuilder.agent.yaml
+      next: /review_deck
+      params:
+        - name: filename
+          type: string
+          required: true
+          description: JSON file to render (without extension)
+        - name: template
+          type: string
+          required: false
+          default: default
+          description: Template style to use for rendering
+
+  /review_deck:
+    POST:
+      description: Review deck for tone, clarity, and improvements
+      handler: agents/feedback.agent.yaml
+      next: /publish_deck
+      params:
+        - name: filename
+          type: string
+          required: true
+          description: JSON file to review (without extension)
+        - name: focus_areas
+          type: array
+          required: false
+          default: ["tone", "clarity", "pacing"]
+          description: Areas to focus feedback on
+
+  /publish_deck:
+    POST:
+      description: Publish the deck as HTML, PDF, or other formats
+      handler: utils/publisher.py
+      params:
+        - name: filename
+          type: string
+          required: true
+          description: JSON file to publish (without extension)
+        - name: format
+          type: string
+          required: false
+          default: html
+          enum: [html, pdf, pptx]
+          description: Output format for publishing
+        - name: destination
+          type: string
+          required: false
+          default: local
+          enum: [local, vercel, s3]
+          description: Where to publish the deck
+
+  /edit_slide:
+    POST:
+      description: Edit a specific slide in a deck
+      handler: utils/slide_editor.py
+      params:
+        - name: filename
+          type: string
+          required: true
+          description: JSON file containing the deck
+        - name: slide_index
+          type: integer
+          required: true
+          description: Index of slide to edit (0-based)
+        - name: changes
+          type: object
+          required: true
+          description: Changes to apply to the slide
+
+webhooks:
+  # Define webhooks for external system integration
+  /webhook/vercel_deploy:
+    POST:
+      description: Handle Vercel deployment webhook
+      handler: utils/vercel_handler.py

@@ -1,0 +1,19 @@
+# Inside: /core/pulseops.yaml
+
+enabled_flows:
+  - aci_style_prompt_flow
+  - zoho_oauth_headless
+  - zoho_renew_token
+
+watchers:
+  - agent: claudepulser
+    action: auto_detect
+    notes: >
+      Actively listen for ACI-style prompt chains.
+      Defer to Claudia for command log sync and error escalation.
+  
+  - agent: shogun
+    action: oauth_handler
+    notes: >
+      Handle OAuth flows for various providers
+      including Zoho Mail authentication.

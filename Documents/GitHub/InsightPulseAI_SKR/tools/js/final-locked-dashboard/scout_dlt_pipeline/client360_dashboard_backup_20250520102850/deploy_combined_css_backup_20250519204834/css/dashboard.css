@@ -1,0 +1,338 @@
+/* Dashboard Styles */
+
+/* Custom Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #3B82F6;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #3B82F6;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* KPI Card Hover Effects */
+.shadow-hover:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Custom Scroll Bar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  
+  .space-x-4 > * + * {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  /* Adjust filter bar for mobile */
+  .filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-bar > * {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Animation for KPI values */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-count-up {
+  animation: countUp 0.5s ease-out forwards;
+}
+
+/* Tooltip Styles */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Card styles */
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Insight panel highlight */
+.insight-highlight {
+  background-color: rgba(59, 130, 246, 0.05);
+  border-left: 4px solid #3B82F6;
+  padding: 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Badge styles */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.badge-blue {
+  color: #1E40AF;
+  background-color: #DBEAFE;
+}
+
+.badge-green {
+  color: #065F46;
+  background-color: #D1FAE5;
+}
+
+.badge-red {
+  color: #991B1B;
+  background-color: #FEE2E2;
+}
+
+.badge-yellow {
+  color: #92400E;
+  background-color: #FEF3C7;
+}
+
+/* Filipino-specific styling elements */
+.filipino-pattern-border {
+  border-image: linear-gradient(45deg, #FCD34D, #F87171, #60A5FA) 1;
+  border-width: 3px;
+  border-style: solid;
+}
+
+.filipino-highlight {
+  background: linear-gradient(45deg, rgba(254, 243, 199, 0.3), rgba(254, 226, 226, 0.3), rgba(219, 234, 254, 0.3));
+}
+
+/* TBWA brand styling */
+.tbwa-blue {
+  color: #0057B8;
+}
+
+.tbwa-background {
+  background-color: #0057B8;
+  color: white;
+}
+
+.tbwa-accent {
+  color: #FF0000;
+}
+
+/* QA overlay styles */
+.qa-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  padding: 2rem;
+  color: white;
+  overflow: auto;
+}
+
+.qa-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.qa-info {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Leaflet Map Styles */
+#storeMap {
+  z-index: 1;
+}
+
+.leaflet-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+.store-tooltip {
+  padding: 6px 8px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #ddd;
+  width: 200px;
+}
+
+.store-tooltip h4 {
+  margin: 0 0 5px;
+  font-size: 14px;
+}
+
+.store-tooltip p {
+  margin: 0 0 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+.store-tooltip .metric-value {
+  margin: 8px 0 3px;
+  font-size: 12px;
+}
+
+.store-tooltip .region,
+.store-tooltip .store-type {
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+/* Print-friendly styles */
+@media print {
+  body {
+    background-color: white;
+    color: black;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  
+  header, footer {
+    display: none;
+  }
+  
+  .shadow-md, .shadow-lg, .shadow-xl {
+    box-shadow: none !important;
+  }
+  
+  .bg-gray-100, .bg-gray-200 {
+    background-color: white !important;
+  }
+  
+  .page-break {
+    page-break-after: always;
+  }
+}

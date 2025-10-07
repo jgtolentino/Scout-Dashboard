@@ -1,0 +1,8 @@
+Azure Advisor Fix Report
+========================
+Date: Mon 19 May 2025 23:08:26 PST
+Subscription: c03c092c-443c-4f25-9efe-33f092621251
+
+STORAGE ACCOUNTS WITH SOFT DELETE ENABLED
+=========================================
+

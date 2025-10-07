@@ -1,0 +1,398 @@
+{
+  "type": "FeatureCollection",
+  "simulated": true,
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Poblacion",
+        "code": "PBL001",
+        "city_municipality": "Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 21784,
+        "area_sqkm": 0.88,
+        "store_count": 42,
+        "total_sales": 2450000,
+        "growth_rate": 8.2,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0244, 14.5447],
+            [121.0344, 14.5447],
+            [121.0344, 14.5647],
+            [121.0244, 14.5647],
+            [121.0244, 14.5447]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bel-Air",
+        "code": "BLA002",
+        "city_municipality": "Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 19257,
+        "area_sqkm": 1.70,
+        "store_count": 38,
+        "total_sales": 3150000,
+        "growth_rate": 9.5,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0244, 14.5547],
+            [121.0344, 14.5547],
+            [121.0344, 14.5647],
+            [121.0244, 14.5647],
+            [121.0244, 14.5547]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lahug",
+        "code": "LHG001",
+        "city_municipality": "Cebu City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "population": 38288,
+        "area_sqkm": 4.07,
+        "store_count": 55,
+        "total_sales": 1870000,
+        "growth_rate": 5.3,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.8754, 10.3057],
+            [123.8854, 10.3057],
+            [123.8854, 10.3257],
+            [123.8754, 10.3257],
+            [123.8754, 10.3057]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Guadalupe",
+        "code": "GDL002",
+        "city_municipality": "Cebu City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "population": 61238,
+        "area_sqkm": 9.15,
+        "store_count": 72,
+        "total_sales": 2540000,
+        "growth_rate": 6.7,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.8854, 10.3057],
+            [123.8954, 10.3057],
+            [123.8954, 10.3257],
+            [123.8854, 10.3257],
+            [123.8854, 10.3057]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Poblacion",
+        "code": "PBL003",
+        "city_municipality": "Davao City",
+        "province": "Davao del Sur",
+        "region": "Davao",
+        "population": 20500,
+        "area_sqkm": 2.10,
+        "store_count": 35,
+        "total_sales": 1950000,
+        "growth_rate": 7.8,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [125.6027, 7.0607],
+            [125.6127, 7.0607],
+            [125.6127, 7.0807],
+            [125.6027, 7.0807],
+            [125.6027, 7.0607]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Matina",
+        "code": "MTN004",
+        "city_municipality": "Davao City",
+        "province": "Davao del Sur",
+        "region": "Davao",
+        "population": 45850,
+        "area_sqkm": 5.78,
+        "store_count": 63,
+        "total_sales": 3280000,
+        "growth_rate": 9.1,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [125.6127, 7.0607],
+            [125.6227, 7.0607],
+            [125.6227, 7.0807],
+            [125.6127, 7.0807],
+            [125.6127, 7.0607]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Aurora Hill",
+        "code": "AHL001",
+        "city_municipality": "Baguio City",
+        "province": "Benguet",
+        "region": "CAR",
+        "population": 18520,
+        "area_sqkm": 1.35,
+        "store_count": 28,
+        "total_sales": 1320000,
+        "growth_rate": 4.9,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.5860, 16.3923],
+            [120.5960, 16.3923],
+            [120.5960, 16.4123],
+            [120.5860, 16.4123],
+            [120.5860, 16.3923]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Session Road",
+        "code": "SRD002",
+        "city_municipality": "Baguio City",
+        "province": "Benguet",
+        "region": "CAR",
+        "population": 12780,
+        "area_sqkm": 0.95,
+        "store_count": 42,
+        "total_sales": 2150000,
+        "growth_rate": 6.3,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.5960, 16.3923],
+            [120.6060, 16.3923],
+            [120.6060, 16.4123],
+            [120.5960, 16.4123],
+            [120.5960, 16.3923]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "La Paz",
+        "code": "LPZ001",
+        "city_municipality": "Iloilo City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "population": 22350,
+        "area_sqkm": 3.68,
+        "store_count": 31,
+        "total_sales": 1450000,
+        "growth_rate": 5.2,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [122.5626, 10.7102],
+            [122.5726, 10.7102],
+            [122.5726, 10.7302],
+            [122.5626, 10.7302],
+            [122.5626, 10.7102]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jaro",
+        "code": "JRO002",
+        "city_municipality": "Iloilo City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "population": 51482,
+        "area_sqkm": 10.44,
+        "store_count": 47,
+        "total_sales": 2350000,
+        "growth_rate": 6.8,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [122.5726, 10.7102],
+            [122.5826, 10.7102],
+            [122.5826, 10.7302],
+            [122.5726, 10.7302],
+            [122.5726, 10.7102]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rizal",
+        "code": "RZL001",
+        "city_municipality": "Tacloban City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "population": 18426,
+        "area_sqkm": 2.56,
+        "store_count": 27,
+        "total_sales": 1120000,
+        "growth_rate": 5.6,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [124.9908, 11.2443],
+            [125.0008, 11.2443],
+            [125.0008, 11.2643],
+            [124.9908, 11.2643],
+            [124.9908, 11.2443]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sagkahan",
+        "code": "SGK002",
+        "city_municipality": "Tacloban City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "population": 15680,
+        "area_sqkm": 2.12,
+        "store_count": 22,
+        "total_sales": 980000,
+        "growth_rate": 4.8,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [125.0008, 11.2443],
+            [125.0108, 11.2443],
+            [125.0108, 11.2643],
+            [125.0008, 11.2643],
+            [125.0008, 11.2443]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Concepcion Grande",
+        "code": "CGR001",
+        "city_municipality": "Naga City",
+        "province": "Camarines Sur",
+        "region": "Bicol",
+        "population": 12750,
+        "area_sqkm": 1.45,
+        "store_count": 24,
+        "total_sales": 1050000,
+        "growth_rate": 5.1,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.7409, 13.6092],
+            [123.7509, 13.6092],
+            [123.7509, 13.6292],
+            [123.7409, 13.6292],
+            [123.7409, 13.6092]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dinaga",
+        "code": "DNG002",
+        "city_municipality": "Naga City",
+        "province": "Camarines Sur",
+        "region": "Bicol",
+        "population": 8560,
+        "area_sqkm": 0.85,
+        "store_count": 18,
+        "total_sales": 850000,
+        "growth_rate": 4.3,
+        "simulated": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.7509, 13.6092],
+            [123.7609, 13.6092],
+            [123.7609, 13.6292],
+            [123.7509, 13.6292],
+            [123.7509, 13.6092]
+          ]
+        ]
+      }
+    }
+  ]
+}

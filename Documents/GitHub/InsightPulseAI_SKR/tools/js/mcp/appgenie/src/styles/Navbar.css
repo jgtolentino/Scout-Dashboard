@@ -1,0 +1,131 @@
+/* Navbar.css */
+
+.main-navbar {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.logo-image {
+  height: 32px;
+  width: 32px;
+  margin-right: 8px;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.navbar-title {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-name {
+  padding: 4px 12px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.no-project {
+  color: var(--text-color);
+  opacity: 0.5;
+}
+
+.navbar-modes {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.mode-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin: 0 4px;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.mode-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mode-button.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.mode-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.new-project-button {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-right: 16px;
+}
+
+.new-project-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.button-icon {
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+  object-fit: cover;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 500;
+}

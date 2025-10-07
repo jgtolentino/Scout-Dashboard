@@ -1,0 +1,17 @@
+name: Monitor & Alert
+
+on:
+  workflow_run:
+    workflows: [ CI/CD Client360 Dashboard ]
+    types: [ completed ]
+
+jobs:
+  alert:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Notification on Success
+        uses: slackapi/slack-github-action@v1
+        with:
+          channel-id: ${{ secrets.SLACK_CHANNEL }}
+          payload: '{"text":"Client360 deployed 🎉: https://${{ secrets.STATIC_APP_URL }}"}'

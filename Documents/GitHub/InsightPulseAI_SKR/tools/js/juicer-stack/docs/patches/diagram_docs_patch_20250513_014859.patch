@@ -1,0 +1,7 @@
+# Architecture Diagram Documentation Patch
+# Generated: Tue 13 May 2025 01:48:59 PST
+# Diagram: AZURE_ARCHITECTURE_PRO
+#
+# This patch updates documentation files with references to the new architecture diagram.
+# Apply with: patch -p0 < /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/patches/diagram_docs_patch_20250513_014859.patch
+

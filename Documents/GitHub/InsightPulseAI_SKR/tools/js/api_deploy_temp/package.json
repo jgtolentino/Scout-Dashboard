@@ -1,0 +1,8 @@
+{
+  "name": "scout-dashboard-api",
+  "version": "1.0.0",
+  "dependencies": {
+    "mssql": "^9.1.1",
+    "date-fns": "^2.29.3"
+  }
+}

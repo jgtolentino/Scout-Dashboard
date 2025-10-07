@@ -1,0 +1,143 @@
+/* Analysis Overview Component Styles */
+
+:root {
+  --tbwa-blue-50: #EEF4FF;
+  --tbwa-purple-50: #F5EEFF;
+  --tbwa-green-50: #F1FFF6;
+  --tbwa-orange-50: #FFF8F3;
+}
+
+.analysis-overview {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.analysis-overview h2 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #1a202c;
+}
+
+.analysis-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .analysis-overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.analysis-panel {
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s ease-in-out;
+  text-decoration: none;
+  display: block;
+}
+
+.analysis-panel:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.analysis-panel:focus {
+  outline: 2px solid #3182ce;
+  outline-offset: 2px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.panel-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+}
+
+.panel-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+}
+
+.panel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panel-list-item {
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+
+.panel-list-item:before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.panel-footer {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #3182ce;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.analysis-panel:hover .panel-footer {
+  opacity: 1;
+}
+
+/* Panel background colors */
+.bg-blue-50 {
+  background-color: var(--tbwa-blue-50);
+}
+
+.bg-purple-50 {
+  background-color: var(--tbwa-purple-50);
+}
+
+.bg-green-50 {
+  background-color: var(--tbwa-green-50);
+}
+
+.bg-orange-50 {
+  background-color: var(--tbwa-orange-50);
+}
+
+/* Icon colors */
+.text-blue-600 {
+  color: #3182ce;
+}
+
+.text-purple-600 {
+  color: #6b46c1;
+}
+
+.text-green-600 {
+  color: #38a169;
+}
+
+.text-orange-600 {
+  color: #dd6b20;
+}

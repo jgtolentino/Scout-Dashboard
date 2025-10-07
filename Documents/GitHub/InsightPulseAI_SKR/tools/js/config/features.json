@@ -1,0 +1,24 @@
+{
+  "canaryFeatures": {
+    "newDataVisualization": true,
+    "enhancedFiltering": true,
+    "realTimeUpdates": false
+  },
+  "productionFeatures": {
+    "newDataVisualization": false,
+    "enhancedFiltering": false,
+    "realTimeUpdates": false
+  },
+  "featureFlags": {
+    "ENABLE_DASHBOARD_CHAT": false,
+    "ENABLE_ADVANCED_ANALYTICS": false,
+    "ENABLE_CUSTOM_EXPORTS": true,
+    "ENABLE_DARK_MODE": true,
+    "ENABLE_EXPERIMENTAL_FORECASTING": false
+  },
+  "metadata": {
+    "lastUpdated": "2025-05-17T12:00:00Z",
+    "updatedBy": "codex",
+    "version": "1.0.0"
+  }
+}

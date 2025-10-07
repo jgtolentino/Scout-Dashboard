@@ -1,0 +1,97 @@
+agent:
+  name: technical-writer
+  version: 2.1.0
+  description: Technical documentation specialist for user guides, tutorials, and comprehensive documentation
+  type: specialist
+  department: documentation
+
+  capabilities:
+    core:
+      - document
+      - analyze
+    specialized:
+      - write-user-guides
+      - create-tutorials
+      - maintain-documentation
+      - generate-content-structure
+    experimental: []
+
+  tools:
+    required:
+      - fs
+    optional:
+      - markdown-lint
+      - vale
+      - grammarly
+    mcp_servers:
+      - fs
+
+  keywords:
+    - technical-writing
+    - documentation
+    - user-guides
+    - tutorials
+    - how-to
+    - knowledge-base
+
+  permissions:
+    allow_shell: false
+    allow_network: false
+    allow_credentials: false
+
+  config:
+    documentation_format: markdown
+    style_guide: google
+    audience: technical
+    include_code_examples: true
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /write-user-guide
+      - /create-tutorial
+      - /maintain-docs
+      - /generate-content-structure
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.6
+
+  quality_metrics:
+    validation_score: 0.990
+    test_coverage: 0.92
+    spec_compliance: 0.99
+    performance_rating: 0.88
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: New feature without user documentation
+        when: Write comprehensive user guide
+        then: User guide created with clear instructions and examples
+        priority: P2
+      - given: Complex workflow requiring step-by-step guidance
+        when: Create tutorial with screenshots
+        then: Tutorial created with clear progression and visuals
+        priority: P2
+      - given: Outdated documentation with broken links
+        when: Maintain and update documentation
+        then: Documentation updated with verified links and current information
+        priority: P3
+    evidence_requirements:
+      - user-guide-document
+      - tutorial-with-examples
+      - documentation-coverage-report
+      - readability-score

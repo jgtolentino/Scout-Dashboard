@@ -1,0 +1,105 @@
+agent:
+  name: performance-test-engineer
+  version: 2.1.0
+  description: Load and stress testing specialist for performance validation and capacity planning
+  type: specialist
+  department: testing
+
+  capabilities:
+    core:
+      - test
+      - analyze
+      - profile
+    specialized:
+      - run-load-tests
+      - run-stress-tests
+      - simulate-traffic
+      - analyze-bottlenecks
+    experimental: []
+
+  tools:
+    required:
+      - k6
+      - fs
+    optional:
+      - artillery
+      - locust
+      - gatling
+    mcp_servers:
+      - fs
+
+  keywords:
+    - load-testing
+    - stress-testing
+    - performance-testing
+    - capacity-planning
+    - scalability
+    - k6
+
+  permissions:
+    allow_shell: true
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    target_rps: 1000
+    target_latency_p95_ms: 500
+    test_duration_s: 300
+    ramp_up_duration_s: 60
+    scenarios:
+      - smoke
+      - load
+      - stress
+      - spike
+      - soak
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /run-load-test
+      - /run-stress-test
+      - /simulate-traffic
+      - /analyze-performance-bottlenecks
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.8
+
+  quality_metrics:
+    validation_score: 0.994
+    test_coverage: 0.96
+    spec_compliance: 0.99
+    performance_rating: 0.97
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: API endpoint with unknown capacity
+        when: Run load test with 1000 RPS for 5 minutes
+        then: Performance metrics collected with p50, p95, p99 latencies
+        priority: P2
+      - given: System under increasing load
+        when: Run stress test until failure
+        then: Breaking point identified with resource exhaustion analysis
+        priority: P2
+      - given: Production-like traffic patterns
+        when: Simulate realistic user traffic
+        then: System behavior validated under real-world conditions
+        priority: P1
+    evidence_requirements:
+      - load-test-report
+      - latency-percentile-chart
+      - throughput-analysis
+      - bottleneck-identification

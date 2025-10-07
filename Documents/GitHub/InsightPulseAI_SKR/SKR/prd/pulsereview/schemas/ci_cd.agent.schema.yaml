@@ -1,0 +1,161 @@
+name: schemas
+description: "Agent for handling specific tasks"
+---
+# Schema for CI/CD agent configuration
+version: 1.0.0
+spec:
+  
+  # Metadata about the CI/CD agent configuration
+  metadata:
+    name: ci_cd_agent_configuration
+    description: Configuration for PulseReview CI/CD agent operations
+    version: 1.0.0
+    owner: Basher
+
+  # Triggering events
+  triggers:
+    - name: pr_open
+      description: Triggered when a pull request is opened
+      actions:
+        - caca_validation
+        - prompt_fingerprint_check
+        - diagram_generation_latency_check
+      
+    - name: pr_update
+      description: Triggered when a pull request is updated
+      actions:
+        - caca_validation
+        - prompt_fingerprint_check
+        - diagram_generation_latency_check
+
+    - name: merge_to_main
+      description: Triggered when changes are merged to the main branch
+      actions:
+        - package_pulsereview_cli
+        - artifact_logging
+
+  # Action definitions
+  actions:
+    caca_validation:
+      description: Validates the output with Caca
+      agent: Caca
+      parameters:
+        output_types:
+          - code_review
+          - diagram
+        validation_level: strict
+        timeout_seconds: 300
+      success_criteria:
+        - all_validators_pass
+        - no_security_issues
+      failure_handling:
+        action: block_merge
+        notification: tech_lead
+
+    prompt_fingerprint_check:
+      description: Checks if the prompt fingerprints match the locked values
+      agent: Tide
+      parameters:
+        lock_file: .pulser_prompts.lock
+        fingerprint_algorithm: sha256
+      success_criteria:
+        - all_fingerprints_match
+      failure_handling:
+        action: raise_prompt_drift_error
+        notification:
+          - tech_lead
+          - infra_engineer
+
+    diagram_generation_latency_check:
+      description: Checks if diagram generation completes within the latency budget
+      agent: Echo
+      parameters:
+        max_latency_ms: 4000
+        warning_threshold_ms: 3500
+      success_criteria:
+        - latency_within_budget
+      failure_handling:
+        action: log_performance_issue
+        notification: devops_lead
+
+    package_pulsereview_cli:
+      description: Packages the PulseReview CLI
+      agent: Basher
+      parameters:
+        target_platforms:
+          - linux-x64
+          - macos-x64
+          - macos-arm64
+          - windows-x64
+        include_dependencies: true
+        build_type: production
+      success_criteria:
+        - all_platforms_built
+        - all_tests_pass
+      failure_handling:
+        action: rollback_release
+        notification:
+          - devops_lead
+          - tech_lead
+
+    artifact_logging:
+      description: Logs artifacts in deploy_trace.json
+      agent: Claudia
+      parameters:
+        log_file: logs/deploy_trace.json
+        include_metrics: true
+        retention_days: 90
+      success_criteria:
+        - log_written
+      failure_handling:
+        action: retry
+        max_retries: 3
+        notification: devops_lead
+
+  # Integration points
+  integrations:
+    github:
+      type: github_actions
+      config:
+        workflow_file: .github/workflows/pulsereview-ci.yml
+        secrets_required:
+          - GITHUB_TOKEN
+          - PULSER_API_KEY
+    
+    notification:
+      type: slack
+      config:
+        channel: "#pulsereview-ci"
+        mention_on_failure: true
+    
+    metrics:
+      type: prometheus
+      config:
+        endpoint: http://metrics.internal:9090/metrics
+        prefix: pulsereview_ci
+        labels:
+          environment: production
+          component: ci_cd
+
+  # Failure recovery
+  recovery:
+    timeout_recovery:
+      description: Recovery from timeouts
+      steps:
+        - retry_with_increased_timeout
+        - switch_backend_if_retry_fails
+        - notify_if_all_fails
+    
+    prompt_drift_recovery:
+      description: Recovery from prompt drift
+      steps:
+        - generate_diff
+        - create_approval_request
+        - block_until_approved
+    
+    diagram_crash_recovery:
+      description: Recovery from diagram generation crashes
+      steps:
+        - retry_in_debug_mode
+        - fallback_to_simple_renderer
+        - log_detailed_error

@@ -1,0 +1,176 @@
+# Codex v2 Agent Configuration
+# agents/codexv2.yaml
+
+id: codexv2
+name: Codex v2
+description: >
+  Autonomous software-engineering agent (OpenAI o3 + Windsurf Cascade)
+  This agent provides enterprise-grade functionality with comprehensive error handling,
+  performance optimization, and full observability for production environments.
+version: 2.0.1
+endpoint: https://api.openai.com/v2/codex
+model: o3            # Pulser model alias; Tide will down-route to o3-nano when idle
+temperature: 0.15
+max_tokens: 4096
+sandbox_image: ghcr.io/openai/codexv2-sandbox:latest
+
+# Task definitions with detailed descriptions
+tasks:
+  implement:   "Generate or modify production code based on requirements"
+  refactor:    "Improve existing code for readability/performance"
+  write-tests: "Create unit/integration tests with specified coverage"
+  debug:       "Diagnose and patch failing tests or runtime errors"
+  propose-pr:  "Open pull request with detailed rationale and diff"
+  explain:     "Produce step-by-step rationale for implementation decisions"
+
+# Quality gate configuration
+qa_gate:
+  agent: caca
+  min_score: 0.85
+  review_timeout_sec: 300
+  
+# Cost management settings
+cost:
+  token_budget_per_task: 25000
+  alert_threshold_pct: 80
+  ceiling_per_day_usd: 150
+  alert_channels: ["slack", "email"]
+  
+# Sandbox configuration
+sandbox:
+  ttl_hours: 4
+  cpu_cores: 8
+  ram_gb: 16
+  persistent_storage_gb: 10
+  egress: ["port:443"]
+  
+# RBAC integration with Azure AD
+rbac:
+  roles:
+    - name: codex_user
+      azure_ad_group: "Codex_Users"
+      permissions: ["run", "read"]
+    - name: codex_reviewer
+      azure_ad_group: "Codex_Reviewers" 
+      permissions: ["run", "read", "approve"]
+    - name: codex_admin
+      azure_ad_group: "Codex_Admins"
+      permissions: ["run", "read", "approve", "configure", "manage"]
+      
+# Logging configuration
+logging:
+  level: info
+  destinations: 
+    - kalaw
+    - local
+  retention_days: 30
+  
+# MCP integration for Claude Desktop
+mcp:
+  commands:
+    - name: "implement"
+      alias: "codex-implement"
+      description: "Generate or modify code based on requirements"
+    - name: "refactor"
+      alias: "codex-refactor"
+      description: "Improve existing code structure"
+    - name: "write-tests"
+      alias: "codex-test"
+      description: "Generate tests for existing code"
+    - name: "debug"
+      alias: "codex-debug"
+      description: "Fix failing tests or runtime errors"
+    - name: "propose-pr"
+      alias: "codex-pr"
+      description: "Create pull request with changes"
+  
+# CLI examples for documentation
+examples:
+  - description: "Implement a new feature"
+    command: "pulser exec codexv2:implement --repo https://github.com/acme/app --task 'Add OAuth2 flow'"
+  - description: "Write tests for a module"
+    command: "pulser exec codexv2:write-tests --repo ./my-project --path src/auth/ --coverage 90"
+  - description: "Create a pull request"
+    command: "pulser exec codexv2:propose-pr --repo ./my-project --base main --title 'Add OAuth2 support'"
+
+# Cascade routing configuration
+cascade:
+  routers:
+    - frontend:
+        pattern: "**/*.{js,jsx,ts,tsx,css,html,vue,svelte}"
+        priority: 10
+    - backend:
+        pattern: "**/*.{py,java,rb,go,rs,php,cs,sql}"
+        priority: 20
+    - infrastructure:
+        pattern: "**/infra/**/*,**/terraform/**/*,**/k8s/**/*"
+        priority: 30
+
+# Integration with other agents
+integrations:
+  - agent: caca
+    method: webhook
+    endpoint: "http://localhost:9315/agents/caca/review"
+  - agent: claudia
+    method: direct
+    action: "merge_if_pass"
+  - agent: kalaw
+    method: direct
+    action: "store_logs"
+  - agent: tide
+    method: direct
+    action: "optimize_tokens"
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+
+lifecycle:
+  on_start:
+    - action: validate_environment
+    - action: load_configuration
+    - action: initialize_connections
+  on_ready:
+    - action: register_with_discovery
+    - action: start_health_checks
+  on_shutdown:
+    - action: deregister_from_discovery
+    - action: cleanup_resources
+    - action: save_state

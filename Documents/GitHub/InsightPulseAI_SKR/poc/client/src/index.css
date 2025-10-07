@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 214 31% 97%; /* Scout Background */
+  --foreground: 24 10% 10%;
+  --muted: 60 5% 96%;
+  --muted-foreground: 25 5% 45%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 24 10% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 24 10% 10%;
+  --border: 20 6% 90%;
+  --input: 20 6% 90%;
+  --primary: 218 65% 51%; /* #2261D3 - Scout Blue */
+  --primary-foreground: 0 0% 98%;
+  --secondary: 60 5% 96%;
+  --secondary-foreground: 24 10% 10%;
+  --accent: 60 5% 96%;
+  --accent-foreground: 24 10% 10%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 207 90% 54%;
+  --radius: 0.5rem;
+  
+  /* Scout Advisor Inspired Colors */
+  --scout-blue: 218 65% 51%; /* #2261D3 */
+  --scout-yellow: 48 100% 50%; /* #FFD500 */
+  --scout-success: 174 57% 36%; /* #1BAA99 */
+  --scout-danger: 2 100% 67%; /* #FF5A58 */
+  --scout-info: 205 84% 56%; /* #289EF5 */
+  --scout-bg: 214 31% 97%; /* #F7F9FB */
+  --scout-text: 216 12% 8%; /* #1A1D29 */
+  --scout-text-secondary: 215 14% 34%; /* #4A5568 */
+}
+
+.dark {
+  --background: 240 10% 4%;
+  --foreground: 0 0% 98%;
+  --muted: 240 4% 16%;
+  --muted-foreground: 240 5% 65%;
+  --popover: 240 10% 4%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 4%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 4% 16%;
+  --input: 240 4% 16%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 240 4% 16%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 5% 84%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .sidebar-collapsed {
+    width: 60px;
+  }
+  
+  .sidebar-expanded {
+    width: 280px;
+  }
+  
+  .filter-pill {
+    @apply bg-blue-50 border border-primary rounded-full px-4 py-2 inline-flex items-center gap-2 cursor-pointer transition-all duration-200 hover:bg-blue-100;
+  }
+  
+  .filter-pill.active {
+    @apply bg-primary text-primary-foreground;
+  }
+  
+  .status-dot {
+    @apply w-2 h-2 rounded-full inline-block;
+  }
+  
+  .status-dot.fresh {
+    @apply bg-green-500;
+  }
+  
+  .status-dot.stale {
+    @apply bg-orange-500;
+  }
+  
+  .chart-container {
+    @apply relative;
+    height: 300px;
+  }
+  
+  .map-container {
+    @apply rounded-lg overflow-hidden;
+    height: 400px;
+  }
+  
+  .nav-item {
+    @apply flex items-center gap-3 p-3 rounded-lg transition-colors duration-200;
+  }
+  
+  .nav-item:hover {
+    @apply bg-muted;
+  }
+  
+  .nav-item.active {
+    @apply bg-primary text-primary-foreground;
+  }
+}

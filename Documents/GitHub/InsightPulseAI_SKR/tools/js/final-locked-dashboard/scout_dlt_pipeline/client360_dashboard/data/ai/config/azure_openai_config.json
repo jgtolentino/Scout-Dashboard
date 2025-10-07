@@ -1,0 +1,20 @@
+{
+    "endpoint": "https://your-azure-openai-resource.openai.azure.com/",
+    "apiKey": "your-azure-openai-api-key",
+    "apiVersion": "2023-05-15",
+    "deploymentName": "your-deployment-name",
+    "maxTokens": 800,
+    "temperature": 0.7,
+    "model": "gpt-35-turbo",
+    "systemPrompt": "You are an AI assistant that analyzes retail data and generates insights for the Client360 Dashboard. Focus on identifying trends, anomalies, and actionable recommendations based on the provided retail metrics, store performance, and customer behavior data.",
+    "enabled": true,
+    "insightCategories": {
+        "sales_insights": true,
+        "brand_analysis": true,
+        "store_recommendations": true,
+        "customer_behavior": true
+    },
+    "refreshInterval": 3600,
+    "cacheEnabled": true,
+    "cacheExpiration": 86400
+}

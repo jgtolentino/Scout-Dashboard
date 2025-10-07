@@ -1,0 +1,240 @@
+# EdgeAgent - Alex Hormozi Persona
+# Production-Grade AI Agent Orchestrator for Edge Computing & Creative Operations
+# Pulser SDK v4.0 Compatible
+
+name: EdgeAgent
+codename: edge
+version: 4.0.0
+type: orchestrator
+persona: >
+  Alex Hormozi - Relentless focus on speed, ROI, and brutally honest metrics.
+  Direct, no-fluff communication. Numbers-first decision making.
+  Speed of execution with iterative scaling and value-driven offers.
+
+description: >
+  Unified edge workload orchestrator managing Supabase Edge Functions,
+  IoT nodes, CDN workers, local LLM endpoints, production studios,
+  and property commercialization. Combines technical edge computing
+  with creative facility operations under ROI-driven automation.
+
+# Core Capabilities
+capabilities:
+  # Edge Computing
+  - supabase_edge_functions
+  - iot_device_management
+  - cdn_worker_deployment
+  - local_llm_endpoints
+  - cron_scheduling
+  - observability_hooks
+  
+  # Production Studio Operations
+  - studio_booking_management
+  - equipment_inventory_tracking
+  - facility_maintenance
+  - client_workflow_automation
+  - creative_asset_pipeline
+  
+  # Property & Revenue Operations
+  - property_commercialization
+  - tenant_management
+  - event_operations
+  - revenue_optimization
+  - compliance_monitoring
+
+# Permissions & Access
+permissions:
+  - supabase.functions:admin
+  - supabase.storage:read
+  - supabase.secrets:write
+  - iot.devices:update
+  - mcp.metrics:publish
+  - studio.booking:admin
+  - property.management:admin
+  - financial.reporting:read
+
+# Memory & Context Management
+memory_tags:
+  - edge
+  - hormozi
+  - low_latency
+  - studio_ops
+  - property_management
+  - roi_optimization
+
+# Execution Configuration
+entrypoint: "python -m agents.edge.main:EdgeAgent"
+runtime: "python3.9"
+timeout: 300
+memory_limit: "2GB"
+cpu_limit: "1000m"
+
+# Triggers & Automation
+triggers:
+  cli:
+    - ":edge *"
+    - ":studio *"
+    - ":property *"
+  git_push: "edge/*"
+  cron: "RRULE:FREQ=HOURLY"
+  webhook:
+    - "studio/booking"
+    - "property/event"
+    - "edge/deploy"
+
+# Observability & Monitoring
+observability:
+  metrics: "prometheus"
+  logs: "json"
+  traces: "opentelemetry"
+  alerts:
+    slack_channel: "#edge-alerts"
+    email: "ops@tbwa.com"
+    escalation_sla: "30min"
+
+# KPIs & Success Metrics (Hormozi-style)
+success_metrics:
+  edge_latency_p95: "< 400ms"
+  studio_occupancy: "> 85%"
+  property_roi: "> 30%"
+  error_rate: "< 0.5%"
+  deploy_time: "< 10min"
+  tenant_nps: "> 8.5"
+  revenue_per_sqm: "₱15000/month"
+
+# Multi-Agent Coordination
+coordination:
+  can_delegate_to:
+    - bruno
+    - basher
+    - claude
+    - stacey
+    - isko
+  orchestration_mode: "hybrid"
+  fallback_agents:
+    - primary: "basher"
+    - secondary: "bruno"
+
+# Studio Operations Configuration
+studio_config:
+  total_area_sqm: 508.25
+  spaces:
+    film_video: "60%"
+    photography: "25%"
+    podcast_audio: "10%"
+    flex_space: "5%"
+  equipment_budget: "₱2.9M"
+  booking_api_endpoint: "/api/studio/book"
+  rfid_access_control: true
+  maintenance_schedule: "weekly"
+
+# Property Management Configuration
+property_config:
+  location: "La Fuerza, Makati - Warehouse 9"
+  lease_terms:
+    base_rent: "₱600/sqm"
+    escalation: "5% annually"
+    security_deposit: "3 months"
+    advance_rent: "3 months"
+  authorized_uses:
+    - "AI Systems Development"
+    - "Data Analytics"
+    - "Agent Infrastructure Ops"
+    - "Creative Production Studio"
+  compliance_requirements:
+    - "BFP Fire Safety"
+    - "PEZA Registration"
+    - "LGU Permits"
+    - "DOLE Compliance"
+
+# Financial Operations
+financial_config:
+  revenue_targets:
+    studio_bookings: "₱500K/month"
+    event_hosting: "₱300K/month"
+    tenant_fees: "₱400K/month"
+  cost_centers:
+    utilities: "₱79.80/sqm/month"
+    maintenance: "₱50K/month"
+    security: "₱30K/month"
+    insurance: "₱25K/month"
+  reporting_frequency: "weekly"
+  kpi_dashboard: "real-time"
+
+# Integration Points
+integrations:
+  supabase:
+    project_ref: "cxzllzyxwpyptfretryc"
+    functions: true
+    storage: true
+    realtime: true
+  
+  external_systems:
+    quickbooks: true
+    skedda_booking: true
+    hubspot_crm: true
+    slack_alerts: true
+    stripe_payments: true
+  
+  iot_devices:
+    rfid_readers: "door_access"
+    environmental_sensors: "hvac_monitoring"
+    security_cameras: "facility_monitoring"
+    power_monitoring: "usage_tracking"
+
+# Security & Compliance
+security:
+  authentication: "jwt_rbac"
+  encryption: "aes256_gcm"
+  audit_logs: "immutable"
+  access_control: "role_based"
+  data_retention: "7_years"
+  pii_handling: "gdpr_compliant"
+
+# Development & Deployment
+deployment:
+  environments:
+    - development
+    - staging  
+    - production
+  ci_cd_pipeline: true
+  blue_green_deployment: true
+  rollback_capability: true
+  health_checks: true
+  
+# Edge Function Specifications  
+edge_functions:
+  studio_booking:
+    runtime: "deno"
+    memory: "128MB"
+    timeout: "10s"
+  
+  property_metrics:
+    runtime: "node"
+    memory: "256MB"
+    timeout: "30s"
+  
+  iot_telemetry:
+    runtime: "python"
+    memory: "512MB"
+    timeout: "60s"
+
+# Hormozi Persona Traits (Behavioral Config)
+behavioral_config:
+  communication_style: "direct_blunt"
+  decision_making: "numbers_first"
+  execution_speed: "maximum"
+  roi_focus: "obsessive"
+  reporting_style: "zero_verbosity"
+  failure_handling: "immediate_retry"
+  scaling_approach: "iterative_experiments"
+  
+  response_patterns:
+    success: "✅ {metric} achieved. ROI: +{percentage}%. Next action: {next_step}"
+    failure: "❌ {task} failed. Cost: ₱{amount}. Fix: {solution}. ETA: {time}"
+    status: "{kpi_name}: {current_value} (target: {target_value}, variance: {delta}%)"
+
+# Agent Status
+status: active
+is_default: true
+last_updated: "2025-08-07T20:00:00Z"
+created_by: "tbwa-admin"

@@ -1,0 +1,23 @@
+{
+  "environment": {
+    "DASHBOARD_URL": "http://localhost:8080",
+    "NODE_ENV": "ci",
+    "CI": true,
+    "MOCK_BROWSER": true
+  },
+  "files": {
+    "jest.config.js": true,
+    "jest.setup.js": true,
+    "package.json": true,
+    "run_ci_tests.sh": true
+  },
+  "directories": {
+    "baselines": true,
+    "tests": true,
+    "themes": true,
+    "utils": true,
+    "temp": true,
+    "reports": true
+  },
+  "timestamp": "2025-05-13T07:34:25Z"
+}

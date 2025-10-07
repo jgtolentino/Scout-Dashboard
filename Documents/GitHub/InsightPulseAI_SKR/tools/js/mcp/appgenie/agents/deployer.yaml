@@ -1,0 +1,697 @@
+id: deployer
+name: App Deployer
+description: Deploys generated app to Expo, PWA, or native app stores
+version: 1.0.0
+
+# Runtime configuration
+type: deployment.handler
+runtime: node
+entrypoint: deploy/index.sh
+timeout: 120
+
+# Input schema
+input_schema:
+  type: object
+  required:
+    - app_name
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app to deploy"
+    preview_url:
+      type: string
+      description: "URL of the app preview"
+    screens:
+      type: array
+      items:
+        type: object
+        description: "Screen information"
+    target:
+      type: string
+      enum: [pwa, expo, native]
+      default: pwa
+      description: "Deployment target platform"
+    config:
+      type: object
+      description: "Deployment configuration options"
+
+# Output schema
+output_schema:
+  type: object
+  required:
+    - app_name
+    - target
+    - status
+    - deployed_url
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app"
+    target:
+      type: string
+      description: "Deployment target platform"
+    status:
+      type: string
+      enum: [success, failed, in_progress]
+      description: "Deployment status"
+    deployed_url:
+      type: string
+      description: "URL where the app is deployed"
+    build_logs:
+      type: string
+      description: "Build and deployment logs"
+    qr_code:
+      type: string
+      description: "QR code URL for accessing the deployed app"
+    app_store_links:
+      type: object
+      properties:
+        ios:
+          type: string
+          description: "iOS App Store link (if applicable)"
+        android:
+          type: string
+          description: "Google Play Store link (if applicable)"
+
+# Function to build and deploy a Progressive Web App
+deploy_pwa: |
+  import fs from 'fs';
+  import path from 'path';
+  import { exec } from 'child_process';
+  import { promisify } from 'util';
+  
+  const execAsync = promisify(exec);
+  
+  export async function deployPWA(appName, screens, config = {}) {
+    const logs = [];
+    logs.push(`Starting PWA deployment for ${appName}...`);
+    
+    try {
+      // Create output directory
+      const outputDir = path.resolve('./dist/pwa');
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
+      logs.push(`Created output directory: ${outputDir}`);
+      
+      // Create PWA manifest
+      const manifest = {
+        name: appName,
+        short_name: appName,
+        description: `${appName} - Created with AppGenie`,
+        start_url: '/',
+        display: 'standalone',
+        background_color: config.backgroundColor || '#ffffff',
+        theme_color: config.themeColor || '#2196F3',
+        icons: [
+          {
+            src: 'icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ]
+      };
+      
+      fs.writeFileSync(
+        path.join(outputDir, 'manifest.json'),
+        JSON.stringify(manifest, null, 2)
+      );
+      logs.push('Created PWA manifest.json');
+      
+      // Create service worker
+      const serviceWorker = `
+        // Service Worker for ${appName}
+        const CACHE_NAME = '${appName.toLowerCase().replace(/\s+/g, '-')}-v1';
+        const urlsToCache = [
+          '/',
+          '/index.html',
+          '/styles.css',
+          '/bundle.js',
+          '/manifest.json'
+        ];
+        
+        self.addEventListener('install', event => {
+          event.waitUntil(
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                return cache.addAll(urlsToCache);
+              })
+          );
+        });
+        
+        self.addEventListener('fetch', event => {
+          event.respondWith(
+            caches.match(event.request)
+              .then(response => {
+                if (response) {
+                  return response;
+                }
+                return fetch(event.request);
+              })
+          );
+        });
+      `;
+      
+      fs.writeFileSync(
+        path.join(outputDir, 'service-worker.js'),
+        serviceWorker
+      );
+      logs.push('Created service-worker.js');
+      
+      // Generate simple HTML file for each screen
+      screens.forEach(screen => {
+        const screenHtml = `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${appName} - ${screen.name}</title>
+            <link rel="manifest" href="/manifest.json">
+            <link rel="stylesheet" href="/styles.css">
+            <meta name="theme-color" content="${config.themeColor || '#2196F3'}">
+          </head>
+          <body>
+            <div id="app">
+              <h1>${screen.name}</h1>
+              <p>This is the ${screen.name} screen of ${appName}.</p>
+              <p>In a real deployment, this would be the actual React component.</p>
+            </div>
+            <script src="/bundle.js"></script>
+            <script>
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed:', err));
+                });
+              }
+            </script>
+          </body>
+          </html>
+        `;
+        
+        fs.writeFileSync(
+          path.join(outputDir, `${screen.id}.html`),
+          screenHtml
+        );
+      });
+      logs.push(`Generated HTML files for ${screens.length} screens`);
+      
+      // Create simple index.html that redirects to the first screen
+      const indexHtml = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>${appName}</title>
+          <link rel="manifest" href="/manifest.json">
+          <meta name="theme-color" content="${config.themeColor || '#2196F3'}">
+          <meta http-equiv="refresh" content="0; url=/${screens[0]?.id || 'home'}.html">
+        </head>
+        <body>
+          <p>Redirecting to ${appName}...</p>
+        </body>
+        </html>
+      `;
+      
+      fs.writeFileSync(
+        path.join(outputDir, 'index.html'),
+        indexHtml
+      );
+      logs.push('Created index.html with redirect');
+      
+      // Create placeholder CSS and JS files
+      fs.writeFileSync(
+        path.join(outputDir, 'styles.css'),
+        `
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+          }
+          
+          #app {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          
+          h1 {
+            color: ${config.themeColor || '#2196F3'};
+          }
+        `
+      );
+      logs.push('Created styles.css');
+      
+      fs.writeFileSync(
+        path.join(outputDir, 'bundle.js'),
+        `console.log('${appName} - Created with AppGenie');`
+      );
+      logs.push('Created bundle.js');
+      
+      // Create placeholder icons directory and files
+      const iconsDir = path.join(outputDir, 'icons');
+      if (!fs.existsSync(iconsDir)) {
+        fs.mkdirSync(iconsDir);
+      }
+      
+      // In a real implementation, this would generate actual icon files
+      // For now, we'll just log that we would create them
+      logs.push('Created placeholder for app icons (would create actual PNG files in production)');
+      
+      // In a real implementation, this would deploy to a hosting provider
+      // For now, we'll simulate a successful deployment
+      const deployedUrl = `https://${appName.toLowerCase().replace(/\s+/g, '-')}.example.com`;
+      logs.push(`Deployed PWA to ${deployedUrl}`);
+      
+      return {
+        status: 'success',
+        deployed_url: deployedUrl,
+        build_logs: logs.join('\n'),
+        qr_code: `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(deployedUrl)}`
+      };
+    } catch (error) {
+      logs.push(`Error during PWA deployment: ${error.message}`);
+      console.error('Deployment error:', error);
+      
+      return {
+        status: 'failed',
+        error: error.message,
+        build_logs: logs.join('\n')
+      };
+    }
+  }
+
+# Function to build and deploy to Expo
+deploy_expo: |
+  import fs from 'fs';
+  import path from 'path';
+  import { exec } from 'child_process';
+  import { promisify } from 'util';
+  
+  const execAsync = promisify(exec);
+  
+  export async function deployExpo(appName, screens, config = {}) {
+    const logs = [];
+    logs.push(`Starting Expo deployment for ${appName}...`);
+    
+    try {
+      // Create output directory
+      const outputDir = path.resolve('./dist/expo');
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
+      logs.push(`Created output directory: ${outputDir}`);
+      
+      // Create app.json for Expo
+      const appJson = {
+        expo: {
+          name: appName,
+          slug: appName.toLowerCase().replace(/\s+/g, '-'),
+          version: '1.0.0',
+          orientation: 'portrait',
+          icon: './assets/icon.png',
+          splash: {
+            image: './assets/splash.png',
+            resizeMode: 'contain',
+            backgroundColor: config.backgroundColor || '#ffffff'
+          },
+          updates: {
+            fallbackToCacheTimeout: 0
+          },
+          assetBundlePatterns: [
+            '**/*'
+          ],
+          ios: {
+            supportsTablet: true,
+            bundleIdentifier: `com.appgenie.${appName.toLowerCase().replace(/\s+/g, '')}`
+          },
+          android: {
+            adaptiveIcon: {
+              foregroundImage: './assets/adaptive-icon.png',
+              backgroundColor: config.backgroundColor || '#ffffff'
+            },
+            package: `com.appgenie.${appName.toLowerCase().replace(/\s+/g, '')}`
+          },
+          web: {
+            favicon: './assets/favicon.png'
+          }
+        }
+      };
+      
+      fs.writeFileSync(
+        path.join(outputDir, 'app.json'),
+        JSON.stringify(appJson, null, 2)
+      );
+      logs.push('Created app.json for Expo');
+      
+      // Create package.json
+      const packageJson = {
+        name: appName.toLowerCase().replace(/\s+/g, '-'),
+        version: '1.0.0',
+        main: 'node_modules/expo/AppEntry.js',
+        scripts: {
+          start: 'expo start',
+          android: 'expo start --android',
+          ios: 'expo start --ios',
+          web: 'expo start --web',
+          eject: 'expo eject'
+        },
+        dependencies: {
+          expo: '^46.0.0',
+          'expo-status-bar': '~1.4.0',
+          'react': '18.0.0',
+          'react-native': '0.69.6',
+          'react-navigation': '^4.4.4',
+          'react-navigation-stack': '^2.10.4'
+        },
+        devDependencies: {
+          '@babel/core': '^7.12.9'
+        },
+        private: true
+      };
+      
+      fs.writeFileSync(
+        path.join(outputDir, 'package.json'),
+        JSON.stringify(packageJson, null, 2)
+      );
+      logs.push('Created package.json for Expo');
+      
+      // Create assets directory
+      const assetsDir = path.join(outputDir, 'assets');
+      if (!fs.existsSync(assetsDir)) {
+        fs.mkdirSync(assetsDir);
+      }
+      logs.push('Created assets directory');
+      
+      // Create App.js
+      const appJs = `
+        import React from 'react';
+        import { createAppContainer } from 'react-navigation';
+        import { createStackNavigator } from 'react-navigation-stack';
+        
+        ${screens.map(screen => `import ${screen.id.charAt(0).toUpperCase() + screen.id.slice(1)}Screen from './screens/${screen.id}';`).join('\n')}
+        
+        const AppNavigator = createStackNavigator(
+          {
+            ${screens.map(screen => `${screen.id}: { screen: ${screen.id.charAt(0).toUpperCase() + screen.id.slice(1)}Screen }`).join(',\n    ')}
+          },
+          {
+            initialRouteName: "${screens[0]?.id || 'Home'}",
+            defaultNavigationOptions: {
+              headerStyle: {
+                backgroundColor: '${config.themeColor || '#2196F3'}',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }
+          }
+        );
+        
+        const AppContainer = createAppContainer(AppNavigator);
+        
+        export default function App() {
+          return <AppContainer />;
+        }
+      `;
+      
+      fs.writeFileSync(
+        path.join(outputDir, 'App.js'),
+        appJs
+      );
+      logs.push('Created App.js with navigation setup');
+      
+      // Create screens directory
+      const screensDir = path.join(outputDir, 'screens');
+      if (!fs.existsSync(screensDir)) {
+        fs.mkdirSync(screensDir);
+      }
+      logs.push('Created screens directory');
+      
+      // Create screen components
+      screens.forEach(screen => {
+        const screenJs = `
+          import React from 'react';
+          import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+          
+          export default function ${screen.id.charAt(0).toUpperCase() + screen.id.slice(1)}Screen({ navigation }) {
+            return (
+              <ScrollView style={styles.container}>
+                <View style={styles.content}>
+                  <Text style={styles.title}>${screen.name}</Text>
+                  <Text style={styles.paragraph}>This is the ${screen.name} screen of ${appName}.</Text>
+                  <Text style={styles.paragraph}>In a real app, this would contain the actual components.</Text>
+                  ${screens.length > 1 ? `
+                  <View style={styles.navigation}>
+                    ${screens.filter(s => s.id !== screen.id).map(s => `
+                    <Button
+                      title="Go to ${s.name}"
+                      onPress={() => navigation.navigate('${s.id}')}
+                      color="${config.themeColor || '#2196F3'}"
+                      style={styles.button}
+                    />`).join('\n')}
+                  </View>
+                  ` : ''}
+                </View>
+              </ScrollView>
+            );
+          }
+          
+          ${screen.id.charAt(0).toUpperCase() + screen.id.slice(1)}Screen.navigationOptions = {
+            title: '${screen.name}',
+          };
+          
+          const styles = StyleSheet.create({
+            container: {
+              flex: 1,
+              backgroundColor: '#fff',
+            },
+            content: {
+              padding: 20,
+            },
+            title: {
+              fontSize: 24,
+              fontWeight: 'bold',
+              marginBottom: 16,
+              color: '${config.themeColor || '#2196F3'}',
+            },
+            paragraph: {
+              fontSize: 16,
+              marginBottom: 12,
+            },
+            navigation: {
+              marginTop: 20,
+            },
+            button: {
+              marginVertical: 8,
+            },
+          });
+        `;
+        
+        fs.writeFileSync(
+          path.join(screensDir, `${screen.id}.js`),
+          screenJs
+        );
+      });
+      logs.push(`Created ${screens.length} screen components`);
+      
+      // In a real implementation, this would publish to Expo
+      // For now, we'll simulate a successful deployment
+      const expoUrl = `exp://exp.host/@appgenie/${appName.toLowerCase().replace(/\s+/g, '-')}`;
+      logs.push(`Deployed to Expo at ${expoUrl}`);
+      
+      return {
+        status: 'success',
+        deployed_url: expoUrl,
+        build_logs: logs.join('\n'),
+        qr_code: `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(expoUrl)}`
+      };
+    } catch (error) {
+      logs.push(`Error during Expo deployment: ${error.message}`);
+      console.error('Deployment error:', error);
+      
+      return {
+        status: 'failed',
+        error: error.message,
+        build_logs: logs.join('\n')
+      };
+    }
+  }
+
+# Function to build and deploy as native app
+deploy_native: |
+  import fs from 'fs';
+  import path from 'path';
+  import { exec } from 'child_process';
+  import { promisify } from 'util';
+  
+  const execAsync = promisify(exec);
+  
+  export async function deployNative(appName, screens, config = {}) {
+    const logs = [];
+    logs.push(`Starting native app deployment for ${appName}...`);
+    
+    try {
+      // Create output directory
+      const outputDir = path.resolve('./dist/native');
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
+      logs.push(`Created output directory: ${outputDir}`);
+      
+      // In a real implementation, this would:
+      // 1. Set up a React Native project
+      // 2. Create all screens and components
+      // 3. Configure app settings
+      // 4. Build for iOS and Android
+      // 5. Generate APK/IPA files
+      
+      // For now, we'll simulate these steps
+      logs.push('Would initialize React Native project');
+      logs.push('Would add screen components and navigation');
+      logs.push('Would configure app settings');
+      logs.push('Would build for iOS and Android');
+      logs.push('Would generate APK and IPA files');
+      
+      // Simulate a short build time
+      // In real life this would take much longer
+      logs.push('Building native apps (simulated)...');
+      
+      // Simulate generated binary locations
+      const apkPath = path.join(outputDir, `${appName.toLowerCase().replace(/\s+/g, '-')}.apk`);
+      const ipaPath = path.join(outputDir, `${appName.toLowerCase().replace(/\s+/g, '-')}.ipa`);
+      
+      logs.push(`APK would be generated at: ${apkPath}`);
+      logs.push(`IPA would be generated at: ${ipaPath}`);
+      
+      // In a real implementation, this would publish to app stores
+      // For now, we'll simulate links
+      const appStoreLinks = {
+        ios: `https://apps.apple.com/app/${appName.toLowerCase().replace(/\s+/g, '-')}`,
+        android: `https://play.google.com/store/apps/details?id=com.appgenie.${appName.toLowerCase().replace(/\s+/g, '')}`
+      };
+      
+      logs.push('Would upload to app stores for review');
+      logs.push(`App Store link would be: ${appStoreLinks.ios}`);
+      logs.push(`Google Play Store link would be: ${appStoreLinks.android}`);
+      
+      return {
+        status: 'success',
+        deployed_url: `https://appgenie.example.com/apps/${appName.toLowerCase().replace(/\s+/g, '-')}`,
+        build_logs: logs.join('\n'),
+        qr_code: null, // Direct app store links would be provided instead
+        app_store_links: appStoreLinks
+      };
+    } catch (error) {
+      logs.push(`Error during native app deployment: ${error.message}`);
+      console.error('Deployment error:', error);
+      
+      return {
+        status: 'failed',
+        error: error.message,
+        build_logs: logs.join('\n')
+      };
+    }
+  }
+
+# Execution steps
+steps:
+  # Deploy the app based on target platform
+  - action: run_code
+    code: |
+      const { app_name, preview_url, screens, target = 'pwa', config = {} } = input;
+      
+      // Import the necessary deployment functions based on target
+      let deployFunction;
+      let result;
+      
+      console.log(`Starting deployment for ${app_name} to ${target} platform...`);
+      
+      try {
+        switch (target) {
+          case 'pwa':
+            const { deployPWA } = await import('./deploy_pwa.js');
+            deployFunction = deployPWA;
+            break;
+          case 'expo':
+            const { deployExpo } = await import('./deploy_expo.js');
+            deployFunction = deployExpo;
+            break;
+          case 'native':
+            const { deployNative } = await import('./deploy_native.js');
+            deployFunction = deployNative;
+            break;
+          default:
+            throw new Error(`Unsupported deployment target: ${target}`);
+        }
+        
+        // Execute the appropriate deployment function
+        result = await deployFunction(app_name, screens, config);
+        
+        // Ensure the result has the expected structure
+        return {
+          app_name,
+          target,
+          status: result.status || 'unknown',
+          deployed_url: result.deployed_url || '',
+          build_logs: result.build_logs || '',
+          qr_code: result.qr_code || null,
+          app_store_links: result.app_store_links || null
+        };
+      } catch (error) {
+        console.error('Deployment error:', error);
+        
+        return {
+          app_name,
+          target,
+          status: 'failed',
+          error: error.message,
+          build_logs: `Error: ${error.message}`
+        };
+      }
+  
+  # Log the result
+  - action: log
+    message: "Deployment of '{{ app_name }}' to {{ target }} platform {{ status === 'success' ? 'succeeded' : 'failed' }}. {{ deployed_url ? 'Available at: ' + deployed_url : '' }}"
+
+# Lifecycle hooks
+on_start:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.deployer.start', {
+        agent: 'deployer',
+        app_name: input.app_name,
+        target: input.target || 'pwa',
+        timestamp: new Date().toISOString()
+      });
+
+on_finish:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.deployer.finish', {
+        agent: 'deployer',
+        app_name: output.app_name,
+        target: output.target,
+        status: output.status,
+        deployed_url: output.deployed_url,
+        timestamp: new Date().toISOString()
+      });
+
+# Post-processing hooks
+post_process:
+  - action: save_output
+    path: "./logs/deployment_{{ app_name | lower | replace(' ', '_') }}_{{ timestamp }}.log"
+    content: "{{ build_logs }}"

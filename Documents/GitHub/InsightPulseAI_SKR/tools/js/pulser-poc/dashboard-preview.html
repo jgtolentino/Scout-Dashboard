@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Performance Dashboard - Phase 3A Monitoring</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .widgets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .widget {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .widget h3 {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-healthy { background-color: #48bb78; }
+        .status-degraded { background-color: #ed8936; }
+        .status-error { background-color: #f56565; }
+        .status-loading { background-color: #a0aec0; }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 12px;
+            background: rgba(247, 250, 252, 0.8);
+            border-radius: 8px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .issues-list {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(254, 242, 242, 0.8);
+            border-radius: 8px;
+            border-left: 4px solid #f56565;
+        }
+
+        .issue-item {
+            font-size: 13px;
+            color: #c53030;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .last-updated {
+            text-align: center;
+            font-size: 11px;
+            color: #a0aec0;
+            margin-top: 12px;
+        }
+
+        .api-endpoints {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .endpoint-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            margin: 8px 0;
+            background: rgba(247, 250, 252, 0.8);
+            border-radius: 8px;
+            border-left: 4px solid #4299e1;
+        }
+
+        .endpoint-url {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            color: #2d3748;
+        }
+
+        .endpoint-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-ok {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .refresh-button {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .refresh-button:hover {
+            background: #3182ce;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 50%;
+            border-top-color: #4299e1;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: rgba(254, 242, 242, 0.9);
+            border: 1px solid #feb2b2;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+            color: #c53030;
+            font-size: 13px;
+        }
+
+        .compact-health {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(247, 250, 252, 0.8);
+            border-radius: 8px;
+        }
+
+        .compact-status {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .compact-metric {
+            font-size: 11px;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div id="dashboard-root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // SystemHealth Component
+        const SystemHealth = ({ 
+            apiUrl = 'http://127.0.0.1:7072',
+            refreshInterval = 60000,
+            showDetails = true,
+            className = '',
+            onStatusChange = null
+        }) => {
+            const [status, setStatus] = useState('loading');
+            const [metrics, setMetrics] = useState({
+                p99: null,
+                errorRate: null,
+                cacheHitRate: null,
+                uptime: null
+            });
+            const [issues, setIssues] = useState([]);
+            const [lastChecked, setLastChecked] = useState(null);
+            const [error, setError] = useState(null);
+
+            const fetchStatus = async () => {
+                try {
+                    const response = await fetch(`${apiUrl}/api/status`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    setStatus(data.status);
+                    setMetrics(data.metrics);
+                    setIssues(data.issues || []);
+                    setLastChecked(new Date(data.lastChecked));
+                    setError(null);
+                    
+                    if (onStatusChange) {
+                        onStatusChange(data.status, data.metrics, data.issues);
+                    }
+                    
+                } catch (err) {
+                    console.error('SystemHealth: Failed to fetch status:', err);
+                    setStatus('error');
+                    setError(err.message);
+                    setMetrics({
+                        p99: null,
+                        errorRate: null,
+                        cacheHitRate: null,
+                        uptime: null
+                    });
+                    setIssues(['Failed to connect to API']);
+                    setLastChecked(new Date());
+                }
+            };
+
+            useEffect(() => {
+                fetchStatus();
+                const interval = setInterval(fetchStatus, refreshInterval);
+                return () => clearInterval(interval);
+            }, [apiUrl, refreshInterval]);
+
+            const getStatusConfig = (status) => {
+                switch (status) {
+                    case 'healthy':
+                        return { icon: '✅', label: 'Healthy', class: 'status-healthy' };
+                    case 'degraded':
+                        return { icon: '⚠️', label: 'Degraded', class: 'status-degraded' };
+                    case 'error':
+                        return { icon: '❌', label: 'Error', class: 'status-error' };
+                    case 'loading':
+                    default:
+                        return { icon: '⏳', label: 'Loading...', class: 'status-loading' };
+                }
+            };
+
+            const formatMetric = (value, suffix = '') => {
+                if (value === null || value === undefined) return '—';
+                if (typeof value === 'number') {
+                    return Math.round(value) + suffix;
+                }
+                return value;
+            };
+
+            const formatUptime = (seconds) => {
+                if (!seconds) return '—';
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                if (hours > 0) {
+                    return `${hours}h ${minutes}m`;
+                }
+                return `${minutes}m`;
+            };
+
+            const statusConfig = getStatusConfig(status);
+
+            return (
+                <div className={`widget ${className}`}>
+                    <h3>
+                        <span className={`status-indicator ${statusConfig.class}`}></span>
+                        {statusConfig.icon} System Health
+                        <span style={{ marginLeft: 'auto', fontSize: '14px', fontWeight: 'normal' }}>
+                            {statusConfig.label}
+                        </span>
+                    </h3>
+
+                    {showDetails && status !== 'loading' && (
+                        <div className="metrics-grid">
+                            <div className="metric-item">
+                                <div className="metric-value">
+                                    {formatMetric(metrics.p99, 'ms')}
+                                </div>
+                                <div className="metric-label">P99 Latency</div>
+                            </div>
+                            <div className="metric-item">
+                                <div className="metric-value">
+                                    {formatMetric(metrics.errorRate * 100, '%')}
+                                </div>
+                                <div className="metric-label">Error Rate</div>
+                            </div>
+                            <div className="metric-item">
+                                <div className="metric-value">
+                                    {formatMetric(metrics.cacheHitRate * 100, '%')}
+                                </div>
+                                <div className="metric-label">Cache Hit</div>
+                            </div>
+                            <div className="metric-item">
+                                <div className="metric-value">
+                                    {formatUptime(metrics.uptime)}
+                                </div>
+                                <div className="metric-label">Uptime</div>
+                            </div>
+                        </div>
+                    )}
+
+                    {issues.length > 0 && (
+                        <div className="issues-list">
+                            <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: '#c53030' }}>
+                                Issues Detected:
+                            </div>
+                            {issues.map((issue, index) => (
+                                <div key={index} className="issue-item">
+                                    <span>•</span>
+                                    <span>{issue}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="error-message">
+                            <strong>Connection Error:</strong> {error}
+                        </div>
+                    )}
+
+                    <div className="last-updated">
+                        Last checked: {lastChecked ? lastChecked.toLocaleTimeString() : '—'}
+                    </div>
+                </div>
+            );
+        };
+
+        // Compact SystemHealth Component
+        const SystemHealthCompact = ({ apiUrl = 'http://127.0.0.1:7072' }) => {
+            const [status, setStatus] = useState('loading');
+            const [metrics, setMetrics] = useState({});
+
+            const fetchStatus = async () => {
+                try {
+                    const response = await fetch(`${apiUrl}/api/status`);
+                    const data = await response.json();
+                    setStatus(data.status);
+                    setMetrics(data.metrics);
+                } catch (err) {
+                    setStatus('error');
+                }
+            };
+
+            useEffect(() => {
+                fetchStatus();
+                const interval = setInterval(fetchStatus, 30000);
+                return () => clearInterval(interval);
+            }, [apiUrl]);
+
+            const getStatusConfig = (status) => {
+                switch (status) {
+                    case 'healthy': return { class: 'status-healthy', label: 'Healthy' };
+                    case 'degraded': return { class: 'status-degraded', label: 'Degraded' };
+                    case 'error': return { class: 'status-error', label: 'Error' };
+                    default: return { class: 'status-loading', label: 'Loading...' };
+                }
+            };
+
+            const statusConfig = getStatusConfig(status);
+
+            return (
+                <div className="compact-health">
+                    <span className={`status-indicator ${statusConfig.class}`}></span>
+                    <span className="compact-status">API {statusConfig.label}</span>
+                    {metrics.p99 && (
+                        <span className="compact-metric">
+                            {Math.round(metrics.p99)}ms
+                        </span>
+                    )}
+                </div>
+            );
+        };
+
+        // API Endpoints Monitor
+        const ApiEndpoints = ({ apiUrl = 'http://127.0.0.1:7072' }) => {
+            const [endpoints, setEndpoints] = useState([]);
+            const [loading, setLoading] = useState(false);
+
+            const testEndpoints = async () => {
+                setLoading(true);
+                const endpointList = [
+                    '/health',
+                    '/api/status',
+                    '/api/metrics',
+                    '/api/brands/kpis',
+                    '/api/brands/leaderboard',
+                    '/api/brands/market-share'
+                ];
+
+                const results = await Promise.all(
+                    endpointList.map(async (endpoint) => {
+                        try {
+                            const start = Date.now();
+                            const response = await fetch(`${apiUrl}${endpoint}`);
+                            const duration = Date.now() - start;
+                            return {
+                                endpoint,
+                                status: response.ok ? 'OK' : 'ERROR',
+                                duration: `${duration}ms`
+                            };
+                        } catch (error) {
+                            return {
+                                endpoint,
+                                status: 'ERROR',
+                                duration: 'N/A'
+                            };
+                        }
+                    })
+                );
+
+                setEndpoints(results);
+                setLoading(false);
+            };
+
+            useEffect(() => {
+                testEndpoints();
+                const interval = setInterval(testEndpoints, 60000);
+                return () => clearInterval(interval);
+            }, [apiUrl]);
+
+            return (
+                <div className="api-endpoints">
+                    <h3>
+                        🔗 API Endpoints
+                        <button 
+                            className="refresh-button" 
+                            onClick={testEndpoints}
+                            disabled={loading}
+                            style={{ marginLeft: 'auto' }}
+                        >
+                            {loading ? <span className="loading"></span> : 'Refresh'}
+                        </button>
+                    </h3>
+                    
+                    {endpoints.map((endpoint, index) => (
+                        <div key={index} className="endpoint-item">
+                            <span className="endpoint-url">{endpoint.endpoint}</span>
+                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                <span style={{ fontSize: '11px', color: '#718096' }}>
+                                    {endpoint.duration}
+                                </span>
+                                <span className={`endpoint-status ${endpoint.status === 'OK' ? 'status-ok' : 'status-error'}`}>
+                                    {endpoint.status}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        // Main Dashboard Component
+        const Dashboard = () => {
+            const [apiUrl] = useState('http://127.0.0.1:7072');
+
+            return (
+                <div className="dashboard-container">
+                    <div className="header">
+                        <div>
+                            <h1>Brand Performance Dashboard</h1>
+                            <div className="subtitle">Phase 3A: Advanced Monitoring & Observability</div>
+                        </div>
+                        <SystemHealthCompact apiUrl={apiUrl} />
+                    </div>
+
+                    <div className="widgets-grid">
+                        <SystemHealth 
+                            apiUrl={apiUrl}
+                            refreshInterval={60000}
+                            showDetails={true}
+                            onStatusChange={(status, metrics, issues) => {
+                                console.log('Status changed:', { status, metrics, issues });
+                            }}
+                        />
+                        
+                        <ApiEndpoints apiUrl={apiUrl} />
+                    </div>
+
+                    <div style={{ 
+                        background: 'rgba(255, 255, 255, 0.95)', 
+                        backdropFilter: 'blur(10px)',
+                        borderRadius: '16px', 
+                        padding: '24px',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                        textAlign: 'center'
+                    }}>
+                        <h3 style={{ marginBottom: '16px', color: '#2d3748' }}>
+                            🎯 Phase 3A Implementation Complete
+                        </h3>
+                        <p style={{ color: '#718096', fontSize: '14px', lineHeight: '1.6' }}>
+                            Your Brand Performance API now features enterprise-grade monitoring with OpenTelemetry, 
+                            real-time metrics, Azure Application Insights integration, and dashboard-ready health widgets. 
+                            The system automatically tracks P99 latency, error rates, cache performance, and provides 
+                            intelligent health status indicators.
+                        </p>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the dashboard
+        ReactDOM.render(<Dashboard />, document.getElementById('dashboard-root'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!-- GenAI Insights Section -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i> AI-Generated Insights</h5>
+        <div>
+          <button class="btn btn-sm btn-light" id="refreshInsights">
+            <i class="fas fa-sync-alt me-1"></i> Refresh
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text">Brand</span>
+              <select class="form-select" id="insightBrandFilter">
+                <option value="all" selected>All Brands</option>
+                <!-- Populated via JS -->
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text">Insight Type</span>
+              <select class="form-select" id="insightTypeFilter">
+                <option value="all" selected>All Types</option>
+                <option value="general">General</option>
+                <option value="brand">Brand</option>
+                <option value="sentiment">Sentiment</option>
+                <option value="trend">Trend</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div id="insightsContainer">
+          <!-- Insights will be loaded here -->
+          <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading insights...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Insight JavaScript -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Load insights when the page loads
+    loadInsights();
+    
+    // Set up refresh button
+    document.getElementById('refreshInsights').addEventListener('click', loadInsights);
+    
+    // Set up filters
+    document.getElementById('insightBrandFilter').addEventListener('change', loadInsights);
+    document.getElementById('insightTypeFilter').addEventListener('change', loadInsights);
+    
+    // Function to load insights
+    async function loadInsights() {
+      try {
+        const brandFilter = document.getElementById('insightBrandFilter').value;
+        const typeFilter = document.getElementById('insightTypeFilter').value;
+        
+        // Show loading state
+        document.getElementById('insightsContainer').innerHTML = `
+          <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading insights...</p>
+          </div>
+        `;
+        
+        // Prepare parameters
+        const params = {
+          time_range: '30d',
+          confidence: 0.7
+        };
+        
+        if (brandFilter !== 'all') {
+          params.brand = brandFilter;
+        }
+        
+        if (typeFilter !== 'all') {
+          params.type = typeFilter;
+        }
+        
+        // Fetch insights from API
+        const insights = await insightsClient.getInsights(params);
+        
+        // Update UI with insights
+        renderInsights(insights);
+        
+        // Update brand filter options if needed
+        updateBrandOptions(insights);
+        
+      } catch (error) {
+        console.error('Failed to load insights:', error);
+        document.getElementById('insightsContainer').innerHTML = `
+          <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Failed to load insights. Please try again later.
+          </div>
+        `;
+      }
+    }
+    
+    // Function to render insights
+    function renderInsights(insights) {
+      const container = document.getElementById('insightsContainer');
+      
+      if (!insights || insights.length === 0) {
+        container.innerHTML = `
+          <div class="alert alert-info" role="alert">
+            <i class="fas fa-info-circle me-2"></i>
+            No insights found for the selected filters.
+          </div>
+        `;
+        return;
+      }
+      
+      // Clear container
+      container.innerHTML = '';
+      
+      // Create a row
+      const row = document.createElement('div');
+      row.className = 'row';
+      
+      // Add insights to row
+      insights.forEach(insight => {
+        const col = document.createElement('div');
+        col.className = 'col-md-6 mb-4';
+        
+        col.innerHTML = `
+          <div class="card insight-card card-insight-${insight.insight_type}">
+            <div class="card-header">
+              <span class="badge bg-light text-dark me-2">${insight.insight_type}</span>
+              ${insight.insight_title}
+              <span class="confidence-badge confidence-${getConfidenceLevel(insight.confidence_score)}">
+                ${Math.round(insight.confidence_score * 100)}% confidence
+              </span>
+            </div>
+            <div class="card-body">
+              <p>${insight.insight_text}</p>
+              
+              <div class="mb-3">
+                ${renderBrandTags(insight.brands_mentioned)}
+              </div>
+              
+              <div>
+                ${renderTags(insight.summary_tags)}
+              </div>
+              
+              <div class="mt-3 text-end">
+                <small class="text-muted">Generated by ${insight.generated_by} • ${formatDate(insight.processing_timestamp)}</small>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        row.appendChild(col);
+      });
+      
+      container.appendChild(row);
+    }
+    
+    // Helper function to determine confidence level
+    function getConfidenceLevel(score) {
+      if (score >= 0.8) return 'high';
+      if (score >= 0.6) return 'medium';
+      return 'low';
+    }
+    
+    // Helper function to render brand tags
+    function renderBrandTags(brands) {
+      if (!brands || brands.length === 0) return '';
+      
+      return brands.map(brand => `
+        <span class="brand-tag">${brand}</span>
+      `).join('');
+    }
+    
+    // Helper function to render tags
+    function renderTags(tags) {
+      if (!tags || tags.length === 0) return '';
+      
+      return tags.map(tag => `
+        <span class="tag">${tag}</span>
+      `).join('');
+    }
+    
+    // Helper function to format date
+    function formatDate(timestamp) {
+      const date = new Date(timestamp);
+      return date.toLocaleDateString();
+    }
+    
+    // Helper function to update brand options
+    function updateBrandOptions(insights) {
+      // Get unique brands from insights
+      const brands = new Set();
+      
+      insights.forEach(insight => {
+        if (insight.brands_mentioned) {
+          insight.brands_mentioned.forEach(brand => brands.add(brand));
+        }
+      });
+      
+      const brandFilter = document.getElementById('insightBrandFilter');
+      const currentValue = brandFilter.value;
+      
+      // Clear options except "All Brands"
+      while (brandFilter.options.length > 1) {
+        brandFilter.options.remove(1);
+      }
+      
+      // Add brand options
+      brands.forEach(brand => {
+        const option = document.createElement('option');
+        option.value = brand;
+        option.textContent = brand;
+        brandFilter.appendChild(option);
+      });
+      
+      // Restore selected value if possible
+      if (currentValue !== 'all' && [...brands].includes(currentValue)) {
+        brandFilter.value = currentValue;
+      }
+    }
+  });
+</script>

@@ -1,0 +1,48 @@
+#!/bin/bash
+# DeepSeek wrapper for Pulser/Codex CLI
+
+# Default to 6.7B model for speed
+MODEL="${DEEPSEEK_MODEL:-deepseek-coder:6.7b-instruct-q4_K_M}"
+
+# Check if Ollama is running
+if ! pgrep -x "ollama" > /dev/null; then
+    echo "Starting Ollama service..."
+    ollama serve > /dev/null 2>&1 &
+    sleep 2
+fi
+
+# Handle different command styles
+case "$1" in
+    --large|-l)
+        MODEL="deepseek-coder:33b"
+        shift
+        ;;
+    --model|-m)
+        MODEL="$2"
+        shift 2
+        ;;
+    --help|-h)
+        echo "Usage: deepseek [options] <prompt>"
+        echo "Options:"
+        echo "  -l, --large    Use 33B model (slower, more powerful)"
+        echo "  -m, --model    Specify model name"
+        echo "  -h, --help     Show this help"
+        echo ""
+        echo "Examples:"
+        echo "  deepseek 'Write a Python function to sort a list'"
+        echo "  deepseek -l 'Design a REST API for user management'"
+        exit 0
+        ;;
+esac
+
+# Get the prompt
+PROMPT="$*"
+
+if [ -z "$PROMPT" ]; then
+    echo "Error: No prompt provided"
+    echo "Usage: deepseek <prompt>"
+    exit 1
+fi
+
+# Run the query
+ollama run "$MODEL" "$PROMPT"

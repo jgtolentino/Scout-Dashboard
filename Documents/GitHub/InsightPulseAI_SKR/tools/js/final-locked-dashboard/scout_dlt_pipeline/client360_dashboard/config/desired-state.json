@@ -1,0 +1,511 @@
+{
+  "version": "2.5.0",
+  "lastUpdated": "2025-05-22T00:00:00.000Z",
+  "metadata": {
+    "title": "Scout Dashboard",
+    "description": "JSON-driven, spec-validated Scout Dashboard v2.5.0",
+    "environment": "production",
+    "buildNumber": "2.5.0-stable"
+  },
+  "page": {
+    "title": "Scout Dashboard",
+    "versionIndicator": "v2.5.0",
+    "controls": {
+      "dateRange": {
+        "key": "dateRange",
+        "type": "datePicker",
+        "label": "Date Range",
+        "default": {
+          "start": "2025-05-15",
+          "end": "2025-05-22"
+        },
+        "format": "MMM DD – MMM DD, YYYY"
+      },
+      "autoRefresh": {
+        "key": "autoRefresh",
+        "type": "toggle",
+        "label": "Auto-refresh",
+        "default": true,
+        "interval": 900000
+      },
+      "export": {
+        "key": "export",
+        "type": "dropdown",
+        "label": "Export",
+        "options": [
+          {
+            "value": "current",
+            "label": "This Visual"
+          },
+          {
+            "value": "full",
+            "label": "Full Dashboard"
+          }
+        ]
+      },
+      "settings": {
+        "key": "settings",
+        "type": "menu",
+        "label": "Settings"
+      }
+    }
+  },
+  "navItems": [
+    {
+      "key": "overview",
+      "label": "Overview",
+      "route": "/#overview",
+      "active": true,
+      "icon": "dashboard"
+    },
+    {
+      "key": "regional",
+      "label": "Regional Analysis",
+      "route": "/#regional",
+      "active": false,
+      "icon": "map"
+    },
+    {
+      "key": "store",
+      "label": "Store Performance",
+      "route": "/#store",
+      "active": false,
+      "icon": "store"
+    },
+    {
+      "key": "product",
+      "label": "Product Analytics",
+      "route": "/#product",
+      "active": false,
+      "icon": "inventory"
+    },
+    {
+      "key": "reports",
+      "label": "Sales Reports",
+      "route": "/#reports",
+      "active": false,
+      "icon": "assessment"
+    },
+    {
+      "key": "settings",
+      "label": "Settings",
+      "route": "/#settings",
+      "active": false,
+      "icon": "settings"
+    }
+  ],
+  "globalFilters": [
+    {
+      "id": "barangay",
+      "label": "Barangay",
+      "type": "dropdown",
+      "endpoint": "/api/filters/global",
+      "parameter": "barangay",
+      "placeholder": "Select barangay...",
+      "multiSelect": true,
+      "searchable": true
+    },
+    {
+      "id": "category",
+      "label": "Category",
+      "type": "dropdown",
+      "endpoint": "/api/filters/global",
+      "parameter": "category",
+      "placeholder": "Select category...",
+      "multiSelect": true,
+      "searchable": true
+    },
+    {
+      "id": "time",
+      "label": "Time",
+      "type": "dropdown",
+      "endpoint": "/api/filters/global",
+      "parameter": "time",
+      "placeholder": "Select time period...",
+      "multiSelect": false,
+      "searchable": false,
+      "options": [
+        { "value": "morning", "label": "Morning (6AM-12PM)" },
+        { "value": "afternoon", "label": "Afternoon (12PM-6PM)" },
+        { "value": "evening", "label": "Evening (6PM-12AM)" },
+        { "value": "late_night", "label": "Late Night (12AM-6AM)" }
+      ]
+    },
+    {
+      "id": "brand",
+      "label": "Brand",
+      "type": "dropdown",
+      "endpoint": "/api/filters/global",
+      "parameter": "brand",
+      "placeholder": "Select brand...",
+      "multiSelect": true,
+      "searchable": true
+    },
+    {
+      "id": "dayType",
+      "label": "Day Type",
+      "type": "dropdown",
+      "endpoint": "/api/filters/global",
+      "parameter": "dayType",
+      "placeholder": "Select day type...",
+      "multiSelect": false,
+      "searchable": false,
+      "options": [
+        { "value": "weekday", "label": "Weekday" },
+        { "value": "weekend", "label": "Weekend" },
+        { "value": "holiday", "label": "Holiday" }
+      ]
+    },
+    {
+      "id": "search",
+      "label": "Search Filters",
+      "type": "search",
+      "placeholder": "Search transactions, products, locations...",
+      "minLength": 3,
+      "debounce": 300
+    }
+  ],
+  "modules": [
+    {
+      "id": "transaction-trends",
+      "label": "Transaction Trends",
+      "type": "lineChart",
+      "position": {
+        "row": 1,
+        "col": 1,
+        "width": 6,
+        "height": 4
+      },
+      "drillDown": true,
+      "endpoint": "/api/transactions/trends",
+      "refreshInterval": 900000,
+      "config": {
+        "xAxis": {
+          "field": "date",
+          "label": "Date",
+          "format": "MMM DD"
+        },
+        "yAxis": {
+          "field": "count",
+          "label": "Transaction Count",
+          "format": "number"
+        },
+        "series": [
+          {
+            "field": "total_transactions",
+            "label": "Total Transactions",
+            "color": "#2196F3"
+          },
+          {
+            "field": "successful_transactions",
+            "label": "Successful Transactions",
+            "color": "#4CAF50"
+          },
+          {
+            "field": "failed_transactions",
+            "label": "Failed Transactions",
+            "color": "#f44336"
+          }
+        ],
+        "responsive": true,
+        "legend": {
+          "position": "bottom",
+          "align": "center"
+        },
+        "tooltip": {
+          "enabled": true,
+          "format": "{series}: {value:,} transactions on {date}"
+        }
+      }
+    },
+    {
+      "id": "product-mix-sku-analysis",
+      "label": "Product Mix & SKU Analysis",
+      "type": "barChart",
+      "position": {
+        "row": 1,
+        "col": 7,
+        "width": 6,
+        "height": 4
+      },
+      "drillDown": true,
+      "endpoint": "/api/product-mix-sku",
+      "refreshInterval": 900000,
+      "config": {
+        "xAxis": {
+          "field": "category",
+          "label": "Product Category",
+          "rotate": 45
+        },
+        "yAxis": {
+          "field": "revenue",
+          "label": "Revenue (PHP)",
+          "format": "currency"
+        },
+        "series": [
+          {
+            "field": "total_revenue",
+            "label": "Total Revenue",
+            "color": "#FF9800"
+          },
+          {
+            "field": "unit_sales",
+            "label": "Unit Sales",
+            "color": "#9C27B0",
+            "yAxis": "secondary"
+          }
+        ],
+        "responsive": true,
+        "legend": {
+          "position": "top",
+          "align": "right"
+        },
+        "tooltip": {
+          "enabled": true,
+          "format": "{category}: ₱{value:,.2f}"
+        },
+        "secondaryYAxis": {
+          "field": "units",
+          "label": "Units Sold",
+          "format": "number",
+          "position": "right"
+        }
+      }
+    }
+  ],
+  "smartFeatures": {
+    "autoRefresh": {
+      "enabled": true,
+      "interval": 900000,
+      "strategy": "incremental"
+    },
+    "performanceIndicators": {
+      "enabled": true,
+      "showLoadTimes": true,
+      "showDataFreshness": true,
+      "showErrorRates": true
+    },
+    "crossFilterStatus": {
+      "enabled": true,
+      "displayPosition": "top",
+      "showActiveFilters": true,
+      "showFilterCount": true
+    },
+    "smartInsightsPanel": {
+      "enabled": true,
+      "endpoint": "/api/insights/smart",
+      "refreshInterval": 1800000,
+      "maxInsights": 5,
+      "position": "sidebar"
+    },
+    "adaptiveLayout": {
+      "enabled": true,
+      "breakpoints": {
+        "mobile": 768,
+        "tablet": 1024,
+        "desktop": 1200
+      }
+    }
+  },
+  "responsive": {
+    "expandablePanels": {
+      "enabled": true,
+      "breakpoint": 768
+    },
+    "collapsibleSections": {
+      "enabled": true,
+      "priority": ["filters", "controls", "modules"]
+    },
+    "zoomControls": {
+      "enabled": true,
+      "charts": true,
+      "minZoom": 0.5,
+      "maxZoom": 2.0
+    },
+    "keyboardNavigation": {
+      "enabled": true,
+      "tabOrder": ["nav", "controls", "filters", "modules"],
+      "shortcuts": {
+        "toggleFilters": "F",
+        "refresh": "R",
+        "export": "E",
+        "help": "?"
+      }
+    },
+    "accessibility": {
+      "wcag": "2.1-AA",
+      "highContrast": true,
+      "screenReader": true,
+      "ariaLabels": true,
+      "focusIndicators": true
+    }
+  },
+  "endpoints": {
+    "transactions": {
+      "url": "/api/transactions/trends",
+      "method": "GET",
+      "timeout": 10000,
+      "retries": 3,
+      "cache": 300000
+    },
+    "productMix": {
+      "url": "/api/product-mix-sku",
+      "method": "GET",
+      "timeout": 10000,
+      "retries": 3,
+      "cache": 300000
+    },
+    "globalFilters": {
+      "url": "/api/filters/global",
+      "method": "GET",
+      "timeout": 10000,
+      "retries": 2,
+      "cache": 600000
+    },
+    "export": {
+      "url": "/api/export",
+      "method": "POST",
+      "timeout": 30000,
+      "retries": 1,
+      "cache": 0
+    },
+    "userSettings": {
+      "url": "/api/user/settings",
+      "method": "GET",
+      "timeout": 5000,
+      "retries": 2,
+      "cache": 3600000
+    },
+    "smartInsights": {
+      "url": "/api/insights/smart",
+      "method": "GET",
+      "timeout": 15000,
+      "retries": 2,
+      "cache": 1800000
+    }
+  },
+  "errorHandling": {
+    "toast": {
+      "enabled": true,
+      "position": "top-right",
+      "duration": 5000,
+      "types": {
+        "error": "#f44336",
+        "warning": "#ff9800",
+        "info": "#2196f3",
+        "success": "#4caf50"
+      }
+    },
+    "fallback": {
+      "enabled": true,
+      "showErrorBoundary": true,
+      "retryButton": true,
+      "contactSupport": true
+    },
+    "logging": {
+      "enabled": true,
+      "level": "error",
+      "endpoint": "/api/logs/client"
+    }
+  },
+  "performance": {
+    "targets": {
+      "pageLoad": 2000,
+      "firstContentfulPaint": 1000,
+      "largestContentfulPaint": 2500,
+      "cumulativeLayoutShift": 0.1
+    },
+    "optimization": {
+      "lazyLoading": true,
+      "codesplitting": true,
+      "imageLazyLoad": true,
+      "criticalCSS": true
+    },
+    "monitoring": {
+      "enabled": true,
+      "reportingEndpoint": "/api/performance/metrics",
+      "sampleRate": 0.1
+    }
+  },
+  "security": {
+    "authentication": {
+      "type": "OAuth2",
+      "tokenEndpoint": "/api/auth/token",
+      "refreshEndpoint": "/api/auth/refresh",
+      "logoutEndpoint": "/api/auth/logout"
+    },
+    "authorization": {
+      "headerName": "Authorization",
+      "tokenPrefix": "Bearer ",
+      "renewBefore": 300000
+    },
+    "csp": {
+      "enabled": true,
+      "directives": {
+        "defaultSrc": "'self'",
+        "scriptSrc": "'self' 'unsafe-inline'",
+        "styleSrc": "'self' 'unsafe-inline'",
+        "imgSrc": "'self' data: https:",
+        "connectSrc": "'self' wss:"
+      }
+    },
+    "xss": {
+      "enabled": true,
+      "sanitizeInputs": true,
+      "validateOutputs": true
+    }
+  },
+  "testing": {
+    "coverage": {
+      "minimum": 95,
+      "exclude": ["**/*.test.js", "**/node_modules/**"]
+    },
+    "e2e": {
+      "framework": "playwright",
+      "baseURL": "http://localhost:3000",
+      "browsers": ["chromium", "firefox", "webkit"],
+      "tests": [
+        {
+          "name": "navigation-test",
+          "description": "Verify all nav items are present and clickable",
+          "selector": "[data-testid='nav-item']",
+          "expectedCount": 6
+        },
+        {
+          "name": "modules-test",
+          "description": "Verify dashboard modules render correctly",
+          "selector": "[data-testid='dashboard-module']",
+          "expectedCount": 2
+        },
+        {
+          "name": "filters-test",
+          "description": "Verify global filters functionality",
+          "selector": "[data-testid='global-filter']",
+          "expectedCount": 6
+        }
+      ]
+    }
+  },
+  "ci": {
+    "driftValidation": {
+      "enabled": true,
+      "script": "scripts/check-drift.js",
+      "source": "config/desired-state.json",
+      "target": "https://api.scout.com/config/desired-state.json",
+      "failOnDiff": true,
+      "excludeFields": ["lastUpdated", "metadata.buildNumber"]
+    },
+    "deployment": {
+      "stages": ["staging", "production"],
+      "approvals": {
+        "staging": false,
+        "production": true
+      },
+      "rollback": {
+        "enabled": true,
+        "strategy": "automatic",
+        "threshold": 5
+      }
+    }
+  }
+}

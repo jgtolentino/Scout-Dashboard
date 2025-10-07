@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["type", "insight", "confidence", "evidence", "recommendation"],
+  "properties": {
+    "type": {"const": "InsightSpec"},
+    "insight": {"type": "string"},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "evidence": {"type": "array", "items": {"type": "object"}},
+    "recommendation": {"type": "string"}
+  }
+}

@@ -1,0 +1,630 @@
+# Agent Schema v2.1 Specification
+# SuperClaude Designer Enhanced Schema
+# Integrates spec-kit constitutional principles with production agent requirements
+
+---
+$schema: "https://json-schema.org/draft-07/schema#"
+$id: "https://superclaude.designer/schemas/agent-v2.1"
+version: "2.1.0"
+updated: "2025-10-07T21:05:00Z"
+title: "SuperClaude Agent Schema v2.1"
+description: |
+  Enhanced agent schema integrating Spec-Driven Development constitutional principles
+  with production-grade orchestration, validation scoring, and priority routing.
+
+  Constitutional Compliance:
+  - Article I: Specification Authority (specs as source of truth)
+  - Article III: Test-First Imperative (TDD enforcement)
+  - Article IV: Incremental Delivery (P1 before P2/P3)
+  - Article V: Independent Testability (standalone validation)
+  - Article VI: Evidence-Based Validation (verifiable metrics)
+
+# ============================================================================
+# CORE AGENT DEFINITION
+# ============================================================================
+
+type: object
+required:
+  - agent
+properties:
+  agent:
+    type: object
+    required:
+      - name
+      - version
+      - description
+      - type
+      - department
+      - capabilities
+      - tools
+    properties:
+
+      # ------------------------------------------------------------------------
+      # BASIC IDENTIFICATION (v1.0 compatible)
+      # ------------------------------------------------------------------------
+
+      name:
+        type: string
+        pattern: "^[a-z][a-z0-9-]*$"
+        minLength: 3
+        maxLength: 50
+        description: |
+          Unique agent identifier. Hyphenated lowercase only.
+          Examples: frontend-developer, core-web-vitals-optimizer
+        examples:
+          - "frontend-developer"
+          - "security-engineer"
+          - "design-system-architect"
+
+      version:
+        type: string
+        pattern: "^\\d+\\.\\d+\\.\\d+$"
+        description: "Semantic versioning (MAJOR.MINOR.PATCH)"
+        default: "2.1.0"
+        examples:
+          - "2.1.0"
+          - "2.1.1"
+
+      description:
+        type: string
+        minLength: 20
+        maxLength: 200
+        description: |
+          Concise agent purpose and domain expertise.
+          Should clearly communicate agent's specialized value.
+        examples:
+          - "Design system architect specializing in component libraries and design tokens"
+          - "Core Web Vitals optimizer focusing on LCP, FID, and CLS metrics"
+
+      type:
+        type: string
+        enum:
+          - "traditional"
+          - "edge_function"
+          - "orchestrator"
+          - "specialist"
+        description: |
+          Agent execution type:
+          - traditional: Standard agent execution
+          - edge_function: Serverless edge execution
+          - orchestrator: Multi-agent coordination
+          - specialist: Domain-specific expert
+        default: "specialist"
+
+      department:
+        type: string
+        enum:
+          - "engineering"
+          - "design"
+          - "quality"
+          - "infrastructure"
+          - "documentation"
+          - "security"
+          - "performance"
+          - "testing"
+          - "marketing"
+          - "operations"
+        description: "Organizational department for agent grouping"
+
+      # ------------------------------------------------------------------------
+      # ENHANCED CAPABILITIES (v2.1 new)
+      # ------------------------------------------------------------------------
+
+      capabilities:
+        type: object
+        required:
+          - core
+        properties:
+          core:
+            type: array
+            items:
+              type: string
+              enum:
+                - "scaffold"
+                - "analyze"
+                - "refactor"
+                - "test"
+                - "profile"
+                - "document"
+                - "deploy"
+                - "monitor"
+            minItems: 1
+            description: |
+              Core capabilities every agent should have.
+              Standard set: scaffold, analyze, refactor, test, profile
+            examples:
+              - ["scaffold", "analyze", "refactor", "test", "profile"]
+
+          specialized:
+            type: array
+            items:
+              type: string
+            description: |
+              Domain-specific capabilities unique to this agent.
+              Examples: optimize-bundle, audit-accessibility, generate-tokens
+            examples:
+              - ["optimize-web-vitals", "analyze-lighthouse", "profile-runtime"]
+              - ["audit-accessibility", "validate-wcag", "generate-a11y-report"]
+
+          experimental:
+            type: array
+            items:
+              type: string
+            description: "Beta or experimental capabilities under development"
+            default: []
+
+      # ------------------------------------------------------------------------
+      # ENHANCED TOOLS & INTEGRATIONS (v2.1 enhanced)
+      # ------------------------------------------------------------------------
+
+      tools:
+        type: object
+        required:
+          - required
+        properties:
+          required:
+            type: array
+            items:
+              type: string
+            minItems: 1
+            description: "Must-have tools for agent operation"
+            examples:
+              - ["fs", "bruno-supabase", "pnpm"]
+              - ["playwright", "lighthouse", "chrome-devtools"]
+
+          optional:
+            type: array
+            items:
+              type: string
+            description: "Enhancement tools that improve but aren't critical"
+            default: []
+            examples:
+              - ["webpack-bundle-analyzer", "performance-observer"]
+
+          mcp_servers:
+            type: array
+            items:
+              type: string
+            description: "MCP server integrations for enhanced functionality"
+            default: []
+            examples:
+              - ["bruno-supabase", "fs", "playwright"]
+
+      # ------------------------------------------------------------------------
+      # KEYWORDS & DISCOVERY (v1.0 compatible)
+      # ------------------------------------------------------------------------
+
+      keywords:
+        type: array
+        items:
+          type: string
+        description: "Domain-specific keywords for agent discovery"
+        default: []
+        examples:
+          - ["performance", "web-vitals", "optimization", "metrics"]
+          - ["design-system", "components", "tokens", "figma"]
+
+      # ------------------------------------------------------------------------
+      # SECURITY & PERMISSIONS (v1.0 compatible)
+      # ------------------------------------------------------------------------
+
+      permissions:
+        type: object
+        required:
+          - allow_shell
+          - allow_network
+          - allow_credentials
+        properties:
+          allow_shell:
+            type: boolean
+            description: "Allow shell command execution"
+            default: false
+
+          allow_network:
+            type: boolean
+            description: "Allow network/API access"
+            default: false
+
+          allow_credentials:
+            type: boolean
+            description: "Allow credential access (Bruno-gated only)"
+            default: false
+
+      # ------------------------------------------------------------------------
+      # AGENT-SPECIFIC CONFIG (v1.0 compatible)
+      # ------------------------------------------------------------------------
+
+      config:
+        type: object
+        description: "Agent-specific configuration parameters"
+        default: {}
+        additionalProperties: true
+
+      # ------------------------------------------------------------------------
+      # ROUTING & ORCHESTRATION (v1.0 enhanced in v2.1)
+      # ------------------------------------------------------------------------
+
+      routing:
+        type: object
+        required:
+          - mcp
+          - commands
+        properties:
+          mcp:
+            type: array
+            items:
+              type: string
+            description: "MCP server routing assignments"
+            examples:
+              - ["bruno-supabase", "fs"]
+              - ["playwright", "lighthouse"]
+
+          commands:
+            type: array
+            items:
+              type: string
+            description: "Slash command handlers this agent responds to"
+            examples:
+              - ["spec:run", "lint", "test", "build"]
+              - ["/optimize-vitals", "/audit-performance"]
+
+      # ------------------------------------------------------------------------
+      # NEW: CONSTITUTIONAL COMPLIANCE (v2.1)
+      # ------------------------------------------------------------------------
+
+      constitutional_compliance:
+        type: object
+        description: |
+          Spec-Driven Development constitutional principles compliance.
+          Based on github/spec-kit 9 constitutional articles.
+        properties:
+          article_i_spec_authority:
+            type: boolean
+            description: |
+              Article I: Specification Authority
+              Specifications are source of truth, not documentation.
+              Agent treats specs as executable contracts.
+            default: true
+
+          article_iii_test_first:
+            type: boolean
+            description: |
+              Article III: Test-First Imperative
+              Enforces TDD: No code before tests (Red-Green-Refactor).
+              Agent validates test existence before implementation.
+            default: true
+
+          article_iv_incremental:
+            type: boolean
+            description: |
+              Article IV: Incremental Delivery
+              P1 features before P2/P3 enhancements.
+              Agent prioritizes MVP delivery.
+            default: true
+
+          article_v_independent_test:
+            type: boolean
+            description: |
+              Article V: Independent Testability
+              Each feature is standalone testable.
+              Agent ensures isolated test capability.
+            default: true
+
+          article_vi_evidence_based:
+            type: boolean
+            description: |
+              Article VI: Evidence-Based Validation
+              All claims require verifiable evidence.
+              Agent provides metrics and proof.
+            default: true
+
+      # ------------------------------------------------------------------------
+      # NEW: PRIORITY ROUTING (v2.1)
+      # ------------------------------------------------------------------------
+
+      task_routing:
+        type: object
+        description: |
+          Priority-based task routing system.
+          P1 = MVP critical, P2 = enhancements, P3 = nice-to-have
+        properties:
+          priority_levels:
+            type: array
+            items:
+              type: string
+              enum: ["P1", "P2", "P3"]
+            description: "Supported priority levels (P1 highest)"
+            default: ["P1", "P2", "P3"]
+
+          default_priority:
+            type: string
+            enum: ["P1", "P2", "P3"]
+            description: "Default priority when not specified"
+            default: "P1"
+
+          escalation_threshold:
+            type: number
+            minimum: 0.0
+            maximum: 1.0
+            description: |
+              Task complexity threshold triggering escalation to orchestrator.
+              0.0 = never escalate, 1.0 = always escalate
+            default: 0.8
+
+      # ------------------------------------------------------------------------
+      # NEW: VALIDATION SCORING (v2.1)
+      # ------------------------------------------------------------------------
+
+      quality_metrics:
+        type: object
+        description: |
+          Evidence-based quality scoring (0.0-1.0 scale).
+          Enables automated validation and continuous improvement.
+        properties:
+          validation_score:
+            type: number
+            minimum: 0.0
+            maximum: 1.0
+            description: |
+              Overall agent quality score.
+              Target: 0.99+ for production agents.
+              Calculated from test_coverage, spec_compliance, performance_rating.
+            examples:
+              - 0.995
+              - 0.994
+
+          test_coverage:
+            type: number
+            minimum: 0.0
+            maximum: 1.0
+            description: |
+              Test coverage percentage (0.0-1.0).
+              Target: 0.95+ (95% coverage)
+            examples:
+              - 0.98
+              - 0.95
+
+          spec_compliance:
+            type: number
+            minimum: 0.0
+            maximum: 1.0
+            description: |
+              Specification adherence score.
+              Measures how well agent follows its spec.
+              Target: 1.0 (perfect compliance)
+            examples:
+              - 1.0
+              - 0.99
+
+          performance_rating:
+            type: number
+            minimum: 0.0
+            maximum: 1.0
+            description: |
+              Performance benchmark score.
+              Measures execution speed and resource efficiency.
+              Target: 0.90+ (90th percentile)
+            examples:
+              - 0.95
+              - 0.92
+
+      # ------------------------------------------------------------------------
+      # NEW: ACCEPTANCE CRITERIA (v2.1)
+      # ------------------------------------------------------------------------
+
+      acceptance_criteria:
+        type: object
+        description: |
+          Given-When-Then validation format from spec-kit.
+          Enables automated acceptance testing.
+        properties:
+          format:
+            type: string
+            enum: ["given-when-then", "behavior-driven", "property-based"]
+            description: "Validation format standard"
+            default: "given-when-then"
+
+          test_scenarios:
+            type: array
+            items:
+              type: object
+              required:
+                - given
+                - when
+                - then
+              properties:
+                given:
+                  type: string
+                  description: "Initial state/context"
+                when:
+                  type: string
+                  description: "Action/trigger"
+                then:
+                  type: string
+                  description: "Expected outcome"
+                priority:
+                  type: string
+                  enum: ["P1", "P2", "P3"]
+                  default: "P1"
+            description: "Given-When-Then test scenarios"
+            minItems: 1
+
+          evidence_requirements:
+            type: array
+            items:
+              type: string
+            description: "Required evidence types for validation"
+            examples:
+              - ["test-results", "coverage-report", "performance-metrics"]
+              - ["lighthouse-score", "bundle-analysis", "accessibility-audit"]
+
+# ============================================================================
+# SCHEMA EXAMPLES
+# ============================================================================
+
+examples:
+  - # Example 1: Core Web Vitals Optimizer (Performance Specialist)
+    agent:
+      name: "core-web-vitals-optimizer"
+      version: "2.1.0"
+      description: "Performance specialist optimizing Largest Contentful Paint, First Input Delay, and Cumulative Layout Shift metrics"
+      type: "specialist"
+      department: "performance"
+      capabilities:
+        core: ["analyze", "profile", "refactor", "test"]
+        specialized: ["optimize-lcp", "optimize-fid", "optimize-cls", "measure-core-vitals"]
+        experimental: ["predict-performance-regression"]
+      tools:
+        required: ["playwright", "lighthouse", "chrome-devtools"]
+        optional: ["webpack-bundle-analyzer", "performance-observer"]
+        mcp_servers: ["playwright", "fs"]
+      keywords: ["performance", "web-vitals", "lcp", "fid", "cls", "optimization"]
+      permissions:
+        allow_shell: false
+        allow_network: true
+        allow_credentials: false
+      config:
+        target_lcp_ms: 2500
+        target_fid_ms: 100
+        target_cls_score: 0.1
+      routing:
+        mcp: ["playwright", "fs"]
+        commands: ["/optimize-vitals", "/audit-performance", "/measure-core-vitals"]
+      constitutional_compliance:
+        article_i_spec_authority: true
+        article_iii_test_first: true
+        article_iv_incremental: true
+        article_v_independent_test: true
+        article_vi_evidence_based: true
+      task_routing:
+        priority_levels: ["P1", "P2", "P3"]
+        default_priority: "P1"
+        escalation_threshold: 0.7
+      quality_metrics:
+        validation_score: 0.995
+        test_coverage: 0.98
+        spec_compliance: 1.0
+        performance_rating: 0.95
+      acceptance_criteria:
+        format: "given-when-then"
+        test_scenarios:
+          - given: "Landing page with unoptimized images"
+            when: "Run LCP optimization"
+            then: "LCP improves to <2.5s"
+            priority: "P1"
+          - given: "Interactive components with heavy JavaScript"
+            when: "Run FID optimization"
+            then: "FID improves to <100ms"
+            priority: "P1"
+        evidence_requirements:
+          - "lighthouse-score"
+          - "web-vitals-measurement"
+          - "performance-profiling-report"
+
+  - # Example 2: Design System Architect (Design Specialist)
+    agent:
+      name: "design-system-architect"
+      version: "2.1.0"
+      description: "Design system specialist for component libraries, design tokens, and Figma integration"
+      type: "specialist"
+      department: "design"
+      capabilities:
+        core: ["scaffold", "analyze", "document"]
+        specialized: ["generate-tokens", "sync-figma", "validate-components", "audit-design-consistency"]
+        experimental: []
+      tools:
+        required: ["fs", "figma-api"]
+        optional: ["style-dictionary", "chromatic"]
+        mcp_servers: ["fs", "figma"]
+      keywords: ["design-system", "components", "tokens", "figma", "style-guide"]
+      permissions:
+        allow_shell: false
+        allow_network: true
+        allow_credentials: false
+      config:
+        figma_file_id: null
+        token_prefix: "ds"
+        component_library_path: "src/components"
+      routing:
+        mcp: ["fs", "figma"]
+        commands: ["/sync-design-tokens", "/validate-components", "/audit-design-system"]
+      constitutional_compliance:
+        article_i_spec_authority: true
+        article_iii_test_first: true
+        article_iv_incremental: true
+        article_v_independent_test: true
+        article_vi_evidence_based: true
+      task_routing:
+        priority_levels: ["P1", "P2", "P3"]
+        default_priority: "P1"
+        escalation_threshold: 0.6
+      quality_metrics:
+        validation_score: 0.992
+        test_coverage: 0.95
+        spec_compliance: 0.99
+        performance_rating: 0.90
+      acceptance_criteria:
+        format: "given-when-then"
+        test_scenarios:
+          - given: "Figma design file with color tokens"
+            when: "Sync design tokens to codebase"
+            then: "Tokens generated in JSON format with 100% accuracy"
+            priority: "P1"
+        evidence_requirements:
+          - "token-sync-report"
+          - "component-validation-results"
+          - "design-consistency-score"
+
+# ============================================================================
+# MIGRATION GUIDE (v1.0 → v2.1)
+# ============================================================================
+
+migration:
+  compatibility: "Backward compatible with v1.0"
+  breaking_changes: []
+  new_required_fields: []
+  new_optional_fields:
+    - "capabilities.specialized"
+    - "capabilities.experimental"
+    - "tools.optional"
+    - "tools.mcp_servers"
+    - "constitutional_compliance"
+    - "task_routing"
+    - "quality_metrics"
+    - "acceptance_criteria"
+  defaults:
+    description: |
+      All new fields have sensible defaults or are optional.
+      Existing v1.0 agents will validate against v2.1 without modification.
+  upgrade_process:
+    - "Run automated migration script: migrate-agents-v2.1.py"
+    - "Review constitutional_compliance settings (defaults to true)"
+    - "Add quality_metrics if available (optional but recommended)"
+    - "Define acceptance_criteria for critical agents (optional)"
+    - "Update capabilities to core/specialized/experimental structure"
+
+# ============================================================================
+# VALIDATION RULES
+# ============================================================================
+
+validation_rules:
+  - rule: "name must be unique across all agents"
+    severity: "error"
+  - rule: "version must follow semver (MAJOR.MINOR.PATCH)"
+    severity: "error"
+  - rule: "description must be 20-200 characters"
+    severity: "error"
+  - rule: "capabilities.core must have at least 1 capability"
+    severity: "error"
+  - rule: "tools.required must have at least 1 tool"
+    severity: "error"
+  - rule: "quality_metrics.validation_score target >= 0.99"
+    severity: "warning"
+  - rule: "quality_metrics.test_coverage target >= 0.95"
+    severity: "warning"
+  - rule: "acceptance_criteria should have at least 1 test scenario"
+    severity: "info"
+
+# ============================================================================
+# END OF SCHEMA v2.1
+# ============================================================================

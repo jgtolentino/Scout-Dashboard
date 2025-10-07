@@ -1,0 +1,156 @@
+name: claude
+description: "Agent for handling specific tasks"
+# Claude Routing and Fallback Rules
+# Defines routing and fallback behavior for Claude agent
+
+version: "1.0"
+updated: "2025-05-15"
+# Default route when no specific pattern matches
+default_route:
+  agent: claude
+  mode: standard
+  priority: medium
+  description: "Default Claude agent behavior for general-purpose tasks"
+# Specialized routes for Claude's capabilities
+routes:
+  # Code generation and modification routes
+  - pattern: "write|generate|create|code|function|class|implement"
+    context: ["code", "function", "class", "module", "script", "algorithm"]
+    route:
+      agent: claude
+      mode: code
+      priority: high
+      description: "Code generation and modification with enhanced formatting"
+      parameters:
+        temperature: 0.2
+        max_tokens: 8192
+        top_p: 0.95
+        stop_sequences: ["```", "Human:", "User:"]
+  # Technical documentation routes
+  - pattern: "explain|document|describe|how|why|what|architecture"
+    context: ["technical", "architecture", "system", "document", "process"]
+    route:
+      agent: claude
+      mode: documentation
+      priority: medium
+      description: "Technical documentation and explanation with diagrams"
+      parameters:
+        temperature: 0.3
+        max_tokens: 4096
+        top_p: 0.85
+  # Data analysis routes
+  - pattern: "analyze|examine|evaluate|assess|review"
+    context: ["data", "metrics", "statistics", "trends", "analysis"]
+    route:
+      agent: claude
+      mode: analysis
+      priority: medium
+      description: "Data analysis with structured insights"
+      parameters:
+        temperature: 0.2
+        max_tokens: 6144
+        top_p: 0.9
+  # Creative content routes
+  - pattern: "story|creative|imagine|design|narrative|conceptualize"
+    context: ["story", "creative", "design", "narrative", "concept"]
+    route:
+      agent: claude
+      mode: creative
+      priority: low
+      description: "Creative content generation"
+      parameters:
+        temperature: 0.7
+        max_tokens: 8192
+        top_p: 1.0
+        presence_penalty: 0.2
+# Fallback rules determine what happens when primary routes fail
+fallback_rules:
+  # Ordered list of fallbacks for code-oriented tasks
+  code_fallbacks:
+    sequence:
+      - agent: surf
+        condition: "task.contains_code && task.complexity > 7"
+        description: "Fallback to Surf for complex code tasks"
+      - agent: claude
+        mode: code_simple
+        description: "Simplified code generation as fallback"
+      - agent: basher
+        condition: "task.is_build_or_deployment"
+        description: "Shell command fallback for build tasks"
+      - agent: claude
+        mode: general
+        description: "Last resort fallback for code tasks"
+  # Ordered list of fallbacks for documentation tasks
+  documentation_fallbacks:
+    sequence:
+      - agent: kalaw
+        condition: "task.requires_knowledge_repo"
+        description: "Fallback to Kalaw for knowledge-intensive tasks"
+      - agent: claude
+        mode: documentation_simple
+        description: "Simplified documentation as fallback"
+      - agent: maya
+        condition: "task.requires_visual_representation"
+        description: "Diagram-focused documentation fallback"
+      - agent: claude
+        mode: general
+        description: "Last resort fallback for documentation tasks"
+  # Ordered list of fallbacks for analysis tasks
+  analysis_fallbacks:
+    sequence:
+      - agent: tide
+        condition: "task.has_structured_data"
+        description: "Fallback to Tide for data-focused analysis"
+      - agent: claude
+        mode: analysis_simple
+        description: "Simplified analysis as fallback"
+      - agent: caca
+        condition: "task.is_quality_assessment"
+        description: "QA-focused analysis fallback"
+      - agent: claude
+        mode: general
+        description: "Last resort fallback for analysis tasks"
+  # Universal fallback chain - last resort when all else fails
+  universal_fallback:
+    sequence:
+      - agent: claude
+        mode: general
+        parameters:
+          temperature: 0.3
+          max_tokens: 2048
+        description: "Basic Claude response"
+      - agent: claudia
+        description: "Escalate to Claudia orchestrator as final fallback"
+      - response: "I'm unable to process this request. Please try rephrasing or contact support."
+        description: "Final error response when all fallbacks fail"
+# Recovery strategies for failed requests
+recovery_strategies:
+  timeout_recovery:
+    strategy: "retry_with_simplification"
+    max_retries: 2
+    backoff_seconds: 5
+    description: "Retry with simplified prompt when timeout occurs"
+  error_recovery:
+    strategy: "fallback_chain"
+    description: "Follow fallback chain when errors occur"
+  content_policy_recovery:
+    strategy: "clarify_and_retry"
+    description: "Ask for clarification on potentially problematic content"
+# Exception handling
+exceptions:
+  - pattern: "urgent|emergency|critical"
+    route:
+      agent: claudia
+      priority: very_high
+      parameters:
+        temperature: 0.1
+      description: "Route urgent requests directly to Claudia"
+  - pattern: "confidential|sensitive|private"
+    route:
+      agent: claude
+      mode: secure
+      parameters:
+        log_level: minimal
+      description: "Handle sensitive requests with enhanced privacy"
+resource_quota: 5000_tokens_per_min
+timeout_ms: 90000

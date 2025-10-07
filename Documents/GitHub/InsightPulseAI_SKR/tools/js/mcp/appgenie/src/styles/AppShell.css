@@ -1,0 +1,98 @@
+/* AppShell.css */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.app-shell-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.app-shell-main {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Mode-specific styles */
+.app-shell.deck-mode {
+  --primary-color: #684cb4;
+  --primary-dark: #5634a8;
+  --accent-color: #ff9800;
+  --bg-color: #f9f9f9;
+  --bg-secondary: #ffffff;
+  --text-color: #333333;
+  --border-color: #e0e0e0;
+}
+
+.app-shell.webapp-mode {
+  --primary-color: #1976d2;
+  --primary-dark: #0d4a8f;
+  --accent-color: #03a9f4;
+  --bg-color: #f4f4f4;
+  --bg-secondary: #ffffff;
+  --text-color: #333333;
+  --border-color: #e1e1e1;
+}
+
+.app-shell.mobile-mode {
+  --primary-color: #2e7d32;
+  --primary-dark: #1b5e20;
+  --accent-color: #4caf50;
+  --bg-color: #fafafa;
+  --bg-secondary: #ffffff;
+  --text-color: #333333;
+  --border-color: #e5e5e5;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+.loading-text {
+  font-size: 16px;
+  color: var(--text-color);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

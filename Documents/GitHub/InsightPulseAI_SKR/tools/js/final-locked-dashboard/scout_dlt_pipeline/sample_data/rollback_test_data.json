@@ -1,0 +1,92 @@
+[
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:01:12.345Z",
+    "session_id": "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
+    "transcript": "Pabili po ng dalawang Milo sachet at isang Palmolive shampoo.",
+    "confidence": 0.89,
+    "language": "tl",
+    "audio_duration_sec": 2.5,
+    "speaker_id": "unknown",
+    "audio_url": "https://scoutblobaccount.blob.core.windows.net/scout-audio/sari-112/audio_20250519_080112.wav",
+    "metadata": {
+      "store_id": "sari-112",
+      "location_zone": "entrance",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 35.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:04:23.456Z",
+    "session_id": "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+    "transcript": "Magkano po ang isang pack ng Lucky Me Pancit Canton?",
+    "confidence": 0.92,
+    "language": "tl",
+    "audio_duration_sec": 3.2,
+    "speaker_id": "unknown",
+    "audio_url": "https://scoutblobaccount.blob.core.windows.net/scout-audio/sari-115/audio_20250519_080423.wav",
+    "metadata": {
+      "store_id": "sari-115",
+      "location_zone": "checkout",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 42.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:07:32.789Z",
+    "session_id": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t0u1v2",
+    "transcript": "May stock pa ba kayo ng Bear Brand milk?",
+    "confidence": 0.88,
+    "language": "tl",
+    "audio_duration_sec": 2.1,
+    "speaker_id": "unknown",
+    "audio_url": "https://scoutblobaccount.blob.core.windows.net/scout-audio/sari-118/audio_20250519_080732.wav",
+    "metadata": {
+      "store_id": "sari-118",
+      "location_zone": "product_display",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 38.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:10:45.012Z",
+    "session_id": "w3x4y5z6-a7b8-c9d0-e1f2-g3h4i5j6k7l8",
+    "transcript": "Magkano po yung isa, yung isang kilo ng bigas?",
+    "confidence": 0.85,
+    "language": "tl",
+    "audio_duration_sec": 2.8,
+    "speaker_id": "unknown",
+    "audio_url": "https://scoutblobaccount.blob.core.windows.net/scout-audio/sari-120/audio_20250519_081045.wav",
+    "metadata": {
+      "store_id": "sari-120",
+      "location_zone": "checkout",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 40.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:15:37.654Z",
+    "session_id": "m9n0o1p2-q3r4-s5t6-u7v8-w9x0y1z2a3b4",
+    "transcript": "Meron po ba kayong Smart load card na 50 pesos?",
+    "confidence": 0.91,
+    "language": "tl",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "audio_url": "https://scoutblobaccount.blob.core.windows.net/scout-audio/sari-125/audio_20250519_081537.wav",
+    "metadata": {
+      "store_id": "sari-125",
+      "location_zone": "entrance",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 36.0,
+      "simulated": true
+    }
+  }
+]

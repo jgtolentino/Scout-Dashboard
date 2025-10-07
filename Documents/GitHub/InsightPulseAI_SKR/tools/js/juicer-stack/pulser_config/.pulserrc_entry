@@ -1,0 +1,31 @@
+# Juicer Integration for Pulser CLI
+# Add this to your .pulserrc file
+
+[modules]
+juicer = { scope = "databricks", agents = ["claudia", "kalaw", "echo", "maya", "sunnies"], trigger = [":juicer", "/api/juicer"], version = "1.0" }
+
+[commands.juicer]
+enabled = true
+handler = "./router/commands/juicer.js"
+description = "AI-BI analytics with Databricks integration"
+aliases = ["jcr", "bi", "analytics"]
+usage = "juicer <action> [options]"
+
+[juicer.databricks]
+workspace_url = "https://adb-123456789.0.azuredatabricks.net"
+notebooks_path = "/Shared/InsightPulseAI/Juicer"
+
+[juicer.dashboard]
+url = "/dashboards/juicer"
+static_path = "./juicer-stack/dashboards"
+
+[juicer.brand_detection]
+confidence_threshold = 80
+enable_sentiment = true
+
+[juicer.agents]
+orchestrator = "claudia"
+visualization = "maya"
+entity_extraction = "echo"
+knowledge_integration = "kalaw"
+visual_rendering = "sunnies"

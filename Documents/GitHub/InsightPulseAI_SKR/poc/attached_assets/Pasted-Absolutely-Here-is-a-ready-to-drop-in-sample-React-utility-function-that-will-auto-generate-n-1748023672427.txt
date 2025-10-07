@@ -1,0 +1,99 @@
+Absolutely! Here is a **ready-to-drop-in sample React utility function** that will **auto-generate natural-language insight blurbs** from your brand JSON data.
+You can use this to power your “AI Insight Panel,” card subtitles, or dynamic tooltips.
+
+---
+
+### 1. **Sample Utility Function**
+
+```js
+// utils/brandInsights.js
+
+// Utility to convert decimal to percentage, rounded.
+const pct = (num) => `${num > 0 ? "+" : ""}${(num * 100).toFixed(1)}%`;
+
+// Main function: Accepts brand object, returns "story" string
+export function generateBrandInsight({ brand, value, pct_change }) {
+  let trend;
+  if (pct_change > 0.10) {
+    trend = `🚀 Strong growth for`;
+  } else if (pct_change > 0.02) {
+    trend = `📈 Slight uptick for`;
+  } else if (pct_change < -0.10) {
+    trend = `⚠️ Decline alert for`;
+  } else if (pct_change < -0.02) {
+    trend = `📉 Small dip for`;
+  } else {
+    trend = `🔄 Flat trend for`;
+  }
+
+  // Blurb templates based on trend
+  if (pct_change > 0.10) {
+    return `${trend} **${brand}**: ₱${value.toLocaleString()} in sales (${pct(pct_change)}). Consider boosting visibility with endcap displays or digital offers.`;
+  }
+  if (pct_change < -0.10) {
+    return `${trend} **${brand}**: ₱${value.toLocaleString()} (down ${pct(pct_change)}). Review store presence—consider flash promos or sampling to recapture attention.`;
+  }
+  if (pct_change > 0.02) {
+    return `${trend} **${brand}**: ₱${value.toLocaleString()} (${pct(pct_change)}). Steady gains—maintain stock and monitor.`;
+  }
+  if (pct_change < -0.02) {
+    return `${trend} **${brand}**: ₱${value.toLocaleString()} (${pct(pct_change)}). Keep an eye—possible emerging issue.`;
+  }
+  // Neutral
+  return `${trend} **${brand}**: ₱${value.toLocaleString()} (no significant change). Consistent performer.`;
+}
+```
+
+---
+
+### 2. **How to Use in Your Dashboard Component**
+
+**Assume you have a `brands` array loaded:**
+
+```js
+import { generateBrandInsight } from './utils/brandInsights';
+
+// ... in your component
+brands.slice(0,5).map((brandObj, idx) => (
+  <div key={idx} className="mb-2 p-3 bg-white rounded shadow">
+    <div className="font-bold">{brandObj.brand}</div>
+    <div className="text-sm text-gray-600">
+      {generateBrandInsight(brandObj)}
+    </div>
+  </div>
+))
+```
+
+* This will auto-generate contextual, actionable insights for your top brands, ready for the AI Insights panel or even card hover tooltips.
+
+---
+
+### 3. **How to Surface as Tooltips (Recharts Example)**
+
+If you use a bar chart, attach this as a custom tooltip:
+
+```js
+<Tooltip 
+  content={({ payload }) => {
+    if (!payload || !payload[0]) return null;
+    const brandObj = payload[0].payload;
+    return (
+      <div className="p-2 bg-white border rounded shadow text-xs">
+        {generateBrandInsight(brandObj)}
+      </div>
+    );
+  }}
+/>
+```
+
+---
+
+## 🔥 **What You Get**
+
+* Every brand’s insight auto-reads like a smart account manager wrote it, not an AI robot.
+* Positive/negative/flat trends change the “voice.”
+* Blurbs include real sales figures and % growth, always actionable.
+
+---
+
+Let me know if you want to tweak the tone, add brand category references, or merge in multi-brand comparisons!

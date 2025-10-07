@@ -1,0 +1,17 @@
+<!-- JuicyChat Integration - Add this before the closing </body> tag -->
+<div id="juicy-chat-container"></div>
+<script>
+// JuicyChat Configuration (customize as needed)
+window.JuicyChatConfig = {
+  apiEndpoint: '/api/juicer/query',  // Update with your API endpoint
+  position: 'bottom-right',          // bottom-right, bottom-left, top-right, top-left
+  autoInit: true,                    // Automatically initialize
+  model: 'claude',                   // LLM model to use
+  dashboardContext: {                // Dashboard-specific context
+    type: "retail_advisor",          // Update based on dashboard type
+    dashboard: "insights"            // Dashboard identifier
+  }
+};
+</script>
+<script src="juicy-chat-bundle.js"></script>
+<!-- End JuicyChat Integration -->

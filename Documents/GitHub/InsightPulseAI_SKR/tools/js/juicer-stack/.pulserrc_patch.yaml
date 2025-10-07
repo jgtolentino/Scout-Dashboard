@@ -1,0 +1,58 @@
+# .pulserrc_patch.yaml - Claudia SKR integration for architecture diagram QA
+# This patch will be applied to .pulserrc during next sync
+# Last updated: 2025-05-13
+
+# Architecture QA Integration
+architecture_qa:
+  enabled: true
+  version: "1.0.0"
+  modules:
+    - name: "diagram_qa"
+      path: "tools/js/juicer-stack/tools/diagram_qa_validate.sh"
+      type: "bash"
+      auto_run: true
+    - name: "format_validator"
+      path: "tools/js/juicer-stack/tools/validate_diagram_formats.js"
+      type: "node"
+      auto_run: true
+    - name: "patch_docs"
+      path: "tools/js/juicer-stack/tools/patch_docs_with_diagram.sh"
+      type: "bash"
+      auto_run: false
+
+# Diagram source management
+diagrams:
+  sources:
+    - name: "project_scout_with_genai"
+      path: "tools/js/juicer-stack/docs/diagrams/project_scout_with_genai.drawio"
+      exports:
+        - format: "png"
+          path: "tools/js/juicer-stack/docs/images/AZURE_ARCHITECTURE_PRO.png"
+        - format: "svg"
+          path: "tools/js/juicer-stack/docs/images/AZURE_ARCHITECTURE_PRO.svg"
+      thumbnail: "tools/js/juicer-stack/docs/images/thumbnails/AZURE_ARCHITECTURE_PRO_thumb.png"
+      qa_status: "partial_pass"
+      qa_score: 55
+      qa_date: "2025-05-13"
+      qa_report: "tools/js/juicer-stack/docs/images/full_qa_report.md"
+      references:
+        - "tools/js/juicer-stack/docs/README_FINAL.md"
+        - "tools/js/juicer-stack/docs/STAKEHOLDER_BRIEF.md"
+        - "tools/js/juicer-stack/docs/QA_CHECKLIST_PROJECT_SCOUT.md"
+
+# SKR metadata integration
+skr:
+  metadata:
+    architecture_diagrams:
+      - name: "Project Scout with GenAI"
+        path: "tools/js/juicer-stack/docs/diagrams/project_scout_with_genai.drawio"
+        type: "azure_medallion"
+        thumbnail: "tools/js/juicer-stack/docs/images/thumbnails/AZURE_ARCHITECTURE_PRO_thumb.png"
+        qa_status: "partial_pass"
+        description: "Medallion architecture (Bronze/Silver/Gold/Platinum) with GenAI integration"
+        tags:
+          - "architecture"
+          - "azure"
+          - "medallion"
+          - "genai"
+          - "project_scout"

@@ -1,0 +1,68 @@
+name: scout_retail_advisor
+version: '1.0.0'
+config-version: 2
+
+profile: scout_retail_advisor
+
+# Directory structure settings
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # Directory for compiled SQL files
+clean-targets:
+  - "target"
+  - "dbt_packages"
+  - "logs"
+
+vars:
+  # Variables for environment-specific configurations
+  env: "{{ env_var('DBT_ENV', 'dev') }}"
+  enable_schema_testing: "{{ env_var('ENABLE_SCHEMA_TESTING', 'true') }}"
+  data_history_days: 90
+
+models:
+  scout_retail_advisor:
+    # Configure all models in the project
+    +materialized: view
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts
+      sales:
+        +tags: ["sales", "dashboard"]
+      stores:
+        +tags: ["stores", "dashboard"]
+      devices:
+        +tags: ["devices", "operational"]
+      brands:
+        +tags: ["brands", "marketing"]
+      customers:
+        +tags: ["customers", "analytics"]
+
+seeds:
+  scout_retail_advisor:
+    +schema: seed_data
+    +quote_columns: false
+
+on-run-start:
+  - "{{ log('Starting dbt run for Scout Retail Advisor...', info=true) }}"
+  - "{{ log('Target schema: ' ~ target.schema, info=true) }}"
+
+on-run-end:
+  - "{{ log('dbt run completed for Scout Retail Advisor', info=true) }}"
+
+# Integration with the dashboard export system
+dispatch:
+  - macro_namespace: scout_retail_advisor
+    search_order: ['scout_retail_advisor', 'dbt']
+
+# Custom project specific configurations
+query-comment:
+  comment: "/* {{ model.name }} - Scout Retail Advisor dbt model, generated {{ run_started_at.strftime('%Y-%m-%d %H:%M:%S') }} */"\
+  append: true

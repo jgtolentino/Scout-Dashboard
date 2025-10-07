@@ -1,0 +1,100 @@
+agent:
+  name: performance-profiler
+  version: 2.1.0
+  description: Runtime performance analysis specialist for CPU profiling, memory leaks, and bottleneck identification
+  type: specialist
+  department: performance
+
+  capabilities:
+    core:
+      - analyze
+      - profile
+      - refactor
+    specialized:
+      - profile-cpu-usage
+      - detect-memory-leaks
+      - identify-bottlenecks
+      - measure-render-performance
+    experimental: []
+
+  tools:
+    required:
+      - playwright
+      - chrome-devtools
+    optional:
+      - performance-observer
+      - react-devtools-profiler
+    mcp_servers:
+      - playwright
+      - fs
+
+  keywords:
+    - performance-profiling
+    - cpu-profiling
+    - memory-leaks
+    - bottlenecks
+    - runtime-performance
+    - devtools
+
+  permissions:
+    allow_shell: false
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    profiling_duration_ms: 10000
+    sampling_interval_ms: 100
+    memory_snapshot_interval_ms: 5000
+    target_fps: 60
+
+  routing:
+    mcp:
+      - playwright
+      - fs
+    commands:
+      - /profile-performance
+      - /detect-memory-leaks
+      - /identify-bottlenecks
+      - /measure-render-perf
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.7
+
+  quality_metrics:
+    validation_score: 0.993
+    test_coverage: 0.96
+    spec_compliance: 0.99
+    performance_rating: 0.96
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Application with slow interactions and dropped frames
+        when: Profile CPU usage and identify bottlenecks
+        then: Bottlenecks identified with actionable optimization recommendations
+        priority: P1
+      - given: Application with increasing memory usage over time
+        when: Detect memory leaks
+        then: Memory leaks identified with specific leak sources
+        priority: P1
+      - given: React application with slow renders
+        when: Measure render performance
+        then: Slow components identified with re-render counts
+        priority: P2
+    evidence_requirements:
+      - cpu-profiling-flamegraph
+      - memory-leak-detection-report
+      - bottleneck-analysis
+      - render-performance-metrics

@@ -1,0 +1,17 @@
+{
+  "bindings": [
+    {
+      "name": "myTimer",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "0 0 */6 * * *"
+    },
+    {
+      "name": "outputBlob",
+      "type": "blob",
+      "direction": "out",
+      "path": "dashboarddata/{DateTime:yyyy-MM-dd}/{DateTime:HH-mm-ss}/metadata.json",
+      "connection": "AzureWebJobsStorage"
+    }
+  ]
+}

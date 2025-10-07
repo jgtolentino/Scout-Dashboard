@@ -1,0 +1,130 @@
+# pulser_task_routing.yaml
+# Task routing configuration for Pulser CLI
+# Defines rules for routing tasks to appropriate models and agents
+
+# Default routing for general tasks
+default_routing:
+  text_tasks:
+    default: deepseekr1
+    fallback: claude-api
+    reason: "DeepSeekr1 is faster for standard text tasks, Claude provides fallback for complex tasks"
+
+  complex_tasks:
+    default: claude-api
+    fallback: deepseekr1
+    reason: "Claude API is more capable for complex reasoning and code tasks"
+    
+  cached_tasks:
+    default: claude-api
+    fallback: deepseekr1
+    reason: "Using Claude API with caching for tasks with large contexts or repeated patterns"
+    cache_enabled: true
+    min_length: 1000
+
+# Media generation routing rules
+routing_rules:
+  # Image generation tasks
+  - id: generate_image_ai
+    triggers:
+      - contains_keywords: ["generate", "create", "make", "draw"]
+      - contains_keywords: ["image", "visual", "art", "illustration", "render", "picture", "photo"]
+    route_to: gemini-pro-vision
+    fallback: dalle-3
+    reason: "Gemini Pro Vision supports grounded and descriptive image generation with prompt understanding. DALL·E 3 is a strong fallback for creative renders."
+    parameters:
+      resolution: "1024x1024"
+      formats: ["png", "jpg"]
+      styles: ["realistic", "artistic", "cartoon", "sketch"]
+      max_images: 4
+
+  # Video generation tasks
+  - id: generate_video_ai
+    triggers:
+      - contains_keywords: ["generate", "make", "animate", "create"]
+      - contains_keywords: ["video", "clip", "reel", "motion", "animation"]
+    route_to: runway-gen2
+    fallback: synthesia-studio
+    reason: "Runway Gen-2 supports AI video generation from prompts or stills. Synthesia is fallback for talking head or narrative video."
+    parameters:
+      max_length: "15s"
+      resolution: "720p"
+      formats: ["mp4"]
+      aspect_ratios: ["16:9", "9:16", "1:1"]
+
+  # Image editing tasks
+  - id: image_variation_or_edit
+    triggers:
+      - contains_keywords: ["edit", "change", "modify", "style", "transform", "convert"]
+      - contains_keywords: ["image", "photo", "illustration", "picture"]
+    route_to: clipdrop-stable-diffusion-xl
+    fallback: dalle-3
+    reason: "Stable Diffusion XL (via ClipDrop) supports image-to-image editing with style control and inpainting."
+    parameters:
+      strength: 0.75
+      preserve_structure: true
+      inpainting: true
+      outpainting: true
+      styles: ["photorealistic", "comic", "watercolor", "sketch", "3d render"]
+    
+  # Avatar generation tasks
+  - id: generate_avatar
+    triggers:
+      - contains_keywords: ["generate", "create", "make"]
+      - contains_keywords: ["avatar", "profile picture", "headshot", "portrait"]
+    route_to: midjourney
+    fallback: stable-diffusion-xl
+    reason: "Midjourney excels at creating detailed, artistic avatar portraits. Stable Diffusion XL provides good fallback."
+    parameters:
+      styles: ["realistic", "anime", "cartoon", "3d"]
+      aspect_ratio: "1:1"
+      variations: 4
+
+  # Image enhancement tasks
+  - id: enhance_image
+    triggers:
+      - contains_keywords: ["enhance", "improve", "upscale", "restore", "fix"]
+      - contains_keywords: ["image", "photo", "picture", "resolution", "quality"]
+    route_to: clipdrop-image-upscaler
+    fallback: stable-diffusion-upscaler
+    reason: "ClipDrop provides excellent image enhancement and restoration capabilities."
+    parameters:
+      scale_factor: 4
+      denoise: true
+      face_enhancement: true
+
+# Input detection settings
+input_detection:
+  image_input:
+    enabled: true
+    formats: ["jpg", "jpeg", "png", "webp", "gif"]
+    max_size_mb: 10
+    triggers:
+      - has_file_attachment
+      - url_ends_with: [".jpg", ".jpeg", ".png", ".webp", ".gif"]
+      - contains_phrases: ["this image", "attached image", "this photo"]
+  
+  video_input:
+    enabled: true
+    formats: ["mp4", "mov", "webm"]
+    max_size_mb: 100
+    max_length_seconds: 60
+    triggers:
+      - has_file_attachment
+      - url_ends_with: [".mp4", ".mov", ".webm"]
+      - contains_phrases: ["this video", "attached video", "this clip"]
+
+# CLI override options
+cli_overrides:
+  enabled: true
+  flags:
+    - name: "model"
+      description: "Override the model selection"
+      example: "--model=gpt-4o"
+    
+    - name: "force-local"
+      description: "Force local model usage regardless of task complexity"
+      example: "--force-local"
+    
+    - name: "no-fallback"
+      description: "Disable automatic fallback to alternative models"
+      example: "--no-fallback"

@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-05-21T17:53:34Z",
+  "total_files": 68,
+  "changed_files":        2,
+  "unchanged_files":       66,
+  "parquet_files": 0,
+  "azure_openai_config": true,
+  "files": [
+    {
+      "path": "js/components/ai_insights_component.js",
+      "sha": "66a94e310f4392deac370d0478ebfdcee527960823cbaedcfd628a6b8ead03e0",
+      "file_type": "js"
+    },
+    {
+      "path": "data/ai/config/azure_openai_config.json",
+      "sha": "b507ee56b2b6b7a5a44917126234747eb7360fd91b87f14b9435e53d964b45f0",
+      "file_type": "json"
+    }
+  ]
+}

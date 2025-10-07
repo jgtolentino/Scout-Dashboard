@@ -1,0 +1,368 @@
+// src/themes/sarisari.scss
+@import '../styles/variables-sarisari';
+@import '../styles/common';
+@import '../styles/modern-dashboard';
+@import '../styles/utility-classes';
+@import '../styles/store-map';
+
+// Sari Sari specific overrides
+
+// Header customization
+.header {
+  background-color: var(--color-primary);
+  color: var(--text-light);
+  
+  &-title {
+    color: var(--text-light);
+  }
+  
+  .toggle-label, .toggle-value {
+    color: var(--text-light);
+  }
+  
+  select {
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+  }
+  
+  .btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-light);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+// KPI cards
+.kpi-card {
+  border-left: 3px solid var(--color-primary);
+  background: linear-gradient(to right, rgba(var(--color-primary-rgb), 0.05), transparent);
+  
+  .value {
+    color: var(--color-primary);
+  }
+}
+
+// Cards
+.card {
+  border-radius: 8px;
+  border: none;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+  
+  h3 {
+    position: relative;
+    padding-bottom: var(--spacing-sm);
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--color-secondary);
+      border-radius: 1.5px;
+    }
+  }
+}
+
+// Buttons
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  
+  &:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+  }
+}
+
+.btn-secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  
+  &:hover {
+    background-color: var(--bg-tertiary);
+  }
+}
+
+// Filter bar
+.filter-bar {
+  background-color: #fff;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+// Footer
+.footer {
+  background-color: var(--bg-tertiary);
+  
+  .footer-info p:last-child {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+// Insights
+.insights-container {
+  .insight-card {
+    border-left: 3px solid var(--color-secondary);
+    background: linear-gradient(to right, rgba(var(--color-secondary-rgb), 0.05), transparent);
+  }
+}
+
+// Map customization
+.map-container {
+  border: 2px solid var(--color-primary);
+  border-radius: 8px;
+}
+
+// Charts customization
+.chart-container {
+  canvas {
+    // Chart.js will handle this
+  }
+}
+
+// Custom Sari-Sari themed components
+.sarisari-brand-tag {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-secondary);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  margin-right: var(--spacing-xs);
+}
+
+.sarisari-promotion-banner {
+  background-color: rgba(var(--color-secondary-rgb), 0.1);
+  border-left: 3px solid var(--color-secondary);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  .banner-content {
+    h4 {
+      color: var(--color-secondary-dark);
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+  }
+  
+  .banner-action {
+    flex-shrink: 0;
+    margin-left: var(--spacing-md);
+  }
+}
+
+// Custom badges
+.badge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: 12px;
+  
+  &-primary {
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+    color: var(--color-primary);
+  }
+  
+  &-secondary {
+    background-color: rgba(var(--color-secondary-rgb), 0.1);
+    color: var(--color-secondary);
+  }
+  
+  &-success {
+    background-color: rgba(var(--color-success-rgb), 0.1);
+    color: var(--color-success);
+  }
+  
+  &-warning {
+    background-color: rgba(var(--color-warning-rgb), 0.1);
+    color: var(--color-warning);
+  }
+  
+  &-danger {
+    background-color: rgba(var(--color-danger-rgb), 0.1);
+    color: var(--color-danger);
+  }
+}
+
+// Rollback Dashboard Component - SariSari Theme
+.rollback-dashboard {
+  background-color: var(--bg-card);
+  border: 2px solid var(--color-secondary);  // SariSari teal
+  border-radius: 12px;  // Slightly more rounded for SariSari style
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  box-shadow: var(--box-shadow);
+  
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    
+    h3 {
+      color: var(--color-primary);  // SariSari orange
+      font-size: var(--font-size-xl);
+      margin: 0;
+      position: relative;
+      
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background-color: var(--color-secondary);
+        border-radius: 1.5px;
+      }
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      font-weight: var(--font-weight-semibold);
+      border-radius: 12px;
+      padding: 0.25rem 0.75rem;
+      
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: var(--spacing-xs);
+      }
+      
+      &.active {
+        background-color: rgba(var(--color-success-rgb), 0.1);
+        color: var(--color-success);
+        
+        &::before {
+          background-color: var(--color-success);
+        }
+      }
+      
+      &.inactive {
+        background-color: rgba(var(--color-warning-rgb), 0.1);
+        color: var(--color-warning);
+        
+        &::before {
+          background-color: var(--color-warning);
+        }
+      }
+    }
+  }
+  
+  &-content {
+    margin-bottom: var(--spacing-md);
+    margin-top: var(--spacing-md);
+    
+    p {
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .version-info {
+      display: flex;
+      justify-content: space-between;
+      background-color: rgba(var(--color-secondary-rgb), 0.05);
+      border-left: 3px solid var(--color-secondary);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--border-radius);
+      margin-top: var(--spacing-sm);
+      
+      .version-label {
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-primary);
+      }
+      
+      .version-value {
+        font-family: monospace;
+        color: var(--text-primary);
+        background-color: rgba(var(--color-primary-rgb), 0.05);
+        padding: 0.1rem 0.5rem;
+        border-radius: 4px;
+      }
+    }
+  }
+  
+  &-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    
+    .btn-rollback {
+      background-color: var(--color-primary);  // SariSari orange
+      color: white;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      font-weight: var(--font-weight-semibold);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      
+      &:hover {
+        background-color: var(--color-primary-dark);
+        transform: translateY(-2px);
+      }
+      
+      &:disabled {
+        background-color: var(--text-muted);
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+    
+    .btn-verify {
+      background-color: var(--color-secondary);  // SariSari teal
+      color: white;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      font-weight: var(--font-weight-semibold);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      
+      &:hover {
+        background-color: var(--color-secondary-dark);
+        transform: translateY(-2px);
+      }
+    }
+  }
+  
+  &-log {
+    margin-top: var(--spacing-lg);
+    background-color: var(--bg-tertiary);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: var(--font-size-sm);
+    border-left: 3px solid var(--color-secondary);
+    
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+  }
+}

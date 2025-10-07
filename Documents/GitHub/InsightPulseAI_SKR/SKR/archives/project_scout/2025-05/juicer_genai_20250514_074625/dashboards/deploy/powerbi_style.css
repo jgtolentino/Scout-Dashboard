@@ -1,0 +1,576 @@
+/* 
+ * Power BI Style Updates for Retail Advisor Dashboard 
+ * This stylesheet implements Figma design specs matching the Superstore template
+ * Updated to match TBWA and Power BI branding requirements
+ */
+
+/* Import Segoe UI font */
+@import url('https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-regular.woff2');
+@import url('https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-semibold.woff2');
+@import url('https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-bold.woff2');
+
+/* Color tokens from Figma */
+:root {
+  /* Core Power BI colors */
+  --pb-blue: #4E73DF;
+  --pb-orange: #FF9F40;
+  --pb-green: #1CC88A;
+  --pb-cyan: #36B9CC;
+  --pb-yellow: #F6C23E;
+  --pb-red: #E74A3B;
+  
+  /* TBWA insight colors */
+  --insight-general: #8a4fff;
+  --insight-brand: #00a3e0;
+  --insight-sentiment: #ff7e47;
+  --insight-trend: #00c389;
+  
+  /* Neutral colors */
+  --neutral-900: #252423;
+  --neutral-800: #3B3A39;
+  --neutral-700: #484644;
+  --neutral-600: #605E5C;
+  --neutral-500: #797775;
+  --neutral-400: #8A8886;
+  --neutral-300: #C8C6C4;
+  --neutral-200: #E1E1E1;
+  --neutral-100: #F3F2F1;
+  --neutral-50: #F9F9F9;
+  
+  /* Spacing from Figma 12-column grid */
+  --gutter: 24px;
+  --canvas-width: 1366px;
+  --border-radius: 8px;
+}
+
+/* Global font family */
+body, button, input, select, textarea {
+  font-family: 'Segoe UI', sans-serif !important;
+  letter-spacing: -0.015em !important;
+}
+
+/* Canvas width - 1366px center aligned with 24px gutters */
+.container {
+  max-width: var(--canvas-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--gutter) !important;
+  padding-right: var(--gutter) !important;
+}
+
+/* Background color */
+body {
+  background-color: var(--neutral-50) !important;
+  color: var(--neutral-900) !important;
+}
+
+/* Page title styling */
+h1 {
+  font-family: 'Segoe UI', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 24px !important;
+  letter-spacing: -0.02em !important;
+  color: white !important;
+  margin: 0 !important;
+}
+
+/* Top navigation header */
+.header {
+  background-color: var(--neutral-800) !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
+  height: 56px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Section headers */
+h4 {
+  font-family: 'Segoe UI', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  color: var(--neutral-900) !important;
+  margin-bottom: 16px !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* KPI Card styling */
+.card {
+  border: 1px solid var(--neutral-200) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: none !important;
+  transition: box-shadow 0.15s ease-in-out !important;
+  margin-bottom: 16px !important;
+  overflow: hidden !important;
+}
+
+/* Subtle hover effect from Figma */
+.card:hover {
+  transform: none !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+}
+
+.insight-count-card {
+  text-align: center !important;
+  padding: 16px !important;
+}
+
+.insight-count {
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  color: var(--neutral-900) !important;
+  line-height: 1.2 !important;
+}
+
+.insight-label {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: var(--neutral-600) !important;
+  margin-top: 4px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.03em !important;
+}
+
+.trend-indicator {
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  margin-top: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.trend-up {
+  color: var(--pb-green) !important;
+}
+
+.trend-down {
+  color: var(--pb-red) !important;
+}
+
+/* Chart styling */
+.chart-container {
+  font-family: 'Segoe UI', sans-serif !important;
+  height: 320px !important;
+  padding: 16px !important;
+}
+
+.card-header {
+  padding: 16px !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  background-color: white !important;
+  border-bottom: 1px solid var(--neutral-200) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.card-title {
+  margin: 0 !important;
+  color: var(--neutral-900) !important;
+}
+
+/* Grid lines for charts */
+.grid-line {
+  stroke: var(--neutral-200) !important;
+  stroke-width: 0.5px !important;
+}
+
+/* Filter bar styling */
+.filter-bar {
+  background-color: white !important;
+  padding: 16px !important;
+  border-radius: var(--border-radius) !important;
+  border: 1px solid var(--neutral-200) !important;
+  box-shadow: none !important;
+  margin-bottom: 16px !important;
+}
+
+.filter-bar .row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  margin: -8px !important;
+}
+
+.filter-bar .col-md-3 {
+  padding: 8px !important;
+  flex: 1 0 0% !important;
+}
+
+.form-label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--neutral-900) !important;
+  margin-bottom: 4px !important;
+}
+
+.form-select {
+  font-size: 13px !important;
+  border: 1px solid var(--neutral-200) !important;
+  border-radius: 4px !important;
+  padding: 6px 12px !important;
+  padding-right: 28px !important;
+  background-position: right 8px center !important;
+  color: var(--neutral-800) !important;
+  height: 32px !important;
+  background-color: white !important;
+}
+
+/* Tag cloud chips */
+.tag {
+  border: 1px solid var(--neutral-200) !important;
+  background-color: white !important;
+  color: var(--neutral-800) !important;
+  border-radius: 16px !important;
+  padding: 4px 12px !important;
+  font-size: 12px !important;
+  margin-right: 8px !important;
+  margin-bottom: 8px !important;
+  transition: all 0.2s !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.tag:hover {
+  background-color: #EAF1FA !important;
+  border-color: var(--pb-blue) !important;
+  color: var(--pb-blue) !important;
+}
+
+.brand-tag {
+  background-color: rgba(78, 115, 223, 0.1) !important;
+  color: var(--pb-blue) !important;
+  border-radius: 16px !important;
+  padding: 4px 12px !important;
+  font-size: 12px !important;
+  margin-right: 8px !important;
+  margin-bottom: 8px !important;
+  border: none !important;
+}
+
+/* Confidence badges */
+.confidence-badge {
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  padding: 2px 8px !important;
+  border-radius: 16px !important;
+}
+
+.confidence-high {
+  background-color: rgba(28, 200, 138, 0.2) !important;
+  color: var(--pb-green) !important;
+}
+
+.confidence-medium {
+  background-color: rgba(246, 194, 62, 0.2) !important;
+  color: #B7831A !important;
+}
+
+.confidence-low {
+  background-color: rgba(231, 74, 59, 0.2) !important;
+  color: var(--pb-red) !important;
+}
+
+/* Insight cards */
+.card-insight-general,
+.card-insight-brand,
+.card-insight-sentiment,
+.card-insight-trend {
+  border: 1px solid var(--neutral-200) !important;
+  border-radius: var(--border-radius) !important;
+}
+
+.card-insight-general .card-header,
+.card-insight-brand .card-header,
+.card-insight-sentiment .card-header,
+.card-insight-trend .card-header {
+  border-top-width: 4px !important;
+  border-top-style: solid !important;
+  background-color: white !important;
+  color: var(--neutral-900) !important;
+  border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  padding: 16px !important;
+}
+
+.card-insight-general .card-header {
+  border-top-color: var(--insight-general) !important;
+}
+
+.card-insight-brand .card-header {
+  border-top-color: var(--insight-brand) !important;
+}
+
+.card-insight-sentiment .card-header {
+  border-top-color: var(--insight-sentiment) !important;
+}
+
+.card-insight-trend .card-header {
+  border-top-color: var(--insight-trend) !important;
+}
+
+.card-body {
+  padding: 16px !important;
+  font-size: 13px !important;
+  color: var(--neutral-800) !important;
+  line-height: 1.6 !important;
+}
+
+.card-body p {
+  margin-bottom: 16px !important;
+}
+
+/* Call to action links and buttons */
+.text-link {
+  color: var(--pb-blue) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.text-link:hover {
+  color: #3d5dc4 !important;
+  text-decoration: none !important;
+}
+
+.text-link:hover::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  bottom: -2px !important;
+  width: 100% !important;
+  height: 1px !important;
+  background-color: currentColor !important;
+}
+
+.text-link i {
+  margin-right: 8px !important;
+}
+
+.text-link + .text-link {
+  margin-left: 16px !important;
+}
+
+.btn-outline-secondary {
+  color: var(--pb-blue) !important;
+  border-color: var(--pb-blue) !important;
+  background-color: white !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  padding: 6px 16px !important;
+  border-radius: 4px !important;
+  transition: all 0.2s !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--pb-blue) !important;
+  color: white !important;
+}
+
+/* Action items styling */
+.actions-section {
+  margin-top: 16px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid var(--neutral-200) !important;
+}
+
+.actions-section h6 {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--neutral-900) !important;
+  margin-bottom: 8px !important;
+}
+
+.action-item {
+  padding: 12px !important;
+  margin-bottom: 8px !important;
+  background-color: var(--neutral-50) !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  border-left-width: 3px !important;
+  border-left-style: solid !important;
+}
+
+.action-item strong {
+  font-weight: 600 !important;
+}
+
+.action-high {
+  border-left-color: var(--pb-red) !important;
+}
+
+.action-medium {
+  border-left-color: var(--pb-yellow) !important;
+}
+
+.action-low {
+  border-left-color: var(--pb-blue) !important;
+}
+
+.badge {
+  font-weight: 400 !important;
+  font-size: 11px !important;
+  padding: 3px 8px !important;
+  border-radius: 10px !important;
+}
+
+/* Dropdown chevron icon - Fluent UI style from Figma */
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23333' d='M4.35 6.65l3.5 3.5c.2.2.5.2.7 0l3.5-3.5c.2-.2.2-.5 0-.7s-.5-.2-.7 0L8 9.29 4.65 5.95c-.2-.2-.5-.2-.7 0s-.2.5 0 .7z'/%3E%3C/svg%3E") !important;
+  background-size: 16px 16px !important;
+}
+
+/* Footer styling */
+.footer {
+  background-color: white !important;
+  border-top: 1px solid var(--neutral-200) !important;
+  padding: 16px 0 !important;
+  margin-top: 24px !important;
+  box-shadow: none !important;
+}
+
+.footer-text {
+  font-size: 12px !important;
+  color: var(--neutral-600) !important;
+}
+
+.analytics-powered {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  font-size: 12px !important;
+  color: var(--neutral-600) !important;
+}
+
+.analytics-version {
+  font-size: 10px !important;
+  margin-left: 4px !important;
+  opacity: 0.7 !important;
+}
+
+/* Dark mode toggle */
+.dark-mode-switch {
+  position: relative !important;
+  display: inline-block !important;
+  width: 40px !important;
+  height: 20px !important;
+}
+
+.dark-mode-slider {
+  position: absolute !important;
+  cursor: pointer !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: #ccc !important;
+  transition: .4s !important;
+  border-radius: 34px !important;
+}
+
+.dark-mode-slider:before {
+  position: absolute !important;
+  content: "" !important;
+  height: 16px !important;
+  width: 16px !important;
+  left: 2px !important;
+  bottom: 2px !important;
+  background-color: white !important;
+  transition: .4s !important;
+  border-radius: 50% !important;
+}
+
+input:checked + .dark-mode-slider {
+  background-color: var(--pb-blue) !important;
+}
+
+input:checked + .dark-mode-slider:before {
+  transform: translateX(20px) !important;
+}
+
+/* Grid layout enhancements from Figma */
+.row {
+  margin-left: calc(-1 * var(--gutter) / 2) !important;
+  margin-right: calc(-1 * var(--gutter) / 2) !important;
+}
+
+.col-md-3, .col-md-6, .col-lg-6 {
+  padding-left: calc(var(--gutter) / 2) !important;
+  padding-right: calc(var(--gutter) / 2) !important;
+}
+
+/* Chart color customization */
+canvas[id*="Chart"] {
+  --chart-blue: var(--pb-blue) !important;
+  --chart-orange: var(--pb-orange) !important;
+  --chart-green: var(--pb-green) !important;
+  --chart-red: var(--pb-red) !important;
+  --chart-yellow: var(--pb-yellow) !important;
+  --chart-cyan: var(--pb-cyan) !important;
+}
+
+/* Responsive fixes */
+@media (max-width: 992px) {
+  :root {
+    --gutter: 16px;
+  }
+  
+  .container {
+    padding-left: var(--gutter) !important;
+    padding-right: var(--gutter) !important;
+  }
+  
+  .insight-count {
+    font-size: 24px !important;
+  }
+  
+  .chart-container {
+    height: 280px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .row.mb-4 {
+    row-gap: 16px !important;
+  }
+  
+  .kpi-card-container {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+  
+  .chart-container {
+    height: 240px !important;
+  }
+}
+
+/* Axis labels styling */
+.axis-label {
+  font-family: 'Segoe UI', sans-serif !important;
+  font-size: 10px !important;
+  color: var(--neutral-600) !important;
+}
+
+/* Accessibility focus states */
+.card:focus, 
+.text-link:focus,
+.form-select:focus,
+.btn:focus {
+  outline: 2px solid var(--pb-blue) !important;
+  outline-offset: 2px !important;
+}
+
+/* Focus order for KPI cards */
+.insight-count-card {
+  transition: outline-color 0.15s ease-in-out !important;
+  outline: 2px solid transparent !important;
+}
+
+.insight-count-card:focus-within {
+  outline-color: var(--pb-blue) !important;
+}

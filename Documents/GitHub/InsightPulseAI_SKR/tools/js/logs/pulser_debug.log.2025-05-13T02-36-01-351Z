@@ -1,0 +1,834 @@
+[2025-05-10T15:18:30.144Z] [DEBUG] Test debug message
+STACK:     at Logger.debug (/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/logger.js:193:38)
+    at [eval]:1:44
+    at runScriptInThisContext (node:internal/vm:209:10)
+    at node:internal/process/execution:449:12
+    at [eval]-wrapper:6:24
+    at runScriptInContext (node:internal/process/execution:447:60)
+    at evalFunction (node:internal/process/execution:280:30)
+    at evalTypeScript (node:internal/process/execution:292:3)
+
+[2025-05-10T15:18:30.144Z] [ERROR] Test error message
+DATA: { foo: 'bar' }
+STACK:     at Logger.error (/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/logger.js:196:38)
+    at [eval]:1:80
+    at runScriptInThisContext (node:internal/vm:209:10)
+    at node:internal/process/execution:449:12
+    at [eval]-wrapper:6:24
+    at runScriptInContext (node:internal/process/execution:447:60)
+    at evalFunction (node:internal/process/execution:280:30)
+    at evalTypeScript (node:internal/process/execution:292:3)
+
+[VERIFY] 2025-05-10 23:24:17 ⚙️ Running pulser_verify.sh
+[VERIFY] 2025-05-10 23:24:17 🔍 Checking for package.json...
+[VERIFY] 2025-05-10 23:24:17 ⚠️ package.json not found
+[VERIFY] 2025-05-10 23:24:17 📦 Checking TypeScript or JS build...
+[VERIFY] 2025-05-10 23:24:17 ⚠️ No tsconfig.json or build script found
+[VERIFY] 2025-05-10 23:24:17 🧼 Checking for ESLint config...
+[VERIFY] 2025-05-10 23:24:17 ⚠️ No ESLint config found, skipping lint
+[VERIFY] 2025-05-10 23:24:17 🧾 Checking for vercel.json...
+[VERIFY] 2025-05-10 23:24:17 ⚠️ No vercel.json found
+[VERIFY] 2025-05-10 23:24:17 🔑 Checking for .env files...
+[VERIFY] 2025-05-10 23:24:17 ✅ Found .env or .env.local file
+[VERIFY] 2025-05-10 23:24:17 🔎 Checking for API routes...
+[VERIFY] 2025-05-10 23:24:17 ⚠️ API route /api/sketch_generate not detected
+[VERIFY] 2025-05-10 23:24:17 📦 Checking for .next folder...
+[VERIFY] 2025-05-10 23:24:17 ⚠️ .next folder missing, build may not be complete
+[VERIFY] 2025-05-10 23:24:17 🔎 Checking for React imports...
+[VERIFY] 2025-05-10 23:24:17 ⚠️ React not found in package.json or package.json missing
+[VERIFY] 2025-05-10 23:24:17 🧹 Checking for ts-prune availability...
+[VERIFY] 2025-05-10 23:24:17 ✅ ts-prune is available
+[VERIFY] 2025-05-10 23:24:17 ⚠️ No tsconfig.json found, skipping unused export check
+[VERIFY] 2025-05-10 23:24:17 ✅ Pulser verification complete!
+[VERIFY] 2025-05-10 23:27:26 ⚙️ Running pulser_verify.sh
+[VERIFY] 2025-05-10 23:27:26 🔍 Checking for package.json...
+[VERIFY] 2025-05-10 23:27:27 ⚠️ package.json not found
+[VERIFY] 2025-05-10 23:27:27 📦 Checking TypeScript or JS build...
+[VERIFY] 2025-05-10 23:27:27 ⚠️ No tsconfig.json or build script found
+[VERIFY] 2025-05-10 23:27:27 🧼 Checking for ESLint config...
+[VERIFY] 2025-05-10 23:27:27 ⚠️ No ESLint config found, skipping lint
+[VERIFY] 2025-05-10 23:27:27 🧾 Checking for vercel.json...
+[VERIFY] 2025-05-10 23:27:27 ⚠️ No vercel.json found
+[VERIFY] 2025-05-10 23:27:27 🔑 Checking for .env files...
+[VERIFY] 2025-05-10 23:27:27 ✅ Found .env or .env.local file
+[VERIFY] 2025-05-10 23:27:27 🔎 Checking for API routes...
+[VERIFY] 2025-05-10 23:27:27 ✅ API route /api/sketch_generate detected
+[VERIFY] 2025-05-10 23:27:27 📦 Checking for .next folder...
+[VERIFY] 2025-05-10 23:27:27 ⚠️ .next folder missing, build may not be complete
+[VERIFY] 2025-05-10 23:27:27 🔎 Checking for React imports...
+[VERIFY] 2025-05-10 23:27:27 ⚠️ React not found in package.json or package.json missing
+[VERIFY] 2025-05-10 23:27:27 🧹 Checking for ts-prune availability...
+[VERIFY] 2025-05-10 23:27:27 ✅ ts-prune is available
+[VERIFY] 2025-05-10 23:27:27 ⚠️ No tsconfig.json found, skipping unused export check
+[VERIFY] 2025-05-10 23:27:27 ✅ Pulser verification complete!
+[VERIFY] 2025-05-11 06:21:33 ⚙️ Running pulser_verify.sh
+[VERIFY] 2025-05-11 06:21:33 ---- SYSTEM CONTEXT ----
+[VERIFY] 2025-05-11 06:21:33 📅 System Info: Darwin Jakes-MacBook-Air.local 24.4.0 Darwin Kernel Version 24.4.0: Fri Apr 11 18:34:14 PDT 2025; root:xnu-11417.101.15~117/RELEASE_ARM64_T8122 arm64
+[VERIFY] 2025-05-11 06:21:33 💡 Node Version: v23.11.0
+[VERIFY] 2025-05-11 06:21:33 💡 NPM Version: 10.9.2
+[VERIFY] 2025-05-11 06:21:33 💡 Current Branch: pulser-cli-implementation
+[VERIFY] 2025-05-11 06:21:33 💡 Current Directory: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js
+[VERIFY] 2025-05-11 06:21:33 ---- PACKAGE CHECK ----
+[VERIFY] 2025-05-11 06:21:33 🔍 Checking for package.json...
+[VERIFY] 2025-05-11 06:21:33 ⚠️ package.json not found
+[VERIFY] 2025-05-11 06:21:33 ---- TYPESCRIPT/JS BUILD CHECK ----
+[VERIFY] 2025-05-11 06:21:33 📦 Checking TypeScript or JS build...
+[VERIFY] 2025-05-11 06:21:33 ⚠️ No tsconfig.json or build script found
+[VERIFY] 2025-05-11 06:21:33 ---- ESLINT CHECK ----
+[VERIFY] 2025-05-11 06:21:33 🧼 Checking for ESLint config...
+[VERIFY] 2025-05-11 06:21:33 ⚠️ No ESLint config found, skipping lint
+[VERIFY] 2025-05-11 06:21:33 ---- VERCEL CONFIG CHECK ----
+[VERIFY] 2025-05-11 06:21:33 🧾 Checking for vercel.json...
+[VERIFY] 2025-05-11 06:21:33 ⚠️ No vercel.json found
+[VERIFY] 2025-05-11 06:21:33 ---- ENV FILES CHECK ----
+[VERIFY] 2025-05-11 06:21:33 🔑 Checking for .env files...
+[VERIFY] 2025-05-11 06:21:33 ✅ Found .env file
+[VERIFY] 2025-05-11 06:21:33 📄 .env keys: NODE_ENV=REDACTED
+PULSER_BACKEND=REDACTED
+SUPERSET_ENABLED=REDACTED
+SUPERSET_HOST=REDACTED
+SUPERSET_PORT=REDACTED
+SUPERSET_PROTOCOL=REDACTED
+SUPERSET_MAIN_DASHBOARD_ID=REDACTED
+SUPERSET_ANALYTICS_DASHBOARD_ID=REDACTED
+SUPERSET_PERFORMANCE_DASHBOARD_ID=REDACTED
+LOG_LEVEL=REDACTED
+[VERIFY] 2025-05-11 06:21:33 ✅ Found 1 env file(s)
+[VERIFY] 2025-05-11 06:21:33 ---- API ROUTES CHECK ----
+[VERIFY] 2025-05-11 06:21:33 🔎 Checking for API routes...
+[VERIFY] 2025-05-11 06:21:33 📄 API route grep output: ./logs/pulser_debug.log:[VERIFY] 2025-05-10 23:24:17 ⚠️ API route /api/sketch_generate not detected
+./logs/pulser_debug.log:[VERIFY] 2025-05-10 23:27:27 ✅ API route /api/sketch_generate detected
+[VERIFY] 2025-05-11 06:21:33 ✅ API route /api/sketch_generate detected in: ./logs/pulser_debug.log
+[VERIFY] 2025-05-11 06:21:33 ---- NEXT.JS BUILD CHECK ----
+[VERIFY] 2025-05-11 06:21:33 📦 Checking for .next folder...
+[VERIFY] 2025-05-11 06:21:33 ⚠️ .next folder missing, build may not be complete
+[VERIFY] 2025-05-11 06:21:33 ---- REACT IMPORTS CHECK ----
+[VERIFY] 2025-05-11 06:21:33 🔎 Checking for React imports...
+[VERIFY] 2025-05-11 06:21:33 ⚠️ React not found in package.json or package.json missing
+[VERIFY] 2025-05-11 06:21:33 ---- UNUSED EXPORTS CHECK ----
+[VERIFY] 2025-05-11 06:21:33 🧹 Checking for ts-prune availability...
+[VERIFY] 2025-05-11 06:21:33 ✅ ts-prune is available
+[VERIFY] 2025-05-11 06:21:33 ⚠️ No tsconfig.json found, skipping unused export check
+[VERIFY] 2025-05-11 06:21:33 ---- VERIFICATION SUMMARY ----
+[VERIFY] 2025-05-11 06:21:33 ✅ Pulser verification completed at 2025-05-11 06:21:33
+[VERIFY] 2025-05-11 06:21:33 📁 Log file saved to: logs/pulser_debug.log
+[VERIFY] 2025-05-11 06:21:33 🔄 Run with Claude debug command: claude :review-errors --log-file logs/pulser_debug.log
+[VERIFY] 2025-05-11 06:22:30 ⚙️ Running pulser_verify.sh
+[VERIFY] 2025-05-11 06:22:30 ---- SYSTEM CONTEXT ----
+[VERIFY] 2025-05-11 06:22:30 📅 System Info: Darwin Jakes-MacBook-Air.local 24.4.0 Darwin Kernel Version 24.4.0: Fri Apr 11 18:34:14 PDT 2025; root:xnu-11417.101.15~117/RELEASE_ARM64_T8122 arm64
+[VERIFY] 2025-05-11 06:22:30 💡 Node Version: v23.11.0
+[VERIFY] 2025-05-11 06:22:30 💡 NPM Version: 10.9.2
+[VERIFY] 2025-05-11 06:22:30 💡 Current Branch: pulser-cli-implementation
+[VERIFY] 2025-05-11 06:22:30 💡 Current Directory: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js
+[VERIFY] 2025-05-11 06:22:30 ---- PACKAGE CHECK ----
+[VERIFY] 2025-05-11 06:22:30 🔍 Checking for package.json...
+[VERIFY] 2025-05-11 06:22:30 ⚠️ package.json not found
+[VERIFY] 2025-05-11 06:22:30 ---- TYPESCRIPT/JS BUILD CHECK ----
+[VERIFY] 2025-05-11 06:22:30 📦 Checking TypeScript or JS build...
+[VERIFY] 2025-05-11 06:22:30 ⚠️ No tsconfig.json or build script found
+[VERIFY] 2025-05-11 06:22:30 ---- ESLINT CHECK ----
+[VERIFY] 2025-05-11 06:22:30 🧼 Checking for ESLint config...
+[VERIFY] 2025-05-11 06:22:30 ⚠️ No ESLint config found, skipping lint
+[VERIFY] 2025-05-11 06:22:30 ---- VERCEL CONFIG CHECK ----
+[VERIFY] 2025-05-11 06:22:30 🧾 Checking for vercel.json...
+[VERIFY] 2025-05-11 06:22:30 ⚠️ No vercel.json found
+[VERIFY] 2025-05-11 06:22:30 ---- ENV FILES CHECK ----
+[VERIFY] 2025-05-11 06:22:30 🔑 Checking for .env files...
+[VERIFY] 2025-05-11 06:22:30 ✅ Found .env file
+[VERIFY] 2025-05-11 06:22:30 📄 .env keys: NODE_ENV=REDACTED
+PULSER_BACKEND=REDACTED
+SUPERSET_ENABLED=REDACTED
+SUPERSET_HOST=REDACTED
+SUPERSET_PORT=REDACTED
+SUPERSET_PROTOCOL=REDACTED
+SUPERSET_MAIN_DASHBOARD_ID=REDACTED
+SUPERSET_ANALYTICS_DASHBOARD_ID=REDACTED
+SUPERSET_PERFORMANCE_DASHBOARD_ID=REDACTED
+LOG_LEVEL=REDACTED
+[VERIFY] 2025-05-11 06:22:30 ✅ Found 1 env file(s)
+[VERIFY] 2025-05-11 06:22:30 ---- API ROUTES CHECK ----
+[VERIFY] 2025-05-11 06:22:30 🔎 Checking for API routes...
+[VERIFY] 2025-05-11 06:22:30 📄 API route grep output: ./logs/pulser_debug.log:[VERIFY] 2025-05-10 23:24:17 ⚠️ API route /api/sketch_generate not detected
+./logs/pulser_debug.log:[VERIFY] 2025-05-10 23:27:27 ✅ API route /api/sketch_generate detected
+./logs/pulser_debug.log:[VERIFY] 2025-05-11 06:21:33 📄 API route grep output: ./logs/pulser_debug.log:[VERIFY] 2025-05-10 23:24:17 ⚠️ API route /api/sketch_generate not detected
+./logs/pulser_debug.log:./logs/pulser_debug.log:[VERIFY] 2025-05-10 23:27:27 ✅ API route /api/sketch_generate detected
+./logs/pulser_debug.log:[VERIFY] 2025-05-11 06:21:33 ✅ API route /api/sketch_generate detected in: ./logs/pulser_debug.log
+[VERIFY] 2025-05-11 06:22:30 ✅ API route /api/sketch_generate detected in: ./logs/pulser_debug.log
+[VERIFY] 2025-05-11 06:22:30 ---- NEXT.JS BUILD CHECK ----
+[VERIFY] 2025-05-11 06:22:30 📦 Checking for .next folder...
+[VERIFY] 2025-05-11 06:22:30 ⚠️ .next folder missing, build may not be complete
+[VERIFY] 2025-05-11 06:22:30 ---- REACT IMPORTS CHECK ----
+[VERIFY] 2025-05-11 06:22:30 🔎 Checking for React imports...
+[VERIFY] 2025-05-11 06:22:30 ⚠️ React not found in package.json or package.json missing
+[VERIFY] 2025-05-11 06:22:30 ---- UNUSED EXPORTS CHECK ----
+[VERIFY] 2025-05-11 06:22:30 🧹 Checking for ts-prune availability...
+[VERIFY] 2025-05-11 06:22:30 ✅ ts-prune is available
+[VERIFY] 2025-05-11 06:22:30 ⚠️ No tsconfig.json found, skipping unused export check
+[VERIFY] 2025-05-11 06:22:30 ---- VERIFICATION SUMMARY ----
+[VERIFY] 2025-05-11 06:22:30 ✅ Pulser verification completed at 2025-05-11 06:22:30
+[VERIFY] 2025-05-11 06:22:30 📁 Log file saved to: logs/pulser_debug.log
+[VERIFY] 2025-05-11 06:22:30 🔄 Run with Claude debug command: claude :review-errors --log-file logs/pulser_debug.log
+[VERIFY] 2025-05-11 06:36:42 ⚙️ Running pulser_verify.sh
+[VERIFY] 2025-05-11 06:36:42 ---- SYSTEM CONTEXT ----
+[VERIFY] 2025-05-11 06:36:42 📅 System Info: Darwin Jakes-MacBook-Air.local 24.4.0 Darwin Kernel Version 24.4.0: Fri Apr 11 18:34:14 PDT 2025; root:xnu-11417.101.15~117/RELEASE_ARM64_T8122 arm64
+[VERIFY] 2025-05-11 06:36:42 💡 Node Version: v23.11.0
+[VERIFY] 2025-05-11 06:36:42 💡 NPM Version: 10.9.2
+[VERIFY] 2025-05-11 06:36:42 💡 Current Branch: pulser-cli-implementation
+[VERIFY] 2025-05-11 06:36:42 💡 Current Directory: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js
+[VERIFY] 2025-05-11 06:36:42 ---- PACKAGE CHECK ----
+[VERIFY] 2025-05-11 06:36:42 🔍 Checking for package.json...
+[VERIFY] 2025-05-11 06:36:42 ✅ Found package.json
+[VERIFY] 2025-05-11 06:36:42 📄 package.json contents: {
+  "name": "pulser-client",
+  "version": "1.0.0",
+  "description": "Client utilities for Pulser CLI",
+  "main": "router/index.js",
+  "scripts": {
+    "start": "node router/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "build": "echo \"No build needed, plain JavaScript project\""
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0"
+  }
+}
+[VERIFY] 2025-05-11 06:36:42 📦 Checking for ts-prune...
+[VERIFY] 2025-05-11 06:36:43 📄 npm list output: /opt/homebrew/lib
+└── ts-prune@0.10.3
+[VERIFY] 2025-05-11 06:36:43 ✅ ts-prune already installed
+[VERIFY] 2025-05-11 06:36:43 ---- TYPESCRIPT/JS BUILD CHECK ----
+[VERIFY] 2025-05-11 06:36:43 📦 Checking TypeScript or JS build...
+[VERIFY] 2025-05-11 06:36:43 ⚠️ No tsconfig.json found, checking for build script: "build": "echo \"No build needed
+[VERIFY] 2025-05-11 06:36:43 🧪 Running npm build...
+[VERIFY] 2025-05-11 06:36:43 📄 Build output: 
+> pulser-client@1.0.0 build
+> echo "No build needed, plain JavaScript project"
+
+No build needed, plain JavaScript project
+[VERIFY] 2025-05-11 06:36:43 ✅ Build script succeeded
+[VERIFY] 2025-05-11 06:36:43 ---- ESLINT CHECK ----
+[VERIFY] 2025-05-11 06:36:43 🧼 Checking for ESLint config...
+[VERIFY] 2025-05-11 06:36:43 ✅ Found ESLint config
+[VERIFY] 2025-05-11 06:36:43 📄 ESLint config (.eslintrc.js): module.exports = {
+  env: {
+    node: true,
+    es2021: true
+  },
+  extends: 'eslint:recommended',
+  parserOptions: {
+    ecmaVersion: 12,
+    sourceType: 'module'
+  },
+  rules: {
+    'indent': ['error', 2],
+    'linebreak-style': ['error', 'unix'],
+    'quotes': ['error', 'single'],
+    'semi': ['error', 'always'],
+    'no-unused-vars': ['warn'],
+    'no-console': 'off'
+  }
+};
+[VERIFY] 2025-05-11 06:36:43 🧪 Running ESLint...
+[VERIFY] 2025-05-11 06:36:53 📄 ESLint output: npm warn exec The following package was not found and will be installed: eslint@9.26.0
+
+Oops! Something went wrong! :(
+
+ESLint: 9.26.0
+
+ESLint couldn't find an eslint.config.(js|mjs|cjs) file.
+
+From ESLint v9.0.0, the default configuration file is now eslint.config.js.
+If you are using a .eslintrc.* file, please follow the migration guide
+to update your configuration file to the new format:
+
+https://eslint.org/docs/latest/use/configure/migration-guide
+
+If you still have problems after following the migration guide, please stop by
+https://eslint.org/chat/help to chat with the team.
+[VERIFY] 2025-05-11 06:36:53 ❌ Linting issues found with exit code: 2
+[VERIFY] 2025-05-11 06:36:53 🧨 ESLint errors (first 10): 
+[VERIFY] 2025-05-11 06:36:53 🧨 Total ESLint issues:        0
+[VERIFY] 2025-05-11 07:05:43 ⚙️ Running pulser_verify.sh
+[VERIFY] 2025-05-11 07:05:43 ---- SYSTEM CONTEXT ----
+[VERIFY] 2025-05-11 07:05:43 📅 System Info: Darwin Jakes-MacBook-Air.local 24.4.0 Darwin Kernel Version 24.4.0: Fri Apr 11 18:34:14 PDT 2025; root:xnu-11417.101.15~117/RELEASE_ARM64_T8122 arm64
+[VERIFY] 2025-05-11 07:05:43 💡 Node Version: v23.11.0
+[VERIFY] 2025-05-11 07:05:43 💡 NPM Version: 10.9.2
+[VERIFY] 2025-05-11 07:05:43 💡 Current Branch: pulser-cli-implementation
+[VERIFY] 2025-05-11 07:05:43 💡 Current Directory: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js
+[VERIFY] 2025-05-11 07:05:43 ---- PACKAGE CHECK ----
+[VERIFY] 2025-05-11 07:05:43 🔍 Checking for package.json...
+[VERIFY] 2025-05-11 07:05:43 ✅ Found package.json
+[VERIFY] 2025-05-11 07:05:43 📄 package.json contents: {
+  "name": "pulser-client",
+  "version": "1.0.0",
+  "description": "Client utilities for Pulser CLI",
+  "main": "router/index.js",
+  "scripts": {
+    "start": "node router/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "build": "echo \"No build needed, plain JavaScript project\""
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "eslint": "8.45.0"
+  }
+}
+[VERIFY] 2025-05-11 07:05:43 📦 Checking for ts-prune...
+[VERIFY] 2025-05-11 07:05:43 📄 npm list output: /opt/homebrew/lib
+└── ts-prune@0.10.3
+[VERIFY] 2025-05-11 07:05:44 ✅ ts-prune already installed
+[VERIFY] 2025-05-11 07:05:44 ---- TYPESCRIPT/JS BUILD CHECK ----
+[VERIFY] 2025-05-11 07:05:44 📦 Checking TypeScript or JS build...
+[VERIFY] 2025-05-11 07:05:44 ⚠️ No tsconfig.json found, checking for build script: "build": "echo \"No build needed
+[VERIFY] 2025-05-11 07:05:44 🧪 Running npm build...
+[VERIFY] 2025-05-11 07:05:44 📄 Build output: 
+> pulser-client@1.0.0 build
+> echo "No build needed, plain JavaScript project"
+
+No build needed, plain JavaScript project
+[VERIFY] 2025-05-11 07:05:44 ✅ Build script succeeded
+[VERIFY] 2025-05-11 07:05:44 ---- ESLINT CHECK ----
+[VERIFY] 2025-05-11 07:05:44 🧼 Checking for ESLint config...
+[VERIFY] 2025-05-11 07:05:44 ✅ Found ESLint config
+[VERIFY] 2025-05-11 07:05:44 📄 ESLint config (.eslintrc.js): module.exports = {
+  env: {
+    node: true,
+    es2021: true
+  },
+  extends: 'eslint:recommended',
+  parserOptions: {
+    ecmaVersion: 12,
+    sourceType: 'module'
+  },
+  rules: {
+    'indent': ['error', 2],
+    'linebreak-style': ['error', 'unix'],
+    'quotes': ['error', 'single'],
+    'semi': ['error', 'always'],
+    'no-unused-vars': ['warn'],
+    'no-console': 'off'
+  }
+};
+[VERIFY] 2025-05-11 07:05:44 🧪 Running ESLint...
+[VERIFY] 2025-05-11 07:05:45 📄 ESLint output: 
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/config/superset_connection.js
+  52:21  error  Unreachable code  no-unreachable
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/logger.js
+  125:13  warning  'totalSizeKB' is assigned a value but never used  no-unused-vars
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/public/components/cta-demo/CTADemo.js
+   90:33  error  'document' is not defined                     no-undef
+   94:1   error  Expected indentation of 4 spaces but found 6  indent
+   95:1   error  Expected indentation of 6 spaces but found 8  indent
+  105:1   error  Expected indentation of 6 spaces but found 8  indent
+  107:1   error  Expected indentation of 4 spaces but found 6  indent
+  108:1   error  Expected indentation of 6 spaces but found 8  indent
+  118:1   error  Expected indentation of 6 spaces but found 8  indent
+  120:1   error  Expected indentation of 4 spaces but found 6  indent
+  121:1   error  Expected indentation of 6 spaces but found 8  indent
+  131:1   error  Expected indentation of 6 spaces but found 8  indent
+  142:5   error  'document' is not defined                     no-undef
+  147:5   error  'document' is not defined                     no-undef
+  157:20  error  'document' is not defined                     no-undef
+  158:20  error  'document' is not defined                     no-undef
+  175:25  error  'document' is not defined                     no-undef
+  179:1   error  Expected indentation of 4 spaces but found 6  indent
+  180:1   error  Expected indentation of 6 spaces but found 8  indent
+  180:27  error  'document' is not defined                     no-undef
+  181:1   error  Expected indentation of 6 spaces but found 8  indent
+  181:23  error  'document' is not defined                     no-undef
+  182:1   error  Expected indentation of 6 spaces but found 8  indent
+  184:1   error  Expected indentation of 4 spaces but found 6  indent
+  185:1   error  Expected indentation of 6 spaces but found 8  indent
+  185:26  error  'document' is not defined                     no-undef
+  186:1   error  Expected indentation of 6 spaces but found 8  indent
+  186:27  error  'document' is not defined                     no-undef
+  187:1   error  Expected indentation of 6 spaces but found 8  indent
+  189:1   error  Expected indentation of 4 spaces but found 6  indent
+  190:1   error  Expected indentation of 6 spaces but found 8  indent
+  190:24  error  'document' is not defined                     no-undef
+  191:1   error  Expected indentation of 6 spaces but found 8  indent
+  191:27  error  'document' is not defined                     no-undef
+  192:1   error  Expected indentation of 6 spaces but found 8  indent
+  205:32  error  'document' is not defined                     no-undef
+  206:26  error  'document' is not defined                     no-undef
+  260:29  error  'document' is not defined                     no-undef
+  322:9   error  'navigator' is not defined                    no-undef
+  342:29  error  'document' is not defined                     no-undef
+  354:1   error  'window' is not defined                       no-undef
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/router/commands/debug.js
+  391:18  warning  '_' is assigned a value but never used                                                                                 no-unused-vars
+  401:16  error    This branch can never execute. Its condition is a duplicate or covered by previous conditions in the if-else-if chain  no-dupe-else-if
+  408:20  warning  '_' is assigned a value but never used                                                                                 no-unused-vars
+  707:31  warning  'options' is defined but never used                                                                                    no-unused-vars
+  711:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  712:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  713:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  714:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  715:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  716:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  717:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  718:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  720:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  721:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  722:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  724:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  725:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  726:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  727:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  728:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  729:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  730:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  731:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  733:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  734:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  735:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  736:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  737:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  738:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  739:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  740:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  742:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  743:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  743:7   error    Unexpected lexical declaration in case block                                                                           no-case-declarations
+  744:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  745:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  747:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  748:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  749:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  749:7   error    Unexpected lexical declaration in case block                                                                           no-case-declarations
+  750:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  750:7   error    Unexpected lexical declaration in case block                                                                           no-case-declarations
+  751:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  751:7   error    Unexpected lexical declaration in case block                                                                           no-case-declarations
+  753:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  754:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  755:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  756:1   error    Expected indentation of 6 spaces but found 8                                                                           indent
+  757:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  758:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  760:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  761:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  761:7   error    Unexpected lexical declaration in case block                                                                           no-case-declarations
+  762:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  763:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  765:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  766:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  767:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+  769:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  770:1   error    Expected indentation of 2 spaces but found 4                                                                           indent
+  771:1   error    Expected indentation of 4 spaces but found 6                                                                           indent
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/router/commands/escalate.js
+  158:30  warning  'context' is defined but never used  no-unused-vars
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/router/commands/linkedin.js
+   9:7   warning  'fs' is assigned a value but never used  no-unused-vars
+  11:7   warning  'os' is assigned a value but never used  no-unused-vars
+  23:33  warning  'context' is defined but never used      no-unused-vars
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/router/commands/prompt.js
+   60:40  warning  'context' is defined but never used             no-unused-vars
+  101:1   error    Expected indentation of 10 spaces but found 27  indent
+  102:1   error    Expected indentation of 10 spaces but found 27  indent
+  207:1   error    Expected indentation of 4 spaces but found 6    indent
+  208:1   error    Expected indentation of 6 spaces but found 8    indent
+  210:1   error    Expected indentation of 4 spaces but found 6    indent
+  211:1   error    Expected indentation of 6 spaces but found 8    indent
+  213:1   error    Expected indentation of 4 spaces but found 6    indent
+  214:1   error    Expected indentation of 6 spaces but found 8    indent
+  215:1   error    Expected indentation of 6 spaces but found 8    indent
+  216:1   error    Expected indentation of 8 spaces but found 10   indent
+  217:1   error    Expected indentation of 8 spaces but found 10   indent
+  219:1   error    Expected indentation of 8 spaces but found 10   indent
+  220:1   error    Expected indentation of 8 spaces but found 10   indent
+  221:1   error    Expected indentation of 10 spaces but found 12  indent
+  222:1   error    Expected indentation of 10 spaces but found 12  indent
+  224:1   error    Expected indentation of 8 spaces but found 10   indent
+  225:1   error    Expected indentation of 8 spaces but found 10   indent
+  227:1   error    Expected indentation of 8 spaces but found 10   indent
+  228:1   error    Expected indentation of 10 spaces but found 12  indent
+  229:1   error    Expected indentation of 10 spaces but found 12  indent
+  230:1   error    Expected indentation of 10 spaces but found 12  indent
+  231:1   error    Expected indentation of 10 spaces but found 12  indent
+  232:1   error    Expected indentation of 8 spaces but found 10   indent
+  234:1   error    Expected indentation of 8 spaces but found 10   indent
+  235:1   error    Expected indentation of 6 spaces but found 8    indent
+  236:1   error    Expected indentation of 8 spaces but found 10   indent
+  237:1   error    Expected indentation of 10 spaces but found 12  indent
+  238:1   error    Expected indentation of 10 spaces but found 12  indent
+  239:1   error    Expected indentation of 8 spaces but found 10   indent
+  240:1   error    Expected indentation of 8 spaces but found 10   indent
+  241:1   error    Expected indentation of 6 spaces but found 8    indent
+  243:1   error    Expected indentation of 4 spaces but found 6    indent
+  244:1   error    Expected indentation of 6 spaces but found 8    indent
+  245:1   error    Expected indentation of 6 spaces but found 8    indent
+  246:1   error    Expected indentation of 8 spaces but found 10   indent
+  247:1   error    Expected indentation of 8 spaces but found 10   indent
+  248:1   error    Expected indentation of 6 spaces but found 8    indent
+  250:1   error    Expected indentation of 6 spaces but found 8    indent
+  251:1   error    Expected indentation of 8 spaces but found 10   indent
+  252:1   error    Expected indentation of 8 spaces but found 10   indent
+  254:1   error    Expected indentation of 8 spaces but found 10   indent
+  256:1   error    Expected indentation of 8 spaces but found 10   indent
+  257:1   error    Expected indentation of 10 spaces but found 12  indent
+  258:1   error    Expected indentation of 10 spaces but found 12  indent
+  259:1   error    Expected indentation of 8 spaces but found 10   indent
+  261:1   error    Expected indentation of 8 spaces but found 10   indent
+  262:1   error    Expected indentation of 10 spaces but found 12  indent
+  263:1   error    Expected indentation of 10 spaces but found 12  indent
+  264:1   error    Expected indentation of 8 spaces but found 10   indent
+  266:1   error    Expected indentation of 8 spaces but found 10   indent
+  267:1   error    Expected indentation of 8 spaces but found 10   indent
+  269:1   error    Expected indentation of 8 spaces but found 10   indent
+  270:1   error    Expected indentation of 10 spaces but found 12  indent
+  271:1   error    Expected indentation of 10 spaces but found 12  indent
+  272:1   error    Expected indentation of 10 spaces but found 12  indent
+  273:1   error    Expected indentation of 10 spaces but found 12  indent
+  274:1   error    Expected indentation of 8 spaces but found 10   indent
+  276:1   error    Expected indentation of 8 spaces but found 10   indent
+  277:1   error    Expected indentation of 6 spaces but found 8    indent
+  278:1   error    Expected indentation of 8 spaces but found 10   indent
+  279:1   error    Expected indentation of 10 spaces but found 12  indent
+  280:1   error    Expected indentation of 10 spaces but found 12  indent
+  281:1   error    Expected indentation of 8 spaces but found 10   indent
+  282:1   error    Expected indentation of 8 spaces but found 10   indent
+  283:1   error    Expected indentation of 6 spaces but found 8    indent
+  285:1   error    Expected indentation of 4 spaces but found 6    indent
+  286:1   error    Expected indentation of 6 spaces but found 8    indent
+  287:1   error    Expected indentation of 6 spaces but found 8    indent
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/router/commands/superset.js
+   7:9   warning  'spawn' is assigned a value but never used    no-unused-vars
+  46:31  warning  'options' is defined but never used           no-unused-vars
+  56:1   error    Expected indentation of 2 spaces but found 4  indent
+  57:1   error    Expected indentation of 4 spaces but found 6  indent
+  58:1   error    Expected indentation of 4 spaces but found 6  indent
+  59:1   error    Expected indentation of 2 spaces but found 4  indent
+  60:1   error    Expected indentation of 4 spaces but found 6  indent
+  61:1   error    Expected indentation of 4 spaces but found 6  indent
+  62:1   error    Expected indentation of 2 spaces but found 4  indent
+  63:1   error    Expected indentation of 4 spaces but found 6  indent
+  64:1   error    Expected indentation of 4 spaces but found 6  indent
+  65:1   error    Expected indentation of 2 spaces but found 4  indent
+  66:1   error    Expected indentation of 4 spaces but found 6  indent
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/router/commands/surf.js
+  14:40  warning  'context' is defined but never used  no-unused-vars
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/router/commands/task_filter.js
+  25:44  warning  'context' is assigned a value but never used  no-unused-vars
+
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/utils/log-analyzer.js
+   85:50  warning  'options' is assigned a value but never used                                                                           no-unused-vars
+  151:14  error    This branch can never execute. Its condition is a duplicate or covered by previous conditions in the if-else-if chain  no-dupe-else-if
+  203:1   error    Expected indentation of 4 spaces but found 2                                                                           indent
+  203:13  warning  '_' is defined but never used                                                                                          no-unused-vars
+  204:1   error    Expected indentation of 4 spaces but found 2                                                                           indent
+  204:11  warning  '_' is defined but never used                                                                                          no-unused-vars
+  204:24  warning  '__' is defined but never used                                                                                         no-unused-vars
+  205:1   error    Expected indentation of 4 spaces but found 2                                                                           indent
+  206:1   error    Expected indentation of 4 spaces but found 2                                                                           indent
+  207:1   error    Expected indentation of 4 spaces but found 2                                                                           indent
+
+✖ 200 problems (183 errors, 17 warnings)
+  157 errors and 0 warnings potentially fixable with the `--fix` option.
+[VERIFY] 2025-05-11 07:05:45 ❌ Linting issues found with exit code: 1
+[VERIFY] 2025-05-11 07:05:45 🧨 ESLint errors (first 10):   52:21  error  Unreachable code  no-unreachable
+  125:13  warning  'totalSizeKB' is assigned a value but never used  no-unused-vars
+   90:33  error  'document' is not defined                     no-undef
+   94:1   error  Expected indentation of 4 spaces but found 6  indent
+   95:1   error  Expected indentation of 6 spaces but found 8  indent
+  105:1   error  Expected indentation of 6 spaces but found 8  indent
+  107:1   error  Expected indentation of 4 spaces but found 6  indent
+  108:1   error  Expected indentation of 6 spaces but found 8  indent
+  118:1   error  Expected indentation of 6 spaces but found 8  indent
+  120:1   error  Expected indentation of 4 spaces but found 6  indent
+[VERIFY] 2025-05-11 07:05:45 🧨 Total ESLint issues:      202
+[VERIFY] 2025-05-11 07:07:51 ⚙️ Running pulser_verify.sh
+[VERIFY] 2025-05-11 07:07:51 ---- SYSTEM CONTEXT ----
+[VERIFY] 2025-05-11 07:07:51 📅 System Info: Darwin Jakes-MacBook-Air.local 24.4.0 Darwin Kernel Version 24.4.0: Fri Apr 11 18:34:14 PDT 2025; root:xnu-11417.101.15~117/RELEASE_ARM64_T8122 arm64
+[VERIFY] 2025-05-11 07:07:51 💡 Node Version: v23.11.0
+[VERIFY] 2025-05-11 07:07:51 💡 NPM Version: 10.9.2
+[VERIFY] 2025-05-11 07:07:51 💡 Current Branch: pulser-cli-implementation
+[VERIFY] 2025-05-11 07:07:51 💡 Current Directory: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js
+[VERIFY] 2025-05-11 07:07:51 ---- PACKAGE CHECK ----
+[VERIFY] 2025-05-11 07:07:51 🔍 Checking for package.json...
+[VERIFY] 2025-05-11 07:07:51 ✅ Found package.json
+[VERIFY] 2025-05-11 07:07:51 📄 package.json contents: {
+  "name": "pulser-client",
+  "version": "1.0.0",
+  "description": "Client utilities for Pulser CLI",
+  "main": "router/index.js",
+  "scripts": {
+    "start": "node router/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "build": "echo \"No build needed, plain JavaScript project\""
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "eslint": "8.45.0"
+  }
+}
+[VERIFY] 2025-05-11 07:07:51 📦 Checking for ts-prune...
+[VERIFY] 2025-05-11 07:07:52 📄 npm list output: /opt/homebrew/lib
+└── ts-prune@0.10.3
+[VERIFY] 2025-05-11 07:07:52 ✅ ts-prune already installed
+[VERIFY] 2025-05-11 07:07:52 ---- TYPESCRIPT/JS BUILD CHECK ----
+[VERIFY] 2025-05-11 07:07:52 📦 Checking TypeScript or JS build...
+[VERIFY] 2025-05-11 07:07:52 ⚠️ No tsconfig.json found, checking for build script: "build": "echo \"No build needed
+[VERIFY] 2025-05-11 07:07:52 🧪 Running npm build...
+[VERIFY] 2025-05-11 07:07:52 📄 Build output: 
+> pulser-client@1.0.0 build
+> echo "No build needed, plain JavaScript project"
+
+No build needed, plain JavaScript project
+[VERIFY] 2025-05-11 07:07:52 ✅ Build script succeeded
+[VERIFY] 2025-05-11 07:07:52 ---- ESLINT CHECK ----
+[VERIFY] 2025-05-11 07:07:52 🧼 Checking for ESLint config...
+[VERIFY] 2025-05-11 07:07:52 ✅ Found ESLint config
+[VERIFY] 2025-05-11 07:07:52 📄 ESLint config (.eslintrc.js): module.exports = {
+  env: {
+    node: true,
+    es2021: true
+  },
+  extends: 'eslint:recommended',
+  parserOptions: {
+    ecmaVersion: 12,
+    sourceType: 'module'
+  },
+  rules: {
+    'indent': ['error', 2],
+    'linebreak-style': ['error', 'unix'],
+    'quotes': ['error', 'single'],
+    'semi': ['error', 'always'],
+    'no-unused-vars': ['warn'],
+    'no-console': 'off'
+  }
+};
+[VERIFY] 2025-05-11 07:07:52 🧪 Running ESLint...
+[VERIFY] 2025-05-11 07:07:52 📄 ESLint output: 
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/utils/prompt-tools.js
+  227:5  error  Move function declaration to function body root  no-inner-declarations
+
+✖ 1 problem (1 error, 0 warnings)
+[VERIFY] 2025-05-11 07:07:52 ❌ Linting issues found with exit code: 1
+[VERIFY] 2025-05-11 07:07:52 🧨 ESLint errors (first 10):   227:5  error  Move function declaration to function body root  no-inner-declarations
+✖ 1 problem (1 error, 0 warnings)
+[VERIFY] 2025-05-11 07:07:52 🧨 Total ESLint issues:        2
+[VERIFY] 2025-05-11 07:07:52 ---- VERCEL CONFIG CHECK ----
+[VERIFY] 2025-05-11 07:07:52 🧾 Checking for vercel.json...
+[VERIFY] 2025-05-11 07:07:52 ✅ Found vercel.json: {
+  "version": 2,
+  "builds": [
+    {
+      "src": "router/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/router/index.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
+[VERIFY] 2025-05-11 07:07:52 🧪 Running vercel inspect...
+[VERIFY] 2025-05-11 07:07:53 📄 Vercel inspect output: Vercel CLI 41.6.2
+Error: unknown or unexpected option: --yes
+[VERIFY] 2025-05-11 07:07:53 ❌ Vercel config invalid or unreachable with exit code: 1
+[VERIFY] 2025-05-11 07:07:53 🧨 Vercel errors: Error: unknown or unexpected option: --yes
+[VERIFY] 2025-05-11 07:09:00 ⚙️ Running pulser_verify.sh
+[VERIFY] 2025-05-11 07:09:00 ---- SYSTEM CONTEXT ----
+[VERIFY] 2025-05-11 07:09:00 📅 System Info: Darwin Jakes-MacBook-Air.local 24.4.0 Darwin Kernel Version 24.4.0: Fri Apr 11 18:34:14 PDT 2025; root:xnu-11417.101.15~117/RELEASE_ARM64_T8122 arm64
+[VERIFY] 2025-05-11 07:09:00 💡 Node Version: v23.11.0
+[VERIFY] 2025-05-11 07:09:00 💡 NPM Version: 10.9.2
+[VERIFY] 2025-05-11 07:09:00 💡 Current Branch: pulser-cli-implementation
+[VERIFY] 2025-05-11 07:09:00 💡 Current Directory: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js
+[VERIFY] 2025-05-11 07:09:00 ---- PACKAGE CHECK ----
+[VERIFY] 2025-05-11 07:09:00 🔍 Checking for package.json...
+[VERIFY] 2025-05-11 07:09:00 ✅ Found package.json
+[VERIFY] 2025-05-11 07:09:00 📄 package.json contents: {
+  "name": "pulser-client",
+  "version": "1.0.0",
+  "description": "Client utilities for Pulser CLI",
+  "main": "router/index.js",
+  "scripts": {
+    "start": "node router/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "build": "echo \"No build needed, plain JavaScript project\""
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "eslint": "8.45.0"
+  }
+}
+[VERIFY] 2025-05-11 07:09:00 📦 Checking for ts-prune...
+[VERIFY] 2025-05-11 07:09:00 📄 npm list output: /opt/homebrew/lib
+└── ts-prune@0.10.3
+[VERIFY] 2025-05-11 07:09:01 ✅ ts-prune already installed
+[VERIFY] 2025-05-11 07:09:01 ---- TYPESCRIPT/JS BUILD CHECK ----
+[VERIFY] 2025-05-11 07:09:01 📦 Checking TypeScript or JS build...
+[VERIFY] 2025-05-11 07:09:01 ⚠️ No tsconfig.json found, checking for build script: "build": "echo \"No build needed
+[VERIFY] 2025-05-11 07:09:01 🧪 Running npm build...
+[VERIFY] 2025-05-11 07:09:01 📄 Build output: 
+> pulser-client@1.0.0 build
+> echo "No build needed, plain JavaScript project"
+
+No build needed, plain JavaScript project
+[VERIFY] 2025-05-11 07:09:01 ✅ Build script succeeded
+[VERIFY] 2025-05-11 07:09:01 ---- ESLINT CHECK ----
+[VERIFY] 2025-05-11 07:09:01 🧼 Checking for ESLint config...
+[VERIFY] 2025-05-11 07:09:01 ✅ Found ESLint config
+[VERIFY] 2025-05-11 07:09:01 📄 ESLint config (.eslintrc.js): module.exports = {
+  env: {
+    node: true,
+    es2021: true
+  },
+  extends: 'eslint:recommended',
+  parserOptions: {
+    ecmaVersion: 12,
+    sourceType: 'module'
+  },
+  rules: {
+    'indent': ['error', 2],
+    'linebreak-style': ['error', 'unix'],
+    'quotes': ['error', 'single'],
+    'semi': ['error', 'always'],
+    'no-unused-vars': ['warn'],
+    'no-console': 'off'
+  }
+};
+[VERIFY] 2025-05-11 07:09:01 🧪 Running ESLint...
+[VERIFY] 2025-05-11 07:09:01 📄 ESLint output: 
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/router/commands/system_prompts.js
+  27:1  error  Expected indentation of 4 spaces but found 6  indent
+  28:1  error  Expected indentation of 6 spaces but found 8  indent
+  30:1  error  Expected indentation of 4 spaces but found 6  indent
+  31:1  error  Expected indentation of 6 spaces but found 8  indent
+  33:1  error  Expected indentation of 4 spaces but found 6  indent
+  34:1  error  Expected indentation of 6 spaces but found 8  indent
+  36:1  error  Expected indentation of 4 spaces but found 6  indent
+  37:1  error  Expected indentation of 6 spaces but found 8  indent
+  39:1  error  Expected indentation of 4 spaces but found 6  indent
+  40:1  error  Expected indentation of 6 spaces but found 8  indent
+  42:1  error  Expected indentation of 4 spaces but found 6  indent
+  43:1  error  Expected indentation of 6 spaces but found 8  indent
+  44:1  error  Expected indentation of 6 spaces but found 8  indent
+
+✖ 13 problems (13 errors, 0 warnings)
+  13 errors and 0 warnings potentially fixable with the `--fix` option.
+[VERIFY] 2025-05-11 07:09:01 ❌ Linting issues found with exit code: 1
+[VERIFY] 2025-05-11 07:09:01 🧨 ESLint errors (first 10):   27:1  error  Expected indentation of 4 spaces but found 6  indent
+  28:1  error  Expected indentation of 6 spaces but found 8  indent
+  30:1  error  Expected indentation of 4 spaces but found 6  indent
+  31:1  error  Expected indentation of 6 spaces but found 8  indent
+  33:1  error  Expected indentation of 4 spaces but found 6  indent
+  34:1  error  Expected indentation of 6 spaces but found 8  indent
+  36:1  error  Expected indentation of 4 spaces but found 6  indent
+  37:1  error  Expected indentation of 6 spaces but found 8  indent
+  39:1  error  Expected indentation of 4 spaces but found 6  indent
+  40:1  error  Expected indentation of 6 spaces but found 8  indent
+[VERIFY] 2025-05-11 07:09:01 🧨 Total ESLint issues:       15
+[VERIFY] 2025-05-11 07:09:01 ---- VERCEL CONFIG CHECK ----
+[VERIFY] 2025-05-11 07:09:01 🧾 Checking for vercel.json...
+[VERIFY] 2025-05-11 07:09:01 ✅ Found vercel.json: {
+  "version": 2,
+  "builds": [
+    {
+      "src": "router/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/router/index.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
+[VERIFY] 2025-05-11 07:09:01 🧪 Running vercel inspect...
+[VERIFY] 2025-05-11 07:09:01 📄 Vercel config validation output: {
+  "version": 2,
+  "builds": [
+    {
+      "src": "router/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/router/index.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
+[VERIFY] 2025-05-11 07:09:01 ✅ Vercel config check passed
+[VERIFY] 2025-05-11 07:09:01 ---- ENV FILES CHECK ----
+[VERIFY] 2025-05-11 07:09:01 🔑 Checking for .env files...
+[VERIFY] 2025-05-11 07:09:01 ✅ Found .env file
+[VERIFY] 2025-05-11 07:09:01 📄 .env keys: NODE_ENV=REDACTED
+PULSER_BACKEND=REDACTED
+SUPERSET_ENABLED=REDACTED
+SUPERSET_HOST=REDACTED
+SUPERSET_PORT=REDACTED
+SUPERSET_PROTOCOL=REDACTED
+SUPERSET_MAIN_DASHBOARD_ID=REDACTED
+SUPERSET_ANALYTICS_DASHBOARD_ID=REDACTED
+SUPERSET_PERFORMANCE_DASHBOARD_ID=REDACTED
+LOG_LEVEL=REDACTED
+[VERIFY] 2025-05-11 07:09:01 ✅ Found 1 env file(s)
+[VERIFY] 2025-05-11 07:09:01 ---- API ROUTES CHECK ----
+[VERIFY] 2025-05-11 07:09:01 🔎 Checking for API routes...
+[VERIFY] 2025-05-11 07:09:01 📄 API route grep output: ./router/api/sketch_generate.js: * @module router/api/sketch_generate
+[VERIFY] 2025-05-11 07:09:01 ✅ API route /api/sketch_generate detected in: ./router/api/sketch_generate.js
+[VERIFY] 2025-05-11 07:09:01 ---- NEXT.JS BUILD CHECK ----
+[VERIFY] 2025-05-11 07:09:01 📦 Checking for .next folder...
+[VERIFY] 2025-05-11 07:09:01 ✅ Build artifacts detected in .next folder
+[VERIFY] 2025-05-11 07:09:01 ✅ Found BUILD_ID: build-id-20250511
+[VERIFY] 2025-05-11 07:09:01 ✅ Found .next/static with        0 files
+[VERIFY] 2025-05-11 07:09:01 ✅ Found .next/server with        0 files
+[VERIFY] 2025-05-11 07:09:01 📊 Next.js build completeness: 3/3 artifacts detected
+[VERIFY] 2025-05-11 07:09:01 ---- REACT IMPORTS CHECK ----
+[VERIFY] 2025-05-11 07:09:01 🔎 Checking for React imports...
+[VERIFY] 2025-05-11 07:09:01 ⚠️ React not found in package.json or package.json missing
+[VERIFY] 2025-05-11 07:09:01 ---- UNUSED EXPORTS CHECK ----
+[VERIFY] 2025-05-11 07:09:01 🧹 Checking for ts-prune availability...
+[VERIFY] 2025-05-11 07:09:01 ✅ ts-prune is available
+[VERIFY] 2025-05-11 07:09:01 ⚠️ No tsconfig.json found, skipping unused export check
+[VERIFY] 2025-05-11 07:09:01 ---- VERIFICATION SUMMARY ----
+[VERIFY] 2025-05-11 07:09:01 ✅ Pulser verification completed at 2025-05-11 07:09:01
+[VERIFY] 2025-05-11 07:09:01 📁 Log file saved to: logs/pulser_debug.log
+[VERIFY] 2025-05-11 07:09:01 🔄 Run with Claude debug command: claude :review-errors --log-file logs/pulser_debug.log

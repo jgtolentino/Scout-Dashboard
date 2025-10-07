@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Prompt Lab Icon</title>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="promptLabGradient">
+            <stop stop-color="#4A6FA5" offset="0%"></stop>
+            <stop stop-color="#6AABC0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#F5F7F9" x="0" y="0" width="80" height="80" rx="16"></rect>
+        <g transform="translate(12.000000, 12.000000)">
+            <!-- Code Editor Icon -->
+            <rect stroke="#4A6FA5" stroke-width="2" x="1" y="1" width="54" height="40" rx="4"></rect>
+            <rect fill="#E8F0FE" x="6" y="8" width="44" height="4" rx="2"></rect>
+            <rect fill="#E8F0FE" x="6" y="16" width="35" height="4" rx="2"></rect>
+            <rect fill="#E8F0FE" x="6" y="24" width="40" height="4" rx="2"></rect>
+            <rect fill="#E8F0FE" x="6" y="32" width="28" height="4" rx="2"></rect>
+            
+            <!-- Radar Chart -->
+            <circle stroke="#6AABC0" stroke-width="1.5" cx="42" cy="42" r="14" stroke-dasharray="1,1"></circle>
+            <circle stroke="#6AABC0" stroke-width="1.5" cx="42" cy="42" r="10" stroke-dasharray="1,1"></circle>
+            <circle stroke="#6AABC0" stroke-width="1.5" cx="42" cy="42" r="6" stroke-dasharray="1,1"></circle>
+            
+            <path d="M42,42 L36,34" stroke="#4A6FA5" stroke-width="1.5"></path>
+            <path d="M42,42 L50,39" stroke="#4A6FA5" stroke-width="1.5"></path>
+            <path d="M42,42 L45,52" stroke="#4A6FA5" stroke-width="1.5"></path>
+            <path d="M42,42 L34,48" stroke="#4A6FA5" stroke-width="1.5"></path>
+            <path d="M42,42 L42,28" stroke="#4A6FA5" stroke-width="1.5"></path>
+            
+            <polygon fill="url(#promptLabGradient)" points="42,42 36,34 50,39 45,52 34,48 42,28"></polygon>
+            
+            <!-- Accent Elements -->
+            <circle fill="#F7B32B" cx="4" cy="4" r="2"></circle>
+            <circle fill="#F7B32B" cx="10" cy="4" r="2"></circle>
+            <circle fill="#F7B32B" cx="16" cy="4" r="2"></circle>
+        </g>
+    </g>
+</svg>

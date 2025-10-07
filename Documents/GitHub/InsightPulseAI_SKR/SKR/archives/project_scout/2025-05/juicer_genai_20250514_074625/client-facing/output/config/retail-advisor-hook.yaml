@@ -1,0 +1,229 @@
+---
+# Retail Advisor Hook Configuration for OpsCore Integration
+# Version: 1.0.1
+# This file configures how TaskRunner, FlowManager, and other agents respond to Retail Advisor queries
+# and route tasks between the appropriate components and systems.
+name: retail_advisor_hook
+version: "1.0.1"
+description: "Configuration for integrating Retail Advisor with OpsCore CLI and agent routing, including GenAI insights"
+
+# Define the trigger patterns that activate Retail Advisor functionality
+triggers:
+  # Command patterns that directly invoke Retail Advisor
+  commands:
+    - pattern: "^:retail-advisor\\s+(.+)$"
+      description: "Direct Retail Advisor CLI command"
+      action: "execute_retail_advisor_command"
+      priority: 100
+    
+    # Natural language patterns that suggest BI queries
+    natural_language:
+      - pattern: "(show|get|find|display)\\s+(brand|mention).+data"
+        description: "Brand mention query"
+        action: "retail_advisor_brand_query"
+        priority: 80
+      
+      - pattern: "(dashboard|visualization|chart|graph).+(brand|mention|sentiment)"
+        description: "Brand dashboard request"
+        action: "retail_advisor_dashboard"
+        priority: 80
+      
+      - pattern: "(analyze|report|summarize).+(transcript|call|conversation)"
+        description: "Transcript analysis request"
+        action: "retail_advisor_transcript_analysis"
+        priority: 75
+
+      - pattern: "(extract|generate|show).+(insights|trends|patterns)"
+        description: "Insights generation request"
+        action: "generate_insights"
+        priority: 85
+
+# Agent routing configuration
+routing:
+  # Define which agents handle which Retail Advisor tasks
+  handlers:
+    - name: "TaskRunner"
+      capabilities:
+        - "retail_advisor_command_routing"
+        - "retail_advisor_nl_interpretation"
+      priority: 100
+    
+    - name: "FlowManager"
+      capabilities:
+        - "retail_advisor_visualization"
+        - "retail_advisor_dashboard"
+      priority: 90
+    
+    - name: "KnowledgeModule"
+      capabilities:
+        - "retail_advisor_data_catalog"
+        - "retail_advisor_knowledge_integration"
+      priority: 85
+    
+    - name: "SignalParser"
+      capabilities:
+        - "retail_advisor_transcript_analysis"
+        - "retail_advisor_brand_detection"
+        - "retail_advisor_insight_validation"
+      priority: 80
+
+    - name: "ChartRenderer"
+      capabilities:
+        - "retail_advisor_visualization"
+        - "retail_advisor_insight_charts"
+      priority: 75
+
+# Action handlers map trigger actions to specific implementations
+action_handlers:
+  execute_retail_advisor_command:
+    description: "Execute a Retail Advisor CLI command directly"
+    implementation: "opscore_cli_executor"
+    params:
+      command_prefix: "retail-advisor"
+      timeout_seconds: 300
+      capture_output: true
+  
+  retail_advisor_brand_query:
+    description: "Process a natural language brand query"
+    implementation: "nl_to_sql_converter"
+    params:
+      query_type: "brand_mentions"
+      visualization: true
+      default_time_range: "7d"
+  
+  retail_advisor_dashboard:
+    description: "Generate or display a Retail Advisor dashboard"
+    implementation: "dashboard_generator"
+    params:
+      default_dashboard: "agent_brand_heatmap"
+      refresh_interval: 3600
+  
+  retail_advisor_transcript_analysis:
+    description: "Analyze transcripts for insights"
+    implementation: "transcript_analyzer"
+    params:
+      analysis_types: ["brand_mentions", "sentiment", "topics"]
+      output_format: "rich_text"
+
+  generate_insights:
+    description: "Generate AI insights from transcripts"
+    implementation: "insights_generator"
+    params:
+      model: "claude"
+      insight_types: ["general", "brand", "sentiment", "trend"]
+      notebook_path: "/retail-advisor/insight_gen"
+      time_range_days: 7
+      generate_dashboard: true
+
+# Integration points with Databricks
+databricks_integration:
+  # Workspace configuration
+  workspace:
+    default_url: "https://adb-123456789.0.azuredatabricks.net"
+    notebooks_path: "/retail-advisor"
+  
+  # Job configurations for scheduled operations
+  jobs:
+    - name: "retail_advisor_bronze_ingest"
+      notebook_path: "/retail-advisor/ingest_bronze"
+      schedule: "0 1 * * *"  # Daily at 1:00 AM
+      description: "Ingest Bronze Layer Transcripts"
+    
+    - name: "retail_advisor_silver_enrich"
+      notebook_path: "/retail-advisor/enrich_silver"
+      schedule: "0 3 * * *"  # Daily at 3:00 AM
+      description: "Enrich Silver Layer with Brand Detections"
+    
+    - name: "retail_advisor_gold_dashboard_update"
+      notebook_path: "/retail-advisor/gold_dashboard_update"
+      schedule: "0 5 * * *"  # Daily at 5:00 AM
+      description: "Update Gold Layer Dashboard Data"
+
+    - name: "retail_advisor_insights_daily"
+      notebook_path: "/retail-advisor/gold_insights"
+      schedule: "0 6 * * *"  # Daily at 6:00 AM
+      description: "Generate daily insights from transcripts"
+    
+    - name: "retail_advisor_insights_weekly"
+      notebook_path: "/retail-advisor/gold_insights"
+      schedule: "0 7 * * 1"  # Weekly on Monday at 7:00 AM
+      description: "Generate weekly insights summary"
+
+# SQL templates for common queries
+sql_templates:
+  brand_mentions:
+    template: |
+      SELECT 
+        entity_normalized AS brand, 
+        COUNT(*) AS mention_count,
+        ROUND(AVG(sentiment_score) * 100, 1) AS avg_sentiment_pct
+      FROM 
+        insight_pulse_ai.silver.transcript_entity_mentions
+      WHERE 
+        entity_type = 'BRAND'
+        {% if brand %}AND entity_normalized LIKE '%{{ brand }}%'{% endif %}
+        {% if time_range %}AND detection_timestamp >= CURRENT_DATE - INTERVAL {{ time_range }}{% endif %}
+      GROUP BY 
+        brand
+      ORDER BY 
+        {% if order_by %}{{ order_by }}{% else %}mention_count DESC{% endif %}
+      
+  genai_insights:
+    template: |
+      SELECT 
+        insight_id,
+        insight_type,
+        insight_title,
+        insight_text,
+        confidence_score,
+        array_join(brands_mentioned, ', ') AS brands,
+        array_join(summary_tags, ', ') AS tags,
+        processing_timestamp
+      FROM 
+        insight_pulse_ai.platinum.genai_insights
+      WHERE 
+        processing_timestamp >= CURRENT_DATE - INTERVAL {{ time_range|default('7 days') }}
+        {% if insight_type %}AND insight_type = '{{ insight_type }}'{% endif %}
+        {% if brand %}AND array_contains(brands_mentioned, '{{ brand }}'){% endif %}
+      ORDER BY 
+        {% if order_by %}{{ order_by }}{% else %}confidence_score DESC, processing_timestamp DESC{% endif %}
+      {% if limit %}LIMIT {{ limit }}{% endif %}
+
+# Help documentation
+help:
+  overview: |
+    Retail Advisor is the customer analytics component of Project Scout, integrating Databricks for analytics.
+    It enables seamless SQL queries, brand mention tracking, and visualization of transcription data.
+    
+    Agent Roles:
+    - TaskRunner: CLI task routing and orchestration
+    - FlowManager: Documentation and visualization templates
+    - KnowledgeModule: Knowledge extraction and insights
+    - SignalParser: Signal extraction and content analysis
+    - ChartRenderer: Visual rendering of charts and dashboards
+  
+  commands:
+    - name: ":retail-advisor query"
+      syntax: ":retail-advisor query [SQL or natural language]"
+      description: "Execute SQL or natural language queries against Databricks"
+      example: ":retail-advisor query \"Show brand mentions for Jollibee last 7 days\""
+    
+    - name: ":retail-advisor notebook"
+      syntax: ":retail-advisor notebook [path] [--params key=value]"
+      description: "Run a Databricks notebook"
+      example: ":retail-advisor notebook enrich_silver --params date=2023-05-10"
+    
+    - name: ":retail-advisor dashboard"
+      syntax: ":retail-advisor dashboard [dashboard_id]"
+      description: "View or generate a Databricks dashboard"
+      example: ":retail-advisor dashboard agent_brand_heatmap"
+
+    - name: ":retail-advisor insights"
+      syntax: ":retail-advisor insights [generate|show] [--options]"
+      description: "Generate or display AI-powered insights from transcript data"
+      example: ":retail-advisor insights generate --days 7 --model claude"
+    
+    - name: ":retail-advisor summarize"
+      syntax: ":retail-advisor summarize [--days N] [--brand BRAND]"
+      description: "Generate an executive summary of recent interactions"
+      example: ":retail-advisor summarize --days 30 --brand Jollibee"

@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-08-06T18:59:33.219Z",
+  "duration_ms": 1609,
+  "status": "FAIL",
+  "summary": {
+    "critical_passed": 0,
+    "critical_failed": 5,
+    "warnings": 5,
+    "total_views_tested": 10
+  },
+  "errors": [
+    "Critical view scout.gold_basket_analysis_api is not accessible: relation \"public.gold_basket_analysis_api\" does not exist",
+    "Critical view scout.gold_customer_activity_api is not accessible: relation \"public.gold_customer_activity_api\" does not exist",
+    "Critical view scout.gold_campaign_effect_api is not accessible: relation \"public.gold_campaign_effect_api\" does not exist",
+    "Critical view scout.gold_regional_performance_api is not accessible: relation \"public.gold_regional_performance_api\" does not exist",
+    "Critical view scout.platinum_executive_dashboard_api is not accessible: relation \"public.platinum_executive_dashboard_api\" does not exist",
+    "Dashboard endpoint Executive Dashboard failed: relation \"public.platinum_executive_dashboard_api\" does not exist",
+    "Dashboard endpoint Basket Analysis failed: relation \"public.gold_basket_analysis_api\" does not exist",
+    "Dashboard endpoint Customer Activity failed: relation \"public.gold_customer_activity_api\" does not exist",
+    "Dashboard endpoint Campaign Effect failed: relation \"public.gold_campaign_effect_api\" does not exist"
+  ],
+  "warnings": [
+    "Optional view scout.gold_demand_forecast_api is not accessible",
+    "Optional view scout.gold_product_metrics_api is not accessible",
+    "Optional view scout.gold_consumer_insights is not accessible",
+    "Optional view scout.gold_ai_generated_insights_api is not accessible",
+    "Optional view scout.gold_predictive_insights is not accessible"
+  ],
+  "detailed_results": {}
+}

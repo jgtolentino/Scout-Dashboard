@@ -1,0 +1,192 @@
+[
+  {
+    "category": "sales_insights",
+    "InsightID": "SIM-INSIGHT-12345678",
+    "entityID": "sari-001",
+    "entityName": "Dela Cruz Sari-Sari Store",
+    "region": "National Capital Region",
+    "cityMunicipality": "Manila",
+    "GeneratedAt": "2025-05-21T12:34:56.789Z",
+    "title": "Beverage Sales Growth Opportunity",
+    "summary": "Beverages show strong growth potential with 15% higher margins than category average.",
+    "content": {
+      "title": "Beverage Sales Growth Opportunity",
+      "summary": "Beverages show strong growth potential with 15% higher margins than category average.",
+      "details": [
+        "Beverage category has shown consistent growth over the past 30 days",
+        "Weekday sales are 23% higher than weekend sales",
+        "Top performers are soft drinks and instant coffee"
+      ],
+      "recommendations": [
+        "Increase beverage visibility at store entrance",
+        "Bundle beverages with popular snack items",
+        "Implement weekday promotions to capitalize on traffic patterns"
+      ],
+      "confidence": 0.85,
+      "priority": "high"
+    },
+    "isSynthetic": true,
+    "dataSource": "Synthetic"
+  },
+  {
+    "category": "sales_insights",
+    "InsightID": "SIM-INSIGHT-23456789",
+    "entityID": "sari-002",
+    "entityName": "Santos General Store",
+    "region": "Calabarzon",
+    "cityMunicipality": "Calamba",
+    "GeneratedAt": "2025-05-21T11:30:22.123Z",
+    "title": "Personal Care Product Decline",
+    "summary": "Personal care products showing 12% decline month-over-month with lower customer engagement.",
+    "content": {
+      "title": "Personal Care Product Decline",
+      "summary": "Personal care products showing 12% decline month-over-month with lower customer engagement.",
+      "details": [
+        "Personal care category sales dropped 12% compared to last month",
+        "Customer inquiries for these products decreased by 18%",
+        "Competitors are offering bulk discounts that impact our pricing"
+      ],
+      "recommendations": [
+        "Introduce sample sachets for new products",
+        "Create value bundles to compete with bulk discounts",
+        "Train store staff on personal care product benefits"
+      ],
+      "confidence": 0.78,
+      "priority": "medium"
+    },
+    "isSynthetic": true,
+    "dataSource": "Synthetic"
+  },
+  {
+    "category": "brand_analysis",
+    "InsightID": "SIM-INSIGHT-34567890",
+    "entityID": "coca_cola",
+    "entityName": "Coca-Cola",
+    "GeneratedAt": "2025-05-21T10:15:30.456Z",
+    "title": "Strong Brand Loyalty in Manila Region",
+    "summary": "Coca-Cola shows exceptional customer loyalty with 85% repeat purchases.",
+    "content": {
+      "title": "Strong Brand Loyalty in Manila Region",
+      "summary": "Coca-Cola shows exceptional customer loyalty with 85% repeat purchases.",
+      "sentiment_analysis": {
+        "overall_score": 0.78,
+        "interpretation": "Strongly positive sentiment across all regions, with particular strength in Metro Manila."
+      },
+      "recommendations": [
+        "Leverage loyal customer base for new product introductions",
+        "Develop in-store promotions highlighting customer loyalty",
+        "Consider limited edition packaging for Manila market"
+      ],
+      "confidence": 0.92,
+      "priority": "medium"
+    },
+    "isSynthetic": true,
+    "dataSource": "Synthetic"
+  },
+  {
+    "category": "brand_analysis",
+    "InsightID": "SIM-INSIGHT-45678901",
+    "entityID": "nestlé",
+    "entityName": "Nestlé",
+    "GeneratedAt": "2025-05-21T09:45:12.789Z",
+    "title": "Coffee Product Category Leadership",
+    "summary": "Nestlé dominates morning consumption occasions with 62% share of coffee purchases.",
+    "content": {
+      "title": "Coffee Product Category Leadership",
+      "summary": "Nestlé dominates morning consumption occasions with 62% share of coffee purchases.",
+      "sentiment_analysis": {
+        "overall_score": 0.67,
+        "interpretation": "Positive sentiment overall, with particular strength in value perception."
+      },
+      "recommendations": [
+        "Expand 3-in-1 coffee mix variants for different taste preferences",
+        "Create morning ritual promotional materials",
+        "Consider bundling with breakfast items to reinforce occasion"
+      ],
+      "confidence": 0.84,
+      "priority": "high"
+    },
+    "isSynthetic": true,
+    "dataSource": "Synthetic"
+  },
+  {
+    "category": "store_recommendations",
+    "InsightID": "SIM-INSIGHT-56789012",
+    "entityID": "sari-001",
+    "entityName": "Dela Cruz Sari-Sari Store",
+    "region": "National Capital Region",
+    "cityMunicipality": "Manila",
+    "GeneratedAt": "2025-05-21T08:30:45.123Z",
+    "title": "Product Mix Optimization Plan",
+    "summary": "Restructuring store layout and product mix could increase monthly sales by 22%.",
+    "content": {
+      "title": "Product Mix Optimization Plan",
+      "summary": "Restructuring store layout and product mix could increase monthly sales by 22%.",
+      "store_assessment": {
+        "overall_rating": 7.2,
+        "strengths": ["Good customer service", "Strong location", "Consistent operating hours"],
+        "weaknesses": ["Limited shelf space", "Inefficient product mix", "Irregular stock levels"]
+      },
+      "action_plan": [
+        {
+          "action": "Implement planogram for optimal shelf organization",
+          "timeline": "Immediate",
+          "expected_outcome": "15% improvement in sales per shelf space"
+        },
+        {
+          "action": "Increase stock of high-margin beverage products",
+          "timeline": "Within 2 weeks",
+          "expected_outcome": "10% increase in category sales"
+        },
+        {
+          "action": "Add point-of-purchase displays for impulse items",
+          "timeline": "Within 1 month",
+          "expected_outcome": "8% increase in average transaction value"
+        }
+      ],
+      "priority": "high"
+    },
+    "isSynthetic": true,
+    "dataSource": "Synthetic"
+  },
+  {
+    "category": "store_recommendations",
+    "InsightID": "SIM-INSIGHT-67890123",
+    "entityID": "sari-002",
+    "entityName": "Santos General Store",
+    "region": "Calabarzon",
+    "cityMunicipality": "Calamba",
+    "GeneratedAt": "2025-05-21T07:15:33.456Z",
+    "title": "Store Hours Optimization",
+    "summary": "Extending evening hours could capture 18% additional revenue from commuter traffic.",
+    "content": {
+      "title": "Store Hours Optimization",
+      "summary": "Extending evening hours could capture 18% additional revenue from commuter traffic.",
+      "store_assessment": {
+        "overall_rating": 6.8,
+        "strengths": ["Strategic location near transportation hub", "Strong brand variety", "Good pricing"],
+        "weaknesses": ["Limited operating hours", "Missed opportunity with commuter traffic"]
+      },
+      "action_plan": [
+        {
+          "action": "Extend store hours until 9:00 PM on weekdays",
+          "timeline": "Within 1 week",
+          "expected_outcome": "18% increase in daily revenue"
+        },
+        {
+          "action": "Create commuter-focused bundle offers",
+          "timeline": "Within 2 weeks",
+          "expected_outcome": "12% increase in average transaction value"
+        },
+        {
+          "action": "Implement evening-specific promotions (6-9 PM)",
+          "timeline": "Within 1 month",
+          "expected_outcome": "20% increase in evening foot traffic"
+        }
+      ],
+      "priority": "medium"
+    },
+    "isSynthetic": true,
+    "dataSource": "Synthetic"
+  }
+]

@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tide Trace",
+  "description": "Trace of prompt routing through the Tide routing system",
+  "type": "object",
+  "required": ["version", "session_id", "timestamp", "routing_events"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Version of the tide trace format"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Unique identifier for the session"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Start timestamp for the session"
+    },
+    "user": {
+      "type": "string",
+      "description": "User that initiated the session"
+    },
+    "context": {
+      "type": "object",
+      "description": "Additional context for the session",
+      "properties": {
+        "project": {
+          "type": "string",
+          "description": "Project associated with the session"
+        },
+        "environment": {
+          "type": "string",
+          "description": "Environment in which the session took place"
+        },
+        "source": {
+          "type": "string",
+          "description": "Source of the session (e.g., CLI, web, editor)"
+        }
+      }
+    },
+    "routing_events": {
+      "type": "array",
+      "description": "List of routing events that occurred during the session",
+      "items": {
+        "type": "object",
+        "required": ["event_id", "timestamp", "prompt_id", "backend", "status"],
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "description": "Unique identifier for the routing event"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the routing event occurred"
+          },
+          "prompt_id": {
+            "type": "string",
+            "description": "ID of the prompt being routed"
+          },
+          "backend": {
+            "type": "string",
+            "description": "Backend to which the prompt was routed"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["success", "failure", "fallback", "timeout"],
+            "description": "Status of the routing event"
+          },
+          "fallback_reason": {
+            "type": "string",
+            "description": "Reason for falling back to a different backend"
+          },
+          "fallback_to": {
+            "type": "string",
+            "description": "Backend to which the prompt was routed after fallback"
+          },
+          "latency_ms": {
+            "type": "integer",
+            "description": "Latency of the routing event in milliseconds"
+          },
+          "prompt_hash": {
+            "type": "string",
+            "description": "SHA256 hash of the prompt content"
+          },
+          "result_fingerprint": {
+            "type": "string",
+            "description": "Fingerprint of the result for traceability"
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Metrics for the session",
+      "properties": {
+        "total_routing_time_ms": {
+          "type": "integer",
+          "description": "Total time spent routing prompts in milliseconds"
+        },
+        "total_routing_events": {
+          "type": "integer",
+          "description": "Total number of routing events"
+        },
+        "successful_routing_events": {
+          "type": "integer",
+          "description": "Number of successful routing events"
+        },
+        "fallback_routing_events": {
+          "type": "integer",
+          "description": "Number of routing events that resulted in fallbacks"
+        },
+        "failed_routing_events": {
+          "type": "integer",
+          "description": "Number of failed routing events"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scout Advisor Dashboard</title>
+  <meta name="description" content="Strategic overview with key performance indicators and executive insights">
+  <meta name="author" content="TBWA">
+  <meta property="og:image" content="/assets/images/og-image.png">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/css/shared-theme.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'tbwa-yellow': '#F6E14D',
+            'tbwa-darkBlue': '#002B5B',
+            'azure-background': '#f7f9fc',
+            'azure-blue': '#0078D4',
+            'azure-gray': '#6E6E6E',
+            'azure-grayLight': '#D2D2D2',
+            'azure-red': '#E81123',
+            'azure-orange': '#FF8C00',
+            'azure-green': '#107C10'
+          },
+          boxShadow: {
+            'elevation-1': '0 2px 4px rgba(0,0,0,0.05)',
+            'elevation-2': '0 4px 8px rgba(0,0,0,0.1)'
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .btn-ghost-azure {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 0.375rem;
+      color: #0078D4;
+      background: transparent;
+      border: 1px solid #E5E7EB;
+      transition: all 0.2s;
+    }
+    
+    .btn-ghost-azure:hover {
+      background: rgba(0, 120, 212, 0.1);
+    }
+    
+    .btn-primary-azure {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 0.375rem;
+      color: white;
+      background: #0078D4;
+      border: 1px solid #0078D4;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary-azure:hover {
+      background: #006CBE;
+    }
+    
+    .dashboard-card {
+      transition: all 0.3s;
+      border-left: 4px solid transparent;
+    }
+    
+    .dashboard-card[data-status="good"] {
+      border-left-color: #107C10;
+    }
+    
+    .dashboard-card[data-status="warning"] {
+      border-left-color: #FF8C00;
+    }
+    
+    .dashboard-card[data-status="critical"] {
+      border-left-color: #E81123;
+    }
+    
+    .dashboard-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .score-indicator {
+      width: 100%;
+      height: 6px;
+      background: #E5E7EB;
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .score-indicator-fill {
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 3px;
+      transition: width 1s ease-in-out;
+    }
+    
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .status-badge-active {
+      color: #107C10;
+      background: rgba(16, 124, 16, 0.1);
+    }
+    
+    .status-badge-warning {
+      color: #FF8C00;
+      background: rgba(255, 140, 0, 0.1);
+    }
+    
+    .status-badge-error {
+      color: #E81123;
+      background: rgba(232, 17, 35, 0.1);
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(232, 17, 35, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(232, 17, 35, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(232, 17, 35, 0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* KPI Cards with modals */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      max-width: 600px;
+      width: 90%;
+    }
+    
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close:hover {
+      color: black;
+    }
+    
+    /* AI Insight Cards */
+    .insight-card {
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    
+    .insight-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .confidence-bar {
+      height: 4px;
+      background: #E5E7EB;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    
+    .confidence-fill {
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 2px;
+      background: #0078D4;
+      transition: width 1s ease-in-out;
+    }
+    
+    .explainer-toggle {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .explainer-open {
+      max-height: 500px;
+      transition: max-height 0.5s ease-in;
+    }
+    
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: #f3f4f6;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+    }
+    
+    .filter-pill button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #6B7280;
+      font-size: 0.75rem;
+    }
+    
+    /* Date Range Picker */
+    .date-range {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: white;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    
+    /* Tag Selector */
+    .tag-selector {
+      position: relative;
+    }
+    
+    .tag-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 8px;
+      z-index: 20;
+      min-width: 200px;
+      margin-top: 4px;
+    }
+    
+    .tag-selector:hover .tag-dropdown {
+      display: block;
+    }
+    
+    .tag-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    
+    .tag-option:hover {
+      background: #f3f4f6;
+    }
+    
+    /* Toggle Group */
+    .toggle-group {
+      display: inline-flex;
+      background: #f3f4f6;
+      border-radius: 6px;
+      padding: 2px;
+    }
+    
+    .toggle-option {
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
+    
+    .toggle-selected {
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    /* Assistant Cards */
+    .assistant-card {
+      border-left: 4px solid #0078D4;
+      padding: 16px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .action-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    
+    .action-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-azure-background text-foreground">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <a href="/" class="flex items-center">
+            <span class="text-tbwa-darkBlue text-xl font-bold">SCOUT</span>
+            <span class="text-tbwa-yellow text-xl font-bold">ADVISOR</span>
+          </a>
+          
+          <div class="hidden md:flex space-x-1">
+            <a href="/ops" class="btn btn-outline-primary me-2">
+              <i class="fas fa-chart-line me-1"></i> Scout Ops
+            </a>
+            <a href="/edge" class="btn btn-outline-primary me-2">
+              <i class="fas fa-store me-1"></i> Scout Edge
+            </a>
+          </div>
+        </div>
+        
+        <div class="flex items-center space-x-3">
+          <button class="md:hidden">
+            <i class="fas fa-bell text-gray-600"></i>
+          </button>
+          
+          <div class="hidden md:flex items-center space-x-2">
+            <span class="text-sm text-gray-600">Last updated: 
+              <span class="text-tbwa-darkBlue font-medium">May 15, 2025 &bull; 10:45 AM</span>
+            </span>
+          </div>
+          
+          <div class="relative">
+            <button class="flex items-center space-x-2 text-sm font-medium text-gray-700 bg-white p-2 rounded-full hover:bg-gray-50">
+              <span class="hidden md:inline-block">User</span>
+              <i class="fas fa-user-circle text-lg text-tbwa-darkBlue"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <!-- Header with Brand & Actions -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
+      <div class="flex items-center gap-3">
+        <div class="bg-tbwa-yellow/15 rounded-full p-2">
+          <i class="fas fa-brain text-tbwa-darkBlue"></i>
+        </div>
+        <h2 class="text-gray-800 text-xl sm:text-2xl font-bold">Scout Advisor Dashboard</h2>
+      </div>
+      
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i class="fas fa-search h-4 w-4 text-azure-gray"></i>
+          </div>
+          <input 
+            type="text"
+            placeholder="Search insights..."
+            class="pl-10 pr-4 py-2 rounded-md border border-azure-grayLight/30 bg-white focus:outline-none focus:ring-2 focus:ring-tbwa-yellow/30 text-sm"
+          />
+        </div>
+        
+        <div class="date-range">
+          <i class="fas fa-calendar text-gray-600"></i>
+          <span class="text-sm">Last 30 Days</span>
+        </div>
+        
+        <button class="btn-ghost-azure">
+          <i class="fas fa-download mr-2"></i>
+          Export
+        </button>
+      </div>
+    </div>
+
+    <!-- AI Banner -->
+    <div class="mb-8 glass-panel px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between border-l-4 border-tbwa-yellow animate-fade-in gap-3">
+      <div class="flex items-center gap-3">
+        <div class="bg-tbwa-yellow/15 p-2 rounded-full">
+          <i class="fas fa-lightbulb text-tbwa-darkBlue"></i>
+        </div>
+        <div>
+          <h4 class="font-medium">Scout Advisor AI Insights</h4>
+          <p class="text-sm text-azure-gray">
+            Our AI has identified 3 new insights that can directly impact your brand performance
+          </p>
+        </div>
+      </div>
+      <button class="bg-tbwa-yellow text-tbwa-darkBlue hover:bg-tbwa-yellow/90 py-2 px-4 rounded flex items-center gap-2">
+        <i class="fas fa-lightbulb"></i>
+        View All AI Insights
+      </button>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar mb-8">
+      <div class="filter-pill">
+        <span class="font-medium">Organization:</span>
+        <span>TBWA-ProjectScout-Prod</span>
+        <button><i class="fas fa-times"></i></button>
+      </div>
+      
+      <div class="filter-pill">
+        <span class="font-medium">Status:</span>
+        <span>Active</span>
+        <button><i class="fas fa-times"></i></button>
+      </div>
+      
+      <div class="filter-pill">
+        <span class="font-medium">Region:</span>
+        <span>All</span>
+        <button><i class="fas fa-times"></i></button>
+      </div>
+      
+      <div class="filter-pill">
+        <span class="font-medium">Category:</span>
+        <span>All</span>
+        <button><i class="fas fa-times"></i></button>
+      </div>
+      
+      <button class="bg-white border border-gray-200 rounded-full px-3 py-1 text-sm text-gray-600 hover:bg-gray-50">
+        <i class="fas fa-plus text-xs mr-1"></i> Add Filter
+      </button>
+    </div>
+
+    <!-- KPI Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <!-- Brand Performance KPI -->
+      <button onclick="openModal('brandModal')" class="text-left dashboard-card glass-panel p-4 rounded-lg shadow-elevation-1 hover:shadow-elevation-2" data-status="good">
+        <div class="flex justify-between items-start mb-3">
+          <div class="flex items-center gap-2">
+            <div class="p-2 rounded-full bg-blue-100">
+              <i class="fas fa-broadcast-tower text-blue-600"></i>
+            </div>
+            <h3 class="font-medium">Brand Performance</h3>
+          </div>
+          <div class="status-badge status-badge-active">
+            Optimized
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <div class="text-2xl font-bold mb-1">92%</div>
+          <div class="score-indicator">
+            <div class="score-indicator-fill bg-blue-600" style="width: 92%"></div>
+          </div>
+        </div>
+        
+        <p class="text-sm text-azure-gray">Brand visibility optimized with 92% effectiveness</p>
+      </button>
+      
+      <!-- Competitor Analysis KPI -->
+      <button onclick="openModal('competitorModal')" class="text-left dashboard-card glass-panel p-4 rounded-lg shadow-elevation-1 hover:shadow-elevation-2" data-status="warning">
+        <div class="flex justify-between items-start mb-3">
+          <div class="flex items-center gap-2">
+            <div class="p-2 rounded-full bg-amber-100">
+              <i class="fas fa-shield-alt text-amber-600"></i>
+            </div>
+            <h3 class="font-medium">Competitor Analysis</h3>
+          </div>
+          <div class="status-badge status-badge-warning">
+            Attention
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <div class="text-2xl font-bold mb-1">68%</div>
+          <div class="score-indicator">
+            <div class="score-indicator-fill bg-amber-600" style="width: 68%"></div>
+          </div>
+        </div>
+        
+        <p class="text-sm text-azure-gray">12 recommendations available</p>
+      </button>
+      
+      <!-- Retail Performance KPI -->
+      <button onclick="openModal('retailModal')" class="text-left dashboard-card glass-panel p-4 rounded-lg shadow-elevation-1 hover:shadow-elevation-2" data-status="good">
+        <div class="flex justify-between items-start mb-3">
+          <div class="flex items-center gap-2">
+            <div class="p-2 rounded-full bg-emerald-100">
+              <i class="fas fa-building text-emerald-600"></i>
+            </div>
+            <h3 class="font-medium">Retail Performance</h3>
+          </div>
+          <div class="status-badge status-badge-active">
+            Optimized
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <div class="text-2xl font-bold mb-1">100%</div>
+          <div class="score-indicator">
+            <div class="score-indicator-fill bg-emerald-600" style="width: 100%"></div>
+          </div>
+        </div>
+        
+        <p class="text-sm text-azure-gray">3 recommendations available</p>
+      </button>
+      
+      <!-- Marketing ROI KPI -->
+      <button onclick="openModal('marketingModal')" class="text-left dashboard-card glass-panel p-4 rounded-lg shadow-elevation-1 hover:shadow-elevation-2" data-status="good">
+        <div class="flex justify-between items-start mb-3">
+          <div class="flex items-center gap-2">
+            <div class="p-2 rounded-full bg-emerald-100">
+              <i class="fas fa-chart-bar text-emerald-600"></i>
+            </div>
+            <h3 class="font-medium">Marketing ROI</h3>
+          </div>
+          <div class="status-badge status-badge-active">
+            Optimized
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <div class="text-2xl font-bold mb-1">100%</div>
+          <div class="score-indicator">
+            <div class="score-indicator-fill bg-emerald-600" style="width: 100%"></div>
+          </div>
+        </div>
+        
+        <p class="text-sm text-azure-gray">All marketing efficiency recommendations implemented</p>
+      </button>
+    </div>
+
+    <!-- AI-Powered Insights Section -->
+    <div class="mb-10">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-medium flex items-center gap-2">
+          <i class="fas fa-lightbulb text-tbwa-yellow"></i>
+          AI-Powered Brand Insights
+        </h3>
+        <button class="text-sm text-tbwa-darkBlue hover:underline flex items-center">
+          View all insights <i class="fas fa-chevron-right ml-1"></i>
+        </button>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Insight Card 1 -->
+        <div class="insight-card glass-panel p-4 border-l-4 border-azure-red">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-medium text-sm">Brand Sentiment Shift Detected</h4>
+            <div class="status-badge status-badge-error pulse">
+              High Impact
+            </div>
+          </div>
+          <p class="text-sm text-azure-gray mb-3">Positive sentiment has increased by 18% in the last 2 weeks, correlating with your latest campaign launch.</p>
+          
+          <div class="confidence-bar">
+            <div class="confidence-fill" style="width: 92%"></div>
+          </div>
+          <div class="flex justify-between items-center mt-2">
+            <span class="text-xs text-azure-gray">92% confidence</span>
+            <button class="text-xs text-tbwa-darkBlue hover:underline flex items-center gap-1" onclick="toggleExplainer('explainer1')">
+              AI Explainer <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+          
+          <div id="explainer1" class="explainer-toggle mt-3 pt-3 border-t border-gray-100">
+            <p class="text-sm text-gray-700 mb-2">This insight is based on sentiment analysis of social media mentions, customer feedback, and retailer surveys. The 18% increase is statistically significant (p &lt; 0.01) and represents a clear shift in market perception.</p>
+            <button class="bg-tbwa-yellow text-tbwa-darkBlue hover:bg-tbwa-yellow/90 py-1.5 px-3 rounded text-sm mt-2">
+              Take Action
+            </button>
+          </div>
+        </div>
+        
+        <!-- Insight Card 2 -->
+        <div class="insight-card glass-panel p-4 border-l-4 border-azure-orange">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-medium text-sm">Sari-Sari Store Sales Opportunity</h4>
+            <div class="status-badge status-badge-warning">
+              Medium Impact
+            </div>
+          </div>
+          <p class="text-sm text-azure-gray mb-3">AI analysis shows 12% potential revenue increase if Product A is featured prominently in store displays.</p>
+          
+          <div class="confidence-bar">
+            <div class="confidence-fill" style="width: 87%"></div>
+          </div>
+          <div class="flex justify-between items-center mt-2">
+            <span class="text-xs text-azure-gray">87% confidence</span>
+            <button class="text-xs text-tbwa-darkBlue hover:underline flex items-center gap-1" onclick="toggleExplainer('explainer2')">
+              AI Explainer <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+          
+          <div id="explainer2" class="explainer-toggle mt-3 pt-3 border-t border-gray-100">
+            <p class="text-sm text-gray-700 mb-2">This projection is based on A/B testing in 50 stores and historical sales data from similar product placements. The 12% increase has been consistently observed in similar initiatives.</p>
+            <button class="bg-tbwa-yellow text-tbwa-darkBlue hover:bg-tbwa-yellow/90 py-1.5 px-3 rounded text-sm mt-2">
+              Take Action
+            </button>
+          </div>
+        </div>
+        
+        <!-- Insight Card 3 -->
+        <div class="insight-card glass-panel p-4 border-l-4 border-azure-orange">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-medium text-sm">Competitor Activity Alert</h4>
+            <div class="status-badge status-badge-warning">
+              Medium Impact
+            </div>
+          </div>
+          <p class="text-sm text-azure-gray mb-3">Competitor B has increased social media engagement by 22% in your core demographic over the past month.</p>
+          
+          <div class="confidence-bar">
+            <div class="confidence-fill" style="width: 78%"></div>
+          </div>
+          <div class="flex justify-between items-center mt-2">
+            <span class="text-xs text-azure-gray">78% confidence</span>
+            <button class="text-xs text-tbwa-darkBlue hover:underline flex items-center gap-1" onclick="toggleExplainer('explainer3')">
+              AI Explainer <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+          
+          <div id="explainer3" class="explainer-toggle mt-3 pt-3 border-t border-gray-100">
+            <p class="text-sm text-gray-700 mb-2">This insight is based on social media monitoring and competitor campaign analysis. The engagement increase is primarily happening on Instagram and TikTok platforms within the 18-24 demographic.</p>
+            <button class="bg-tbwa-yellow text-tbwa-darkBlue hover:bg-tbwa-yellow/90 py-1.5 px-3 rounded text-sm mt-2">
+              Take Action
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      <!-- Marketing Spend Analysis -->
+      <div class="bg-white rounded-lg border border-gray-100 shadow-sm p-4 sm:p-6">
+        <div class="flex items-center justify-between mb-4 sm:mb-6">
+          <h3 class="font-medium">Marketing Spend Analysis</h3>
+          <button class="text-tbwa-darkBlue hover:text-tbwa-darkBlue/80 hover:bg-tbwa-yellow/10 p-1 rounded text-sm">
+            View details
+          </button>
+        </div>
+        <div class="h-52 sm:h-64">
+          <canvas id="marketingChart"></canvas>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-azure-gray">Monthly budget:</span>
+            <span class="font-medium">₱3,466,000</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-azure-gray">Projected ROI:</span>
+            <span class="font-medium text-emerald-600">+18.4%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Market Risks -->
+      <div class="bg-white rounded-lg border border-gray-100 shadow-sm p-4 sm:p-6">
+        <div class="flex items-center justify-between mb-4 sm:mb-6">
+          <h3 class="font-medium">Market Risks</h3>
+          <button class="text-tbwa-darkBlue hover:text-tbwa-darkBlue/80 hover:bg-tbwa-yellow/10 p-1 rounded text-sm">
+            View details
+          </button>
+        </div>
+        <div class="h-52 sm:h-64 flex items-center justify-center">
+          <canvas id="risksChart"></canvas>
+        </div>
+        <div class="mt-4 flex flex-wrap justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+            <span class="text-xs">High: 4</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-orange-500"></span>
+            <span class="text-xs">Medium: 9</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+            <span class="text-xs">Low: 4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand Performance Metrics -->
+      <div class="bg-white rounded-lg border border-gray-100 shadow-sm p-4 sm:p-6">
+        <div class="flex items-center justify-between mb-4 sm:mb-6">
+          <h3 class="font-medium">Brand Performance Metrics</h3>
+          <button class="text-tbwa-darkBlue hover:text-tbwa-darkBlue/80 hover:bg-tbwa-yellow/10 p-1 rounded text-sm">
+            View details
+          </button>
+        </div>
+        <div class="h-52 sm:h-64">
+          <canvas id="performanceChart"></canvas>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-azure-gray">Brand visibility:</span>
+            <span class="font-medium text-emerald-600">99.94%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Assistant Section -->
+    <div class="glass-panel rounded-lg p-4 sm:p-6 mb-8">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="bg-tbwa-yellow/15 p-2 rounded-full">
+          <i class="fas fa-robot text-tbwa-darkBlue"></i>
+        </div>
+        <h3 class="text-lg font-medium">Scout Advisor AI Assistant</h3>
+      </div>
+      
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <i class="fas fa-brain text-tbwa-darkBlue mt-1"></i>
+          <p class="text-sm">
+            I've analyzed your market data and identified 3 significant opportunities to boost your brand performance. Would you like me to create a prioritized action plan?
+          </p>
+        </div>
+        <div class="flex items-start gap-3">
+          <i class="fas fa-chart-line text-tbwa-darkBlue mt-1"></i>
+          <p class="text-sm">
+            Based on current market trends, I recommend focusing on Product A promotion in sari-sari stores to improve sales performance by approximately 12%.
+          </p>
+        </div>
+        
+        <!-- GPT/AI Action Cards -->
+        <div class="assistant-card mt-6">
+          <div class="flex items-center gap-2 mb-3">
+            <i class="fas fa-lightbulb text-azure-blue"></i>
+            <span class="font-medium">AI detects surge in bundling of salty snacks with cola in Barangay Pineda</span>
+          </div>
+          
+          <p class="text-sm text-gray-600 mb-4">
+            Based on recent sales data and social media analysis, there's a significant trend toward purchasing salty snacks and cola together in the Pineda area, providing an opportunity for targeted bundling strategies.
+          </p>
+          
+          <h4 class="font-medium text-sm mb-2">Recommended Actions:</h4>
+          <div class="action-items space-y-1">
+            <div class="action-item">
+              <i class="fas fa-check-circle text-emerald-600"></i>
+              <span class="text-sm">Launch micro-promo bundle in Pineda stores</span>
+            </div>
+            <div class="action-item">
+              <i class="fas fa-check-circle text-emerald-600"></i>
+              <span class="text-sm">Notify sales reps for shelf positioning</span>
+            </div>
+            <div class="action-item">
+              <i class="fas fa-check-circle text-emerald-600"></i>
+              <span class="text-sm">Generate co-purchase uplift model</span>
+            </div>
+          </div>
+          
+          <div class="mt-4 flex flex-wrap gap-3">
+            <button class="bg-tbwa-yellow text-tbwa-darkBlue hover:bg-tbwa-yellow/90 py-2 px-4 rounded flex items-center gap-2">
+              <i class="fas fa-lightbulb"></i>
+              Generate AI Recommendations
+            </button>
+            <a href="/edge">
+              <button class="text-tbwa-darkBlue border border-tbwa-yellow hover:bg-tbwa-yellow/10 py-2 px-4 rounded flex items-center gap-2">
+                <i class="fas fa-chart-bar"></i>
+                View Analytics
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-6 text-center">
+      <p class="text-sm text-gray-600">
+        The AI-driven insights above are based on real-time market data analysis and brand performance metrics.
+      </p>
+      <div class="flex justify-center mt-2 opacity-70">
+        <div class="flex items-center gap-1 text-xs text-gray-500">
+          <span>© 2025</span>
+          <span class="font-bold">TBWA\SMP</span>
+          <span>Project Scout AI</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- KPI Modals -->
+  <div id="brandModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('brandModal')">&times;</span>
+      <h2 class="text-lg font-bold mb-4">Brand Performance Details</h2>
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium">Overall Score</span>
+          <span class="text-sm font-bold">92%</span>
+        </div>
+        <div class="h-2 w-full bg-gray-200 rounded-full">
+          <div class="h-2 rounded-full bg-blue-600" style="width: 92%"></div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="p-3 border rounded-md">
+          <div class="text-sm text-gray-600">Social Media Visibility</div>
+          <div class="text-lg font-bold">96%</div>
+          <div class="h-1.5 w-full bg-gray-200 rounded-full mt-1">
+            <div class="h-1.5 rounded-full bg-emerald-500" style="width: 96%"></div>
+          </div>
+        </div>
+        <div class="p-3 border rounded-md">
+          <div class="text-sm text-gray-600">Brand Recognition</div>
+          <div class="text-lg font-bold">94%</div>
+          <div class="h-1.5 w-full bg-gray-200 rounded-full mt-1">
+            <div class="h-1.5 rounded-full bg-emerald-500" style="width: 94%"></div>
+          </div>
+        </div>
+        <div class="p-3 border rounded-md">
+          <div class="text-sm text-gray-600">Sentiment Score</div>
+          <div class="text-lg font-bold">89%</div>
+          <div class="h-1.5 w-full bg-gray-200 rounded-full mt-1">
+            <div class="h-1.5 rounded-full bg-blue-500" style="width: 89%"></div>
+          </div>
+        </div>
+        <div class="p-3 border rounded-md">
+          <div class="text-sm text-gray-600">Market Penetration</div>
+          <div class="text-lg font-bold">86%</div>
+          <div class="h-1.5 w-full bg-gray-200 rounded-full mt-1">
+            <div class="h-1.5 rounded-full bg-blue-500" style="width: 86%"></div>
+          </div>
+        </div>
+      </div>
+      <h3 class="text-md font-bold mb-2">Improvement Recommendations</h3>
+      <ul class="list-disc ml-5 mb-4 text-sm">
+        <li class="mb-1">Increase social media engagement by responding to comments within 2 hours</li>
+        <li class="mb-1">Target younger demographics (18-24) with TikTok-specific content</li>
+        <li class="mb-1">Highlight sustainability initiatives in marketing materials</li>
+      </ul>
+      <button class="bg-tbwa-yellow text-tbwa-darkBlue hover:bg-tbwa-yellow/90 py-2 px-4 rounded">
+        Generate Action Plan
+      </button>
+    </div>
+  </div>
+
+  <div id="competitorModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('competitorModal')">&times;</span>
+      <h2 class="text-lg font-bold mb-4">Competitor Analysis Details</h2>
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium">Overall Score</span>
+          <span class="text-sm font-bold">68%</span>
+        </div>
+        <div class="h-2 w-full bg-gray-200 rounded-full">
+          <div class="h-2 rounded-full bg-amber-600" style="width: 68%"></div>
+        </div>
+      </div>
+      <div class="bg-amber-50 border-l-4 border-amber-500 p-3 mb-4 text-sm">
+        <i class="fas fa-exclamation-triangle text-amber-500 mr-2"></i>
+        <span>Competitor B has increased market share by 3.5% in the last quarter</span>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <h3 class="text-md font-bold mb-2">Top Competitors</h3>
+          <ul class="list-disc ml-5 mb-4 text-sm">
+            <li class="mb-1">Competitor B (32% market share)</li>
+            <li class="mb-1">Competitor A (28% market share)</li>
+            <li class="mb-1">Competitor C (14% market share)</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-md font-bold mb-2">Competitive Edge</h3>
+          <ul class="list-disc ml-5 mb-4 text-sm">
+            <li class="mb-1">Product quality (Your advantage)</li>
+            <li class="mb-1">Pricing (Competitor advantage)</li>
+            <li class="mb-1">Distribution (Equal)</li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="text-md font-bold mb-2">Recommended Actions</h3>
+      <ul class="list-disc ml-5 mb-4 text-sm">
+        <li class="mb-1">Review pricing strategy in key regions where Competitor B is gaining share</li>
+        <li class="mb-1">Enhance loyalty program to improve customer retention</li>
+        <li class="mb-1">Consider targeted promotions to counter Competitor B's campaign</li>
+      </ul>
+      <button class="bg-tbwa-yellow text-tbwa-darkBlue hover:bg-tbwa-yellow/90 py-2 px-4 rounded">
+        View Detailed Competitor Report
+      </button>
+    </div>
+  </div>
+
+  <div id="retailModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('retailModal')">&times;</span>
+      <h2 class="text-lg font-bold mb-4">Retail Performance Details</h2>
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium">Overall Score</span>
+          <span class="text-sm font-bold">100%</span>
+        </div>
+        <div class="h-2 w-full bg-gray-200 rounded-full">
+          <div class="h-2 rounded-full bg-emerald-600" style="width: 100%"></div>
+        </div>
+      </div>
+      <div class="bg-emerald-50 border-l-4 border-emerald-500 p-3 mb-4 text-sm">
+        <i class="fas fa-check-circle text-emerald-500 mr-2"></i>
+        <span>All retail performance metrics are meeting or exceeding targets</span>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <h3 class="text-md font-bold mb-2">Top Performing Stores</h3>
+          <ul class="list-disc ml-5 mb-4 text-sm">
+            <li class="mb-1">Pasig City Branch (₱432K/month)</li>
+            <li class="mb-1">Quezon Ave Branch (₱387K/month)</li>
+            <li class="mb-1">Makati Branch (₱356K/month)</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-md font-bold mb-2">Top Selling Products</h3>
+          <ul class="list-disc ml-5 mb-4 text-sm">
+            <li class="mb-1">Product A (32% of sales)</li>
+            <li class="mb-1">Product C (24% of sales)</li>
+            <li class="mb-1">Product B (18% of sales)</li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="text-md font-bold mb-2">Growth Opportunities</h3>
+      <ul class="list-disc ml-5 mb-4 text-sm">
+        <li class="mb-1">Expand Product A placement in Central Luzon region</li>
+        <li class="mb-1">Create bundle offers with Product A and C for increased basket size</li>
+        <li class="mb-1">Launch Product B variation targeted at younger demographics</li>
+      </ul>
+      <button class="bg-tbwa-yellow text-tbwa-darkBlue hover:bg-tbwa-yellow/90 py-2 px-4 rounded">
+        View Store-Level Data
+      </button>
+    </div>
+  </div>
+
+  <div id="marketingModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('marketingModal')">&times;</span>
+      <h2 class="text-lg font-bold mb-4">Marketing ROI Details</h2>
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium">Overall Score</span>
+          <span class="text-sm font-bold">100%</span>
+        </div>
+        <div class="h-2 w-full bg-gray-200 rounded-full">
+          <div class="h-2 rounded-full bg-emerald-600" style="width: 100%"></div>
+        </div>
+      </div>
+      <div class="bg-emerald-50 border-l-4 border-emerald-500 p-3 mb-4 text-sm">
+        <i class="fas fa-check-circle text-emerald-500 mr-2"></i>
+        <span>All marketing campaigns are delivering positive ROI</span>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <h3 class="text-md font-bold mb-2">Campaign Performance</h3>
+          <ul class="list-disc ml-5 mb-4 text-sm">
+            <li class="mb-1">Summer Promo: 324% ROI</li>
+            <li class="mb-1">Loyalty Program: 256% ROI</li>
+            <li class="mb-1">Social Media: 189% ROI</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-md font-bold mb-2">Channel Performance</h3>
+          <ul class="list-disc ml-5 mb-4 text-sm">
+            <li class="mb-1">Digital: 287% ROI</li>
+            <li class="mb-1">In-store: 243% ROI</li>
+            <li class="mb-1">Traditional: 156% ROI</li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="text-md font-bold mb-2">Budget Allocation Recommendations</h3>
+      <ul class="list-disc ml-5 mb-4 text-sm">
+        <li class="mb-1">Increase digital ad spend by 15%</li>
+        <li class="mb-1">Maintain in-store promotions at current levels</li>
+        <li class="mb-1">Reduce traditional media spend by 10%</li>
+      </ul>
+      <button class="bg-tbwa-yellow text-tbwa-darkBlue hover:bg-tbwa-yellow/90 py-2 px-4 rounded">
+        Generate Budget Reallocation Plan
+      </button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Toggle explainer sections
+    function toggleExplainer(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('explainer-open');
+    }
+    
+    // Modal functionality
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+    
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+      }
+    }
+    
+    // Initialize charts when document is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Marketing Spend Chart
+      const marketingCtx = document.getElementById('marketingChart').getContext('2d');
+      const marketingChart = new Chart(marketingCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'Marketing Spend (in thousands ₱)',
+            data: [3400, 3000, 3200, 4000, 3700, 3500],
+            backgroundColor: '#002B5B',
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      
+      // Risk Chart
+      const risksCtx = document.getElementById('risksChart').getContext('2d');
+      const risksChart = new Chart(risksCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['High', 'Medium', 'Low'],
+          datasets: [{
+            data: [4, 9, 4],
+            backgroundColor: ['#E81123', '#FF8C00', '#0078D4'],
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+      
+      // Performance Chart
+      const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+      const performanceChart = new Chart(performanceCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Brand Visibility (%)',
+            data: [99.8, 100, 99.9, 100, 100, 100, 99.9],
+            fill: false,
+            borderColor: '#002B5B',
+            tension: 0.1,
+            pointRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              min: 99,
+              max: 100
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

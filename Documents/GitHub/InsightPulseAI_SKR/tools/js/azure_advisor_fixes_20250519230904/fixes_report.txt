@@ -1,0 +1,32 @@
+Azure Advisor Fix Report
+========================
+Date: Mon 19 May 2025 23:09:04 PST
+Subscription: c03c092c-443c-4f25-9efe-33f092621251
+
+STORAGE ACCOUNTS WITH SOFT DELETE ENABLED
+=========================================
+
+- Storage Account: mymlworkstoragef442bd96a
+  Resource Group: RG-Scout-BrandDetect-Prod-AUE
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: mymlworkstorage89365eba1
+  Resource Group: RG-TBWA-ProjectScout-Data
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: pulserstorage
+  Resource Group: PulserRG
+  Status: Not found or access denied
+
+- Storage Account: projectscoutstorage20250
+  Resource Group: ProjectScout-ResourceGroup
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: pscoutdash0513
+  Resource Group: ProjectScout-ResourceGroup
+  Action: Enabled blob soft delete with 7-day retention
+
+- Storage Account: tbwajuicerstorage
+  Resource Group: RG-TBWA-ProjectScout-Juicer
+  Action: Enabled blob soft delete with 7-day retention
+

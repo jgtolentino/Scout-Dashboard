@@ -1,0 +1,348 @@
+# Client360 Dashboard - AI Insights Automation Configuration
+# This file configures the Pulser CLI automation for AI insights generation
+
+name: client360-ai-insights
+description: "AI Insights generation pipeline for Client360 Dashboard"
+version: "1.0.0"
+owner: "tbwa-insights-team"
+
+# Configuration for the AI insights generation pipeline
+insights:
+  # Global configuration
+  global:
+    output_dir: "./output"
+    log_level: "info"
+    enable_tracing: true
+    cache_duration_minutes: 30
+    enable_synthetic_data: true
+    default_format: "json"
+    
+  # Azure OpenAI configuration
+  azure_openai:
+    endpoint: ${AZURE_OPENAI_ENDPOINT}
+    api_key: ${AZURE_OPENAI_API_KEY}
+    api_version: "2023-12-01-preview"
+    deployment:
+      completion: tbwa-gpt4-turbo
+      embedding: tbwa-text-embedding-ada-002
+    models:
+      default: "gpt4"
+      gpt4:
+        deployment_id: tbwa-gpt4-turbo
+        max_tokens: 4000
+        temperature: 0.2
+      gpt35turbo:
+        deployment_id: tbwa-gpt35-turbo
+        max_tokens: 2048
+        temperature: 0.3
+  
+  # Database configuration for storing insights
+  database:
+    type: "databricks"
+    host: ${DATABRICKS_HOST}
+    token: ${DATABRICKS_TOKEN}
+    http_path: ${DATABRICKS_HTTP_PATH}
+    catalog: ${DATABRICKS_CATALOG}
+    schema: ${DATABRICKS_SCHEMA}
+    table: "AIInsights"
+    
+  # Synthetic data configuration
+  synthetic_data:
+    store_count: 20
+    days_of_history: 30
+    id_prefix: "SIM-"
+    regions:
+      - "National Capital Region"
+      - "Calabarzon"
+      - "Central Luzon"
+      - "Central Visayas"
+      - "Davao Region"
+    cities:
+      - "Manila"
+      - "Quezon City"
+      - "Caloocan"
+      - "Cebu City"
+      - "Davao City"
+    brands:
+      - "Coca-Cola"
+      - "Pepsi"
+      - "Nestlé"
+      - "Unilever"
+      - "Procter & Gamble"
+      - "San Miguel"
+      - "Monde Nissin"
+      - "Universal Robina"
+      - "Rebisco"
+
+  # Insight types configuration
+  types:
+    sales_insights:
+      description: "Sales performance analysis and insights"
+      prompt_template: "sales_insights_template"
+      refresh_interval_hours: 24
+      model: "gpt4"
+      required_fields:
+        - "StoreID"
+        - "Date"
+        - "ProductCategory"
+        - "TotalSales"
+      
+    brand_analysis:
+      description: "Brand interaction analysis and insights"
+      prompt_template: "brand_analysis_template"
+      refresh_interval_hours: 48
+      model: "gpt4"
+      required_fields:
+        - "BrandID"
+        - "InteractionCount"
+        - "SentimentScore"
+      
+    store_recommendations:
+      description: "Store-specific optimization recommendations"
+      prompt_template: "store_recommendations_template"
+      refresh_interval_hours: 72
+      model: "gpt4"
+      required_fields:
+        - "StoreID"
+        - "Region"
+        - "CityMunicipality"
+        - "HistoricalSales"
+      
+    market_trends:
+      description: "Regional and national market trend analysis"
+      prompt_template: "market_trends_template"
+      refresh_interval_hours: 168
+      model: "gpt4"
+      required_fields:
+        - "TimeRange"
+        - "Regions"
+        - "ProductCategories"
+
+# Pulser automation tasks
+tasks:
+  # Generate synthetic insights for testing
+  generate_synthetic_insights:
+    description: "Generate synthetic AI insights for development and testing"
+    command: "python fabricate_ai_insights.py --mode synthetic --output json"
+    working_dir: "./data"
+    environment:
+      - AZURE_OPENAI_ENDPOINT
+      - AZURE_OPENAI_API_KEY
+      - APP_ROOT
+    artifacts:
+      - "output/ai_insights_*.json"
+    schedule:
+      cron: "0 0 * * 1"  # Weekly on Mondays at midnight
+    
+  # Generate production insights
+  generate_production_insights:
+    description: "Generate production AI insights from real data"
+    command: "python fabricate_ai_insights.py --mode production --output sql"
+    working_dir: "./data"
+    environment:
+      - AZURE_OPENAI_ENDPOINT
+      - AZURE_OPENAI_API_KEY
+      - DATABRICKS_HOST
+      - DATABRICKS_TOKEN
+      - DATABRICKS_HTTP_PATH
+    artifacts:
+      - "output/ai_insights_*.sql"
+    requires:
+      - task: verify_azure_connection
+    schedule:
+      cron: "0 2 * * *"  # Daily at 2:00 AM
+    
+  # Load insights into the database
+  load_insights_to_database:
+    description: "Load generated insights into the database"
+    command: "bash scripts/load_insights_to_db.sh"
+    working_dir: "."
+    environment:
+      - DATABRICKS_HOST
+      - DATABRICKS_TOKEN
+      - DATABRICKS_HTTP_PATH
+    requires:
+      - task: generate_production_insights
+    artifacts:
+      - "logs/db_load_*.log"
+      
+  # Verify Azure OpenAI connection
+  verify_azure_connection:
+    description: "Verify Azure OpenAI API connection and credentials"
+    command: "python scripts/verify_azure_openai.py"
+    working_dir: "./data"
+    environment:
+      - AZURE_OPENAI_ENDPOINT
+      - AZURE_OPENAI_API_KEY
+    artifacts:
+      - "logs/azure_verification_*.log"
+    
+  # Create dashboard views based on insights
+  update_dashboard_views:
+    description: "Update dashboard views with latest insights"
+    command: "python scripts/update_dashboard_views.py"
+    working_dir: "./data"
+    requires:
+      - task: load_insights_to_database
+    artifacts:
+      - "logs/view_update_*.log"
+    
+  # Export insights for offline analysis
+  export_insights:
+    description: "Export insights for offline analysis"
+    command: "python scripts/export_insights.py --format parquet --days 90"
+    working_dir: "./data"
+    environment:
+      - DATABRICKS_HOST
+      - DATABRICKS_TOKEN
+      - DATABRICKS_HTTP_PATH
+    schedule:
+      cron: "0 1 * * 0"  # Weekly on Sundays at 1:00 AM
+    artifacts:
+      - "exports/insights_export_*.parquet"
+
+# Pipelines
+pipelines:
+  daily_insights:
+    description: "Daily insights generation pipeline"
+    tasks:
+      - verify_azure_connection
+      - generate_production_insights
+      - load_insights_to_database
+      - update_dashboard_views
+    
+  synthetic_refresh:
+    description: "Refresh synthetic insights for development"
+    tasks:
+      - verify_azure_connection
+      - generate_synthetic_insights
+    
+  full_export:
+    description: "Export all insights for backup and analysis"
+    tasks:
+      - export_insights
+
+# Environment variables
+environment:
+  # Default values for local development
+  local:
+    AZURE_OPENAI_ENDPOINT: "https://tbwa-insights-openai.openai.azure.com/"
+    APP_ROOT: "${PWD}"
+    
+  # Development environment
+  development:
+    inherit: local
+    SYNTHETIC_DATA_ENABLED: "true"
+    LOG_LEVEL: "debug"
+    
+  # Testing environment
+  testing:
+    inherit: development
+    
+  # Production environment
+  production:
+    SYNTHETIC_DATA_ENABLED: "false"
+    LOG_LEVEL: "info"
+
+# Prompt templates
+prompts:
+  sales_insights_template:
+    template: |
+      Analyze the following sales data for store {StoreName} (ID: {StoreID}) located in {Region}, {CityMunicipality}, {Barangay}.
+      
+      Sales Summary by Product Category:
+      {SalesSummary}
+      
+      Daily Sales Trend:
+      {DailyTrend}
+      
+      Provide insights about:
+      1. Top and bottom performing product categories
+      2. Sales trends (growing, declining, stable)
+      3. Recommendations for improving sales
+      4. Any unusual patterns or opportunities
+      
+      Format your response as JSON with these fields:
+      - title: A brief title for these insights
+      - summary: A 1-2 sentence summary of the key findings
+      - details: Detailed analysis points (array of strings)
+      - recommendations: Specific actionable recommendations (array of strings)
+      - trends: Identified trends (array of objects with name and direction)
+      - confidence: Confidence score from 0-1 for these insights
+      - timeframe: The time period these insights cover
+  
+  brand_analysis_template:
+    template: |
+      Analyze the following brand interaction data for {BrandName} (ID: {BrandID}).
+      
+      Interaction Count: {InteractionCount}
+      Average Sentiment: {AverageSentiment}
+      Interactions by Type: {InteractionsByType}
+      
+      Interaction Samples:
+      {InteractionSamples}
+      
+      Provide insights about:
+      1. Brand perception and sentiment
+      2. Interaction patterns and types
+      3. Recommendations for improving brand performance
+      4. Opportunities for growth or improvement
+      
+      Format your response as JSON with these fields:
+      - title: A brief title for these brand insights
+      - summary: A 1-2 sentence summary of the key findings
+      - perception: Analysis of brand perception
+      - patterns: Identified patterns in interactions (array)
+      - recommendations: Specific actionable recommendations (array)
+      - opportunities: Growth or improvement opportunities (array)
+      - confidence: Confidence score from 0-1 for these insights
+  
+  store_recommendations_template:
+    template: |
+      Provide specific recommendations for store {StoreName} (ID: {StoreID}) located in {Region}, {CityMunicipality}, {Barangay}.
+      
+      Monthly Sales: {MonthlySales}
+      Product Categories: {ProductCategories}
+      
+      Sales by Category:
+      {SalesByCategory}
+      
+      Provide recommendations focused on:
+      1. Product mix optimization
+      2. Category management
+      3. Regional preferences and opportunities
+      4. Specific actions to improve performance
+      
+      Format your response as JSON with these fields:
+      - title: A brief title for these recommendations
+      - summary: A 1-2 sentence overview of the recommendation strategy
+      - product_mix: Recommendations for product mix (array)
+      - category_management: Category management suggestions (array)
+      - regional_opportunities: Region-specific opportunities (array)
+      - action_items: Specific actionable items with timeline (array of objects with action and timeline)
+      - priority: Overall priority for these recommendations (high, medium, low)
+  
+  market_trends_template:
+    template: |
+      Analyze market trends for the following time range and regions:
+      
+      Time Range: {TimeRange}
+      Regions: {RegionalData}
+      Categories: {CategoryData}
+      Competitor Data: {CompetitorData}
+      
+      Provide insights about:
+      1. Regional market trends and patterns
+      2. Category performance across regions
+      3. Competitive landscape and opportunities
+      4. Emerging trends and potential market shifts
+      
+      Format your response as JSON with these fields:
+      - title: A brief title for this market analysis
+      - summary: A 1-2 sentence overview of the key market trends
+      - regional_trends: Trends by region (array of objects)
+      - category_performance: Performance by category (array of objects)
+      - competitive_landscape: Analysis of competitive position (object)
+      - emerging_trends: Identified emerging trends (array)
+      - opportunities: Strategic opportunities based on trends (array)
+      - timeframe: The time period this analysis covers

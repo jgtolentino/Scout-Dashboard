@@ -1,0 +1,324 @@
+version: 1.0.0
+updated_at: '2025-10-05T04:45:00.000000'
+total_agents: 64
+agents:
+  adsbot:
+    title: adsbot
+    type: traditional
+    department: agents
+    file: agents/adsbot.yaml
+  agent-profiles:
+    title: agent-profiles
+    type: traditional
+    department: unified-agents
+    file: agents/agent-profiles.yaml
+  ai-engineer:
+    title: ai-engineer
+    type: traditional
+    department: engineering
+    file: agents/ai-engineer.yaml
+  analytics-reporter:
+    title: analytics-reporter
+    type: traditional
+    department: studio-operations
+    file: agents/analytics-reporter.yaml
+  api-tester:
+    title: api-tester
+    type: traditional
+    department: testing
+    file: agents/api-tester.yaml
+  app-store-optimizer:
+    title: app-store-optimizer
+    type: traditional
+    department: marketing
+    file: agents/app-store-optimizer.yaml
+  backend-architect:
+    title: backend-architect
+    type: traditional
+    department: engineering
+    file: agents/backend-architect.yaml
+  brand-guardian:
+    title: brand-guardian
+    type: traditional
+    department: design
+    file: agents/brand-guardian.yaml
+  caca:
+    title: caca
+    type: traditional
+    department: agents
+    file: agents/caca.yaml
+  cloud-architect:
+    title: cloud-architect
+    type: traditional
+    department: engineering
+    file: agents/cloud-architect.yaml
+  content-creator:
+    title: content-creator
+    type: traditional
+    department: marketing
+    file: agents/content-creator.yaml
+  database-architect:
+    title: database-architect
+    type: traditional
+    department: engineering
+    file: agents/database-architect.yaml
+  devops-automator:
+    title: devops-automator
+    type: traditional
+    department: engineering
+    file: agents/devops-automator.yaml
+  edge-function-agent-orchestrator:
+    title: 'Edge Function: Agent Orchestrator'
+    type: edge_function
+    department: infrastructure
+    file: agents/edge-function-agent-orchestrator.yaml
+  edge-function-approval-processor:
+    title: 'Edge Function: Approval Processor'
+    type: edge_function
+    department: infrastructure
+    file: agents/edge-function-approval-processor.yaml
+  edge-function-brand-compliance-checker:
+    title: 'Edge Function: Brand Compliance Checker'
+    type: edge_function
+    department: infrastructure
+    file: agents/edge-function-brand-compliance-checker.yaml
+  edge-function-content-generator:
+    title: 'Edge Function: Content Generator'
+    type: edge_function
+    department: infrastructure
+    file: agents/edge-function-content-generator.yaml
+  edge-function-performance-tracker:
+    title: 'Edge Function: Performance Tracker'
+    type: edge_function
+    department: infrastructure
+    file: agents/edge-function-performance-tracker.yaml
+  edge-function-scheduler-integration:
+    title: 'Edge Function: Scheduler Integration'
+    type: edge_function
+    department: infrastructure
+    file: agents/edge-function-scheduler-integration.yaml
+  experiment-tracker:
+    title: experiment-tracker
+    type: traditional
+    department: project-management
+    file: agents/experiment-tracker.yaml
+  feedback-synthesizer:
+    title: feedback-synthesizer
+    type: traditional
+    department: product
+    file: agents/feedback-synthesizer.yaml
+  finance-tracker:
+    title: finance-tracker
+    type: traditional
+    department: studio-operations
+    file: agents/finance-tracker.yaml
+  frontend-developer:
+    title: frontend-developer
+    type: traditional
+    department: engineering
+    file: agents/frontend-developer.yaml
+  fullstack-developer:
+    title: fullstack-developer
+    type: traditional
+    department: engineering
+    file: agents/fullstack-developer.yaml
+  growth-hacker:
+    title: growth-hacker
+    type: traditional
+    department: marketing
+    file: agents/growth-hacker.yaml
+  infrastructure-maintainer:
+    title: infrastructure-maintainer
+    type: traditional
+    department: studio-operations
+    file: agents/infrastructure-maintainer.yaml
+  instagram-curator:
+    title: instagram-curator
+    type: traditional
+    department: marketing
+    file: agents/instagram-curator.yaml
+  joker:
+    title: joker
+    type: traditional
+    department: bonus
+    file: agents/joker.yaml
+  keykey:
+    title: keykey
+    type: traditional
+    department: keykey
+    file: agents/keykey.yaml
+  keykey-agent:
+    title: keykey-agent
+    type: traditional
+    department: agents
+    file: agents/keykey-agent.yaml
+  legal-compliance-checker:
+    title: legal-compliance-checker
+    type: traditional
+    department: studio-operations
+    file: agents/legal-compliance-checker.yaml
+  mobile-app-builder:
+    title: mobile-app-builder
+    type: traditional
+    department: engineering
+    file: agents/mobile-app-builder.yaml
+  ml-engineer:
+    title: ml-engineer
+    type: traditional
+    department: engineering
+    file: agents/ml-engineer.yaml
+  performance-benchmarker:
+    title: performance-benchmarker
+    type: traditional
+    department: testing
+    file: agents/performance-benchmarker.yaml
+  project-shipper:
+    title: project-shipper
+    type: traditional
+    department: project-management
+    file: agents/project-shipper.yaml
+  pulser-agents-complete-extraction:
+    title: pulser-agents-complete-extraction
+    type: traditional
+    department: agents-pulser-temp
+    file: agents/pulser-agents-complete-extraction.yaml
+  pulser-registry:
+    title: pulser-registry
+    type: traditional
+    department: unified-agents
+    file: agents/pulser-registry.yaml
+  rapid-prototyper:
+    title: rapid-prototyper
+    type: traditional
+    department: engineering
+    file: agents/rapid-prototyper.yaml
+  readme:
+    title: readme
+    type: traditional
+    department: agents-pulser-temp
+    file: agents/readme.yaml
+  readme-keykey:
+    title: readme-keykey
+    type: traditional
+    department: agents
+    file: agents/readme-keykey.yaml
+  reddit-community-builder:
+    title: reddit-community-builder
+    type: traditional
+    department: marketing
+    file: agents/reddit-community-builder.yaml
+  repoagent:
+    title: repoagent
+    type: traditional
+    department: agents
+    file: agents/repoagent.yaml
+  retailbot:
+    title: retailbot
+    type: traditional
+    department: agents
+    file: agents/retailbot.yaml
+  scout-ai-combo:
+    title: scout-ai-combo
+    type: traditional
+    department: agents
+    file: agents/scout-ai-combo.yaml
+  security-engineer:
+    title: security-engineer
+    type: traditional
+    department: engineering
+    file: agents/security-engineer.yaml
+  sprint-prioritizer:
+    title: sprint-prioritizer
+    type: traditional
+    department: product
+    file: agents/sprint-prioritizer.yaml
+  studio-coach:
+    title: studio-coach
+    type: traditional
+    department: bonus
+    file: agents/studio-coach.yaml
+  studio-producer:
+    title: studio-producer
+    type: traditional
+    department: project-management
+    file: agents/studio-producer.yaml
+  supa-dash:
+    title: supa-dash
+    type: traditional
+    department: agents
+    file: agents/supa-dash.yaml
+  support-responder:
+    title: support-responder
+    type: traditional
+    department: studio-operations
+    file: agents/support-responder.yaml
+  sync-upstream-agents-pulser:
+    title: sync-upstream-agents-pulser
+    type: traditional
+    department: workflows
+    file: agents/sync-upstream-agents-pulser.yaml
+  test-results-analyzer:
+    title: test-results-analyzer
+    type: traditional
+    department: testing
+    file: agents/test-results-analyzer.yaml
+  test-writer-fixer:
+    title: test-writer-fixer
+    type: traditional
+    department: engineering
+    file: agents/test-writer-fixer.yaml
+  tiktok-strategist:
+    title: tiktok-strategist
+    type: traditional
+    department: marketing
+    file: agents/tiktok-strategist.yaml
+  tool-evaluator:
+    title: tool-evaluator
+    type: traditional
+    department: testing
+    file: agents/tool-evaluator.yaml
+  trend-researcher:
+    title: trend-researcher
+    type: traditional
+    department: product
+    file: agents/trend-researcher.yaml
+  twitter-engager:
+    title: twitter-engager
+    type: traditional
+    department: marketing
+    file: agents/twitter-engager.yaml
+  ui-designer:
+    title: ui-designer
+    type: traditional
+    department: design
+    file: agents/ui-designer.yaml
+  ux-researcher:
+    title: ux-researcher
+    type: traditional
+    department: design
+    file: agents/ux-researcher.yaml
+  vibe-testbot:
+    title: vibe-testbot
+    type: traditional
+    department: agents
+    file: agents/vibe-testbot.yaml
+  visual-storyteller:
+    title: visual-storyteller
+    type: traditional
+    department: design
+    file: agents/visual-storyteller.yaml
+  whimsy-injector:
+    title: whimsy-injector
+    type: traditional
+    department: design
+    file: agents/whimsy-injector.yaml
+  workflow-optimizer:
+    title: workflow-optimizer
+    type: traditional
+    department: testing
+    file: agents/workflow-optimizer.yaml
+  yummy:
+    title: yummy
+    type: traditional
+    department: agents
+    file: agents/yummy.yaml

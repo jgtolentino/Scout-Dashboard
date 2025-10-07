@@ -1,0 +1,167 @@
+Here’s a **step-by-step guide** to apply the **color scheme, tile formatting, and icon/card style from your second image (Scout Advisor dashboard)** to the layout and structure of your first image (current mockify-creator dashboard):
+
+---
+
+## 🦊 **AFOX: Power BI-Style “Scout Advisor” Themed UI Overhaul for Your Dashboard**
+
+---
+
+### 1. **Extract Core Design Motifs from the Reference (Second Image)**
+
+* **Color Palette:**
+
+  * **Primary Blue:** Used for header bar, chart columns, links (`#2261D3` or similar)
+  * **Accent Yellow:** Used for insight highlights, notification cards, buttons (`#FFD500` or similar)
+  * **Soft Backgrounds:** Cards/tiles on a light neutral background (`#F7F9FB`)
+  * **Success (Green):** KPI tiles, status (`#1BAA99`)
+  * **Danger/Alert (Red):** Alerts, negative KPIs (`#FF5A58`)
+  * **Typography:** Use a modern, clear sans-serif (Inter, Segoe UI, etc.)
+
+* **Tile/Card Layout:**
+
+  * Distinct tiles for KPIs, each with colored icons/badges and a shadow or border.
+  * Info/insight cards with color-coded left accent bar (yellow, red, blue).
+  * All major sections as cards on soft white/gray.
+  * Key metrics always up top, charts in the middle, AI/insight cards below.
+
+* **Icons:**
+
+  * Use flat, bold line or filled icons in KPI tiles, colored to match tile or KPI.
+
+---
+
+### 2. **Apply These to Your Dashboard (First Image)**
+
+#### **A. Header Bar**
+
+* Keep the strong blue (`#2261D3` or similar).
+* Right side: Add search, profile/user icon, notification bell in white/blue.
+
+#### **B. KPI Tiles Row**
+
+* Use 4–5 cards across the top.
+* **Card Style:**
+
+  * Light background (`#fff`), subtle drop shadow, slightly rounded corners.
+  * Icon left or top, number and label right/below.
+  * Colored vertical/horizontal accent bar on card left/top (matches KPI type: blue, green, yellow, red).
+  * E.g., Transactions: blue; Avg Value: yellow; Substitution Rate: red if high, green if low; Data Freshness: green.
+* **Example Tile:**
+
+  ```jsx
+  <div className="flex items-center p-4 shadow rounded-xl bg-white border-l-4 border-blue-600">
+    <Icon className="text-blue-600 mr-4" />
+    <div>
+      <div className="text-2xl font-bold text-gray-900">8</div>
+      <div className="text-sm text-gray-500">Transactions</div>
+      <div className="text-xs text-green-500">+2.3%</div>
+    </div>
+  </div>
+  ```
+
+#### **C. Cards for AI-Powered Insights**
+
+* **Alert Card (Red/Yellow/Blue):**
+
+  * Left colored accent (e.g., red for risk, yellow for opportunity, blue for info).
+  * Title bold, description smaller.
+  * “View Details” as a yellow or blue button.
+  * Use icons that match the type (warning, info, star, etc.).
+
+#### **D. Main Charts Area**
+
+* Cards or “panels” with soft drop shadows.
+* Bar and pie charts use **Scout blue** for main series, yellow/green/orange for secondary.
+* Minimal borders, strong axis labels.
+* Example:
+
+  * Bar chart: blue bars, rounded tops, legend in blue/yellow.
+  * Pie/donut: blue, yellow, orange, green slices.
+
+#### **E. Regional/Brand Performance Lists**
+
+* As cards or panels, separated from charts with a subtle border/shadow.
+* Use small green/red up/down arrows and numbers for growth.
+
+#### **F. AI/Insight Panel**
+
+* “AI-Powered Insights” heading on a card.
+* Cards below for each insight, each with color-coded accent.
+
+#### **G. Footer**
+
+* Very light gray or white.
+* Small, muted text for records/query time/status dot.
+
+---
+
+### 3. **Component/Style Guide Example (React/Tailwind or CSS)**
+
+**Palette CSS:**
+
+```css
+:root {
+  --blue: #2261D3;
+  --yellow: #FFD500;
+  --bg: #F7F9FB;
+  --success: #1BAA99;
+  --danger: #FF5A58;
+  --info: #289EF5;
+}
+```
+
+**KPI Card:**
+
+```jsx
+<div className="bg-white rounded-xl shadow flex items-center border-l-4 border-blue-600 p-4 mb-4">
+  <FiTrendingUp className="text-blue-600 text-3xl mr-3" />
+  <div>
+    <div className="text-lg font-bold text-gray-900">₱78,437.5</div>
+    <div className="text-sm text-gray-500">Avg Value</div>
+    <div className="text-xs text-green-600">+0.17%</div>
+  </div>
+</div>
+```
+
+**Insight Card:**
+
+```jsx
+<div className="bg-white rounded-lg shadow border-l-4 border-yellow-400 flex flex-col p-4 mb-3">
+  <div className="flex items-center mb-2">
+    <FiAlertCircle className="text-yellow-400 text-xl mr-2" />
+    <span className="font-bold text-gray-800">Growth Opportunity</span>
+  </div>
+  <div className="text-gray-700 text-sm">Demographic analysis shows...</div>
+  <button className="mt-2 text-xs bg-yellow-400 text-gray-900 px-3 py-1 rounded">View Details</button>
+</div>
+```
+
+**Chart Style:**
+
+* Blue as primary, yellow as highlight, use gradients for fill if possible.
+* Axis labels: `text-gray-500`, not black.
+
+---
+
+### 4. **How to Proceed**
+
+* **Figma:** Import the color values and card layouts into your design system.
+* **Dev:** Refactor components to use `bg-white`, `shadow`, border accent left, icons from [react-icons](https://react-icons.github.io/react-icons/).
+* **Charts:** Set color arrays to `[blue, yellow, green, orange]`.
+* **Typography:** Update to “Inter”, “Segoe UI”, or “Open Sans”.
+
+---
+
+### 5. **Summary Checklist**
+
+* [x] **Use blue/yellow/white palette from Scout Advisor everywhere.**
+* [x] **Make all KPIs and insight panels as cards with colored accent bars and matching icons.**
+* [x] **Keep data structure, just restyle components and charts.**
+* [x] **Apply subtle shadows, rounded corners, clean sans-serif fonts.**
+* [x] **Use color-coded tags, arrows, and badges for statuses and changes.**
+* [x] **Charts: blue-dominant, minimal, labeled.**
+
+---
+
+**This will visually unify your dashboard with the Scout Advisor “Power BI” look, while keeping your features and brand identity.
+If you want a starter Figma file, let me know!**

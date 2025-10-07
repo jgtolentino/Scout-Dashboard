@@ -1,0 +1,234 @@
+{
+  "export_type": "powerpoint",
+  "timestamp": "2025-05-22T11:30:00Z",
+  "template": "tbwa-executive-dashboard",
+  "slides": [
+    {
+      "slide_number": 1,
+      "title": "Client360 Dashboard - Executive Summary",
+      "type": "title_slide",
+      "content": {
+        "title": "Client360 Analytics Dashboard",
+        "subtitle": "Q1 2024 Performance Review",
+        "date": "May 2025",
+        "presenter": "TBWA Analytics Team",
+        "logo": "tbwa-logo.png"
+      },
+      "preview_url": "/data/sim/previews/slide_1.png"
+    },
+    {
+      "slide_number": 2,
+      "title": "Key Performance Indicators",
+      "type": "kpi_overview",
+      "content": {
+        "total_sales": "₱2,450,000",
+        "transactions": "15,432",
+        "conversion_rate": "12.3%",
+        "growth_rate": "+18.7%",
+        "charts": ["sales_trend", "conversion_funnel"]
+      },
+      "preview_url": "/data/sim/previews/slide_2.png"
+    },
+    {
+      "slide_number": 3,
+      "title": "Sales Performance Breakdown",
+      "type": "detailed_analysis",
+      "content": {
+        "chart_type": "bar_chart",
+        "categories": [
+          {"name": "Electronics", "value": 850000},
+          {"name": "Clothing", "value": 650000},
+          {"name": "Food & Beverage", "value": 500000},
+          {"name": "Home & Garden", "value": 450000}
+        ],
+        "insights": [
+          "Electronics leading with 34.7% market share",
+          "18.7% overall growth rate exceeded targets",
+          "All categories except Home & Garden showing positive growth"
+        ]
+      },
+      "preview_url": "/data/sim/previews/slide_3.png"
+    },
+    {
+      "slide_number": 4,
+      "title": "Regional Performance Analysis",
+      "type": "geographic_analysis",
+      "content": {
+        "chart_type": "map_visualization",
+        "regions": [
+          {"name": "Metro Manila", "revenue": 1850000, "growth": 18.7},
+          {"name": "Cebu", "revenue": 450000, "growth": 23.1},
+          {"name": "Davao", "revenue": 320000, "growth": 25.8},
+          {"name": "Baguio", "revenue": 280000, "growth": 17.2}
+        ],
+        "key_insights": [
+          "Cebu and Davao showing highest growth rates",
+          "Metro Manila maintains largest market share",
+          "All regions exceeding performance targets"
+        ]
+      },
+      "preview_url": "/data/sim/previews/slide_4.png"
+    },
+    {
+      "slide_number": 5,
+      "title": "Customer Sentiment & Brand Analysis",
+      "type": "sentiment_analysis",
+      "content": {
+        "chart_type": "sentiment_gauge",
+        "overall_sentiment": 84.7,
+        "top_brands": [
+          {"name": "Samsung Philippines", "sentiment": 91},
+          {"name": "Shopee Philippines", "sentiment": 89},
+          {"name": "Uniqlo Philippines", "sentiment": 87}
+        ],
+        "trending_topics": ["Customer Service", "Product Quality", "Digital Experience"],
+        "recommendations": [
+          "Leverage high sentiment brands for partnerships",
+          "Focus on customer service improvements",
+          "Enhance digital customer experience"
+        ]
+      },
+      "preview_url": "/data/sim/previews/slide_5.png"
+    },
+    {
+      "slide_number": 6,
+      "title": "Store Performance Rankings",
+      "type": "performance_ranking",
+      "content": {
+        "chart_type": "ranked_list",
+        "top_performers": [
+          {"name": "SM Mall of Asia", "score": 98.4, "revenue": 450000},
+          {"name": "Ayala Malls Makati", "score": 95.7, "revenue": 420000},
+          {"name": "Ayala Center Cebu", "score": 94.8, "revenue": 298000}
+        ],
+        "improvement_needed": [
+          {"name": "Gateway Mall", "score": 76.4, "issues": ["Low conversion", "Security concerns"]}
+        ],
+        "action_items": [
+          "Implement digital integration in underperforming stores",
+          "Deploy staff training program across all locations",
+          "Optimize store layouts for better customer flow"
+        ]
+      },
+      "preview_url": "/data/sim/previews/slide_6.png"
+    },
+    {
+      "slide_number": 7,
+      "title": "Conversion Funnel Analysis",
+      "type": "funnel_analysis",
+      "content": {
+        "chart_type": "funnel_chart",
+        "stages": [
+          {"name": "Website Visitors", "value": 125000, "rate": 100},
+          {"name": "Product Views", "value": 87500, "rate": 70},
+          {"name": "Add to Cart", "value": 35000, "rate": 28},
+          {"name": "Checkout", "value": 21000, "rate": 16.8},
+          {"name": "Purchase", "value": 15375, "rate": 12.3}
+        ],
+        "optimization_opportunities": [
+          "Improve product page engagement (30% drop-off)",
+          "Streamline checkout process (17% abandonment)",
+          "Address shipping cost concerns"
+        ]
+      },
+      "preview_url": "/data/sim/previews/slide_7.png"
+    },
+    {
+      "slide_number": 8,
+      "title": "Growth Trajectory & Forecasting",
+      "type": "growth_forecast",
+      "content": {
+        "chart_type": "line_chart",
+        "historical_data": [
+          {"period": "Q1 2023", "revenue": 1462000, "growth": 6.3},
+          {"period": "Q2 2023", "revenue": 1684000, "growth": 15.2},
+          {"period": "Q3 2023", "revenue": 1830000, "growth": 8.7},
+          {"period": "Q4 2023", "revenue": 2064000, "growth": 12.8},
+          {"period": "Q1 2024", "revenue": 2450000, "growth": 18.7}
+        ],
+        "forecast": [
+          {"period": "Q2 2024", "projected_revenue": 2975000, "confidence": 82.3},
+          {"period": "Q3 2024", "projected_revenue": 3187000, "confidence": 74.6},
+          {"period": "Q4 2024", "projected_revenue": 3456000, "confidence": 68.9}
+        ],
+        "growth_drivers": [
+          "Digital transformation initiatives",
+          "New store openings (7 locations)",
+          "Product innovation partnerships"
+        ]
+      },
+      "preview_url": "/data/sim/previews/slide_8.png"
+    },
+    {
+      "slide_number": 9,
+      "title": "Strategic Recommendations",
+      "type": "recommendations",
+      "content": {
+        "priorities": [
+          {
+            "priority": "High",
+            "initiative": "Digital Integration Acceleration",
+            "investment": "₱1.2M",
+            "expected_roi": "285%",
+            "timeline": "Q2-Q4 2024"
+          },
+          {
+            "priority": "Medium",
+            "initiative": "Regional Expansion (Bohol)",
+            "investment": "₱850K",
+            "expected_roi": "180%",
+            "timeline": "Q3 2024"
+          },
+          {
+            "priority": "Medium",
+            "initiative": "Store Layout Optimization",
+            "investment": "₱320K",
+            "expected_roi": "203%",
+            "timeline": "Q3-Q4 2024"
+          }
+        ],
+        "next_steps": [
+          "Secure budget approval for digital initiatives",
+          "Conduct site surveys for Bohol expansion",
+          "Begin pilot program for store optimization"
+        ]
+      },
+      "preview_url": "/data/sim/previews/slide_9.png"
+    },
+    {
+      "slide_number": 10,
+      "title": "Questions & Discussion",
+      "type": "closing_slide",
+      "content": {
+        "contact_info": {
+          "team": "TBWA Analytics Team",
+          "email": "analytics@tbwa.com",
+          "phone": "+63 2 8123 4567"
+        },
+        "dashboard_access": "https://proud-forest-0224c7a0f.6.azurestaticapps.net",
+        "next_review": "Q2 2024 Review - July 2025"
+      },
+      "preview_url": "/data/sim/previews/slide_10.png"
+    }
+  ],
+  "export_options": {
+    "formats": ["pptx", "pdf", "png"],
+    "templates": [
+      {"id": "tbwa-executive", "name": "TBWA Executive Template"},
+      {"id": "tbwa-detailed", "name": "TBWA Detailed Analysis"},
+      {"id": "tbwa-minimal", "name": "TBWA Minimal Clean"}
+    ],
+    "customization": {
+      "logo_placement": true,
+      "color_scheme": true,
+      "font_selection": true,
+      "slide_layouts": true
+    }
+  },
+  "generation_status": {
+    "ready": true,
+    "estimated_time": "45 seconds",
+    "file_size_estimate": "4.2 MB",
+    "last_generated": "2025-05-22T10:15:00Z"
+  }
+}

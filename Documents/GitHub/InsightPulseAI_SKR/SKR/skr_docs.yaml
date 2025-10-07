@@ -1,0 +1,59 @@
+# SKR Document Registry
+# Auto-generated and maintained by Claudia
+# Last updated: 2025-04-22
+
+documents:
+  - id: test_report
+    filename: skr_doc_test_report.pdf
+    source: local_downloads
+    fetched: 2025-04-22 18:34:15
+    status: moved
+
+  - id: external_report
+    filename: skr_doc_external_report.pdf
+    source: https://example.com/test.pdf
+    fetched: 2025-04-22 18:34:31
+    status: downloaded
+
+  - id: zoho_dns_config
+    filename: enrico_20250422_121715.md
+    source: claude_llm_router
+    fetched: 2025-04-22 19:45:00
+    status: implemented
+    location: dns_configs
+    references:
+      - zoho_mail_config.yaml
+
+  - id: zoho_mail_aliases
+    filename: zoho_mail_alias_autocreate_enrico_20250422.yaml
+    source: claudia_orchestration
+    fetched: 2025-04-22 19:50:00
+    status: implemented
+    location: dns_configs
+    references:
+      - alias_setup_sop_kath_20250422.md
+
+  - id: zoho_mail_sop
+    filename: alias_setup_sop_kath_20250422.md
+    source: kath_copywriter
+    fetched: 2025-04-22 19:50:00
+    status: verified
+    location: mail_configs
+    notion_sync: true
+    notion_location: "Mail Setup → InsightPulseAI Domain"
+    
+  - id: email_signatures
+    filename: email_signatures.yaml
+    source: kath_copywriter
+    fetched: 2025-04-22 20:57:00
+    status: active
+    location: mail_configs
+    notion_sync: true
+    
+  - id: email_verification_script
+    filename: verify_mail_aliases.sh
+    source: enrico_dns_agent
+    fetched: 2025-04-22 20:56:21
+    status: executable
+    location: mail_configs
+

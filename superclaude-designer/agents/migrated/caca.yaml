@@ -1,0 +1,14 @@
+agent:
+  name: caca
+  version: 1.0.0
+  description: ''
+  type: traditional
+  department: agents
+  capabilities: []
+  tools: []
+  keywords: []
+  permissions:
+    allow_shell: false
+    allow_network: false
+    allow_credentials: false
+  config: {}

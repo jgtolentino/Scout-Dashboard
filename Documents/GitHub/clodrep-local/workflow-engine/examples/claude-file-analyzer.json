@@ -1,0 +1,72 @@
+{
+  "name": "Claude File Analyzer",
+  "description": "Analyze code files using Claude's capabilities",
+  "nodes": [
+    {
+      "id": "webhook",
+      "type": "webhook",
+      "position": { "x": 100, "y": 200 },
+      "parameters": {
+        "path": "analyze-file",
+        "method": "POST"
+      }
+    },
+    {
+      "id": "read-file",
+      "type": "claude-mcp",
+      "position": { "x": 300, "y": 200 },
+      "parameters": {
+        "tool": "Read",
+        "arguments": {
+          "file_path": "{{body.file_path}}"
+        }
+      }
+    },
+    {
+      "id": "analyze-content",
+      "type": "transform",
+      "position": { "x": 500, "y": 200 },
+      "parameters": {
+        "code": "return { prompt: `Analyze this code and identify: 1) Main purpose, 2) Key functions, 3) Potential improvements\\n\\nCode:\\n${$input.claudeResult.content}` };"
+      }
+    },
+    {
+      "id": "get-insights",
+      "type": "http-request",
+      "position": { "x": 700, "y": 200 },
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "headers": {
+          "x-api-key": "YOUR_CLAUDE_API_KEY",
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json"
+        },
+        "body": {
+          "model": "claude-3-sonnet-20240229",
+          "messages": [
+            {
+              "role": "user",
+              "content": "{{prompt}}"
+            }
+          ],
+          "max_tokens": 1000
+        }
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": { "node": "webhook", "output": "main" },
+      "to": { "node": "read-file", "input": "main" }
+    },
+    {
+      "from": { "node": "read-file", "output": "main" },
+      "to": { "node": "analyze-content", "input": "main" }
+    },
+    {
+      "from": { "node": "analyze-content", "output": "main" },
+      "to": { "node": "get-insights", "input": "main" }
+    }
+  ]
+}

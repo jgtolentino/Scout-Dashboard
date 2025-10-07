@@ -1,0 +1,778 @@
+{
+  "metadata": {
+    "simulated": true,
+    "version": "1.0.0",
+    "created": "2025-05-20T22:30:00Z",
+    "source": "tbwa_smp_fmcg_clients",
+    "description": "FMCG-focused sample data featuring TBWA\\SMP clients: Del Monte Philippines, Oishi, Alaska Milk, and Peerless Products"
+  },
+  "data": {
+    "kpis": {
+      "total_sales": 7824650,
+      "sales_change": 14.2,
+      "conversion_rate": 5.3,
+      "conversion_change": 0.9,
+      "marketing_roi": 3.6,
+      "roi_change": 0.3,
+      "brand_sentiment": 82.5,
+      "sentiment_change": 3.2
+    },
+    "brands": [
+      { "brand_name": "Del Monte", "performance_score": 89.5, "market_share": 23.8, "growth_rate": 12.5, "customer_loyalty": 87.2 },
+      { "brand_name": "Oishi", "performance_score": 86.3, "market_share": 19.2, "growth_rate": 14.7, "customer_loyalty": 84.6 },
+      { "brand_name": "Alaska", "performance_score": 82.7, "market_share": 18.5, "growth_rate": 7.6, "customer_loyalty": 83.9 },
+      { "brand_name": "Peerless", "performance_score": 79.8, "market_share": 16.4, "growth_rate": 8.3, "customer_loyalty": 78.5 },
+      { "brand_name": "Today's", "performance_score": 77.2, "market_share": 5.3, "growth_rate": 9.2, "customer_loyalty": 76.8 },
+      { "brand_name": "Fit 'n Right", "performance_score": 76.5, "market_share": 4.7, "growth_rate": 11.5, "customer_loyalty": 75.3 },
+      { "brand_name": "Smart C+", "performance_score": 75.9, "market_share": 4.2, "growth_rate": 13.8, "customer_loyalty": 72.6 },
+      { "brand_name": "Krem-Top", "performance_score": 74.3, "market_share": 3.9, "growth_rate": 6.7, "customer_loyalty": 71.4 },
+      { "brand_name": "Champion", "performance_score": 73.8, "market_share": 8.7, "growth_rate": 5.9, "customer_loyalty": 76.2 },
+      { "brand_name": "Pride", "performance_score": 72.1, "market_share": 7.6, "growth_rate": 4.8, "customer_loyalty": 73.5 },
+      { "brand_name": "Deli Mex", "performance_score": 71.8, "market_share": 2.9, "growth_rate": 15.7, "customer_loyalty": 70.2 },
+      { "brand_name": "Gourmet Picks", "performance_score": 71.3, "market_share": 2.3, "growth_rate": 16.2, "customer_loyalty": 69.8 },
+      { "brand_name": "Oaties", "performance_score": 70.5, "market_share": 2.1, "growth_rate": 10.8, "customer_loyalty": 68.9 },
+      { "brand_name": "S&W Premium", "performance_score": 69.8, "market_share": 3.4, "growth_rate": 7.5, "customer_loyalty": 72.4 },
+      { "brand_name": "Alpine", "performance_score": 68.9, "market_share": 2.8, "growth_rate": 4.5, "customer_loyalty": 67.3 }
+    ],
+    "categories": [
+      { 
+        "category_name": "Beverage", 
+        "sales_value": 2547320, 
+        "sales_change": 15.7, 
+        "units_sold": 1245670,
+        "profit_margin": 24.3,
+        "market_share": 32.6,
+        "growth_projection": 16.2,
+        "customer_demographic": "All Ages",
+        "seasonal_performance": [
+          {"quarter": "Q1", "sales": 598234},
+          {"quarter": "Q2", "sales": 632456},
+          {"quarter": "Q3", "sales": 687123},
+          {"quarter": "Q4", "sales": 629507}
+        ]
+      },
+      { 
+        "category_name": "Snack", 
+        "sales_value": 1983450, 
+        "sales_change": 12.3, 
+        "units_sold": 3567890,
+        "profit_margin": 21.7,
+        "market_share": 27.8,
+        "growth_projection": 13.5,
+        "customer_demographic": "Youth-oriented",
+        "seasonal_performance": [
+          {"quarter": "Q1", "sales": 467892},
+          {"quarter": "Q2", "sales": 498234},
+          {"quarter": "Q3", "sales": 542187},
+          {"quarter": "Q4", "sales": 475137}
+        ]
+      },
+      { 
+        "category_name": "Dairy", 
+        "sales_value": 1654780, 
+        "sales_change": 8.5, 
+        "units_sold": 872340,
+        "profit_margin": 18.2,
+        "market_share": 21.4,
+        "growth_projection": 9.3,
+        "customer_demographic": "Family",
+        "seasonal_performance": [
+          {"quarter": "Q1", "sales": 398765},
+          {"quarter": "Q2", "sales": 412345},
+          {"quarter": "Q3", "sales": 432178},
+          {"quarter": "Q4", "sales": 411492}
+        ]
+      },
+      { 
+        "category_name": "Household", 
+        "sales_value": 987650, 
+        "sales_change": 5.2, 
+        "units_sold": 456780,
+        "profit_margin": 15.8,
+        "market_share": 12.8,
+        "growth_projection": 6.7,
+        "customer_demographic": "Adult",
+        "seasonal_performance": [
+          {"quarter": "Q1", "sales": 245678},
+          {"quarter": "Q2", "sales": 237890},
+          {"quarter": "Q3", "sales": 254321},
+          {"quarter": "Q4", "sales": 249761}
+        ]
+      },
+      { 
+        "category_name": "Personal Care", 
+        "sales_value": 651450, 
+        "sales_change": 9.8, 
+        "units_sold": 321450,
+        "profit_margin": 23.5,
+        "market_share": 8.4,
+        "growth_projection": 11.2,
+        "customer_demographic": "Adult",
+        "seasonal_performance": [
+          {"quarter": "Q1", "sales": 156789},
+          {"quarter": "Q2", "sales": 167234},
+          {"quarter": "Q3", "sales": 173256},
+          {"quarter": "Q4", "sales": 154171}
+        ]
+      }
+    ],
+    "regions": [
+      { 
+        "region_name": "Total", 
+        "sales_value": 7824650, 
+        "trend": [1230450, 1345670, 1456780, 1567890, 1678940, 1824650],
+        "store_count": 32840,
+        "population_covered": 98750000,
+        "market_penetration": 87.6
+      },
+      { 
+        "region_name": "NCR", 
+        "sales_value": 2456780, 
+        "sales_change": 16.5,
+        "store_count": 9450,
+        "population_covered": 13620000,
+        "market_penetration": 92.3,
+        "urban_ratio": 98.7,
+        "top_category": "Beverage",
+        "top_brand": "Del Monte",
+        "growth_potential": "High",
+        "channel_breakdown": [
+          {"channel": "Supermarket", "share": 42.3},
+          {"channel": "Convenience", "share": 26.8},
+          {"channel": "Sari-Sari", "share": 18.5},
+          {"channel": "Mini Mart", "share": 12.4}
+        ]
+      },
+      { 
+        "region_name": "Luzon", 
+        "sales_value": 2123450, 
+        "sales_change": 13.2,
+        "store_count": 12480,
+        "population_covered": 42850000,
+        "market_penetration": 88.5,
+        "urban_ratio": 76.2,
+        "top_category": "Snack",
+        "top_brand": "Oishi",
+        "growth_potential": "Medium",
+        "channel_breakdown": [
+          {"channel": "Sari-Sari", "share": 38.7},
+          {"channel": "Supermarket", "share": 25.6},
+          {"channel": "Mini Mart", "share": 22.3},
+          {"channel": "Convenience", "share": 13.4}
+        ]
+      },
+      { 
+        "region_name": "Visayas", 
+        "sales_value": 1876540, 
+        "sales_change": 14.6,
+        "store_count": 6240,
+        "population_covered": 19450000,
+        "market_penetration": 85.4,
+        "urban_ratio": 68.9,
+        "top_category": "Dairy",
+        "top_brand": "Alaska",
+        "growth_potential": "High",
+        "channel_breakdown": [
+          {"channel": "Sari-Sari", "share": 44.5},
+          {"channel": "Mini Mart", "share": 23.8},
+          {"channel": "Supermarket", "share": 21.2},
+          {"channel": "Convenience", "share": 10.5}
+        ]
+      },
+      { 
+        "region_name": "Mindanao", 
+        "sales_value": 1367880, 
+        "sales_change": 11.8,
+        "store_count": 4670,
+        "population_covered": 22830000,
+        "market_penetration": 81.7,
+        "urban_ratio": 62.3,
+        "top_category": "Household",
+        "top_brand": "Peerless",
+        "growth_potential": "Very High",
+        "channel_breakdown": [
+          {"channel": "Sari-Sari", "share": 52.3},
+          {"channel": "Mini Mart", "share": 21.5},
+          {"channel": "Supermarket", "share": 18.7},
+          {"channel": "Convenience", "share": 7.5}
+        ]
+      },
+      { 
+        "region_name": "North Luzon", 
+        "sales_value": 876540, 
+        "sales_change": 10.5,
+        "store_count": 3850,
+        "population_covered": 15240000,
+        "market_penetration": 82.3,
+        "urban_ratio": 67.8,
+        "top_category": "Dairy",
+        "top_brand": "Alaska",
+        "growth_potential": "Medium",
+        "channel_breakdown": [
+          {"channel": "Sari-Sari", "share": 47.8},
+          {"channel": "Mini Mart", "share": 24.6},
+          {"channel": "Supermarket", "share": 19.3},
+          {"channel": "Convenience", "share": 8.3}
+        ]
+      },
+      { 
+        "region_name": "South Luzon", 
+        "sales_value": 754320, 
+        "sales_change": 9.7,
+        "store_count": 3260,
+        "population_covered": 12650000,
+        "market_penetration": 84.5,
+        "urban_ratio": 71.2,
+        "top_category": "Snack",
+        "top_brand": "Oishi",
+        "growth_potential": "Medium",
+        "channel_breakdown": [
+          {"channel": "Sari-Sari", "share": 42.3},
+          {"channel": "Mini Mart", "share": 25.7},
+          {"channel": "Supermarket", "share": 21.5},
+          {"channel": "Convenience", "share": 10.5}
+        ]
+      },
+      { 
+        "region_name": "Central Visayas", 
+        "sales_value": 654320, 
+        "sales_change": 15.3,
+        "store_count": 2570,
+        "population_covered": 7840000,
+        "market_penetration": 85.7,
+        "urban_ratio": 72.4,
+        "top_category": "Beverage",
+        "top_brand": "Del Monte",
+        "growth_potential": "High",
+        "channel_breakdown": [
+          {"channel": "Sari-Sari", "share": 41.2},
+          {"channel": "Mini Mart", "share": 24.8},
+          {"channel": "Supermarket", "share": 23.5},
+          {"channel": "Convenience", "share": 10.5}
+        ]
+      }
+    ],
+    "products": [
+      {
+        "product_id": "DM-001",
+        "brand": "Del Monte",
+        "category": "Beverage",
+        "name": "Del Monte Pineapple Juice",
+        "sales": 345670,
+        "units_sold": 87650,
+        "growth": 12.5,
+        "market_share": 23.5
+      },
+      {
+        "product_id": "DM-002",
+        "brand": "Del Monte",
+        "category": "Beverage",
+        "name": "Fit 'n Right Juice Drink",
+        "sales": 287650,
+        "units_sold": 65430,
+        "growth": 18.7,
+        "market_share": 19.8
+      },
+      {
+        "product_id": "DM-003",
+        "brand": "Del Monte",
+        "category": "Snack",
+        "name": "Del Monte Fruit Cocktail",
+        "sales": 176540,
+        "units_sold": 43210,
+        "growth": 7.8,
+        "market_share": 27.5
+      },
+      {
+        "product_id": "DM-004",
+        "brand": "Del Monte",
+        "category": "Snack",
+        "name": "Today's Pasta",
+        "sales": 134560,
+        "units_sold": 38760,
+        "growth": 9.3,
+        "market_share": 21.3
+      },
+      {
+        "product_id": "DM-005",
+        "brand": "Del Monte",
+        "category": "Snack",
+        "name": "Del Monte Spaghetti Sauce",
+        "sales": 123450,
+        "units_sold": 34520,
+        "growth": 6.7,
+        "market_share": 25.8
+      },
+      {
+        "product_id": "OS-001",
+        "brand": "Oishi",
+        "category": "Snack",
+        "name": "Oishi Prawn Crackers",
+        "sales": 298760,
+        "units_sold": 154670,
+        "growth": 14.2,
+        "market_share": 31.5
+      },
+      {
+        "product_id": "OS-002",
+        "brand": "Oishi",
+        "category": "Snack",
+        "name": "Oishi Ridges",
+        "sales": 276540,
+        "units_sold": 132450,
+        "growth": 16.8,
+        "market_share": 28.7
+      },
+      {
+        "product_id": "OS-003",
+        "brand": "Oishi",
+        "category": "Snack",
+        "name": "Oishi Pillows",
+        "sales": 254670,
+        "units_sold": 123450,
+        "growth": 15.3,
+        "market_share": 26.2
+      },
+      {
+        "product_id": "OS-004",
+        "brand": "Oishi",
+        "category": "Beverage",
+        "name": "Smart C+ Vitamin Drink",
+        "sales": 187650,
+        "units_sold": 76540,
+        "growth": 21.4,
+        "market_share": 18.7
+      },
+      {
+        "product_id": "OS-005",
+        "brand": "Oishi",
+        "category": "Snack",
+        "name": "Oishi Gourmet Picks",
+        "sales": 154320,
+        "units_sold": 54320,
+        "growth": 23.5,
+        "market_share": 17.2
+      },
+      {
+        "product_id": "AL-001",
+        "brand": "Alaska",
+        "category": "Dairy",
+        "name": "Alaska Evaporated Milk",
+        "sales": 432560,
+        "units_sold": 165430,
+        "growth": 8.7,
+        "market_share": 36.8
+      },
+      {
+        "product_id": "AL-002",
+        "brand": "Alaska",
+        "category": "Dairy",
+        "name": "Alaska Condensed Milk",
+        "sales": 387650,
+        "units_sold": 145670,
+        "growth": 7.5,
+        "market_share": 32.4
+      },
+      {
+        "product_id": "AL-003",
+        "brand": "Alaska",
+        "category": "Dairy",
+        "name": "Alaska Powdered Milk",
+        "sales": 345670,
+        "units_sold": 123450,
+        "growth": 6.2,
+        "market_share": 28.7
+      },
+      {
+        "product_id": "AL-004",
+        "brand": "Alaska",
+        "category": "Dairy",
+        "name": "Krem-Top Creamer",
+        "sales": 276540,
+        "units_sold": 98760,
+        "growth": 9.8,
+        "market_share": 24.5
+      },
+      {
+        "product_id": "AL-005",
+        "brand": "Alaska",
+        "category": "Dairy",
+        "name": "Alpine Creamer",
+        "sales": 212340,
+        "units_sold": 87650,
+        "growth": 5.7,
+        "market_share": 19.8
+      },
+      {
+        "product_id": "PP-001",
+        "brand": "Peerless",
+        "category": "Household",
+        "name": "Champion Detergent",
+        "sales": 387650,
+        "units_sold": 165430,
+        "growth": 6.8,
+        "market_share": 34.7
+      },
+      {
+        "product_id": "PP-002",
+        "brand": "Peerless",
+        "category": "Household",
+        "name": "Cyclone Bleach",
+        "sales": 276540,
+        "units_sold": 132450,
+        "growth": 4.5,
+        "market_share": 28.9
+      },
+      {
+        "product_id": "PP-003",
+        "brand": "Peerless",
+        "category": "Personal Care",
+        "name": "Calla Body Wash",
+        "sales": 234560,
+        "units_sold": 87650,
+        "growth": 12.4,
+        "market_share": 26.3
+      },
+      {
+        "product_id": "PP-004",
+        "brand": "Peerless",
+        "category": "Personal Care",
+        "name": "Hana Shampoo",
+        "sales": 198760,
+        "units_sold": 76540,
+        "growth": 9.7,
+        "market_share": 23.5
+      },
+      {
+        "product_id": "PP-005",
+        "brand": "Peerless",
+        "category": "Household",
+        "name": "Pride Dishwashing Liquid",
+        "sales": 176540,
+        "units_sold": 65430,
+        "growth": 7.2,
+        "market_share": 21.8
+      }
+    ],
+    "recommendations": [
+      { 
+        "insight_type": "recommendation", 
+        "insight_text": "Increase in-store placement of Oishi snacks between 2-5 PM to capture the after-school consumer segment, with potential sales lift of 18.5%",
+        "confidence": 92.3,
+        "potential_impact": 425670
+      },
+      { 
+        "insight_type": "recommendation", 
+        "insight_text": "Promote Alaska Powdered Milk in rural zones with targeted messaging around nutritional benefits to grow market share by estimated 3.2%",
+        "confidence": 88.7,
+        "potential_impact": 287650
+      },
+      { 
+        "insight_type": "recommendation", 
+        "insight_text": "Bundle Del Monte Spaghetti Sauce with Today's Pasta in Visayas region where basket correlation is 76% but current bundling rate is only 23%",
+        "confidence": 91.2,
+        "potential_impact": 198760
+      },
+      { 
+        "insight_type": "recommendation", 
+        "insight_text": "Reallocate 15% of Champion Detergent marketing budget from TV to digital in NCR to better reach the 25-34 age demographic",
+        "confidence": 87.5,
+        "potential_impact": 176540
+      },
+      { 
+        "insight_type": "recommendation", 
+        "insight_text": "Increase Fit 'n Right and Smart C+ shelf visibility on weekday mornings when health-conscious consumer traffic is highest",
+        "confidence": 89.3,
+        "potential_impact": 156780
+      }
+    ],
+    "brandDictionary": {
+      "insight_type": "brand_dictionary",
+      "top_brands": ["Del Monte", "Oishi", "Alaska"],
+      "brand_associations": [
+        { "brand": "Del Monte", "association": "quality", "strength": 0.87 },
+        { "brand": "Del Monte", "association": "trusted", "strength": 0.82 },
+        { "brand": "Oishi", "association": "fun", "strength": 0.91 },
+        { "brand": "Oishi", "association": "variety", "strength": 0.85 },
+        { "brand": "Alaska", "association": "nutrition", "strength": 0.89 },
+        { "brand": "Alaska", "association": "family", "strength": 0.84 },
+        { "brand": "Peerless", "association": "effective", "strength": 0.76 },
+        { "brand": "Peerless", "association": "value", "strength": 0.82 }
+      ]
+    },
+    "emotionalAnalysis": {
+      "insight_type": "emotional_analysis",
+      "peak_time": "5:30 PM",
+      "contextual_insights": [
+        "Customers respond more positively to product demos of Del Monte juice during afternoon hours",
+        "Oishi snack purchases correlate with excitement and satisfaction emotions in in-store tracking",
+        "Alaska milk products show stronger emotional connection when displayed with family-oriented imagery",
+        "Mid-month purchases of Champion detergent aligned with practical emotions (relief, satisfaction) while end-month purchases showed more bargain-seeking emotions"
+      ]
+    },
+    "bundling": [
+      {
+        "insight_type": "bundling",
+        "products": ["Alaska Evaporated Milk", "Del Monte Fruit Cocktail"],
+        "correlation": 78.3,
+        "potential_increase": 16.5,
+        "target_regions": ["NCR", "Luzon"]
+      },
+      {
+        "insight_type": "bundling",
+        "products": ["Del Monte Spaghetti Sauce", "Today's Pasta"],
+        "correlation": 86.7,
+        "potential_increase": 21.3,
+        "target_regions": ["Visayas", "Mindanao"]
+      },
+      {
+        "insight_type": "bundling",
+        "products": ["Champion Detergent", "Cyclone Bleach"],
+        "correlation": 72.5,
+        "potential_increase": 14.8,
+        "target_regions": ["Luzon", "Visayas"]
+      },
+      {
+        "insight_type": "bundling",
+        "products": ["Oishi Prawn Crackers", "Smart C+ Vitamin Drink"],
+        "correlation": 68.9,
+        "potential_increase": 18.7,
+        "target_regions": ["NCR", "Mindanao"]
+      }
+    ],
+    "timeOfDay": [
+      {
+        "hour": 8,
+        "beverage": 15.3,
+        "snack": 8.7,
+        "dairy": 19.8,
+        "household": 7.2,
+        "personal_care": 9.5
+      },
+      {
+        "hour": 10,
+        "beverage": 12.7,
+        "snack": 13.5,
+        "dairy": 16.9,
+        "household": 11.8,
+        "personal_care": 12.3
+      },
+      {
+        "hour": 12,
+        "beverage": 18.9,
+        "snack": 19.7,
+        "dairy": 14.2,
+        "household": 10.5,
+        "personal_care": 8.7
+      },
+      {
+        "hour": 14,
+        "beverage": 16.5,
+        "snack": 21.8,
+        "dairy": 12.7,
+        "household": 9.6,
+        "personal_care": 10.2
+      },
+      {
+        "hour": 16,
+        "beverage": 19.2,
+        "snack": 25.6,
+        "dairy": 13.8,
+        "household": 11.3,
+        "personal_care": 12.7
+      },
+      {
+        "hour": 18,
+        "beverage": 17.8,
+        "snack": 20.3,
+        "dairy": 17.5,
+        "household": 14.8,
+        "personal_care": 15.3
+      },
+      {
+        "hour": 20,
+        "beverage": 12.4,
+        "snack": 16.7,
+        "dairy": 15.3,
+        "household": 12.5,
+        "personal_care": 11.8
+      }
+    ],
+    "storeTypes": [
+      {
+        "type": "Sari-Sari Store",
+        "count": 23456,
+        "avg_sales": 12350,
+        "top_category": "Snack",
+        "top_brand": "Oishi",
+        "growth_rate": 8.7,
+        "avg_basket_size": 3.2,
+        "conversion_rate": 67.5,
+        "repurchase_rate": 78.3,
+        "digital_payment_adoption": 32.7,
+        "product_categories": [
+          {"category": "Snack", "share": 38.5},
+          {"category": "Beverage", "share": 27.6},
+          {"category": "Dairy", "share": 18.9},
+          {"category": "Household", "share": 9.7},
+          {"category": "Personal Care", "share": 5.3}
+        ],
+        "regional_distribution": [
+          {"region": "Luzon", "share": 42.5},
+          {"region": "Visayas", "share": 31.2},
+          {"region": "Mindanao", "share": 26.3}
+        ]
+      },
+      {
+        "type": "Mini Mart",
+        "count": 5678,
+        "avg_sales": 34560,
+        "top_category": "Beverage",
+        "top_brand": "Del Monte",
+        "growth_rate": 12.3,
+        "avg_basket_size": 5.7,
+        "conversion_rate": 72.8,
+        "repurchase_rate": 65.4,
+        "digital_payment_adoption": 56.8,
+        "product_categories": [
+          {"category": "Beverage", "share": 32.7},
+          {"category": "Snack", "share": 28.5},
+          {"category": "Dairy", "share": 21.3},
+          {"category": "Household", "share": 12.1},
+          {"category": "Personal Care", "share": 5.4}
+        ],
+        "regional_distribution": [
+          {"region": "NCR", "share": 38.7},
+          {"region": "Luzon", "share": 32.5},
+          {"region": "Visayas", "share": 17.3},
+          {"region": "Mindanao", "share": 11.5}
+        ]
+      },
+      {
+        "type": "Grocery",
+        "count": 2345,
+        "avg_sales": 87650,
+        "top_category": "Dairy",
+        "top_brand": "Alaska",
+        "growth_rate": 7.2,
+        "avg_basket_size": 8.3,
+        "conversion_rate": 78.5,
+        "repurchase_rate": 72.8,
+        "digital_payment_adoption": 67.5,
+        "product_categories": [
+          {"category": "Dairy", "share": 27.5},
+          {"category": "Beverage", "share": 24.3},
+          {"category": "Snack", "share": 21.8},
+          {"category": "Household", "share": 15.6},
+          {"category": "Personal Care", "share": 10.8}
+        ],
+        "regional_distribution": [
+          {"region": "NCR", "share": 32.1},
+          {"region": "Luzon", "share": 35.7},
+          {"region": "Visayas", "share": 18.5},
+          {"region": "Mindanao", "share": 13.7}
+        ]
+      },
+      {
+        "type": "Supermarket",
+        "count": 789,
+        "avg_sales": 234560,
+        "top_category": "Household",
+        "top_brand": "Peerless",
+        "growth_rate": 5.8,
+        "avg_basket_size": 12.5,
+        "conversion_rate": 82.3,
+        "repurchase_rate": 76.5,
+        "digital_payment_adoption": 88.9,
+        "product_categories": [
+          {"category": "Household", "share": 28.5},
+          {"category": "Dairy", "share": 24.7},
+          {"category": "Beverage", "share": 21.3},
+          {"category": "Snack", "share": 15.8},
+          {"category": "Personal Care", "share": 9.7}
+        ],
+        "regional_distribution": [
+          {"region": "NCR", "share": 45.6},
+          {"region": "Luzon", "share": 32.7},
+          {"region": "Visayas", "share": 13.5},
+          {"region": "Mindanao", "share": 8.2}
+        ]
+      },
+      {
+        "type": "Convenience Store",
+        "count": 1234,
+        "avg_sales": 56780,
+        "top_category": "Beverage",
+        "top_brand": "Oishi",
+        "growth_rate": 16.7,
+        "avg_basket_size": 4.2,
+        "conversion_rate": 65.8,
+        "repurchase_rate": 58.3,
+        "digital_payment_adoption": 87.6,
+        "product_categories": [
+          {"category": "Beverage", "share": 38.7},
+          {"category": "Snack", "share": 35.6},
+          {"category": "Dairy", "share": 15.3},
+          {"category": "Personal Care", "share": 6.7},
+          {"category": "Household", "share": 3.7}
+        ],
+        "regional_distribution": [
+          {"region": "NCR", "share": 56.7},
+          {"region": "Luzon", "share": 28.5},
+          {"region": "Visayas", "share": 10.2},
+          {"region": "Mindanao", "share": 4.6}
+        ]
+      },
+      {
+        "type": "Specialty Store",
+        "count": 578,
+        "avg_sales": 43250,
+        "top_category": "Personal Care",
+        "top_brand": "Peerless",
+        "growth_rate": 14.5,
+        "avg_basket_size": 3.8,
+        "conversion_rate": 73.2,
+        "repurchase_rate": 62.8,
+        "digital_payment_adoption": 78.3,
+        "product_categories": [
+          {"category": "Personal Care", "share": 42.3},
+          {"category": "Household", "share": 25.7},
+          {"category": "Beverage", "share": 15.3},
+          {"category": "Snack", "share": 9.8},
+          {"category": "Dairy", "share": 6.9}
+        ],
+        "regional_distribution": [
+          {"region": "NCR", "share": 52.3},
+          {"region": "Luzon", "share": 31.5},
+          {"region": "Visayas", "share": 10.7},
+          {"region": "Mindanao", "share": 5.5}
+        ]
+      },
+      {
+        "type": "Warehouse Club",
+        "count": 67,
+        "avg_sales": 378950,
+        "top_category": "Household",
+        "top_brand": "Champion",
+        "growth_rate": 6.7,
+        "avg_basket_size": 18.5,
+        "conversion_rate": 84.7,
+        "repurchase_rate": 79.5,
+        "digital_payment_adoption": 92.3,
+        "product_categories": [
+          {"category": "Household", "share": 32.5},
+          {"category": "Dairy", "share": 24.7},
+          {"category": "Beverage", "share": 21.5},
+          {"category": "Snack", "share": 15.8},
+          {"category": "Personal Care", "share": 5.5}
+        ],
+        "regional_distribution": [
+          {"region": "NCR", "share": 65.3},
+          {"region": "Luzon", "share": 28.7},
+          {"region": "Visayas", "share": 6.0},
+          {"region": "Mindanao", "share": 0.0}
+        ]
+      }
+    ]
+  }
+}

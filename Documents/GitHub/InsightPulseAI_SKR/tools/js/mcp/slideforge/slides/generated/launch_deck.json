@@ -1,0 +1,30 @@
+{
+  "title": "PulseSync: AI-Powered Team Scheduling",
+  "slides": [
+    {
+      "title": "Introducing PulseSync",
+      "body": "The AI-powered team calendar that thinks ahead.",
+      "image_prompt": "Sleek, modern calendar UI with subtle AI visualization elements, professional and clean design"
+    },
+    {
+      "title": "Smart Scheduling",
+      "body": "• Automatically finds optimal meeting times\n• Learns team preferences and patterns\n• Reduces scheduling conflicts by 87%",
+      "image_prompt": "Split screen showing chaotic calendar vs. organized PulseSync calendar with AI suggesting optimal times"
+    },
+    {
+      "title": "Team Insights",
+      "body": "• Analyzes meeting effectiveness\n• Suggests focus time protection\n• Provides team availability forecasting",
+      "image_prompt": "Dashboard with meeting analytics and team availability heat map"
+    },
+    {
+      "title": "Seamless Integration",
+      "body": "• Works with existing tools (Slack, Teams, etc.)\n• No manual data entry\n• Available on all devices",
+      "image_prompt": "Multiple devices showing PulseSync connected to various common workplace tools"
+    },
+    {
+      "title": "Start Optimizing Your Team's Time Today",
+      "body": "Launch offer: $9/user/month\nFree 30-day trial\nEnterprise plans available\n\nwww.pulsesync.ai",
+      "image_prompt": "Clean call-to-action screen with subtle clock imagery and a prominent start button"
+    }
+  ]
+}

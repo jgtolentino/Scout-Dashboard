@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/tools/tasks/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,IAAI,EAAE,UAAU,EAAE,WAAW,EAAE,MAAM,aAAa,CAAC;AAE5D,qBAAa,QAAS,YAAW,IAAI;IACnC,IAAI,SAAU;IACd,WAAW,SAA2C;IACtD,UAAU;;;;;;;;;;;;;MAaR;IAEI,OAAO,CAAC,MAAM,EAAE,GAAG,EAAE,OAAO,EAAE,WAAW,GAAG,OAAO,CAAC,UAAU,CAAC;CAetE"}

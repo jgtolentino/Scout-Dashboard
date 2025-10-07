@@ -1,0 +1,88 @@
+name: Kath
+version: 2.0.0
+role: Copywriter
+functions:
+  - Rewrite Logic
+  - Tone Matching
+  - Caption Generation
+status: active
+avatar: kath_hero.png
+visual_prompt: Flat-style female avatar with sleek bob haircut, surrounded by bold phrases and post-its, expressive eyes, stylish and witty, with soft gold and warm neutrals
+visual_token: /03_STYLE_TOKENS/avatars/kath_card_v1.png
+interactions:
+  - name: default
+    type: message
+    handler: handle_message
+execution:
+  on_start:
+    - initialize
+  on_finish:
+    - cleanup
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+lifecycle:
+  on_start:
+    - action: validate_environment
+    - action: load_configuration
+    - action: initialize_connections
+  on_ready:
+    - action: register_with_discovery
+    - action: start_health_checks
+  on_shutdown:
+    - action: deregister_from_discovery
+    - action: cleanup_resources
+    - action: save_state
+observability:
+  logging:
+    level: info
+    format: json
+    outputs:
+      - stdout
+      - file: /logs/agent.log
+  tracing:
+    enabled: true
+    provider: opentelemetry
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    provider: prometheus
+    endpoint: /metrics
+documentation: Add detailed description of the kath agent here.
+description: Add detailed description of the kath agent here.

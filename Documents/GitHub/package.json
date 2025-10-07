@@ -1,0 +1,44 @@
+{
+  "name": "test-automation-defaults",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Default configurations for headless test automation",
+  "scripts": {
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:unit:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "HEADED=true playwright test",
+    "test:e2e:debug": "HEADED=true playwright test --debug",
+    "test:e2e:report": "playwright show-report",
+    "test:ci": "CI=true npm test",
+    "test:preview": "vite preview --port 4173 & sleep 2 && playwright test --project=e2e-chrome",
+    "test:validate": "npm run test:ci -- --reporter=json --output=test-results.json",
+    "posttest": "node -e \"console.log('\\n📊 Test artifacts saved to ./test-results/')\"",
+    "screenshot": "playwright screenshot --wait-for-timeout 3000",
+    "codegen": "playwright codegen",
+    "audit": "node ci/audit_deploy.js --url=http://localhost:3000",
+    "audit:prod": "node ci/audit_deploy.js --url=$VERCEL_URL"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "@vitest/ui": "^1.0.0",
+    "jest-junit": "^16.0.0",
+    "playwright": "^1.53.0",
+    "vitest": "^1.0.0"
+  },
+  "config": {
+    "test": {
+      "headless": true,
+      "artifacts": "./test-results",
+      "coverage": "./coverage"
+    }
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "dotenv": "^16.0.3",
+    "googleapis": "^149.0.0"
+  }
+}

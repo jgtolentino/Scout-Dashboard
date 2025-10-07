@@ -1,0 +1,101 @@
+agent:
+  name: container-orchestration-specialist
+  version: 2.1.0
+  description: Docker and Kubernetes specialist for containerization and orchestration workflows
+  type: specialist
+  department: infrastructure
+
+  capabilities:
+    core:
+      - scaffold
+      - deploy
+      - monitor
+    specialized:
+      - create-dockerfiles
+      - configure-kubernetes
+      - optimize-container-images
+      - manage-helm-charts
+    experimental: []
+
+  tools:
+    required:
+      - fs
+    optional:
+      - docker
+      - kubernetes
+      - helm
+    mcp_servers:
+      - fs
+
+  keywords:
+    - docker
+    - kubernetes
+    - containers
+    - orchestration
+    - helm
+    - k8s
+    - microservices
+
+  permissions:
+    allow_shell: true
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    container_registry: ghcr.io
+    base_images:
+      - node:20-alpine
+      - python:3.11-slim
+    optimize_layers: true
+    scan_vulnerabilities: true
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /create-dockerfile
+      - /configure-k8s
+      - /optimize-images
+      - /manage-helm-charts
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.8
+
+  quality_metrics:
+    validation_score: 0.992
+    test_coverage: 0.94
+    spec_compliance: 0.99
+    performance_rating: 0.93
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Node.js application without containerization
+        when: Create optimized Dockerfile
+        then: Dockerfile created with multi-stage build and <200MB image size
+        priority: P2
+      - given: Microservices requiring orchestration
+        when: Configure Kubernetes manifests
+        then: K8s deployment, service, ingress configured correctly
+        priority: P2
+      - given: Large container images with slow deployments
+        when: Optimize container images
+        then: Image size reduced by 50%+ with layer caching
+        priority: P3
+    evidence_requirements:
+      - dockerfile-configuration
+      - kubernetes-manifests
+      - image-size-comparison
+      - vulnerability-scan-report

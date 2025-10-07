@@ -1,0 +1,97 @@
+pipeline:
+  name: voice_render
+  version: "1.0.0"
+  description: Text-to-speech rendering pipeline for multi-speaker dialogue
+  
+  triggers:
+    - type: file_created
+      pattern: "*.txt"
+      directory: "/voice_queue"
+    - type: api_call
+      endpoint: "/api/voice/render"
+    - type: agent_event
+      source: ["AskCes", "VoiceSync", "AutoSDR"]
+      event: "voice_synthesis_requested"
+      
+  steps:
+    - name: validate_input
+      agent: TextValidator
+      action: validate_speaker_tags
+      params:
+        required_format: "[S\\d+]"
+        max_speakers: 10
+        
+    - name: synthesize_audio
+      agent: Text2SpeechBot
+      action: synthesize
+      params:
+        model: "${MODEL:-nari-labs/dia-1.6b}"
+        output_format: "${FORMAT:-wav}"
+        
+    - name: post_process
+      agent: AudioProcessor
+      action: normalize_levels
+      optional: true
+      params:
+        target_db: -3
+        
+    - name: store_result
+      agent: StorageAgent
+      action: save_to_cdn
+      params:
+        bucket: "voice-outputs"
+        retention: "30d"
+        
+  error_handling:
+    retry_count: 3
+    fallback:
+      - step: synthesize_audio
+        alternative: ClaudeVoiceAgent
+        
+  notifications:
+    on_success:
+      - type: webhook
+        url: "${VOICE_WEBHOOK_URL}"
+      - type: agent_event
+        target: "requesting_agent"
+        event: "voice_ready"
+        
+    on_failure:
+      - type: log
+        level: error
+        include_trace: true
+        
+  config:
+    max_concurrent: 5
+    timeout: 300
+    priority: medium
+    
+  integrations:
+    ask_ces:
+      auto_attach: true
+      trigger_on: "brief_generation_complete"
+      
+    arkie_autosdr:
+      auto_attach: true
+      trigger_on: "video_render_complete"
+      
+    voice_sync:
+      auto_attach: true
+      trigger_on: "task_voice_required"
+      
+  examples:
+    - name: "Simple voice render"
+      input:
+        text_file: "dialogue.txt"
+        model: "nari-labs/dia-1.6b"
+      expected_output:
+        audio_file: "dialogue.wav"
+        duration: 45.2
+        
+    - name: "Batch processing"
+      input:
+        directory: "./scripts"
+        pattern: "*.txt"
+      expected_output:
+        files_processed: 10
+        total_duration: 452.3

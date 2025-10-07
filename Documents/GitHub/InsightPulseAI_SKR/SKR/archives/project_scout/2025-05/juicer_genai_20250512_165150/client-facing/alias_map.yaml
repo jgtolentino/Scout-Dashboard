@@ -1,0 +1,58 @@
+# OpsCore Agent Alias Mapping
+# This file defines the standard white-label alias mapping for client repositories
+# IMPORTANT: Do not include this file in client repositories - for internal use only
+
+version: "1.0.0"
+last_updated: "2025-05-12"
+
+# Mapping from internal agent names to client-facing aliases
+agent_aliases:
+  # Core system
+  Pulser: "OpsCore"
+  
+  # Primary agents
+  Claudia: "TaskRunner"
+  Kalaw: "KnowledgeModule"
+  Maya: "FlowManager"
+  Echo: "SignalParser"
+  Sunnies: "ChartRenderer"
+  
+  # Support agents
+  Caca: "QAChecker"
+  Tide: "BackendSwitcher"
+  Enrico: "DataAugmentor"
+  Basher: "SysOpsDaemon"
+  Plato: "AssistantBot"
+  
+  # Additional agents
+  Rica: "SecurityEnforcer"
+  Tala: "FinanceParser"
+  Toni: "MultimodalProcessor"
+  Datu: "DataIntegrator"
+  Susi: "MetricTracker"
+  
+# File extension mapping
+file_extensions:
+  .pulserrc: ".opscore-config"
+  .pulser_history: ".opscore-history"
+  pulser_aliases.sh: "opscore_aliases.sh"
+  
+# Command mapping
+commands:
+  pulser: "opscore"
+  ":juicer": ":retail-advisor"
+  
+# Directory mapping
+directories:
+  /pulser/: "/opscore/"
+  /pulser_config/: "/opscore_config/"
+  
+# Terminology mapping for documentation
+terminology:
+  "Pulser CLI": "OpsCore CLI"
+  "Pulser agent system": "OpsCore agent system"
+  "Pulser shell": "OpsCore shell"
+  "Pulser orchestration": "OpsCore orchestration"
+  "Juicer integration": "Retail Advisor integration"
+  "Brand mentions": "Brand intelligence"
+  "Sketch dashboard": "Embedded visualization"

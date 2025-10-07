@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Integration Debugger</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #555;
+            margin-top: 0;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .status.connected {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .status.disconnected {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .status.pending {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .test-item {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        .test-item h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .log {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 12px;
+            height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 4px;
+        }
+        .log-entry.info { color: #58a6ff; }
+        .log-entry.success { color: #56d364; }
+        .log-entry.error { color: #f85149; }
+        .log-entry.warn { color: #d29922; }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .connection-info {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+        .label {
+            font-weight: 500;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Claude Integration Debugger</h1>
+        
+        <!-- Connection Status -->
+        <div class="card">
+            <h2>Connection Status</h2>
+            <div class="connection-info">
+                <span class="label">Bridge URL:</span>
+                <input type="text" id="bridgeUrl" value="http://localhost:3000" />
+                
+                <span class="label">Public URL:</span>
+                <input type="text" id="publicUrl" placeholder="https://your-ngrok-url.ngrok-free.app" />
+                
+                <span class="label">Bridge Token:</span>
+                <input type="text" id="bridgeToken" value="f70df21ff3f240b82f9d5a481a024e3f" />
+                
+                <span class="label">Status:</span>
+                <span id="connectionStatus" class="status disconnected">Disconnected</span>
+            </div>
+            <br>
+            <button onclick="testConnection()">Test Connection</button>
+            <button onclick="connectWebSocket()">Connect WebSocket</button>
+            <button onclick="clearLog()">Clear Log</button>
+        </div>
+
+        <!-- Test Suite -->
+        <div class="card">
+            <h2>Endpoint Tests</h2>
+            <div class="test-grid">
+                <div class="test-item">
+                    <h3>Health Check</h3>
+                    <button onclick="testHealth()">Test /health</button>
+                    <div id="healthResult"></div>
+                </div>
+                
+                <div class="test-item">
+                    <h3>Metadata</h3>
+                    <button onclick="testMetadata()">Test /metadata</button>
+                    <div id="metadataResult"></div>
+                </div>
+                
+                <div class="test-item">
+                    <h3>MCP POST (No Auth)</h3>
+                    <button onclick="testMCPNoAuth()">Test Unauthorized</button>
+                    <div id="mcpNoAuthResult"></div>
+                </div>
+                
+                <div class="test-item">
+                    <h3>MCP POST (With Auth)</h3>
+                    <button onclick="testMCPWithAuth()">Test Authorized</button>
+                    <div id="mcpAuthResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MCP Tools -->
+        <div class="card">
+            <h2>MCP Tool Testing</h2>
+            <div style="margin-bottom: 20px;">
+                <label>Tool:</label>
+                <select id="toolSelect">
+                    <option value="Read">Read File</option>
+                    <option value="Write">Write File</option>
+                    <option value="Bash">Execute Bash</option>
+                </select>
+                <input type="text" id="toolArg" placeholder="Enter file path or command" style="margin-top: 10px;">
+                <button onclick="executeTool()">Execute Tool</button>
+            </div>
+        </div>
+
+        <!-- Debug Log -->
+        <div class="card">
+            <h2>Debug Log</h2>
+            <div class="log" id="debugLog"></div>
+        </div>
+
+        <!-- Chrome Workspace Instructions -->
+        <div class="card">
+            <h2>Chrome DevTools Workspace Setup</h2>
+            <ol>
+                <li>Open Chrome DevTools (F12)</li>
+                <li>Go to Sources → Filesystem</li>
+                <li>Click "Add folder to workspace"</li>
+                <li>Select: <code>/Users/tbwa/Documents/GitHub/clodrep-local</code></li>
+                <li>Grant permissions</li>
+                <li>Now you can edit files directly in DevTools!</li>
+            </ol>
+            <p><strong>Pro tip:</strong> Set breakpoints in your bridge code to debug the Claude connection flow.</p>
+        </div>
+    </div>
+
+    <script>
+        let ws = null;
+        
+        function log(type, message) {
+            const logEl = document.getElementById('debugLog');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+        
+        function clearLog() {
+            document.getElementById('debugLog').innerHTML = '';
+        }
+        
+        async function testConnection() {
+            const bridgeUrl = document.getElementById('bridgeUrl').value;
+            const publicUrl = document.getElementById('publicUrl').value;
+            
+            log('info', `Testing connection to ${bridgeUrl}...`);
+            
+            try {
+                const response = await fetch(`${bridgeUrl}/health`);
+                const data = await response.json();
+                
+                if (data.status === 'ok') {
+                    log('success', 'Local bridge is healthy!');
+                    document.getElementById('connectionStatus').className = 'status connected';
+                    document.getElementById('connectionStatus').textContent = 'Connected';
+                    
+                    if (publicUrl) {
+                        log('info', `Testing public URL: ${publicUrl}...`);
+                        try {
+                            const pubResponse = await fetch(`${publicUrl}/health`);
+                            const pubData = await pubResponse.json();
+                            if (pubData.status === 'ok') {
+                                log('success', 'Public tunnel is working!');
+                            }
+                        } catch (e) {
+                            log('error', `Public URL failed: ${e.message}`);
+                        }
+                    }
+                } else {
+                    throw new Error('Invalid health response');
+                }
+            } catch (error) {
+                log('error', `Connection failed: ${error.message}`);
+                document.getElementById('connectionStatus').className = 'status disconnected';
+                document.getElementById('connectionStatus').textContent = 'Disconnected';
+            }
+        }
+        
+        async function testHealth() {
+            const url = document.getElementById('publicUrl').value || document.getElementById('bridgeUrl').value;
+            try {
+                const response = await fetch(`${url}/health`);
+                const data = await response.json();
+                document.getElementById('healthResult').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                log('success', 'Health check passed');
+            } catch (error) {
+                document.getElementById('healthResult').textContent = `Error: ${error.message}`;
+                log('error', `Health check failed: ${error.message}`);
+            }
+        }
+        
+        async function testMetadata() {
+            const url = document.getElementById('publicUrl').value || document.getElementById('bridgeUrl').value;
+            try {
+                const response = await fetch(`${url}/metadata`);
+                const data = await response.json();
+                document.getElementById('metadataResult').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                log('success', 'Metadata retrieved');
+            } catch (error) {
+                document.getElementById('metadataResult').textContent = `Error: ${error.message}`;
+                log('error', `Metadata failed: ${error.message}`);
+            }
+        }
+        
+        async function testMCPNoAuth() {
+            const url = document.getElementById('publicUrl').value || document.getElementById('bridgeUrl').value;
+            try {
+                const response = await fetch(`${url}/mcp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'ping' })
+                });
+                
+                if (response.status === 401) {
+                    document.getElementById('mcpNoAuthResult').innerHTML = '<span style="color: green">✓ Correctly returns 401</span>';
+                    log('success', 'Unauthorized test passed (401)');
+                } else {
+                    throw new Error(`Expected 401, got ${response.status}`);
+                }
+            } catch (error) {
+                document.getElementById('mcpNoAuthResult').textContent = `Error: ${error.message}`;
+                log('error', `Unauthorized test failed: ${error.message}`);
+            }
+        }
+        
+        async function testMCPWithAuth() {
+            const url = document.getElementById('publicUrl').value || document.getElementById('bridgeUrl').value;
+            const token = document.getElementById('bridgeToken').value;
+            
+            try {
+                const response = await fetch(`${url}/mcp`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-Bridge-Token': token
+                    },
+                    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'ping' })
+                });
+                
+                const data = await response.json();
+                document.getElementById('mcpAuthResult').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                log('success', 'Authorized test passed');
+            } catch (error) {
+                document.getElementById('mcpAuthResult').textContent = `Error: ${error.message}`;
+                log('error', `Authorized test failed: ${error.message}`);
+            }
+        }
+        
+        function connectWebSocket() {
+            const url = document.getElementById('publicUrl').value || document.getElementById('bridgeUrl').value;
+            const token = document.getElementById('bridgeToken').value;
+            const wsUrl = url.replace('http', 'ws') + `?token=${token}`;
+            
+            log('info', `Connecting WebSocket to ${wsUrl}...`);
+            
+            if (ws) {
+                ws.close();
+            }
+            
+            ws = new WebSocket(wsUrl);
+            
+            ws.onopen = () => {
+                log('success', 'WebSocket connected!');
+                document.getElementById('connectionStatus').className = 'status connected';
+                document.getElementById('connectionStatus').textContent = 'WebSocket Connected';
+                
+                // Test ping
+                ws.send(JSON.stringify({
+                    jsonrpc: '2.0',
+                    id: 1,
+                    method: 'ping'
+                }));
+            };
+            
+            ws.onmessage = (event) => {
+                log('info', `WS Received: ${event.data}`);
+            };
+            
+            ws.onerror = (error) => {
+                log('error', `WebSocket error: ${error.message || 'Connection failed'}`);
+            };
+            
+            ws.onclose = () => {
+                log('warn', 'WebSocket disconnected');
+                document.getElementById('connectionStatus').className = 'status disconnected';
+                document.getElementById('connectionStatus').textContent = 'WebSocket Disconnected';
+            };
+        }
+        
+        async function executeTool() {
+            const url = document.getElementById('publicUrl').value || document.getElementById('bridgeUrl').value;
+            const token = document.getElementById('bridgeToken').value;
+            const tool = document.getElementById('toolSelect').value;
+            const arg = document.getElementById('toolArg').value;
+            
+            let args = {};
+            if (tool === 'Read' || tool === 'Write') {
+                args.file_path = arg;
+                if (tool === 'Write') {
+                    args.content = 'Test content from debugger';
+                }
+            } else if (tool === 'Bash') {
+                args.command = arg;
+            }
+            
+            log('info', `Executing ${tool} with args: ${JSON.stringify(args)}`);
+            
+            try {
+                const response = await fetch(`${url}/mcp`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Bridge-Token': token
+                    },
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        id: Date.now(),
+                        method: 'tools/call',
+                        params: {
+                            name: tool,
+                            arguments: args
+                        }
+                    })
+                });
+                
+                const data = await response.json();
+                log('success', `Tool executed: ${JSON.stringify(data, null, 2)}`);
+            } catch (error) {
+                log('error', `Tool execution failed: ${error.message}`);
+            }
+        }
+        
+        // Auto-test on load
+        window.onload = () => {
+            log('info', 'Claude Integration Debugger loaded');
+            log('info', 'Click "Test Connection" to begin');
+        };
+    </script>
+</body>
+</html>

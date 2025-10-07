@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AZURE_TENANT_ID": "your-tenant-id",
+    "AZURE_CLIENT_ID": "your-managed-identity-id",
+    "AZURE_CLIENT_SECRET": "your-client-secret"
+  },
+  "Host": {
+    "CORS": "*",
+    "CORSCredentials": false
+  }
+}

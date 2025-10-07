@@ -1,0 +1,194 @@
+# Pulser Configuration for Codex v2 Integration
+# Add to ~/.pulserrc
+
+# Codex v2 Configuration
+codex:
+  # Enable Codex v2 functionality
+  enabled: true
+  
+  # Sandbox URI (will be auto-discovered or set by provisioning script)
+  sandbox_uri: "auto-discovered"
+  
+  # Model configuration
+  model: claude-4.1-opus      # Primary model for complex reasoning
+  fallback_model: deepseekr1  # Fallback model for cost optimization
+  
+  # Token budgeting
+  max_token_budget: 150000    # Maximum tokens for a single task 
+  token_buffer_pct: 15        # Buffer percentage for unexpected token usage
+  
+  # Sandbox settings
+  auto_snapshot: true         # Automatically create snapshots before major changes
+  sandbox_ttl_hours: 4        # Time-to-live for sandbox instances
+  max_parallel_jobs: 8        # Maximum parallel jobs in a sandbox
+  
+  # Repository settings
+  default_branch: main        # Default branch for operations
+  auto_create_branch: true    # Automatically create branches for tasks
+  
+  # Quality gate settings
+  qa_gate:
+    agent: caca               # QA agent for code review
+    min_score: 0.85           # Minimum score to pass (0.0-1.0)
+    review_timeout_sec: 300   # Maximum time for review
+    
+  # Logging settings
+  logging:
+    level: info               # Logging level (debug, info, warning, error)
+    destination: kalaw        # Log destination
+    retention_days: 30        # Log retention period
+    
+  # Integration settings
+  integrations:
+    github: true              # Enable GitHub integration
+    gitlab: false             # Enable GitLab integration
+    bitbucket: false          # Enable Bitbucket integration
+
+# Tide Configuration for Codex v2
+tide:
+  # Cost management
+  cost_ceiling_per_day_usd: 150      # Maximum daily cost in USD
+  fallback_model: o3-nano            # Cost-effective fallback model
+  alert_threshold_pct: 80            # Percentage of ceiling that triggers alerts
+  
+  # Token optimization
+  batch_requests: true               # Batch multiple requests together
+  batch_size: 8                      # Maximum batch size
+  batch_window_ms: 500               # Maximum wait time for batching
+  
+  # Cost tracking
+  track_costs_by:
+    - user                           # Track costs by user
+    - project                        # Track costs by project
+    - repository                     # Track costs by repository
+    
+  # Alerts
+  alert_channels:
+    - slack                          # Send alerts to Slack
+    - email                          # Send alerts via email
+  alert_webhook: "vault://tide/alert_webhook"  # Webhook URL for alerts
+
+# Claude Configuration
+claude:
+  config_file: ~/.claude/config.json  # Claude configuration file path
+  max_plan: true                      # Use MAX plan for increased capacity
+  
+  # Model settings
+  models:
+    primary: claude-4.1-opus
+    fallback: claude-3-haiku
+    
+  # MCP integration
+  mcp:
+    enabled: true
+    auto_discover_pulser: true
+
+# RBAC Configuration
+rbac:
+  # Authentication settings
+  auth_provider: azure_ad             # Authentication provider
+  tenant_id: "vault://rbac/tenant_id" # Azure AD tenant ID
+  
+  # Role definitions
+  roles:
+    - name: codex_user
+      azure_ad_group: "Codex_Users"
+      permissions: ["run", "read"]
+      
+    - name: codex_reviewer
+      azure_ad_group: "Codex_Reviewers"
+      permissions: ["run", "read", "approve"]
+      
+    - name: codex_admin
+      azure_ad_group: "Codex_Admins"
+      permissions: ["run", "read", "approve", "configure", "manage"]
+      
+  # Default settings
+  default_role: codex_user
+  enforce_rbac: true
+  audit_access: true
+  
+# Kalaw Configuration
+kalaw:
+  # Log storage settings
+  codex_logs_bucket: "skr://codex-logs/"
+  retention_policy: "30d"
+  
+  # Log forwarder settings
+  log_forwarder:
+    enabled: true
+    batch_size: 100
+    flush_interval_sec: 60
+    log_level: info
+    audit_mode: true
+    
+  # Audit settings
+  audit:
+    enabled: true
+    checksums: true
+    immutable: true
+
+# Edge Configuration
+edge:
+  # Dashboard settings
+  dashboards:
+    codexv2:
+      path: "/dash/codexv2"
+      refresh_interval_sec: 300
+      
+  # Alert settings
+  alerts:
+    slack_webhook: "vault://edge/slack_webhook"
+    email_recipients: ["devops@example.com"]
+    
+  # Widget settings
+  widgets:
+    cost_tracker:
+      enabled: true
+      position: "right-sidebar"
+      alert_threshold: 80
+      
+# MCP Configuration
+mcp:
+  # API settings
+  pulser_api:
+    host: "http://127.0.0.1:9315"
+    token: "${PULSER_API_TOKEN}"
+    auto_discover: true
+    
+  # Command mappings
+  commands:
+    - name: "implement"
+      alias: "codex-implement"
+      description: "Generate code based on requirements"
+      
+    - name: "refactor"
+      alias: "codex-refactor"
+      description: "Improve existing code"
+      
+    - name: "write-tests"
+      alias: "codex-test"
+      description: "Generate tests for code"
+      
+    - name: "debug"
+      alias: "codex-debug"
+      description: "Fix failing code"
+      
+    - name: "propose-pr"
+      alias: "codex-pr"
+      description: "Create a pull request"
+      
+  # UI components
+  ui_components:
+    codex_task_status:
+      enabled: true
+      position: "right-sidebar"
+      
+    pr_reviewer:
+      enabled: true
+      position: "main-panel"
+      
+    code_explanation:
+      enabled: true
+      position: "expandable"
+      default_state: "collapsed"

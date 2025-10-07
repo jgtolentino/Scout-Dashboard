@@ -1,0 +1,34 @@
+{
+  "transaction_trends": [
+    {
+      "date": "2025-05-23",
+      "volume": 1500,
+      "peso_value": 75000,
+      "duration": 30,
+      "units": 500,
+      "brand": "BrandA",
+      "category": "Electronics"
+    },
+    {
+      "date": "2025-05-24",
+      "volume": 1800,
+      "peso_value": 90000,
+      "duration": 45,
+      "units": 600,
+      "brand": "BrandB",
+      "category": "Home Appliances"
+    }
+  ],
+  "consumer_profiling": [
+    {
+      "gender": "Male",
+      "age": 34,
+      "location": "Manila"
+    },
+    {
+      "gender": "Female",
+      "age": 28,
+      "location": "Cebu"
+    }
+  ]
+}

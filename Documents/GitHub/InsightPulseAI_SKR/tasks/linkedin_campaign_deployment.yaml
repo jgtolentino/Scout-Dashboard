@@ -1,0 +1,87 @@
+name: LinkedIn Campaign Deployment
+description: Deploy and monitor initial LinkedIn ad campaigns
+priority: high
+agent: iggy
+status: pending
+
+steps:
+  - name: Validate Conversion Tracking Integration
+    description: Confirm that all conversion tracking is properly set up and firing correctly
+    status: pending
+    dependencies: []
+    
+  - name: Import Target Audience Lists
+    description: Upload and configure audience segments in LinkedIn Campaign Manager
+    status: pending
+    dependencies: ["Validate Conversion Tracking Integration"]
+    subtasks:
+      - name: "Import CRM contacts"
+        description: "Upload email list from CRM system"
+      - name: "Create lookalike audiences"
+        description: "Generate lookalike audiences from seed lists"
+      - name: "Define website retargeting audiences"
+        description: "Create audiences based on website behavior"
+    
+  - name: Finalize Ad Creative
+    description: Prepare final ad creative assets for upload to LinkedIn
+    status: pending
+    dependencies: ["Import Target Audience Lists"]
+    subtasks:
+      - name: "Prepare awareness campaign creative"
+        format: "Single image, carousel"
+      - name: "Prepare consideration campaign creative"
+        format: "Video, carousel"
+      - name: "Prepare conversion campaign creative"
+        format: "Single image"
+      - name: "Prepare retargeting campaign creative"
+        format: "Single image"
+    
+  - name: Set Up A/B Testing
+    description: Configure A/B tests for ad variations
+    status: pending
+    dependencies: ["Finalize Ad Creative"]
+    
+  - name: Configure Bidding Strategy
+    description: Optimize bidding strategies for each campaign
+    status: pending
+    dependencies: ["Set Up A/B Testing"]
+    
+  - name: Implement Campaign Tracking
+    description: Set up tracking parameters and analytics integration
+    status: pending
+    dependencies: ["Configure Bidding Strategy"]
+    
+  - name: Launch Phase 1 Campaigns
+    description: Go live with initial campaigns
+    status: pending
+    dependencies: ["Implement Campaign Tracking"]
+    
+  - name: Monitor Performance (Week 1)
+    description: Monitor initial campaign performance and make adjustments
+    status: pending
+    dependencies: ["Launch Phase 1 Campaigns"]
+    
+  - name: Prepare Week 1 Performance Report
+    description: Generate performance report for stakeholder review
+    status: pending
+    dependencies: ["Monitor Performance (Week 1)"]
+    
+  - name: Optimize Campaign Parameters
+    description: Make data-driven optimizations based on initial performance
+    status: pending
+    dependencies: ["Prepare Week 1 Performance Report"]
+
+metadata:
+  created: "2025-05-02"
+  owner: "marketing-team"
+  estimated_completion: "2025-05-30"
+  priority: "high"
+  tags: ["linkedin", "ads", "campaign", "marketing"]
+  
+resources:
+  - title: "Conversion Strategy Playbook"
+    path: "/Users/tbwa/Documents/GitHub/webapp_pulse/conversion_strategy_playbook.md"
+  - title: "Campaign Performance Templates"
+    path: "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/templates/campaign_reporting.xlsx"
+  - title: "Ad Creative Guidelines"
+    path: "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/assets/tbwa-colors/brand_guidelines.pdf"

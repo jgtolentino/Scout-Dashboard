@@ -1,0 +1,29 @@
+{
+  "id": "INS-001-2025-05-13-001",
+  "timestamp": "2025-05-13T14:30:00Z",
+  "model": "claude",
+  "type": "customer",
+  "status": "completed",
+  "source": {
+    "dataLake": "azure-adls",
+    "table": "customer_feedback",
+    "queryId": "CF-2025-Q2-001"
+  },
+  "insight": {
+    "title": "Customer Sentiment Trend: Positive Shift After UI Update",
+    "summary": "Analysis of customer feedback from the past 3 months shows a 23% increase in positive sentiment following the UI update in April 2025. Customers specifically mention improved navigation (42%), faster checkout process (38%), and better product images (31%).",
+    "confidence": 0.87,
+    "keywords": ["UI update", "customer sentiment", "navigation", "checkout", "product images"],
+    "recommendations": [
+      "Expand UI improvements to mobile app based on positive web feedback",
+      "Create case study highlighting successful UI transformation",
+      "Apply similar navigation patterns to other product areas"
+    ]
+  },
+  "metadata": {
+    "processingTime": 4.2,
+    "tokenCount": 1842,
+    "dataPoints": 1245,
+    "version": "1.0.3"
+  }
+}

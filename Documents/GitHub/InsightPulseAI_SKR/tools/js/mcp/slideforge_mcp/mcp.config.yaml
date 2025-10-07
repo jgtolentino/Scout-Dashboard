@@ -1,0 +1,59 @@
+name: SlideForge MCP
+version: 1.0.0
+description: AI-native presentation builder powered by Claude Max via MCP Server
+
+# Server configuration
+server:
+  host: 0.0.0.0
+  port: 8080
+  debug: true
+  cors_origins: ["*"]
+  
+# Database configuration (for storing decks and feedback)
+database:
+  type: sqlite
+  path: ./data/slideforge.db
+  
+# AI configuration
+ai:
+  default_model: claude-3-opus
+  timeout: 60
+  max_token_limit: 16000
+  
+# Agent configuration
+agents:
+  deckgen:
+    path: ./agents/deckgen.agent.yaml
+    model: claude-3-opus
+    max_tokens: 4000
+    
+  slidebuilder:
+    path: ./agents/slidebuilder.agent.yaml
+    type: renderer
+    
+  feedback:
+    path: ./agents/feedback.agent.yaml
+    model: claude-3-opus
+    max_tokens: 4000
+
+# Storage configuration
+storage:
+  slides_dir: ./public/slides
+  rendered_dir: ./src/pages
+  assets_dir: ./public/assets
+  logs_dir: ./logs
+
+# Hooks for automatic actions
+hooks:
+  post_generation:
+    - action: render_slides
+      agent: slidebuilder
+      
+  post_render:
+    - action: review_deck
+      agent: feedback
+      
+  post_review:
+    - action: notify
+      target: console
+      message: "Deck review completed"

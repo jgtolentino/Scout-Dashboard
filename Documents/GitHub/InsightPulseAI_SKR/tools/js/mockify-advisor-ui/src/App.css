@@ -1,0 +1,84 @@
+
+/* This file is kept minimal as most styling is handled through Tailwind CSS */
+#root {
+  width: 100%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* For smooth page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Enhanced glassmorphism effects */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  border-radius: 0.5rem;
+}
+
+/* AI pulse animation for important notifications */
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 120, 212, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 120, 212, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 120, 212, 0);
+  }
+}
+
+.pulse-blue {
+  animation: pulse-blue 2s infinite;
+}
+
+/* Hover animations for cards */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Chart animations */
+.recharts-surface {
+  overflow: visible;
+}
+
+.recharts-bar-rectangle {
+  transition: height 0.5s ease-in-out;
+}
+
+.recharts-pie-sector {
+  transition: all 0.3s ease-in-out;
+}
+
+.recharts-pie-sector:hover {
+  transform: scale(1.03);
+}

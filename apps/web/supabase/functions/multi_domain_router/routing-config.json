@@ -1,0 +1,81 @@
+{
+  "domains": {
+    "scout": {
+      "keywords": [
+        "sales", "revenue", "customer", "retail", "store", "product", "purchase", 
+        "transaction", "market", "brand", "category", "geography", "region", 
+        "performance", "analytics", "dashboard", "kpi", "metrics", "trend"
+      ],
+      "intents": {
+        "executive": [
+          "revenue", "sales", "kpi", "performance", "metrics", "overview", 
+          "dashboard", "summary", "growth", "profit", "margin"
+        ],
+        "consumer": [
+          "customer", "shopper", "buyer", "persona", "behavior", "segment", 
+          "preference", "loyalty", "retention", "acquisition"
+        ],
+        "competition": [
+          "competitor", "market share", "competitive", "benchmark", "comparison", 
+          "positioning", "strategy", "substitute", "alternative"
+        ],
+        "geographic": [
+          "region", "city", "location", "geographic", "area", "territory", 
+          "store", "branch", "outlet", "local", "map", "spatial"
+        ]
+      }
+    },
+    "ces": {
+      "keywords": [
+        "creative", "campaign", "ad", "advertisement", "marketing", "media", 
+        "effectiveness", "attribution", "roi", "impact", "engagement", 
+        "conversion", "impression", "click", "ctr", "cpm", "cpc"
+      ],
+      "intents": {
+        "creative": [
+          "creative", "ad", "advertisement", "campaign", "copy", "visual", 
+          "design", "message", "content", "asset", "banner", "video"
+        ],
+        "effectiveness": [
+          "effectiveness", "performance", "roi", "attribution", "impact", 
+          "measurement", "conversion", "engagement", "reach", "frequency"
+        ]
+      }
+    },
+    "docs": {
+      "keywords": [
+        "documentation", "docs", "guide", "tutorial", "how to", "api", 
+        "reference", "manual", "help", "setup", "configuration", "integration"
+      ],
+      "intents": {
+        "documentation": [
+          "documentation", "docs", "reference", "api", "spec", "schema", 
+          "endpoint", "parameter", "response", "example"
+        ],
+        "tutorial": [
+          "tutorial", "guide", "how to", "step", "walkthrough", "setup", 
+          "getting started", "quickstart", "example", "sample"
+        ]
+      }
+    }
+  },
+  "thresholds": {
+    "keyword_confidence": 0.7,
+    "embedding_confidence": 0.5,
+    "fallback_confidence": 0.3
+  },
+  "handlers": {
+    "scout": {
+      "function": "scout_ai_router",
+      "endpoint": "/functions/v1/scout_ai_router"
+    },
+    "ces": {
+      "function": "ces_ai_handler", 
+      "endpoint": "/functions/v1/ces_ai_handler"
+    },
+    "docs": {
+      "function": "docs_search_handler",
+      "endpoint": "/functions/v1/docs_search_handler"
+    }
+  }
+}

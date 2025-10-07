@@ -1,0 +1,158 @@
+{
+  "stores": [
+    {
+      "StoreID": 1,
+      "StoreName": "Mang Juan's Sari-Sari Store",
+      "StoreType": "Sari-Sari Store",
+      "StoreTypeID": 1,
+      "Barangay": "Poblacion",
+      "Municipality": "Makati City",
+      "Province": "Metro Manila",
+      "Region": "NCR",
+      "Latitude": 14.5547,
+      "Longitude": 121.0244,
+      "TypicalProducts": ["Del Monte Juice", "Oishi Crackers", "Alaska Milk", "Champion Detergent"]
+    },
+    {
+      "StoreID": 2,
+      "StoreName": "Aling Rosa's Store",
+      "StoreType": "Sari-Sari Store",
+      "StoreTypeID": 1,
+      "Barangay": "Poblacion",
+      "Municipality": "Davao City",
+      "Province": "Davao del Sur",
+      "Region": "Davao Region",
+      "Latitude": 7.0707,
+      "Longitude": 125.6087,
+      "TypicalProducts": ["Fit 'n Right", "Smart C+", "Alaska Evap", "Pride Dishwashing"]
+    },
+    {
+      "StoreID": 3,
+      "StoreName": "Tindahan ni Mila",
+      "StoreType": "Sari-Sari Store",
+      "StoreTypeID": 1,
+      "Barangay": "San Nicolas",
+      "Municipality": "Laoag City",
+      "Province": "Ilocos Norte",
+      "Region": "Ilocos Region",
+      "Latitude": 18.1975,
+      "Longitude": 120.5936,
+      "TypicalProducts": ["Del Monte Sauce", "Oishi Ridges", "Alaska Condensed", "Champion Powder"]
+    },
+    {
+      "StoreID": 4,
+      "StoreName": "Kuya Ben's Store",
+      "StoreType": "Sari-Sari Store",
+      "StoreTypeID": 1,
+      "Barangay": "Abucay",
+      "Municipality": "Tacloban City",
+      "Province": "Leyte",
+      "Region": "Eastern Visayas",
+      "Latitude": 11.2543,
+      "Longitude": 125.0047,
+      "TypicalProducts": ["Del Monte Juice", "Oishi Prawn Crackers", "Alaska Milk", "Pride Liquid"]
+    },
+    {
+      "StoreID": 5,
+      "StoreName": "Ate Joy's Sari-Sari",
+      "StoreType": "Sari-Sari Store",
+      "StoreTypeID": 1,
+      "Barangay": "Concepcion Pequeña",
+      "Municipality": "Naga City",
+      "Province": "Camarines Sur",
+      "Region": "Bicol Region",
+      "Latitude": 13.6218,
+      "Longitude": 123.1874,
+      "TypicalProducts": ["Fit 'n Right", "Smart C+", "Alaska Evap", "Champion Detergent"]
+    },
+    {
+      "StoreID": 6,
+      "StoreName": "Carinderia ni Lola",
+      "StoreType": "Sari-Sari Store",
+      "StoreTypeID": 1,
+      "Barangay": "Kumintang Ilaya",
+      "Municipality": "Batangas City",
+      "Province": "Batangas",
+      "Region": "CALABARZON",
+      "Latitude": 13.7565,
+      "Longitude": 121.0583,
+      "TypicalProducts": ["Del Monte Products", "Oishi Snacks", "Alaska Dairy", "Peerless Cleaners"]
+    },
+    {
+      "StoreID": 7,
+      "StoreName": "Tatay Romy's Corner Store",
+      "StoreType": "Sari-Sari Store",
+      "StoreTypeID": 1,
+      "Barangay": "Barangka",
+      "Municipality": "Marikina City",
+      "Province": "Metro Manila",
+      "Region": "NCR",
+      "Latitude": 14.6507,
+      "Longitude": 121.1029,
+      "TypicalProducts": ["Del Monte Juice", "Oishi Crackers", "Alaska Milk", "Champion Detergent"]
+    }
+  ],
+  "metadata": {
+    "description": "Sari-sari stores at barangay level across Philippines",
+    "totalStores": 71,
+    "sampleShown": 7,
+    "dataSource": "both",
+    "usedFor": ["simulation", "live"],
+    "note": "These stores represent typical sari-sari stores found in barangays, carrying limited but popular TBWA\SMP FMCG products"
+  },
+  "productAvailability": {
+    "description": "Sari-sari stores typically stock only fast-moving consumer goods",
+    "commonProducts": [
+      {
+        "ProductID": "DM001",
+        "ProductName": "Del Monte Pineapple Juice",
+        "Reason": "Popular beverage, good shelf life"
+      },
+      {
+        "ProductID": "DM003",
+        "ProductName": "Del Monte Tomato Sauce",
+        "Reason": "Essential cooking ingredient"
+      },
+      {
+        "ProductID": "DM005",
+        "ProductName": "Fit 'n Right Four Seasons",
+        "Reason": "Health drink trend"
+      },
+      {
+        "ProductID": "OS001",
+        "ProductName": "Oishi Prawn Crackers Original",
+        "Reason": "Top-selling snack"
+      },
+      {
+        "ProductID": "OS002",
+        "ProductName": "Oishi Ridges Cheese",
+        "Reason": "Popular afternoon snack"
+      },
+      {
+        "ProductID": "OS005",
+        "ProductName": "Smart C+ Orange",
+        "Reason": "Affordable vitamin drink"
+      },
+      {
+        "ProductID": "AK001",
+        "ProductName": "Alaska Evaporated Milk",
+        "Reason": "Daily necessity"
+      },
+      {
+        "ProductID": "AK002",
+        "ProductName": "Alaska Condensed Milk",
+        "Reason": "Coffee and dessert staple"
+      },
+      {
+        "ProductID": "PP001",
+        "ProductName": "Champion Detergent Powder",
+        "Reason": "Household essential"
+      },
+      {
+        "ProductID": "PP006",
+        "ProductName": "Pride Dishwashing Liquid",
+        "Reason": "Daily cleaning need"
+      }
+    ]
+  }
+}

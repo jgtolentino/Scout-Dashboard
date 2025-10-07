@@ -1,0 +1,288 @@
+id: feedback
+name: Design Feedback Agent
+description: Provides AI feedback on app design, UX, and functionality
+version: 1.0.0
+
+# AI model configuration
+model: claude-3-opus
+temperature: 0.3
+max_tokens: 4000
+input_format: json
+output_format: json
+
+# Input schema
+input_schema:
+  type: object
+  required:
+    - app_name
+    - screens
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app to review"
+    screens:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - name
+        properties:
+          id:
+            type: string
+            description: "Screen identifier"
+          name:
+            type: string
+            description: "Human-readable screen name"
+          rendered_url:
+            type: string
+            description: "URL of the rendered screen"
+    focus:
+      type: string
+      enum: [design, ux, functionality, accessibility]
+      default: design
+      description: "Area to focus feedback on"
+
+# Output schema
+output_schema:
+  type: object
+  required:
+    - app_name
+    - focus
+    - feedback
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app"
+    focus:
+      type: string
+      description: "Focus area of the feedback"
+    feedback:
+      type: object
+      required:
+        - overall
+        - improvements
+        - screen_specific
+      properties:
+        overall:
+          type: array
+          items:
+            type: string
+          description: "Overall positive feedback points"
+        improvements:
+          type: array
+          items:
+            type: string
+          description: "Suggested improvements"
+        screen_specific:
+          type: object
+          additionalProperties:
+            type: object
+            required:
+              - strengths
+              - suggestions
+            properties:
+              strengths:
+                type: array
+                items:
+                  type: string
+                description: "Strengths of this screen"
+              suggestions:
+                type: array
+                items:
+                  type: string
+                description: "Suggestions for this screen"
+
+# Prompt template for Claude
+prompt_template: |
+  # App Design Feedback: {{ app_name }}
+
+  You are an experienced app design consultant providing feedback on {{ app_name }}, with a focus on {{ focus }}. Your task is to analyze the app's screens and provide constructive feedback.
+
+  ## App Information
+  - App Name: {{ app_name }}
+  - Focus Area: {{ focus }}
+  - Screens: 
+  {% for screen in screens %}
+  - {{ screen.name }} ({{ screen.id }})
+  {% endfor %}
+
+  ## Screens to Review
+  ```json
+  {{ screens | tojson(indent=2) }}
+  ```
+
+  ## {{ focus | title }} Review Guidelines
+
+  {% if focus == "design" %}
+  When evaluating the design:
+  - Assess visual hierarchy and layout
+  - Check color scheme and typography
+  - Analyze consistency across screens
+  - Consider visual clarity and simplicity
+  - Evaluate use of whitespace and balance
+  - Assess branding and identity elements
+  {% elif focus == "ux" %}
+  When evaluating the user experience:
+  - Assess navigation patterns and intuitiveness
+  - Analyze user flows and journeys
+  - Evaluate cognitive load and complexity
+  - Check for recognition rather than recall
+  - Assess feedback mechanisms
+  - Evaluate error states and recovery
+  {% elif focus == "functionality" %}
+  When evaluating the functionality:
+  - Assess if core features are implemented
+  - Check for feature completeness
+  - Analyze if features solve user problems
+  - Evaluate feature discoverability
+  - Assess offline capabilities
+  - Check cross-device functionality
+  {% elif focus == "accessibility" %}
+  When evaluating accessibility:
+  - Check color contrast ratios
+  - Assess keyboard navigation support
+  - Evaluate screen reader compatibility
+  - Check text sizing and readability
+  - Assess touch target sizes
+  - Evaluate alternative text for images
+  {% endif %}
+
+  ## Feedback Structure
+
+  For each screen, provide:
+  1. Strengths: What works well
+  2. Suggestions: Specific improvements
+
+  Also provide:
+  1. Overall positive feedback on the entire app
+  2. General improvements applicable to multiple screens
+
+  ## Your Task
+
+  1. Analyze each screen individually
+  2. Identify specific strengths and suggestions for improvement
+  3. Consider the app as a whole
+  4. Provide constructive, actionable feedback
+  5. Focus on the most impactful improvements first
+
+  Ensure your feedback is:
+  - Constructive and balanced (not just criticism)
+  - Specific and actionable
+  - Prioritized by importance
+  - Appropriate for the app's purpose
+
+# Examples for few-shot learning
+examples:
+  - input:
+      app_name: "HealthTracker"
+      focus: "design"
+      screens: [
+        {
+          "id": "login",
+          "name": "Login",
+          "rendered_url": "http://localhost:3001/preview/login"
+        },
+        {
+          "id": "dashboard",
+          "name": "Dashboard",
+          "rendered_url": "http://localhost:3001/preview/dashboard"
+        },
+        {
+          "id": "profile",
+          "name": "Profile",
+          "rendered_url": "http://localhost:3001/preview/profile"
+        }
+      ]
+    output: |
+      {
+        "app_name": "HealthTracker",
+        "focus": "design",
+        "feedback": {
+          "overall": [
+            "Consistent color scheme creates a cohesive experience across the app",
+            "Good use of whitespace makes the interface feel uncluttered",
+            "Typography choices enhance readability and establish clear hierarchy",
+            "Visual elements effectively communicate the health-focused brand identity"
+          ],
+          "improvements": [
+            "Consider using more visual data representations on the dashboard",
+            "The color contrast should be increased for better readability, especially on buttons",
+            "Add more visual cues to guide users through multi-step processes",
+            "Standardize the button styles across all screens"
+          ],
+          "screen_specific": {
+            "login": {
+              "strengths": [
+                "Clean, focused design eliminates distractions",
+                "Logo placement and size establishes brand identity well",
+                "Form fields are clearly labeled and appropriately sized"
+              ],
+              "suggestions": [
+                "Add visual feedback on form field interaction",
+                "Consider adding a subtle background pattern or image to enhance visual appeal",
+                "Make the login button more prominent with increased size or contrast"
+              ]
+            },
+            "dashboard": {
+              "strengths": [
+                "Card-based layout effectively organizes different health metrics",
+                "Color coding helps differentiate between different data types",
+                "Good use of icons to represent different health categories"
+              ],
+              "suggestions": [
+                "Consider adding data visualization elements (charts, graphs) for key metrics",
+                "Increase visual hierarchy between primary and secondary information",
+                "Add subtle animations for state changes to improve engagement"
+              ]
+            },
+            "profile": {
+              "strengths": [
+                "Well-structured layout with clear sections",
+                "Effective use of headers to separate content areas",
+                "Avatar placement and size is appropriate"
+              ],
+              "suggestions": [
+                "Consider using icons for settings categories to improve scannability",
+                "Add more visual separation between editable and non-editable fields",
+                "Improve the visual treatment of the save/update buttons"
+              ]
+            }
+          }
+        }
+      }
+
+# Lifecycle hooks
+on_start:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.feedback.start', {
+        agent: 'feedback',
+        app_name: input.app_name,
+        focus: input.focus || 'design',
+        screen_count: input.screens.length,
+        timestamp: new Date().toISOString()
+      });
+
+on_finish:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.feedback.finish', {
+        agent: 'feedback',
+        app_name: output.app_name,
+        focus: output.focus,
+        overall_feedback_count: output.feedback.overall.length,
+        improvements_count: output.feedback.improvements.length,
+        screens_reviewed: Object.keys(output.feedback.screen_specific).length,
+        timestamp: new Date().toISOString()
+      });
+
+# Post-processing hooks
+post_process:
+  - action: save_output
+    path: "logs/feedback_{{ app_name | lower | replace(' ', '_') }}_{{ focus }}.json"
+  
+  - action: log_generation
+    path: "logs/feedback_agent_{{ timestamp }}.log"

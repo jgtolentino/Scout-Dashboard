@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-05-03T03:37:30Z",
+  "protocol": "RED2025",
+  "phase": "2.5",
+  "processes": {
+    "hourly_optimization": {
+      "pid": 12345,
+      "start_time": "2025-05-03T03:37:30Z",
+      "log_file": "hourly_optimization.log"
+    }
+  }
+}

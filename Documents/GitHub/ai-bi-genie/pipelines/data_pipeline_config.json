@@ -1,0 +1,379 @@
+{
+  "pipeline_name": "ai-bi-genie-data-pipeline",
+  "version": "1.0.0",
+  "description": "Unified data pipeline for AI-BI-Genie analytics platform",
+  "environment": {
+    "azure_subscription_id": "${AZURE_SUBSCRIPTION_ID}",
+    "resource_group": "${RESOURCE_GROUP}",
+    "storage_account": "${STORAGE_ACCOUNT}",
+    "databricks_workspace": "${DATABRICKS_WORKSPACE}",
+    "sql_server": "${SQL_SERVER}",
+    "key_vault": "${KEY_VAULT}"
+  },
+  "data_sources": {
+    "crm_system": {
+      "type": "sql_database",
+      "connection_string": "@Microsoft.KeyVault(SecretUri=${KEY_VAULT}/secrets/crm-connection-string/)",
+      "tables": [
+        "customers",
+        "accounts",
+        "opportunities",
+        "activities"
+      ],
+      "refresh_frequency": "hourly",
+      "incremental_column": "last_modified_date"
+    },
+    "erp_system": {
+      "type": "sql_database",
+      "connection_string": "@Microsoft.KeyVault(SecretUri=${KEY_VAULT}/secrets/erp-connection-string/)",
+      "tables": [
+        "sales_orders",
+        "invoices",
+        "products",
+        "inventory"
+      ],
+      "refresh_frequency": "every_4_hours",
+      "incremental_column": "created_date"
+    },
+    "web_analytics": {
+      "type": "rest_api",
+      "base_url": "https://api.analytics.company.com",
+      "authentication": {
+        "type": "oauth2",
+        "client_id": "@Microsoft.KeyVault(SecretUri=${KEY_VAULT}/secrets/analytics-client-id/)",
+        "client_secret": "@Microsoft.KeyVault(SecretUri=${KEY_VAULT}/secrets/analytics-client-secret/)"
+      },
+      "endpoints": [
+        "/pageviews",
+        "/sessions",
+        "/conversions",
+        "/events"
+      ],
+      "refresh_frequency": "daily"
+    },
+    "social_media": {
+      "type": "rest_api",
+      "platforms": [
+        {
+          "name": "twitter",
+          "api_endpoint": "https://api.twitter.com/2",
+          "auth_token": "@Microsoft.KeyVault(SecretUri=${KEY_VAULT}/secrets/twitter-bearer-token/)"
+        },
+        {
+          "name": "facebook",
+          "api_endpoint": "https://graph.facebook.com/v18.0",
+          "access_token": "@Microsoft.KeyVault(SecretUri=${KEY_VAULT}/secrets/facebook-access-token/)"
+        }
+      ],
+      "refresh_frequency": "every_6_hours"
+    },
+    "financial_data": {
+      "type": "file_system",
+      "location": "abfss://finance@${STORAGE_ACCOUNT}.dfs.core.windows.net/",
+      "file_format": "parquet",
+      "schedule": "daily_at_midnight"
+    }
+  },
+  "data_lake_structure": {
+    "bronze_layer": {
+      "description": "Raw data ingestion layer",
+      "path": "abfss://bronze@${STORAGE_ACCOUNT}.dfs.core.windows.net/",
+      "retention_days": 90,
+      "partitioning": {
+        "scheme": "year/month/day/hour",
+        "columns": ["ingestion_year", "ingestion_month", "ingestion_day", "ingestion_hour"]
+      }
+    },
+    "silver_layer": {
+      "description": "Cleansed and validated data",
+      "path": "abfss://silver@${STORAGE_ACCOUNT}.dfs.core.windows.net/",
+      "retention_days": 365,
+      "partitioning": {
+        "scheme": "year/month",
+        "columns": ["year", "month"]
+      }
+    },
+    "gold_layer": {
+      "description": "Business-ready aggregated data",
+      "path": "abfss://gold@${STORAGE_ACCOUNT}.dfs.core.windows.net/",
+      "retention_days": 2555,
+      "partitioning": {
+        "scheme": "year",
+        "columns": ["year"]
+      }
+    }
+  },
+  "transformation_jobs": {
+    "data_ingestion": {
+      "type": "databricks_notebook",
+      "notebook_path": "/ai-bi-genie/notebooks/ingestion/data_ingestion_master",
+      "cluster_config": {
+        "node_type_id": "Standard_DS3_v2",
+        "driver_node_type_id": "Standard_DS3_v2",
+        "num_workers": 2,
+        "autoscale": {
+          "min_workers": 1,
+          "max_workers": 8
+        },
+        "spark_version": "13.3.x-scala2.12",
+        "spark_conf": {
+          "spark.databricks.delta.preview.enabled": "true",
+          "spark.sql.adaptive.enabled": "true",
+          "spark.sql.adaptive.coalescePartitions.enabled": "true"
+        }
+      },
+      "schedule": {
+        "quartz_cron_expression": "0 0 */4 * * ?",
+        "timezone_id": "UTC"
+      },
+      "timeout_seconds": 3600,
+      "max_retries": 2
+    },
+    "data_cleansing": {
+      "type": "databricks_notebook",
+      "notebook_path": "/ai-bi-genie/notebooks/transformation/data_cleansing",
+      "depends_on": ["data_ingestion"],
+      "cluster_config": {
+        "node_type_id": "Standard_DS4_v2",
+        "num_workers": 4,
+        "autoscale": {
+          "min_workers": 2,
+          "max_workers": 12
+        }
+      },
+      "libraries": [
+        {
+          "pypi": {
+            "package": "great-expectations==0.18.8"
+          }
+        },
+        {
+          "pypi": {
+            "package": "pandas-profiling==3.6.6"
+          }
+        }
+      ]
+    },
+    "feature_engineering": {
+      "type": "databricks_notebook",
+      "notebook_path": "/ai-bi-genie/notebooks/feature_engineering/feature_pipeline",
+      "depends_on": ["data_cleansing"],
+      "cluster_config": {
+        "node_type_id": "Standard_DS5_v2",
+        "num_workers": 6,
+        "autoscale": {
+          "min_workers": 3,
+          "max_workers": 20
+        }
+      }
+    },
+    "ml_model_training": {
+      "type": "databricks_notebook",
+      "notebook_path": "/ai-bi-genie/notebooks/ml/model_training_pipeline",
+      "depends_on": ["feature_engineering"],
+      "cluster_config": {
+        "node_type_id": "Standard_NC6s_v3",
+        "num_workers": 2,
+        "enable_elastic_disk": true
+      },
+      "schedule": {
+        "quartz_cron_expression": "0 0 2 * * ?",
+        "timezone_id": "UTC"
+      },
+      "libraries": [
+        {
+          "pypi": {
+            "package": "mlflow==2.9.2"
+          }
+        },
+        {
+          "pypi": {
+            "package": "scikit-learn==1.4.0"
+          }
+        },
+        {
+          "pypi": {
+            "package": "xgboost==2.0.3"
+          }
+        }
+      ]
+    },
+    "business_metrics_aggregation": {
+      "type": "databricks_notebook",
+      "notebook_path": "/ai-bi-genie/notebooks/analytics/business_metrics",
+      "depends_on": ["data_cleansing"],
+      "cluster_config": {
+        "node_type_id": "Standard_DS3_v2",
+        "num_workers": 3
+      },
+      "schedule": {
+        "quartz_cron_expression": "0 30 1 * * ?",
+        "timezone_id": "UTC"
+      }
+    }
+  },
+  "data_quality": {
+    "great_expectations": {
+      "enabled": true,
+      "config_path": "/databricks/great_expectations/great_expectations.yml",
+      "expectation_suites": [
+        {
+          "name": "bronze_data_quality",
+          "data_asset_name": "bronze_layer_data",
+          "expectations": [
+            {
+              "expectation_type": "expect_table_row_count_to_be_between",
+              "kwargs": {
+                "min_value": 1000,
+                "max_value": 10000000
+              }
+            },
+            {
+              "expectation_type": "expect_column_values_to_not_be_null",
+              "kwargs": {
+                "column": "id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "silver_data_quality",
+          "data_asset_name": "silver_layer_data",
+          "expectations": [
+            {
+              "expectation_type": "expect_column_values_to_be_unique",
+              "kwargs": {
+                "column": "customer_id"
+              }
+            },
+            {
+              "expectation_type": "expect_column_values_to_be_between",
+              "kwargs": {
+                "column": "revenue",
+                "min_value": 0,
+                "max_value": 1000000
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "data_lineage": {
+      "enabled": true,
+      "tracking_method": "delta_table_history",
+      "metadata_store": "hive_metastore"
+    }
+  },
+  "monitoring": {
+    "job_monitoring": {
+      "enabled": true,
+      "alert_channels": [
+        {
+          "type": "email",
+          "recipients": ["data-team@company.com", "devops@company.com"]
+        },
+        {
+          "type": "slack",
+          "webhook_url": "@Microsoft.KeyVault(SecretUri=${KEY_VAULT}/secrets/slack-webhook-url/)",
+          "channel": "#data-alerts"
+        },
+        {
+          "type": "teams",
+          "webhook_url": "@Microsoft.KeyVault(SecretUri=${KEY_VAULT}/secrets/teams-webhook-url/)"
+        }
+      ],
+      "alert_conditions": [
+        {
+          "condition": "job_failure",
+          "severity": "critical",
+          "action": "immediate_alert"
+        },
+        {
+          "condition": "job_duration_threshold",
+          "threshold_minutes": 120,
+          "severity": "warning",
+          "action": "alert_after_threshold"
+        },
+        {
+          "condition": "data_quality_failure",
+          "severity": "high",
+          "action": "immediate_alert"
+        }
+      ]
+    },
+    "data_freshness": {
+      "enabled": true,
+      "thresholds": {
+        "crm_data": "2_hours",
+        "erp_data": "4_hours",
+        "web_analytics": "24_hours",
+        "financial_data": "24_hours"
+      }
+    },
+    "performance_metrics": {
+      "enabled": true,
+      "metrics": [
+        "job_execution_time",
+        "data_volume_processed",
+        "error_rate",
+        "data_quality_score"
+      ],
+      "dashboard_url": "https://grafana.company.com/d/ai-bi-genie-pipeline"
+    }
+  },
+  "security": {
+    "data_encryption": {
+      "at_rest": {
+        "enabled": true,
+        "key_vault_key": "${KEY_VAULT}/keys/data-encryption-key"
+      },
+      "in_transit": {
+        "enabled": true,
+        "tls_version": "1.2"
+      }
+    },
+    "access_control": {
+      "azure_ad_integration": true,
+      "rbac_enabled": true,
+      "data_classification": {
+        "enabled": true,
+        "levels": ["public", "internal", "confidential", "restricted"]
+      }
+    },
+    "audit_logging": {
+      "enabled": true,
+      "log_retention_days": 365,
+      "log_analytics_workspace": "${LOG_ANALYTICS_WORKSPACE}"
+    }
+  },
+  "cost_optimization": {
+    "auto_scaling": {
+      "enabled": true,
+      "scale_down_delay_minutes": 10,
+      "scale_up_threshold": 80,
+      "scale_down_threshold": 20
+    },
+    "spot_instances": {
+      "enabled": true,
+      "fallback_to_on_demand": true
+    },
+    "data_lifecycle": {
+      "bronze_to_cool_storage_days": 30,
+      "silver_to_archive_days": 365,
+      "gold_retention_years": 7
+    }
+  },
+  "disaster_recovery": {
+    "backup_strategy": {
+      "enabled": true,
+      "backup_frequency": "daily",
+      "cross_region_replication": true,
+      "backup_retention_days": 90
+    },
+    "recovery_plan": {
+      "rto_minutes": 60,
+      "rpo_minutes": 15,
+      "failover_region": "West Europe"
+    }
+  }
+}

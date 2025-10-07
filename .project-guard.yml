@@ -1,0 +1,22 @@
+# Which directories are considered "projects" (globs relative to repo root)
+project_roots:
+  - "."
+  - "apps/*"
+  - "packages/*"
+  - "services/*"
+  - "agentlab/apps/*"
+  - "agentlab/packages/*"
+
+# Required files; support alternatives per slot
+required_files:
+  - alternatives: ["PRD.md", "prd.md"]
+  - alternatives: ["CLAUDE.md", "Claude.md", "claude.md"]
+  - alternatives: ["PLANNING.md", "planning.md"]
+  - alternatives: ["TASKS.md", "tasks.md", "tasks.mc"]
+  - alternatives: ["CHANGELOG.md", "changelog.md"]
+
+# Commit message must include a Task ID (regex). Allow "NO-TASK" override and merge commits.
+task_id_regex: "(?i)(TASK|SCOUT|CES|ADS|NB)-\\d+"
+
+# Auto-fix behavior: create missing files from templates (first alternative chosen)
+autofix: true

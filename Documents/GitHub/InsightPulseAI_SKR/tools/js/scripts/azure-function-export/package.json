@@ -1,0 +1,17 @@
+{
+  "name": "static-metrics-export-function",
+  "version": "1.0.0",
+  "description": "Azure Function for exporting static metrics from Databricks SQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TBWA",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/identity": "^3.1.3",
+    "@azure/keyvault-secrets": "^4.6.0",
+    "@azure/storage-blob": "^12.13.0",
+    "pg": "^8.9.0"
+  }
+}

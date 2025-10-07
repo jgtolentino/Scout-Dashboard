@@ -1,0 +1,122 @@
+[
+  {
+    "event_id": "evt-001",
+    "timestamp": "2025-05-15T10:15:32Z",
+    "event_type": "pageview",
+    "device_id": "dev-12345",
+    "user_id": "user-789",
+    "session_id": "session-456",
+    "page_url": "https://example.com/products",
+    "referrer": "https://google.com",
+    "event_data": "{\"page_title\":\"Products\",\"viewport\":\"desktop\"}",
+    "processed_at": "2025-05-15T10:15:45Z"
+  },
+  {
+    "event_id": "evt-002",
+    "timestamp": "2025-05-15T10:16:42Z",
+    "event_type": "interaction",
+    "device_id": "dev-12345",
+    "user_id": "user-789",
+    "session_id": "session-456",
+    "page_url": "https://example.com/products",
+    "referrer": "https://google.com",
+    "event_data": "{\"element\":\"product-card\",\"product_id\":\"prod-123\",\"action\":\"click\"}",
+    "processed_at": "2025-05-15T10:16:55Z"
+  },
+  {
+    "event_id": "evt-003",
+    "timestamp": "2025-05-15T10:18:22Z",
+    "event_type": "transaction",
+    "device_id": "dev-12345",
+    "user_id": "user-789",
+    "session_id": "session-456",
+    "page_url": "https://example.com/checkout",
+    "referrer": "https://example.com/products",
+    "event_data": "{\"transaction_id\":\"tx-456\",\"amount\":129.99,\"currency\":\"USD\",\"items\":[{\"product_id\":\"prod-123\",\"quantity\":1,\"price\":129.99}]}",
+    "processed_at": "2025-05-15T10:18:30Z"
+  },
+  {
+    "event_id": "evt-004",
+    "timestamp": "2025-05-15T10:25:12Z",
+    "event_type": "pageview",
+    "device_id": "dev-67890",
+    "user_id": "user-123",
+    "session_id": "session-789",
+    "page_url": "https://example.com/",
+    "referrer": "https://facebook.com",
+    "event_data": "{\"page_title\":\"Home\",\"viewport\":\"mobile\"}",
+    "processed_at": "2025-05-15T10:25:20Z"
+  },
+  {
+    "event_id": "evt-005",
+    "timestamp": "2025-05-15T10:26:45Z",
+    "event_type": "pageview",
+    "device_id": "dev-67890",
+    "user_id": "user-123",
+    "session_id": "session-789",
+    "page_url": "https://example.com/products",
+    "referrer": "https://example.com/",
+    "event_data": "{\"page_title\":\"Products\",\"viewport\":\"mobile\"}",
+    "processed_at": "2025-05-15T10:26:55Z"
+  },
+  {
+    "event_id": "evt-006",
+    "timestamp": "2025-05-15T10:30:18Z",
+    "event_type": "error",
+    "device_id": "dev-67890",
+    "user_id": "user-123",
+    "session_id": "session-789",
+    "page_url": "https://example.com/products",
+    "referrer": "https://example.com/",
+    "event_data": "{\"error_code\":\"404\",\"message\":\"Product not found\",\"path\":\"/products/nonexistent\"}",
+    "processed_at": "2025-05-15T10:30:25Z"
+  },
+  {
+    "event_id": "evt-007",
+    "timestamp": "2025-05-15T11:05:22Z",
+    "event_type": "pageview",
+    "device_id": "dev-54321",
+    "user_id": null,
+    "session_id": "session-321",
+    "page_url": "https://example.com/",
+    "referrer": "https://twitter.com",
+    "event_data": "{\"page_title\":\"Home\",\"viewport\":\"tablet\"}",
+    "processed_at": "2025-05-15T11:05:35Z"
+  },
+  {
+    "event_id": "evt-008",
+    "timestamp": "2025-05-15T11:07:12Z",
+    "event_type": "conversion",
+    "device_id": "dev-54321",
+    "user_id": null,
+    "session_id": "session-321",
+    "page_url": "https://example.com/signup",
+    "referrer": "https://example.com/",
+    "event_data": "{\"conversion_type\":\"signup\",\"email_provided\":true,\"referral_code\":\"SPRING2025\"}",
+    "processed_at": "2025-05-15T11:07:20Z"
+  },
+  {
+    "event_id": "evt-009",
+    "timestamp": "2025-05-15T11:15:42Z",
+    "event_type": "custom",
+    "device_id": "dev-11111",
+    "user_id": "user-456",
+    "session_id": "session-555",
+    "page_url": "https://example.com/dashboard",
+    "referrer": "https://example.com/login",
+    "event_data": "{\"event_name\":\"dashboard_loaded\",\"load_time_ms\":450,\"widgets_visible\":5}",
+    "processed_at": "2025-05-15T11:15:50Z"
+  },
+  {
+    "event_id": "evt-010",
+    "timestamp": "2025-05-15T11:20:32Z",
+    "event_type": "interaction",
+    "device_id": "dev-11111",
+    "user_id": "user-456",
+    "session_id": "session-555",
+    "page_url": "https://example.com/dashboard",
+    "referrer": "https://example.com/login",
+    "event_data": "{\"element\":\"settings-button\",\"action\":\"click\",\"section\":\"dashboard-header\"}",
+    "processed_at": "2025-05-15T11:20:40Z"
+  }
+]

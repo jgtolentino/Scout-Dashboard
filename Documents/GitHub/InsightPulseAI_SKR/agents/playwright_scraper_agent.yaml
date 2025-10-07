@@ -1,0 +1,385 @@
+name: PlaywrightScraperAgent
+alias: playwright_scraper
+version: "1.0.0"
+description: |
+  Local browser automation agent using Playwright for web scraping when Apify is unavailable.
+  Provides structured data extraction for social media platforms and general web content.
+  Used as fallback by ApifyScraperAgent or can be invoked directly.
+
+agent:
+  type: scraper
+  model: claude-3-5-sonnet
+  temperature: 0.2
+  max_tokens: 3000
+
+permissions:
+  - use:playwright
+  - write:temp
+  - read:env
+
+environment:
+  PLAYWRIGHT_BROWSERS_PATH: ${PLAYWRIGHT_BROWSERS_PATH:-/usr/lib/playwright}
+  HEADLESS_MODE: ${HEADLESS_MODE:-true}
+
+capabilities:
+  - browser_automation
+  - dom_extraction
+  - screenshot_capture
+  - content_parsing
+  - multi_platform_support
+
+inputs:
+  - name: target_url
+    type: string
+    description: URL to scrape
+    required: true
+  - name: extraction_type
+    type: string
+    description: Type of extraction (social, ecommerce, general)
+    required: false
+    default: "general"
+  - name: wait_for_selector
+    type: string
+    description: CSS selector to wait for before extraction
+    required: false
+  - name: timeout
+    type: integer
+    description: Timeout in seconds
+    required: false
+    default: 30
+  - name: take_screenshot
+    type: boolean
+    description: Whether to capture screenshot
+    required: false
+    default: true
+  - name: full_page_screenshot
+    type: boolean
+    description: Capture full page screenshot
+    required: false
+    default: false
+
+outputs:
+  - name: extracted_data
+    type: object
+    description: Structured data from the page
+  - name: screenshot_path
+    type: string
+    description: Path to captured screenshot
+  - name: metadata
+    type: object
+    description: Extraction metadata
+
+routes:
+  - match: ":scrape*"
+    handler: playwright_scrape_handler
+    description: Scrape content using Playwright
+  - match: ":screenshot*"
+    handler: screenshot_handler
+    description: Take screenshot of page
+
+handlers:
+  playwright_scrape_handler: |
+    import os
+    from datetime import datetime
+    from urllib.parse import urlparse
+    from playwright.sync_api import sync_playwright
+    
+    def run(target_url, extraction_type="general", wait_for_selector=None, timeout=30, take_screenshot=True, full_page_screenshot=False):
+        try:
+            with sync_playwright() as p:
+                # Launch browser
+                browser = p.chromium.launch(
+                    headless=os.getenv("HEADLESS_MODE", "true").lower() == "true",
+                    args=["--no-sandbox", "--disable-dev-shm-usage"]
+                )
+                
+                page = browser.new_page()
+                page.set_default_timeout(timeout * 1000)
+                
+                # Set user agent to avoid detection
+                page.set_extra_http_headers({
+                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+                })
+                
+                # Navigate to URL
+                page.goto(target_url, wait_until="networkidle")
+                
+                # Wait for specific selector if provided
+                if wait_for_selector:
+                    page.wait_for_selector(wait_for_selector, timeout=timeout * 1000)
+                
+                # Extract data based on platform
+                domain = urlparse(target_url).netloc.lower()
+                extracted_data = {}
+                
+                if 'tiktok.com' in domain:
+                    extracted_data = extract_tiktok_content(page)
+                elif 'instagram.com' in domain:
+                    extracted_data = extract_instagram_content(page)
+                elif 'youtube.com' in domain or 'youtu.be' in domain:
+                    extracted_data = extract_youtube_content(page)
+                elif 'maps.google.com' in domain:
+                    extracted_data = extract_google_maps_content(page)
+                elif 'linkedin.com' in domain:
+                    extracted_data = extract_linkedin_content(page)
+                elif 'twitter.com' in domain or 'x.com' in domain:
+                    extracted_data = extract_twitter_content(page)
+                else:
+                    extracted_data = extract_general_content(page)
+                
+                # Take screenshot
+                screenshot_path = None
+                if take_screenshot:
+                    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                    screenshot_path = f"/tmp/playwright_screenshot_{timestamp}.png"
+                    page.screenshot(path=screenshot_path, full_page=full_page_screenshot)
+                
+                browser.close()
+                
+                return {
+                    "extracted_data": extracted_data,
+                    "screenshot_path": screenshot_path,
+                    "metadata": {
+                        "scraped_at": datetime.now().isoformat(),
+                        "target_url": target_url,
+                        "extraction_type": extraction_type,
+                        "success": True,
+                        "platform": domain
+                    }
+                }
+                
+        except Exception as e:
+            return {
+                "extracted_data": {"error": str(e)},
+                "screenshot_path": None,
+                "metadata": {
+                    "scraped_at": datetime.now().isoformat(),
+                    "target_url": target_url,
+                    "success": False,
+                    "error": str(e)
+                }
+            }
+    
+    def extract_tiktok_content(page):
+        try:
+            # Wait for TikTok video to load
+            page.wait_for_selector('[data-e2e="browse-video-desc"]', timeout=10000)
+            
+            return {
+                "platform": "tiktok",
+                "title": safe_extract_text(page, '[data-e2e="browse-video-desc"]'),
+                "author": safe_extract_text(page, '[data-e2e="video-author-uniqueid"]'),
+                "views": safe_extract_text(page, '[data-e2e="video-views"]'),
+                "likes": safe_extract_text(page, '[data-e2e="like-count"]'),
+                "shares": safe_extract_text(page, '[data-e2e="share-count"]'),
+                "comments": safe_extract_text(page, '[data-e2e="comment-count"]'),
+                "description": safe_extract_text(page, '[data-e2e="browse-video-desc"]'),
+                "hashtags": [tag.inner_text() for tag in page.query_selector_all('a[href*="/tag/"]')],
+                "sound": safe_extract_text(page, '[data-e2e="video-music"]'),
+                "duration": safe_extract_attribute(page, 'video', 'duration'),
+                "video_url": safe_extract_attribute(page, 'video', 'src')
+            }
+        except Exception as e:
+            return {"platform": "tiktok", "error": f"TikTok extraction failed: {str(e)}"}
+    
+    def extract_instagram_content(page):
+        try:
+            page.wait_for_selector('article', timeout=10000)
+            
+            return {
+                "platform": "instagram",
+                "caption": safe_extract_text(page, 'article div[data-testid="post-caption"]'),
+                "likes": safe_extract_text(page, 'section button span'),
+                "comments": safe_extract_text(page, 'a[href*="/comments/"] span'),
+                "author": safe_extract_text(page, 'header a'),
+                "media_type": "video" if page.query_selector('video') else "image",
+                "hashtags": extract_hashtags_from_text(safe_extract_text(page, 'article div[data-testid="post-caption"]')),
+                "timestamp": safe_extract_attribute(page, 'time', 'datetime'),
+                "location": safe_extract_text(page, 'div[data-testid="location"]')
+            }
+        except Exception as e:
+            return {"platform": "instagram", "error": f"Instagram extraction failed: {str(e)}"}
+    
+    def extract_youtube_content(page):
+        try:
+            page.wait_for_selector('#title h1', timeout=10000)
+            
+            return {
+                "platform": "youtube",
+                "title": safe_extract_text(page, '#title h1'),
+                "channel": safe_extract_text(page, '#channel-name a'),
+                "views": safe_extract_text(page, '#info-container #count'),
+                "likes": safe_extract_text(page, '#top-level-buttons-computed button[aria-label*="like"] span'),
+                "subscribers": safe_extract_text(page, '#subscriber-count'),
+                "description": safe_extract_text(page, '#description'),
+                "duration": safe_extract_text(page, '.ytp-time-duration'),
+                "upload_date": safe_extract_text(page, '#info-strings yt-formatted-string'),
+                "tags": [tag.inner_text() for tag in page.query_selector_all('a[href*="/hashtag/"]')],
+                "thumbnail": safe_extract_attribute(page, 'video', 'poster')
+            }
+        except Exception as e:
+            return {"platform": "youtube", "error": f"YouTube extraction failed: {str(e)}"}
+    
+    def extract_google_maps_content(page):
+        try:
+            page.wait_for_selector('h1', timeout=10000)
+            
+            return {
+                "platform": "google_maps",
+                "name": safe_extract_text(page, 'h1'),
+                "address": safe_extract_text(page, '[data-value="Address"]'),
+                "rating": safe_extract_text(page, '[role="img"][aria-label*="star"]'),
+                "reviews_count": safe_extract_text(page, 'button[aria-label*="review"]'),
+                "phone": safe_extract_text(page, '[data-value="Phone"]'),
+                "website": safe_extract_attribute(page, 'a[data-value="Website"]', 'href'),
+                "hours": safe_extract_text(page, '[data-value="Hours"]'),
+                "category": safe_extract_text(page, 'button[jsaction*="category"]'),
+                "photos_count": safe_extract_text(page, 'button[data-value="Photos"]')
+            }
+        except Exception as e:
+            return {"platform": "google_maps", "error": f"Google Maps extraction failed: {str(e)}"}
+    
+    def extract_linkedin_content(page):
+        try:
+            return {
+                "platform": "linkedin",
+                "title": safe_extract_text(page, 'h1'),
+                "content": safe_extract_text(page, '.feed-shared-update-v2__description'),
+                "author": safe_extract_text(page, '.feed-shared-actor__name'),
+                "company": safe_extract_text(page, '.feed-shared-actor__sub-description'),
+                "reactions": safe_extract_text(page, '.social-counts-reactions__count'),
+                "comments": safe_extract_text(page, '.social-counts-comments__count'),
+                "timestamp": safe_extract_attribute(page, 'time', 'datetime')
+            }
+        except Exception as e:
+            return {"platform": "linkedin", "error": f"LinkedIn extraction failed: {str(e)}"}
+    
+    def extract_twitter_content(page):
+        try:
+            page.wait_for_selector('[data-testid="tweet"]', timeout=10000)
+            
+            return {
+                "platform": "twitter",
+                "text": safe_extract_text(page, '[data-testid="tweetText"]'),
+                "author": safe_extract_text(page, '[data-testid="User-Names"] a'),
+                "retweets": safe_extract_text(page, '[data-testid="retweet"] span'),
+                "likes": safe_extract_text(page, '[data-testid="like"] span'),
+                "replies": safe_extract_text(page, '[data-testid="reply"] span'),
+                "timestamp": safe_extract_attribute(page, 'time', 'datetime'),
+                "hashtags": extract_hashtags_from_text(safe_extract_text(page, '[data-testid="tweetText"]')),
+                "mentions": extract_mentions_from_text(safe_extract_text(page, '[data-testid="tweetText"]'))
+            }
+        except Exception as e:
+            return {"platform": "twitter", "error": f"Twitter extraction failed: {str(e)}"}
+    
+    def extract_general_content(page):
+        try:
+            return {
+                "platform": "general",
+                "title": safe_extract_text(page, 'title') or safe_extract_text(page, 'h1'),
+                "description": safe_extract_attribute(page, 'meta[name="description"]', 'content'),
+                "keywords": safe_extract_attribute(page, 'meta[name="keywords"]', 'content'),
+                "author": safe_extract_attribute(page, 'meta[name="author"]', 'content'),
+                "og_title": safe_extract_attribute(page, 'meta[property="og:title"]', 'content'),
+                "og_description": safe_extract_attribute(page, 'meta[property="og:description"]', 'content'),
+                "og_image": safe_extract_attribute(page, 'meta[property="og:image"]', 'content'),
+                "canonical_url": safe_extract_attribute(page, 'link[rel="canonical"]', 'href'),
+                "main_content": safe_extract_text(page, 'main') or safe_extract_text(page, 'article') or safe_extract_text(page, 'body')[:1000],
+                "headings": [h.inner_text() for h in page.query_selector_all('h1, h2, h3')[:10]],
+                "links": [{"text": link.inner_text(), "href": link.get_attribute("href")} for link in page.query_selector_all('a[href]')[:20]]
+            }
+        except Exception as e:
+            return {"platform": "general", "error": f"General extraction failed: {str(e)}"}
+    
+    def safe_extract_text(page, selector):
+        try:
+            element = page.query_selector(selector)
+            return element.inner_text() if element else None
+        except:
+            return None
+    
+    def safe_extract_attribute(page, selector, attribute):
+        try:
+            element = page.query_selector(selector)
+            return element.get_attribute(attribute) if element else None
+        except:
+            return None
+    
+    def extract_hashtags_from_text(text):
+        import re
+        if not text:
+            return []
+        return re.findall(r'#\w+', text)
+    
+    def extract_mentions_from_text(text):
+        import re
+        if not text:
+            return []
+        return re.findall(r'@\w+', text)
+
+  screenshot_handler: |
+    import os
+    from datetime import datetime
+    from playwright.sync_api import sync_playwright
+    
+    def run(target_url, full_page_screenshot=False, timeout=30):
+        try:
+            with sync_playwright() as p:
+                browser = p.chromium.launch(
+                    headless=os.getenv("HEADLESS_MODE", "true").lower() == "true"
+                )
+                page = browser.new_page()
+                page.set_default_timeout(timeout * 1000)
+                
+                page.goto(target_url)
+                page.wait_for_load_state('networkidle')
+                
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                screenshot_path = f"/tmp/playwright_screenshot_{timestamp}.png"
+                
+                page.screenshot(path=screenshot_path, full_page=full_page_screenshot)
+                browser.close()
+                
+                return {
+                    "screenshot_path": screenshot_path,
+                    "metadata": {
+                        "captured_at": datetime.now().isoformat(),
+                        "target_url": target_url,
+                        "full_page": full_page_screenshot
+                    }
+                }
+        except Exception as e:
+            return {
+                "screenshot_path": None,
+                "metadata": {
+                    "error": str(e),
+                    "target_url": target_url
+                }
+            }
+
+config:
+  browser_options:
+    headless: true
+    disable_images: false
+    disable_javascript: false
+    timeout: 30
+    user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+  
+  supported_platforms:
+    - tiktok.com
+    - instagram.com
+    - youtube.com
+    - youtu.be
+    - maps.google.com
+    - linkedin.com
+    - twitter.com
+    - x.com
+    - general_web
+
+integration:
+  apify_scraper:
+    fallback_agent: true
+    priority: 2
+  gagambi:
+    data_format: "structured_json"
+    confidence_score: 0.75

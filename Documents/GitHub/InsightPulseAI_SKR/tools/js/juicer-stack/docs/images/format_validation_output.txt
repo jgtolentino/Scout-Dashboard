@@ -1,0 +1,61 @@
+[1m[34m╔════════════════════════════════════════════════════════════╗[0m
+[1m[34m║  Architecture Diagram Format Validator                     ║[0m
+[1m[34m╚════════════════════════════════════════════════════════════╝[0m
+
+[34mℹ️ Validating diagram: project_scout_with_genai[0m
+[34mℹ️ Project root: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack[0m
+
+[1m[36mValidating Source DrawIO File[0m
+
+[32m✓ DrawIO file found in diagrams directory: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/diagrams/project_scout_with_genai.drawio[0m
+[32m✓ DrawIO file size: 55KB[0m
+[32m✓ DrawIO file has no problematic namespace prefixes[0m
+[32m✓ DrawIO file validated: 60 cells found[0m
+
+[1m[36mValidating PNG Export[0m
+
+[33m⚠️ PNG export is very small (0KB), might be low resolution[0m
+[31m✗ File has .png extension but is not a valid PNG file[0m
+
+[1m[36mValidating SVG Export[0m
+
+[33m⚠️ SVG export seems very small (0KB)[0m
+[32m✓ SVG export validated: 0KB[0m
+
+[1m[36mValidating Thumbnail[0m
+
+[32m✓ Thumbnail size: 0KB (good)[0m
+[31m✗ Thumbnail has .png extension but is not a valid PNG file[0m
+
+[1m[36mChecking Archives[0m
+
+[33m⚠️ No archived versions found[0m
+
+[1m[36mChecking Documentation References[0m
+
+[32m✓ Found 1 documentation references to the diagram[0m
+
+[1m[36mGenerating Export Helper[0m
+
+[32m✓ All exports exist, no helper needed[0m
+
+[1m[36mFormat Validation Summary[0m
+
+[1mDiagram:[0m project_scout_with_genai
+[1mTotal Checks:[0m 11
+[1m[32mPassed:[0m 6
+[1m[33mWarnings:[0m 3
+[1m[31mFailed:[0m 2
+[1mPass Rate:[0m 55%
+
+[1mFormat Status:[0m
+[32m✓[0m DrawIO: Valid
+[31m✗[0m PNG: 0KB
+[32m✓[0m SVG: 0KB
+[31m✗[0m Thumbnail: 0KB
+[32m✓[0m Archives: 0 versions
+[32m✓ Results saved to: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images/format_validation_results.json[0m
+
+[1m[34mNext Steps:[0m
+1. Fix the 2 critical issues
+2. Run this validator again

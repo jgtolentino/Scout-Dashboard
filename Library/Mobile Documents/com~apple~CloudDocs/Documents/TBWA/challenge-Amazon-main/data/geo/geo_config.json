@@ -1,0 +1,50 @@
+{
+  "active_layer": "ph_regions.geojson",
+  "featureidkey": "properties.psgc_code",
+  "join_column": "region",
+  "choropleth_config": {
+    "locationmode": "geojson-id",
+    "scope": "asia",
+    "center": {"lat": 12.8797, "lon": 121.7740},
+    "zoom": 5.5,
+    "color_scale": "Viridis",
+    "hover_template": "<b>%{customdata[0]}</b><br>Value: %{z:,.0f}<extra></extra>"
+  },
+  "available_levels": {
+    "region": {
+      "file": "ph_regions.geojson",
+      "feature_id": "properties.psgc_code",
+      "display_name": "properties.region_name",
+      "description": "Philippine administrative regions (17 regions)"
+    },
+    "province": {
+      "file": "ph_provinces.geojson", 
+      "feature_id": "properties.prov_code",
+      "display_name": "properties.prov_name",
+      "description": "Provincial level boundaries (81 provinces)"
+    },
+    "city": {
+      "file": "ph_cities.geojson",
+      "feature_id": "properties.city_code", 
+      "display_name": "properties.city_name",
+      "description": "City and municipality boundaries"
+    }
+  },
+  "fallback_geojson": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "psgc_code": "130000000",
+          "region_name": "National Capital Region",
+          "region_abbr": "NCR"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[120.9, 14.4], [121.1, 14.4], [121.1, 14.8], [120.9, 14.8], [120.9, 14.4]]]
+        }
+      }
+    ]
+  }
+}

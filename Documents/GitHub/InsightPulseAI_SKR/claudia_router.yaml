@@ -1,0 +1,88 @@
+description: Document generated from claudia_router.yaml
+metadata:
+  sync_enabled: true
+  sync_priority: 5
+name: claudia_router
+routes:
+- action: "call Kalaw \u2192 index new agent \u2192 sync to Notion"
+  handler: default
+  path: /
+  trigger: agent_profile.yaml created
+- action: "call Kalaw \u2192 update agent index \u2192 sync to Notion"
+  handler: default
+  path: /
+  trigger: agent_profile.yaml updated
+- action: "route to Kath \u2192 apply rewrite rules \u2192 commit to GitHub"
+  handler: default
+  path: /
+  trigger: rewrite_playbook.md updated
+- action: "route to Kath \u2192 update tone models \u2192 sync to Notion"
+  handler: default
+  path: /
+  trigger: tone_guidelines.md updated
+- action: "route to Lea \u2192 run QA \u2192 generate feedback"
+  handler: default
+  path: /
+  trigger: audio_sync_rules.md edited
+- action: "route to Lea \u2192 update emotion database \u2192 commit to GitHub"
+  handler: default
+  path: /
+  trigger: soundtrack_emotion_map.md updated
+- action: "route to Tess \u2192 update visual templates \u2192 commit to GitHub"
+  handler: default
+  path: /
+  trigger: storyboard_logic.md updated
+- action: "route to Tess \u2192 regenerate prompt examples \u2192 sync to Notion"
+  handler: default
+  path: /
+  trigger: visual_prompt_templates.md edited
+- action: "route to Iggy \u2192 update sales playbook \u2192 commit to GitHub"
+  handler: default
+  path: /
+  trigger: pitch_framework.md updated
+- action: "route to Iggy \u2192 update response matrix \u2192 sync to Notion"
+  handler: default
+  path: /
+  trigger: objection_handling.md updated
+- action: "call Kalaw \u2192 update workflow index \u2192 commit to GitHub"
+  handler: default
+  path: /
+  trigger: agent_chain_visual.md updated
+- action: "route to Tess \u2192 update Figma integrations \u2192 sync to Notion"
+  handler: default
+  path: /
+  trigger: figma_storyboard_workflow.md updated
+- action: "route to Iggy \u2192 update sales workflow \u2192 commit to GitHub"
+  handler: default
+  path: /
+  trigger: sales_pitch_orchestration.md updated
+- action: "route to 00_APRAOCHED \u2192 label as strategy \u2192 notify \U0001F9FF\
+    \ Claudia updated strategy"
+  handler: default
+  path: /
+  trigger: apraoched_*.yaml
+- action: "route to 00_APRAOCHED \u2192 label as strategy \u2192 notify \U0001F9FF\
+    \ Claudia updated strategy"
+  handler: default
+  path: /
+  trigger: apraoched_*.md
+- action: "route to Claudia \u2192 triage defect \u2192 notify \U0001F41E Pulser defect reported"
+  handler: defect_handler
+  path: /defects
+  trigger: defect_notification_*.yaml
+routing_rules:
+- condition:
+    metadata.type: workflow
+  route_to: Kalaw
+- condition:
+    metadata.type: agent
+  route_to: Kalaw
+- condition:
+    metadata.type: defect_report
+  route_to: Claudia
+- condition:
+    filename.contains: pulser-defect
+  route_to: Claudia
+- condition:
+    filename.contains: _skr_
+  fallback_route: Claudia

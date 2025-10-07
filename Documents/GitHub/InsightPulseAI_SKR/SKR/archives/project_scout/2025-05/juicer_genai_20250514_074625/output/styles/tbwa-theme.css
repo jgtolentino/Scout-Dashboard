@@ -1,0 +1,442 @@
+/* TBWA Brand Theme - Dashboard Integration
+ * A consistent brand identity for all TBWA dashboards
+ * that maintains Power BI visual grammar while adding TBWA's distinctive style
+ */
+
+:root {
+  /* Core TBWA palette */
+  --tbwa-yellow: #FFE600;
+  --tbwa-navy: #002B49;
+  --tbwa-cyan: #00AEEF;
+  --tbwa-orange: #FF6B00;
+  --tbwa-red: #E11900;
+  --tbwa-grey-100: #F8F8F8;
+  --tbwa-grey-700: #4A4A4A;
+  --tbwa-grey-900: #1A1A1A;
+  
+  /* Chart palette */
+  --viz-accent-0: #002B49; /* navy bars/lines */
+  --viz-accent-1: #FFE600; /* yellow highlights */
+  --viz-accent-2: #00AEEF; /* cyan */
+  --viz-accent-3: #FF6B00; /* orange */
+  
+  /* Layout variables */
+  --card-radius: 8px;
+  --card-shadow: 0 1px 4px rgba(0,0,0,.1);
+  --grid-unit: 8px;
+  --header-height: 48px;
+  --footer-height: 32px;
+}
+
+/* Base Layout */
+body {
+  background: var(--tbwa-grey-100);
+  color: var(--tbwa-grey-700);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* App bar / Header */
+.app-bar, 
+.dashboard-header,
+header {
+  background: var(--tbwa-navy);
+  color: #FFF;
+  height: var(--header-height);
+  padding: 0 calc(var(--grid-unit) * 2);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app-bar h1,
+.dashboard-header h1,
+header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Footer */
+.app-footer,
+footer {
+  background: var(--tbwa-navy);
+  color: #FFF;
+  font-size: 12px;
+  height: var(--footer-height);
+  padding: 0 calc(var(--grid-unit) * 2);
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Dashboard container */
+.dashboard-container,
+.dashboard-content,
+main {
+  padding: calc(var(--grid-unit) * 2);
+  flex: 1;
+}
+
+/* Card styles */
+.card,
+.visual-card,
+.chart-container,
+.slicer-container,
+.kpi-card {
+  background: #FFF;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: calc(var(--grid-unit) * 2);
+  margin-bottom: calc(var(--grid-unit) * 2);
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Active/hover states for cards */
+.card--active,
+.card:hover,
+.visual-card:hover,
+.chart-container:hover {
+  outline: 2px solid var(--tbwa-yellow);
+}
+
+/* Card header */
+.card-header,
+.chart-title,
+.visual-title {
+  color: var(--tbwa-grey-900);
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0 0 calc(var(--grid-unit) * 1.5) 0;
+  padding-bottom: calc(var(--grid-unit));
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* KPI styling */
+.kpi-number,
+.kpi-value,
+.metric-value {
+  color: var(--tbwa-grey-900);
+  font: 32px/1 "Segoe UI Semibold", "Helvetica Neue", sans-serif;
+  margin: calc(var(--grid-unit)) 0;
+}
+
+.kpi-label,
+.metric-label {
+  font-size: 12px;
+  color: var(--tbwa-grey-700);
+  margin-bottom: calc(var(--grid-unit));
+}
+
+/* KPI indicators */
+.kpi-delta,
+.metric-delta {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.kpi-positive,
+.delta-positive,
+.positive-change {
+  color: var(--tbwa-cyan);
+}
+
+.kpi-negative,
+.delta-negative,
+.negative-change {
+  color: var(--tbwa-red);
+}
+
+/* Delta arrows */
+.delta-arrow {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.delta-arrow::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
+.delta-arrow.up::before {
+  border-bottom: 6px solid var(--tbwa-cyan);
+}
+
+.delta-arrow.down::before {
+  border-top: 6px solid var(--tbwa-red);
+}
+
+/* Filter/slicer styling */
+.slicer,
+.filter-control {
+  background: #FFF;
+  border-radius: var(--card-radius);
+  padding: calc(var(--grid-unit));
+  margin-bottom: calc(var(--grid-unit) * 2);
+}
+
+.slicer-header,
+.filter-header {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: calc(var(--grid-unit));
+  color: var(--tbwa-grey-900);
+}
+
+/* Links */
+a {
+  color: var(--tbwa-cyan);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons */
+.btn,
+button.primary {
+  background-color: var(--tbwa-navy);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn:hover,
+button.primary:hover {
+  background-color: #00396a;
+}
+
+.btn-secondary,
+button.secondary {
+  background-color: white;
+  color: var(--tbwa-navy);
+  border: 1px solid var(--tbwa-navy);
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--tbwa-grey-900);
+  border-bottom: 2px solid var(--tbwa-grey-100);
+  padding: 8px;
+}
+
+td {
+  padding: 8px;
+  border-bottom: 1px solid var(--tbwa-grey-100);
+}
+
+tr:hover {
+  background-color: var(--tbwa-grey-100);
+}
+
+/* Chart styles */
+.chart {
+  width: 100%;
+  height: 100%;
+  min-height: 250px;
+}
+
+/* Dashboard grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: calc(var(--grid-unit) * 2);
+}
+
+/* Insights section */
+.insights-section {
+  margin-top: calc(var(--grid-unit) * 3);
+}
+
+.insight-card {
+  padding: calc(var(--grid-unit) * 2);
+  border-left: 4px solid var(--tbwa-yellow);
+}
+
+.insight-title {
+  font-weight: 600;
+  margin-bottom: calc(var(--grid-unit));
+  color: var(--tbwa-grey-900);
+}
+
+.insight-content {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Toggle/on-off switches */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: var(--tbwa-navy);
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(16px);
+}
+
+/* Tooltip styles */
+.tooltip {
+  position: absolute;
+  background: var(--tbwa-grey-900);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip.visible {
+  opacity: 1;
+}
+
+/* On-object toolbar (Power BI style) */
+.on-object-toolbar {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  display: flex;
+  padding: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.card:hover .on-object-toolbar,
+.visual-card:hover .on-object-toolbar,
+.chart-container:hover .on-object-toolbar {
+  opacity: 1;
+}
+
+.toolbar-button {
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar-button:hover {
+  background-color: var(--tbwa-grey-100);
+  border-radius: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .kpi-number, 
+  .metric-value {
+    font-size: 24px;
+  }
+  
+  .app-bar,
+  .dashboard-header,
+  header {
+    height: auto;
+    padding: 12px;
+  }
+}
+
+/* Dark mode support (for future use) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tbwa-grey-100: #121212;
+    --tbwa-grey-700: #e0e0e0;
+    --tbwa-grey-900: #ffffff;
+  }
+  
+  body {
+    background: var(--tbwa-grey-100);
+    color: var(--tbwa-grey-700);
+  }
+  
+  .card,
+  .visual-card,
+  .chart-container,
+  .slicer-container,
+  .kpi-card {
+    background: #1e1e1e;
+  }
+  
+  .toggle-slider {
+    background-color: #555;
+  }
+  
+  input:checked + .toggle-slider {
+    background-color: var(--tbwa-yellow);
+  }
+}

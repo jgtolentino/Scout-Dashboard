@@ -1,0 +1,115 @@
+{
+  "diagram_name": "project_scout_with_genai",
+  "timestamp": "2025-05-12T18:06:45.146Z",
+  "formats": {
+    "drawio": {
+      "exists": true,
+      "valid": true,
+      "cells": 60,
+      "size_kb": 55,
+      "has_invalid_namespaces": false
+    },
+    "png": {
+      "exists": true,
+      "valid": false,
+      "size_kb": 0,
+      "details": "Not a valid PNG file"
+    },
+    "svg": {
+      "exists": true,
+      "valid": true,
+      "size_kb": 0
+    },
+    "thumbnail": {
+      "exists": true,
+      "valid": false,
+      "size_kb": 0,
+      "details": "Not a valid PNG file"
+    },
+    "archives": {
+      "exists": true,
+      "count": 0,
+      "files": []
+    }
+  },
+  "checks": [
+    {
+      "category": "Source",
+      "name": "DrawIO File Size",
+      "result": "pass",
+      "details": "File size: 55KB"
+    },
+    {
+      "category": "Source",
+      "name": "DrawIO Namespaces",
+      "result": "pass",
+      "details": "No problematic namespace prefixes"
+    },
+    {
+      "category": "Source",
+      "name": "DrawIO File",
+      "result": "pass",
+      "details": "Valid DrawIO file with 60 cells"
+    },
+    {
+      "category": "Exports",
+      "name": "PNG Export Size",
+      "result": "warning",
+      "details": "File is only 0KB, might be low resolution"
+    },
+    {
+      "category": "Exports",
+      "name": "PNG Export Validity",
+      "result": "fail",
+      "details": "Not a valid PNG file"
+    },
+    {
+      "category": "Exports",
+      "name": "SVG Export Size",
+      "result": "warning",
+      "details": "File is only 0KB, might be incomplete"
+    },
+    {
+      "category": "Exports",
+      "name": "SVG Export",
+      "result": "pass",
+      "details": "Valid SVG export, 0KB"
+    },
+    {
+      "category": "Exports",
+      "name": "Thumbnail Size",
+      "result": "pass",
+      "details": "File size: 0KB"
+    },
+    {
+      "category": "Exports",
+      "name": "Thumbnail Validity",
+      "result": "fail",
+      "details": "Not a valid PNG file"
+    },
+    {
+      "category": "Exports",
+      "name": "Archived Versions",
+      "result": "warning",
+      "details": "No archived versions found"
+    },
+    {
+      "category": "Documentation",
+      "name": "Diagram References",
+      "result": "pass",
+      "details": "Found 1 references in: README_FINAL.md"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "passed": 6,
+    "warnings": 3,
+    "failed": 2
+  },
+  "documentation": {
+    "references_found": 1,
+    "referencing_files": [
+      "README_FINAL.md"
+    ]
+  }
+}

@@ -1,0 +1,106 @@
+agent:
+  name: localization-engineer
+  version: 2.1.0
+  description: Internationalization and localization specialist for multi-language support and content adaptation
+  type: specialist
+  department: documentation
+
+  capabilities:
+    core:
+      - scaffold
+      - analyze
+      - document
+    specialized:
+      - implement-i18n
+      - extract-translatable-content
+      - manage-translation-keys
+      - validate-locale-formats
+    experimental: []
+
+  tools:
+    required:
+      - fs
+      - i18next
+    optional:
+      - formatjs
+      - crowdin
+      - lokalise
+    mcp_servers:
+      - fs
+
+  keywords:
+    - localization
+    - internationalization
+    - i18n
+    - l10n
+    - translation
+    - multi-language
+    - locale
+
+  permissions:
+    allow_shell: true
+    allow_network: false
+    allow_credentials: false
+
+  config:
+    supported_locales:
+      - en
+      - es
+      - fr
+      - de
+      - ja
+      - zh
+    default_locale: en
+    fallback_locale: en
+    translation_format: json
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /implement-i18n
+      - /extract-translations
+      - /validate-locales
+      - /generate-translation-keys
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.7
+
+  quality_metrics:
+    validation_score: 0.991
+    test_coverage: 0.94
+    spec_compliance: 0.99
+    performance_rating: 0.90
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Application with hardcoded English strings
+        when: Implement i18n infrastructure
+        then: All strings externalized with translation keys
+        priority: P2
+      - given: Codebase with 500+ translatable strings
+        when: Extract translatable content
+        then: All strings extracted to locale files with proper keys
+        priority: P2
+      - given: Multiple locale files with inconsistent formatting
+        when: Validate locale formats
+        then: All format issues identified and standardized
+        priority: P3
+    evidence_requirements:
+      - i18n-implementation-report
+      - translation-key-inventory
+      - locale-validation-report
+      - missing-translation-audit

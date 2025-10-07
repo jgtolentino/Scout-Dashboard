@@ -1,0 +1,53 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "StoreID": "sari-001",
+        "Name": "Ligaya Sari-Sari Store",
+        "Address": "123 Rizal St, Makati City",
+        "Owner": "Maria Santos",
+        "Sales": 24500,
+        "LastActivity": "2025-05-18T14:23:45Z",
+        "Status": "active"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.0244, 14.5547]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "StoreID": "sari-002",
+        "Name": "Mabuhay General Store",
+        "Address": "45 Mabini Ave, Quezon City",
+        "Owner": "Juan Reyes",
+        "Sales": 31200,
+        "LastActivity": "2025-05-19T09:12:30Z",
+        "Status": "active"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.0509, 14.6291]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "StoreID": "sari-003",
+        "Name": "Bagong Pag-asa Store",
+        "Address": "78 Luna St, Pasig City",
+        "Owner": "Elena Cruz",
+        "Sales": 18750,
+        "LastActivity": "2025-05-17T16:45:20Z",
+        "Status": "active"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121.0851, 14.5764]
+      }
+    }
+  ]
+}

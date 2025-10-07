@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Architecture & QA Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f5f5f5;
+            color: #212529;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #2E2F33;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logo {
+            height: 40px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            margin-bottom: 20px;
+            border: none;
+            padding: 15px;
+        }
+        .card-header {
+            background-color: rgba(0,0,0,0.03);
+            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid rgba(0,0,0,0.125);
+        }
+        .metric-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .metric-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+        .indicator {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .status-good {
+            color: #28a745;
+        }
+        .status-warning {
+            color: #ffc107;
+        }
+        .status-critical {
+            color: #dc3545;
+        }
+        .footer {
+            background-color: #2E2F33;
+            color: white;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        .timeline-item {
+            padding: 1rem;
+            border-left: 3px solid #0078d4;
+            margin-bottom: 1rem;
+            background-color: #f8f9fa;
+        }
+        .timeline-date {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        .toggle-btn {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        .toggle-btn:hover {
+            background-color: #0056b3;
+        }
+        .toggle-btn.active {
+            background-color: #28a745;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .status-good-indicator {
+            background-color: #28a745;
+        }
+        .status-warning-indicator {
+            background-color: #ffc107;
+        }
+        .status-critical-indicator {
+            background-color: #dc3545;
+        }
+        .dashboard-nav {
+            margin-top: 30px;
+        }
+        .dashboard-nav a {
+            color: #0078d4;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .dashboard-nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="m-0 d-flex align-items-center">
+                        <img src="https://via.placeholder.com/40x40?text=QA" alt="Dashboard Logo" class="logo me-2">
+                        <span>System Architecture & QA Dashboard</span>
+                    </h1>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button id="qaToggle" class="toggle-btn">
+                        <i class="fas fa-tools me-1"></i> QA Mode
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container py-4">
+        <!-- System Health Section -->
+        <section class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-heartbeat text-danger me-2"></i>System Health Monitoring</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">96.2%</div>
+                        <div class="metric-label">Model Reliability</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Within SLA
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">94.8%</div>
+                        <div class="metric-label">Data Health</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Clean transcripts
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">99.7%</div>
+                        <div class="metric-label">Infrastructure Uptime</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> High availability
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">97.1%</div>
+                        <div class="metric-label">Overall Health</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Excellent
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">128ms</div>
+                        <div class="metric-label">Average Latency</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Within target
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">0.03%</div>
+                        <div class="metric-label">Error Rate</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Below threshold
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">14/14</div>
+                        <div class="metric-label">Endpoints Available</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> All operational
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">0</div>
+                        <div class="metric-label">Active Incidents</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> No incidents
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Device Monitoring Section -->
+        <section class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-microchip text-primary me-2"></i>Device Monitoring</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">156</div>
+                        <div class="metric-label">Total Devices</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> All registered
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">Silent Devices</div>
+                        <div class="indicator status-warning">
+                            <i class="fas fa-exclamation-circle"></i> 1.9% of total
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">2</div>
+                        <div class="metric-label">Critical Alerts</div>
+                        <div class="indicator status-warning">
+                            <i class="fas fa-exclamation-circle"></i> Needs attention
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">98.7%</div>
+                        <div class="metric-label">Data Quality</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> High quality
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anomaly Detection Section -->
+        <section class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-exclamation-triangle text-warning me-2"></i>Anomaly Detection</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card metric-card">
+                        <div class="metric-value"><i class="fas fa-check-circle status-good"></i></div>
+                        <div class="metric-label">Model Drift Status</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> No drift detected
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card metric-card">
+                        <div class="metric-value">1.3%</div>
+                        <div class="metric-label">Confidence Deviation</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Within normal range
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card metric-card">
+                        <div class="metric-value">0.04%</div>
+                        <div class="metric-label">Outlier Rate</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Below threshold
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Activity Timeline -->
+        <section class="mb-5" id="systemActivitySection" style="display: none;">
+            <h2 class="mb-4"><i class="fas fa-history text-info me-2"></i>System Activity Timeline</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="timeline-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-1">Model Retraining Completed</h5>
+                            <span class="timeline-date">May 13, 2025 - 02:34 UTC</span>
+                        </div>
+                        <p class="mb-0">Model v2.1.3 successfully retrained with 15,421 new samples. Confidence improved by 2.1%.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-1">System Deployment</h5>
+                            <span class="timeline-date">May 12, 2025 - 14:22 UTC</span>
+                        </div>
+                        <p class="mb-0">Deployment of build 2.1.2-rc3 to production environment. All services transitioned successfully.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-1">Scheduled Maintenance</h5>
+                            <span class="timeline-date">May 10, 2025 - 08:15 UTC</span>
+                        </div>
+                        <p class="mb-0">Routine database maintenance completed. Indexes optimized and query performance improved by 12%.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-1">Anomaly Alert</h5>
+                            <span class="timeline-date">May 9, 2025 - 22:47 UTC</span>
+                        </div>
+                        <p class="mb-0">Brief latency spike detected in Central US region. Auto-scaling triggered. Normal operation restored within 4 minutes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Azure Well-Architected Metrics -->
+        <section class="mb-5" id="azureMetricsSection" style="display: none;">
+            <h2 class="mb-4"><i class="fas fa-cloud text-primary me-2"></i>Azure Well-Architected Metrics</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">87%</div>
+                        <div class="metric-label">Cost Efficiency</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Under budget
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">91%</div>
+                        <div class="metric-label">Reliability Score</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Above target
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">5/6</div>
+                        <div class="metric-label">VM Health</div>
+                        <div class="indicator status-warning">
+                            <i class="fas fa-exclamation-circle"></i> One VM needs attention
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="metric-value">4</div>
+                        <div class="metric-label">Autoscaling Events</div>
+                        <div class="indicator status-good">
+                            <i class="fas fa-check-circle"></i> Normal traffic patterns
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Health Table -->
+        <section class="mb-5" id="serviceHealthSection" style="display: none;">
+            <h2 class="mb-4"><i class="fas fa-heartbeat text-danger me-2"></i>Service Health Status</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Status</th>
+                                    <th>Uptime</th>
+                                    <th>Latency</th>
+                                    <th>Error Rate</th>
+                                    <th>Last Incident</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>API Gateway</td>
+                                    <td><span class="status-indicator status-good-indicator"></span> Healthy</td>
+                                    <td>99.99%</td>
+                                    <td>78ms</td>
+                                    <td>0.01%</td>
+                                    <td>42 days ago</td>
+                                </tr>
+                                <tr>
+                                    <td>Authentication Service</td>
+                                    <td><span class="status-indicator status-good-indicator"></span> Healthy</td>
+                                    <td>100.00%</td>
+                                    <td>112ms</td>
+                                    <td>0.00%</td>
+                                    <td>63 days ago</td>
+                                </tr>
+                                <tr>
+                                    <td>Database Cluster</td>
+                                    <td><span class="status-indicator status-good-indicator"></span> Healthy</td>
+                                    <td>99.97%</td>
+                                    <td>45ms</td>
+                                    <td>0.03%</td>
+                                    <td>14 days ago</td>
+                                </tr>
+                                <tr>
+                                    <td>Analytics Pipeline</td>
+                                    <td><span class="status-indicator status-warning-indicator"></span> Degraded</td>
+                                    <td>99.82%</td>
+                                    <td>320ms</td>
+                                    <td>0.12%</td>
+                                    <td>2 days ago</td>
+                                </tr>
+                                <tr>
+                                    <td>Notification Service</td>
+                                    <td><span class="status-indicator status-good-indicator"></span> Healthy</td>
+                                    <td>99.95%</td>
+                                    <td>64ms</td>
+                                    <td>0.04%</td>
+                                    <td>28 days ago</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Navigation -->
+        <div class="text-center dashboard-nav">
+            <a href="insights_dashboard.html">GenAI Insights Dashboard</a> |
+            <a href="retail_edge/retail_edge_dashboard.html">Retail Edge Dashboard</a> |
+            <a href="ops/system_dashboard.html">Operations Dashboard</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 System Architecture & QA Dashboard</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div>
+                        <span>Powered by Retail Advisor</span>
+                        <span class="ms-2">v2.1.3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // QA Toggle functionality
+        document.getElementById('qaToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            
+            // Toggle advanced sections
+            const systemActivitySection = document.getElementById('systemActivitySection');
+            const azureMetricsSection = document.getElementById('azureMetricsSection');
+            const serviceHealthSection = document.getElementById('serviceHealthSection');
+            
+            if (this.classList.contains('active')) {
+                this.innerHTML = '<i class="fas fa-tools me-1"></i> QA Mode: ON';
+                
+                // Show advanced QA sections
+                systemActivitySection.style.display = 'block';
+                azureMetricsSection.style.display = 'block';
+                serviceHealthSection.style.display = 'block';
+                
+                // Alert for debug info
+                console.log('QA Mode activated: Advanced debugging tools enabled');
+            } else {
+                this.innerHTML = '<i class="fas fa-tools me-1"></i> QA Mode';
+                
+                // Hide advanced QA sections
+                systemActivitySection.style.display = 'none';
+                azureMetricsSection.style.display = 'none';
+                serviceHealthSection.style.display = 'none';
+                
+                // Alert for turning off debug
+                console.log('QA Mode deactivated: Advanced debugging tools disabled');
+            }
+        });
+        
+        // Simulate real-time updates
+        function updateMetrics() {
+            // This would be replaced with actual API calls in a real implementation
+            const randomFluctuation = () => (Math.random() * 0.4 - 0.2).toFixed(2);
+            
+            // Update a few values to simulate live data
+            const metricsToUpdate = document.querySelectorAll('.metric-value');
+            metricsToUpdate.forEach(metric => {
+                const currentValue = parseFloat(metric.textContent);
+                if (!isNaN(currentValue) && currentValue > 0 && currentValue < 100) {
+                    const newValue = Math.max(0, Math.min(100, currentValue + parseFloat(randomFluctuation())));
+                    metric.textContent = newValue.toFixed(1) + '%';
+                }
+            });
+            
+            // Schedule next update
+            setTimeout(updateMetrics, 30000); // Update every 30 seconds
+        }
+        
+        // Start metrics updates
+        setTimeout(updateMetrics, 30000);
+    </script>
+</body>
+</html>

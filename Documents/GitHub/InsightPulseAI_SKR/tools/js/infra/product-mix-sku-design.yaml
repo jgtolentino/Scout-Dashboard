@@ -1,0 +1,221 @@
+product_mix_sku_module:
+  version: "1.0.0"
+  description: "Product Mix & SKU Analysis for Scout Dashboard"
+  
+  route: "/products"
+  
+  visuals:
+    - component: "ProductMixChart"
+      type: "donut_chart"
+      testId: "product-mix-chart"
+      description: "Product category distribution"
+      
+    - component: "SKUPerformanceTable"
+      type: "data_table"
+      testId: "sku-performance-table"
+      description: "Top performing SKUs with metrics"
+      
+    - component: "InventoryHeatmap"
+      type: "heatmap_grid"
+      testId: "inventory-heatmap"
+      description: "Stock levels across locations"
+      
+    - component: "SeasonalTrendsChart"
+      type: "line_chart"
+      testId: "seasonal-trends-chart"
+      description: "Seasonal product performance"
+
+  data_sources:
+    database:
+      - table: "ProductDimension"
+        purpose: "Product master data"
+        columns:
+          - ProductID: "Primary key"
+          - ProductName: "Product display name"
+          - SKU: "Stock keeping unit"
+          - Category: "Product category"
+          - SubCategory: "Product subcategory"
+          - Brand: "Product brand"
+          - UnitPrice: "Base unit price"
+          - LaunchDate: "Product launch date"
+          
+      - table: "InventoryFact"
+        purpose: "Inventory levels and movements"
+        columns:
+          - InventoryID: "Primary key"
+          - ProductID: "Foreign key to ProductDimension"
+          - LocationID: "Foreign key to GeoDimension"
+          - StockLevel: "Current stock quantity"
+          - ReorderPoint: "Reorder threshold"
+          - LastRestocked: "Last restock date"
+          - MovementType: "IN/OUT/ADJUSTMENT"
+          - MovementDate: "Movement timestamp"
+          
+      - table: "SalesFact"
+        purpose: "Product sales transactions"
+        columns:
+          - SaleID: "Primary key"
+          - ProductID: "Foreign key to ProductDimension"
+          - LocationID: "Foreign key to GeoDimension"
+          - Quantity: "Units sold"
+          - Revenue: "Sale amount"
+          - SaleDate: "Sale timestamp"
+          - CustomerID: "Customer identifier"
+
+    views:
+      - name: "v_ProductMixAnalysis"
+        purpose: "Product category distribution"
+        aggregations:
+          - "Category sales volume"
+          - "Revenue by category"
+          - "Market share percentage"
+          
+      - name: "v_SKUPerformance" 
+        purpose: "SKU-level performance metrics"
+        metrics:
+          - "Units sold"
+          - "Revenue generated"
+          - "Inventory turnover"
+          - "Profit margin"
+          - "Stock days remaining"
+          
+      - name: "v_InventoryDensity"
+        purpose: "Stock distribution heatmap"
+        dimensions:
+          - "Location (barangay level)"
+          - "Product category"
+          - "Stock level status"
+          
+      - name: "v_SeasonalTrends"
+        purpose: "Time-based product performance"
+        time_series:
+          - "Monthly sales volume"
+          - "Seasonal patterns"
+          - "Year-over-year growth"
+
+    stored_procedures:
+      - name: "sp_GetProductMix"
+        purpose: "Product category analysis"
+        parameters:
+          - StartDate: "Analysis period start"
+          - EndDate: "Analysis period end"
+          - CategoryFilter: "Optional category filter"
+          
+      - name: "sp_GetSKUPerformance"
+        purpose: "Top/bottom performing SKUs"
+        parameters:
+          - StartDate: "Analysis period start"
+          - EndDate: "Analysis period end"
+          - TopN: "Number of results to return"
+          - SortBy: "Revenue/Volume/Margin"
+          
+      - name: "sp_GetInventoryDensity"
+        purpose: "Inventory heatmap data"
+        parameters:
+          - LocationLevel: "Barangay/Municipality/Province"
+          - StockThreshold: "Low stock threshold"
+          
+      - name: "sp_GetSeasonalTrends"
+        purpose: "Seasonal analysis data"
+        parameters:
+          - ProductCategory: "Category filter"
+          - TimeGranularity: "Monthly/Quarterly"
+          - YearsBack: "Historical period"
+
+  api_endpoints:
+    - path: "/api/products/mix"
+      method: "GET"
+      purpose: "Product mix distribution"
+      query_params:
+        - startDate: "ISO date string"
+        - endDate: "ISO date string"
+        - category: "Optional category filter"
+        
+    - path: "/api/products/sku-performance"
+      method: "GET" 
+      purpose: "SKU performance metrics"
+      query_params:
+        - startDate: "ISO date string"
+        - endDate: "ISO date string"
+        - topN: "Number of results (default 20)"
+        - sortBy: "revenue|volume|margin"
+        
+    - path: "/api/products/inventory-heatmap"
+      method: "GET"
+      purpose: "Inventory distribution heatmap"
+      query_params:
+        - locationLevel: "barangay|municipality|province"
+        - stockThreshold: "Low stock threshold"
+        
+    - path: "/api/products/seasonal-trends"
+      method: "GET"
+      purpose: "Seasonal performance trends"
+      query_params:
+        - category: "Product category"
+        - granularity: "monthly|quarterly"
+        - yearsBack: "Historical period (default 2)"
+
+  frontend_components:
+    ProductMixChart:
+      library: "recharts"
+      chart_type: "PieChart/ResponsiveContainer"
+      features:
+        - "Interactive legend"
+        - "Percentage labels"
+        - "Category drill-down"
+        - "Export functionality"
+        
+    SKUPerformanceTable:
+      library: "react-table"
+      features:
+        - "Sortable columns"
+        - "Pagination"
+        - "Search/filter"
+        - "Export to CSV"
+        - "Performance indicators"
+        
+    InventoryHeatmap:
+      library: "custom/css-grid"
+      features:
+        - "Color-coded stock levels"
+        - "Location tooltips"
+        - "Zoom/pan capability"
+        - "Stock alerts overlay"
+        
+    SeasonalTrendsChart:
+      library: "recharts"
+      chart_type: "LineChart/ResponsiveContainer"
+      features:
+        - "Multi-series support"
+        - "Seasonal highlighting"
+        - "Trend line overlay"
+        - "Period comparison"
+
+  test_coverage:
+    playwright_tests:
+      - "Product mix chart rendering and interaction"
+      - "SKU performance table functionality"
+      - "Inventory heatmap visualization"
+      - "Seasonal trends analysis"
+      - "API integration testing"
+      - "Responsive design validation"
+      - "Error handling scenarios"
+      - "Data filtering and search"
+
+  deployment:
+    azure_functions:
+      - "products-mix-api"
+      - "sku-performance-api" 
+      - "inventory-heatmap-api"
+      - "seasonal-trends-api"
+      
+    static_web_app:
+      - "Updated /products route"
+      - "Product analytics dashboard"
+      - "Interactive visualizations"
+      
+    database_migrations:
+      - "06_sprint_product_mix_sku_analysis.sql"
+      - "Sample data population"
+      - "Performance indexes"
+      - "Data validation"

@@ -1,0 +1,164 @@
+agent:
+  name: GoogleCalendarAgent
+  version: "1.0.0"
+  description: Google Calendar integration for offline personal assistant
+  role: calendar_io
+  runtime: python3.11
+  entrypoint: agents/google_calendar/main.py
+  
+  capabilities:
+    - calendar_read
+    - calendar_create
+    - calendar_update
+    - calendar_delete
+    - event_reminders
+    
+  permissions:
+    - net
+    - fs
+    - env
+    
+  env:
+    CALENDAR_ID: ${CALENDAR_ID}
+    GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+    GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+    GOOGLE_REFRESH_TOKEN: ${GOOGLE_REFRESH_TOKEN}
+    
+  dependencies:
+    - google-auth
+    - google-auth-oauthlib
+    - google-auth-httplib2
+    - google-api-python-client
+    
+  interface:
+    input:
+      type: object
+      properties:
+        action:
+          type: string
+          enum: ["create", "read", "update", "delete", "search"]
+          description: "Calendar operation to perform"
+        title:
+          type: string
+          description: "Event title/summary"
+        start_time:
+          type: string
+          format: date-time
+          description: "Event start time (ISO 8601)"
+        end_time:
+          type: string
+          format: date-time
+          description: "Event end time (ISO 8601)"
+        description:
+          type: string
+          description: "Event description"
+        location:
+          type: string
+          description: "Event location"
+        attendees:
+          type: array
+          items:
+            type: string
+          description: "List of attendee emails"
+        event_id:
+          type: string
+          description: "Event ID for update/delete operations"
+        query:
+          type: string
+          description: "Search query for finding events"
+        time_range:
+          type: object
+          properties:
+            start:
+              type: string
+              format: date-time
+            end:
+              type: string
+              format: date-time
+              
+    output:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        events:
+          type: array
+          description: "List of calendar events"
+        event_id:
+          type: string
+          description: "ID of created/updated event"
+          
+  commands:
+    create_event:
+      description: "Create a new calendar event"
+      exec: |
+        python3 ${entrypoint} create "${title}" "${start_time}" "${end_time:-}" "${description:-}" "${location:-}" "${attendees:-}"
+        
+    read_events:
+      description: "Read upcoming calendar events"
+      exec: |
+        python3 ${entrypoint} read "${time_range.start:-now}" "${time_range.end:-+7d}" "${max_results:-10}"
+        
+    update_event:
+      description: "Update an existing event"
+      exec: |
+        python3 ${entrypoint} update "${event_id}" "${title:-}" "${start_time:-}" "${end_time:-}" "${description:-}" "${location:-}"
+        
+    delete_event:
+      description: "Delete a calendar event"
+      exec: |
+        python3 ${entrypoint} delete "${event_id}"
+        
+    search_events:
+      description: "Search for events by query"
+      exec: |
+        python3 ${entrypoint} search "${query}" "${time_range.start:-now}" "${time_range.end:-+30d}"
+        
+  error_handling:
+    auth_failure:
+      retry: true
+      max_retries: 3
+      fallback: "refresh_token"
+      
+    rate_limit:
+      retry: true
+      backoff: exponential
+      max_wait: 60
+      
+  integrations:
+    - name: PersonalAssistant
+      description: "Voice-controlled calendar management"
+      triggers:
+        - "schedule_meeting"
+        - "check_calendar"
+        - "cancel_event"
+        
+    - name: AskCes
+      description: "Calendar integration for Ask Ces briefs"
+      triggers:
+        - "brief_scheduled"
+        - "reminder_needed"
+        
+  examples:
+    - name: "Create meeting"
+      input:
+        action: "create"
+        title: "Team Standup"
+        start_time: "2025-01-15T10:00:00-08:00"
+        description: "Daily team sync"
+        location: "Conference Room A"
+        
+    - name: "Read today's events"
+      input:
+        action: "read"
+        time_range:
+          start: "today"
+          end: "tomorrow"
+          
+  metadata:
+    author: "InsightPulseAI"
+    category: "productivity"
+    tags: ["calendar", "google", "scheduling", "offline"]
+    mcp_compatible: true

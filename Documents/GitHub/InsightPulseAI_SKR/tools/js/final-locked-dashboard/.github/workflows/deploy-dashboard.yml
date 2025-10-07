@@ -1,0 +1,227 @@
+name: Dashboard CI/CD
+
+on:
+  push:
+    branches: [ main, release/*, feature/* ]
+    paths:
+      - 'deployment-v2/**'
+      - 'js/**'
+      - 'tests/**'
+      - 'package.json'
+      - '.github/workflows/deploy-dashboard.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'deployment-v2/**'
+      - 'js/**'
+      - 'tests/**'
+      - 'package.json'
+      - '.github/workflows/deploy-dashboard.yml'
+
+jobs:
+  test:
+    name: Test Dashboard
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run basic tests
+        run: npm run test:basic
+      
+      - name: Run unit tests
+        run: npm run test:unit
+        
+      - name: Run smoke tests
+        run: npm run test:smoke
+        
+      - name: Upload test reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: reports/
+          if-no-files-found: warn
+  
+  visual-test:
+    name: Visual Regression Tests
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+        
+      - name: Run visual tests
+        run: npm run test:visual
+        
+      - name: Upload visual test artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: visual-test-artifacts
+          path: |
+            reports/playwright-report/
+            test-results/
+          if-no-files-found: warn
+  
+  build-package:
+    name: Build Deployment Package
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Create deployment package
+        run: bash deploy_unified_genai_dashboard.sh --package-only
+      
+      - name: Upload deployment package
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-package
+          path: output/scout_unified_genai_dashboard_*.zip
+          if-no-files-found: error
+  
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build-package
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
+    environment: staging
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download deployment package
+        uses: actions/download-artifact@v3
+        with:
+          name: deployment-package
+          path: output/
+      
+      - name: Set up Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Deploy to Azure Static Web Apps (Staging)
+        id: deploy-staging
+        run: |
+          # Unzip the deployment package
+          PACKAGE_FILE=$(find output/ -name "scout_unified_genai_dashboard_*.zip" | sort -r | head -n1)
+          unzip -o "$PACKAGE_FILE" -d staging-deploy
+          
+          # Deploy to Azure Static Web Apps
+          az staticwebapp deploy \
+            --name "scout-analytics-staging" \
+            --source staging-deploy/scout_unified_genai_dashboard \
+            --env "staging" \
+            --token "${{ secrets.AZURE_DEPLOY_TOKEN }}"
+            
+          echo "DEPLOY_URL=https://scout-analytics-staging.azurestaticapps.net" >> $GITHUB_ENV
+      
+      - name: Post Deployment Comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Dashboard deployed to staging: ${process.env.DEPLOY_URL}`
+            })
+  
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: startsWith(github.ref, 'refs/heads/release/')
+    environment: production
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download deployment package
+        uses: actions/download-artifact@v3
+        with:
+          name: deployment-package
+          path: output/
+      
+      - name: Set up Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Deploy to Azure Static Web Apps (Production)
+        run: |
+          # Unzip the deployment package
+          PACKAGE_FILE=$(find output/ -name "scout_unified_genai_dashboard_*.zip" | sort -r | head -n1)
+          unzip -o "$PACKAGE_FILE" -d prod-deploy
+          
+          # Deploy to Azure Static Web Apps
+          az staticwebapp deploy \
+            --name "scout-analytics-production" \
+            --source prod-deploy/scout_unified_genai_dashboard \
+            --env "production" \
+            --token "${{ secrets.AZURE_DEPLOY_TOKEN }}"
+      
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: |
+            Scout Advanced Analytics Dashboard Release ${{ github.ref_name }}
+            
+            ## Changes in this release:
+            - Fixed unified_genai_insights.js issues
+            - Enhanced security and performance
+            - Improved reliability
+            
+            ## Installation
+            Download the deployment package and follow the instructions in README.md
+          draft: false
+          prerelease: false
+      
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./output/scout_unified_genai_dashboard_*.zip
+          asset_name: scout_unified_genai_dashboard_${{ github.ref_name }}.zip
+          asset_content_type: application/zip

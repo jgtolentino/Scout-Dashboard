@@ -1,0 +1,105 @@
+agent:
+  name: accessibility-specialist
+  version: 2.1.0
+  description: WCAG compliance expert specializing in inclusive design and accessibility auditing
+  type: specialist
+  department: quality
+
+  capabilities:
+    core:
+      - analyze
+      - test
+      - document
+    specialized:
+      - audit-wcag
+      - test-screen-readers
+      - audit-keyboard-nav
+      - generate-a11y-report
+    experimental:
+      - predict-accessibility-issues
+
+  tools:
+    required:
+      - fs
+      - axe-core
+      - playwright
+    optional:
+      - pa11y
+      - lighthouse
+      - accessibility-insights
+    mcp_servers:
+      - fs
+      - playwright
+
+  keywords:
+    - accessibility
+    - a11y
+    - wcag
+    - aria
+    - screen-reader
+    - keyboard-navigation
+    - inclusive-design
+    - compliance
+
+  permissions:
+    allow_shell: false
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    wcag_level: AA
+    wcag_version: 2.1
+    auto_fix: false
+    report_format: html
+
+  routing:
+    mcp:
+      - fs
+      - playwright
+    commands:
+      - /audit-accessibility
+      - /test-screen-readers
+      - /validate-wcag
+      - /generate-a11y-report
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.7
+
+  quality_metrics:
+    validation_score: 0.995
+    test_coverage: 0.98
+    spec_compliance: 1.0
+    performance_rating: 0.92
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Web application with navigation and forms
+        when: Run WCAG 2.1 AA audit
+        then: Zero critical violations detected and report generated
+        priority: P1
+      - given: Interactive components with mouse-only interactions
+        when: Test keyboard navigation
+        then: All components keyboard accessible with logical tab order
+        priority: P1
+      - given: Application with images and media
+        when: Test with screen readers
+        then: All content accessible with proper ARIA labels
+        priority: P2
+    evidence_requirements:
+      - wcag-audit-report
+      - axe-core-scan-results
+      - keyboard-navigation-test-results
+      - screen-reader-compatibility-report

@@ -1,0 +1,229 @@
+name: AppGenie Routes
+version: 1.0.0
+description: API routes configuration for AppGenie MCP server
+
+# Base URL configuration
+base_url: http://localhost:3333/api/v1
+
+# API routes
+routes:
+  # Initialize app from natural language prompt
+  /init:
+    POST:
+      description: Generate app schema from natural language prompt
+      handler: agents/nlp-parser.yaml
+      next: /apply-template
+      params:
+        - name: prompt
+          type: string
+          required: true
+          description: Natural language description of the app to build
+        - name: app_type
+          type: string
+          enum: [utility, game, social, e-commerce, educational, fitness, productivity]
+          required: false
+          description: Optional type of app to build
+        - name: complexity
+          type: string
+          enum: [simple, medium, complex]
+          default: medium
+          description: Complexity level of the app
+
+  # Apply template to app schema
+  /apply-template:
+    POST:
+      description: Apply UI template to app schema
+      handler: agents/template-manager.yaml
+      next: /edit-ui
+      params:
+        - name: schema_path
+          type: string
+          required: true
+          description: Path to the app schema JSON file
+        - name: template_name
+          type: string
+          enum: [default, material, ios, fluent, minimal]
+          default: default
+          description: Template style to use for the app
+        - name: customizations
+          type: object
+          required: false
+          description: Custom overrides for the template
+
+  # Edit UI with drag-and-drop editor
+  /edit-ui:
+    POST:
+      description: Open drag-and-drop editor for app customization
+      handler: agents/ui-editor.yaml
+      next: /preview
+      params:
+        - name: app_name
+          type: string
+          required: true
+          description: Name of the app being edited
+        - name: screens_dir
+          type: string
+          required: true
+          description: Directory containing the generated screen files
+        - name: template_name
+          type: string
+          required: false
+          description: Template being used for the app
+        - name: mode
+          type: string
+          enum: [web, deck, mobile]
+          default: web
+          description: Editor mode to use
+
+  # Preview app in device frames
+  /preview:
+    POST:
+      description: Preview app in device frames
+      handler: agents/preview-engine.yaml
+      next: /deploy
+      params:
+        - name: app_name
+          type: string
+          required: true
+          description: Name of the app being previewed
+        - name: editor_url
+          type: string
+          required: false
+          description: URL of the UI editor
+        - name: screens
+          type: array
+          required: true
+          description: Array of screen objects
+        - name: device
+          type: string
+          enum: [iphone, android, tablet, desktop]
+          default: iphone
+          description: Device frame to use for preview
+        - name: theme
+          type: string
+          enum: [light, dark]
+          default: light
+          description: Theme to use for preview
+
+  # Deploy app to target platform
+  /deploy:
+    POST:
+      description: Deploy app to target platform
+      handler: agents/deployer.yaml
+      next: null
+      params:
+        - name: app_name
+          type: string
+          required: true
+          description: Name of the app to deploy
+        - name: preview_url
+          type: string
+          required: false
+          description: URL of the app preview
+        - name: screens
+          type: array
+          required: true
+          description: Array of screen objects
+        - name: target
+          type: string
+          enum: [pwa, expo, native]
+          default: pwa
+          description: Deployment target platform
+        - name: config
+          type: object
+          required: false
+          description: Deployment configuration options
+
+  # Get feedback on app design and functionality
+  /feedback:
+    POST:
+      description: Get AI feedback on app design and functionality
+      handler: agents/feedback.yaml
+      next: null
+      params:
+        - name: app_name
+          type: string
+          required: true
+          description: Name of the app to review
+        - name: screens
+          type: array
+          required: true
+          description: Array of screen objects
+        - name: focus
+          type: string
+          enum: [design, ux, functionality, accessibility]
+          default: design
+          description: Area to focus feedback on
+
+  # Layout optimization suggestions
+  /optimize-layout:
+    POST:
+      description: Get AI suggestions for optimizing layout
+      handler: agents/layout-optimizer.yaml
+      next: null
+      params:
+        - name: app_name
+          type: string
+          required: true
+          description: Name of the app to optimize
+        - name: screens
+          type: array
+          required: true
+          description: Array of screen objects
+        - name: device_target
+          type: string
+          enum: [mobile, tablet, desktop, all]
+          default: all
+          description: Target device for optimization
+
+# Composite endpoints
+composite:
+  # Full app generation workflow
+  /generate:
+    description: Generate an app from natural language to deployment
+    steps:
+      - endpoint: /init
+        method: POST
+        params_from: request
+      - endpoint: /apply-template
+        method: POST
+        params_from: previous
+      - endpoint: /edit-ui
+        method: POST
+        params_from: previous
+      - endpoint: /preview
+        method: POST
+        params_from: previous
+      - endpoint: /deploy
+        method: POST
+        params_from: previous
+  
+  # Quick generate workflow (skips UI editor)
+  /quick-generate:
+    description: Quickly generate an app from prompt to deployment
+    steps:
+      - endpoint: /init
+        method: POST
+        params_from: request
+      - endpoint: /apply-template
+        method: POST
+        params_from: previous
+      - endpoint: /preview
+        method: POST
+        params_from: previous
+      - endpoint: /deploy
+        method: POST
+        params_from: previous
+
+# Middleware for all routes
+middleware:
+  - name: auth
+    config:
+      type: bearer
+      required: false
+  - name: logger
+    config:
+      level: info
+  - name: cors
+    config:
+      origins: ["*"]

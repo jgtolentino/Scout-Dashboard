@@ -1,0 +1,24 @@
+description: "Analyzes market trends and produces structured YAML output for business decision-making"
+tags:
+  - marketing
+  - trends
+  - analysis
+  - yaml
+  - business
+author: InsightPulseAI
+created: "2025-05-10"
+executor: Claude
+variables:
+  - name: sector
+    description: "Market sector to analyze"
+    required: true
+    default: "Technology"
+  - name: context
+    description: "Additional context or constraints"
+    required: false
+    default: "Focus on near-term developments (6-12 months)"
+examples:
+  - input:
+      sector: "Artificial Intelligence"
+      context: "Focus on enterprise applications"
+    description: "Analysis of AI enterprise market trends"

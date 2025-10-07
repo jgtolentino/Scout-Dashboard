@@ -1,0 +1,190 @@
+# Client360 Dashboard Onboarding Prompt for Pulser
+
+- id: client360_onboarding
+  name: "Client360 Dashboard Onboarding Guide"
+  description: "A comprehensive introduction to the Client360 Dashboard codebase for new developers"
+  version: "1.0.0"
+  tags: 
+    - client360
+    - dashboard
+    - onboarding
+    - databricks
+    - tbwa
+    - retail-analytics
+  target_users:
+    - new_developers
+    - project_onboarding
+    - dashboard_contributors
+  sample_questions:
+    - "How is the Client360 Dashboard codebase structured?"
+    - "How do I set up my local environment for Client360 development?"
+    - "How does the theme system work in Client360 Dashboard?"
+    - "What is the data connection architecture for Client360?"
+    - "How do I deploy the Client360 Dashboard to production?"
+  prompt: |
+    # Client360 Dashboard Developer Onboarding
+
+    Welcome to the Client360 Dashboard project! This guide will help you understand the architecture, codebase organization, and development workflows for this retail analytics platform.
+
+    ## I. Overview & Purpose
+
+    The Client360 Dashboard is a comprehensive analytics platform that provides:
+    - Real-time store performance metrics for retail operations
+    - Geospatial visualization of store performance
+    - Brand visibility and customer interaction analysis
+    - Flexible data connections to Databricks or sample data
+    - Themeable interface with TBWA and SariSari configurations
+
+    ## II. Architecture & Data Flow
+
+    The dashboard follows a modern web architecture:
+
+    ```
+    Client Browser → Azure Static Web App → API Gateway → Analytics API → Databricks SQL
+    ```
+
+    Key components:
+    1. **Frontend**: Static HTML/CSS/JS (Webpack-built)
+    2. **Data Layer**: Databricks SQL connector with simulation fallback
+    3. **Deployment**: Azure Static Web Apps with blue-green deployment
+    4. **Data Source**: Medallion architecture in Delta Lake (Bronze → Silver → Gold)
+
+    ## III. Codebase Organization
+
+    The project follows a modular structure:
+
+    ```
+    /client360_dashboard/
+    ├── /src/                # Source code
+    │   ├── /components/     # Reusable UI components
+    │   ├── /connectors/     # Backend connection modules
+    │   ├── /styles/         # SCSS variables and theme definitions
+    │   └── /themes/         # Theme configuration
+    ├── /data/               # Data connectors and sample data
+    ├── /deploy/             # Deployment-ready assets
+    ├── /js/                 # Core JavaScript functionality
+    ├── /scripts/            # Build and deployment scripts
+    ├── webpack.config.js    # Build configuration
+    └── package.json         # Dependencies and scripts
+    ```
+
+    ## IV. Key Features
+
+    ### Theme System
+    - Supports dynamic theming via CSS variables
+    - Two primary themes: TBWA (corporate) and SariSari (retail)
+    - Theme files in `/src/styles/variables-*.scss`
+    - Compiled using webpack for production
+
+    ### Data Connections
+    - Primary connector: `/data/databricks_sql_connector.js`
+    - Simulation mode uses sample data from `/data/sample_data.json`
+    - Automatic fallback if database connection fails
+    - Key Vault integration for secure credential storage
+
+    ### Interactive Components
+    - KPI cards with real-time data
+    - Geospatial map using Leaflet.js
+    - Dynamic charts for sales trends
+    - Store data drill-down capabilities
+
+    ### Rollback System
+    - Supports reverting to previous dashboard versions
+    - Includes verification before rollback action
+    - Controlled via admin panel component
+
+    ## V. Getting Started
+
+    ### Development Environment Setup
+    1. Dependencies:
+       - Node.js v16+
+       - npm or yarn
+       - Local web server for testing
+
+    2. Environment Configuration:
+       - Copy `.env.example` to `.env.local`
+       - Configure:
+         ```
+         DATABRICKS_SQL_HOST=your-databricks-host
+         DATABRICKS_SQL_PATH=/sql/1.0/warehouses/your-warehouse-id
+         DATABRICKS_SQL_TOKEN=your-token-here
+         # Or use simulation mode:
+         SIMULATION_MODE=true
+         ```
+
+    3. Build Commands:
+       ```bash
+       # Install dependencies
+       npm install
+
+       # Development build with watch
+       npm run build:dev
+       npm run watch
+
+       # Production build
+       npm run build:themes
+
+       # Run local server
+       ./run_local_server.sh
+       ```
+
+    ### Working with Data
+    - For development, use simulation mode (`SIMULATION_MODE=true` in `.env.local`)
+    - For production, connect to Databricks SQL endpoints
+    - Sample data structure matches production schema for consistent development
+
+    ## VI. Build & Deployment
+
+    ### Build Process
+    1. SCSS compilation via webpack
+    2. Asset optimization
+    3. Theme bundling
+    4. Package preparation
+
+    ### Deployment Process
+    ```bash
+    # Standard deployment
+    ./deploy_360_dashboard.sh
+
+    # Deploy to Azure
+    ./deploy_to_azure.sh
+
+    # CI/CD deployment via GitHub Actions
+    # (triggered on push to feature-dashboard branch)
+    ```
+
+    The dashboard is deployed to:
+    - Production: `https://blue-coast-0acb6880f.azurestaticapps.net/360/`
+    - QA/Staging: `https://blue-coast-0acb6880f-qa.azurestaticapps.net/360/`
+
+    ## VII. Testing
+
+    - Use Cypress for E2E testing
+    - Run tests with:
+      ```bash
+      npm test             # Run headless
+      npm run test:open    # Open Cypress UI
+      ```
+
+    ## VIII. Troubleshooting
+
+    Common issues:
+    1. **Dashboard not loading**: Check network connection, browser cache
+    2. **Data not displaying**: Verify data source toggle or connection settings
+    3. **Theme issues**: Check CSS compilation and theme variables
+    4. **Deployment errors**: Review Azure Static Web App logs
+
+    ## IX. Best Practices
+
+    1. Always test against both themes (TBWA and SariSari)
+    2. Use simulation mode for local development
+    3. Follow existing component patterns for consistency
+    4. Test on QA before promoting to production
+    5. Use feature branches for new development
+
+    ## X. Additional Resources
+
+    - Full documentation in `/docs/`
+    - SQL schema in `/docs/sql_schema.md`
+    - Deployment pipeline in `/DEPLOYMENT_PIPELINE.md`
+    - Contact the TBWA team at `support@tbwa.com` for assistance

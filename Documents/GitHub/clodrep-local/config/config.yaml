@@ -1,0 +1,28 @@
+model:
+  provider: ollama
+  name: deepseek-coder:6.7b-instruct-q4_K_M
+  temperature: 0.2
+  max_tokens: 4096
+  
+context_window: 12000
+search_enabled: false
+
+handlers:
+  - explain
+  - fix
+  - test
+  - reverse
+
+security:
+  confirm_before_write: true
+  offline_mode: true
+
+logging:
+  level: info
+  max_logs: 100
+  directory: ~/.clodrep-local/logs
+
+repl:
+  prompt_symbol: "> "
+  wrap_at: 100
+  history_size: 12

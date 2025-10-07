@@ -1,0 +1,48 @@
+===== VOICE CALENDAR AGENT TEST SIMULATION =====
+
+Input: "Schedule a call with Jake tomorrow at 2 PM"
+
+1. ECHO STT PROCESSING
+------------------------
+Transcript: "Schedule a call with Jake tomorrow at 2 PM"
+Confidence: 0.97
+Status: Transcription complete ✅
+
+2. CLAUDE INTENT PARSING
+------------------------
+{
+  "intent": "create",
+  "title": "Call with Jake",
+  "datetime": "2025-05-16T14:00:00",
+  "attendees": "Jake"
+}
+Status: Intent parsed successfully ✅
+
+3. CACA VALIDATION
+------------------------
+Validating intent: create
+Validating datetime: 2025-05-16T14:00:00
+Validating title: Call with Jake
+Status: All fields valid ✅
+
+4. GOOGLE CALENDAR ACTION
+------------------------
+Action: CREATE
+Title: Call with Jake
+Time: 2025-05-16T14:00:00
+Attendees: Jake
+Status: Event created successfully ✅
+Event ID: evt_28475920
+
+5. ELEVENLABS TTS RESPONSE
+------------------------
+Text: "Got it! Your request to create the event 'Call with Jake' has been processed. Let me know if you'd like to do anything else."
+Voice ID: Rachel
+Audio duration: 6.2s
+Audio URL: https://api.elevenlabs.io/v1/audio/temp/evt28475920.mp3
+Status: Audio generated successfully ✅
+
+6. CLAUDIA COMPLETION
+------------------------
+Session ID: sess_voice_cal_15052025_184532
+Task complete ✅

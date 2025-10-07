@@ -1,0 +1,98 @@
+# Codex Guardrails Policy
+# Runtime enforcement of code quality, security, and reliability
+
+schemas:
+  staticwebapp: 
+    path: ../schemas/staticwebapp.schema.json
+    targets:
+      - "**/*staticwebapp.config.json"
+  
+  dlt:
+    path: ../schemas/dlt.schema.json
+    targets:
+      - "**/*.dlt.json"
+
+linting:
+  eslint:
+    config: ../.eslintrc.json
+    targets: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+    auto_fix: true
+  
+  prettier:
+    config: ../.prettierrc
+    targets: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.json", "**/*.css", "**/*.md"]
+    auto_fix: true
+  
+  stylelint:
+    config: ../.stylelintrc.json
+    targets: ["**/*.css", "**/*.scss"]
+    auto_fix: true
+
+feature_flags:
+  module_path: ../utils/feature-flags.js
+  environment_prefix: REACT_APP_ENABLE_
+  required_flags:
+    - NEW_DASHBOARD_UI
+    - POWER_BI_THEME
+    - DARK_MODE
+    - EXPORT_FUNCTIONALITY
+    - REAL_TIME_UPDATES
+    - ADVANCED_FILTERING
+    - DATA_CACHE
+    - AI_INSIGHTS
+    - CHART_ANNOTATIONS
+    - COLLABORATION
+    - TELEMETRY
+    - ERROR_REPORTING
+    - PERFORMANCE_MONITORING
+
+golden_baselines:
+  tag_format: "golden-*"
+  create_script: ../scripts/create-golden-baseline.sh
+  verify_script: ../scripts/verify-against-golden.sh
+  rollback_script: ../scripts/rollback-to-golden.sh
+  auto_verify: true
+  verification_threshold: 50
+
+prompt_templates:
+  location: ../.prompts/
+  templates:
+    patch: patch-template.md
+    feature: feature-template.md
+    refactor: refactor-template.md
+    bug_fix: bug-fix-template.md
+  application_script: ../scripts/apply-prompt-template.js
+  enforce: true
+
+testing:
+  test_feedback_loop: ../scripts/ai-test-loop.js
+  enforce_tests: true
+  hooks:
+    pre_commit: ../.husky/pre-commit-ai-test
+  max_retry_iterations: 3
+
+telemetry:
+  module_path: ../utils/telemetry.js
+  required_metrics:
+    - pageLoadTime
+    - apiResponseTime
+    - renderTime
+    - interactionTime
+    - errorRate
+  setup_alerts_script: ../scripts/setup-azure-alerts.js
+  thresholds:
+    pageLoadTime: 2000
+    apiResponseTime: 500
+    renderTime: 100
+    interactionTime: 200
+
+deployment:
+  canary:
+    script: ../scripts/deploy-canary.sh
+    environment: canary
+    monitoring_duration: 24h
+  promotion:
+    script: ../scripts/promote-to-production.sh
+    requires_approval: true
+  rollback:
+    auto_rollback_on_error: true

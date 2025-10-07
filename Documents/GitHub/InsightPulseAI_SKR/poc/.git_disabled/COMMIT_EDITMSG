@@ -1,0 +1,7 @@
+Integrate a real database to store and retrieve analytics dashboard data
+
+Replaces MemStorage with DatabaseStorage, implementing IStorage interface using Drizzle ORM for user, transaction, and consumer data persistence.
+
+Replit-Commit-Author: Agent
+Replit-Commit-Session-Id: 1eaa536e-0eec-4e89-9817-a4cd279006dc
+Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/d612d814-3c22-4afa-b31a-e1b96e1bb48e/5360541a-7351-477d-9d75-d8606cd3f3d0.jpg

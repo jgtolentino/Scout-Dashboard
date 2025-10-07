@@ -1,0 +1,117 @@
+version: 2
+
+models:
+  - name: stg_sales_transactions
+    description: "Staged sales transaction data with parsed JSON items array"
+    columns:
+      - name: transaction_id
+        description: "Unique identifier for the transaction"
+        tests:
+          - unique
+          - not_null
+      - name: store_id
+        description: "Identifier for the store where the transaction occurred"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_stores')
+              field: store_id
+      - name: transaction_date
+        description: "Date and time of the transaction"
+        tests:
+          - not_null
+      - name: items
+        description: "Array of items purchased in the transaction"
+        tests:
+          - not_null
+      - name: total_amount
+        description: "Total monetary amount of the transaction"
+        tests:
+          - not_null
+      - name: payment_method
+        description: "Method of payment used"
+      - name: customer_id
+        description: "Identifier for the customer, if available"
+
+  - name: stg_stores
+    description: "Staged store location data with geographical point"
+    columns:
+      - name: store_id
+        description: "Unique identifier for the store"
+        tests:
+          - unique
+          - not_null
+      - name: store_name
+        description: "Name of the store"
+        tests:
+          - not_null
+      - name: latitude
+        description: "Geographical latitude of the store location"
+        tests:
+          - not_null
+      - name: longitude
+        description: "Geographical longitude of the store location"
+        tests:
+          - not_null
+      - name: city
+        description: "City where the store is located"
+      - name: state
+        description: "State or province where the store is located"
+      - name: country
+        description: "Country where the store is located"
+      - name: postal_code
+        description: "Postal or ZIP code of the store"
+      - name: store_type
+        description: "Type or category of the store"
+      - name: geo_point
+        description: "Geographical point representation of the store location"
+
+  - name: stg_products
+    description: "Staged product catalog data with standardized brand names"
+    columns:
+      - name: product_id
+        description: "Unique identifier for the product"
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "Name of the product"
+        tests:
+          - not_null
+      - name: brand
+        description: "Raw brand name associated with the product"
+      - name: brand_standardized
+        description: "Standardized brand name for consistent analysis"
+        tests:
+          - not_null
+      - name: category
+        description: "Product category"
+      - name: subcategory
+        description: "Product subcategory"
+      - name: sku
+        description: "Stock Keeping Unit code"
+      - name: price
+        description: "Standard retail price of the product"
+
+  - name: stg_geographical_regions
+    description: "Staged geographical region definitions with validated GeoJSON"
+    columns:
+      - name: region_id
+        description: "Unique identifier for the geographical region"
+        tests:
+          - unique
+          - not_null
+      - name: region_name
+        description: "Name of the region"
+        tests:
+          - not_null
+      - name: region_type
+        description: "Type of region (city, state, country, etc.)"
+        tests:
+          - not_null
+      - name: parent_region_id
+        description: "ID of the parent region, if applicable"
+      - name: geojson
+        description: "Raw GeoJSON representation of the region boundaries"
+      - name: geojson_valid
+        description: "Validated GeoJSON string"

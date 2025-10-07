@@ -1,0 +1,14 @@
+agent:
+  name: whimsy-injector
+  version: 1.0.0
+  description: ''
+  type: traditional
+  department: design
+  capabilities: []
+  tools: []
+  keywords: []
+  permissions:
+    allow_shell: false
+    allow_network: false
+    allow_credentials: false
+  config: {}

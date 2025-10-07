@@ -1,0 +1,127 @@
+{
+  "navigation": [
+    {
+      "id": "overview",
+      "label": "Dashboard Overview",
+      "icon": "fas fa-tachometer-alt",
+      "section": "main-dashboard",
+      "active": true,
+      "description": "Executive KPI summary and key metrics"
+    },
+    {
+      "id": "sales-analytics",
+      "label": "Sales Analytics",
+      "icon": "fas fa-chart-line",
+      "section": "sales-section",
+      "active": false,
+      "description": "Revenue trends and sales performance analysis"
+    },
+    {
+      "id": "customer-insights",
+      "label": "Customer Insights",
+      "icon": "fas fa-users",
+      "section": "customer-section",
+      "active": false,
+      "description": "Customer behavior and satisfaction metrics"
+    },
+    {
+      "id": "brand-sentiment",
+      "label": "Brand Sentiment",
+      "icon": "fas fa-heart",
+      "section": "sentiment-section",
+      "active": false,
+      "description": "Brand perception and sentiment analysis"
+    },
+    {
+      "id": "store-performance",
+      "label": "Store Performance",
+      "icon": "fas fa-store",
+      "section": "store-section",
+      "active": false,
+      "description": "Individual store metrics and rankings"
+    },
+    {
+      "id": "regional-analysis",
+      "label": "Regional Analysis",
+      "icon": "fas fa-map-marked-alt",
+      "section": "regional-section",
+      "active": false,
+      "description": "Geographic performance and market analysis"
+    },
+    {
+      "id": "device-health",
+      "label": "Device Health",
+      "icon": "fas fa-server",
+      "section": "device-section",
+      "active": false,
+      "description": "System health and operational metrics"
+    },
+    {
+      "id": "ai-insights",
+      "label": "AI Insights",
+      "icon": "fas fa-brain",
+      "section": "ai-section",
+      "active": false,
+      "description": "Machine learning insights and predictions"
+    },
+    {
+      "id": "export-tools",
+      "label": "Export & Reports",
+      "icon": "fas fa-download",
+      "section": "export-section",
+      "active": false,
+      "description": "Data export and presentation tools"
+    }
+  ],
+  "quick_actions": [
+    {
+      "id": "refresh-data",
+      "label": "Refresh Data",
+      "icon": "fas fa-sync",
+      "action": "refresh",
+      "disabled": true,
+      "tooltip": "Disabled in demo mode"
+    },
+    {
+      "id": "export-dashboard",
+      "label": "Export Dashboard",
+      "icon": "fas fa-file-export",
+      "action": "export",
+      "disabled": false,
+      "tooltip": "Export current view to PowerPoint"
+    },
+    {
+      "id": "toggle-filters",
+      "label": "Toggle Filters",
+      "icon": "fas fa-filter",
+      "action": "toggle-filters",
+      "disabled": false,
+      "tooltip": "Show/hide filter panel"
+    },
+    {
+      "id": "fullscreen",
+      "label": "Fullscreen",
+      "icon": "fas fa-expand",
+      "action": "fullscreen",
+      "disabled": false,
+      "tooltip": "Enter fullscreen mode"
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "label": "Client360",
+      "url": "/",
+      "active": false
+    },
+    {
+      "label": "Analytics Dashboard",
+      "url": "/dashboard",
+      "active": false
+    },
+    {
+      "label": "Overview",
+      "url": "/dashboard/overview",
+      "active": true
+    }
+  ]
+}

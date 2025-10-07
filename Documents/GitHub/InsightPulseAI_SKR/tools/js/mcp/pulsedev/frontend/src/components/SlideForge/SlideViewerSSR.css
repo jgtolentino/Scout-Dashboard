@@ -1,0 +1,306 @@
+/* SlideViewerSSR.css - Styles for Server-Side Rendered Slide Decks */
+
+.slide-viewer-ssr {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #333;
+}
+
+/* Deck Information */
+.slide-deck-info {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.slide-deck-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.slide-deck-description {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 15px;
+}
+
+.slide-deck-author {
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.slide-deck-modified {
+  font-size: 0.9rem;
+  color: #95a5a6;
+}
+
+/* Slide Container */
+.slide-deck-container {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  margin-bottom: 30px;
+}
+
+/* Generic Slide */
+.slide {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.slide h1 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.slide h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #3498db;
+}
+
+.slide-content {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-top: 15px;
+}
+
+/* Title Slide */
+.slide-title {
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.slide-title h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+}
+
+.slide-title h2 {
+  font-size: 1.8rem;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+}
+
+/* Image Slide */
+.slide-image-container {
+  text-align: center;
+}
+
+.slide-image-container img {
+  max-width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  margin: 15px 0;
+  border-radius: 4px;
+}
+
+.slide-caption {
+  font-style: italic;
+  margin-top: 10px;
+  color: #7f8c8d;
+}
+
+/* Bullet Point Slide */
+.slide-bullet-list {
+  margin: 20px 0;
+  padding-left: 25px;
+}
+
+.slide-bullet-list li {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+/* Code Slide */
+.slide-code-container {
+  background-color: #f8f8f8;
+  border-radius: 6px;
+  padding: 15px;
+  margin: 15px 0;
+  overflow-x: auto;
+}
+
+.slide-code-container pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.slide-code-container code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Split Slide */
+.slide-split-container {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.slide-split-left,
+.slide-split-right {
+  flex: 1;
+}
+
+/* End Slide */
+.slide-end {
+  text-align: center;
+  padding: 80px 40px;
+}
+
+.slide-end h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.slide-author {
+  font-size: 1.3rem;
+  margin-top: 40px;
+  font-style: italic;
+  color: #7f8c8d;
+}
+
+/* Navigation Controls */
+.slide-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.slide-navigation {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.slide-prev-btn,
+.slide-next-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.slide-prev-btn:hover,
+.slide-next-btn:hover {
+  background-color: #2980b9;
+}
+
+.slide-counter {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin: 0 10px;
+}
+
+.slide-counter-separator {
+  margin: 0 5px;
+}
+
+/* Error State */
+.slide-viewer-error {
+  padding: 40px;
+  text-align: center;
+  background-color: #fff9f9;
+  border: 1px solid #e74c3c;
+  border-radius: 8px;
+  color: #e74c3c;
+}
+
+/* Theme: Dark */
+.slide-theme-dark {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+
+.slide-theme-dark .slide {
+  background-color: #34495e;
+  border-color: #2c3e50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.slide-theme-dark .slide h1,
+.slide-theme-dark .slide h2 {
+  color: #3498db;
+}
+
+.slide-theme-dark .slide-deck-title {
+  color: #ecf0f1;
+}
+
+.slide-theme-dark .slide-deck-description,
+.slide-theme-dark .slide-caption {
+  color: #bdc3c7;
+}
+
+.slide-theme-dark .slide-code-container {
+  background-color: #2c3e50;
+}
+
+.slide-theme-dark .slide-code-container code {
+  color: #ecf0f1;
+}
+
+.slide-theme-dark .slide-bullet-list li {
+  color: #ecf0f1;
+}
+
+/* Theme: Light */
+.slide-theme-light {
+  background-color: #f9f9f9;
+}
+
+.slide-theme-light .slide {
+  background-color: #ffffff;
+  border-color: #e0e0e0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .slide {
+    padding: 30px 20px;
+  }
+  
+  .slide h1 {
+    font-size: 1.8rem;
+  }
+  
+  .slide h2 {
+    font-size: 1.5rem;
+  }
+  
+  .slide-split-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .slide-title {
+    padding: 40px 20px;
+  }
+  
+  .slide-end {
+    padding: 50px 20px;
+  }
+  
+  .slide-bullet-list li {
+    font-size: 1rem;
+  }
+}

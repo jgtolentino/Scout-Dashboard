@@ -1,0 +1,248 @@
+version: 2
+
+models:
+  - name: sales_interaction_brands
+    description: "Detailed sales transaction data with brand information and geographical context"
+    columns:
+      - name: transaction_id
+        description: "Unique identifier for the transaction"
+        tests:
+          - not_null
+      - name: store_id
+        description: "Identifier for the store where the transaction occurred"
+        tests:
+          - not_null
+      - name: transaction_date
+        description: "Date and time of the transaction"
+        tests:
+          - not_null
+      - name: product_id
+        description: "Identifier for the product"
+        tests:
+          - not_null
+      - name: product_name
+        description: "Name of the product"
+      - name: brand_standardized
+        description: "Standardized brand name"
+        tests:
+          - not_null
+      - name: category
+        description: "Product category"
+      - name: subcategory
+        description: "Product subcategory"
+      - name: quantity
+        description: "Quantity of the product purchased"
+        tests:
+          - not_null
+      - name: item_price
+        description: "Price of the individual item"
+        tests:
+          - not_null
+      - name: item_total
+        description: "Total amount for this item (quantity * item_price)"
+        tests:
+          - not_null
+      - name: latitude
+        description: "Geographical latitude of the store location"
+      - name: longitude
+        description: "Geographical longitude of the store location"
+      - name: city
+        description: "City where the store is located"
+      - name: state
+        description: "State or province where the store is located"
+      - name: country
+        description: "Country where the store is located"
+      - name: geo_point
+        description: "Geographical point representation of the store location"
+      - name: year
+        description: "Year of the transaction"
+      - name: month
+        description: "Month of the transaction"
+      - name: day
+        description: "Day of the transaction"
+      - name: day_of_week
+        description: "Day of the week of the transaction"
+      - name: transaction_product_id
+        description: "Unique identifier for the transaction-product combination"
+        tests:
+          - unique
+          - not_null
+
+  - name: top_brands
+    description: "Brand performance metrics by geographic region with market share and rankings"
+    columns:
+      - name: brand
+        description: "Standardized brand name"
+        tests:
+          - not_null
+      - name: state
+        description: "State or province for the metrics"
+        tests:
+          - not_null
+      - name: city
+        description: "City for the metrics"
+        tests:
+          - not_null
+      - name: transaction_count
+        description: "Number of transactions containing this brand in the region"
+        tests:
+          - not_null
+      - name: total_quantity
+        description: "Total quantity of products sold for this brand in the region"
+        tests:
+          - not_null
+      - name: total_sales
+        description: "Total sales amount for this brand in the region"
+        tests:
+          - not_null
+      - name: store_count
+        description: "Number of stores selling this brand in the region"
+      - name: first_transaction_date
+        description: "Date of the first transaction for this brand in the region"
+      - name: last_transaction_date
+        description: "Date of the most recent transaction for this brand in the region"
+      - name: avg_price
+        description: "Average price of products for this brand in the region"
+      - name: total_transactions
+        description: "Total number of transactions in the region"
+      - name: region_total_quantity
+        description: "Total quantity of all products sold in the region"
+      - name: region_total_sales
+        description: "Total sales amount for all brands in the region"
+      - name: transaction_share
+        description: "Percentage of transactions in the region that include this brand"
+      - name: quantity_share
+        description: "Percentage of total quantity in the region attributed to this brand"
+      - name: sales_share
+        description: "Percentage of total sales in the region attributed to this brand"
+      - name: sales_rank
+        description: "Rank of the brand in the region by sales share"
+      - name: transaction_rank
+        description: "Rank of the brand in the region by transaction count"
+      - name: quantity_rank
+        description: "Rank of the brand in the region by quantity sold"
+      - name: is_top_5_sales
+        description: "Flag indicating if the brand is in the top 5 by sales in the region"
+      - name: is_top_5_transactions
+        description: "Flag indicating if the brand is in the top 5 by transactions in the region"
+      - name: is_top_5_quantity
+        description: "Flag indicating if the brand is in the top 5 by quantity in the region"
+
+  - name: top_combos
+    description: "Brand combination analytics showing which brands are purchased together"
+    columns:
+      - name: brand_a
+        description: "First brand in the combination"
+        tests:
+          - not_null
+      - name: brand_b
+        description: "Second brand in the combination"
+        tests:
+          - not_null
+      - name: city
+        description: "City for the metrics"
+        tests:
+          - not_null
+      - name: state
+        description: "State or province for the metrics"
+        tests:
+          - not_null
+      - name: transaction_count
+        description: "Number of transactions containing both brands"
+        tests:
+          - not_null
+      - name: store_count
+        description: "Number of stores selling this brand combination"
+      - name: avg_quantity_a
+        description: "Average quantity of brand A when purchased with brand B"
+      - name: avg_quantity_b
+        description: "Average quantity of brand B when purchased with brand A"
+      - name: total_combo_sales
+        description: "Total sales amount for transactions with this brand combination"
+      - name: first_seen_date
+        description: "Date when this combination was first observed"
+      - name: last_seen_date
+        description: "Date when this combination was most recently observed"
+      - name: a_transaction_count
+        description: "Total number of transactions containing brand A"
+      - name: b_transaction_count
+        description: "Total number of transactions containing brand B"
+      - name: region_transaction_count
+        description: "Total number of transactions in the region"
+      - name: combo_pct_of_all_transactions
+        description: "Percentage of all transactions that contain this combination"
+      - name: pct_of_brand_a_transactions
+        description: "Percentage of brand A transactions that also contain brand B"
+      - name: pct_of_brand_b_transactions
+        description: "Percentage of brand B transactions that also contain brand A"
+      - name: lift
+        description: "Measure of how much more likely brands are purchased together versus randomly"
+      - name: transaction_count_rank
+        description: "Rank of the combination in the region by transaction count"
+      - name: lift_rank
+        description: "Rank of the combination in the region by lift value"
+      - name: is_top_10_by_frequency
+        description: "Flag indicating if the combination is in the top 10 by frequency"
+      - name: is_top_10_by_lift
+        description: "Flag indicating if the combination is in the top 10 by lift value"
+
+  - name: store_metrics
+    description: "Comprehensive store performance metrics with regional benchmarking"
+    columns:
+      - name: store_id
+        description: "Unique identifier for the store"
+        tests:
+          - unique
+          - not_null
+      - name: store_name
+        description: "Name of the store"
+      - name: latitude
+        description: "Geographical latitude of the store location"
+      - name: longitude
+        description: "Geographical longitude of the store location"
+      - name: city
+        description: "City where the store is located"
+      - name: state
+        description: "State or province where the store is located"
+      - name: country
+        description: "Country where the store is located"
+      - name: postal_code
+        description: "Postal or ZIP code of the store"
+      - name: store_type
+        description: "Type or category of the store"
+      - name: geo_point
+        description: "Geographical point representation of the store location"
+      - name: total_brands_carried
+        description: "Total number of unique brands sold at the store"
+      - name: total_categories
+        description: "Total number of unique product categories at the store"
+      - name: top_5_brands_list
+        description: "Comma-separated list of the top 5 brands by sales at the store"
+      - name: first_sales_date
+        description: "Date of the first recorded sale at the store"
+      - name: last_sales_date
+        description: "Date of the most recent recorded sale at the store"
+      - name: active_days
+        description: "Number of days with at least one transaction"
+      - name: avg_daily_transactions
+        description: "Average number of transactions per active day"
+      - name: avg_daily_revenue
+        description: "Average revenue per active day"
+      - name: revenue_per_active_day
+        description: "Total revenue divided by number of active days"
+      - name: stores_in_region
+        description: "Number of stores in the same city and state"
+      - name: region_avg_daily_revenue
+        description: "Average daily revenue for stores in the same region"
+      - name: region_avg_daily_transactions
+        description: "Average daily transactions for stores in the same region"
+      - name: region_avg_brands_carried
+        description: "Average number of brands carried by stores in the same region"
+      - name: revenue_vs_region_avg
+        description: "Ratio of store's daily revenue to the regional average"
+      - name: transactions_vs_region_avg
+        description: "Ratio of store's daily transactions to the regional average"
+      - name: brand_diversity_vs_region_avg
+        description: "Ratio of store's brand diversity to the regional average"
+      - name: generated_at
+        description: "Timestamp when these metrics were generated"

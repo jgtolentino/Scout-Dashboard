@@ -1,0 +1,10 @@
+{
+  "id": "task-123e4567-e89b-12d3-a456-426614174000",
+  "type": "run_code_review",
+  "params": {
+    "project_path": "/path/to/project"
+  },
+  "source": "claude_desktop",
+  "priority": "normal",
+  "created_at": "2025-05-16T10:30:00Z"
+}

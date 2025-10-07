@@ -1,0 +1,97 @@
+agent:
+  name: Text2SpeechBot
+  version: "1.0.0"
+  description: Multi-speaker text-to-speech synthesis using Nari Dia 1.6B model
+  capabilities:
+    - text_to_speech
+    - multi_speaker_synthesis
+    - dialogue_rendering
+    - voice_cloning
+  
+  config:
+    model: "nari-labs/dia-1.6b"
+    runtime: python3.11
+    temperature: 0.7
+    max_speakers: 10
+    output_format: "wav"
+    sample_rate: 22050
+    
+  dependencies:
+    - str2speech
+    - torch
+    - numpy
+    
+  interface:
+    input:
+      type: object
+      properties:
+        text_file:
+          type: string
+          description: "Path to text file with speaker tags [S1], [S2], etc."
+        output_path:
+          type: string
+          description: "Output audio file path"
+        model_override:
+          type: string
+          description: "Optional model override"
+          default: "nari-labs/dia-1.6b"
+        voice_profiles:
+          type: object
+          description: "Optional speaker voice profiles"
+          
+    output:
+      type: object
+      properties:
+        audio_file:
+          type: string
+          description: "Path to generated audio file"
+        duration:
+          type: number
+          description: "Audio duration in seconds"
+        speaker_segments:
+          type: array
+          description: "Timestamp segments for each speaker"
+          
+  commands:
+    synthesize:
+      description: "Convert text to speech with multi-speaker support"
+      exec: |
+        pip install -q str2speech && \
+        str2speech -f ${text_file} --model ${model_override:-nari-labs/dia-1.6b} -o ${output_path}
+      
+    batch_process:
+      description: "Process multiple text files"
+      exec: |
+        for file in ${input_dir}/*.txt; do
+          str2speech -f "$file" --model ${model_override:-nari-labs/dia-1.6b} -o "${output_dir}/$(basename "$file" .txt).wav"
+        done
+        
+  integrations:
+    - name: VoiceSync
+      description: "Integration with VoiceSync task manager"
+      trigger: "voice_task_created"
+      
+    - name: AskCes
+      description: "Generate voice briefs for Ask Ces"
+      trigger: "brief_ready_for_voice"
+      
+    - name: AutoSDR
+      description: "Voice-over for Arkie AutoSDR videos"
+      trigger: "video_needs_voiceover"
+      
+  examples:
+    - name: "Simple dialogue synthesis"
+      input: |
+        [S1] Hello, welcome to our presentation.
+        [S2] Thank you for having me here today.
+        [S1] Let's discuss the quarterly results.
+      command: "synthesize --text_file dialogue.txt --output_path output.wav"
+      
+    - name: "Batch processing"
+      command: "batch_process --input_dir ./scripts --output_dir ./audio"
+      
+  metadata:
+    author: "InsightPulseAI"
+    category: "voice_synthesis"
+    tags: ["tts", "voice", "audio", "dialogue", "nari-dia"]
+    pulser_compatible: true

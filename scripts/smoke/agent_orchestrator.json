@@ -1,0 +1,21 @@
+{
+  "natural_language_query": "Compare Alaska vs Oishi basket mix in NCR Q2 and forecast next quarter",
+  "user_context": {
+    "tenant_id": "demo-tenant",
+    "role": "executive",
+    "brand_access": ["Alaska", "Oishi"],
+    "location_access": ["NCR"]
+  },
+  "orchestration_config": {
+    "flow_type": "forecasting",
+    "enable_parallel_execution": true,
+    "quality_gates_enabled": true,
+    "max_execution_time_ms": 30000
+  },
+  "narrative_preferences": {
+    "audience": "executive",
+    "tone": "formal",
+    "length": "standard",
+    "language": "en"
+  }
+}

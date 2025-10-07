@@ -1,0 +1,315 @@
+{
+  "simulated": true,
+  "meta": {
+    "data_type": "transaction_metrics",
+    "version": "1.0.0",
+    "generated_date": "2025-05-19T08:00:00+08:00",
+    "total_records": 20
+  },
+  "transactions": [
+    {
+      "transaction_id": "tr-001-0519-0001",
+      "store_id": "sari-001",
+      "device_id": "device-001",
+      "session_id": "session-001-0519-0800",
+      "timestamp": "2025-05-19T08:15:23+08:00",
+      "total_amount": 125.50,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-001", "name": "Rice 1kg", "quantity": 1, "price": 50.00},
+        {"product_id": "prod-023", "name": "Instant Coffee", "quantity": 3, "price": 25.50}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-001-0519-0002",
+      "store_id": "sari-001",
+      "device_id": "device-001",
+      "session_id": "session-001-0519-0800",
+      "timestamp": "2025-05-19T08:45:11+08:00",
+      "total_amount": 87.25,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-015", "name": "Canned Sardines", "quantity": 2, "price": 23.75},
+        {"product_id": "prod-032", "name": "Bread", "quantity": 1, "price": 39.75}
+      ],
+      "customer_type": "walk-in",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-002-0519-0001",
+      "store_id": "sari-002",
+      "device_id": "device-002",
+      "session_id": "session-002-0519-0830",
+      "timestamp": "2025-05-19T08:35:42+08:00",
+      "total_amount": 156.00,
+      "payment_method": "e-wallet",
+      "items": [
+        {"product_id": "prod-008", "name": "Soft Drinks 1L", "quantity": 2, "price": 65.00},
+        {"product_id": "prod-032", "name": "Bread", "quantity": 1, "price": 39.75}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-003-0519-0001",
+      "store_id": "sari-003",
+      "device_id": "device-003",
+      "session_id": "session-003-0519-0900",
+      "timestamp": "2025-05-19T09:12:33+08:00",
+      "total_amount": 850.00,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-078", "name": "LPG Small Tank", "quantity": 1, "price": 850.00}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-004-0519-0001",
+      "store_id": "sari-004",
+      "device_id": "device-004",
+      "session_id": "session-004-0519-0830",
+      "timestamp": "2025-05-19T08:55:19+08:00",
+      "total_amount": 156.50,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-045", "name": "Vegetables Assorted", "quantity": 0.5, "price": 120.00},
+        {"product_id": "prod-023", "name": "Instant Coffee", "quantity": 1, "price": 25.50},
+        {"product_id": "prod-089", "name": "Candy", "quantity": 2, "price": 5.50}
+      ],
+      "customer_type": "walk-in",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-005-0519-0001",
+      "store_id": "sari-005",
+      "device_id": "device-005",
+      "session_id": "session-005-0519-0900",
+      "timestamp": "2025-05-19T09:23:07+08:00",
+      "total_amount": 87.50,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-012", "name": "Instant Noodles", "quantity": 5, "price": 17.50}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-006-0519-0001",
+      "store_id": "sari-006",
+      "device_id": "device-006",
+      "session_id": "session-006-0519-0830",
+      "timestamp": "2025-05-19T08:40:55+08:00",
+      "total_amount": 95.75,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-056", "name": "School Notebook", "quantity": 3, "price": 15.25},
+        {"product_id": "prod-089", "name": "Candy", "quantity": 10, "price": 5.00}
+      ],
+      "customer_type": "student",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-007-0519-0001",
+      "store_id": "sari-007",
+      "device_id": "device-007",
+      "session_id": "session-007-0519-0900",
+      "timestamp": "2025-05-19T09:05:37+08:00",
+      "total_amount": 187.25,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-001", "name": "Rice 1kg", "quantity": 2, "price": 50.00},
+        {"product_id": "prod-015", "name": "Canned Sardines", "quantity": 2, "price": 23.75},
+        {"product_id": "prod-032", "name": "Bread", "quantity": 1, "price": 39.75}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-008-0519-0001",
+      "store_id": "sari-008",
+      "device_id": "device-008",
+      "session_id": "session-008-0519-0830",
+      "timestamp": "2025-05-19T08:45:12+08:00",
+      "total_amount": 120.00,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-067", "name": "Cigarettes", "quantity": 1, "price": 120.00}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-009-0519-0001",
+      "store_id": "sari-009",
+      "device_id": "device-009",
+      "session_id": "session-009-0519-0830",
+      "timestamp": "2025-05-19T08:32:26+08:00",
+      "total_amount": 185.00,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-098", "name": "Cooked Meal", "quantity": 1, "price": 120.00},
+        {"product_id": "prod-008", "name": "Soft Drinks 1L", "quantity": 1, "price": 65.00}
+      ],
+      "customer_type": "walk-in",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-010-0519-0001",
+      "store_id": "sari-010",
+      "device_id": "device-010",
+      "session_id": "session-010-0519-0900",
+      "timestamp": "2025-05-19T09:10:45+08:00",
+      "total_amount": 295.00,
+      "payment_method": "e-wallet",
+      "items": [
+        {"product_id": "prod-067", "name": "Cigarettes", "quantity": 1, "price": 120.00},
+        {"product_id": "prod-099", "name": "Beer", "quantity": 3, "price": 58.33}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-001-0519-0003",
+      "store_id": "sari-001",
+      "device_id": "device-001",
+      "session_id": "session-001-0519-1030",
+      "timestamp": "2025-05-19T10:30:15+08:00",
+      "total_amount": 325.50,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-001", "name": "Rice 1kg", "quantity": 5, "price": 50.00},
+        {"product_id": "prod-015", "name": "Canned Sardines", "quantity": 3, "price": 25.50}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-002-0519-0002",
+      "store_id": "sari-002",
+      "device_id": "device-002",
+      "session_id": "session-002-0519-1100",
+      "timestamp": "2025-05-19T11:05:42+08:00",
+      "total_amount": 256.00,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-008", "name": "Soft Drinks 1L", "quantity": 2, "price": 65.00},
+        {"product_id": "prod-032", "name": "Bread", "quantity": 2, "price": 39.75},
+        {"product_id": "prod-045", "name": "Snacks Assorted", "quantity": 1, "price": 46.50}
+      ],
+      "customer_type": "walk-in",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-003-0519-0002",
+      "store_id": "sari-003",
+      "device_id": "device-003",
+      "session_id": "session-003-0519-1130",
+      "timestamp": "2025-05-19T11:32:18+08:00",
+      "total_amount": 135.75,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-067", "name": "Cigarettes", "quantity": 1, "price": 120.00},
+        {"product_id": "prod-034", "name": "Condiments", "quantity": 1, "price": 15.75}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-004-0519-0002",
+      "store_id": "sari-004",
+      "device_id": "device-004",
+      "session_id": "session-004-0519-1300",
+      "timestamp": "2025-05-19T13:10:25+08:00",
+      "total_amount": 172.50,
+      "payment_method": "e-wallet",
+      "items": [
+        {"product_id": "prod-045", "name": "Vegetables Assorted", "quantity": 1, "price": 120.00},
+        {"product_id": "prod-001", "name": "Rice 1kg", "quantity": 1, "price": 52.50}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-005-0519-0002",
+      "store_id": "sari-005",
+      "device_id": "device-005",
+      "session_id": "session-005-0519-1400",
+      "timestamp": "2025-05-19T14:23:07+08:00",
+      "total_amount": 357.50,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-012", "name": "Instant Noodles", "quantity": 5, "price": 17.50},
+        {"product_id": "prod-099", "name": "Beer", "quantity": 4, "price": 57.50},
+        {"product_id": "prod-123", "name": "Cleaning Solution", "quantity": 1, "price": 75.00}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-006-0519-0002",
+      "store_id": "sari-006",
+      "device_id": "device-006",
+      "session_id": "session-006-0519-1500",
+      "timestamp": "2025-05-19T15:22:33+08:00",
+      "total_amount": 135.75,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-056", "name": "School Notebook", "quantity": 2, "price": 15.25},
+        {"product_id": "prod-089", "name": "Candy", "quantity": 5, "price": 5.00},
+        {"product_id": "prod-008", "name": "Soft Drinks 1L", "quantity": 1, "price": 65.25}
+      ],
+      "customer_type": "student",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-007-0519-0002",
+      "store_id": "sari-007",
+      "device_id": "device-007",
+      "session_id": "session-007-0519-1430",
+      "timestamp": "2025-05-19T14:45:37+08:00",
+      "total_amount": 139.75,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-001", "name": "Rice 1kg", "quantity": 2, "price": 50.00},
+        {"product_id": "prod-032", "name": "Bread", "quantity": 1, "price": 39.75}
+      ],
+      "customer_type": "walk-in",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-008-0519-0002",
+      "store_id": "sari-008",
+      "device_id": "device-008",
+      "session_id": "session-008-0519-1600",
+      "timestamp": "2025-05-19T16:15:22+08:00",
+      "total_amount": 270.00,
+      "payment_method": "cash",
+      "items": [
+        {"product_id": "prod-067", "name": "Cigarettes", "quantity": 1, "price": 120.00},
+        {"product_id": "prod-145", "name": "Load Card", "quantity": 1, "price": 100.00},
+        {"product_id": "prod-045", "name": "Snacks Assorted", "quantity": 1, "price": 50.00}
+      ],
+      "customer_type": "regular",
+      "simulated": true
+    },
+    {
+      "transaction_id": "tr-009-0519-0002",
+      "store_id": "sari-009",
+      "device_id": "device-009",
+      "session_id": "session-009-0519-1730",
+      "timestamp": "2025-05-19T17:32:26+08:00",
+      "total_amount": 305.00,
+      "payment_method": "e-wallet",
+      "items": [
+        {"product_id": "prod-098", "name": "Cooked Meal", "quantity": 2, "price": 120.00},
+        {"product_id": "prod-001", "name": "Rice 1kg", "quantity": 1, "price": 50.00},
+        {"product_id": "prod-008", "name": "Soft Drinks 1L", "quantity": 1, "price": 65.00}
+      ],
+      "customer_type": "walk-in",
+      "simulated": true
+    }
+  ]
+}

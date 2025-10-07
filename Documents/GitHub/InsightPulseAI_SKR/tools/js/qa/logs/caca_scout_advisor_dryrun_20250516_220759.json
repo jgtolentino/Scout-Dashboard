@@ -1,0 +1,29 @@
+{
+  "agent": "Caca",
+  "dashboard": "Scout Advisor",
+  "timestamp": "2025-05-16T22:07:59.388917",
+  "status": "dry-run",
+  "results": {
+    "toggle_data_mode": {
+      "status": "SIMULATED",
+      "notes": "Data source toggle simulation only"
+    },
+    "tooltip_styling": {
+      "status": "SIMULATED",
+      "notes": "Tooltip style extraction simulation only"
+    },
+    "csv_export": {
+      "status": "SIMULATED",
+      "notes": "Export trigger simulation only"
+    },
+    "chart_element_filter": {
+      "status": "SIMULATED",
+      "notes": "Chart interaction simulation only"
+    },
+    "diagnostic_overlay": {
+      "status": "SIMULATED",
+      "notes": "Overlay hotkey simulation only"
+    }
+  },
+  "summary": "Dry run completed. No actual tests were executed."
+}

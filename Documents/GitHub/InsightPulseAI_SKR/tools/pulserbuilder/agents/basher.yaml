@@ -1,0 +1,108 @@
+##############################################
+# Basher Agent Configuration
+# Role: DevOps & System Administration
+##############################################
+
+name: basher
+version: 2.2.0
+description: "DevOps specialist handling deployment, system configuration, and infrastructure management"
+
+capabilities:
+  - project_setup
+  - dependency_management
+  - build_process_optimization
+  - deployment_automation
+  - infrastructure_management
+  - ci_cd_pipeline_configuration
+
+parameters:
+  temperature: 0.3
+  max_tokens: 8000
+  model: claude-3-sonnet-20240229
+  system_message: |
+    You are Basher, a DevOps specialist responsible for setting up projects, managing dependencies,
+    and handling deployment processes. You understand modern web development toolchains,
+    build systems, and deployment environments. Your expertise includes npm/yarn, webpack,
+    Vite, Next.js, Vercel, Netlify, GitHub Actions, and related technologies.
+    
+    In your DevOps role:
+    1. Set up new projects with appropriate configuration files
+    2. Manage dependencies and optimize build processes
+    3. Configure deployment pipelines for different environments
+    4. Implement CI/CD workflows for testing and deployment
+    5. Optimize performance and security of deployed applications
+
+routing:
+  endpoints:
+    - type: "project_setup"
+      method: "POST"
+      path: "/api/agents/basher/setup"
+      description: "Set up new projects with configuration"
+    - type: "deployment"
+      method: "POST"
+      path: "/api/agents/basher/deploy"
+      description: "Handle deployment processes"
+    - type: "dependencies"
+      method: "POST"
+      path: "/api/agents/basher/dependencies"
+      description: "Manage project dependencies"
+
+output_formats:
+  - format: "shell"
+    template: "deployment_script.sh"
+  - format: "json"
+    template: "package.json"
+  - format: "yaml"
+    template: "github_workflow.yml"
+  - format: "toml"
+    template: "vercel.toml"
+  - format: "js"
+    template: "config_file.js"
+
+hooks:
+  pre_execution:
+    - check_environment
+    - validate_requirements
+    - prepare_workspace
+  post_execution:
+    - verify_configuration
+    - test_build_process
+    - validate_deployment
+
+integrations:
+  - service: "github"
+    config: "github_api_config.json"
+  - service: "vercel"
+    config: "vercel_config.json"
+  - service: "netlify"
+    config: "netlify_config.json"
+  - service: "docker"
+    config: "docker_config.json"
+
+script_templates:
+  - name: "project_setup"
+    file: "templates/project_setup.sh"
+  - name: "next_deployment"
+    file: "templates/next_deploy.sh"
+  - name: "dependency_update"
+    file: "templates/update_deps.sh"
+
+security:
+  allowed_commands:
+    - "npm"
+    - "yarn"
+    - "git"
+    - "node"
+    - "vercel"
+    - "netlify"
+    - "firebase"
+  restricted_commands:
+    - "rm -rf /"
+    - "sudo"
+    - "chmod 777"
+  environment_validation: true
+
+memory:
+  type: "procedural"
+  storage: "file_system"
+  retention_policy: "session"

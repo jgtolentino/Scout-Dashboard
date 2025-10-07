@@ -1,0 +1,251 @@
+{
+  "kpi_type": "store-performance",
+  "timestamp": "2025-05-22T11:30:00Z",
+  "summary": {
+    "total_stores": 71,
+    "top_performer": "SM Mall of Asia",
+    "avg_performance_score": 84.2,
+    "stores_above_target": 52,
+    "improvement_needed": 8
+  },
+  "stores": [
+    {
+      "id": "MMA-001",
+      "name": "SM Mall of Asia",  
+      "location": "Pasay, Metro Manila",
+      "type": "Flagship",
+      "revenue": 450000,
+      "conversion_rate": 18.5,
+      "performance_score": 98.4,
+      "target_achievement": 134.2,
+      "footfall": 28500,
+      "avg_transaction": 1789,
+      "staff_count": 24,
+      "floor_area": 850,
+      "rating": 4.8,
+      "strengths": ["Prime location", "High foot traffic", "Excellent staff"],
+      "improvement_areas": ["Inventory management"]
+    },
+    {
+      "id": "MAK-002", 
+      "name": "Ayala Malls Makati",
+      "location": "Makati, Metro Manila", 
+      "type": "Premium",
+      "revenue": 420000,
+      "conversion_rate": 16.8,
+      "performance_score": 95.7,
+      "target_achievement": 126.8,
+      "footfall": 24800,
+      "avg_transaction": 1856,
+      "staff_count": 22,
+      "floor_area": 780,
+      "rating": 4.7,
+      "strengths": ["Affluent clientele", "Premium location", "High margins"],
+      "improvement_areas": ["Operating hours extension"]
+    },
+    {
+      "id": "MEG-003",
+      "name": "SM Megamall",
+      "location": "Mandaluyong, Metro Manila",
+      "type": "Standard",
+      "revenue": 380000,
+      "conversion_rate": 15.2,
+      "performance_score": 92.1,
+      "target_achievement": 118.4,
+      "footfall": 31200,
+      "avg_transaction": 1634,
+      "staff_count": 28,
+      "floor_area": 920,
+      "rating": 4.6,
+      "strengths": ["Large catchment area", "Family-friendly", "Parking"],
+      "improvement_areas": ["Queue management", "Staff training"]
+    },
+    {
+      "id": "TRI-004",
+      "name": "Trinoma",
+      "location": "Quezon City, Metro Manila",
+      "type": "Standard",
+      "revenue": 360000,
+      "conversion_rate": 14.7,
+      "performance_score": 89.3,
+      "target_achievement": 112.5,
+      "footfall": 27600,
+      "avg_transaction": 1587,
+      "staff_count": 26,
+      "floor_area": 850,
+      "rating": 4.5,
+      "strengths": ["Good transport links", "Mixed demographics", "Food court proximity"],
+      "improvement_areas": ["Store layout", "Product display"]
+    },
+    {
+      "id": "CEU-005",
+      "name": "Ayala Center Cebu",
+      "location": "Cebu City, Cebu",
+      "type": "Regional Flagship",
+      "revenue": 298000,
+      "conversion_rate": 19.2,
+      "performance_score": 94.8,
+      "target_achievement": 142.3,
+      "footfall": 18400,
+      "avg_transaction": 1789,
+      "staff_count": 18,
+      "floor_area": 650,
+      "rating": 4.8,
+      "strengths": ["Regional dominance", "High loyalty", "Efficient operations"],
+      "improvement_areas": ["Inventory variety"]
+    },
+    {
+      "id": "DAV-006",
+      "name": "Gaisano Mall Davao",
+      "location": "Davao City, Davao",
+      "type": "Regional",
+      "revenue": 234000,
+      "conversion_rate": 17.8,
+      "performance_score": 91.2,
+      "target_achievement": 129.6,
+      "footfall": 15600,
+      "avg_transaction": 1698,
+      "staff_count": 15,
+      "floor_area": 520,
+      "rating": 4.6,
+      "strengths": ["Local market leader", "Strong community ties", "Cost efficiency"],
+      "improvement_areas": ["Digital integration", "Store modernization"]
+    },
+    {
+      "id": "BAG-007",
+      "name": "Session Road Flagship",
+      "location": "Baguio City, Baguio",
+      "type": "Tourist Hub",
+      "revenue": 189000,
+      "conversion_rate": 21.4,
+      "performance_score": 88.7,
+      "target_achievement": 138.2,
+      "footfall": 12300,
+      "avg_transaction": 1923,
+      "staff_count": 12,
+      "floor_area": 420,
+      "rating": 4.7,
+      "strengths": ["Tourist traffic", "Premium pricing", "Unique products"],
+      "improvement_areas": ["Seasonal inventory", "Staff scheduling"]
+    },
+    {
+      "id": "QZN-008",
+      "name": "Gateway Mall",
+      "location": "Cubao, Metro Manila",
+      "type": "Transit Hub",
+      "revenue": 167000,
+      "conversion_rate": 12.3,
+      "performance_score": 76.4,
+      "target_achievement": 89.2,
+      "footfall": 34500,
+      "avg_transaction": 1234,
+      "staff_count": 20,
+      "floor_area": 680,
+      "rating": 4.2,
+      "strengths": ["High foot traffic", "Transport connectivity", "Value positioning"],
+      "improvement_areas": ["Conversion optimization", "Security", "Customer experience"]
+    }
+  ],
+  "performance_categories": [
+    {
+      "category": "Excellent (90-100)",
+      "count": 12,
+      "percentage": 16.9,
+      "avg_revenue": 389000,
+      "characteristics": ["Prime locations", "High conversion", "Strong management"]
+    },
+    {
+      "category": "Good (80-89)",
+      "count": 31,
+      "percentage": 43.7,
+      "avg_revenue": 267000,
+      "characteristics": ["Solid performance", "Growth potential", "Standard operations"]
+    },
+    {
+      "category": "Average (70-79)",
+      "count": 20,
+      "percentage": 28.2,
+      "avg_revenue": 189000,
+      "characteristics": ["Meeting basics", "Improvement needed", "Optimization opportunities"]
+    },
+    {
+      "category": "Below Target (<70)",
+      "count": 8,
+      "percentage": 11.3,
+      "avg_revenue": 134000,
+      "characteristics": ["Underperforming", "Requires intervention", "Strategic review needed"]
+    }
+  ],
+  "regional_analysis": [
+    {
+      "region": "Metro Manila",
+      "stores": 45,
+      "avg_performance": 86.2,
+      "top_performer": "SM Mall of Asia",
+      "total_revenue": 1372000,
+      "market_saturation": "High"
+    },
+    {
+      "region": "Cebu",
+      "stores": 12,
+      "avg_performance": 88.7,
+      "top_performer": "Ayala Center Cebu",
+      "total_revenue": 490000,
+      "market_saturation": "Medium"
+    },
+    {
+      "region": "Davao",
+      "stores": 8,
+      "avg_performance": 85.4,
+      "top_performer": "Gaisano Mall Davao",
+      "total_revenue": 343000,
+      "market_saturation": "Low"
+    },
+    {
+      "region": "Baguio",
+      "stores": 6,
+      "avg_performance": 82.1,
+      "top_performer": "Session Road Flagship",
+      "total_revenue": 245000,
+      "market_saturation": "Medium"
+    }
+  ],
+  "improvement_initiatives": [
+    {
+      "initiative": "Digital Integration",
+      "target_stores": 28,
+      "investment": 450000,
+      "expected_improvement": 12.3,
+      "timeline": "Q2-Q3 2024"
+    },
+    {
+      "initiative": "Staff Training Program",
+      "target_stores": 71,
+      "investment": 180000,
+      "expected_improvement": 8.7,
+      "timeline": "Q2 2024"
+    },
+    {
+      "initiative": "Store Layout Optimization",
+      "target_stores": 15,
+      "investment": 320000,
+      "expected_improvement": 15.4,
+      "timeline": "Q3-Q4 2024"
+    },
+    {
+      "initiative": "Inventory Management System",
+      "target_stores": 35,
+      "investment": 280000,
+      "expected_improvement": 9.8,
+      "timeline": "Q2-Q3 2024"
+    }
+  ],
+  "benchmarks": {
+    "industry_avg_conversion": 13.2,
+    "industry_avg_revenue_per_sqft": 315,
+    "industry_avg_performance_score": 78.5,
+    "our_avg_conversion": 16.4,
+    "our_avg_revenue_per_sqft": 387,
+    "our_avg_performance_score": 84.2
+  }
+}

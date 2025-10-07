@@ -1,0 +1,89 @@
+[
+  {
+    "category": "sales_insights",
+    "InsightID": "SIM-INSIGHT-12345678",
+    "entityID": "SIM-STORE-0001",
+    "entityName": "Sari-Sari Store 1",
+    "region": "National Capital Region",
+    "cityMunicipality": "Manila",
+    "GeneratedAt": "2025-05-21T12:34:56.789Z",
+    "title": "Beverage Sales Growth Opportunity",
+    "summary": "Beverages show strong growth potential with 15% higher margins than category average.",
+    "content": {
+      "title": "Beverage Sales Growth Opportunity",
+      "summary": "Beverages show strong growth potential with 15% higher margins than category average.",
+      "details": [
+        "Beverage category has shown consistent growth over the past 30 days",
+        "Weekday sales are 23% higher than weekend sales",
+        "Top performers are soft drinks and instant coffee"
+      ],
+      "recommendations": [
+        "Increase beverage visibility at store entrance",
+        "Bundle beverages with popular snack items",
+        "Implement weekday promotions to capitalize on traffic patterns"
+      ],
+      "confidence": 0.85,
+      "priority": "high"
+    },
+    "isSynthetic": true,
+    "dataSource": "Synthetic"
+  },
+  {
+    "category": "brand_analysis",
+    "InsightID": "SIM-INSIGHT-23456789",
+    "entityID": "coca_cola",
+    "entityName": "Coca-Cola",
+    "GeneratedAt": "2025-05-21T12:35:56.789Z",
+    "title": "Strong Brand Loyalty in Manila Region",
+    "summary": "Coca-Cola shows exceptional customer loyalty with 85% repeat purchases.",
+    "content": {
+      "title": "Strong Brand Loyalty in Manila Region",
+      "summary": "Coca-Cola shows exceptional customer loyalty with 85% repeat purchases.",
+      "sentiment_analysis": {
+        "overall_score": 0.78,
+        "interpretation": "Strongly positive sentiment",
+        "patterns": [
+          "Consistent positive feedback on taste and price"
+        ]
+      },
+      "recommendations": [
+        "Leverage loyal customer base for new product introductions",
+        "Develop in-store promotions highlighting customer loyalty"
+      ],
+      "confidence": 0.92,
+      "priority": "medium"
+    },
+    "isSynthetic": true,
+    "dataSource": "Synthetic"
+  },
+  {
+    "category": "store_recommendations",
+    "InsightID": "SIM-INSIGHT-34567890",
+    "entityID": "SIM-STORE-0002",
+    "entityName": "Sari-Sari Store 2",
+    "region": "Calabarzon",
+    "cityMunicipality": "Calamba",
+    "GeneratedAt": "2025-05-21T12:36:56.789Z",
+    "title": "Product Mix Optimization Plan",
+    "summary": "Restructuring store layout and product mix could increase monthly sales by 22%.",
+    "content": {
+      "title": "Product Mix Optimization Plan",
+      "summary": "Restructuring store layout and product mix could increase monthly sales by 22%.",
+      "store_assessment": {
+        "overall_rating": 7.2,
+        "strengths": ["Good customer service", "Strong location"],
+        "weaknesses": ["Limited shelf space", "Inefficient product mix"]
+      },
+      "product_mix_recommendations": [
+        {
+          "category": "Snacks",
+          "recommendation": "Increase variety by 30%",
+          "expected_impact": "15% sales lift"
+        }
+      ],
+      "priority": "high"
+    },
+    "isSynthetic": true,
+    "dataSource": "Synthetic"
+  }
+]

@@ -1,0 +1,416 @@
+id: layout-optimizer
+name: Layout Optimizer
+description: Enhances spacing, component flow, and mobile responsiveness heuristically
+version: 1.0.0
+
+# AI model configuration
+model: claude-3-opus
+temperature: 0.2
+max_tokens: 4000
+input_format: json
+output_format: json
+
+# Input schema
+input_schema:
+  type: object
+  required:
+    - app_name
+    - screens
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app to optimize"
+    screens:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - name
+          - components
+        properties:
+          id:
+            type: string
+            description: "Screen identifier"
+          name:
+            type: string
+            description: "Human-readable screen name"
+          components:
+            type: array
+            items:
+              type: object
+              description: "UI component"
+    device_target:
+      type: string
+      enum: [mobile, tablet, desktop, all]
+      default: all
+      description: "Target device for optimization"
+
+# Output schema
+output_schema:
+  type: object
+  required:
+    - app_name
+    - screens
+    - optimization_summary
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app"
+    screens:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - name
+          - components
+          - layout_changes
+        properties:
+          id:
+            type: string
+            description: "Screen identifier"
+          name:
+            type: string
+            description: "Human-readable screen name"
+          components:
+            type: array
+            items:
+              type: object
+              description: "Optimized UI component"
+          layout_changes:
+            type: array
+            items:
+              type: object
+              required:
+                - component_id
+                - change_type
+                - description
+              properties:
+                component_id:
+                  type: string
+                  description: "ID of the component that was changed"
+                change_type:
+                  type: string
+                  enum: [spacing, positioning, sizing, reordering, styling]
+                  description: "Type of layout change"
+                description:
+                  type: string
+                  description: "Description of the layout change"
+                before:
+                  type: object
+                  description: "Component properties before the change"
+                after:
+                  type: object
+                  description: "Component properties after the change"
+    optimization_summary:
+      type: object
+      required:
+        - improvements
+        - device_specific_notes
+      properties:
+        improvements:
+          type: array
+          items:
+            type: string
+            description: "List of layout improvements made"
+        device_specific_notes:
+          type: object
+          properties:
+            mobile:
+              type: array
+              items:
+                type: string
+                description: "Notes specific to mobile devices"
+            tablet:
+              type: array
+              items:
+                type: string
+                description: "Notes specific to tablet devices"
+            desktop:
+              type: array
+              items:
+                type: string
+                description: "Notes specific to desktop devices"
+
+# Prompt template for Claude
+prompt_template: |
+  # Layout Optimizer for Mobile Applications
+
+  You are an expert mobile app layout optimizer. Your task is to analyze an app's screen layouts and suggest improvements for better spacing, component flow, and device responsiveness.
+
+  ## App Details
+  - App Name: {{ app_name }}
+  - Target Device(s): {{ device_target }}
+
+  ## Current Layout
+  ```json
+  {{ screens | tojson(indent=2) }}
+  ```
+
+  ## Analysis Guidelines
+
+  1. **Spacing & Alignment**:
+     - Ensure consistent spacing between elements (8dp grid)
+     - Check for proper alignment (left, center, right)
+     - Verify margins and padding follow a consistent pattern
+
+  2. **Visual Hierarchy**:
+     - Primary actions should be prominently positioned
+     - Related items should be visually grouped
+     - Most important content should appear first or be emphasized
+
+  3. **Device Responsiveness**:
+     - Mobile: Optimize for 320-428px width, stack elements vertically
+     - Tablet: Use two-column layouts where appropriate (600-900px)
+     - Desktop: Utilize available space without excessive width (>900px)
+
+  4. **Component Placement**:
+     - Navigation elements should be easily accessible (bottom for mobile)
+     - Forms should follow a logical input sequence
+     - Critical buttons should be within thumb reach on mobile
+
+  5. **Usability Principles**:
+     - Touch targets should be at least 44×44 points
+     - Maintain proper contrast ratios for readability
+     - Similar functions should have consistent positioning across screens
+
+  ## Your Task
+
+  1. Analyze each screen and its components
+  2. Make specific improvements to spacing, positioning, and sizing
+  3. Ensure the layout adapts well to the target device(s)
+  4. Document each change with a clear explanation of the improvement
+  5. Provide a summary of overall layout optimizations
+
+  ## Output Format
+
+  Return a JSON object that includes:
+  - The optimized screen layouts with updated component properties
+  - A list of specific layout changes made for each screen
+  - A summary of the improvements and device-specific notes
+
+  Focus on practical changes that improve usability while maintaining the app's design language.
+
+# Examples for few-shot learning
+examples:
+  - input:
+      app_name: "HealthTracker"
+      device_target: "mobile"
+      screens: [
+        {
+          "id": "dashboard",
+          "name": "Dashboard",
+          "components": [
+            {
+              "id": "header",
+              "type": "Text",
+              "props": {
+                "content": "Health Dashboard",
+                "fontSize": 24,
+                "fontWeight": "bold",
+                "marginBottom": 10
+              }
+            },
+            {
+              "id": "stats_container",
+              "type": "Container",
+              "props": {
+                "direction": "row",
+                "width": "100%"
+              }
+            },
+            {
+              "id": "activity_chart",
+              "type": "Chart",
+              "props": {
+                "type": "bar",
+                "width": 350,
+                "height": 200
+              }
+            },
+            {
+              "id": "add_entry_button",
+              "type": "Button",
+              "props": {
+                "label": "Add Entry",
+                "variant": "primary",
+                "width": 100
+              }
+            }
+          ]
+        }
+      ]
+    output: |
+      {
+        "app_name": "HealthTracker",
+        "screens": [
+          {
+            "id": "dashboard",
+            "name": "Dashboard",
+            "components": [
+              {
+                "id": "header",
+                "type": "Text",
+                "props": {
+                  "content": "Health Dashboard",
+                  "fontSize": 24,
+                  "fontWeight": "bold",
+                  "marginBottom": 16,
+                  "textAlign": "center",
+                  "paddingTop": 16
+                }
+              },
+              {
+                "id": "stats_container",
+                "type": "Container",
+                "props": {
+                  "direction": "column",
+                  "width": "100%",
+                  "marginBottom": 24,
+                  "paddingHorizontal": 16
+                }
+              },
+              {
+                "id": "activity_chart",
+                "type": "Chart",
+                "props": {
+                  "type": "bar",
+                  "width": "100%",
+                  "height": 200,
+                  "marginBottom": 24
+                }
+              },
+              {
+                "id": "add_entry_button",
+                "type": "Button",
+                "props": {
+                  "label": "Add Entry",
+                  "variant": "primary",
+                  "width": "100%",
+                  "height": 48,
+                  "position": "absolute",
+                  "bottom": 24,
+                  "alignSelf": "center",
+                  "maxWidth": 250,
+                  "borderRadius": 24
+                }
+              }
+            ],
+            "layout_changes": [
+              {
+                "component_id": "header",
+                "change_type": "spacing",
+                "description": "Increased bottom margin for better visual separation and added center alignment",
+                "before": {
+                  "marginBottom": 10
+                },
+                "after": {
+                  "marginBottom": 16,
+                  "textAlign": "center",
+                  "paddingTop": 16
+                }
+              },
+              {
+                "component_id": "stats_container",
+                "change_type": "positioning",
+                "description": "Changed direction from row to column for better mobile display",
+                "before": {
+                  "direction": "row",
+                  "width": "100%"
+                },
+                "after": {
+                  "direction": "column",
+                  "width": "100%",
+                  "marginBottom": 24,
+                  "paddingHorizontal": 16
+                }
+              },
+              {
+                "component_id": "activity_chart",
+                "change_type": "sizing",
+                "description": "Made chart responsive with percentage width",
+                "before": {
+                  "width": 350,
+                  "height": 200
+                },
+                "after": {
+                  "width": "100%",
+                  "height": 200,
+                  "marginBottom": 24
+                }
+              },
+              {
+                "component_id": "add_entry_button",
+                "change_type": "positioning",
+                "description": "Repositioned button to bottom of screen for thumb accessibility",
+                "before": {
+                  "width": 100
+                },
+                "after": {
+                  "width": "100%",
+                  "height": 48,
+                  "position": "absolute",
+                  "bottom": 24,
+                  "alignSelf": "center",
+                  "maxWidth": 250,
+                  "borderRadius": 24
+                }
+              }
+            ]
+          }
+        ],
+        "optimization_summary": {
+          "improvements": [
+            "Converted fixed widths to responsive percentages",
+            "Changed horizontal container to vertical for mobile view",
+            "Positioned primary action button at bottom for thumb reach",
+            "Added consistent spacing with 8dp multiple system",
+            "Improved text alignment for better visual hierarchy"
+          ],
+          "device_specific_notes": {
+            "mobile": [
+              "Action button positioned for easy thumb access",
+              "Vertical layout ensures no horizontal scrolling",
+              "Chart made responsive to screen width",
+              "Container direction changed to column for better mobile UX"
+            ],
+            "tablet": [],
+            "desktop": []
+          }
+        }
+      }
+
+# Lifecycle hooks
+on_start:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.layout-optimizer.start', {
+        agent: 'layout-optimizer',
+        app_name: input.app_name,
+        device_target: input.device_target || 'all',
+        screen_count: input.screens.length,
+        timestamp: new Date().toISOString()
+      });
+
+on_finish:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.layout-optimizer.finish', {
+        agent: 'layout-optimizer',
+        app_name: output.app_name,
+        screens_optimized: output.screens.length,
+        total_changes: output.screens.reduce((sum, screen) => sum + screen.layout_changes.length, 0),
+        improvements_count: output.optimization_summary.improvements.length,
+        timestamp: new Date().toISOString()
+      });
+
+# Post-processing hooks
+post_process:
+  - action: save_output
+    path: "logs/layout_optimizations_{{ app_name | lower | replace(' ', '_') }}.json"
+  
+  - action: log_generation
+    path: "logs/layout_optimizer_{{ timestamp }}.log"

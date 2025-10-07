@@ -1,0 +1,17 @@
+[
+  {
+    "ObjectId": "cf4926e1-0ce2-40a7-a521-9dca6d7a79d3",
+    "Permissions": {
+      "certificates": [
+        "all"
+      ],
+      "keys": [
+        "all"
+      ],
+      "secrets": [
+        "all"
+      ],
+      "storage": []
+    }
+  }
+]

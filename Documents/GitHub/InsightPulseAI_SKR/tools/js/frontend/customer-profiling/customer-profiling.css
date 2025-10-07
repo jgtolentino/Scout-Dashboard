@@ -1,0 +1,283 @@
+/* Customer Profiling Module Styles */
+
+/* Summary Cards */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.summary-card h3 {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.summary-card .metric {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* Filters Section */
+.filters-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+/* Visualizations */
+.visualizations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chart-container {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Customer List */
+.customer-list-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.customer-list-section h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+#customer-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#customer-table th,
+#customer-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+#customer-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+#customer-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Segment Badges */
+.segment-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.segment-vip {
+    background-color: #FFE5B4;
+    color: #FF8C00;
+}
+
+.segment-high-value {
+    background-color: #E6F7FF;
+    color: #1890FF;
+}
+
+.segment-regular {
+    background-color: #F0F8E6;
+    color: #52C41A;
+}
+
+.segment-new {
+    background-color: #FFF0F6;
+    color: #EB2F96;
+}
+
+.segment-at-risk {
+    background-color: #FFF7E6;
+    color: #FA8C16;
+}
+
+.segment-dormant {
+    background-color: #F0F0F0;
+    color: #8C8C8C;
+}
+
+/* Risk Badges */
+.risk-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.risk-low {
+    background-color: #F6FFED;
+    color: #52C41A;
+}
+
+.risk-medium {
+    background-color: #FFFBE6;
+    color: #FAAD14;
+}
+
+.risk-high {
+    background-color: #FFF1F0;
+    color: #F5222D;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #1890FF;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #40A9FF;
+}
+
+.btn-view {
+    background-color: transparent;
+    color: #1890FF;
+    border: 1px solid #1890FF;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-view:hover {
+    background-color: #1890FF;
+    color: white;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #f0f0f0;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#page-info {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .filters-section {
+        flex-direction: column;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    .visualizations {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+}

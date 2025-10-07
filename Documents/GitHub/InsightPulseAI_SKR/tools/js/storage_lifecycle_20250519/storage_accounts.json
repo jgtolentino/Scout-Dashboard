@@ -1,0 +1,52 @@
+[
+  {
+    "Location": "eastus",
+    "Name": "mymlworkstorage89365eba1",
+    "ResourceGroup": "RG-TBWA-ProjectScout-Data"
+  },
+  {
+    "Location": "eastus",
+    "Name": "mymlworkstoragef442bd96a",
+    "ResourceGroup": "RG-Scout-BrandDetect-Prod-AUE"
+  },
+  {
+    "Location": "eastus",
+    "Name": "projectscoutdata",
+    "ResourceGroup": "RG-TBWA-ProjectScout-Data"
+  },
+  {
+    "Location": "eastus",
+    "Name": "projectscoutstorage20250",
+    "ResourceGroup": "ProjectScout-ResourceGroup"
+  },
+  {
+    "Location": "eastus",
+    "Name": "pscoutdash0513",
+    "ResourceGroup": "ProjectScout-ResourceGroup"
+  },
+  {
+    "Location": "eastus",
+    "Name": "retailedgedash0513",
+    "ResourceGroup": "retail-dashboards-rg"
+  },
+  {
+    "Location": "eastus",
+    "Name": "retailperfdash0513",
+    "ResourceGroup": "retail-dashboards-rg"
+  },
+  {
+    "Location": "eastus2",
+    "Name": "dbstoragehyx7ppequk63i",
+    "ResourceGroup": "databricks-rg-tbwa-juicer-databricks-qbewkrq702bx5"
+  },
+  {
+    "Location": "eastus2",
+    "Name": "retailadvisorstore",
+    "ResourceGroup": "RG-TBWA-ProjectScout-Juicer"
+  },
+  {
+    "Location": "eastus2",
+    "Name": "tbwajuicerstorage",
+    "ResourceGroup": "RG-TBWA-ProjectScout-Juicer"
+  }
+]

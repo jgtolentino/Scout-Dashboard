@@ -1,0 +1,124 @@
+---
+# Architecture Diagram QA Log
+qa_id: "ARCH-QA-20250513-001"
+timestamp: "2025-05-13T01:45:32Z"
+diagram:
+  name: "project_scout_with_genai"
+  path: "/docs/diagrams/project_scout_with_genai.drawio"
+  version: "1.0"
+  author: "InsightPulseAI Team"
+  
+qa_status:
+  overall: "PARTIAL_PASS"
+  pass_rate: 55
+  passed_checks: 6
+  warning_checks: 3
+  failed_checks: 2
+  
+validation_tools:
+  - name: "validate_diagram_formats.js"
+    version: "1.0.0"
+    path: "/tools/validate_diagram_formats.js"
+    exit_code: 1
+  - name: "diagram_qa_validate.sh"
+    version: "1.0.0"
+    path: "/tools/diagram_qa_validate.sh"
+    exit_code: 0
+  - name: "generate_thumbnails.sh"
+    version: "1.0.0"
+    path: "/tools/generate_thumbnails.sh"
+    exit_code: 0
+    
+exports:
+  drawio:
+    status: "PASS"
+    path: "/docs/diagrams/project_scout_with_genai.drawio"
+    size_kb: 55
+    issues: []
+  png:
+    status: "FAIL"
+    path: "/docs/images/AZURE_ARCHITECTURE_PRO.png"
+    size_kb: 0
+    issues: 
+      - "PNG file too small"
+      - "Invalid PNG file signature" 
+  svg:
+    status: "WARN"
+    path: "/docs/images/AZURE_ARCHITECTURE_PRO.svg"
+    size_kb: 0
+    issues:
+      - "SVG file too small"
+  thumbnail:
+    status: "FAIL"
+    path: "/docs/images/thumbnails/AZURE_ARCHITECTURE_PRO_thumb.png"
+    size_kb: 0
+    issues:
+      - "Invalid PNG file signature"
+  archive:
+    status: "WARN"
+    path: "/docs/images/archive"
+    issues:
+      - "No archived versions found"
+      
+documentation:
+  references_found: 1
+  files:
+    - "/docs/QA_CHECKLIST_PROJECT_SCOUT.md"
+    
+manual_qa:
+  completed: false
+  items:
+    - name: "Layer organization"
+      result: null
+      notes: "Not manually verified"
+    - name: "Component spacing"
+      result: null
+      notes: "Not manually verified"
+    - name: "Flow direction"
+      result: null
+      notes: "Not manually verified"
+    - name: "Icon standards"
+      result: null
+      notes: "Not manually verified"
+    - name: "Label clarity"
+      result: null
+      notes: "Not manually verified"
+    - name: "Connector standards"
+      result: null
+      notes: "Not manually verified"
+    - name: "Font consistency"
+      result: null
+      notes: "Not manually verified"
+    - name: "Color coding"
+      result: null
+      notes: "Not manually verified"
+      
+recommendations:
+  - "Replace placeholder PNG with valid export at 2x resolution"
+  - "Use proper SVG export from draw.io"
+  - "Generate valid thumbnail from high-resolution PNG"
+  - "Archive versions with timestamps after validation"
+  - "Complete manual QA checklist for visual standards"
+
+next_qa_steps:
+  - "Fix critical PNG and thumbnail issues"
+  - "Run validation again to confirm fixes"
+  - "Complete manual QA checklist"
+  - "Update README with new diagram references"
+  
+audit_trail:
+  - timestamp: "2025-05-13T01:40:22Z"
+    action: "Validation Started"
+    tool: "validate_diagram_formats.js"
+  - timestamp: "2025-05-13T01:41:15Z"
+    action: "Structure Validation"
+    tool: "diagram_qa_validate.sh"
+  - timestamp: "2025-05-13T01:43:39Z"
+    action: "Thumbnail Generation"
+    tool: "generate_thumbnails.sh"
+  - timestamp: "2025-05-13T01:44:27Z"
+    action: "Final Validation"
+    tool: "validate_diagram_formats.js"
+  - timestamp: "2025-05-13T01:45:32Z"
+    action: "QA Log Generation"
+    tool: "manual"

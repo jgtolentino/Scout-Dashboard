@@ -1,0 +1,346 @@
+<!-- GenAI Insights Quality Section -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card qa-card">
+      <div class="qa-card-header d-flex justify-content-between align-items-center">
+        <span><i class="fas fa-robot me-2"></i> GenAI Insights Quality</span>
+        <div>
+          <button class="btn btn-sm btn-light" id="refreshInsightsQA">
+            <i class="fas fa-sync-alt me-1"></i> Refresh
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card insight-count-card">
+              <div class="card-body">
+                <h5 class="insight-count" id="insightQualityScore">--</h5>
+                <p class="insight-label">Overall Quality Score</p>
+                <p class="trend-indicator trend-up">
+                  <i class="fas fa-check-circle text-success"></i> <span id="qualityStatus">Excellent</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card insight-count-card">
+              <div class="card-body">
+                <h5 class="insight-count" id="insightValidationRate">--</h5>
+                <p class="insight-label">Human Validation Rate</p>
+                <p class="trend-indicator trend-up">
+                  <i class="fas fa-check-circle text-success"></i> <span id="validationStatus">Above target</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card insight-count-card">
+              <div class="card-body">
+                <h5 class="insight-count" id="insightRejectionRate">--</h5>
+                <p class="insight-label">Rejection Rate</p>
+                <p class="trend-indicator trend-up">
+                  <i class="fas fa-check-circle text-success"></i> <span id="rejectionStatus">Below threshold</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card insight-count-card">
+              <div class="card-body">
+                <h5 class="insight-count" id="insightLLMReliability">--</h5>
+                <p class="insight-label">LLM Reliability</p>
+                <p class="trend-indicator trend-up">
+                  <i class="fas fa-check-circle text-success"></i> <span id="reliabilityStatus">High availability</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-white">
+                <h6 class="mb-0">Confidence Distribution</h6>
+              </div>
+              <div class="card-body">
+                <canvas id="confidenceDistributionChart"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-white">
+                <h6 class="mb-0">LLM Provider Performance</h6>
+              </div>
+              <div class="card-body">
+                <canvas id="providerPerformanceChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header bg-white">
+                <h6 class="mb-0">Recent Validation Activity</h6>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <thead>
+                      <tr>
+                        <th>Insight ID</th>
+                        <th>Type</th>
+                        <th>Confidence</th>
+                        <th>Validation Status</th>
+                        <th>Validator</th>
+                        <th>Timestamp</th>
+                      </tr>
+                    </thead>
+                    <tbody id="validationActivityTable">
+                      <!-- Populated via JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GenAI Quality JavaScript -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Load GenAI insights quality metrics
+    loadInsightsQualityMetrics();
+    
+    // Set up refresh button
+    document.getElementById('refreshInsightsQA').addEventListener('click', loadInsightsQualityMetrics);
+    
+    // Function to load GenAI insights quality metrics
+    async function loadInsightsQualityMetrics() {
+      try {
+        // In a real implementation, this would fetch metrics from API
+        // For demo, we'll use simulated data
+        const qaMetrics = {
+          qualityScore: 94.7,
+          validationRate: 88.2,
+          rejectionRate: 3.4,
+          llmReliability: 99.8,
+          confidenceDistribution: {
+            labels: ['Low (50-70%)', 'Medium (70-85%)', 'High (85-100%)'],
+            data: [15, 42, 43]
+          },
+          providerPerformance: {
+            labels: ['Claude', 'OpenAI', 'DeepSeek'],
+            confidenceScores: [86, 83, 79],
+            speedScores: [92, 89, 94]
+          },
+          recentValidations: [
+            { id: 'ins_872e4f23', type: 'brand', confidence: 92, status: 'Approved', validator: 'A. Smith', timestamp: '2025-05-13 09:34' },
+            { id: 'ins_57ab9c12', type: 'sentiment', confidence: 76, status: 'Approved with edits', validator: 'J. Chen', timestamp: '2025-05-13 08:22' },
+            { id: 'ins_c41d8e7f', type: 'general', confidence: 88, status: 'Approved', validator: 'S. Johnson', timestamp: '2025-05-12 17:45' },
+            { id: 'ins_90e3f2a1', type: 'trend', confidence: 63, status: 'Rejected', validator: 'M. Garcia', timestamp: '2025-05-12 16:11' },
+            { id: 'ins_34b7d9e5', type: 'brand', confidence: 81, status: 'Approved', validator: 'A. Smith', timestamp: '2025-05-12 15:03' }
+          ]
+        };
+        
+        // Update metrics
+        document.getElementById('insightQualityScore').textContent = `${qaMetrics.qualityScore}%`;
+        document.getElementById('insightValidationRate').textContent = `${qaMetrics.validationRate}%`;
+        document.getElementById('insightRejectionRate').textContent = `${qaMetrics.rejectionRate}%`;
+        document.getElementById('insightLLMReliability').textContent = `${qaMetrics.llmReliability}%`;
+        
+        // Update status indicators
+        updateStatusIndicator('qualityStatus', qaMetrics.qualityScore, 95, 80);
+        updateStatusIndicator('validationStatus', qaMetrics.validationRate, 85, 70);
+        updateStatusIndicator('rejectionStatus', qaMetrics.rejectionRate, 5, 10, true);
+        updateStatusIndicator('reliabilityStatus', qaMetrics.llmReliability, 99, 95);
+        
+        // Create charts
+        createConfidenceDistributionChart(qaMetrics.confidenceDistribution);
+        createProviderPerformanceChart(qaMetrics.providerPerformance);
+        
+        // Populate tables
+        populateValidationActivityTable(qaMetrics.recentValidations);
+        
+      } catch (error) {
+        console.error('Failed to load insights quality metrics:', error);
+      }
+    }
+    
+    // Helper function to update status indicator
+    function updateStatusIndicator(elementId, value, highThreshold, lowThreshold, isInverted = false) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+      
+      const parentElement = element.parentElement;
+      const iconElement = parentElement.querySelector('i');
+      
+      let status, iconClass;
+      
+      if (isInverted) {
+        // For metrics where lower is better (like rejection rate)
+        if (value <= lowThreshold) {
+          status = 'Excellent';
+          iconClass = 'fas fa-check-circle text-success';
+          parentElement.className = 'trend-indicator trend-up';
+        } else if (value <= highThreshold) {
+          status = 'Acceptable';
+          iconClass = 'fas fa-info-circle text-info';
+          parentElement.className = 'trend-indicator';
+        } else {
+          status = 'Needs improvement';
+          iconClass = 'fas fa-exclamation-circle text-warning';
+          parentElement.className = 'trend-indicator trend-down';
+        }
+      } else {
+        // For metrics where higher is better
+        if (value >= highThreshold) {
+          status = 'Excellent';
+          iconClass = 'fas fa-check-circle text-success';
+          parentElement.className = 'trend-indicator trend-up';
+        } else if (value >= lowThreshold) {
+          status = 'Acceptable';
+          iconClass = 'fas fa-info-circle text-info';
+          parentElement.className = 'trend-indicator';
+        } else {
+          status = 'Needs improvement';
+          iconClass = 'fas fa-exclamation-circle text-warning';
+          parentElement.className = 'trend-indicator trend-down';
+        }
+      }
+      
+      element.textContent = status;
+      iconElement.className = iconClass;
+    }
+    
+    // Function to create confidence distribution chart
+    function createConfidenceDistributionChart(data) {
+      const ctx = document.getElementById('confidenceDistributionChart').getContext('2d');
+      
+      if (window.confidenceChart) {
+        window.confidenceChart.destroy();
+      }
+      
+      window.confidenceChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: data.labels,
+          datasets: [{
+            data: data.data,
+            backgroundColor: [
+              'rgba(220, 53, 69, 0.7)',   // Low - Red
+              'rgba(255, 193, 7, 0.7)',   // Medium - Yellow
+              'rgba(40, 167, 69, 0.7)'    // High - Green
+            ],
+            borderColor: [
+              'rgba(220, 53, 69, 1)',
+              'rgba(255, 193, 7, 1)',
+              'rgba(40, 167, 69, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+    }
+    
+    // Function to create provider performance chart
+    function createProviderPerformanceChart(data) {
+      const ctx = document.getElementById('providerPerformanceChart').getContext('2d');
+      
+      if (window.providerChart) {
+        window.providerChart.destroy();
+      }
+      
+      window.providerChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Confidence',
+              data: data.confidenceScores,
+              backgroundColor: 'rgba(0, 163, 224, 0.7)',
+              borderColor: 'rgba(0, 163, 224, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Speed',
+              data: data.speedScores,
+              backgroundColor: 'rgba(248, 158, 27, 0.7)',
+              borderColor: 'rgba(248, 158, 27, 1)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+    }
+    
+    // Function to populate validation activity table
+    function populateValidationActivityTable(validations) {
+      const tbody = document.getElementById('validationActivityTable');
+      if (!tbody) return;
+      
+      tbody.innerHTML = '';
+      
+      validations.forEach(validation => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+          <td>${validation.id}</td>
+          <td>${validation.type}</td>
+          <td>${validation.confidence}%</td>
+          <td>${getStatusBadge(validation.status)}</td>
+          <td>${validation.validator}</td>
+          <td>${validation.timestamp}</td>
+        `;
+        
+        tbody.appendChild(row);
+      });
+    }
+    
+    // Helper function to get status badge
+    function getStatusBadge(status) {
+      if (status === 'Approved') {
+        return '<span class="badge bg-success">Approved</span>';
+      } else if (status === 'Approved with edits') {
+        return '<span class="badge bg-warning text-dark">Approved with edits</span>';
+      } else if (status === 'Rejected') {
+        return '<span class="badge bg-danger">Rejected</span>';
+      } else {
+        return '<span class="badge bg-secondary">Unknown</span>';
+      }
+    }
+  });
+</script>

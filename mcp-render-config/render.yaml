@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: mcp-supabase-clean
+    runtime: docker
+    repo: https://github.com/jgtolentino/mcp-supabase-clean.git
+    healthCheckPath: /health
+    envVars:
+      - key: SUPABASE_URL
+        value: https://cxzllzyxwpyptfretryc.supabase.co
+      - key: SUPABASE_ACCESS_TOKEN
+        sync: false  # Add securely via UI or API
+      - key: PORT
+        value: 8888
+      - key: SUPABASE_ANON_KEY
+        sync: false  # Same as ACCESS_TOKEN for compatibility

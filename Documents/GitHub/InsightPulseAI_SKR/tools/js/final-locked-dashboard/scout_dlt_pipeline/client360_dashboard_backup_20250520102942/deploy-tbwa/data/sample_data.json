@@ -1,0 +1,134 @@
+{
+  "totalSales": {
+    "value": 1240000,
+    "change": 8.2,
+    "trend": "up"
+  },
+  "conversionRate": {
+    "value": 24.7,
+    "change": 3.5,
+    "trend": "up"
+  },
+  "marketingROI": {
+    "value": 3.2,
+    "change": -0.8,
+    "trend": "down"
+  },
+  "brandSentiment": {
+    "value": 76.2,
+    "change": 5.7,
+    "trend": "up"
+  },
+  "brandPerformance": [
+    { "name": "Milo", "value": 87, "status": "good" },
+    { "name": "Bear Brand", "value": 72, "status": "good" },
+    { "name": "Lucky Me", "value": 63, "status": "warning" },
+    { "name": "Palmolive", "value": 45, "status": "poor" }
+  ],
+  "competitorAnalysis": {
+    "marketShare": { "value": 42, "target": 45, "status": "attention" },
+    "brandRecognition": { "value": 68, "target": 65, "status": "good" },
+    "customerSatisfaction": { "value": 84, "target": 80, "status": "good" }
+  },
+  "retailPerformance": {
+    "total": 428000,
+    "regions": [
+      { "name": "NCR", "value": 187000, "change": 12, "trend": "up" },
+      { "name": "Luzon", "value": 124000, "change": 8, "trend": "up" },
+      { "name": "Visayas", "value": 76000, "change": -3, "trend": "down" },
+      { "name": "Mindanao", "value": 41000, "change": 5, "trend": "up" }
+    ],
+    "trend": [320000, 340000, 365000, 380000, 410000, 428000]
+  },
+  "marketingROI": {
+    "overall": 3.2,
+    "channels": [
+      { "name": "Social Media", "value": 4.2, "change": 0.8, "trend": "up" },
+      { "name": "TV Ads", "value": 2.7, "change": -0.3, "trend": "down" },
+      { "name": "Print Media", "value": 1.8, "change": -0.5, "trend": "down" },
+      { "name": "In-Store Promos", "value": 3.9, "change": 1.2, "trend": "up" }
+    ]
+  },
+  "insights": {
+    "recommendations": [
+      "Reallocate 15% budget from under-performing SKU in Region B to Region C (+12% conv.).",
+      "Trigger replenishment alerts for Store 42 when daily stockouts > 5.",
+      "Optimize cache in Store 17 edge node to cut latency by 25%."
+    ],
+    "brandDictionary": {
+      "topBrands": ["Milo", "Bear Brand", "Lucky Me"],
+      "topAssociations": [
+        { "brand": "Milo", "association": "energy" },
+        { "brand": "Bear Brand", "association": "health" }
+      ]
+    },
+    "emotionalAnalysis": {
+      "peakTime": "7-9 AM",
+      "contextualInsights": [
+        "68% of customers mention \"children/school\" when buying Milo",
+        "Price sensitivity highest for cooking oil and rice"
+      ]
+    },
+    "bundlingOpportunities": [
+      { "products": ["Milo", "bread"], "correlation": 78, "potentialIncrease": 15 }
+    ]
+  },
+  "salesDrillDown": {
+    "regions": [
+      { "name": "NCR", "value": 580250, "percentage": 46.7, "change": 12.8 },
+      { "name": "Luzon", "value": 312480, "percentage": 25.2, "change": 8.3 },
+      { "name": "Visayas", "value": 198750, "percentage": 16.0, "change": -3.5 },
+      { "name": "Mindanao", "value": 150320, "percentage": 12.1, "change": 5.2 }
+    ]
+  },
+  "conversionDrillDown": {
+    "funnel": [
+      { "stage": "Store Visits", "value": 18450, "percentage": 100 },
+      { "stage": "Product Interactions", "value": 12680, "percentage": 68.7 },
+      { "stage": "Basket Additions", "value": 8240, "percentage": 44.7 },
+      { "stage": "Purchases", "value": 4560, "percentage": 24.7 }
+    ],
+    "byStoreType": [
+      { "type": "Sari-Sari Stores", "value": 31.5 },
+      { "type": "Supermarkets", "value": 22.8 },
+      { "type": "Convenience Stores", "value": 18.4 },
+      { "type": "Department Stores", "value": 26.3 }
+    ]
+  },
+  "roiDrillDown": {
+    "byChannel": [
+      { "channel": "Social Media", "investment": 80000, "revenue": 336000, "roi": 4.2, "change": 0.8 },
+      { "channel": "TV Ads", "investment": 150000, "revenue": 405000, "roi": 2.7, "change": -0.3 },
+      { "channel": "Print Media", "investment": 45000, "revenue": 81000, "roi": 1.8, "change": -0.5 },
+      { "channel": "In-Store Promos", "investment": 65000, "revenue": 253500, "roi": 3.9, "change": 1.2 }
+    ],
+    "trend": [2.8, 2.9, 3.1, 2.7, 3.0, 3.2]
+  },
+  "sentimentDrillDown": {
+    "trend": {
+      "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      "positive": [65, 68, 70, 72, 74, 76],
+      "neutral": [25, 23, 22, 20, 18, 16],
+      "negative": [10, 9, 8, 8, 8, 8]
+    },
+    "byBrand": [
+      { "brand": "Milo", "positive": 82, "neutral": 12, "negative": 6 },
+      { "brand": "Bear Brand", "positive": 78, "neutral": 15, "negative": 7 },
+      { "brand": "Lucky Me", "positive": 75, "neutral": 18, "negative": 7 },
+      { "brand": "Palmolive", "positive": 68, "neutral": 22, "negative": 10 },
+      { "brand": "Coke", "positive": 80, "neutral": 15, "negative": 5 }
+    ],
+    "topPositivePhrases": [
+      { "phrase": "Masarap", "mentions": 412 },
+      { "phrase": "Sulit", "mentions": 387 },
+      { "phrase": "Mabango", "mentions": 245 },
+      { "phrase": "Mura", "mentions": 198 }
+    ],
+    "byFeature": [
+      { "feature": "Taste/Quality", "sentiment": 92 },
+      { "feature": "Price", "sentiment": 78 },
+      { "feature": "Packaging", "sentiment": 65 },
+      { "feature": "Availability", "sentiment": 84 }
+    ]
+  }
+}

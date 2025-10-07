@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBWA Client360 Dashboard</title>
+  <style>
+    :root {
+      --color-primary: #002B80; 
+      --color-secondary: #00C3EC;
+      --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      font-family: var(--font-family-base);
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--color-primary);
+      color: white;
+      padding: 1rem 2rem;
+      height: 64px;
+      border-bottom: 3px solid var(--color-secondary);
+    }
+    .header-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .header-logo {
+      background: url('/360/tbwa-logo.svg') no-repeat center/contain;
+      width: 120px;
+      height: 40px;
+      margin-right: 1rem;
+    }
+    .header-title {
+      color: white;
+      font-weight: bold;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .main-content {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .dashboard-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--color-secondary);
+    }
+    .dashboard-title {
+      color: var(--color-primary);
+      margin-top: 0;
+      border-bottom: 2px solid var(--color-secondary);
+      padding-bottom: 0.5rem;
+      display: inline-block;
+    }
+    .footer {
+      background-color: var(--color-primary);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .rollback-dashboard {
+      background-color: white;
+      border: 3px solid var(--color-secondary);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    }
+    .rollback-dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .rollback-dashboard-header h3 {
+      color: var(--color-primary);
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+      position: relative;
+    }
+    .rollback-dashboard-header h3:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--color-secondary);
+      border-radius: 1.5px;
+    }
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 6px;
+      padding: 0.25rem 0.75rem;
+    }
+    .status-indicator.active {
+      color: #28a745;
+      background-color: rgba(40, 167, 69, 0.1);
+    }
+    .status-indicator.active::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+      background-color: #28a745;
+    }
+    .rollback-dashboard-content {
+      margin-bottom: 16px;
+      margin-top: 16px;
+    }
+    .rollback-dashboard-content p {
+      color: #777777;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .version-info {
+      display: flex;
+      justify-content: space-between;
+      background-color: rgba(0, 195, 236, 0.1);
+      padding: 8px 16px;
+      border-radius: 8px;
+      margin-top: 8px;
+      border-left: 3px solid var(--color-secondary);
+    }
+    .version-label {
+      font-weight: 600;
+      color: var(--color-primary);
+      font-size: 14px;
+    }
+    .version-value {
+      font-family: monospace;
+      font-size: 14px;
+      background-color: rgba(0, 43, 128, 0.05);
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+    }
+    .rollback-dashboard-actions {
+      display: flex;
+      gap: 16px;
+    }
+    .btn-rollback {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 8px 24px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 150ms ease;
+      font-size: 14px;
+    }
+    .btn-rollback:hover {
+      background-color: #001e5c;
+      transform: translateY(-2px);
+    }
+    .btn-verify {
+      background-color: var(--color-secondary);
+      color: var(--color-primary);
+      border: none;
+      padding: 8px 24px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 150ms ease;
+      font-size: 14px;
+    }
+    .btn-verify:hover {
+      background-color: #00a5c9;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-container">
+      <div class="header-logo"></div>
+      <h1 class="header-title">Client360 Dashboard</h1>
+    </div>
+  </header>
+  
+  <main class="main-content">
+    <section class="rollback-dashboard">
+      <div class="rollback-dashboard-header">
+        <h3>Dashboard Rollback System</h3>
+        <div class="status-indicator active">System Ready</div>
+      </div>
+      <div class="rollback-dashboard-content">
+        <p>This is the official TBWA Client360 Dashboard. You can safely rollback to a previous version if needed.</p>
+        <div class="version-info">
+          <span class="version-label">Current Version:</span>
+          <span class="version-value">v2.3.0</span>
+        </div>
+        <div class="version-info">
+          <span class="version-label">Previous Version:</span>
+          <span class="version-value">v2.2.1</span>
+        </div>
+      </div>
+      <div class="rollback-dashboard-actions">
+        <button class="btn-rollback">Rollback to Previous Version</button>
+        <button class="btn-verify">Verify Current System</button>
+      </div>
+    </section>
+    
+    <div class="dashboard-card">
+      <h2 class="dashboard-title">Client360 Dashboard</h2>
+      <p>Welcome to the TBWA Client360 Dashboard. This dashboard provides comprehensive analytics and insights for our clients.</p>
+      <p>Key features:</p>
+      <ul>
+        <li>Real-time performance metrics</li>
+        <li>Sales and conversion analytics</li>
+        <li>Geographical store performance data</li>
+        <li>Customer behavior tracking</li>
+        <li>Marketing campaign effectiveness</li>
+      </ul>
+      <p><strong>Note:</strong> This dashboard has been configured to load directly when accessing the root URL.</p>
+    </div>
+  </main>
+  
+  <footer class="footer">
+    <p>&copy; 2025 TBWA\SMP. All rights reserved.</p>
+  </footer>
+</body>
+</html>

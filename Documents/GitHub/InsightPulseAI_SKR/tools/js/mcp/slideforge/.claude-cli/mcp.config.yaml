@@ -1,0 +1,39 @@
+agents:
+  deckgen:
+    model: claude-3-opus
+    type: generation
+    file: agents/deckgen.claude.yaml
+
+  slidebuilder:
+    type: rendering
+    file: agents/slidebuilder.ui.yaml
+
+  feedback:
+    model: claude-3-sonnet
+    type: reviewer
+    file: agents/feedback.reviewer.yaml
+
+defaults:
+  output_dir: slides/generated
+  format: json
+
+hooks:
+  post:deckgen:
+    - action: run
+      agent: slidebuilder
+      args: ["${output}"]
+      
+  pre:feedback:
+    - action: insert_slide
+      type: cta
+      position: -1
+      
+  post:feedback:
+    - action: inject_revisions
+      target: editor
+      
+  on:publish:
+    - action: deploy
+    - action: notify
+      channel: slack
+      message: "New SlideForge deck published: ${url}"

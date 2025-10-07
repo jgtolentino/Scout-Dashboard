@@ -1,0 +1,30 @@
+{
+  "query_results": {
+    "columns": [
+      {"name": "brand", "type": "string", "nullable": false, "distinct_values": 2},
+      {"name": "week", "type": "date", "nullable": false, "distinct_values": 12},
+      {"name": "revenue", "type": "number", "nullable": false, "min_value": 10000, "max_value": 500000}
+    ],
+    "rows": [
+      {"brand": "Alaska", "week": "2025-04-07", "revenue": 125000},
+      {"brand": "Oishi", "week": "2025-04-07", "revenue": 98000},
+      {"brand": "Alaska", "week": "2025-04-14", "revenue": 132000},
+      {"brand": "Oishi", "week": "2025-04-14", "revenue": 104000}
+    ],
+    "total_rows": 24,
+    "query_metadata": {
+      "execution_time_ms": 145,
+      "data_sources": ["scout.fact_transaction_item"]
+    }
+  },
+  "visualization_intent": "trend",
+  "audience_context": {
+    "executive_summary": true,
+    "technical_detail": false,
+    "presentation_mode": false
+  },
+  "user_context": {
+    "tenant_id": "demo-tenant",
+    "role": "analyst"
+  }
+}

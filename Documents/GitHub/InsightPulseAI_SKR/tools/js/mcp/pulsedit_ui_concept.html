@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseEdit - MCP Code Editor</title>
+  <style>
+    :root {
+      --primary: #0078d7;
+      --secondary: #16b9ac;
+      --accent: #e62f4c;
+      --background: #0a1929;
+      --light-bg: #132f4c;
+      --text: #ffffff;
+      --text-secondary: #c2c2c2;
+      --border: #1e4976;
+      --header-height: 60px;
+      --footer-height: 30px;
+      --sidebar-width: 220px;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      height: var(--header-height);
+      background-color: var(--light-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    .logo span {
+      color: var(--accent);
+    }
+    
+    .header-controls {
+      display: flex;
+      align-items: center;
+    }
+    
+    .header-controls button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+    
+    .header-controls button:hover {
+      background-color: #0069c0;
+    }
+    
+    .main-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    
+    .sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--light-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .files-header {
+      padding: 15px;
+      font-weight: bold;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .add-file {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 16px;
+    }
+    
+    .files-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    
+    .file-item {
+      padding: 8px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    
+    .file-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .file-item.active {
+      background-color: rgba(0, 120, 215, 0.2);
+    }
+    
+    .file-icon {
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+    }
+    
+    .file-name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .editor-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .editor-tabs {
+      display: flex;
+      background-color: var(--light-bg);
+      border-bottom: 1px solid var(--border);
+      height: 40px;
+    }
+    
+    .tab {
+      padding: 0 20px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      border-right: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      min-width: 120px;
+      max-width: 200px;
+    }
+    
+    .tab.active {
+      background-color: var(--background);
+    }
+    
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--primary);
+    }
+    
+    .tab-close {
+      margin-left: 8px;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    
+    .tab:hover .tab-close {
+      opacity: 1;
+    }
+    
+    .editor-wrapper {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .monaco-editor {
+      width: 100%;
+      height: 100%;
+    }
+    
+    /* Placeholder for Monaco editor */
+    .editor-placeholder {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow: auto;
+      white-space: pre;
+    }
+    
+    .split-pane {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    
+    .preview-container {
+      width: 50%;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .preview-header {
+      padding: 8px 15px;
+      background-color: var(--light-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .preview-toggle {
+      display: flex;
+      align-items: center;
+    }
+    
+    .preview-toggle button {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    
+    .preview-toggle button.active {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+    
+    .preview-content {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background-color: white;
+    }
+    
+    .terminal-container {
+      height: 30%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .terminal-header {
+      padding: 8px 15px;
+      background-color: var(--light-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .terminal-content {
+      flex: 1;
+      background-color: #1e1e1e;
+      padding: 10px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 14px;
+      overflow: auto;
+      white-space: pre-wrap;
+      color: #d4d4d4;
+    }
+    
+    .command-line {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      background-color: #252525;
+      border-top: 1px solid var(--border);
+    }
+    
+    .command-prompt {
+      color: var(--secondary);
+      margin-right: 8px;
+    }
+    
+    .command-input {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 14px;
+      outline: none;
+    }
+    
+    .status-bar {
+      height: var(--footer-height);
+      background-color: var(--light-bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      justify-content: space-between;
+    }
+    
+    .status-item {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+    
+    .status-item:before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+    
+    .status-item.connected:before {
+      background-color: #00C853;
+    }
+    
+    .status-item.disconnected:before {
+      background-color: #FF5252;
+    }
+    
+    .mcp-status {
+      display: flex;
+      align-items: center;
+    }
+    
+    .claude-panel {
+      width: 300px;
+      background-color: var(--light-bg);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .claude-header {
+      padding: 15px;
+      font-weight: bold;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .claude-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+    }
+    
+    .claude-input {
+      padding: 15px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .claude-input textarea {
+      width: 100%;
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      padding: 8px;
+      font-family: inherit;
+      resize: none;
+      height: 80px;
+    }
+    
+    .claude-input button {
+      margin-top: 10px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      width: 100%;
+    }
+    
+    .message {
+      margin-bottom: 15px;
+    }
+    
+    .message-user {
+      background-color: rgba(0, 120, 215, 0.1);
+      padding: 10px;
+      border-radius: 4px;
+      border-left: 3px solid var(--primary);
+    }
+    
+    .message-claude {
+      background-color: rgba(22, 185, 172, 0.1);
+      padding: 10px;
+      border-radius: 4px;
+      border-left: 3px solid var(--secondary);
+    }
+    
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .message-content {
+      line-height: 1.4;
+    }
+    
+    @media (max-width: 1100px) {
+      .claude-panel {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .preview-container {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Pulse<span>Edit</span></div>
+    <div class="header-controls">
+      <span id="workspace-name">My Project</span>
+      <button id="run-button">▶ Run</button>
+      <button id="save-button">Save</button>
+      <button id="share-button">Share</button>
+    </div>
+  </header>
+  
+  <div class="main-container">
+    <div class="sidebar">
+      <div class="files-header">
+        <span>Files</span>
+        <button class="add-file">+</button>
+      </div>
+      <div class="files-list">
+        <div class="file-item active">
+          <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#e44d26"><path d="M4.5 3h15c.8 0 1.5.7 1.5 1.5v15c0 .8-.7 1.5-1.5 1.5h-15c-.8 0-1.5-.7-1.5-1.5v-15c0-.8.7-1.5 1.5-1.5zm3 4.5v9h9v-9h-9z"/></svg>
+          <span class="file-name">index.html</span>
+        </div>
+        <div class="file-item">
+          <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#264de4"><path d="M4.5 3h15c.8 0 1.5.7 1.5 1.5v15c0 .8-.7 1.5-1.5 1.5h-15c-.8 0-1.5-.7-1.5-1.5v-15c0-.8.7-1.5 1.5-1.5zm10.5 9.75l-3 1.5-3-1.5v-3l3-1.5 3 1.5v3z"/></svg>
+          <span class="file-name">style.css</span>
+        </div>
+        <div class="file-item">
+          <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f7df1e"><path d="M3 3h18v18H3V3zm16.5 13.5c-.2 1.2-1.2 2.1-2.5 2.4-2.1.4-4.1-.4-5.2-1.7l1.7-1c.7.8 1.3 1.2 2.4 1 .6-.1 1-.4 1.1-.9.1-.8-.5-1.1-1.7-1.5-1.6-.5-2.6-1.1-2.6-2.6 0-1.1.7-2 1.9-2.3 1.4-.4 2.8.1 3.8 1l-1.6 1c-.4-.5-1-.7-1.5-.6-.6.1-.9.4-.9.8 0 .6.5.8 1.6 1.2 1.9.6 2.8 1.3 2.8 2.9 0 .5-.1.9-.3 1.3z"/></svg>
+          <span class="file-name">script.js</span>
+        </div>
+        <div class="file-item">
+          <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#3776ab"><path d="M12.5 1.6c-6.9 0-6.5 3-6.5 3v3h6.5v1H4.5S1 8.5 1 15.1c0 6.6 3.1 6.4 3.1 6.4h1.8v-3.1c0-3.4 3-6.4 6.4-6.4s6.2.1 6.2 6.1c0 6-3.2 6.4-3.2 6.4H13v3h6.5s3-1 3-6.5c0-5.5-.1-10.9-6.5-11H12.5z"/><circle cx="8.5" cy="4.5" r="1.5"/><path d="M19.4 9H17v-3c0-3-3-3-3-3H7v6H17.4c3.3 0 3.1 1.6 3.1 1.6v8.8H23v-8.8s.5-4.6-3.6-4.6z"/><circle cx="16.5" cy="19.5" r="1.5"/></svg>
+          <span class="file-name">app.py</span>
+        </div>
+        <div class="file-item">
+          <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#67abdf"><path d="M3 3v18h18V3H3zm14 16H7V5h10v14z"/></svg>
+          <span class="file-name">data.json</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="editor-container">
+      <div class="editor-tabs">
+        <div class="tab active">
+          <span class="tab-name">index.html</span>
+          <span class="tab-close">×</span>
+        </div>
+        <div class="tab">
+          <span class="tab-name">script.js</span>
+          <span class="tab-close">×</span>
+        </div>
+      </div>
+      
+      <div class="split-pane">
+        <div class="editor-wrapper">
+          <!-- Placeholder for Monaco Editor -->
+          <div class="editor-placeholder">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;My PulseEdit Project&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="container"&gt;
+    &lt;h1&gt;Hello, PulseEdit!&lt;/h1&gt;
+    &lt;p&gt;This is a simple web project created with PulseEdit.&lt;/p&gt;
+    &lt;button id="changeColor"&gt;Change Color&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+          </div>
+        </div>
+        
+        <div class="preview-container">
+          <div class="preview-header">
+            <span>Preview</span>
+            <div class="preview-toggle">
+              <button class="active">Web</button>
+              <button>Console</button>
+            </div>
+          </div>
+          <div class="preview-content">
+            <iframe class="preview-iframe" src="about:blank"></iframe>
+          </div>
+        </div>
+      </div>
+      
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span>Terminal</span>
+          <span>Clear</span>
+        </div>
+        <div class="terminal-content">
+> Starting development server...
+Server running at http://localhost:3000
+Compiled successfully!
+
+You can now view your project in the browser.
+        </div>
+        <div class="command-line">
+          <span class="command-prompt">$</span>
+          <input type="text" class="command-input" placeholder="Enter command...">
+        </div>
+      </div>
+    </div>
+    
+    <div class="claude-panel">
+      <div class="claude-header">
+        <span>Claude Assistant</span>
+        <span>✕</span>
+      </div>
+      <div class="claude-content">
+        <div class="message">
+          <div class="message-header">
+            <span>Claude</span>
+            <span>10:45 AM</span>
+          </div>
+          <div class="message-content message-claude">
+            Hi there! I'm Claude, your coding assistant. I can help you write, explain, or debug code. What are you working on today?
+          </div>
+        </div>
+        <div class="message">
+          <div class="message-header">
+            <span>You</span>
+            <span>10:47 AM</span>
+          </div>
+          <div class="message-content message-user">
+            I'm trying to build a simple website. Can you help me create a color-changing button with JavaScript?
+          </div>
+        </div>
+        <div class="message">
+          <div class="message-header">
+            <span>Claude</span>
+            <span>10:47 AM</span>
+          </div>
+          <div class="message-content message-claude">
+            Absolutely! I'll help you create a button that changes colors when clicked.
+            
+            First, let's add some JavaScript to your script.js file:
+            
+            ```javascript
+            document.addEventListener('DOMContentLoaded', () => {
+              const button = document.getElementById('changeColor');
+              const container = document.querySelector('.container');
+              
+              const colors = ['#ff5252', '#4caf50', '#2196f3', '#ff9800', '#9c27b0'];
+              let colorIndex = 0;
+              
+              button.addEventListener('click', () => {
+                colorIndex = (colorIndex + 1) % colors.length;
+                container.style.backgroundColor = colors[colorIndex];
+              });
+            });
+            ```
+            
+            This code will change the background color of your container element each time the button is clicked. Let me know if you'd like me to explain how it works!
+          </div>
+        </div>
+      </div>
+      <div class="claude-input">
+        <textarea placeholder="Ask Claude for help..."></textarea>
+        <button>Send</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="status-bar">
+    <div class="connection-status">
+      <div class="status-item connected">MCP Connected</div>
+      <div class="status-item connected">Execution Engine Ready</div>
+    </div>
+    <div class="file-info">
+      index.html | HTML | UTF-8
+    </div>
+  </div>
+</body>
+</html>

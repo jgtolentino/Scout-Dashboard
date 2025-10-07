@@ -1,0 +1,5 @@
+models:
+  default: deepseek-coder:6.7b-instruct-q4_K_M
+  coding: codellama:7b-instruct
+  simple: tinyllama:latest
+  complex: deepseek-coder:6.7b-instruct-q4_K_M 

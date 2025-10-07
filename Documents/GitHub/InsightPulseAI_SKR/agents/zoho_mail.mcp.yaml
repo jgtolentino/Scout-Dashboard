@@ -1,0 +1,248 @@
+name: zoho_mail
+version: "1.0"
+description: "Zoho Mail integration for Pulser providing email sending and vacation reply management"
+author: "Jake Tolentino"
+maintainer: "InsightPulseAI Team"
+# Capabilities and services provided by this agent
+capabilities:
+  - send_internal_email
+  - send_external_email
+  - manage_vacation_replies
+  - refresh_oauth_tokens
+  - test_connectivity
+# Dependencies
+requires:
+  - python: ">=3.6"
+  - python_packages:
+      - requests
+      - webbrowser
+      - http.server
+      - urllib.parse
+  - environment:
+      - HOME
+      - PULSER_ZOHO_CLIENT_ID
+      - PULSER_ZOHO_CLIENT_SECRET
+# Configuration paths and settings
+config:
+  credentials_path: "~/.pulser/zoho_credentials.json"
+  internal_email: "pulser@insightpulseai.com"
+  external_email: "pulser-ai@insightpulseai.com"
+  signature_paths:
+    internal: "~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/internal_signature.html"
+    external: "~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/external_signature.html"
+  log_path: "~/.pulser/logs/mail.log"
+  required_scopes:
+    - ZohoMail.accounts.READ
+    - ZohoMail.folders.READ
+    - ZohoMail.messages.READ
+    - ZohoMail.messages.CREATE
+    - ZohoMail.messages.UPDATE
+    - ZohoMail.settings.READ
+# Components of this mail integration
+components:
+  token_manager:
+    path: "~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/token_manager.py"
+    description: "Handles OAuth token refreshing and management"
+    command: "python3 {path} refresh-token"
+  mail_client:
+    path: "~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/zoho_mail_client.py"
+    description: "Core client for interacting with Zoho Mail APIs"
+    commands:
+      send: "python3 {path} send --from {from} --to {to} --subject {subject} --body {body}"
+      get_account: "python3 {path} account --info"
+      vacation: "python3 {path} settings --vacation {action}"
+  test_tools:
+    path: "~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/test_zoho_mail.sh"
+    description: "Script for testing the mail integration"
+    command: "bash {path} [--send-email] [--to recipient@example.com]"
+  token_generator:
+    path: "~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/get_zoho_token.py"
+    description: "Script for obtaining initial OAuth tokens"
+    command: "python3 {path}"
+# CLI Functions that will be exposed
+cli_functions:
+  pulser_mail_internal:
+    description: "Send email using the internal Pulser email alias"
+    command: "python3 ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/zoho_mail_client.py send --from {config.internal_email} --to {to} --subject {subject} --body {body} --signature {config.signature_paths.internal} {cc} {bcc}"
+    params:
+      - name: to
+        description: "Recipient email address"
+        required: true
+      - name: subject
+        description: "Email subject line"
+        required: true
+      - name: body
+        description: "Email body content"
+        required: true
+      - name: cc
+        description: "Carbon copy recipients"
+        required: false
+        prefix: "--cc"
+      - name: bcc
+        description: "Blind carbon copy recipients"
+        required: false
+        prefix: "--bcc"
+  pulser_mail_external:
+    description: "Send email using the external Pulser email alias"
+    command: "python3 ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/zoho_mail_client.py send --from {config.external_email} --to {to} --subject {subject} --body {body} --signature {config.signature_paths.external} {cc} {bcc}"
+    params:
+      - name: to
+        description: "Recipient email address"
+        required: true
+      - name: subject
+        description: "Email subject line"
+        required: true
+      - name: body
+        description: "Email body content"
+        required: true
+      - name: cc
+        description: "Carbon copy recipients"
+        required: false
+        prefix: "--cc"
+      - name: bcc
+        description: "Blind carbon copy recipients"
+        required: false
+        prefix: "--bcc"
+  pulser_mail_vacation:
+    description: "Set up vacation auto-reply"
+    command: "python3 ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/zoho_mail_client.py settings --vacation enable --from {from_date} --to {to_date} --subject {subject} --message {message}"
+    params:
+      - name: from_date
+        description: "Start date (YYYY-MM-DD)"
+        required: true
+      - name: to_date
+        description: "End date (YYYY-MM-DD)"
+        required: true
+      - name: subject
+        description: "Auto-reply subject"
+        required: true
+      - name: message
+        description: "Auto-reply message"
+        required: true
+  pulser_mail_vacation_disable:
+    description: "Disable vacation auto-reply"
+    command: "python3 ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/zoho_mail_client.py settings --vacation disable"
+  pulser_mail_test:
+    description: "Test Zoho Mail integration"
+    command: "bash ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/test_zoho_mail.sh {options}"
+    params:
+      - name: options
+        description: "Test options (--send-email, --to, etc.)"
+        required: false
+  pulser_mail_setup:
+    description: "Set up Zoho Mail integration"
+    command: "python3 ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/get_zoho_token.py"
+# Installation/setup
+installation:
+  setup_command: "bash ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/setup_zoho_mail.sh"
+  required_files:
+    - ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/zoho_mail_client.py
+    - ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/get_zoho_token.py
+    - ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/test_zoho_mail.sh
+    - ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/setup_zoho_mail.sh
+    - ~/Documents/GitHub/InsightPulseAI_SKR/tools/mail/token_manager.py
+  credentials_template: "{\n  \"client_id\": \"YOUR_CLIENT_ID\",\n  \"client_secret\": \"YOUR_CLIENT_SECRET\", \n  \"refresh_token\": \"YOUR_REFRESH_TOKEN\",\n  \"access_token\": \"\",\n  \"token_type\": \"Zoho-oauthtoken\",\n  \"last_updated\": \"\"\n}\n"
+  env_vars_template: |
+    # Zoho Mail configuration
+    export PULSER_ZOHO_CLIENT_ID="your_client_id_here"
+    export PULSER_ZOHO_CLIENT_SECRET="your_client_secret_here"
+# Integration with Pulser system
+pulser_integration:
+  command_prefix: "mail:"
+  aliases:
+    - "zmail"
+    - "zoho"
+  help_text: |
+    Zoho Mail Integration Commands:
+
+    mail:internal TO SUBJECT BODY  - Send internal email
+    mail:external TO SUBJECT BODY  - Send external email
+    mail:vacation                  - Set vacation auto-reply
+    mail:test                      - Test mail configuration
+    mail:setup                     - Set up mail integration
+
+    For detailed documentation, see: ~/README_zoho_mail_cli.md
+  auto_completion:
+    enabled: true
+    commands:
+      - "mail:internal"
+      - "mail:external"
+      - "mail:vacation"
+      - "mail:test"
+      - "mail:setup"
+# Audit and logging
+auditing:
+  log_all_emails: true
+  sensitive_fields:
+    - "client_secret"
+    - "access_token"
+    - "refresh_token"
+  retention_period: "90d"
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput
+    - resource_usage
+  alerts:
+    - type: threshold
+      metric: error_rate
+      threshold: 0.01
+      action: notify
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+performance:
+  optimization: true
+  caching:
+    enabled: true
+    ttl: 3600
+  concurrency:
+    max_workers: 10
+    queue_size: 100
+  resource_limits:
+    max_memory: 512MB
+    max_cpu: 2.0
+    timeout: 300s
+error_handling:
+  retry:
+    enabled: true
+    max_attempts: 3
+    backoff: exponential
+  circuit_breaker:
+    enabled: true
+    threshold: 5
+    timeout: 60s
+  fallback:
+    enabled: true
+    strategy: graceful_degradation
+lifecycle:
+  on_start:
+    - action: validate_environment
+    - action: load_configuration
+    - action: initialize_connections
+  on_ready:
+    - action: register_with_discovery
+    - action: start_health_checks
+  on_shutdown:
+    - action: deregister_from_discovery
+    - action: cleanup_resources
+    - action: save_state
+observability:
+  logging:
+    level: info
+    format: json
+    outputs:
+      - stdout
+      - file: /logs/agent.log
+  tracing:
+    enabled: true
+    provider: opentelemetry
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    provider: prometheus
+    endpoint: /metrics
+resource_quota: 5000_tokens_per_min
+timeout_ms: 90000

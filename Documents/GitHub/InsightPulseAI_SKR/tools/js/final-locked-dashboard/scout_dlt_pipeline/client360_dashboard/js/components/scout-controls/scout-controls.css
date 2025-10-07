@@ -1,0 +1,879 @@
+/**
+ * Scout Controls Styles - v2.5.0
+ * WCAG 2.1 AA compliant styles for global dashboard controls
+ * Material Design aligned with exact PRD specifications
+ */
+
+/* ==========================================================================
+   Main Controls Container
+   ========================================================================== */
+
+.scout-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface-color, #ffffff);
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    min-height: 3.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.scout-controls--fallback {
+    background: #fff3e0;
+    border-color: #ff9800;
+}
+
+/* ==========================================================================
+   Individual Control Styles
+   ========================================================================== */
+
+.scout-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.scout-control__label {
+    font-weight: 500;
+    color: var(--text-primary, #333333);
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.scout-control__help {
+    font-size: 0.75rem;
+    color: var(--text-secondary, #666666);
+    margin-top: 0.25rem;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* ==========================================================================
+   Date Range Picker Styles
+   ========================================================================== */
+
+.scout-date-picker__trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--input-background, #f5f5f5);
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    color: var(--text-primary, #333333);
+    min-width: 200px;
+}
+
+.scout-date-picker__trigger:hover {
+    background: var(--input-hover, #eeeeee);
+    border-color: var(--primary-color, #1976d2);
+}
+
+.scout-date-picker__trigger:focus {
+    outline: 2px solid var(--focus-color, #1976d2);
+    outline-offset: 2px;
+    background: var(--input-focus, #ffffff);
+}
+
+.scout-date-picker__trigger[aria-expanded="true"] {
+    background: var(--primary-color, #1976d2);
+    color: white;
+}
+
+.scout-date-picker__value {
+    flex: 1;
+    text-align: left;
+}
+
+.scout-date-picker__arrow {
+    transition: transform 0.2s ease;
+}
+
+.scout-date-picker__trigger[aria-expanded="true"] .scout-date-picker__arrow {
+    transform: rotate(180deg);
+}
+
+/* Date Picker Modal */
+.scout-date-picker-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.scout-date-picker-modal__backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.scout-date-picker-modal__content {
+    position: relative;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    min-width: 400px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: slideIn 0.3s ease;
+}
+
+.scout-date-picker-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+    background: var(--surface-variant, #f8f9fa);
+}
+
+.scout-date-picker-modal__header h2 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text-primary, #333333);
+}
+
+.scout-date-picker-modal__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: var(--text-secondary, #666666);
+    transition: all 0.2s ease;
+}
+
+.scout-date-picker-modal__close:hover {
+    background: var(--hover-color, #f0f0f0);
+    color: var(--text-primary, #333333);
+}
+
+.scout-date-picker-modal__close:focus {
+    outline: 2px solid var(--focus-color, #1976d2);
+    outline-offset: 2px;
+}
+
+.scout-date-picker-modal__body {
+    padding: 1.5rem;
+}
+
+.scout-date-picker-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.scout-date-input label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary, #333333);
+}
+
+.scout-date-input input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.scout-date-input input:focus {
+    outline: 2px solid var(--focus-color, #1976d2);
+    outline-offset: 2px;
+    border-color: var(--primary-color, #1976d2);
+}
+
+.scout-help-text {
+    font-size: 0.75rem;
+    color: var(--text-secondary, #666666);
+    margin-top: 0.25rem;
+}
+
+.scout-date-picker-presets h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary, #333333);
+}
+
+.scout-preset-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.scout-preset-btn {
+    padding: 0.5rem 0.75rem;
+    background: var(--secondary-color, #f5f5f5);
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.75rem;
+    color: var(--text-primary, #333333);
+}
+
+.scout-preset-btn:hover {
+    background: var(--hover-color, #eeeeee);
+    border-color: var(--primary-color, #1976d2);
+}
+
+.scout-preset-btn:focus {
+    outline: 2px solid var(--focus-color, #1976d2);
+    outline-offset: 2px;
+}
+
+.scout-date-picker-modal__footer {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color, #e0e0e0);
+    background: var(--surface-variant, #f8f9fa);
+}
+
+/* ==========================================================================
+   Toggle Switch Styles (Auto Refresh)
+   ========================================================================== */
+
+.scout-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.scout-toggle__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.scout-toggle__slider {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    background: var(--toggle-off, #ccc);
+    border-radius: 24px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.scout-toggle__slider::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.scout-toggle__input:checked + .scout-toggle__slider {
+    background: var(--primary-color, #1976d2);
+}
+
+.scout-toggle__input:checked + .scout-toggle__slider::after {
+    transform: translateX(20px);
+}
+
+.scout-toggle__input:focus + .scout-toggle__slider {
+    border-color: var(--focus-color, #1976d2);
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.scout-toggle__label {
+    font-weight: 500;
+    color: var(--text-primary, #333333);
+    user-select: none;
+}
+
+/* ==========================================================================
+   Dropdown Styles (Export)
+   ========================================================================== */
+
+.scout-dropdown {
+    position: relative;
+}
+
+.scout-dropdown__trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--input-background, #f5f5f5);
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    color: var(--text-primary, #333333);
+    min-width: 140px;
+}
+
+.scout-dropdown__trigger:hover {
+    background: var(--input-hover, #eeeeee);
+    border-color: var(--primary-color, #1976d2);
+}
+
+.scout-dropdown__trigger:focus {
+    outline: 2px solid var(--focus-color, #1976d2);
+    outline-offset: 2px;
+    background: var(--input-focus, #ffffff);
+}
+
+.scout-dropdown__trigger[aria-expanded="true"] {
+    background: var(--input-focus, #ffffff);
+    border-color: var(--primary-color, #1976d2);
+}
+
+.scout-dropdown__value {
+    flex: 1;
+    text-align: left;
+}
+
+.scout-dropdown__arrow {
+    transition: transform 0.2s ease;
+}
+
+.scout-dropdown--open .scout-dropdown__arrow {
+    transform: rotate(180deg);
+}
+
+.scout-dropdown__menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.scout-dropdown__menu[aria-hidden="true"] {
+    display: none;
+}
+
+.scout-dropdown__option {
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    color: var(--text-primary, #333333);
+    border-bottom: 1px solid var(--border-light, #f0f0f0);
+}
+
+.scout-dropdown__option:last-child {
+    border-bottom: none;
+}
+
+.scout-dropdown__option:hover {
+    background: var(--hover-color, #f8f9fa);
+}
+
+.scout-dropdown__option:focus {
+    outline: 2px solid var(--focus-color, #1976d2);
+    outline-offset: -2px;
+    background: var(--hover-color, #f8f9fa);
+}
+
+.scout-dropdown__option--selected {
+    background: var(--primary-light, #e3f2fd);
+    color: var(--primary-color, #1976d2);
+    font-weight: 500;
+}
+
+.scout-dropdown__option--selected::after {
+    content: '✓';
+    float: right;
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   Settings Menu Styles
+   ========================================================================== */
+
+.scout-settings-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--input-background, #f5f5f5);
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-secondary, #666666);
+}
+
+.scout-settings-trigger:hover {
+    background: var(--input-hover, #eeeeee);
+    color: var(--text-primary, #333333);
+    border-color: var(--primary-color, #1976d2);
+}
+
+.scout-settings-trigger:focus {
+    outline: 2px solid var(--focus-color, #1976d2);
+    outline-offset: 2px;
+    background: var(--input-focus, #ffffff);
+}
+
+.scout-settings-trigger[aria-expanded="true"] {
+    background: var(--primary-color, #1976d2);
+    color: white;
+    border-color: var(--primary-color, #1976d2);
+}
+
+.scout-settings-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: white;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    min-width: 280px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.scout-settings-menu[aria-hidden="true"] {
+    display: none;
+}
+
+.scout-settings-menu--open {
+    animation: slideDown 0.2s ease;
+}
+
+.scout-settings-menu__header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+    background: var(--surface-variant, #f8f9fa);
+}
+
+.scout-settings-menu__header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary, #333333);
+}
+
+.scout-settings-menu__content {
+    padding: 1rem 0;
+}
+
+.scout-settings-section {
+    padding: 0 1.25rem 1rem;
+}
+
+.scout-settings-section:not(:last-child) {
+    border-bottom: 1px solid var(--border-light, #f0f0f0);
+    margin-bottom: 1rem;
+}
+
+.scout-settings-section h4 {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary, #333333);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.scout-settings-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-radius: 0.25rem;
+}
+
+.scout-settings-option:hover {
+    background: var(--hover-color, #f8f9fa);
+}
+
+.scout-settings-option input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color, #1976d2);
+}
+
+.scout-settings-option span {
+    font-size: 0.875rem;
+    color: var(--text-primary, #333333);
+    user-select: none;
+}
+
+/* ==========================================================================
+   Performance Indicator
+   ========================================================================== */
+
+.scout-performance-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--surface-variant, #f8f9fa);
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary, #666666);
+}
+
+.scout-performance-icon {
+    font-size: 0.875rem !important;
+}
+
+.scout-performance-value {
+    font-weight: 500;
+    min-width: 35px;
+}
+
+/* ==========================================================================
+   Error Boundary
+   ========================================================================== */
+
+.scout-controls__error-boundary {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--error-color, #f44336);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 200;
+}
+
+.scout-controls__error-boundary--visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.scout-error-message {
+    flex: 1;
+}
+
+/* ==========================================================================
+   Button Styles
+   ========================================================================== */
+
+.scout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    min-height: 36px;
+}
+
+.scout-btn:focus {
+    outline: 2px solid var(--focus-color, #1976d2);
+    outline-offset: 2px;
+}
+
+.scout-btn--primary {
+    background: var(--primary-color, #1976d2);
+    color: white;
+}
+
+.scout-btn--primary:hover {
+    background: var(--primary-dark, #1565c0);
+}
+
+.scout-btn--secondary {
+    background: var(--secondary-color, #f5f5f5);
+    color: var(--text-primary, #333333);
+    border-color: var(--border-color, #e0e0e0);
+}
+
+.scout-btn--secondary:hover {
+    background: var(--secondary-hover, #eeeeee);
+    border-color: var(--primary-color, #1976d2);
+}
+
+/* ==========================================================================
+   Fallback Styles
+   ========================================================================== */
+
+.scout-control-fallback {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.scout-toggle-fallback {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.scout-toggle-fallback input {
+    accent-color: var(--primary-color, #1976d2);
+}
+
+.scout-error-notice {
+    padding: 0.5rem 0.75rem;
+    background: #fff3e0;
+    color: #e65100;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    border: 1px solid #ffb74d;
+}
+
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+/* High contrast mode */
+.scout-high-contrast .scout-controls {
+    border: 2px solid #000;
+    background: #fff;
+}
+
+.scout-high-contrast .scout-date-picker__trigger,
+.scout-high-contrast .scout-dropdown__trigger,
+.scout-high-contrast .scout-settings-trigger {
+    border: 2px solid #000;
+    background: #fff;
+    color: #000;
+}
+
+.scout-high-contrast .scout-toggle__slider {
+    border: 2px solid #000;
+}
+
+.scout-high-contrast .scout-btn--primary {
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+}
+
+.scout-high-contrast .scout-btn--secondary {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+}
+
+/* Screen reader enhancements */
+.scout-screen-reader-enhanced .scout-controls [aria-hidden="true"] {
+    speak: none;
+}
+
+.scout-screen-reader-enhanced .scout-performance-indicator {
+    display: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .scout-controls *,
+    .scout-controls *::before,
+    .scout-controls *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .scout-controls {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .scout-control {
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    .scout-date-picker__trigger,
+    .scout-dropdown__trigger {
+        min-width: 100px;
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+    
+    .scout-date-picker-modal__content {
+        min-width: 320px;
+        margin: 1rem;
+    }
+    
+    .scout-date-picker-inputs {
+        grid-template-columns: 1fr;
+    }
+    
+    .scout-settings-menu {
+        min-width: 240px;
+        right: auto;
+        left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .scout-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .scout-control {
+        width: 100%;
+    }
+    
+    .scout-date-picker__trigger,
+    .scout-dropdown__trigger {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   Material Icons
+   ========================================================================== */
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   CSS Custom Properties (Variables)
+   ========================================================================== */
+
+:root {
+    --primary-color: #1976d2;
+    --primary-dark: #1565c0;
+    --primary-light: #e3f2fd;
+    --secondary-color: #f5f5f5;
+    --secondary-hover: #eeeeee;
+    --surface-color: #ffffff;
+    --surface-variant: #f8f9fa;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --border-light: #f0f0f0;
+    --input-background: #f5f5f5;
+    --input-hover: #eeeeee;
+    --input-focus: #ffffff;
+    --hover-color: #f8f9fa;
+    --focus-color: #1976d2;
+    --error-color: #f44336;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --toggle-off: #ccc;
+}

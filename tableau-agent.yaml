@@ -1,0 +1,200 @@
+# Pulser TableauAgent Configuration
+# Headless Tableau dashboard creator using REST API (no Playwright)
+
+name: tableau-agent
+description: Headless Tableau dashboard creator and publisher via REST API
+version: "1.0.0"
+executor: python
+runtime: python3.11
+entrypoint: scripts/create_dashboard.py
+timeout: 1800  # 30 minutes for large workbook uploads
+
+# Environment configuration
+env_file: .env.tableau
+working_directory: /workspace/tableau-agent
+
+# Required permissions
+permissions:
+  - network
+  - filesystem
+  - docker
+
+# Resource limits
+resources:
+  memory: 4Gi
+  cpu: 2000m
+  storage: 10Gi
+
+# Dependencies
+dependencies:
+  - tableau-api-lib>=0.1.48
+  - tableauserverclient>=0.25.0
+  - tableauhyperapi>=0.0.17200
+  - pandas>=1.5.0
+  - requests>=2.28.0
+  - python-dotenv>=1.0.0
+
+# Command triggers
+triggers:
+  # Primary dashboard creation command
+  - command: tableau-create-dashboard
+    description: Create and publish Tableau dashboard
+    args:
+      - --project
+      - --datasource
+      - --workbook
+      - --server-url
+      - --site-id
+    options:
+      - --overwrite
+      - --show-tabs
+      - --description
+      - --tags
+
+  # Batch dashboard creation
+  - command: tableau-batch-create
+    description: Batch create multiple dashboards from config
+    args:
+      - --config-file
+      - --parallel-jobs
+    options:
+      - --dry-run
+      - --resume-on-error
+
+  # Dashboard management commands
+  - command: tableau-list-projects
+    description: List all projects on Tableau Server
+    args: []
+
+  - command: tableau-list-workbooks
+    description: List workbooks in a project
+    args:
+      - --project
+    options:
+      - --format
+
+  - command: tableau-publish-datasource
+    description: Publish datasource only
+    args:
+      - --project
+      - --datasource
+    options:
+      - --connection-type
+      - --credentials
+
+  - command: tableau-extract-workbook
+    description: Download workbook from server
+    args:
+      - --workbook-name
+      - --project
+      - --output-path
+    options:
+      - --include-extract
+
+  # Integration with existing extraction system
+  - command: tableau-migrate-desktop
+    description: Migrate extracted Desktop assets to server
+    args:
+      - --desktop-export-dir
+      - --target-project
+    options:
+      - --filter-pattern
+      - --create-projects
+
+  # Health check and validation
+  - command: tableau-validate-connection
+    description: Validate Tableau Server connection
+    args: []
+
+  - command: tableau-health-check
+    description: Comprehensive health check of agent
+    args: []
+
+# Monitoring and logging
+monitoring:
+  healthcheck:
+    endpoint: /health
+    interval: 30s
+    timeout: 10s
+    retries: 3
+
+  metrics:
+    - name: dashboards_created
+      type: counter
+      description: Number of dashboards successfully created
+    - name: upload_duration_seconds
+      type: histogram
+      description: Time taken to upload workbooks
+    - name: api_errors
+      type: counter
+      description: Number of Tableau API errors
+
+# Error handling
+error_handling:
+  max_retries: 3
+  retry_delay: 30s
+  exponential_backoff: true
+  
+  # Error recovery strategies
+  recovery:
+    connection_timeout:
+      action: retry
+      max_attempts: 5
+    upload_failure:
+      action: cleanup_and_retry
+      max_attempts: 2
+    authentication_error:
+      action: refresh_token
+      max_attempts: 3
+
+# Caching configuration
+cache:
+  enabled: true
+  ttl: 3600  # 1 hour
+  keys:
+    - projects_list
+    - datasources_list
+    - workbooks_metadata
+
+# Security settings
+security:
+  secrets:
+    - TBL_TOKEN
+    - TBL_PASSWORD
+  
+  network:
+    allowed_hosts:
+      - "*.tableau.com"
+      - "*.tableauusercontent.com"
+      - "localhost"
+    
+  filesystem:
+    readonly_paths:
+      - /workspace/templates
+    writable_paths:
+      - /workspace/output
+      - /workspace/temp
+
+# Agent lifecycle hooks
+hooks:
+  pre_start:
+    - script: scripts/validate_environment.py
+      timeout: 60s
+  
+  post_start:
+    - script: scripts/test_connection.py
+      timeout: 120s
+  
+  pre_stop:
+    - script: scripts/cleanup_temp_files.py
+      timeout: 30s
+
+# Development and debugging
+development:
+  debug_mode: false
+  log_level: INFO
+  profiling: false
+  
+  test_commands:
+    - tableau-validate-connection
+    - tableau-health-check

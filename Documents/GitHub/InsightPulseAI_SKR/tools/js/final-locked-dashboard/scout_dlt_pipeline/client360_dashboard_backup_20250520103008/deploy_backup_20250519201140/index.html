@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBWA Client 360 Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/tbwa-theme.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Global Header & Controls -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="mr-3 flex items-center justify-center bg-gray-800 rounded h-10 w-10">
+                    <span class="font-bold text-sm text-yellow-400" style="color: var(--color-primary)">TBWA</span>
+                </div>
+                <h1 class="text-xl font-bold">TBWA Client 360 Dashboard</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Date Selector -->
+                <div class="relative">
+                    <select id="dateSelector" class="block appearance-none bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="7">Last 7 days</option>
+                        <option value="30">Last 30 days</option>
+                        <option value="90">Last 90 days</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Data Source Toggle -->
+                <div class="flex items-center">
+                    <span class="mr-2 text-sm text-gray-600">Data:</span>
+                    <label class="switch">
+                        <input type="checkbox" id="dataSourceToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="ml-2 text-sm text-gray-600" id="dataSourceLabel">Simulated</span>
+                </div>
+                
+                <!-- Export Button -->
+                <div class="relative">
+                    <button id="exportButton" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center">
+                        <span>Export</span>
+                        <svg class="fill-current h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </button>
+                    <div id="exportDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export as CSV</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export as PPTX</a>
+                    </div>
+                </div>
+                
+                <!-- Advertiser Guide Link -->
+                <a href="guide.html" class="bg-green-100 hover:bg-green-200 text-green-800 font-semibold py-2 px-4 rounded inline-flex items-center mr-2">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span>Advertiser's Guide</span>
+                </a>
+                
+                <!-- Audit Link -->
+                <a href="/audit" class="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold py-2 px-4 rounded inline-flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <span>Parity Audit</span>
+                </a>
+                
+                <!-- Global Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="absolute left-3 top-2.5">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Unified Filter Bar -->
+    <div class="bg-gray-200 py-3">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap items-center space-x-4">
+                <!-- Organization/Brand Filter -->
+                <div class="relative">
+                    <select class="block appearance-none bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option>All Organizations</option>
+                        <option>TBWA Philippines</option>
+                        <option>Nestlé</option>
+                        <option>Unilever</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Region/Market Filter -->
+                <div class="relative">
+                    <select class="block appearance-none bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option>All Regions</option>
+                        <option>NCR</option>
+                        <option>Luzon</option>
+                        <option>Visayas</option>
+                        <option>Mindanao</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Category/Product Line Filter -->
+                <div class="relative">
+                    <select class="block appearance-none bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option>All Categories</option>
+                        <option>Beverages</option>
+                        <option>Personal Care</option>
+                        <option>Snacks</option>
+                        <option>Household</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Channel Filter -->
+                <div class="flex space-x-1">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">All</button>
+                    <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded">Online</button>
+                    <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded">In-Store</button>
+                </div>
+                
+                <!-- Custom Tags Filter -->
+                <div class="relative">
+                    <select class="block appearance-none bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option>All Tags</option>
+                        <option>Holiday Promo</option>
+                        <option>Back-to-School</option>
+                        <option>Summer Sale</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- High-Level KPI Tiles -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <!-- Total Sales KPI -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="toggleDrillDown('salesDrillDown')">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Total Sales</p>
+                        <h2 class="text-3xl font-bold text-gray-800">₱ 1.24M</h2>
+                        <p class="text-green-500 text-sm font-medium flex items-center mt-2">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586l3.293-3.293A1 1 0 0112 7z" clip-rule="evenodd"></path>
+                            </svg>
+                            8.2% from last period
+                        </p>
+                    </div>
+                    <div class="bg-blue-100 p-3 rounded-full">
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Conversion Rate KPI -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="toggleDrillDown('conversionDrillDown')">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Conversion Rate</p>
+                        <h2 class="text-3xl font-bold text-gray-800">24.7%</h2>
+                        <p class="text-green-500 text-sm font-medium flex items-center mt-2">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586l3.293-3.293A1 1 0 0112 7z" clip-rule="evenodd"></path>
+                            </svg>
+                            3.5% from last period
+                        </p>
+                    </div>
+                    <div class="bg-green-100 p-3 rounded-full">
+                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Marketing ROI KPI -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="toggleDrillDown('roiDrillDown')">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Marketing ROI</p>
+                        <h2 class="text-3xl font-bold text-gray-800">3.2x</h2>
+                        <p class="text-red-500 text-sm font-medium flex items-center mt-2">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12 13a1 1 0 100 2h5a1 1 0 001-1v-5a1 1 0 10-2 0v2.586l-4.293-4.293a1 1 0 00-1.414 0L8 9.586l-4.293-4.293a1 1 0 00-1.414 1.414l5 5a1 1 0 001.414 0L11 9.414l3.293 3.293A1 1 0 0012 13z" clip-rule="evenodd"></path>
+                            </svg>
+                            0.8x from last period
+                        </p>
+                    </div>
+                    <div class="bg-purple-100 p-3 rounded-full">
+                        <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Brand Sentiment KPI -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="toggleDrillDown('sentimentDrillDown')">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Brand Sentiment</p>
+                        <h2 class="text-3xl font-bold text-gray-800">76.2%</h2>
+                        <p class="text-green-500 text-sm font-medium flex items-center mt-2">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586l3.293-3.293A1 1 0 0112 7z" clip-rule="evenodd"></path>
+                            </svg>
+                            5.7% from last period
+                        </p>
+                    </div>
+                    <div class="bg-yellow-100 p-3 rounded-full">
+                        <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Business-Performance Visual Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Brand Performance -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Brand Performance</h3>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-600">Milo</span>
+                    <span class="text-sm font-bold text-gray-800">87%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 87%"></div>
+                </div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-600">Bear Brand</span>
+                    <span class="text-sm font-bold text-gray-800">72%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 72%"></div>
+                </div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-600">Lucky Me</span>
+                    <span class="text-sm font-bold text-gray-800">63%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                    <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 63%"></div>
+                </div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-600">Palmolive</span>
+                    <span class="text-sm font-bold text-gray-800">45%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-red-500 h-2.5 rounded-full" style="width: 45%"></div>
+                </div>
+            </div>
+            
+            <!-- Competitor Analysis -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Competitor Analysis</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-600">Market Share</span>
+                            <div class="flex items-center">
+                                <span class="text-sm font-bold text-gray-800 mr-2">42%</span>
+                                <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">Attention</span>
+                            </div>
+                        </div>
+                        <div class="relative w-full bg-gray-200 rounded-full h-4">
+                            <div class="bg-blue-500 h-4 rounded-l-full" style="width: 42%"></div>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-2">
+                                <div class="h-3 w-1 bg-gray-400 mx-px"></div>
+                                <div class="h-3 w-1 bg-gray-400 mx-px"></div>
+                                <div class="h-3 w-1 bg-gray-400 mx-px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-600">Brand Recognition</span>
+                            <span class="text-sm font-bold text-gray-800">68%</span>
+                        </div>
+                        <div class="relative w-full bg-gray-200 rounded-full h-4">
+                            <div class="bg-blue-500 h-4 rounded-l-full" style="width: 68%"></div>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-2">
+                                <div class="h-3 w-1 bg-gray-400 mx-px"></div>
+                                <div class="h-3 w-1 bg-gray-400 mx-px"></div>
+                                <div class="h-3 w-1 bg-gray-400 mx-px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-600">Customer Satisfaction</span>
+                            <span class="text-sm font-bold text-gray-800">84%</span>
+                        </div>
+                        <div class="relative w-full bg-gray-200 rounded-full h-4">
+                            <div class="bg-blue-500 h-4 rounded-l-full" style="width: 84%"></div>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-2">
+                                <div class="h-3 w-1 bg-gray-400 mx-px"></div>
+                                <div class="h-3 w-1 bg-gray-400 mx-px"></div>
+                                <div class="h-3 w-1 bg-gray-400 mx-px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Retail Performance -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Retail Performance</h3>
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <p class="text-3xl font-bold text-gray-800">₱ 428K</p>
+                        <p class="text-sm text-gray-600">Total Retail Sales</p>
+                    </div>
+                    <div class="w-32 h-16">
+                        <canvas id="retailPerformanceChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-600">NCR</span>
+                        <div class="flex items-center">
+                            <span class="text-sm font-bold text-gray-800 mr-2">₱ 187K</span>
+                            <span class="text-green-500 text-xs font-medium">+12%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-600">Luzon</span>
+                        <div class="flex items-center">
+                            <span class="text-sm font-bold text-gray-800 mr-2">₱ 124K</span>
+                            <span class="text-green-500 text-xs font-medium">+8%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-600">Visayas</span>
+                        <div class="flex items-center">
+                            <span class="text-sm font-bold text-gray-800 mr-2">₱ 76K</span>
+                            <span class="text-red-500 text-xs font-medium">-3%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-600">Mindanao</span>
+                        <div class="flex items-center">
+                            <span class="text-sm font-bold text-gray-800 mr-2">₱ 41K</span>
+                            <span class="text-green-500 text-xs font-medium">+5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Marketing ROI -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Marketing ROI</h3>
+                <div class="flex items-center justify-center mb-6">
+                    <div class="w-40 h-40">
+                        <canvas id="marketingRoiChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-3">
+                        <p class="text-sm font-medium text-gray-600">Social Media</p>
+                        <p class="text-lg font-bold text-gray-800">4.2x</p>
+                        <p class="text-green-500 text-xs font-medium">+0.8x from last period</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-3">
+                        <p class="text-sm font-medium text-gray-600">TV Ads</p>
+                        <p class="text-lg font-bold text-gray-800">2.7x</p>
+                        <p class="text-red-500 text-xs font-medium">-0.3x from last period</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-3">
+                        <p class="text-sm font-medium text-gray-600">Print Media</p>
+                        <p class="text-lg font-bold text-gray-800">1.8x</p>
+                        <p class="text-red-500 text-xs font-medium">-0.5x from last period</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-3">
+                        <p class="text-sm font-medium text-gray-600">In-Store Promos</p>
+                        <p class="text-lg font-bold text-gray-800">3.9x</p>
+                        <p class="text-green-500 text-xs font-medium">+1.2x from last period</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Geospatial Store Map -->
+            <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">Geospatial Store Map</h3>
+                    <select id="mapMetricSelector" class="text-sm border-gray-300 rounded-md">
+                        <option value="sales">Sales</option>
+                        <option value="stockouts">Stockouts</option>
+                        <option value="uptime">Uptime %</option>
+                    </select>
+                </div>
+                <div id="storeMap" class="h-80 w-full rounded"></div>
+            </div>
+        </div>
+        
+        <!-- Sari-Sari Transaction Metrics -->
+        <div id="transactionMetricsContainer" class="mb-8"></div>
+        
+        <!-- AI-Powered Insight Panel -->
+        <div id="brandInsights" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <!-- This content will be replaced by the BrandInsights component -->
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">AI-Powered Insights</h3>
+                <a href="#" class="text-blue-500 text-sm font-medium hover:text-blue-700">View All Insights →</a>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h4 class="text-md font-semibold text-gray-800 mb-2">Top 3 Actionable Recommendations</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                        <li class="text-sm">Reallocate 15% budget from under-performing SKU in Region B to Region C (+12% conv.)</li>
+                        <li class="text-sm">Trigger replenishment alerts for Store 42 when daily stockouts > 5.</li>
+                        <li class="text-sm">Optimize cache in Store 17 edge node to cut latency by 25%.</li>
+                    </ol>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="text-md font-semibold text-gray-800 mb-2">Brand Dictionary</h4>
+                        <p class="text-sm text-gray-700">Loading brand insights...</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="text-md font-semibold text-gray-800 mb-2">Emotional & Contextual Analysis</h4>
+                        <p class="text-sm text-gray-700">Loading contextual analysis...</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="text-md font-semibold text-gray-800 mb-2">Bundling Opportunities</h4>
+                        <p class="text-sm text-gray-700">Loading bundling opportunities...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Drill-Down Drawer (Hidden by Default) -->
+        <div id="drillDownDrawer" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden z-50">
+            <div class="bg-white w-full md:w-3/4 lg:w-2/3 mx-auto mt-20 rounded-lg shadow-lg overflow-hidden">
+                <div class="flex items-center justify-between bg-gray-100 px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800" id="drillDownTitle">Drill-Down Details</h3>
+                    <button onclick="closeDrillDown()" class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="p-6">
+                    <!-- Dynamic content based on selected drill-down -->
+                    <div id="salesDrillDown" class="hidden">
+                        <div class="flex justify-end mb-4">
+                            <div class="inline-flex rounded-md shadow-sm" role="group">
+                                <button type="button" class="px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                                    Last 7 days
+                                </button>
+                                <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                                    Last 30 days
+                                </button>
+                                <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                                    Last 90 days
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <canvas id="salesDrillDownChart" height="250"></canvas>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Region</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sales</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">% of Total</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">YoY Change</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">NCR</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 580,250</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">46.7%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">+12.8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Luzon</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 312,480</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">25.2%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">+8.3%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Visayas</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 198,750</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">16.0%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">-3.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Mindanao</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 150,320</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12.1%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">+5.2%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div id="conversionDrillDown" class="hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h4 class="text-md font-semibold text-gray-800">Conversion Funnel</h4>
+                            <div class="inline-flex rounded-md shadow-sm" role="group">
+                                <button type="button" class="px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                                    Last 7 days
+                                </button>
+                                <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                                    Last 30 days
+                                </button>
+                                <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                                    Last 90 days
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="relative pt-1">
+                                <div class="flex mb-2 items-center justify-between">
+                                    <div>
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200">
+                                            Store Visits
+                                        </span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-xs font-semibold inline-block text-blue-600">
+                                            18,450
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="overflow-hidden h-6 mb-4 text-xs flex rounded bg-blue-200">
+                                    <div style="width:100%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+                                </div>
+                                
+                                <div class="flex mb-2 items-center justify-between">
+                                    <div>
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200">
+                                            Product Interactions
+                                        </span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-xs font-semibold inline-block text-green-600">
+                                            12,680 (68.7%)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="overflow-hidden h-6 mb-4 text-xs flex rounded bg-green-200">
+                                    <div style="width:68.7%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
+                                </div>
+                                
+                                <div class="flex mb-2 items-center justify-between">
+                                    <div>
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-yellow-600 bg-yellow-200">
+                                            Basket Additions
+                                        </span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-xs font-semibold inline-block text-yellow-600">
+                                            8,240 (44.7%)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="overflow-hidden h-6 mb-4 text-xs flex rounded bg-yellow-200">
+                                    <div style="width:44.7%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-yellow-500"></div>
+                                </div>
+                                
+                                <div class="flex mb-2 items-center justify-between">
+                                    <div>
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-200">
+                                            Purchases
+                                        </span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-xs font-semibold inline-block text-purple-600">
+                                            4,560 (24.7%)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="overflow-hidden h-6 mb-4 text-xs flex rounded bg-purple-200">
+                                    <div style="width:24.7%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h5 class="text-sm font-semibold text-gray-800 mb-2">Conversion Breakdown by Store Type</h5>
+                            <canvas id="conversionBreakdownChart" height="250"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div id="roiDrillDown" class="hidden">
+                        <!-- ROI Drill-Down content -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="text-md font-semibold text-gray-800 mb-4">ROI by Channel</h4>
+                                <canvas id="roiByChannelChart" height="250"></canvas>
+                            </div>
+                            <div>
+                                <h4 class="text-md font-semibold text-gray-800 mb-4">ROI Trend</h4>
+                                <canvas id="roiTrendChart" height="250"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Channel</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Investment (₱)</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue (₱)</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ROI</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">YoY Change</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Social Media</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 80,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 336,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">4.2x</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">+0.8x</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">TV Ads</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 150,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 405,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2.7x</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">-0.3x</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Print Media</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 45,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 81,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.8x</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">-0.5x</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">In-Store Promos</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 65,000</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱ 253,500</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3.9x</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">+1.2x</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div id="sentimentDrillDown" class="hidden">
+                        <!-- Sentiment Drill-Down content -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="text-md font-semibold text-gray-800 mb-4">Sentiment Trend</h4>
+                                <canvas id="sentimentTrendChart" height="250"></canvas>
+                            </div>
+                            <div>
+                                <h4 class="text-md font-semibold text-gray-800 mb-4">Sentiment by Brand</h4>
+                                <canvas id="sentimentByBrandChart" height="250"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                            <h5 class="text-sm font-semibold text-gray-800 mb-2">Top Positive Phrases (Filipino)</h5>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                <div class="bg-green-100 p-2 rounded-lg text-center">
+                                    <span class="text-sm font-medium text-green-800">"Masarap"</span>
+                                    <p class="text-xs text-green-600">412 mentions</p>
+                                </div>
+                                <div class="bg-green-100 p-2 rounded-lg text-center">
+                                    <span class="text-sm font-medium text-green-800">"Sulit"</span>
+                                    <p class="text-xs text-green-600">387 mentions</p>
+                                </div>
+                                <div class="bg-green-100 p-2 rounded-lg text-center">
+                                    <span class="text-sm font-medium text-green-800">"Mabango"</span>
+                                    <p class="text-xs text-green-600">245 mentions</p>
+                                </div>
+                                <div class="bg-green-100 p-2 rounded-lg text-center">
+                                    <span class="text-sm font-medium text-green-800">"Mura"</span>
+                                    <p class="text-xs text-green-600">198 mentions</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h5 class="text-sm font-semibold text-gray-800 mb-2">Sentiment Analysis by Feature</h5>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">Taste/Quality</span>
+                                        <span class="text-sm font-medium text-gray-700">92%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">Price</span>
+                                        <span class="text-sm font-medium text-gray-700">78%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">Packaging</span>
+                                        <span class="text-sm font-medium text-gray-700">65%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-gray-700">Availability</span>
+                                        <span class="text-sm font-medium text-gray-700">84%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 84%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-between">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Export This View
+                    </button>
+                    <div class="flex items-center">
+                        <input id="applyAllVisuals" name="applyAllVisuals" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="applyAllVisuals" class="ml-2 block text-sm text-gray-900">
+                            Apply to all visuals
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer & Diagnostic -->
+    <footer class="bg-white border-t border-gray-200 py-4">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                <div class="flex items-center">
+                    <div class="flex items-center space-x-4 text-sm">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                            <span class="text-gray-600">Positive</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                            <span class="text-gray-600">Neutral</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                            <span class="text-gray-600">Negative</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <p class="text-gray-500 text-sm">Last updated: <span id="lastUpdated">May 19, 2025 15:42 PHT</span></p>
+                    <p class="text-gray-400 text-xs">Press Alt + Shift + D for QA Overlay</p>
+                    <p class="tbwa-footer-brand text-xs mt-1">TBWA\<span>Client360</span> Dashboard</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/tbwa-charts.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/components/store_map.js"></script>
+    <script src="js/components/transaction_metrics.js"></script>
+    <script src="js/components/brand_insights.js"></script>
+    <script>
+        // Simple dashboard functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle data source
+            const dataSourceToggle = document.getElementById('dataSourceToggle');
+            const dataSourceLabel = document.getElementById('dataSourceLabel');
+            
+            dataSourceToggle.addEventListener('change', function() {
+                dataSourceLabel.textContent = this.checked ? 'Real-time' : 'Simulated';
+            });
+            
+            // Export dropdown
+            const exportButton = document.getElementById('exportButton');
+            const exportDropdown = document.getElementById('exportDropdown');
+            
+            exportButton.addEventListener('click', function() {
+                exportDropdown.classList.toggle('hidden');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!exportButton.contains(event.target)) {
+                    exportDropdown.classList.add('hidden');
+                }
+            });
+            
+            // Initialize charts
+            const retailCtx = document.getElementById('retailPerformanceChart').getContext('2d');
+            new Chart(retailCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Sales',
+                        data: [320, 340, 365, 380, 410, 428],
+                        borderColor: '#3B82F6',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: false
+                        },
+                        y: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            const roiCtx = document.getElementById('marketingRoiChart').getContext('2d');
+            new Chart(roiCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Social Media', 'TV Ads', 'Print Media', 'In-Store Promos'],
+                    datasets: [{
+                        data: [4.2, 2.7, 1.8, 3.9],
+                        backgroundColor: [
+                            '#3B82F6',
+                            '#8B5CF6',
+                            '#EC4899',
+                            '#10B981'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+            
+            // Drill-down charts (initialized when opened)
+            // We'll initialize these charts in the toggleDrillDown function
+        });
+        
+        // Drill-down functionality
+        function toggleDrillDown(id) {
+            const drillDownDrawer = document.getElementById('drillDownDrawer');
+            const drillDownContent = document.getElementById(id);
+            const drillDownTitle = document.getElementById('drillDownTitle');
+            
+            // Hide all drill-down contents
+            document.querySelectorAll('[id$="DrillDown"]').forEach(element => {
+                element.classList.add('hidden');
+            });
+            
+            // Show the selected drill-down content
+            if (drillDownContent) {
+                drillDownContent.classList.remove('hidden');
+                drillDownDrawer.classList.remove('hidden');
+                
+                // Set title based on the selected drill-down
+                if (id === 'salesDrillDown') {
+                    drillDownTitle.textContent = 'Sales Breakdown';
+                    
+                    // Initialize sales drill-down chart
+                    const salesCtx = document.getElementById('salesDrillDownChart').getContext('2d');
+                    new Chart(salesCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['NCR', 'Luzon', 'Visayas', 'Mindanao'],
+                            datasets: [{
+                                label: 'Sales (in ₱ thousands)',
+                                data: [580, 312, 198, 150],
+                                backgroundColor: '#3B82F6',
+                                borderWidth: 0,
+                                borderRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return '₱ ' + value + 'K';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else if (id === 'conversionDrillDown') {
+                    drillDownTitle.textContent = 'Conversion Breakdown';
+                    
+                    // Initialize conversion breakdown chart
+                    const conversionCtx = document.getElementById('conversionBreakdownChart').getContext('2d');
+                    new Chart(conversionCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Sari-Sari Stores', 'Supermarkets', 'Convenience Stores', 'Department Stores'],
+                            datasets: [{
+                                label: 'Conversion Rate (%)',
+                                data: [31.5, 22.8, 18.4, 26.3],
+                                backgroundColor: '#8B5CF6',
+                                borderWidth: 0,
+                                borderRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else if (id === 'roiDrillDown') {
+                    drillDownTitle.textContent = 'Marketing ROI Analysis';
+                    
+                    // Initialize ROI by channel chart
+                    const roiChannelCtx = document.getElementById('roiByChannelChart').getContext('2d');
+                    new Chart(roiChannelCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Social Media', 'TV Ads', 'Print Media', 'In-Store Promos'],
+                            datasets: [{
+                                label: 'ROI (x)',
+                                data: [4.2, 2.7, 1.8, 3.9],
+                                backgroundColor: '#10B981',
+                                borderWidth: 0,
+                                borderRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + 'x';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Initialize ROI trend chart
+                    const roiTrendCtx = document.getElementById('roiTrendChart').getContext('2d');
+                    new Chart(roiTrendCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                            datasets: [{
+                                label: 'Overall ROI',
+                                data: [2.8, 2.9, 3.1, 2.7, 3.0, 3.2],
+                                borderColor: '#10B981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                borderWidth: 2,
+                                tension: 0.4,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: false,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + 'x';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else if (id === 'sentimentDrillDown') {
+                    drillDownTitle.textContent = 'Brand Sentiment Analysis';
+                    
+                    // Initialize sentiment trend chart
+                    const sentimentTrendCtx = document.getElementById('sentimentTrendChart').getContext('2d');
+                    new Chart(sentimentTrendCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                            datasets: [{
+                                label: 'Positive',
+                                data: [65, 68, 70, 72, 74, 76],
+                                borderColor: '#10B981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                borderWidth: 2,
+                                tension: 0.4,
+                                fill: true
+                            }, {
+                                label: 'Neutral',
+                                data: [25, 23, 22, 20, 18, 16],
+                                borderColor: '#F59E0B',
+                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                                borderWidth: 2,
+                                tension: 0.4,
+                                fill: true
+                            }, {
+                                label: 'Negative',
+                                data: [10, 9, 8, 8, 8, 8],
+                                borderColor: '#EF4444',
+                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                borderWidth: 2,
+                                tension: 0.4,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Initialize sentiment by brand chart
+                    const sentimentBrandCtx = document.getElementById('sentimentByBrandChart').getContext('2d');
+                    new Chart(sentimentBrandCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Milo', 'Bear Brand', 'Lucky Me', 'Palmolive', 'Coke'],
+                            datasets: [{
+                                label: 'Positive',
+                                data: [82, 78, 75, 68, 80],
+                                backgroundColor: '#10B981',
+                                borderWidth: 0,
+                                borderRadius: 4
+                            }, {
+                                label: 'Neutral',
+                                data: [12, 15, 18, 22, 15],
+                                backgroundColor: '#F59E0B',
+                                borderWidth: 0,
+                                borderRadius: 4
+                            }, {
+                                label: 'Negative',
+                                data: [6, 7, 7, 10, 5],
+                                backgroundColor: '#EF4444',
+                                borderWidth: 0,
+                                borderRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    stacked: true
+                                },
+                                y: {
+                                    stacked: true,
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+        
+        function closeDrillDown() {
+            document.getElementById('drillDownDrawer').classList.add('hidden');
+        }
+        
+        // Listen for Alt+Shift+D for QA Overlay
+        document.addEventListener('keydown', function(event) {
+            if (event.altKey && event.shiftKey && event.key === 'D') {
+                alert('QA Overlay: This is a prototype dashboard. All data is simulated.');
+            }
+        });
+        
+        // Initialize Transaction Metrics Component
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mock API client for the demo
+            const apiClient = {
+                fetchData: function(queryName, params) {
+                    // Simulate API call with mock data
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            // Return mock data based on query name
+                            if (queryName === 'getTransactionMetrics') {
+                                resolve([{
+                                    avg_transaction_duration: 184,
+                                    avg_product_count: 3.2,
+                                    avg_basket_value: 157.45,
+                                    total_transactions: 12580,
+                                    completion_rate: 76.4,
+                                    avg_dwell_time: 142,
+                                    unique_sessions: 7823
+                                }]);
+                            } else if (queryName === 'getProductSubstitutions') {
+                                resolve([
+                                    { original_product: 'Milo 200g', substitution_product: 'Bear Brand 200g', substitution_count: 245, total_quantity: 312, common_reasons: 'Out of stock, Price preference' },
+                                    { original_product: 'Dove Shampoo', substitution_product: 'Palmolive Shampoo', substitution_count: 187, total_quantity: 204, common_reasons: 'Price preference' },
+                                    { original_product: 'Lucky Me Pancit Canton', substitution_product: 'Payless Pancit Canton', substitution_count: 156, total_quantity: 189, common_reasons: 'Out of stock' },
+                                    { original_product: 'Surf Powder', substitution_product: 'Tide Powder', substitution_count: 134, total_quantity: 152, common_reasons: 'Price preference' },
+                                    { original_product: 'Coke Regular', substitution_product: 'Pepsi Regular', substitution_count: 98, total_quantity: 124, common_reasons: 'Taste preference' }
+                                ]);
+                            } else if (queryName === 'getRequestPatterns') {
+                                resolve([
+                                    { RequestCategory: 'InformationSeeking', RequestType: 'PriceInquiry', request_count: 876, avg_frequency: 2.3, regions: 'NCR, Luzon', day_distribution: [92, 145, 132, 110, 138, 172, 87] },
+                                    { RequestCategory: 'ProductExploration', RequestType: 'ProductAvailability', request_count: 645, avg_frequency: 1.8, regions: 'NCR, Luzon, Visayas', day_distribution: [68, 98, 112, 92, 104, 125, 46] },
+                                    { RequestCategory: 'TransactionRelated', RequestType: 'ProductSubstitution', request_count: 432, avg_frequency: 1.5, regions: 'NCR, Luzon', day_distribution: [38, 76, 82, 68, 72, 84, 12] },
+                                    { RequestCategory: 'ServiceRequest', RequestType: 'MobileLoad', request_count: 387, avg_frequency: 1.2, regions: 'All', day_distribution: [42, 67, 54, 48, 65, 72, 39] },
+                                    { RequestCategory: 'FinancialQuery', RequestType: 'CreditRequest', request_count: 245, avg_frequency: 1.0, regions: 'Visayas, Mindanao', day_distribution: [28, 42, 39, 36, 41, 48, 11] }
+                                ]);
+                            } else if (queryName === 'getUnbrandedItems') {
+                                resolve([
+                                    { ItemDescription: 'rice', CategoryAssociation: 'Grains', occurrence_count: 432, total_quantity: 486, avg_confidence: 0.92, unique_sessions: 412 },
+                                    { ItemDescription: 'sugar', CategoryAssociation: 'Condiments', occurrence_count: 376, total_quantity: 398, avg_confidence: 0.88, unique_sessions: 345 },
+                                    { ItemDescription: 'salt', CategoryAssociation: 'Condiments', occurrence_count: 298, total_quantity: 312, avg_confidence: 0.95, unique_sessions: 287 },
+                                    { ItemDescription: 'cooking oil', CategoryAssociation: 'Condiments', occurrence_count: 245, total_quantity: 267, avg_confidence: 0.90, unique_sessions: 234 },
+                                    { ItemDescription: 'eggs', CategoryAssociation: 'Others', occurrence_count: 213, total_quantity: 432, avg_confidence: 0.93, unique_sessions: 196 },
+                                    { ItemDescription: 'vinegar', CategoryAssociation: 'Condiments', occurrence_count: 187, total_quantity: 198, avg_confidence: 0.86, unique_sessions: 176 },
+                                    { ItemDescription: 'garlic', CategoryAssociation: 'VegetablesFruits', occurrence_count: 165, total_quantity: 223, avg_confidence: 0.91, unique_sessions: 154 }
+                                ]);
+                            } else if (queryName === 'getCustomerExpressions') {
+                                resolve([
+                                    { expression: 'happy', expression_count: 432, percentage: 58.4 },
+                                    { expression: 'confused', expression_count: 165, percentage: 22.3 },
+                                    { expression: 'disappointed', expression_count: 87, percentage: 11.8 },
+                                    { expression: 'surprised', expression_count: 34, percentage: 4.6 },
+                                    { expression: 'angry', expression_count: 21, percentage: 2.9 }
+                                ]);
+                            } else {
+                                resolve([]);
+                            }
+                        }, 500);
+                    });
+                }
+            };
+            
+            // Initialize the component
+            const transactionMetrics = new TransactionMetricsComponent(
+                'transactionMetricsContainer',
+                apiClient
+            );
+            
+            // Set initial filters
+            transactionMetrics.setFilters({
+                lookback: 30,
+                region: 'all',
+                category: 'all',
+                brand: 'all',
+                channel: 'all'
+            });
+        });
+    </script>
+</body>
+</html>

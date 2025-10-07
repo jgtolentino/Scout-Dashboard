@@ -1,0 +1,21 @@
+{
+  "servers": {
+    "fs": {
+      "command": "mcp-filesystem",
+      "args": ["--allow", "${PWD}", "--deny", "/", "--deny", "/Users"],
+      "disabled": false
+    },
+    "bruno-supabase": {
+      "command": "node",
+      "args": ["mcp/bruno-proxy/server.ts"],
+      "env": {
+        "BRUNO_KEYREF_SUPABASE_SERVICE_ROLE": "@bruno:keychain/SUPABASE_SERVICE_ROLE",
+        "BRUNO_KEYREF_SUPABASE_URL": "@bruno:keychain/SUPABASE_URL"
+      },
+      "disabled": false
+    }
+  },
+  "client": {
+    "maxRequestBytes": 5242880
+  }
+}

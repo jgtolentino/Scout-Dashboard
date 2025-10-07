@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  clodrep-local:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - BRIDGE_SECRET=${BRIDGE_SECRET:-clodrep-local-bridge-secret}
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+    volumes:
+      - ./config:/app/.clodrep-local
+      - /var/run/docker.sock:/var/run/docker.sock  # For sandbox execution
+    networks:
+      - clodrep-network
+    restart: unless-stopped
+    
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - clodrep-network
+    restart: unless-stopped
+    
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+    environment:
+      - CHROMA_SERVER_HOST=0.0.0.0
+    networks:
+      - clodrep-network
+    restart: unless-stopped
+
+volumes:
+  ollama-data:
+  chroma-data:
+
+networks:
+  clodrep-network:
+    driver: bridge

@@ -1,0 +1,290 @@
+{
+  "brands": [
+    {
+      "BrandID": 1,
+      "BrandName": "Del Monte Philippines",
+      "CompanyName": "Del Monte Philippines Inc.",
+      "Category": "Food & Beverage",
+      "IsTBWAClient": true,
+      "SubBrands": [
+        {
+          "ProductID": "DM001",
+          "ProductName": "Del Monte Pineapple Juice",
+          "CategoryID": 1,
+          "SubCategory": "Beverage",
+          "UPC": "4800024573001",
+          "DefaultPrice": 35.00
+        },
+        {
+          "ProductID": "DM002",
+          "ProductName": "Del Monte Fruit Cocktail",
+          "CategoryID": 1,
+          "SubCategory": "Canned Goods",
+          "UPC": "4800024573002",
+          "DefaultPrice": 45.00
+        },
+        {
+          "ProductID": "DM003",
+          "ProductName": "Del Monte Tomato Sauce",
+          "CategoryID": 1,
+          "SubCategory": "Condiments",
+          "UPC": "4800024573003",
+          "DefaultPrice": 25.00
+        },
+        {
+          "ProductID": "DM004",
+          "ProductName": "Del Monte Sweet Style Spaghetti Sauce",
+          "CategoryID": 1,
+          "SubCategory": "Pasta Sauce",
+          "UPC": "4800024573004",
+          "DefaultPrice": 55.00
+        },
+        {
+          "ProductID": "DM005",
+          "ProductName": "Fit 'n Right Four Seasons",
+          "CategoryID": 1,
+          "SubCategory": "Health Drink",
+          "UPC": "4800024573005",
+          "DefaultPrice": 20.00
+        },
+        {
+          "ProductID": "DM006",
+          "ProductName": "Today's Pineapple Tidbits",
+          "CategoryID": 1,
+          "SubCategory": "Canned Goods",
+          "UPC": "4800024573006",
+          "DefaultPrice": 30.00
+        },
+        {
+          "ProductID": "DM007",
+          "ProductName": "S&W Premium Corn Kernels",
+          "CategoryID": 1,
+          "SubCategory": "Canned Goods",
+          "UPC": "4800024573007",
+          "DefaultPrice": 40.00
+        }
+      ]
+    },
+    {
+      "BrandID": 2,
+      "BrandName": "Oishi",
+      "CompanyName": "Liwayway Marketing Corporation",
+      "Category": "Snacks",
+      "IsTBWAClient": true,
+      "SubBrands": [
+        {
+          "ProductID": "OS001",
+          "ProductName": "Oishi Prawn Crackers Original",
+          "CategoryID": 2,
+          "SubCategory": "Snack",
+          "UPC": "4800194173001",
+          "DefaultPrice": 15.00
+        },
+        {
+          "ProductID": "OS002",
+          "ProductName": "Oishi Ridges Cheese",
+          "CategoryID": 2,
+          "SubCategory": "Potato Chips",
+          "UPC": "4800194173002",
+          "DefaultPrice": 25.00
+        },
+        {
+          "ProductID": "OS003",
+          "ProductName": "Oishi Pillows Choco-Filled",
+          "CategoryID": 2,
+          "SubCategory": "Biscuit",
+          "UPC": "4800194173003",
+          "DefaultPrice": 8.00
+        },
+        {
+          "ProductID": "OS004",
+          "ProductName": "Oishi Crispy Patata Baked Potato Flavor",
+          "CategoryID": 2,
+          "SubCategory": "Snack",
+          "UPC": "4800194173004",
+          "DefaultPrice": 20.00
+        },
+        {
+          "ProductID": "OS005",
+          "ProductName": "Smart C+ Orange",
+          "CategoryID": 2,
+          "SubCategory": "Beverage",
+          "UPC": "4800194173005",
+          "DefaultPrice": 10.00
+        },
+        {
+          "ProductID": "OS006",
+          "ProductName": "Oaties Oat Cookies",
+          "CategoryID": 2,
+          "SubCategory": "Biscuit",
+          "UPC": "4800194173006",
+          "DefaultPrice": 12.00
+        },
+        {
+          "ProductID": "OS007",
+          "ProductName": "Gourmet Picks Salted Egg",
+          "CategoryID": 2,
+          "SubCategory": "Premium Snack",
+          "UPC": "4800194173007",
+          "DefaultPrice": 35.00
+        }
+      ]
+    },
+    {
+      "BrandID": 3,
+      "BrandName": "Alaska",
+      "CompanyName": "Alaska Milk Corporation",
+      "Category": "Dairy",
+      "IsTBWAClient": true,
+      "SubBrands": [
+        {
+          "ProductID": "AK001",
+          "ProductName": "Alaska Evaporated Milk 370mL",
+          "CategoryID": 3,
+          "SubCategory": "Evaporated Milk",
+          "UPC": "4800092120001",
+          "DefaultPrice": 38.00
+        },
+        {
+          "ProductID": "AK002",
+          "ProductName": "Alaska Sweetened Condensed Milk 300mL",
+          "CategoryID": 3,
+          "SubCategory": "Condensed Milk",
+          "UPC": "4800092120002",
+          "DefaultPrice": 42.00
+        },
+        {
+          "ProductID": "AK003",
+          "ProductName": "Alaska Powdered Milk Drink 300g",
+          "CategoryID": 3,
+          "SubCategory": "Powdered Milk",
+          "UPC": "4800092120003",
+          "DefaultPrice": 125.00
+        },
+        {
+          "ProductID": "AK004",
+          "ProductName": "Alaska Krem-Top Coffee Creamer",
+          "CategoryID": 3,
+          "SubCategory": "Coffee Creamer",
+          "UPC": "4800092120004",
+          "DefaultPrice": 20.00
+        },
+        {
+          "ProductID": "AK005",
+          "ProductName": "Alpine Full Cream Milk 1L",
+          "CategoryID": 3,
+          "SubCategory": "Fresh Milk",
+          "UPC": "4800092120005",
+          "DefaultPrice": 95.00
+        },
+        {
+          "ProductID": "AK006",
+          "ProductName": "Cow Bell Condensed Milk 150mL",
+          "CategoryID": 3,
+          "SubCategory": "Condensed Milk",
+          "UPC": "4800092120006",
+          "DefaultPrice": 22.00
+        }
+      ]
+    },
+    {
+      "BrandID": 4,
+      "BrandName": "Peerless Products",
+      "CompanyName": "Peerless Products Manufacturing Corporation",
+      "Category": "Household & Personal Care",
+      "IsTBWAClient": true,
+      "SubBrands": [
+        {
+          "ProductID": "PP001",
+          "ProductName": "Champion Detergent Powder 1kg",
+          "CategoryID": 4,
+          "SubCategory": "Laundry",
+          "UPC": "4806517260001",
+          "DefaultPrice": 65.00
+        },
+        {
+          "ProductID": "PP002",
+          "ProductName": "Champion Liquid Detergent 1L",
+          "CategoryID": 4,
+          "SubCategory": "Laundry",
+          "UPC": "4806517260002",
+          "DefaultPrice": 85.00
+        },
+        {
+          "ProductID": "PP003",
+          "ProductName": "Cyclone Intensified Bleach 500mL",
+          "CategoryID": 4,
+          "SubCategory": "Household Cleaner",
+          "UPC": "4806517260003",
+          "DefaultPrice": 25.00
+        },
+        {
+          "ProductID": "PP004",
+          "ProductName": "Calla Moisturizing Body Wash 200mL",
+          "CategoryID": 5,
+          "SubCategory": "Personal Care",
+          "UPC": "4806517260004",
+          "DefaultPrice": 45.00
+        },
+        {
+          "ProductID": "PP005",
+          "ProductName": "Hana Shampoo Anti-Dandruff 200mL",
+          "CategoryID": 5,
+          "SubCategory": "Hair Care",
+          "UPC": "4806517260005",
+          "DefaultPrice": 55.00
+        },
+        {
+          "ProductID": "PP006",
+          "ProductName": "Pride Dishwashing Liquid Lemon 250mL",
+          "CategoryID": 4,
+          "SubCategory": "Dishwashing",
+          "UPC": "4806517260006",
+          "DefaultPrice": 30.00
+        },
+        {
+          "ProductID": "PP007",
+          "ProductName": "Care Plus Hand Sanitizer 100mL",
+          "CategoryID": 5,
+          "SubCategory": "Hygiene",
+          "UPC": "4806517260007",
+          "DefaultPrice": 35.00
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "CategoryID": 1,
+      "CategoryName": "Food & Beverage",
+      "Description": "Food products and beverages"
+    },
+    {
+      "CategoryID": 2,
+      "CategoryName": "Snacks",
+      "Description": "Snack foods and confectionery"
+    },
+    {
+      "CategoryID": 3,
+      "CategoryName": "Dairy",
+      "Description": "Dairy products including milk and cream"
+    },
+    {
+      "CategoryID": 4,
+      "CategoryName": "Household",
+      "Description": "Household cleaning and maintenance products"
+    },
+    {
+      "CategoryID": 5,
+      "CategoryName": "Personal Care",
+      "Description": "Personal hygiene and care products"
+    }
+  ],
+  "metadata": {
+    "dataSource": "simulation",
+    "isSimulated": true,
+    "lastUpdated": "2025-05-23",
+    "version": "1.0",
+    "description": "TBWA\\SMP FMCG client brands for Scout Dashboard simulation"
+  }
+}

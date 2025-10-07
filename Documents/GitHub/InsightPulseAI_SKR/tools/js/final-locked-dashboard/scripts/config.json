@@ -1,0 +1,25 @@
+{
+  "database": {
+    "driver": "{ODBC Driver 17 for SQL Server}",
+    "server": "scout-edge-sql.database.windows.net",
+    "database": "RetailAdvisor",
+    "username": "scout_edge_user",
+    "password": "##DB_PASSWORD##",
+    "trusted_connection": "no"
+  },
+  "azure_storage": {
+    "connection_string": "##AZURE_STORAGE_CONNECTION_STRING##",
+    "container_name": "scout-edge-data"
+  },
+  "export": {
+    "output_dir": "../assets/data/simulated",
+    "datasets": [
+      "geo_brand_mentions",
+      "geo_sales_volume",
+      "geo_store_density",
+      "geo_combo_frequency",
+      "top_brands"
+    ],
+    "days": 90
+  }
+}

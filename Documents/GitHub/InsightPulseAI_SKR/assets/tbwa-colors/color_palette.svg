@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="600" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Yellow (Gold Layer/Insights) -->
+  <rect x="50" y="50" width="100" height="100" fill="#FFD700" />
+  <text x="100" y="170" text-anchor="middle" font-family="Helvetica Neue" font-size="14">Yellow</text>
+  <text x="100" y="190" text-anchor="middle" font-family="Helvetica Neue" font-size="12">#FFD700</text>
+  
+  <!-- Black (System Control) -->
+  <rect x="175" y="50" width="100" height="100" fill="#000000" />
+  <text x="225" y="170" text-anchor="middle" font-family="Helvetica Neue" font-size="14" fill="white">Black</text>
+  <text x="225" y="190" text-anchor="middle" font-family="Helvetica Neue" font-size="12" fill="white">#000000</text>
+  
+  <!-- Gray (Raw Input) -->
+  <rect x="300" y="50" width="100" height="100" fill="#F2F2F2" />
+  <text x="350" y="170" text-anchor="middle" font-family="Helvetica Neue" font-size="14">Gray</text>
+  <text x="350" y="190" text-anchor="middle" font-family="Helvetica Neue" font-size="12">#F2F2F2</text>
+  
+  <!-- Orange (Interaction Data) -->
+  <rect x="425" y="50" width="100" height="100" fill="#FF6A00" />
+  <text x="475" y="170" text-anchor="middle" font-family="Helvetica Neue" font-size="14">Orange</text>
+  <text x="475" y="190" text-anchor="middle" font-family="Helvetica Neue" font-size="12">#FF6A00</text>
+  
+  <!-- Blue (Verified Master Data) -->
+  <rect x="112.5" y="200" width="100" height="100" fill="#0033A0" />
+  <text x="162.5" y="320" text-anchor="middle" font-family="Helvetica Neue" font-size="14" fill="white">Blue</text>
+  <text x="162.5" y="340" text-anchor="middle" font-family="Helvetica Neue" font-size="12" fill="white">#0033A0</text>
+  
+  <!-- Red (QA/Guardrails) -->
+  <rect x="237.5" y="200" width="100" height="100" fill="#D72638" />
+  <text x="287.5" y="320" text-anchor="middle" font-family="Helvetica Neue" font-size="14" fill="white">Red</text>
+  <text x="287.5" y="340" text-anchor="middle" font-family="Helvetica Neue" font-size="12" fill="white">#D72638</text>
+  
+  <!-- Graphite (Secondary System Control) -->
+  <rect x="362.5" y="200" width="100" height="100" fill="#2C2C2C" />
+  <text x="412.5" y="320" text-anchor="middle" font-family="Helvetica Neue" font-size="14" fill="white">Graphite</text>
+  <text x="412.5" y="340" text-anchor="middle" font-family="Helvetica Neue" font-size="12" fill="white">#2C2C2C</text>
+  
+  <!-- TBWA Color System Title -->
+  <text x="300" y="30" text-anchor="middle" font-family="Helvetica Neue" font-weight="bold" font-size="20">TBWA Color System</text>
+</svg>

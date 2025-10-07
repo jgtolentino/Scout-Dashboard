@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulserBuilder Preview</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Base styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f9fafb;
+    }
+    
+    /* Preview frame styles */
+    .preview-frame {
+      position: relative;
+      min-height: 100vh;
+      transition: padding 0.3s ease;
+    }
+    
+    /* Header styles */
+    .preview-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #1e293b;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      height: 3.5rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .preview-header.hidden {
+      transform: translateY(-100%);
+    }
+    
+    .preview-header h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .preview-header .logo {
+      height: 1.75rem;
+    }
+    
+    .preview-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .preview-button {
+      background-color: #334155;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.2s;
+    }
+    
+    .preview-button:hover {
+      background-color: #475569;
+    }
+    
+    .device-selector {
+      display: flex;
+      gap: 0.25rem;
+      margin-right: 1rem;
+    }
+    
+    .device-button {
+      background-color: transparent;
+      color: #94a3b8;
+      border: none;
+      padding: 0.375rem;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 0.25rem;
+      transition: all 0.2s;
+    }
+    
+    .device-button.active {
+      color: white;
+      background-color: #334155;
+    }
+    
+    /* Content container */
+    .preview-content {
+      padding-top: 3.5rem;
+      min-height: calc(100vh - 3.5rem);
+      transition: all 0.3s ease;
+      margin: 0 auto;
+      max-width: 100%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      background-color: white;
+    }
+    
+    .preview-content.mobile {
+      max-width: 375px;
+      min-height: 667px;
+      margin-top: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    .preview-content.tablet {
+      max-width: 768px;
+      min-height: 1024px;
+      margin-top: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    /* Hide header button */
+    .toggle-header {
+      position: fixed;
+      top: 3.75rem;
+      right: 1rem;
+      background-color: #1e293b;
+      color: white;
+      border: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 900;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, top 0.3s ease;
+    }
+    
+    .toggle-header.header-hidden {
+      top: 0.5rem;
+    }
+    
+    /* Loading state */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    
+    .spinner {
+      width: 3rem;
+      height: 3rem;
+      border: 3px solid #e2e8f0;
+      border-top: 3px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Error message */
+    .error-message {
+      background-color: #fee2e2;
+      border-left: 4px solid #ef4444;
+      padding: 1rem;
+      margin: 1rem;
+      color: #b91c1c;
+      border-radius: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading overlay (hidden by default) -->
+  <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+    <div class="spinner"></div>
+    <p>Loading preview...</p>
+  </div>
+  
+  <!-- Preview header -->
+  <header class="preview-header" id="previewHeader">
+    <h1>
+      <img src="/logo.svg" alt="PulserBuilder" class="logo">
+      <span id="projectName">UI Preview</span>
+    </h1>
+    
+    <div class="preview-actions">
+      <div class="device-selector">
+        <button class="device-button active" data-device="desktop" id="desktopButton" title="Desktop">
+          <i class="fas fa-desktop"></i>
+        </button>
+        <button class="device-button" data-device="tablet" id="tabletButton" title="Tablet">
+          <i class="fas fa-tablet-alt"></i>
+        </button>
+        <button class="device-button" data-device="mobile" id="mobileButton" title="Mobile">
+          <i class="fas fa-mobile-alt"></i>
+        </button>
+      </div>
+      
+      <button class="preview-button" id="editButton">
+        <i class="fas fa-pencil-alt"></i>
+        Edit
+      </button>
+      <button class="preview-button" id="codeButton">
+        <i class="fas fa-code"></i>
+        View Code
+      </button>
+      <button class="preview-button" id="shareButton">
+        <i class="fas fa-share-alt"></i>
+        Share
+      </button>
+    </div>
+  </header>
+  
+  <!-- Toggle header button -->
+  <button class="toggle-header" id="toggleHeader">
+    <i class="fas fa-chevron-up" id="toggleIcon"></i>
+  </button>
+  
+  <!-- Preview frame -->
+  <div class="preview-frame" id="previewFrame">
+    <div class="preview-content" id="previewContent">
+      <!-- Dynamic content will be loaded here -->
+      <div id="dynamicContent"></div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Show loading overlay initially
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      loadingOverlay.style.display = 'flex';
+      
+      // References to DOM elements
+      const previewHeader = document.getElementById('previewHeader');
+      const toggleHeader = document.getElementById('toggleHeader');
+      const toggleIcon = document.getElementById('toggleIcon');
+      const previewContent = document.getElementById('previewContent');
+      const projectName = document.getElementById('projectName');
+      const dynamicContent = document.getElementById('dynamicContent');
+      const desktopButton = document.getElementById('desktopButton');
+      const tabletButton = document.getElementById('tabletButton');
+      const mobileButton = document.getElementById('mobileButton');
+      const editButton = document.getElementById('editButton');
+      const codeButton = document.getElementById('codeButton');
+      const shareButton = document.getElementById('shareButton');
+      
+      // Get project ID from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const projectId = urlParams.get('id');
+      const token = urlParams.get('token');
+      
+      if (!projectId) {
+        // Handle missing project ID
+        loadingOverlay.style.display = 'none';
+        dynamicContent.innerHTML = `
+          <div class="error-message">
+            <h3>Error: Missing Project ID</h3>
+            <p>No project ID was provided in the URL.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // Load project data
+      fetchProjectData(projectId, token)
+        .then(project => {
+          if (project) {
+            // Set project name
+            projectName.textContent = project.name || 'UI Preview';
+            
+            // Render the UI components
+            renderUI(project.components || []);
+            
+            // Update edit button link
+            editButton.addEventListener('click', () => {
+              window.location.href = `/editor/${projectId}`;
+            });
+          }
+          
+          // Hide loading overlay
+          loadingOverlay.style.display = 'none';
+        })
+        .catch(error => {
+          console.error('Error loading project:', error);
+          loadingOverlay.style.display = 'none';
+          dynamicContent.innerHTML = `
+            <div class="error-message">
+              <h3>Error Loading Preview</h3>
+              <p>${error.message || 'Failed to load project data.'}</p>
+            </div>
+          `;
+        });
+      
+      // Toggle header visibility
+      toggleHeader.addEventListener('click', () => {
+        previewHeader.classList.toggle('hidden');
+        toggleHeader.classList.toggle('header-hidden');
+        
+        if (previewHeader.classList.contains('hidden')) {
+          toggleIcon.className = 'fas fa-chevron-down';
+        } else {
+          toggleIcon.className = 'fas fa-chevron-up';
+        }
+      });
+      
+      // Device selector buttons
+      const deviceButtons = [desktopButton, tabletButton, mobileButton];
+      
+      deviceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons
+          deviceButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          button.classList.add('active');
+          
+          // Update preview content class
+          const device = button.getAttribute('data-device');
+          previewContent.className = 'preview-content ' + device;
+        });
+      });
+      
+      // View code button
+      codeButton.addEventListener('click', () => {
+        if (projectId) {
+          window.location.href = `/code/${projectId}`;
+        }
+      });
+      
+      // Share button
+      shareButton.addEventListener('click', () => {
+        // Generate a shareable link
+        const shareUrl = `${window.location.origin}/preview?id=${projectId}&token=${token || ''}`;
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(shareUrl)
+          .then(() => {
+            alert('Preview link copied to clipboard!');
+          })
+          .catch(err => {
+            console.error('Failed to copy link:', err);
+            prompt('Copy this link to share the preview:', shareUrl);
+          });
+      });
+    });
+    
+    // Function to fetch project data
+    async function fetchProjectData(projectId, token) {
+      try {
+        const url = `/api/projects/${projectId}/preview${token ? `?token=${token}` : ''}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to load project: ${response.statusText}`);
+        }
+        
+        return await response.json();
+      } catch (error) {
+        console.error('Error fetching project data:', error);
+        throw error;
+      }
+    }
+    
+    // Function to render UI components
+    function renderUI(components) {
+      const dynamicContent = document.getElementById('dynamicContent');
+      
+      if (!components || components.length === 0) {
+        dynamicContent.innerHTML = `
+          <div class="flex flex-col items-center justify-center min-h-[300px] text-center p-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">No components found</h3>
+            <p class="text-gray-500">This project doesn't have any UI components yet.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // Start with a fresh container
+      dynamicContent.innerHTML = '';
+      
+      // Recursively render components
+      const rootContainer = document.createElement('div');
+      rootContainer.className = 'root-container';
+      
+      components.forEach(component => {
+        const componentElement = renderComponent(component);
+        if (componentElement) {
+          rootContainer.appendChild(componentElement);
+        }
+      });
+      
+      dynamicContent.appendChild(rootContainer);
+    }
+    
+    // Function to render a single component
+    function renderComponent(component) {
+      if (!component || !component.type) {
+        console.warn('Invalid component:', component);
+        return null;
+      }
+      
+      const { type, props = {}, children = [], styles = {} } = component;
+      
+      // Create element based on type
+      let element;
+      
+      switch (type) {
+        case 'Container':
+          element = document.createElement('div');
+          break;
+        case 'Text':
+          element = document.createElement('p');
+          element.textContent = props.text || '';
+          break;
+        case 'Heading':
+          element = document.createElement(props.level || 'h2');
+          element.textContent = props.text || '';
+          break;
+        case 'Button':
+          element = document.createElement('button');
+          element.textContent = props.text || 'Button';
+          element.className = 'px-4 py-2 bg-blue-500 text-white rounded';
+          break;
+        case 'Image':
+          element = document.createElement('img');
+          element.src = props.src || 'https://via.placeholder.com/150';
+          element.alt = props.alt || '';
+          break;
+        case 'Link':
+          element = document.createElement('a');
+          element.href = props.href || '#';
+          element.textContent = props.text || 'Link';
+          break;
+        default:
+          element = document.createElement('div');
+          console.warn(`Unknown component type: ${type}`);
+      }
+      
+      // Apply props as attributes
+      Object.entries(props).forEach(([key, value]) => {
+        if (key !== 'text' && key !== 'children' && value !== undefined) {
+          element.setAttribute(key, value);
+        }
+      });
+      
+      // Apply inline styles
+      Object.entries(styles).forEach(([key, value]) => {
+        if (value !== undefined) {
+          element.style[key] = value;
+        }
+      });
+      
+      // Add component type as data attribute for debugging
+      element.setAttribute('data-component-type', type);
+      element.setAttribute('data-component-id', component.id || '');
+      
+      // Recursively add children
+      if (children && children.length > 0) {
+        children.forEach(child => {
+          const childElement = renderComponent(child);
+          if (childElement) {
+            element.appendChild(childElement);
+          }
+        });
+      }
+      
+      return element;
+    }
+  </script>
+</body>
+</html>

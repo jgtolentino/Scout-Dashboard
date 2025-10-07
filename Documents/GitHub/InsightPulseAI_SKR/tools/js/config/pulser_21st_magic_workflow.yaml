@@ -1,0 +1,107 @@
+id: dashboard_21st_magic_workflow
+name: Dashboard Development Workflow with 21st Magic
+description: |
+  End-to-end workflow for creating, validating, and deploying dashboards
+  with 21st Magic UI/UX enhancements and automated QA validation.
+
+version: 1.0.0
+supports_pulser: "2.2.0+"
+
+agents:
+  - id: dash
+    role: dashboard_creator
+    config_path: ./agents/dash_updated.yaml
+  - id: caca
+    role: qa_validator
+    config_path: ./agents/caca.yaml
+  - id: claudia
+    role: orchestrator
+    built_in: true
+
+workflow:
+  steps:
+    - id: design_prompt
+      agent: dash
+      action: generate_dashboard_from_prompt
+      input: user_prompt
+      output: dashboard_design
+      description: Dash uses 21st Magic theme preset to create initial design
+      
+    - id: render_layout
+      agent: dash
+      action: generate_jsx_and_css
+      input: dashboard_design
+      output: dashboard_code
+      description: Dash generates JSX/CSS with embedded 21st Magic theme tokens
+      
+    - id: ui_review
+      agent: caca
+      action: validate_ui
+      input: dashboard_code
+      output: qa_report
+      description: Caca applies 21st Magic QA logic to validate UI consistency
+      
+    - id: feedback
+      agent: caca
+      action: generate_feedback
+      input: qa_report
+      output: correction_prompts
+      description: Caca issues correction prompts or auto-patches based on QA results
+      
+    - id: apply_fixes
+      agent: dash
+      action: apply_corrections
+      input: correction_prompts
+      output: updated_dashboard_code
+      description: Dash applies corrections to ensure 21st Magic compliance
+      
+    - id: final_validation
+      agent: caca
+      action: final_qa_check
+      input: updated_dashboard_code
+      output: final_qa_report
+      description: Final validation of dashboard against 21st Magic standards
+      
+    - id: deployment
+      agent: dash
+      action: deploy_dashboard
+      input: updated_dashboard_code
+      output: deployment_url
+      description: Deploy the 21st Magic-enhanced dashboard to production
+
+config:
+  theme: 21st_magic_dark
+  enableMagicQA: true
+  qaCheckpoints:
+    - after_design
+    - before_deployment
+    - post_deployment
+  autoCorrect: 
+    level: suggest # Can be 'suggest', 'auto', or 'manual'
+    types:
+      - contrast_issues
+      - spacing_inconsistencies
+      - animation_performance
+      - responsive_breakpoints
+      
+hooks:
+  pre_workflow:
+    - load_21st_magic_tokens
+    - verify_agent_versions
+  post_deployment:
+    - capture_screenshots
+    - generate_qa_report
+    - notify_team
+
+commands:
+  - id: validate-ui
+    command: "yarn run validate-ui --theme 21st_magic --agent Caca"
+    trigger: pre-commit
+    
+  - id: build-with-magic
+    command: "yarn run build --with-21st-magic"
+    description: "Build dashboard with 21st Magic enhancements"
+    
+  - id: test-magic-qa
+    command: "yarn run test:21st-magic"
+    description: "Run 21st Magic QA tests on the dashboard"

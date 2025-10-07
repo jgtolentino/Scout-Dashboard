@@ -1,0 +1,88 @@
+skr_agents:
+  - id: ask-ces
+    display_name: "Ask CES"
+    former_name: "CESAI"
+    module: scout-analytics
+    type: creative_insights_assistant
+    deployment_status: live-prod-ready
+    integration_points:
+      - product-mix
+      - consumer-insights
+    source_files:
+      - components/AskCES.tsx
+      - public/ai/ask_ces_steps.md
+      - dashboard_end_state.yaml
+      - layout.tsx
+      - pages/api/ask-ces.ts
+      - utils/context.ts
+      - utils/llm.ts
+      - qa/ping_caca.ts
+    orchestration_layer: pulser_4.0.0
+    qa_status: validated
+    live_binding: true
+    production_url: https://ces-mvp.vercel.app/api/ask-ces
+    notes:
+      - Rebranded from CESAI to Ask CES
+      - Ask CES UI functional and globally mounted
+      - Claude/Devstral API integration complete
+      - QA via Caca enabled and validated
+      - Ready for stakeholder demo and user testing
+    archived_at: 2025-06-15T00:00:00Z
+    final_system_state:
+      agent_config: done
+      task_completion: done
+      deployment_registry: done
+      skr_archive: done
+      qa_status: validated
+      live_ai_hook: enabled
+    suggested_commands:
+      - enable_ask_ces_live_query
+      - enable_caca_dashboard_validation
+    status_summary:
+      mounted_and_operational: true
+      fully_documented_and_archived: true
+      ready_for_live_model_integration: true
+      queued_for_qa_validation: true
+      production_ready: true
+      stakeholder_demo_ready: true
+
+  - id: yummy-agent
+    display_name: "Yummy Agent"
+    module: scout-analytics
+    type: creative_insights_assistant
+    deployment_status: planned
+    integration_points:
+      - product-mix
+      - consumer-insights
+    source_files:
+      - components/YummyAgent.tsx
+      - public/ai/yummy_steps.md
+      - pages/api/yummy-agent.ts
+      - utils/context.ts
+      - utils/llm.ts
+      - qa/ping_yummy.ts
+    orchestration_layer: pulser_4.0.0
+    qa_status: pending
+    live_binding: false
+    notes:
+      - Yummy agent planned for future deployment
+      - UI and API components ready
+      - QA validation pending
+    archived_at: 2025-06-15T00:00:00Z
+    final_system_state:
+      agent_config: pending
+      task_completion: pending
+      deployment_registry: pending
+      skr_archive: pending
+      qa_status: pending
+      live_ai_hook: pending
+    suggested_commands:
+      - enable_yummy_agent_live_query
+      - enable_yummy_agent_qa_validation
+    status_summary:
+      mounted_and_operational: false
+      fully_documented_and_archived: false
+      ready_for_live_model_integration: false
+      queued_for_qa_validation: false
+      production_ready: false
+      stakeholder_demo_ready: false 

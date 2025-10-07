@@ -1,0 +1,127 @@
+# scout_dashboard_end_state.yaml
+# 📊 AI BI Genie – Final Production Layout for Scout Analytics (Vercel + Azure)
+# 🔗 Deployed at: https://scout-mvp.vercel.app
+
+dashboard:
+  id: scout-ai-bi-genie
+  version: 3.0.0
+  mode: production
+  title: Scout Analytics – AI BI Genie
+  subtitle: FMCG Retail Intelligence Platform
+  theme: tbwa-retail
+  tech_stack:
+    frontend: React + Next.js 14 + Tailwind CSS
+    backend: Azure PostgreSQL + Supabase API
+    ai_agents: [CESAI, Yummy, RetailBot, LearnBot]
+    hosting: Vercel
+
+deployment:
+  platform: vercel
+  environment: production
+  url: https://scout-mvp.vercel.app
+  cli_command: vercel deploy --prod
+  repo: github.com/jgtolentino/ai-analytics-platform
+  commit: c5359d4
+  status: ✅ Live
+
+pages:
+  - id: overview
+    title: Executive Overview
+    path: /
+    components:
+      - RevenueSummaryCard
+      - TopCategoriesTable
+      - DailyRevenueTrend
+      - ExecutiveKPIRow
+
+  - id: trends
+    title: Transaction Trends
+    path: /trends
+    components:
+      - DailyTransactionChart
+      - ShoppingTimeHeatmap
+      - RevenueDistributionChart
+    data:
+      - source: transactions_fmcg
+      - scope: last_30_days
+    interactions:
+      - hover_tooltips: true
+      - responsive_layout: true
+
+  - id: products
+    title: Product Mix & Substitution
+    path: /products
+    components:
+      - TopSKUsByCategory
+      - SKUComboMatrix
+      - SubstitutionSankeyChart
+    features:
+      - lazy_load: true
+      - AI-assisted SKU insights: true
+
+  - id: insights
+    title: AI Insights & LearnBot
+    path: /insights
+    components:
+      - RetailBotChatPanel
+      - LearnBotTutorial
+      - ContextAwareInsights
+    ai:
+      streaming: AzureOpenAI
+      tutorial_file: docs/learnbot_steps.md
+
+filters:
+  layout: horizontal
+  state_management: zustand
+  filter_bar: EnhancedGlobalFilterBar
+  fields:
+    - date_range
+    - region
+    - category
+    - brand
+    - store
+  persistence:
+    url_sync: true
+    local_storage: true
+
+charts:
+  - id: DailyTransactionChart
+    type: line
+    dataset: transactions_fmcg
+    interactive: true
+    description: "Shows daily volume of transactions"
+  - id: ShoppingTimeHeatmap
+    type: heatmap
+    dataset: transactions_fmcg
+    x_axis: hour
+    y_axis: day_of_week
+    responsive: true
+  - id: RevenueDistributionChart
+    type: boxplot
+    dataset: transactions_fmcg
+    dimensions: [day, week]
+    metrics: [total_amount]
+    summary_stats: true
+
+agents:
+  - name: CESAI
+    role: Insights Generator
+    endpoint: /api/cesai
+  - name: Yummy
+    role: Category AI Companion
+    endpoint: /api/yummy
+  - name: RetailBot
+    role: Sales Bot
+    endpoint: /api/retailbot
+  - name: LearnBot
+    role: Interactive Tutorial
+    steps_file: docs/learnbot_steps.md
+
+status:
+  build: ✅ Success
+  deployment: ✅ Live at https://scout-mvp.vercel.app
+  QA_checkpoints:
+    - charts_rendered: ✅
+    - LearnBot loads: ✅
+    - Filter state sync: ✅
+    - Mobile responsive: ✅

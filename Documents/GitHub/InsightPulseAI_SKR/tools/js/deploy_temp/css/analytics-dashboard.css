@@ -1,0 +1,265 @@
+/**
+ * Analytics Dashboard Styles
+ * 
+ * This file contains styles for the Project Scout SQL Analytics Dashboard component
+ */
+
+/* Dashboard Container */
+.analytics-dashboard {
+  background: var(--dashboard-bg, #fff);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+/* Controls Section */
+.analytics-controls {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  background-color: var(--control-bg, #f8f9fa);
+}
+
+.analytics-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  margin-right: 1.5rem;
+}
+
+.filter-group label {
+  margin-right: 0.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.filter-group select, 
+.filter-group button {
+  min-width: 150px;
+}
+
+/* Tabs Navigation */
+.analytics-tabs {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.analytics-tab {
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.analytics-tab:hover {
+  background-color: var(--tab-hover-bg, rgba(0, 0, 0, 0.04));
+}
+
+.analytics-tab.active {
+  background-color: var(--primary-color, #0d6efd);
+  color: white;
+}
+
+.analytics-tab i {
+  font-size: 1rem;
+}
+
+/* Report Tabs */
+.analytics-report-tabs {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.analytics-report-tab {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.analytics-report-tab:hover {
+  background-color: var(--tab-hover-bg, rgba(0, 0, 0, 0.04));
+}
+
+.analytics-report-tab.active {
+  background-color: var(--secondary-bg, #e9ecef);
+  font-weight: 500;
+}
+
+/* Content Area */
+.analytics-content {
+  padding: 1.5rem;
+  position: relative;
+  min-height: 400px;
+}
+
+.analytics-content.loading {
+  opacity: 0.6;
+}
+
+/* Loading Indicator */
+.analytics-loading-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+}
+
+.analytics-loading-indicator p {
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+/* Report Layout */
+.analytics-report {
+  display: flex;
+  flex-direction: column;
+}
+
+.report-header {
+  margin-bottom: 1.5rem;
+}
+
+.report-header h3 {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.report-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted, #6c757d);
+}
+
+.report-meta span {
+  margin-right: 1rem;
+}
+
+.report-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.report-chart-container {
+  flex: 1 1 65%;
+  min-height: 350px;
+  position: relative;
+}
+
+.report-summary {
+  flex: 1 1 30%;
+  padding: 1.25rem;
+  background-color: var(--summary-bg, #f8f9fa);
+  border-radius: 6px;
+  border-left: 4px solid var(--primary-color, #0d6efd);
+}
+
+.report-summary h4 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.insights-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.insights-list li {
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.insights-list li i {
+  margin-top: 0.25rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .report-content {
+    flex-direction: column;
+  }
+  
+  .report-chart-container,
+  .report-summary {
+    flex-basis: 100%;
+  }
+  
+  .report-chart-container {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .analytics-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-group {
+    margin-right: 0;
+    margin-bottom: 0.75rem;
+  }
+  
+  .analytics-tab {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .analytics-dashboard {
+    --dashboard-bg: #1e1e1e;
+    --control-bg: #242424;
+    --border-color: #444;
+    --tab-hover-bg: rgba(255, 255, 255, 0.1);
+    --secondary-bg: #333;
+    --summary-bg: #242424;
+    --text-muted: #aaa;
+  }
+  
+  .analytics-dashboard {
+    color: #eee;
+  }
+  
+  .analytics-loading-indicator {
+    background-color: rgba(30, 30, 30, 0.8);
+  }
+  
+  .table {
+    color: #eee;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}

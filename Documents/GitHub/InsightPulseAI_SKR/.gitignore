@@ -1,0 +1,163 @@
+# macOS system files
+.DS_Store
+.Trash/
+.localized
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Logs and backup
+*.log
+*.bak
+*.backup*
+logs/*
+!logs/.gitkeep
+
+# System folders
+/Applications/
+/Library/
+/System/
+/Users/
+/Volumes/
+/bin/
+/dev/
+/private/
+/sbin/
+/tmp/
+/usr/
+/var/
+/.*/  # any hidden system folders
+
+# Python & Conda
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.conda/
+.condarc
+.env
+.installed.cfg
+*.egg
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+*.ipynb
+
+# VSCode & IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# User-specific dotfiles and configs
+.bash_history
+.bashrc
+.zshrc
+.zsh_history
+.zprofile
+.zsh_sessions/
+.config/
+.ssh/
+
+# Misc
+*.sh~
+*.docx~
+~$*
+nul
+*~
+
+# Claude and Pulser Files
+.claude/
+.claude.json
+.claude.json.*
+.claude_*
+.pulser/
+.pulser_*
+.clode/
+.clodignore
+.rap_*
+
+# Local virtual environments
+venv/
+env/
+.env/
+.venv
+ENV/
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.npm
+.node_repl_history
+
+# Build artifacts
+build/
+dist/
+
+# Cache files
+.cache/
+
+# Media and large files
+*.mp4
+*.wav
+*.mp3
+*.zip
+*.tar.gz
+*.rar
+*.model
+*.bin
+*-model*/
+
+# Credentials
+*_api_key*
+*api_key*
+*secret*
+*token*
+*credential*
+
+# Special files with emoji or unusual characters that cause git issues
+"*🚀*"
+*\360\237\232\200*
+
+# Project-specific directories to ignore
+/whisper*/
+/superset*/
+/miniconda*/
+/llama.cpp/
+/code-assistant/
+/nltk_data/
+/github.com/
+/go/
+
+# Nested repositories
+InsightPulseAI_SKR/
+launchpad-auth-stripe-flow/
+/Documents/GitHub/InsightPulse*/
+/Documents/GitHub/pulser*/
+/Documents/GitHub/project-*/
+/Documents/GitHub/*revamp*/.claude-archive/

@@ -1,0 +1,82 @@
+{
+  "data": [
+    {
+      "topicId": "top-001",
+      "topicName": "Value Meals",
+      "mentionCount": 423,
+      "sentimentScore": 0.72,
+      "relatedBrands": ["Quick Bites", "Fresh Delights", "Value Express"],
+      "trendDirection": "up",
+      "trendPercentage": 14.5
+    },
+    {
+      "topicId": "top-002",
+      "topicName": "Premium Coffee",
+      "mentionCount": 356,
+      "sentimentScore": 0.85,
+      "relatedBrands": ["Coffee Supreme", "Bean Masters", "Brew Elite"],
+      "trendDirection": "up",
+      "trendPercentage": 22.3
+    },
+    {
+      "topicId": "top-003",
+      "topicName": "Customer Service",
+      "mentionCount": 312,
+      "sentimentScore": 0.65,
+      "relatedBrands": ["Quick Bites", "Premium Eats", "Coffee Supreme"],
+      "trendDirection": "down",
+      "trendPercentage": 3.2
+    },
+    {
+      "topicId": "top-004",
+      "topicName": "Store Cleanliness",
+      "mentionCount": 287,
+      "sentimentScore": 0.79,
+      "relatedBrands": ["Premium Eats", "Fresh Delights"],
+      "trendDirection": "up",
+      "trendPercentage": 5.7
+    },
+    {
+      "topicId": "top-005",
+      "topicName": "Mobile App Experience",
+      "mentionCount": 268,
+      "sentimentScore": 0.63,
+      "relatedBrands": ["Quick Bites", "Coffee Supreme"],
+      "trendDirection": "up",
+      "trendPercentage": 18.9
+    },
+    {
+      "topicId": "top-006",
+      "topicName": "Wait Times",
+      "mentionCount": 245,
+      "sentimentScore": 0.42,
+      "relatedBrands": ["Quick Bites", "Premium Eats", "Value Express"],
+      "trendDirection": "down",
+      "trendPercentage": 8.3
+    },
+    {
+      "topicId": "top-007",
+      "topicName": "Rewards Program",
+      "mentionCount": 198,
+      "sentimentScore": 0.81,
+      "relatedBrands": ["Coffee Supreme", "Premium Eats"],
+      "trendDirection": "up",
+      "trendPercentage": 12.7
+    },
+    {
+      "topicId": "top-008",
+      "topicName": "Product Variety",
+      "mentionCount": 176,
+      "sentimentScore": 0.68,
+      "relatedBrands": ["Fresh Delights", "Premium Eats"],
+      "trendDirection": "neutral",
+      "trendPercentage": 0.2
+    }
+  ],
+  "metadata": {
+    "totalCount": 8,
+    "source": "simulated",
+    "timestamp": "2025-05-14T10:00:00Z",
+    "analysisType": "topic_clustering"
+  }
+}

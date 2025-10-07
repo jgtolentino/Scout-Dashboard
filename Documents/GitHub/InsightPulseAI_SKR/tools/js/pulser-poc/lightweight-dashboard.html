@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Performance Dashboard - Optimized</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .card { @apply bg-white rounded-lg shadow-md p-6 border-l-4; }
+        .card-primary { @apply border-blue-500; }
+        .card-success { @apply border-green-500; }
+        .card-warning { @apply border-yellow-500; }
+        .card-danger { @apply border-red-500; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Brand Performance Dashboard</h1>
+            <p class="text-gray-600">Optimized for performance - Loading data progressively</p>
+            <div id="status" class="mt-2 text-sm font-medium text-green-600">✅ Connected</div>
+        </header>
+
+        <!-- KPI Cards - Load First -->
+        <div id="kpi-container" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <!-- Skeleton loaders -->
+            <div class="card card-primary skeleton h-32"></div>
+            <div class="card card-success skeleton h-32"></div>
+            <div class="card card-warning skeleton h-32"></div>
+            <div class="card card-danger skeleton h-32"></div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Market Share Chart -->
+            <div class="card card-primary">
+                <h2 class="text-xl font-semibold mb-4">Market Share (Top 10)</h2>
+                <div id="market-share-container" class="h-64">
+                    <div class="skeleton h-full rounded"></div>
+                </div>
+            </div>
+
+            <!-- Top Movers -->
+            <div class="card card-success">
+                <h2 class="text-xl font-semibold mb-4">Top Movers</h2>
+                <div id="movers-container">
+                    <div class="skeleton h-48 rounded"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard - Paginated -->
+        <div class="card card-primary mt-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold">Brand Leaderboard</h2>
+                <div id="pagination" class="flex gap-2"></div>
+            </div>
+            <div id="leaderboard-container">
+                <div class="skeleton h-64 rounded"></div>
+            </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="card card-warning mt-6">
+            <h2 class="text-xl font-semibold mb-4">AI Insights</h2>
+            <div id="insights-container">
+                <div class="skeleton h-32 rounded"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://127.0.0.1:7072/api/brands'
+            : '/api/brands';
+
+        let currentPage = 1;
+        const pageSize = 10;
+
+        // Progressive data loading
+        async function loadDashboard() {
+            try {
+                // 1. Load KPIs first (smallest payload)
+                await loadKPIs();
+                
+                // 2. Then load market share and movers in parallel
+                await Promise.all([
+                    loadMarketShare(),
+                    loadMovers()
+                ]);
+                
+                // 3. Load leaderboard
+                await loadLeaderboard(currentPage);
+                
+                // 4. Finally load insights
+                await loadInsights();
+                
+            } catch (error) {
+                console.error('Dashboard loading error:', error);
+                document.getElementById('status').innerHTML = '❌ Error loading data';
+                document.getElementById('status').className = 'mt-2 text-sm font-medium text-red-600';
+            }
+        }
+
+        // Load KPIs
+        async function loadKPIs() {
+            const response = await fetch(`${API_BASE}/kpis`);
+            const data = await response.json();
+            
+            const container = document.getElementById('kpi-container');
+            container.innerHTML = `
+                <div class="card card-primary">
+                    <h3 class="text-sm font-medium text-gray-500 mb-1">Total Revenue</h3>
+                    <p class="text-2xl font-bold text-gray-900">₱${data.totalRevenue.toLocaleString()}</p>
+                    <p class="text-xs text-gray-500 mt-1">All brands combined</p>
+                </div>
+                <div class="card card-success">
+                    <h3 class="text-sm font-medium text-gray-500 mb-1">Top Brand</h3>
+                    <p class="text-lg font-bold text-gray-900">${data.topBrand.name}</p>
+                    <p class="text-sm text-gray-600">₱${data.topBrand.value.toLocaleString()}</p>
+                </div>
+                <div class="card card-warning">
+                    <h3 class="text-sm font-medium text-gray-500 mb-1">Fastest Growth</h3>
+                    <p class="text-lg font-bold text-gray-900">${data.fastestGrowth.name}</p>
+                    <p class="text-sm text-gray-600">+${(data.fastestGrowth.change * 100).toFixed(1)}%</p>
+                </div>
+                <div class="card card-danger">
+                    <h3 class="text-sm font-medium text-gray-500 mb-1">Top Category</h3>
+                    <p class="text-lg font-bold text-gray-900">${data.topCategory.name}</p>
+                    <p class="text-sm text-gray-600">₱${data.topCategory.value.toLocaleString()}</p>
+                </div>
+            `;
+        }
+
+        // Load Market Share Chart
+        async function loadMarketShare() {
+            const response = await fetch(`${API_BASE}/market-share`);
+            const data = await response.json();
+            
+            const container = document.getElementById('market-share-container');
+            container.innerHTML = '<canvas id="market-share-chart"></canvas>';
+            
+            const ctx = document.getElementById('market-share-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: data.map(d => d.name),
+                    datasets: [{
+                        data: data.map(d => d.value),
+                        backgroundColor: [
+                            '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6',
+                            '#EC4899', '#14B8A6', '#F97316', '#6366F1', '#84CC16'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => ({
+                                        text: `${label}: ${data.datasets[0].data[i].toFixed(1)}%`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        index: i
+                                    }));
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Load Movers
+        async function loadMovers() {
+            const response = await fetch(`${API_BASE}/movers`);
+            const data = await response.json();
+            
+            const container = document.getElementById('movers-container');
+            container.innerHTML = `
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-sm font-semibold text-green-700 mb-2">Top Gainers</h3>
+                        ${data.gainers.map(brand => `
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                                <span class="font-medium">${brand.brand}</span>
+                                <span class="text-green-600 font-semibold">+${(brand.change * 100).toFixed(1)}%</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-red-700 mb-2">Top Losers</h3>
+                        ${data.losers.map(brand => `
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                                <span class="font-medium">${brand.brand}</span>
+                                <span class="text-red-600 font-semibold">${(brand.change * 100).toFixed(1)}%</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load Leaderboard with Pagination
+        async function loadLeaderboard(page = 1) {
+            const response = await fetch(`${API_BASE}/leaderboard?page=${page}&limit=${pageSize}`);
+            const data = await response.json();
+            
+            const container = document.getElementById('leaderboard-container');
+            container.innerHTML = `
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-2">Rank</th>
+                                <th class="text-left py-2">Brand</th>
+                                <th class="text-left py-2">Category</th>
+                                <th class="text-right py-2">Value</th>
+                                <th class="text-right py-2">Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.data.map(brand => `
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-2">#${brand.rank}</td>
+                                    <td class="py-2 font-medium">${brand.brand}</td>
+                                    <td class="py-2 text-gray-600">${brand.category}</td>
+                                    <td class="py-2 text-right">₱${brand.value.toLocaleString()}</td>
+                                    <td class="py-2 text-right ${brand.avgChange >= 0 ? 'text-green-600' : 'text-red-600'}">
+                                        ${brand.avgChange >= 0 ? '+' : ''}${brand.avgChange}%
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            // Update pagination
+            updatePagination(data.pagination);
+        }
+
+        // Update Pagination Controls
+        function updatePagination(pagination) {
+            const container = document.getElementById('pagination');
+            const totalPages = Math.ceil(pagination.total / pagination.limit);
+            
+            container.innerHTML = `
+                <button onclick="loadLeaderboard(${pagination.page - 1})" 
+                        ${pagination.page === 1 ? 'disabled' : ''} 
+                        class="px-3 py-1 text-sm rounded ${pagination.page === 1 ? 'bg-gray-200 text-gray-400' : 'bg-blue-500 text-white hover:bg-blue-600'}">
+                    Previous
+                </button>
+                <span class="px-3 py-1 text-sm">Page ${pagination.page} of ${totalPages}</span>
+                <button onclick="loadLeaderboard(${pagination.page + 1})" 
+                        ${!pagination.hasMore ? 'disabled' : ''} 
+                        class="px-3 py-1 text-sm rounded ${!pagination.hasMore ? 'bg-gray-200 text-gray-400' : 'bg-blue-500 text-white hover:bg-blue-600'}">
+                    Next
+                </button>
+            `;
+        }
+
+        // Load AI Insights
+        async function loadInsights() {
+            const response = await fetch(`${API_BASE}/insights`);
+            const data = await response.json();
+            
+            const container = document.getElementById('insights-container');
+            container.innerHTML = `
+                <div class="space-y-3">
+                    ${data.map(insight => `
+                        <div class="p-3 rounded-lg ${
+                            insight.priority === 'high' ? 'bg-red-50' : 
+                            insight.priority === 'medium' ? 'bg-yellow-50' : 'bg-green-50'
+                        }">
+                            <h4 class="font-semibold text-sm">${insight.title}</h4>
+                            <p class="text-sm text-gray-700 mt-1">${insight.message}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Initialize dashboard
+        loadDashboard();
+    </script>
+</body>
+</html>

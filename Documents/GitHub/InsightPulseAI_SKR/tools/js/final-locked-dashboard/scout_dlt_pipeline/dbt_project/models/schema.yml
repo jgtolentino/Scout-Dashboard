@@ -1,0 +1,436 @@
+version: 2
+
+models:
+  - name: brands
+    description: "Reference table of all brands tracked in the system"
+    config:
+      materialized: table
+    columns:
+      - name: BrandID
+        description: "Primary key for the brand"
+        tests:
+          - unique
+          - not_null
+      - name: BrandName
+        description: "The name of the brand"
+        tests:
+          - not_null
+      - name: CategoryID
+        description: "Reference to the product category for this brand"
+      - name: IsActive
+        description: "Flag indicating if this brand is active in the system"
+        tests:
+          - not_null
+
+  - name: customers
+    description: "Customer profiles identified across interactions"
+    config:
+      materialized: table
+    columns:
+      - name: CustomerID
+        description: "Primary key for the customer"
+        tests:
+          - unique
+          - not_null
+      - name: FacialID
+        description: "Unique identifier from facial recognition system"
+        tests:
+          - unique
+      - name: CustomerName
+        description: "Customer name when known"
+      - name: CustomerSince
+        description: "Date when customer was first identified"
+      - name: IsActive
+        description: "Flag indicating if this customer is active in the system"
+        tests:
+          - not_null
+      - name: PersonaSegment
+        description: "AI-derived customer segment for personalization (added for ML features)"
+
+  - name: products
+    description: "Products inventory and catalog"
+    config:
+      materialized: table
+    columns:
+      - name: ProductID
+        description: "Primary key for the product"
+        tests:
+          - unique
+          - not_null
+      - name: ProductName
+        description: "Name of the product"
+        tests:
+          - not_null
+      - name: CategoryID
+        description: "Category ID for this product"
+      - name: BrandID
+        description: "Brand ID for this product"
+        tests:
+          - relationships:
+              to: ref('brands')
+              field: BrandID
+      - name: Price
+        description: "Product price"
+      - name: IsActive
+        description: "Flag indicating if this product is active in the inventory"
+        tests:
+          - not_null
+
+  - name: stores
+    description: "Physical store locations"
+    config:
+      materialized: table
+    columns:
+      - name: StoreID
+        description: "Primary key for the store"
+        tests:
+          - unique
+          - not_null
+      - name: StoreName
+        description: "Name of the store location"
+        tests:
+          - not_null
+      - name: Address
+        description: "Physical address of the store"
+      - name: City
+        description: "City where the store is located"
+      - name: RegionID
+        description: "Region ID for this store"
+      - name: IsActive
+        description: "Flag indicating if this store is active"
+        tests:
+          - not_null
+
+  - name: sales_interactions
+    description: "Customer interactions recorded in store"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      unique_key: InteractionID
+    columns:
+      - name: InteractionID
+        description: "Primary key for the interaction"
+        tests:
+          - unique
+          - not_null
+      - name: CustomerID
+        description: "Reference to the customer involved (may be null for anonymous)"
+        tests:
+          - relationships:
+              to: ref('customers')
+              field: CustomerID
+              severity: warn
+      - name: FacialID
+        description: "Facial recognition ID if available"
+        tests:
+          - relationships:
+              to: ref('customers')
+              field: FacialID
+              severity: warn
+      - name: ProductID
+        description: "Product involved in the interaction"
+        tests:
+          - relationships:
+              to: ref('products')
+              field: ProductID
+              severity: warn
+      - name: StoreID
+        description: "Store where interaction occurred"
+        tests:
+          - relationships:
+              to: ref('stores')
+              field: StoreID
+      - name: DeviceID
+        description: "Device that recorded the interaction"
+        tests:
+          - relationships:
+              to: ref('edge_device_registry')
+              field: DeviceID
+              severity: warn
+      - name: InteractionType
+        description: "Type of interaction (browse, purchase, return, etc.)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['browse', 'purchase', 'return', 'inquiry', 'assistance']
+      - name: InteractionDate
+        description: "Date of the interaction"
+        tests:
+          - not_null
+      - name: DurationSeconds
+        description: "Duration of the interaction in seconds"
+      - name: InteractionScore
+        description: "Sentiment or engagement score"
+      - name: IngestedAt
+        description: "Timestamp when this interaction was ingested into the system"
+        tests:
+          - not_null
+      - name: SessionID
+        description: "Unique identifier for customer session"
+      - name: SessionStart
+        description: "Start timestamp of the customer session"
+      - name: SessionEnd
+        description: "End timestamp of the customer session"
+
+  - name: sales_interaction_brands
+    description: "Brands mentioned or interacted with during sales interactions"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      unique_key: "InteractionID || '-' || BrandID"
+    columns:
+      - name: InteractionID
+        description: "Reference to the sales interaction"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('sales_interactions')
+              field: InteractionID
+      - name: BrandID
+        description: "Reference to the mentioned brand"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('brands')
+              field: BrandID
+      - name: MentionType
+        description: "How the brand was mentioned (explicit, implicit, visual)"
+        tests:
+          - accepted_values:
+              values: ['explicit', 'implicit', 'visual', 'sentiment']
+      - name: SentimentScore
+        description: "Sentiment score towards the brand, if available"
+      - name: CreatedAtUtc
+        description: "Timestamp when this record was created"
+        tests:
+          - not_null
+
+  - name: sales_interaction_transcripts
+    description: "Speech transcripts from sales interactions"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      unique_key: TranscriptID
+    columns:
+      - name: TranscriptID
+        description: "Primary key for the transcript"
+        tests:
+          - unique
+          - not_null
+      - name: InteractionID
+        description: "Reference to the sales interaction"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('sales_interactions')
+              field: InteractionID
+      - name: TranscriptText
+        description: "Full text of the transcript"
+        tests:
+          - not_null
+      - name: SpeakerType
+        description: "Type of speaker (customer, employee)"
+        tests:
+          - accepted_values:
+              values: ['customer', 'employee', 'unknown']
+      - name: RecordedAt
+        description: "When the speech was recorded"
+        tests:
+          - not_null
+      - name: SentimentScore
+        description: "Overall sentiment score for this transcript"
+      - name: WordCount
+        description: "Number of words in the transcript"
+      - name: LangCode
+        description: "Language code of the transcript (ISO 639-1)"
+
+  - name: bronze_transcriptions
+    description: "Raw speech-to-text transcriptions from edge devices"
+    config:
+      materialized: incremental
+      incremental_strategy: append
+    columns:
+      - name: TranscriptionID
+        description: "Primary key for the transcription"
+        tests:
+          - unique
+          - not_null
+      - name: DeviceID
+        description: "Device that recorded the audio"
+        tests:
+          - not_null
+      - name: RecordedAt
+        description: "When the audio was recorded"
+        tests:
+          - not_null
+      - name: TranscriptionText
+        description: "Raw text from the STT system"
+      - name: Confidence
+        description: "Confidence score from the STT system"
+      - name: AudioDuration
+        description: "Duration of the audio in seconds"
+      - name: SourceFile
+        description: "Source audio file reference"
+
+  - name: bronze_vision_detections
+    description: "Raw computer vision detections from edge devices"
+    config:
+      materialized: incremental
+      incremental_strategy: append
+    columns:
+      - name: DetectionID
+        description: "Primary key for the detection"
+        tests:
+          - unique
+          - not_null
+      - name: DeviceID
+        description: "Device that recorded the video"
+        tests:
+          - not_null
+      - name: DetectedAt
+        description: "When the detection occurred"
+        tests:
+          - not_null
+      - name: DetectionType
+        description: "Type of detection (face, gesture, object, etc.)"
+        tests:
+          - accepted_values:
+              values: ['face', 'gesture', 'object', 'zone']
+      - name: Confidence
+        description: "Confidence score from the vision system"
+      - name: BoundingBox
+        description: "Bounding box coordinates (JSON)"
+      - name: DetectionAttributes
+        description: "Additional attributes of the detection (JSON)"
+      - name: ZoneID
+        description: "Zone identifier where detection occurred"
+      - name: CameraAngle
+        description: "Camera angle/position"
+
+  - name: bronze_device_logs
+    description: "Device operational logs from edge devices"
+    config:
+      materialized: incremental
+      incremental_strategy: append
+    columns:
+      - name: LogID
+        description: "Primary key for the log entry"
+        tests:
+          - unique
+          - not_null
+      - name: DeviceID
+        description: "Device that generated the log"
+        tests:
+          - not_null
+      - name: LoggedAt
+        description: "When the log was created"
+        tests:
+          - not_null
+      - name: LogLevel
+        description: "Severity level of the log"
+        tests:
+          - accepted_values:
+              values: ['INFO', 'WARNING', 'ERROR', 'CRITICAL']
+      - name: LogMessage
+        description: "Log message content"
+      - name: LogContext
+        description: "Additional context for the log (JSON)"
+      - name: IngestedAt
+        description: "When the log was ingested into the system"
+        tests:
+          - not_null
+
+  - name: edge_device_registry
+    description: "Registry of all edge devices deployed across stores"
+    config:
+      materialized: table
+    columns:
+      - name: DeviceID
+        description: "Primary key for the device"
+        tests:
+          - unique
+          - not_null
+      - name: DeviceType
+        description: "Type of device (camera, mic, sensor, etc.)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['camera', 'microphone', 'combined', 'sensor', 'gateway']
+      - name: Location
+        description: "Description of the device location"
+        tests:
+          - not_null
+      - name: StoreID
+        description: "Store where the device is installed"
+        tests:
+          - relationships:
+              to: ref('stores')
+              field: StoreID
+      - name: ZoneID
+        description: "Zone within the store where device is installed"
+      - name: InstallDate
+        description: "When the device was installed"
+        tests:
+          - not_null
+      - name: LastHeartbeat
+        description: "Last time device sent a heartbeat"
+      - name: FirmwareVersion
+        description: "Current firmware version on the device"
+      - name: IsActive
+        description: "Whether the device is currently active"
+        tests:
+          - not_null
+      - name: CreatedAt
+        description: "When this record was created"
+        tests:
+          - not_null
+      - name: ModifiedAt
+        description: "When this record was last modified"
+        tests:
+          - not_null
+
+  - name: transcript_chunk_audit
+    description: "Chunked transcripts for quality scoring and auditing"
+    config:
+      materialized: incremental
+      incremental_strategy: merge
+      unique_key: ChunkID
+    columns:
+      - name: ChunkID
+        description: "Primary key for the chunk"
+        tests:
+          - unique
+          - not_null
+      - name: TranscriptID
+        description: "Reference to the parent transcript"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('sales_interaction_transcripts')
+              field: TranscriptID
+      - name: ChunkText
+        description: "Text content of this chunk"
+        tests:
+          - not_null
+      - name: StartOffset
+        description: "Starting character offset in the original transcript"
+        tests:
+          - not_null
+      - name: EndOffset
+        description: "Ending character offset in the original transcript"
+        tests:
+          - not_null
+      - name: TranscriptQualityScore
+        description: "Quality score for this transcript chunk"
+      - name: NoiseLevel
+        description: "Estimated background noise level"
+      - name: IsReviewed
+        description: "Whether this chunk has been human-reviewed"
+        tests:
+          - not_null
+      - name: ReviewedBy
+        description: "User who reviewed this chunk"
+      - name: CreatedAt
+        description: "When this chunk was created"
+        tests:
+          - not_null

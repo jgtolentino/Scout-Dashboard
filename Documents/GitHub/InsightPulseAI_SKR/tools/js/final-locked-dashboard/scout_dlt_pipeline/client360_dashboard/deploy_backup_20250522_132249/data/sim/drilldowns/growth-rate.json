@@ -1,0 +1,198 @@
+{
+  "kpi_type": "growth-rate",
+  "timestamp": "2025-05-22T11:30:00Z",
+  "summary": {
+    "current_growth_rate": 18.7,
+    "period": "Q1 2024 vs Q1 2023",
+    "growth_trend": "accelerating",
+    "best_performing_category": "Electronics",
+    "revenue_increase": 2450000
+  },
+  "periods": [
+    {
+      "period": "Q1 2024",
+      "growth": 18.7,
+      "revenue": 2450000,
+      "target": 2200000,
+      "vs_target": 111.4,
+      "vs_previous": 118.7,
+      "key_drivers": ["Electronics surge", "Digital transformation", "New store openings"]
+    },
+    {
+      "period": "Q4 2023",
+      "growth": 12.8,
+      "revenue": 2064000,
+      "target": 2000000,
+      "vs_target": 103.2,
+      "vs_previous": 112.8,
+      "key_drivers": ["Holiday sales", "Promotional campaigns", "Supply chain improvements"]
+    },
+    {
+      "period": "Q3 2023",
+      "growth": 8.7,
+      "revenue": 1830000,
+      "target": 1800000,
+      "vs_target": 101.7,
+      "vs_previous": 108.7,
+      "key_drivers": ["Back-to-school season", "New product launches", "Market expansion"]
+    },
+    {
+      "period": "Q2 2023",
+      "growth": 15.2,
+      "revenue": 1684000,
+      "target": 1600000,
+      "vs_target": 105.3,
+      "vs_previous": 115.2,
+      "key_drivers": ["Summer campaigns", "Partnership deals", "Customer acquisition"]
+    },
+    {
+      "period": "Q1 2023",
+      "growth": 6.3,
+      "revenue": 1462000,
+      "target": 1500000,
+      "vs_target": 97.5,
+      "vs_previous": 106.3,
+      "key_drivers": ["Recovery from pandemic", "Infrastructure investments", "Staff training"]
+    }
+  ],
+  "category_growth": [
+    {
+      "category": "Electronics & Technology",
+      "current_revenue": 850000,
+      "previous_revenue": 658000,
+      "growth_rate": 29.2,
+      "trend": "accelerating",
+      "forecast_next_quarter": 32.5,
+      "market_share": 34.7
+    },
+    {
+      "category": "Clothing & Fashion",
+      "current_revenue": 650000,
+      "previous_revenue": 584000,
+      "growth_rate": 11.3,
+      "trend": "steady",
+      "forecast_next_quarter": 12.8,
+      "market_share": 26.5
+    },
+    {
+      "category": "Food & Beverage",
+      "current_revenue": 500000,
+      "previous_revenue": 432000,
+      "growth_rate": 15.7,
+      "trend": "improving",
+      "forecast_next_quarter": 18.2,
+      "market_share": 20.4
+    },
+    {
+      "category": "Home & Garden",
+      "current_revenue": 450000,
+      "previous_revenue": 460000,
+      "growth_rate": -2.1,
+      "trend": "declining",
+      "forecast_next_quarter": 1.5,
+      "market_share": 18.4
+    }
+  ],
+  "regional_growth": [
+    {
+      "region": "Metro Manila",
+      "current_revenue": 1372000,
+      "previous_revenue": 1156000,
+      "growth_rate": 18.7,
+      "stores": 45,
+      "new_stores": 3,
+      "market_penetration": 67.8
+    },
+    {
+      "region": "Cebu",
+      "current_revenue": 490000,
+      "previous_revenue": 398000,
+      "growth_rate": 23.1,
+      "stores": 12,
+      "new_stores": 2,
+      "market_penetration": 45.2
+    },
+    {
+      "region": "Davao",
+      "current_revenue": 343000,
+      "previous_revenue": 301000,
+      "growth_rate": 14.0,
+      "stores": 8,
+      "new_stores": 1,
+      "market_penetration": 38.9
+    },
+    {
+      "region": "Baguio",
+      "current_revenue": 245000,
+      "previous_revenue": 209000,
+      "growth_rate": 17.2,
+      "stores": 6,
+      "new_stores": 1,
+      "market_penetration": 52.4
+    }
+  ],
+  "growth_drivers": [
+    {
+      "driver": "Digital Transformation",
+      "impact": 8.2,
+      "description": "Online sales platform and mobile app adoption",
+      "investment": 850000,
+      "roi": 285.2
+    },
+    {
+      "driver": "New Store Openings",
+      "impact": 4.1,
+      "description": "7 new locations opened in Q1 2024",
+      "investment": 2100000,
+      "roi": 118.7
+    },
+    {
+      "driver": "Product Innovation",
+      "impact": 3.8,
+      "description": "Exclusive product lines and partnerships",
+      "investment": 450000,
+      "roi": 203.6
+    },
+    {
+      "driver": "Marketing Campaigns",
+      "impact": 2.6,
+      "description": "Targeted advertising and social media presence",
+      "investment": 320000,
+      "roi": 195.8
+    }
+  ],
+  "forecast": {
+    "q2_2024": {
+      "projected_growth": 21.4,
+      "projected_revenue": 2975000,
+      "confidence": 82.3
+    },
+    "q3_2024": {
+      "projected_growth": 19.8,
+      "projected_revenue": 3187000,
+      "confidence": 74.6
+    },
+    "q4_2024": {
+      "projected_growth": 16.2,
+      "projected_revenue": 3456000,
+      "confidence": 68.9
+    }
+  },
+  "challenges": [
+    {
+      "challenge": "Supply Chain Constraints",
+      "impact_on_growth": -2.1,
+      "mitigation": "Diversifying suppliers and increasing inventory"
+    },
+    {
+      "challenge": "Increased Competition",
+      "impact_on_growth": -1.8,
+      "mitigation": "Enhanced customer experience and loyalty programs"
+    },
+    {
+      "challenge": "Economic Headwinds",
+      "impact_on_growth": -1.2,
+      "mitigation": "Value-focused product offerings and flexible pricing"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "natural_language_query": "Compare revenue WoW for Alaska vs Oishi in NCR for Q2 2025",
+  "user_context": {
+    "tenant_id": "demo-tenant",
+    "role": "analyst",
+    "brand_access": ["Alaska", "Oishi"],
+    "location_access": ["NCR"]
+  },
+  "options": {
+    "include_explanation": true,
+    "language": "en"
+  }
+}

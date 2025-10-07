@@ -1,0 +1,63 @@
+icon_mapping:
+  # Map cell IDs to icon filenames (without .svg extension)
+  cells:
+    # Bronze Layer
+    - id: "bronze_layer_box"
+      icon: "bronze_icon"
+      x: 20
+      y: 20
+      width: 40
+      height: 40
+      
+    # Silver Layer
+    - id: "silver_layer_box"
+      icon: "silver_icon"
+      x: 20
+      y: 20
+      width: 40
+      height: 40
+      
+    # Gold Layer
+    - id: "gold_layer_box"
+      icon: "gold_icon"
+      x: 20
+      y: 20
+      width: 40
+      height: 40
+      
+    # QA Monitoring
+    - id: "qa_monitoring"
+      icon: "guardrails_icon"
+      
+    # Event Hub
+    - id: "event_hub"
+      icon: "event-hubs"
+      
+    # Event Hub Output
+    - id: "event_hub_out"
+      icon: "interaction_icon"
+      
+    # Azure ML
+    - id: "azure_ml"
+      icon: "machine-learning-service"
+      
+    # Azure SQL
+    - id: "azure_sql"
+      icon: "synapse-analytics"
+      
+    # Data Sources
+    - id: "data_source_1"
+      icon: "raspberry-pi"
+      
+    # Key Vault
+    - id: "key_vault"
+      icon: "key-vault"
+      
+  # Default icon placement properties
+  defaults:
+    x: 10
+    y: 10
+    width: 32
+    height: 32
+    align: "left"
+    valign: "top"

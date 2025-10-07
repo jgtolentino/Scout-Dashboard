@@ -1,0 +1,70 @@
+description: "Generates effective call-to-action (CTA) text for marketing and web content"
+tags:
+  - marketing
+  - cta
+  - conversion
+  - copywriting
+  - web
+author: InsightPulseAI
+created: "2025-05-10"
+executor: Claude
+version: 1.0
+
+templates:
+  - name: conversion
+    description: "Conversion-focused CTA for specific industry and goal"
+    parameters:
+      - name: industry
+        description: "The industry or business sector"
+        required: true
+      - name: goal
+        description: "The conversion goal (signups, downloads, etc.)"
+        required: true
+        
+  - name: engagement
+    description: "Engagement CTA for specific product and audience"
+    parameters:
+      - name: product
+        description: "The product or service being promoted"
+        required: true
+      - name: audience
+        description: "The target audience"
+        required: true
+        
+  - name: urgency
+    description: "Urgency-based CTA with deadline"
+    parameters:
+      - name: offer
+        description: "The special offer or promotion"
+        required: true
+      - name: deadline
+        description: "The deadline or time constraint"
+        required: true
+        
+options:
+  - name: variations
+    description: "Generate multiple variations of the CTA"
+    type: boolean
+    default: false
+    
+  - name: emoji
+    description: "Include emoji in the CTA"
+    type: boolean
+    default: false
+
+examples:
+  - template: conversion
+    parameters:
+      industry: "SaaS"
+      goal: "free trial signups"
+    options:
+      variations: true
+    description: "CTAs for SaaS free trial signups"
+    
+  - template: urgency
+    parameters:
+      offer: "30% off annual plan"
+      deadline: "next 24 hours"
+    options:
+      emoji: true
+    description: "Urgency CTA with discount and deadline"

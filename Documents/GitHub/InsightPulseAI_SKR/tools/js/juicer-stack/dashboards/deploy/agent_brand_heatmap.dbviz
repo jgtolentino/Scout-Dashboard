@@ -1,0 +1,196 @@
+{
+  "version": "1.0",
+  "dashboard": {
+    "name": "Agent Brand Mention Heatmap",
+    "description": "Visualizes brand mentions across agents with sentiment and frequency analysis",
+    "id": "agent_brand_heatmap",
+    "layout": {
+      "orientation": "vertical",
+      "sections": [
+        {
+          "title": "Overview",
+          "visible_title": true,
+          "collapsed": false,
+          "widgets": [
+            {
+              "id": "brand_mention_summary",
+              "type": "counter",
+              "title": "Total Brand Mentions",
+              "query": "SELECT COUNT(*) AS brand_mention_count FROM insight_pulse_ai.silver.transcript_entity_mentions WHERE entity_type = 'BRAND'",
+              "width": 4
+            },
+            {
+              "id": "brand_mention_avg_sentiment",
+              "type": "counter",
+              "title": "Average Brand Sentiment",
+              "query": "SELECT ROUND(AVG(sentiment_score) * 100, 1) AS avg_sentiment FROM insight_pulse_ai.silver.transcript_entity_mentions WHERE entity_type = 'BRAND'",
+              "width": 4,
+              "counter_label": "%",
+              "value_format": "0.0"
+            },
+            {
+              "id": "unique_brands_mentioned",
+              "type": "counter",
+              "title": "Unique Brands Mentioned",
+              "query": "SELECT COUNT(DISTINCT entity_normalized) AS unique_brands FROM insight_pulse_ai.silver.transcript_entity_mentions WHERE entity_type = 'BRAND'",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "title": "Brand Mentions Over Time",
+          "visible_title": true,
+          "collapsed": false,
+          "widgets": [
+            {
+              "id": "brand_mentions_trend",
+              "type": "chart",
+              "title": "Brand Mentions Trend",
+              "query": "SELECT DATE(detection_timestamp) AS mention_date, COUNT(*) AS mention_count FROM insight_pulse_ai.silver.transcript_entity_mentions WHERE entity_type = 'BRAND' GROUP BY mention_date ORDER BY mention_date",
+              "width": 12,
+              "chart_type": "line",
+              "x_axis": "mention_date",
+              "y_axis": ["mention_count"],
+              "series_labels": ["Brand Mentions"]
+            }
+          ]
+        },
+        {
+          "title": "Top Brands by Mention",
+          "visible_title": true,
+          "collapsed": false,
+          "widgets": [
+            {
+              "id": "top_brands_by_mention",
+              "type": "chart",
+              "title": "Top 10 Brands by Mention Count",
+              "query": "SELECT entity_normalized AS brand, COUNT(*) AS mention_count FROM insight_pulse_ai.silver.transcript_entity_mentions WHERE entity_type = 'BRAND' GROUP BY brand ORDER BY mention_count DESC LIMIT 10",
+              "width": 6,
+              "chart_type": "bar",
+              "x_axis": "brand",
+              "y_axis": ["mention_count"],
+              "series_labels": ["Mentions"]
+            },
+            {
+              "id": "top_brands_by_sentiment",
+              "type": "chart",
+              "title": "Top 10 Brands by Sentiment",
+              "query": "SELECT entity_normalized AS brand, AVG(sentiment_score) AS avg_sentiment FROM insight_pulse_ai.silver.transcript_entity_mentions WHERE entity_type = 'BRAND' GROUP BY brand HAVING COUNT(*) > 5 ORDER BY avg_sentiment DESC LIMIT 10",
+              "width": 6,
+              "chart_type": "bar",
+              "x_axis": "brand",
+              "y_axis": ["avg_sentiment"],
+              "series_labels": ["Avg Sentiment"]
+            }
+          ]
+        },
+        {
+          "title": "Agent Performance",
+          "visible_title": true,
+          "collapsed": false,
+          "widgets": [
+            {
+              "id": "agent_brand_heatmap",
+              "type": "chart",
+              "title": "Agent Brand Mention Heatmap",
+              "query": "WITH agent_brands AS (\n  SELECT \n    a.agent_id,\n    b.entity_normalized AS brand, \n    COUNT(*) AS mention_count\n  FROM \n    insight_pulse_ai.silver.transcripts a\n    JOIN insight_pulse_ai.silver.transcript_entity_mentions b ON a.transcript_id = b.transcript_id\n  WHERE \n    b.entity_type = 'BRAND'\n  GROUP BY \n    a.agent_id, b.entity_normalized\n)\nSELECT \n  agent_id,\n  brand,\n  mention_count\nFROM \n  agent_brands\nORDER BY \n  agent_id, mention_count DESC",
+              "width": 12,
+              "chart_type": "heatmap",
+              "x_axis": "brand",
+              "y_axis": "agent_id",
+              "values": "mention_count",
+              "color_scale": "blues"
+            }
+          ]
+        },
+        {
+          "title": "Agent Brand Sentiment",
+          "visible_title": true,
+          "collapsed": false,
+          "widgets": [
+            {
+              "id": "agent_brand_sentiment",
+              "type": "chart",
+              "title": "Agent Brand Mention Sentiment",
+              "query": "WITH agent_brand_sentiment AS (\n  SELECT \n    a.agent_id,\n    b.entity_normalized AS brand, \n    AVG(b.sentiment_score) AS avg_sentiment\n  FROM \n    insight_pulse_ai.silver.transcripts a\n    JOIN insight_pulse_ai.silver.transcript_entity_mentions b ON a.transcript_id = b.transcript_id\n  WHERE \n    b.entity_type = 'BRAND'\n  GROUP BY \n    a.agent_id, b.entity_normalized\n  HAVING \n    COUNT(*) > 3\n)\nSELECT \n  agent_id,\n  brand,\n  avg_sentiment\nFROM \n  agent_brand_sentiment\nORDER BY \n  agent_id, avg_sentiment DESC",
+              "width": 12,
+              "chart_type": "heatmap",
+              "x_axis": "brand",
+              "y_axis": "agent_id",
+              "values": "avg_sentiment",
+              "color_scale": "rdylgn"
+            }
+          ]
+        },
+        {
+          "title": "Detailed Brand Data",
+          "visible_title": true,
+          "collapsed": true,
+          "widgets": [
+            {
+              "id": "brand_mention_details",
+              "type": "table",
+              "title": "Brand Mention Details",
+              "query": "SELECT \n  entity_normalized AS brand,\n  COUNT(*) AS mention_count,\n  ROUND(AVG(sentiment_score) * 100, 1) AS avg_sentiment,\n  MAX(detection_timestamp) AS last_mentioned\nFROM \n  insight_pulse_ai.silver.transcript_entity_mentions\nWHERE \n  entity_type = 'BRAND'\nGROUP BY \n  brand\nORDER BY \n  mention_count DESC",
+              "width": 12,
+              "sortable": true,
+              "searchable": true,
+              "exportable": true,
+              "page_size": 20
+            }
+          ]
+        }
+      ]
+    },
+    "parameters": [
+      {
+        "name": "date_range",
+        "label": "Date Range",
+        "type": "date_range",
+        "default": {
+          "start": "{{today-30d}}",
+          "end": "{{today}}"
+        }
+      },
+      {
+        "name": "agent_ids",
+        "label": "Agents",
+        "type": "multiselect",
+        "query": "SELECT DISTINCT agent_id FROM insight_pulse_ai.silver.transcripts ORDER BY agent_id",
+        "value_column": "agent_id",
+        "label_column": "agent_id",
+        "allow_all": true,
+        "default": "all"
+      },
+      {
+        "name": "brand_filter",
+        "label": "Brand Filter",
+        "type": "text",
+        "default": ""
+      }
+    ],
+    "filters": [
+      {
+        "target": "detection_timestamp",
+        "operator": "between",
+        "value": "{{date_range.start}} AND {{date_range.end}}"
+      },
+      {
+        "target": "agent_id",
+        "operator": "in",
+        "value": "{{agent_ids}}",
+        "condition": "{{agent_ids}} != 'all'"
+      },
+      {
+        "target": "entity_normalized",
+        "operator": "like",
+        "value": "%{{brand_filter}}%",
+        "condition": "{{brand_filter}} != ''"
+      }
+    ],
+    "refresh": {
+      "interval": 3600,
+      "auto_refresh": false
+    }
+  }
+}

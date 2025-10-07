@@ -1,0 +1,4 @@
+==== Network Security Group Review and Enhancement ====
+Analyzing and enhancing network security group rules in TBWA-ProjectScout-Prod subscription
+
+Retrieving Network Security Groups...

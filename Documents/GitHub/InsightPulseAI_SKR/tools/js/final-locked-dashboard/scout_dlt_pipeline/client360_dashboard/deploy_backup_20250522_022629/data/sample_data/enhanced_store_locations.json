@@ -1,0 +1,631 @@
+{
+  "simulated": true,
+  "meta": {
+    "data_type": "enhanced_store_locations",
+    "version": "1.0.0",
+    "generated_date": "2025-05-19T08:00:00+08:00",
+    "total_records": 20
+  },
+  "locations": [
+    {
+      "store_id": "sari-001",
+      "name": "Mang Juan's Sari-Sari Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Juan Dela Cruz",
+      "phone": "+63-917-123-4567",
+      "address": {
+        "street": "123 Sampaguita St.",
+        "barangay": "Poblacion",
+        "city_municipality": "Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1200"
+      },
+      "geolocation": {
+        "latitude": 14.5547,
+        "longitude": 121.0244
+      },
+      "metrics": {
+        "sales": 42500,
+        "sales_30d": 42500,
+        "sales_7d": 8900,
+        "growth_rate": 7.5,
+        "customer_count_30d": 312,
+        "average_basket_size": 136.22,
+        "stockouts": 12,
+        "uptime": 95
+      },
+      "top_products": ["Rice", "Canned Goods", "Instant Coffee"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-002",
+      "name": "Maria's Mini Mart",
+      "store_type": "Mini Mart",
+      "owner": "Maria Santos",
+      "phone": "+63-918-765-4321",
+      "address": {
+        "street": "45 Rizal Ave.",
+        "barangay": "Lahug",
+        "city_municipality": "Cebu City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "postal_code": "6000"
+      },
+      "geolocation": {
+        "latitude": 10.3157,
+        "longitude": 123.8854
+      },
+      "metrics": {
+        "sales": 38750,
+        "sales_30d": 38750,
+        "sales_7d": 7650,
+        "growth_rate": 5.2,
+        "customer_count_30d": 287,
+        "average_basket_size": 135.02,
+        "stockouts": 5,
+        "uptime": 92
+      },
+      "top_products": ["Soft Drinks", "Bread", "Snacks"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-003",
+      "name": "Aling Rosa's Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Rosa Reyes",
+      "phone": "+63-919-555-1234",
+      "address": {
+        "street": "78 Mabini St.",
+        "barangay": "Poblacion",
+        "city_municipality": "Davao City",
+        "province": "Davao del Sur",
+        "region": "Davao",
+        "postal_code": "8000"
+      },
+      "geolocation": {
+        "latitude": 7.0707,
+        "longitude": 125.6127
+      },
+      "metrics": {
+        "sales": 51200,
+        "sales_30d": 51200,
+        "sales_7d": 10500,
+        "growth_rate": 8.8,
+        "customer_count_30d": 378,
+        "average_basket_size": 135.45,
+        "stockouts": 3,
+        "uptime": 98
+      },
+      "top_products": ["LPG", "Cigarettes", "Condiments"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-004",
+      "name": "Pedro's General Merchandise",
+      "store_type": "General Store",
+      "owner": "Pedro Gonzales",
+      "phone": "+63-920-888-7777",
+      "address": {
+        "street": "15 Luna St.",
+        "barangay": "Session Road",
+        "city_municipality": "Baguio City",
+        "province": "Benguet",
+        "region": "CAR",
+        "postal_code": "2600"
+      },
+      "geolocation": {
+        "latitude": 16.4023,
+        "longitude": 120.5960
+      },
+      "metrics": {
+        "sales": 47300,
+        "sales_30d": 47300,
+        "sales_7d": 9100,
+        "growth_rate": 6.5,
+        "customer_count_30d": 341,
+        "average_basket_size": 138.71,
+        "stockouts": 8,
+        "uptime": 96
+      },
+      "top_products": ["Vegetables", "Rice", "Canned Goods"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-005",
+      "name": "Luz Mini Grocery",
+      "store_type": "Mini Grocery",
+      "owner": "Luz Mendoza",
+      "phone": "+63-921-222-3333",
+      "address": {
+        "street": "32 Bonifacio St.",
+        "barangay": "La Paz",
+        "city_municipality": "Iloilo City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "postal_code": "5000"
+      },
+      "geolocation": {
+        "latitude": 10.7202,
+        "longitude": 122.5726
+      },
+      "metrics": {
+        "sales": 35900,
+        "sales_30d": 35900,
+        "sales_7d": 7200,
+        "growth_rate": 5.5,
+        "customer_count_30d": 265,
+        "average_basket_size": 135.47,
+        "stockouts": 11,
+        "uptime": 91
+      },
+      "top_products": ["Instant Noodles", "Alcohol", "Cleaning Supplies"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-006",
+      "name": "Tindahan ni Mila",
+      "store_type": "Sari-Sari Store",
+      "owner": "Mila Garcia",
+      "phone": "+63-922-444-5555",
+      "address": {
+        "street": "56 Aguinaldo St.",
+        "barangay": "Rizal",
+        "city_municipality": "Laoag City",
+        "province": "Ilocos Norte",
+        "region": "Ilocos",
+        "postal_code": "2900"
+      },
+      "geolocation": {
+        "latitude": 18.1982,
+        "longitude": 120.5960
+      },
+      "metrics": {
+        "sales": 31200,
+        "sales_30d": 31200,
+        "sales_7d": 6400,
+        "growth_rate": 4.2,
+        "customer_count_30d": 229,
+        "average_basket_size": 136.24,
+        "stockouts": 15,
+        "uptime": 88
+      },
+      "top_products": ["School Supplies", "Candies", "Soft Drinks"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-007",
+      "name": "Kuya Ben's Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Benjamin Tan",
+      "phone": "+63-923-777-8888",
+      "address": {
+        "street": "89 Magsaysay Blvd.",
+        "barangay": "Rizal",
+        "city_municipality": "Tacloban City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "postal_code": "6500"
+      },
+      "geolocation": {
+        "latitude": 11.2543,
+        "longitude": 125.0008
+      },
+      "metrics": {
+        "sales": 41500,
+        "sales_30d": 41500,
+        "sales_7d": 8300,
+        "growth_rate": 6.8,
+        "customer_count_30d": 305,
+        "average_basket_size": 136.07,
+        "stockouts": 7,
+        "uptime": 94
+      },
+      "top_products": ["Rice", "Canned Goods", "Bread"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-008",
+      "name": "Ate Joy's Sari-Sari",
+      "store_type": "Sari-Sari Store",
+      "owner": "Joy Aquino",
+      "phone": "+63-924-111-9999",
+      "address": {
+        "street": "12 Quezon St.",
+        "barangay": "Concepcion Grande",
+        "city_municipality": "Naga City",
+        "province": "Camarines Sur",
+        "region": "Bicol",
+        "postal_code": "4400"
+      },
+      "geolocation": {
+        "latitude": 13.6192,
+        "longitude": 123.7509
+      },
+      "metrics": {
+        "sales": 37800,
+        "sales_30d": 37800,
+        "sales_7d": 7600,
+        "growth_rate": 5.5,
+        "customer_count_30d": 278,
+        "average_basket_size": 136.0,
+        "stockouts": 9,
+        "uptime": 93
+      },
+      "top_products": ["Cigarettes", "Load Cards", "Snacks"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-009",
+      "name": "Carinderia ni Lola",
+      "store_type": "Carinderia",
+      "owner": "Lola Carmela",
+      "phone": "+63-925-333-2222",
+      "address": {
+        "street": "67 Burgos St.",
+        "barangay": "Poblacion",
+        "city_municipality": "Batangas City",
+        "province": "Batangas",
+        "region": "CALABARZON",
+        "postal_code": "4200"
+      },
+      "geolocation": {
+        "latitude": 13.7565,
+        "longitude": 121.0582
+      },
+      "metrics": {
+        "sales": 49700,
+        "sales_30d": 49700,
+        "sales_7d": 9800,
+        "growth_rate": 7.2,
+        "customer_count_30d": 366,
+        "average_basket_size": 135.79,
+        "stockouts": 4,
+        "uptime": 97
+      },
+      "top_products": ["Cooked Meals", "Rice", "Soft Drinks"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-010",
+      "name": "Tatay Romy's Corner Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Romeo Villanueva",
+      "phone": "+63-926-666-4444",
+      "address": {
+        "street": "23 Paterno St.",
+        "barangay": "Poblacion",
+        "city_municipality": "Cabanatuan City",
+        "province": "Nueva Ecija",
+        "region": "Central Luzon",
+        "postal_code": "3100"
+      },
+      "geolocation": {
+        "latitude": 15.4881,
+        "longitude": 120.9675
+      },
+      "metrics": {
+        "sales": 34600,
+        "sales_30d": 34600,
+        "sales_7d": 7100,
+        "growth_rate": 4.8,
+        "customer_count_30d": 254,
+        "average_basket_size": 136.22,
+        "stockouts": 13,
+        "uptime": 90
+      },
+      "top_products": ["Cigarettes", "Beer", "Snacks"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-011",
+      "name": "Yolanda's Variety Store",
+      "store_type": "Variety Store",
+      "owner": "Yolanda Pascual",
+      "phone": "+63-927-111-2222",
+      "address": {
+        "street": "45 Roxas St.",
+        "barangay": "Bel-Air",
+        "city_municipality": "Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1209"
+      },
+      "geolocation": {
+        "latitude": 14.5595,
+        "longitude": 121.0287
+      },
+      "metrics": {
+        "sales": 46500,
+        "sales_30d": 46500,
+        "sales_7d": 9500,
+        "growth_rate": 8.2,
+        "customer_count_30d": 340,
+        "average_basket_size": 136.76,
+        "stockouts": 6,
+        "uptime": 95
+      },
+      "top_products": ["School Supplies", "Beauty Products", "Snacks"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-012",
+      "name": "Marvin's Mini Grocery",
+      "store_type": "Mini Grocery",
+      "owner": "Marvin Bautista",
+      "phone": "+63-928-333-4444",
+      "address": {
+        "street": "78 Osmeña St.",
+        "barangay": "Guadalupe",
+        "city_municipality": "Cebu City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "postal_code": "6000"
+      },
+      "geolocation": {
+        "latitude": 10.3103,
+        "longitude": 123.8901
+      },
+      "metrics": {
+        "sales": 42100,
+        "sales_30d": 42100,
+        "sales_7d": 8400,
+        "growth_rate": 6.5,
+        "customer_count_30d": 310,
+        "average_basket_size": 135.81,
+        "stockouts": 8,
+        "uptime": 94
+      },
+      "top_products": ["Groceries", "Frozen Foods", "Personal Care"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-013",
+      "name": "Lito's Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Lito Mendoza",
+      "phone": "+63-929-555-6666",
+      "address": {
+        "street": "34 Mabini St.",
+        "barangay": "Matina",
+        "city_municipality": "Davao City",
+        "province": "Davao del Sur",
+        "region": "Davao",
+        "postal_code": "8000"
+      },
+      "geolocation": {
+        "latitude": 7.0675,
+        "longitude": 125.6157
+      },
+      "metrics": {
+        "sales": 39800,
+        "sales_30d": 39800,
+        "sales_7d": 8100,
+        "growth_rate": 7.8,
+        "customer_count_30d": 293,
+        "average_basket_size": 135.84,
+        "stockouts": 7,
+        "uptime": 93
+      },
+      "top_products": ["Rice", "Cooking Oil", "Coffee"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-014",
+      "name": "Emma's General Merchandise",
+      "store_type": "General Store",
+      "owner": "Emma Cruz",
+      "phone": "+63-930-777-8888",
+      "address": {
+        "street": "22 Session Road",
+        "barangay": "Session Road",
+        "city_municipality": "Baguio City",
+        "province": "Benguet",
+        "region": "CAR",
+        "postal_code": "2600"
+      },
+      "geolocation": {
+        "latitude": 16.4092,
+        "longitude": 120.5986
+      },
+      "metrics": {
+        "sales": 45600,
+        "sales_30d": 45600,
+        "sales_7d": 9200,
+        "growth_rate": 6.9,
+        "customer_count_30d": 336,
+        "average_basket_size": 135.71,
+        "stockouts": 5,
+        "uptime": 96
+      },
+      "top_products": ["Vegetables", "Fruits", "Preserved Goods"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-015",
+      "name": "Linda's Variety Store",
+      "store_type": "Variety Store",
+      "owner": "Linda Palma",
+      "phone": "+63-931-999-0000",
+      "address": {
+        "street": "17 San Jose St.",
+        "barangay": "Jaro",
+        "city_municipality": "Iloilo City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "postal_code": "5000"
+      },
+      "geolocation": {
+        "latitude": 10.7253,
+        "longitude": 122.5768
+      },
+      "metrics": {
+        "sales": 38200,
+        "sales_30d": 38200,
+        "sales_7d": 7700,
+        "growth_rate": 5.9,
+        "customer_count_30d": 281,
+        "average_basket_size": 135.94,
+        "stockouts": 9,
+        "uptime": 92
+      },
+      "top_products": ["RTW Clothes", "School Supplies", "Toys"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-016",
+      "name": "Ernesto's Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Ernesto Santos",
+      "phone": "+63-932-123-4567",
+      "address": {
+        "street": "56 Rizal St.",
+        "barangay": "Sagkahan",
+        "city_municipality": "Tacloban City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "postal_code": "6500"
+      },
+      "geolocation": {
+        "latitude": 11.2487,
+        "longitude": 125.0057
+      },
+      "metrics": {
+        "sales": 33500,
+        "sales_30d": 33500,
+        "sales_7d": 6900,
+        "growth_rate": 5.2,
+        "customer_count_30d": 246,
+        "average_basket_size": 136.18,
+        "stockouts": 11,
+        "uptime": 91
+      },
+      "top_products": ["Groceries", "Soft Drinks", "Cigarettes"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-017",
+      "name": "Gina's Mini Grocery",
+      "store_type": "Mini Grocery",
+      "owner": "Gina Reyes",
+      "phone": "+63-933-456-7890",
+      "address": {
+        "street": "23 Burgos St.",
+        "barangay": "Dinaga",
+        "city_municipality": "Naga City",
+        "province": "Camarines Sur",
+        "region": "Bicol",
+        "postal_code": "4400"
+      },
+      "geolocation": {
+        "latitude": 13.6175,
+        "longitude": 123.7553
+      },
+      "metrics": {
+        "sales": 40200,
+        "sales_30d": 40200,
+        "sales_7d": 8200,
+        "growth_rate": 6.2,
+        "customer_count_30d": 296,
+        "average_basket_size": 135.81,
+        "stockouts": 8,
+        "uptime": 93
+      },
+      "top_products": ["Groceries", "Bread", "Beverages"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-018",
+      "name": "Ricardo's Grocery",
+      "store_type": "Mini Grocery",
+      "owner": "Ricardo Torres",
+      "phone": "+63-934-789-0123",
+      "address": {
+        "street": "15 Rizal St.",
+        "barangay": "Rizal",
+        "city_municipality": "Tacloban City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "postal_code": "6500"
+      },
+      "geolocation": {
+        "latitude": 11.2512,
+        "longitude": 125.0032
+      },
+      "metrics": {
+        "sales": 42900,
+        "sales_30d": 42900,
+        "sales_7d": 8700,
+        "growth_rate": 6.5,
+        "customer_count_30d": 316,
+        "average_basket_size": 135.76,
+        "stockouts": 7,
+        "uptime": 94
+      },
+      "top_products": ["Groceries", "Canned Goods", "Beverages"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-019",
+      "name": "Teresa's Variety Store",
+      "store_type": "Variety Store",
+      "owner": "Teresa Lim",
+      "phone": "+63-935-234-5678",
+      "address": {
+        "street": "78 P. Burgos St.",
+        "barangay": "Aurora Hill",
+        "city_municipality": "Baguio City",
+        "province": "Benguet",
+        "region": "CAR",
+        "postal_code": "2600"
+      },
+      "geolocation": {
+        "latitude": 16.3975,
+        "longitude": 120.5912
+      },
+      "metrics": {
+        "sales": 36700,
+        "sales_30d": 36700,
+        "sales_7d": 7500,
+        "growth_rate": 5.4,
+        "customer_count_30d": 270,
+        "average_basket_size": 135.93,
+        "stockouts": 10,
+        "uptime": 92
+      },
+      "top_products": ["RTW Clothes", "Accessories", "Snacks"],
+      "simulated": true
+    },
+    {
+      "store_id": "sari-020",
+      "name": "Nanay Alice Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Alice Marquez",
+      "phone": "+63-936-345-6789",
+      "address": {
+        "street": "34 Bonifacio St.",
+        "barangay": "La Paz",
+        "city_municipality": "Iloilo City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "postal_code": "5000"
+      },
+      "geolocation": {
+        "latitude": 10.7226,
+        "longitude": 122.5747
+      },
+      "metrics": {
+        "sales": 32800,
+        "sales_30d": 32800,
+        "sales_7d": 6700,
+        "growth_rate": 4.9,
+        "customer_count_30d": 241,
+        "average_basket_size": 136.10,
+        "stockouts": 12,
+        "uptime": 90
+      },
+      "top_products": ["Rice", "Canned Goods", "Snacks"],
+      "simulated": true
+    }
+  ]
+}

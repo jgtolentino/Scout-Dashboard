@@ -1,0 +1,71 @@
+name: slidebuilder
+description: Converts JSON slide schema into editable UI components
+version: 1.0.0
+type: rendering
+
+process:
+  - read_json:
+      input: ${input_file}
+      validate: true
+      schema: slide_schema.json
+  
+  - render_ui:
+      component: SlideEditor
+      props:
+        slides: ${json_data.slides}
+        deckTitle: ${json_data.title}
+        editable: true
+  
+  - save_state:
+      file: ${output_dir}/editor_state.json
+      data:
+        slides: ${json_data.slides}
+        deckTitle: ${json_data.title}
+        lastEdited: ${current_time}
+
+ui_components:
+  - name: SlideEditor
+    source: ../src/components/SlideEditor.jsx
+    
+  - name: Slide
+    source: ../src/components/Slide.jsx
+    
+  - name: FeedbackOverlay
+    source: ../src/components/FeedbackOverlay.jsx
+
+actions:
+  - name: add_slide
+    handler: handleAddSlide
+    params:
+      - position
+      - template
+  
+  - name: delete_slide
+    handler: handleDeleteSlide
+    params:
+      - index
+  
+  - name: update_slide
+    handler: handleUpdateSlide
+    params:
+      - index
+      - field
+      - value
+  
+  - name: reorder_slides
+    handler: handleReorderSlides
+    params:
+      - order_array
+
+hooks:
+  - on_render:
+      - generate_thumbnails
+      - save_backup
+  
+  - on_edit:
+      - validate_content
+      - update_preview
+  
+  - on_export:
+      - optimize_images
+      - generate_pdf

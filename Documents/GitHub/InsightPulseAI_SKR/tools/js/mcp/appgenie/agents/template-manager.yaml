@@ -1,0 +1,857 @@
+id: template-manager
+name: App Template Manager
+description: Renders full-stack code from natural-language specs
+version: 1.0.0
+
+# Runtime configuration
+type: template.handler
+runtime: node18
+entrypoint: scaffolds/index.js
+timeout: 30
+outputs:
+  - dist/**/*
+
+# Input schema
+input_schema:
+  type: object
+  required:
+    - schema_path
+  properties:
+    schema_path:
+      type: string
+      description: "Path to the app schema JSON file"
+    template_name:
+      type: string
+      enum: [default, material, ios, fluent, minimal]
+      default: default
+      description: "Template style to use for the app"
+    customizations:
+      type: object
+      description: "Custom overrides for the template"
+
+# Output schema
+output_schema:
+  type: object
+  required:
+    - app_name
+    - template_name
+    - output_path
+    - screens
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app"
+    template_name:
+      type: string
+      description: "Template used for the app"
+    output_path:
+      type: string
+      description: "Path to the generated template files"
+    screens:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - file_path
+        properties:
+          id:
+            type: string
+            description: "Screen identifier"
+          name:
+            type: string
+            description: "Human-readable screen name"
+          file_path:
+            type: string
+            description: "Path to the generated screen file"
+
+# Function to load app schema
+load_data: |
+  import fs from 'fs';
+  import path from 'path';
+  
+  export function loadAppSchema(schemaPath) {
+    try {
+      const fullPath = path.resolve(schemaPath);
+      if (!fs.existsSync(fullPath)) {
+        throw new Error(`Schema file not found: ${fullPath}`);
+      }
+      
+      const schemaData = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+      return schemaData;
+    } catch (error) {
+      throw new Error(`Failed to load app schema: ${error.message}`);
+    }
+  }
+
+# Function to apply template to app schema
+apply_template: |
+  import fs from 'fs';
+  import path from 'path';
+  
+  // Template definitions
+  const templates = {
+    default: {
+      name: 'Default',
+      style: {
+        borderRadius: '8px',
+        buttonStyle: 'rounded',
+        shadows: 'medium',
+        animations: 'simple',
+        spacing: 'comfortable'
+      },
+      components: {
+        Button: {
+          variants: {
+            primary: {
+              backgroundColor: '{theme.primary_color}',
+              color: '#FFFFFF',
+              fontWeight: 'bold'
+            },
+            secondary: {
+              backgroundColor: 'transparent',
+              color: '{theme.primary_color}',
+              border: '1px solid {theme.primary_color}'
+            },
+            text: {
+              backgroundColor: 'transparent',
+              color: '{theme.primary_color}'
+            }
+          }
+        },
+        Input: {
+          borderWidth: '1px',
+          borderColor: '#E2E8F0',
+          focusBorderColor: '{theme.primary_color}'
+        },
+        Card: {
+          borderRadius: '8px',
+          shadowColor: 'rgba(0, 0, 0, 0.1)',
+          shadowOffset: { width: 0, height: 2 },
+          shadowRadius: 4
+        }
+      }
+    },
+    material: {
+      name: 'Material Design',
+      style: {
+        borderRadius: '4px',
+        buttonStyle: 'contained',
+        shadows: 'strong',
+        animations: 'ripple',
+        spacing: 'compact'
+      },
+      components: {
+        Button: {
+          variants: {
+            primary: {
+              backgroundColor: '{theme.primary_color}',
+              color: '#FFFFFF',
+              elevation: 2
+            },
+            secondary: {
+              backgroundColor: '{theme.secondary_color}',
+              color: '#FFFFFF',
+              elevation: 1
+            },
+            text: {
+              backgroundColor: 'transparent',
+              color: '{theme.primary_color}',
+              elevation: 0
+            }
+          }
+        },
+        Input: {
+          borderWidth: '0',
+          borderBottomWidth: '1px',
+          borderColor: '#BDBDBD',
+          focusBorderColor: '{theme.primary_color}'
+        },
+        Card: {
+          borderRadius: '4px',
+          elevation: 2
+        }
+      }
+    },
+    ios: {
+      name: 'iOS Style',
+      style: {
+        borderRadius: '10px',
+        buttonStyle: 'pill',
+        shadows: 'subtle',
+        animations: 'spring',
+        spacing: 'comfortable'
+      },
+      components: {
+        Button: {
+          variants: {
+            primary: {
+              backgroundColor: '{theme.primary_color}',
+              color: '#FFFFFF',
+              fontWeight: 'semibold'
+            },
+            secondary: {
+              backgroundColor: '#F2F2F7',
+              color: '{theme.primary_color}'
+            },
+            text: {
+              backgroundColor: 'transparent',
+              color: '{theme.primary_color}'
+            }
+          }
+        },
+        Input: {
+          borderWidth: '1px',
+          borderColor: '#E5E5EA',
+          backgroundColor: '#F2F2F7',
+          borderRadius: '10px'
+        },
+        Card: {
+          borderRadius: '10px',
+          shadowColor: 'rgba(0, 0, 0, 0.05)',
+          shadowOffset: { width: 0, height: 1 },
+          shadowRadius: 3
+        }
+      }
+    },
+    fluent: {
+      name: 'Fluent Design',
+      style: {
+        borderRadius: '2px',
+        buttonStyle: 'subtle',
+        shadows: 'light',
+        animations: 'slide',
+        spacing: 'relaxed'
+      },
+      components: {
+        Button: {
+          variants: {
+            primary: {
+              backgroundColor: '{theme.primary_color}',
+              color: '#FFFFFF'
+            },
+            secondary: {
+              backgroundColor: 'transparent',
+              color: '{theme.primary_color}',
+              border: '1px solid {theme.primary_color}'
+            },
+            text: {
+              backgroundColor: 'transparent',
+              color: '{theme.primary_color}'
+            }
+          }
+        },
+        Input: {
+          borderWidth: '2px',
+          borderColor: '#EDEBE9',
+          focusBorderColor: '{theme.primary_color}'
+        },
+        Card: {
+          borderRadius: '2px',
+          shadowColor: 'rgba(0, 0, 0, 0.07)',
+          shadowOffset: { width: 0, height: 2 },
+          shadowRadius: 3
+        }
+      }
+    },
+    minimal: {
+      name: 'Minimal',
+      style: {
+        borderRadius: '0px',
+        buttonStyle: 'flat',
+        shadows: 'none',
+        animations: 'fade',
+        spacing: 'tight'
+      },
+      components: {
+        Button: {
+          variants: {
+            primary: {
+              backgroundColor: '{theme.primary_color}',
+              color: '#FFFFFF'
+            },
+            secondary: {
+              backgroundColor: 'transparent',
+              color: '{theme.primary_color}',
+              borderBottom: '2px solid {theme.primary_color}'
+            },
+            text: {
+              backgroundColor: 'transparent',
+              color: '{theme.primary_color}'
+            }
+          }
+        },
+        Input: {
+          borderWidth: '0',
+          borderBottomWidth: '1px',
+          borderColor: '#DADADA'
+        },
+        Card: {
+          borderRadius: '0px',
+          borderLeft: '3px solid {theme.primary_color}',
+          backgroundColor: '#FAFAFA'
+        }
+      }
+    }
+  };
+  
+  // Apply template to an app schema
+  export function applyTemplate(appSchema, templateName = 'default', customizations = {}) {
+    // Get the selected template
+    const template = templates[templateName] || templates.default;
+    
+    // Apply customizations to the template
+    const finalTemplate = {
+      ...template,
+      style: { ...template.style, ...(customizations.style || {}) },
+      components: { ...template.components, ...(customizations.components || {}) }
+    };
+    
+    // Create output directory
+    const outputDir = `./src/screens/${appSchema.app_name.toLowerCase().replace(/\s+/g, '_')}`;
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+    
+    // Generate screen files
+    const screenResults = appSchema.screens.map(screen => {
+      const screenFileName = `${screen.id}.jsx`;
+      const screenFilePath = path.join(outputDir, screenFileName);
+      
+      // Generate the React component for this screen
+      const screenContent = generateScreenComponent(screen, appSchema, finalTemplate);
+      
+      // Save the file
+      fs.writeFileSync(screenFilePath, screenContent);
+      
+      return {
+        id: screen.id,
+        name: screen.name,
+        file_path: screenFilePath
+      };
+    });
+    
+    // Generate navigation file
+    const navigationFilePath = path.join(outputDir, 'AppNavigation.jsx');
+    const navigationContent = generateNavigationFile(appSchema, screenResults);
+    fs.writeFileSync(navigationFilePath, navigationContent);
+    
+    // Generate theme file
+    const themeFilePath = path.join(outputDir, 'theme.js');
+    const themeContent = generateThemeFile(appSchema, finalTemplate);
+    fs.writeFileSync(themeFilePath, themeContent);
+    
+    // Generate app config file
+    const configFilePath = path.join(outputDir, 'app.config.js');
+    const configContent = generateAppConfigFile(appSchema, finalTemplate);
+    fs.writeFileSync(configFilePath, configContent);
+    
+    return {
+      app_name: appSchema.app_name,
+      template_name: templateName,
+      output_path: outputDir,
+      screens: screenResults
+    };
+  }
+  
+  // Helper function to generate React component for a screen
+  function generateScreenComponent(screen, appSchema, template) {
+    const imports = `import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { useTheme } from '../theme';
+import { 
+  ${getComponentImports(screen.components)}
+} from '../components';
+`;
+
+    const componentStart = `
+const ${toPascalCase(screen.id)}Screen = ({ navigation, route }) => {
+  const theme = useTheme();
+  
+  ${generateStateHooks(screen, appSchema)}
+  
+  ${generateEffectHooks(screen, appSchema)}
+  
+  ${generateEventHandlers(screen, appSchema)}
+  
+  return (
+    <ScrollView style={styles.container}>
+`;
+
+    const componentContent = generateComponentRender(screen.components, template);
+
+    const componentEnd = `
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+  },
+  ${generateComponentStyles(screen.components, template)}
+});
+
+export default ${toPascalCase(screen.id)}Screen;
+`;
+
+    return imports + componentStart + componentContent + componentEnd;
+  }
+  
+  // Helper functions for component generation
+  function getComponentImports(components) {
+    const uniqueComponentTypes = [...new Set(components.map(c => c.type))];
+    return uniqueComponentTypes.join(', ');
+  }
+  
+  function generateStateHooks(screen, appSchema) {
+    // Simple sample state hooks based on components
+    const stateHooks = [];
+    
+    const hasInputs = screen.components.some(c => c.type === 'Input');
+    if (hasInputs) {
+      stateHooks.push(`const [formValues, setFormValues] = useState({});`);
+    }
+    
+    const hasList = screen.components.some(c => c.type === 'List');
+    if (hasList) {
+      stateHooks.push(`const [listData, setListData] = useState([]);`);
+      stateHooks.push(`const [loading, setLoading] = useState(false);`);
+    }
+    
+    return stateHooks.join('\n  ');
+  }
+  
+  function generateEffectHooks(screen, appSchema) {
+    // Simple sample effect hooks based on components
+    const effectHooks = [];
+    
+    const hasList = screen.components.some(c => c.type === 'List');
+    if (hasList) {
+      effectHooks.push(`useEffect(() => {
+    // Fetch data for list components
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        // Replace with actual data fetching logic
+        const data = [];
+        setListData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);`);
+    }
+    
+    return effectHooks.join('\n\n  ');
+  }
+  
+  function generateEventHandlers(screen, appSchema) {
+    // Simple sample event handlers based on components
+    const eventHandlers = [];
+    
+    const hasButtons = screen.components.some(c => c.type === 'Button');
+    if (hasButtons) {
+      eventHandlers.push(`const handleButtonPress = (buttonId) => {
+    console.log('Button pressed:', buttonId);
+    
+    // Handle navigation based on button
+    ${generateNavigationHandlers(screen)}
+  };`);
+    }
+    
+    const hasInputs = screen.components.some(c => c.type === 'Input');
+    if (hasInputs) {
+      eventHandlers.push(`const handleInputChange = (inputId, value) => {
+    setFormValues(prev => ({
+      ...prev,
+      [inputId]: value
+    }));
+  };`);
+    }
+    
+    return eventHandlers.join('\n\n  ');
+  }
+  
+  function generateNavigationHandlers(screen) {
+    if (!screen.navigation || screen.navigation.length === 0) {
+      return '// No navigation defined for this screen';
+    }
+    
+    return screen.navigation.map(nav => {
+      const [componentId, action] = nav.action.split('.');
+      return `if (buttonId === '${componentId}') {
+      navigation.navigate('${nav.target}');
+    }`;
+    }).join('\n    ');
+  }
+  
+  function generateComponentRender(components, template) {
+    if (!components || components.length === 0) {
+      return '      <Text>No components defined for this screen</Text>';
+    }
+    
+    const componentRenders = components.map(component => {
+      switch (component.type) {
+        case 'Text':
+          return `      <Text 
+        style={styles.${component.id}}
+      >
+        ${component.props.content || 'Text content'}
+      </Text>`;
+        
+        case 'Button':
+          return `      <Button 
+        id="${component.id}"
+        label="${component.props.label || 'Button'}"
+        variant="${component.props.variant || 'primary'}"
+        onPress={() => handleButtonPress('${component.id}')}
+        style={styles.${component.id}}
+      />`;
+        
+        case 'Input':
+          return `      <Input 
+        id="${component.id}"
+        label="${component.props.label || ''}"
+        placeholder="${component.props.placeholder || ''}"
+        value={formValues.${component.id} || ''}
+        onChangeText={(text) => handleInputChange('${component.id}', text)}
+        style={styles.${component.id}}
+      />`;
+        
+        case 'List':
+          return `      <List 
+        data={listData}
+        renderItem={({ item }) => (
+          <Text>{item.title}</Text>
+        )}
+        loading={loading}
+        style={styles.${component.id}}
+      />`;
+        
+        case 'Container':
+          return `      <View style={styles.${component.id}}>
+        {/* Container content */}
+      </View>`;
+        
+        case 'Image':
+          return `      <Image 
+        source={{ uri: '${component.props.source || 'https://via.placeholder.com/150'}' }}
+        style={[styles.${component.id}, { width: ${component.props.width || 150}, height: ${component.props.height || 150} }]}
+      />`;
+        
+        default:
+          return `      <View style={styles.${component.id}}>
+        <Text>Component type '${component.type}' rendering</Text>
+      </View>`;
+      }
+    });
+    
+    return componentRenders.join('\n\n');
+  }
+  
+  function generateComponentStyles(components, template) {
+    if (!components || components.length === 0) {
+      return '';
+    }
+    
+    return components.map(component => {
+      let baseStyle = '';
+      
+      switch (component.type) {
+        case 'Text':
+          baseStyle = `
+  ${component.id}: {
+    fontSize: ${component.props.fontSize || 16},
+    color: '${component.props.color || '#000000'}',
+    ${component.props.fontWeight ? `fontWeight: '${component.props.fontWeight}',` : ''}
+    ${component.props.textAlign ? `textAlign: '${component.props.textAlign}',` : ''}
+    ${component.props.marginBottom ? `marginBottom: ${component.props.marginBottom},` : ''}
+  }`;
+          break;
+        
+        case 'Button':
+          baseStyle = `
+  ${component.id}: {
+    ${component.props.marginTop ? `marginTop: ${component.props.marginTop},` : ''}
+    ${component.props.marginBottom ? `marginBottom: ${component.props.marginBottom},` : ''}
+    borderRadius: ${template.style.borderRadius || '8px'},
+  }`;
+          break;
+        
+        case 'Input':
+          baseStyle = `
+  ${component.id}: {
+    marginBottom: 16,
+    borderRadius: ${template.style.borderRadius || '8px'},
+  }`;
+          break;
+        
+        case 'Container':
+          baseStyle = `
+  ${component.id}: {
+    ${component.props.direction === 'row' ? 'flexDirection: \'row\',' : ''}
+    ${component.props.alignItems ? `alignItems: '${component.props.alignItems}',` : ''}
+    ${component.props.justifyContent ? `justifyContent: '${component.props.justifyContent}',` : ''}
+    ${component.props.padding ? `padding: ${component.props.padding},` : ''}
+    ${component.props.marginTop ? `marginTop: ${component.props.marginTop},` : ''}
+    ${component.props.marginBottom ? `marginBottom: ${component.props.marginBottom},` : ''}
+  }`;
+          break;
+        
+        case 'Image':
+          baseStyle = `
+  ${component.id}: {
+    borderRadius: ${component.props.borderRadius || 0},
+    ${component.props.marginBottom ? `marginBottom: ${component.props.marginBottom},` : ''}
+  }`;
+          break;
+        
+        case 'List':
+          baseStyle = `
+  ${component.id}: {
+    marginTop: 8,
+    marginBottom: 8,
+  }`;
+          break;
+        
+        default:
+          baseStyle = `
+  ${component.id}: {
+    marginVertical: 8,
+  }`;
+      }
+      
+      return baseStyle;
+    }).join('');
+  }
+  
+  // Navigation file generator
+  function generateNavigationFile(appSchema, screenResults) {
+    const imports = `import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+${screenResults.map(screen => `import ${toPascalCase(screen.id)}Screen from './${screen.id}';`).join('\n')}
+
+const Stack = createStackNavigator();
+`;
+
+    const navigationComponent = `
+const AppNavigation = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator 
+        initialRouteName="${screenResults[0]?.id || 'Home'}"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#FFFFFF',
+          },
+          headerTintColor: '#000000',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
+        ${screenResults.map(screen => `<Stack.Screen name="${screen.id}" component={${toPascalCase(screen.id)}Screen} options={{ title: "${screen.name}" }} />`).join('\n        ')}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default AppNavigation;
+`;
+
+    return imports + navigationComponent;
+  }
+  
+  // Theme file generator
+  function generateThemeFile(appSchema, template) {
+    return `import React, { createContext, useContext } from 'react';
+
+// Theme based on app schema and selected template
+const themeConfig = {
+  // Colors
+  colors: {
+    primary: '${appSchema.theme.primary_color}',
+    secondary: '${appSchema.theme.secondary_color}',
+    accent: '${appSchema.theme.accent_color || '#FFC107'}',
+    background: '#FFFFFF',
+    text: '#000000',
+    textSecondary: '#757575',
+    border: '#E2E8F0',
+    success: '#4CAF50',
+    warning: '#FFC107',
+    error: '#F44336',
+  },
+  
+  // Typography
+  typography: {
+    fontFamily: '${appSchema.theme.font_family || 'System'}',
+    fontSize: {
+      small: 12,
+      medium: 16,
+      large: 20,
+      xlarge: 24,
+      xxlarge: 32,
+    },
+    fontWeight: {
+      regular: 'normal',
+      medium: '500',
+      bold: 'bold',
+    },
+  },
+  
+  // Spacing
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+    xxl: 48,
+  },
+  
+  // Template style
+  style: ${JSON.stringify(template.style, null, 2)},
+  
+  // Component styles
+  components: ${JSON.stringify(template.components, null, 2)},
+};
+
+// Create theme context
+const ThemeContext = createContext(themeConfig);
+
+// Theme provider component
+export const ThemeProvider = ({ children }) => {
+  return (
+    <ThemeContext.Provider value={themeConfig}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+// Hook to use theme
+export const useTheme = () => useContext(ThemeContext);
+
+export default themeConfig;
+`;
+  }
+  
+  // App config generator
+  function generateAppConfigFile(appSchema, template) {
+    return `export default {
+  name: '${appSchema.app_name}',
+  description: '${appSchema.app_description}',
+  version: '1.0.0',
+  template: '${template.name}',
+  
+  // Expo/React Native config
+  expo: {
+    name: '${appSchema.app_name}',
+    slug: '${appSchema.app_name.toLowerCase().replace(/\s+/g, '-')}',
+    version: '1.0.0',
+    orientation: 'portrait',
+    icon: './assets/icon.png',
+    splash: {
+      image: './assets/splash.png',
+      resizeMode: 'contain',
+      backgroundColor: '${appSchema.theme.primary_color}'
+    },
+    updates: {
+      fallbackToCacheTimeout: 0
+    },
+    assetBundlePatterns: [
+      '**/*'
+    ],
+    ios: {
+      supportsTablet: true
+    },
+    android: {
+      adaptiveIcon: {
+        foregroundImage: './assets/adaptive-icon.png',
+        backgroundColor: '${appSchema.theme.primary_color}'
+      }
+    },
+    web: {
+      favicon: './assets/favicon.png'
+    }
+  },
+  
+  // Data model definitions for reference
+  dataModels: ${JSON.stringify(appSchema.data_model, null, 2)}
+};
+`;
+  }
+  
+  // Utility functions
+  function toPascalCase(str) {
+    return str
+      .split(/[^a-zA-Z0-9]/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
+  }
+
+# Execution steps
+steps:
+  # Load app schema from file
+  - action: run_code
+    code: |
+      const { schema_path, template_name = 'default', customizations = {} } = input;
+      
+      // Import the necessary functions
+      const { loadAppSchema } = await import('./load_data.js');
+      const { applyTemplate } = await import('./apply_template.js');
+      
+      // Load the app schema
+      const appSchema = loadAppSchema(schema_path);
+      
+      // Apply template to generate files
+      const result = applyTemplate(appSchema, template_name, customizations);
+      
+      return result;
+  
+  # Log the results
+  - action: log
+    message: "Applied template '{{ template_name }}' to '{{ app_name }}' - generated files in {{ output_path }}"
+
+# Lifecycle hooks
+on_start:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.template-manager.start', {
+        agent: 'template-manager',
+        schema_path: input.schema_path,
+        template_name: input.template_name || 'default',
+        has_customizations: Object.keys(input.customizations || {}).length > 0,
+        timestamp: new Date().toISOString()
+      });
+
+on_finish:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.template-manager.finish', {
+        agent: 'template-manager',
+        app_name: output.app_name,
+        template_name: output.template_name,
+        output_path: output.output_path,
+        files_created: output.files_created,
+        timestamp: new Date().toISOString()
+      });
+
+# Post-processing hooks
+post_process:
+  - action: next_step
+    agent: ui-editor
+    with:
+      app_name: "{{ app_name }}"
+      template_name: "{{ template_name }}"
+      screens_dir: "{{ output_path }}"

@@ -1,0 +1,23 @@
+{
+  "exported_at": "2025-05-24T01:03:20.383Z",
+  "connector_stats": {
+    "queriesExecuted": 0,
+    "queriesCached": 0,
+    "errors": 0,
+    "lastConnectAttempt": "2025-05-24T01:03:20.181Z",
+    "lastUpdated": null,
+    "simulationMode": true,
+    "cacheEnabled": true,
+    "cacheEntries": 0,
+    "timestamp": "2025-05-24T01:03:20.383Z"
+  },
+  "files_generated": [
+    "kpis.json",
+    "top_stores.json",
+    "regional_performance.json",
+    "brands.json",
+    "brand_distribution.json",
+    "insights.json",
+    "data_freshness.json"
+  ]
+}

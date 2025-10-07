@@ -1,0 +1,65 @@
+{
+  "title": "VisionAI: Transforming HR with Intelligent Automation",
+  "description": "A product launch presentation introducing VisionAI's HR assistant capabilities to HR executives.",
+  "slides": [
+    {
+      "title": "Introducing VisionAI for HR",
+      "subtitle": "AI-powered assistance for modern HR teams",
+      "bullets": [
+        "Intelligent automation for routine HR processes",
+        "Built with security and compliance at its core",
+        "Proven to reduce administrative workload by 65%"
+      ],
+      "image_prompt": "Sleek, professional visualization of AI assistant helping HR professional with multiple tasks simultaneously",
+      "notes": "Emphasize how VisionAI was built specifically for HR workflows, not a general AI tool."
+    },
+    {
+      "title": "The HR Challenge Today",
+      "subtitle": "What's holding your team back?",
+      "bullets": [
+        "HR teams spend 73% of time on administrative tasks",
+        "Compliance requirements growing 32% YoY",
+        "Talent expects responsive, 24/7 HR support",
+        "Manual processes lead to inconsistent decisions"
+      ],
+      "image_prompt": "Split screen showing overwhelmed HR professional with mountains of paperwork vs organized HR dashboard",
+      "notes": "Pause after presenting these statistics to let them sink in. These are industry-wide problems that the audience will relate to."
+    },
+    {
+      "title": "VisionAI Capabilities",
+      "subtitle": "Intelligent automation for every HR function",
+      "bullets": [
+        "Candidate screening & matching: 8x faster hiring cycles",
+        "Employee onboarding: 100% documentation compliance",
+        "Performance reviews: Data-driven insights & bias detection",
+        "Policy Q&A: Instant, accurate answers to employee questions"
+      ],
+      "image_prompt": "Four-quadrant visual showing each capability with simple icons and flow diagrams",
+      "notes": "Each of these capabilities can be deployed independently or as a complete suite, depending on needs."
+    },
+    {
+      "title": "Implementation & Results",
+      "subtitle": "Real outcomes from early adopters",
+      "bullets": [
+        "Fortune 500 retail: 87% reduction in onboarding time",
+        "Global technology firm: $3.2M annual savings",
+        "Healthcare network: 94% employee satisfaction rating",
+        "Full deployment in as little as 6 weeks"
+      ],
+      "image_prompt": "Clean graph showing before/after metrics with company logos and testimonial snippets",
+      "notes": "We have case studies available for each of these implementations that we can share after the presentation."
+    },
+    {
+      "title": "Next Steps with VisionAI",
+      "subtitle": "Begin your HR transformation",
+      "bullets": [
+        "Schedule a personalized demo",
+        "30-day pilot program with your actual HR data",
+        "Dedicated implementation specialist",
+        "Seamless integration with existing HRIS systems"
+      ],
+      "image_prompt": "Clear call-to-action visual with a simple 3-step process and contact information",
+      "notes": "Offer to take questions, then direct interested parties to the demo sign-up in the lobby."
+    }
+  ]
+}

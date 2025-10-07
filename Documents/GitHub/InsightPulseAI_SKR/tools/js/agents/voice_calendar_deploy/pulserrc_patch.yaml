@@ -1,0 +1,39 @@
+name: voice_calendar_deploy
+description: "Agent for handling specific tasks"
+version: "1.0.0"
+status: active
+# Voice Calendar Agent - Pulser Runtime Configuration Patch
+# Add this to your .pulserrc file
+
+tasks:
+  - id: voice_calendar
+    entrypoint: agents/voice_calendar.agent.yaml
+    description: Handles end-to-end calendar requests via voice
+    aliases: [":voice_calendar"]
+    icon: 🗓️
+
+commands:
+  voice_calendar:
+    description: "Process voice calendar commands with speech recognition"
+    script: "pulser task run voice_calendar"
+    aliases: [":voice_calendar"]
+
+integrations:
+  google_calendar:
+    enabled: true
+    credentials_path: ~/.credentials/google_calendar/
+    scopes:
+      - https://www.googleapis.com/auth/calendar
+      - https://www.googleapis.com/auth/calendar.events
+    
+  elevenlabs:
+    enabled: true
+    # Set API key in .env file or environment variables
+    voice: Rachel
+    model: eleven_multilingual_v2
+    
+  echo:
+    stt_engine: whisper
+    language: en
+    model: medium
+    device: cuda  # Use 'cpu' if no GPU available

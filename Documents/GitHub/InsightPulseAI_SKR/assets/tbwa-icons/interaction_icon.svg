@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  </style>
+  <!-- Interaction Data Icon -->
+  <rect x="10" y="10" width="100" height="100" fill="#FF6A00" rx="10" ry="10" />
+  <rect x="20" y="20" width="80" height="80" fill="#FFFFFF" rx="5" ry="5" />
+  
+  <!-- Speech bubbles -->
+  <path d="M30 40 L70 40 C75 40 80 45 80 50 L80 60 C80 65 75 70 70 70 L55 70 L45 80 L45 70 L30 70 C25 70 20 65 20 60 L20 50 C20 45 25 40 30 40 Z" fill="#FF6A00" />
+  
+  <!-- User silhouette in bubble -->
+  <circle cx="40" cy="55" r="5" fill="#FFFFFF" />
+  <path d="M32 65 C32 60 48 60 48 65" fill="#FFFFFF" />
+  
+  <text x="60" y="100" text-anchor="middle" font-size="14" font-weight="bold">Interaction</text>
+</svg>

@@ -1,0 +1,298 @@
+---
+# Juicer GenAI Insights Hook Configuration for Claudia/Maya Routing
+# Version: 1.0
+# This file configures integration between Juicer insights generation and the Pulser agent system
+name: juicer_insights_hook
+version: "1.0"
+description: "Configuration for GenAI insights generation in the Juicer platform, with Pulser CLI and agent routing"
+
+# Define the trigger patterns that activate Insights functionality
+triggers:
+  # Command patterns that directly invoke Insights feature
+  commands:
+    - pattern: "^:juicer\\s+insights\\s+(.+)$"
+      description: "Direct insights generation command"
+      action: "generate_insights"
+      priority: 100
+    
+    - pattern: "^:juicer\\s+summarize\\s+(.+)$"
+      description: "Transcript summarization command"
+      action: "generate_insights"
+      priority: 95
+      
+    # Natural language patterns that suggest insights queries
+    natural_language:
+      - pattern: "(extract|generate|create)\\s+(insights|summaries|analysis).+(transcript|call|conversation)"
+        description: "Insights generation request"
+        action: "generate_insights"
+        priority: 90
+      
+      - pattern: "(what|any|find|show).+(trends|patterns|insights).+(data|brand|transcript|customer)"
+        description: "Trends and patterns request"
+        action: "show_insights"
+        priority: 85
+      
+      - pattern: "(dashboard|visualization|chart|graph).+(insight|trend|pattern)"
+        description: "Insight visualization request"
+        action: "visualize_insights"
+        priority: 80
+
+# Agent routing configuration
+routing:
+  # Define which agents handle which insights tasks
+  handlers:
+    - name: "Claudia"
+      capabilities:
+        - "insights_command_routing"
+        - "insights_nl_interpretation"
+      priority: 100
+    
+    - name: "Maya"
+      capabilities:
+        - "insights_visualization"
+        - "insights_documentation"
+      priority: 90
+    
+    - name: "Kalaw"
+      capabilities:
+        - "insights_knowledge_integration"
+        - "insights_context_fetching"
+      priority: 85
+    
+    - name: "Echo"
+      capabilities:
+        - "insights_content_analysis"
+        - "insights_sentiment_validation"
+      priority: 80
+      
+    - name: "Sunnies"
+      capabilities:
+        - "insights_chart_generation"
+        - "insights_dashboard_integration"
+      priority: 75
+
+# Action handlers map trigger actions to specific implementations
+action_handlers:
+  generate_insights:
+    description: "Generate insights from transcript data"
+    implementation: "insights_generator"
+    params:
+      model: "claude"  # claude, openai, deepseek, auto
+      insight_types: ["general", "brand", "sentiment", "trend"]
+      time_range_days: 7
+      min_confidence: 0.6
+      generate_dashboard: true
+  
+  show_insights:
+    description: "Display existing insights"
+    implementation: "insights_viewer"
+    params:
+      filter_type: "all"  # all, general, brand, sentiment, trend
+      sort_by: "confidence"  # confidence, date, type
+      format: "rich_text"
+      max_results: 10
+  
+  visualize_insights:
+    description: "Create visualizations from insights"
+    implementation: "insights_visualizer"
+    params:
+      chart_type: "auto"  # auto, bar, line, heatmap, bubble
+      group_by: "brand"  # brand, type, sentiment, date
+      theme: "tbwa"
+      interactive: true
+
+# Integration with Databricks notebooks
+databricks_integration:
+  # Notebook configuration
+  notebooks:
+    - name: "insights_generation"
+      path: "/juicer/juicer_gold_insights"
+      description: "Generate insights from Gold layer data"
+      parameters:
+        date: "7d"  # Default to last 7 days
+        model: "claude"
+        generate_dashboard: true
+    
+    - name: "insights_dashboard_update"
+      path: "/juicer/juicer_insights_dashboard"
+      description: "Update insights dashboards"
+      parameters:
+        refresh_interval: 3600
+        dashboard_id: "agent_insights_overview"
+  
+  # Job configurations for scheduled operations
+  jobs:
+    - name: "juicer_insights_daily"
+      notebook_path: "/juicer/juicer_gold_insights"
+      schedule: "0 6 * * *"  # Daily at 6:00 AM
+      description: "Generate daily insights from transcripts"
+      parameters:
+        date: "1d"  # Last day
+        model: "claude"
+    
+    - name: "juicer_insights_weekly"
+      notebook_path: "/juicer/juicer_gold_insights"
+      schedule: "0 7 * * 1"  # Weekly on Monday at 7:00 AM
+      description: "Generate weekly insights summary"
+      parameters:
+        date: "7d"  # Last 7 days
+        model: "auto"  # Try multiple models for weekly summary
+
+# Agent-specific configurations
+agent_configs:
+  Claudia:
+    prompt_template: |
+      You are analyzing customer interaction data for {brand} from {start_date} to {end_date}.
+      
+      Focus on these key areas:
+      1. Brand sentiment and loyalty indicators
+      2. Competitive comparisons
+      3. Product feature feedback
+      4. Customer pain points
+      
+      Use structured analysis to extract actionable insights.
+  
+  Echo:
+    validation_rules:
+      - "Ensure sentiment scores align with textual descriptions"
+      - "Verify brand mentions match known brand taxonomy"
+      - "Check statistical significance of reported trends"
+      - "Validate citation of specific transcript examples"
+  
+  Kalaw:
+    knowledge_integration:
+      - source: "brand_sentiment_history"
+        lookback_window: "90d"
+        weight: 0.8
+      - source: "customer_segment_profiles"
+        lookback_window: "180d"
+        weight: 0.6
+  
+  Maya:
+    documentation_templates:
+      - "brand_impact_report"
+      - "trend_analysis_summary"
+      - "executive_dashboard_brief"
+      - "competitive_positioning_memo"
+  
+  Sunnies:
+    visualization_templates:
+      - name: "brand_sentiment_heatmap"
+        description: "Brand sentiment across time periods"
+        default_dimensions: ["brand", "date", "sentiment"]
+      - name: "trend_emergence_chart"
+        description: "Timeline of emerging trends with confidence intervals"
+        default_dimensions: ["trend", "date", "confidence"]
+      - name: "competitive_position_bubble"
+        description: "Brand positioning relative to competitors"
+        default_dimensions: ["brand", "sentiment", "mention_count"]
+
+# SQL templates for common insights queries
+sql_templates:
+  latest_insights:
+    template: |
+      SELECT 
+        insight_id,
+        insight_type,
+        insight_title,
+        insight_text,
+        confidence_score,
+        array_join(brands_mentioned, ', ') AS brands,
+        array_join(summary_tags, ', ') AS tags,
+        processing_timestamp
+      FROM 
+        insight_pulse_ai.platinum.genai_insights
+      WHERE 
+        processing_timestamp >= CURRENT_DATE - INTERVAL {{ time_range }}
+        {% if insight_type %}AND insight_type = '{{ insight_type }}'{% endif %}
+        {% if brand %}AND array_contains(brands_mentioned, '{{ brand }}'){% endif %}
+      ORDER BY 
+        confidence_score DESC, processing_timestamp DESC
+      {% if limit %}LIMIT {{ limit }}{% endif %}
+    
+  insights_by_brand:
+    template: |
+      WITH brand_insights AS (
+        SELECT 
+          insight_id,
+          insight_type,
+          insight_title,
+          insight_text,
+          confidence_score,
+          explode(brands_mentioned) AS brand,
+          processing_timestamp
+        FROM 
+          insight_pulse_ai.platinum.genai_insights
+        WHERE 
+          processing_timestamp >= CURRENT_DATE - INTERVAL {{ time_range }}
+          {% if insight_type %}AND insight_type = '{{ insight_type }}'{% endif %}
+      )
+      SELECT 
+        brand,
+        COUNT(*) AS insight_count,
+        AVG(confidence_score) AS avg_confidence,
+        COLLECT_LIST(STRUCT(insight_title, confidence_score)) AS top_insights
+      FROM 
+        brand_insights
+      {% if brand %}WHERE brand = '{{ brand }}'{% endif %}
+      GROUP BY 
+        brand
+      ORDER BY 
+        insight_count DESC, avg_confidence DESC
+      {% if limit %}LIMIT {{ limit }}{% endif %}
+
+  trending_tags:
+    template: |
+      WITH flattened_tags AS (
+        SELECT 
+          explode(summary_tags) AS tag,
+          insight_type,
+          confidence_score,
+          processing_timestamp
+        FROM 
+          insight_pulse_ai.platinum.genai_insights
+        WHERE 
+          processing_timestamp >= CURRENT_DATE - INTERVAL {{ time_range }}
+          {% if insight_type %}AND insight_type = '{{ insight_type }}'{% endif %}
+      )
+      SELECT 
+        tag,
+        COUNT(*) AS tag_count,
+        AVG(confidence_score) AS avg_confidence,
+        insight_type
+      FROM 
+        flattened_tags
+      GROUP BY 
+        tag, insight_type
+      HAVING 
+        tag_count >= {{ min_count|default(3) }}
+      ORDER BY 
+        tag_count DESC, avg_confidence DESC
+      {% if limit %}LIMIT {{ limit }}{% endif %}
+
+# Help documentation
+help:
+  overview: |
+    Juicer Insights uses GenAI to transform transcript data into actionable business intelligence.
+    It connects Databricks' analytics capabilities with LLMs to provide automated, high-quality insights.
+  
+  commands:
+    - name: ":juicer insights generate"
+      syntax: ":juicer insights generate [--date YYYY-MM-DD] [--days N] [--model MODEL]"
+      description: "Generate insights from transcript data"
+      example: ":juicer insights generate --days 7 --model claude"
+    
+    - name: ":juicer insights show"
+      syntax: ":juicer insights show [--type TYPE] [--brand BRAND] [--limit N]"
+      description: "Display generated insights"
+      example: ":juicer insights show --type brand --brand Jollibee --limit 5"
+    
+    - name: ":juicer insights visualize"
+      syntax: ":juicer insights visualize [--type CHART_TYPE] [--group GROUP_BY]"
+      description: "Create visualizations from insights"
+      example: ":juicer insights visualize --type heatmap --group brand"
+    
+    - name: ":juicer summarize"
+      syntax: ":juicer summarize [--date YYYY-MM-DD] [--days N]"
+      description: "Generate and show insights summary"
+      example: ":juicer summarize --days 30"

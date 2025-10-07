@@ -1,0 +1,12 @@
+{
+  "name": "InsightPulseAI_SKR",
+  "root": "/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR",
+  "description": "https://github.com/jgtolentino/Scout-Dashboard.git",
+  "stack": [],
+  "commands": {
+    "dev": "npm run dev",
+    "build": "npm run build",
+    "test": "npm test",
+    "deploy": "git push origin main"
+  }
+}

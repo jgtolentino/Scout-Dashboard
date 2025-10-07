@@ -1,0 +1,215 @@
+{
+  "data": {
+    "overview": {
+      "kpis": [
+        {
+          "name": "Total Revenue",
+          "value": "$1.24M",
+          "change": 12,
+          "trend": "up"
+        },
+        {
+          "name": "Transactions",
+          "value": "15,872",
+          "change": 8,
+          "trend": "up"
+        },
+        {
+          "name": "Average Order Value",
+          "value": "$78.42",
+          "change": 3,
+          "trend": "up"
+        },
+        {
+          "name": "Profit Margin",
+          "value": "22%",
+          "change": -1,
+          "trend": "down"
+        }
+      ],
+      "alerts": [
+        {
+          "insightId": "ins-003",
+          "type": "risk_alert",
+          "urgency": "high",
+          "title": "Customer service satisfaction declining in Quick Bites locations",
+          "summary": "Customer service sentiment has dropped 3.2% over the past month, with most negative mentions coming from Quick Bites locations."
+        },
+        {
+          "insightId": "ins-002",
+          "type": "opportunity",
+          "urgency": "high",
+          "title": "Premium coffee driving positive brand sentiment",
+          "summary": "Premium coffee offerings are generating strong positive sentiment and mentions have increased 22.3% in the last month."
+        },
+        {
+          "insightId": "ins-004",
+          "type": "competitive_intelligence",
+          "urgency": "medium",
+          "title": "Mobile app usage growing but satisfaction stagnant",
+          "summary": "Mobile app mentions have increased 18.9%, but sentiment remains moderate. Competitor apps are receiving higher satisfaction ratings."
+        }
+      ]
+    },
+    "storePerformance": {
+      "totalStores": 156,
+      "topPerformer": {
+        "id": "store-112",
+        "name": "Store #112",
+        "revenue": "$248K"
+      },
+      "storeEfficiency": "94.3%",
+      "stockAccuracy": "98.7%",
+      "topStores": [
+        {
+          "id": "store-112",
+          "name": "Flagship Downtown",
+          "sales": "$248,500",
+          "growth": 15.3,
+          "traffic": 12850
+        },
+        {
+          "id": "store-095",
+          "name": "West Mall Express",
+          "sales": "$198,720",
+          "growth": 12.8,
+          "traffic": 15320
+        },
+        {
+          "id": "store-078",
+          "name": "North Center Standard",
+          "sales": "$187,450",
+          "growth": 9.2,
+          "traffic": 10980
+        },
+        {
+          "id": "store-142",
+          "name": "Airport Terminal 3",
+          "sales": "$176,890",
+          "growth": 7.5,
+          "traffic": 9540
+        },
+        {
+          "id": "store-056",
+          "name": "South Point Flagship",
+          "sales": "$168,340",
+          "growth": 5.2,
+          "traffic": 10120
+        }
+      ],
+      "regionPerformance": [
+        {
+          "region": "North",
+          "totalSales": "$980,450",
+          "growth": 8.7,
+          "storeCount": 42
+        },
+        {
+          "region": "South",
+          "totalSales": "$875,320",
+          "growth": 6.5,
+          "storeCount": 38
+        },
+        {
+          "region": "East",
+          "totalSales": "$1,124,780",
+          "growth": 12.3,
+          "storeCount": 45
+        },
+        {
+          "region": "West",
+          "totalSales": "$1,056,340",
+          "growth": 10.8,
+          "storeCount": 31
+        }
+      ]
+    },
+    "productPerformance": {
+      "topProducts": [
+        {
+          "name": "Premium Coffee Bundle",
+          "category": "Beverages",
+          "brand": "Coffee Supreme",
+          "sales": "$122,835",
+          "units": 24567,
+          "growth": 14.5
+        },
+        {
+          "name": "Family Meal Deal",
+          "category": "Combos",
+          "brand": "Value Express",
+          "sales": "$115,740",
+          "units": 15432,
+          "growth": 18.2
+        },
+        {
+          "name": "Value Breakfast Sandwich",
+          "category": "Breakfast",
+          "brand": "Quick Bites",
+          "sales": "$101,153",
+          "units": 28901,
+          "growth": 9.7
+        },
+        {
+          "name": "Premium Chicken Sandwich",
+          "category": "Entrees",
+          "brand": "Premium Eats",
+          "sales": "$92,160",
+          "units": 18432,
+          "growth": 0.2
+        },
+        {
+          "name": "Signature Dessert Box",
+          "category": "Desserts",
+          "brand": "Fresh Delights",
+          "sales": "$77,124",
+          "units": 12854,
+          "growth": 7.3
+        }
+      ],
+      "categoryPerformance": [
+        {
+          "category": "Beverages",
+          "sales": "$348,560",
+          "growth": 12.4,
+          "units": 87654
+        },
+        {
+          "category": "Entrees",
+          "sales": "$256,780",
+          "growth": 5.8,
+          "units": 51234
+        },
+        {
+          "category": "Combos",
+          "sales": "$287,950",
+          "growth": 15.1,
+          "units": 38765
+        },
+        {
+          "category": "Desserts",
+          "sales": "$115,430",
+          "growth": 7.3,
+          "units": 23098
+        },
+        {
+          "category": "Breakfast",
+          "sales": "$201,870",
+          "growth": 8.9,
+          "units": 57432
+        },
+        {
+          "category": "Sides",
+          "sales": "$58,760",
+          "growth": 3.2,
+          "units": 29876
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "source": "simulated",
+    "timestamp": "2025-05-14T10:00:00Z",
+    "refreshInterval": 3600
+  }
+}

@@ -1,0 +1,2077 @@
+id: nlp-parser
+name: App Intent Parser
+description: Converts natural language prompts into structured app schema
+version: 1.0.0
+
+# AI model configuration
+model: claude-3-opus
+temperature: 0.2
+max_tokens: 4000
+input_format: prompt
+output_format: json
+
+# Input schema
+input_schema:
+  type: object
+  required:
+    - prompt
+  properties:
+    prompt:
+      type: string
+      description: "Natural language description of the app to build"
+    app_type:
+      type: string
+      enum: [utility, game, social, e-commerce, educational, fitness, productivity]
+      description: "Optional type of app to build"
+    complexity:
+      type: string
+      enum: [simple, medium, complex]
+      default: medium
+      description: "Complexity level of the app"
+
+# Output schema 
+output_schema:
+  type: object
+  required:
+    - app_name
+    - app_description
+    - screens
+    - theme
+    - data_model
+  properties:
+    app_name:
+      type: string
+      description: "Name of the app"
+    app_description:
+      type: string
+      description: "Brief description of the app's purpose and functionality"
+    app_type:
+      type: string
+      enum: [utility, game, social, e-commerce, educational, fitness, productivity]
+      description: "Category of the app"
+    screens:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - name
+          - components
+        properties:
+          id:
+            type: string
+            description: "Unique identifier for the screen"
+          name:
+            type: string
+            description: "Human-readable name of the screen"
+          description:
+            type: string
+            description: "Brief description of the screen's purpose"
+          components:
+            type: array
+            items:
+              type: object
+              required:
+                - type
+                - id
+                - props
+              properties:
+                type:
+                  type: string
+                  enum: [Text, Button, Input, Image, List, Card, Chart, Map, DatePicker, Switch, Slider, Container]
+                  description: "Type of UI component"
+                id:
+                  type: string
+                  description: "Unique identifier for the component"
+                props:
+                  type: object
+                  description: "Properties for the component"
+          navigation:
+            type: array
+            items:
+              type: object
+              required:
+                - target
+                - action
+              properties:
+                target:
+                  type: string
+                  description: "ID of the target screen"
+                action:
+                  type: string
+                  description: "Action that triggers the navigation (e.g., button click)"
+    theme:
+      type: object
+      required:
+        - primary_color
+        - secondary_color
+        - font_family
+      properties:
+        primary_color:
+          type: string
+          description: "Primary color in hex format"
+        secondary_color:
+          type: string
+          description: "Secondary color in hex format"
+        accent_color:
+          type: string
+          description: "Accent color in hex format"
+        font_family:
+          type: string
+          description: "Primary font family"
+        dark_mode:
+          type: boolean
+          description: "Whether dark mode is enabled by default"
+    data_model:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - fields
+        properties:
+          name:
+            type: string
+            description: "Name of the data entity"
+          fields:
+            type: array
+            items:
+              type: object
+              required:
+                - name
+                - type
+              properties:
+                name:
+                  type: string
+                  description: "Name of the field"
+                type:
+                  type: string
+                  enum: [string, number, boolean, date, object, array, reference]
+                  description: "Data type of the field"
+                required:
+                  type: boolean
+                  description: "Whether the field is required"
+                reference:
+                  type: string
+                  description: "For reference type, the name of the referenced entity"
+
+# Prompt template for Claude
+prompt_template: |
+  # AppGenie - NLP Parser Agent
+
+  You are an expert app architect who can convert natural language descriptions into structured app schemas. Your task is to analyze the user's app description and generate a complete JSON schema that includes screens, components, navigation, theme, and data model.
+
+  ## User Input
+  App Description: "{{ prompt }}"
+  {% if app_type %}App Type: {{ app_type }}{% endif %}
+  Complexity: {{ complexity | default('medium') }}
+
+  ## Guidelines
+
+  1. Analyze the description to understand the app's purpose, features, and target users
+  2. Identify all necessary screens and their components
+  3. Create a logical navigation flow between screens
+  4. Define an appropriate data model for the app's functionality
+  5. Choose a visually appealing theme that matches the app's purpose
+  6. Ensure the schema is complete and implementable
+  7. Use intuitive names for all elements (screens, components, etc.)
+
+  ## Mobile App Best Practices
+
+  - Keep UI clean and focused - don't overcrowd screens
+  - Ensure consistent navigation patterns
+  - Consider accessibility in your design choices
+  - Follow platform-specific guidelines where relevant
+  - Include appropriate error handling
+  - Design with user flow in mind
+
+  ## Output Format
+
+  Generate a structured JSON schema for the app with the following sections:
+  - app_name: A catchy, relevant name for the app
+  - app_description: Brief description of the app's purpose
+  - app_type: The category of the app
+  - screens: Array of screen objects with components and navigation
+  - theme: Object with color scheme and font information
+  - data_model: Array of data entities and their fields
+
+  Return ONLY the valid JSON schema that conforms to the output schema specification.
+
+# Examples for few-shot learning
+examples:
+  - input:
+      prompt: "Build a habit tracker app that lets users set daily goals, track their progress, and view statistics about their habits over time."
+      complexity: "medium"
+    output: |
+      {
+        "app_name": "HabitHero",
+        "app_description": "A simple habit tracking app to help users build positive routines through daily goal setting and progress visualization",
+        "app_type": "productivity",
+        "screens": [
+          {
+            "id": "onboarding",
+            "name": "Welcome",
+            "description": "Initial onboarding screen",
+            "components": [
+              {
+                "type": "Image",
+                "id": "logo",
+                "props": {
+                  "source": "logo.png",
+                  "width": 200,
+                  "height": 200,
+                  "align": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "welcome_text",
+                "props": {
+                  "content": "Welcome to HabitHero",
+                  "fontSize": 24,
+                  "fontWeight": "bold",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "subtitle",
+                "props": {
+                  "content": "Build better habits, one day at a time",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                  "marginBottom": 20
+                }
+              },
+              {
+                "type": "Button",
+                "id": "get_started_button",
+                "props": {
+                  "label": "Get Started",
+                  "variant": "primary",
+                  "fullWidth": true
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "dashboard",
+                "action": "get_started_button.click"
+              }
+            ]
+          },
+          {
+            "id": "dashboard",
+            "name": "Dashboard",
+            "description": "Main screen showing today's habits",
+            "components": [
+              {
+                "type": "Text",
+                "id": "header",
+                "props": {
+                  "content": "Today's Habits",
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "List",
+                "id": "habits_list",
+                "props": {
+                  "data": "habits",
+                  "renderItem": "habit_item",
+                  "emptyText": "No habits yet. Tap + to add your first habit!"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "add_habit_button",
+                "props": {
+                  "label": "+",
+                  "variant": "floating",
+                  "position": "bottomRight"
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "add_habit",
+                "action": "add_habit_button.click"
+              },
+              {
+                "target": "habit_detail",
+                "action": "habits_list.itemClick"
+              },
+              {
+                "target": "statistics",
+                "action": "nav_stats.click"
+              },
+              {
+                "target": "settings",
+                "action": "nav_settings.click"
+              }
+            ]
+          },
+          {
+            "id": "add_habit",
+            "name": "Add Habit",
+            "description": "Screen for adding a new habit",
+            "components": [
+              {
+                "type": "Text",
+                "id": "header",
+                "props": {
+                  "content": "Create New Habit",
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Input",
+                "id": "habit_name_input",
+                "props": {
+                  "label": "Habit Name",
+                  "placeholder": "e.g., Drink water",
+                  "required": true
+                }
+              },
+              {
+                "type": "Input",
+                "id": "habit_description_input",
+                "props": {
+                  "label": "Description (Optional)",
+                  "placeholder": "Why is this habit important?",
+                  "multiline": true
+                }
+              },
+              {
+                "type": "DatePicker",
+                "id": "start_date",
+                "props": {
+                  "label": "Start Date",
+                  "defaultValue": "today"
+                }
+              },
+              {
+                "type": "Container",
+                "id": "days_container",
+                "props": {
+                  "direction": "row",
+                  "wrap": true,
+                  "label": "Repeat on days"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "save_button",
+                "props": {
+                  "label": "Save Habit",
+                  "variant": "primary",
+                  "fullWidth": true
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "dashboard",
+                "action": "save_button.click"
+              },
+              {
+                "target": "dashboard",
+                "action": "back_button.click"
+              }
+            ]
+          },
+          {
+            "id": "habit_detail",
+            "name": "Habit Details",
+            "description": "Details and history for a specific habit",
+            "components": [
+              {
+                "type": "Text",
+                "id": "habit_name",
+                "props": {
+                  "content": "{habit.name}",
+                  "fontSize": 22,
+                  "fontWeight": "bold"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "habit_description",
+                "props": {
+                  "content": "{habit.description}",
+                  "fontSize": 16,
+                  "color": "secondary"
+                }
+              },
+              {
+                "type": "Chart",
+                "id": "streak_chart",
+                "props": {
+                  "type": "calendar",
+                  "data": "{habit.completionDates}",
+                  "title": "Completion History"
+                }
+              },
+              {
+                "type": "Container",
+                "id": "stats_container",
+                "props": {
+                  "direction": "row",
+                  "justify": "spaceAround"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "complete_button",
+                "props": {
+                  "label": "Mark Complete",
+                  "variant": "success",
+                  "disabled": "{habit.completedToday}"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "edit_button",
+                "props": {
+                  "label": "Edit",
+                  "variant": "secondary"
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "edit_habit",
+                "action": "edit_button.click"
+              },
+              {
+                "target": "dashboard",
+                "action": "back_button.click"
+              }
+            ]
+          },
+          {
+            "id": "statistics",
+            "name": "Statistics",
+            "description": "Overall statistics and analytics",
+            "components": [
+              {
+                "type": "Text",
+                "id": "header",
+                "props": {
+                  "content": "Your Progress",
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Chart",
+                "id": "overall_chart",
+                "props": {
+                  "type": "bar",
+                  "data": "{weeklyCompletionRates}",
+                  "title": "Weekly Completion Rates"
+                }
+              },
+              {
+                "type": "List",
+                "id": "habit_stats_list",
+                "props": {
+                  "data": "habitStats",
+                  "renderItem": "habit_stat_item"
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "dashboard",
+                "action": "nav_home.click"
+              },
+              {
+                "target": "settings",
+                "action": "nav_settings.click"
+              }
+            ]
+          },
+          {
+            "id": "settings",
+            "name": "Settings",
+            "description": "App settings and preferences",
+            "components": [
+              {
+                "type": "Text",
+                "id": "header",
+                "props": {
+                  "content": "Settings",
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Container",
+                "id": "settings_list",
+                "props": {
+                  "direction": "column"
+                }
+              },
+              {
+                "type": "Switch",
+                "id": "notifications_switch",
+                "props": {
+                  "label": "Enable Notifications",
+                  "defaultValue": true
+                }
+              },
+              {
+                "type": "Switch",
+                "id": "dark_mode_switch",
+                "props": {
+                  "label": "Dark Mode",
+                  "defaultValue": false
+                }
+              },
+              {
+                "type": "Input",
+                "id": "reminder_time",
+                "props": {
+                  "label": "Daily Reminder Time",
+                  "type": "time",
+                  "defaultValue": "20:00"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "export_data_button",
+                "props": {
+                  "label": "Export Data",
+                  "variant": "secondary"
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "dashboard",
+                "action": "nav_home.click"
+              },
+              {
+                "target": "statistics",
+                "action": "nav_stats.click"
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "primary_color": "#4CAF50",
+          "secondary_color": "#8BC34A",
+          "accent_color": "#FFC107",
+          "font_family": "Roboto",
+          "dark_mode": false
+        },
+        "data_model": [
+          {
+            "name": "Habit",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "startDate",
+                "type": "date",
+                "required": true
+              },
+              {
+                "name": "frequency",
+                "type": "array",
+                "required": true
+              },
+              {
+                "name": "completionDates",
+                "type": "array",
+                "required": false
+              },
+              {
+                "name": "streak",
+                "type": "number",
+                "required": false
+              },
+              {
+                "name": "lastCompleted",
+                "type": "date",
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "CompletionRecord",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "habitId",
+                "type": "reference",
+                "reference": "Habit",
+                "required": true
+              },
+              {
+                "name": "date",
+                "type": "date",
+                "required": true
+              },
+              {
+                "name": "notes",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "Settings",
+            "fields": [
+              {
+                "name": "notificationsEnabled",
+                "type": "boolean",
+                "required": false
+              },
+              {
+                "name": "darkMode",
+                "type": "boolean",
+                "required": false
+              },
+              {
+                "name": "reminderTime",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      }
+
+  - input:
+      prompt: "Create a social recipe sharing app where users can post recipes, follow other users, save favorites, and search by ingredients."
+      app_type: "social"
+      complexity: "complex"
+    output: |
+      {
+        "app_name": "FlavorSphere",
+        "app_description": "A social platform for food lovers to discover, share, and save recipes from a global community of home chefs",
+        "app_type": "social",
+        "screens": [
+          {
+            "id": "login",
+            "name": "Login",
+            "description": "Authentication screen",
+            "components": [
+              {
+                "type": "Image",
+                "id": "logo",
+                "props": {
+                  "source": "logo.png",
+                  "width": 180,
+                  "height": 180,
+                  "align": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "app_name",
+                "props": {
+                  "content": "FlavorSphere",
+                  "fontSize": 32,
+                  "fontWeight": "bold",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "tagline",
+                "props": {
+                  "content": "Discover & Share Culinary Delights",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                  "marginBottom": 40
+                }
+              },
+              {
+                "type": "Input",
+                "id": "email_input",
+                "props": {
+                  "label": "Email",
+                  "placeholder": "your@email.com",
+                  "type": "email",
+                  "required": true
+                }
+              },
+              {
+                "type": "Input",
+                "id": "password_input",
+                "props": {
+                  "label": "Password",
+                  "type": "password",
+                  "required": true,
+                  "secureTextEntry": true
+                }
+              },
+              {
+                "type": "Button",
+                "id": "login_button",
+                "props": {
+                  "label": "Log In",
+                  "variant": "primary",
+                  "fullWidth": true,
+                  "marginTop": 20
+                }
+              },
+              {
+                "type": "Text",
+                "id": "signup_prompt",
+                "props": {
+                  "content": "Don't have an account?",
+                  "fontSize": 14,
+                  "textAlign": "center",
+                  "marginTop": 20
+                }
+              },
+              {
+                "type": "Button",
+                "id": "signup_button",
+                "props": {
+                  "label": "Sign Up",
+                  "variant": "text",
+                  "textDecorationLine": "underline"
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "feed",
+                "action": "login_button.click"
+              },
+              {
+                "target": "signup",
+                "action": "signup_button.click"
+              }
+            ]
+          },
+          {
+            "id": "signup",
+            "name": "Sign Up",
+            "description": "Create account screen",
+            "components": [
+              {
+                "type": "Text",
+                "id": "header",
+                "props": {
+                  "content": "Create Your Account",
+                  "fontSize": 24,
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                  "marginBottom": 20
+                }
+              },
+              {
+                "type": "Input",
+                "id": "name_input",
+                "props": {
+                  "label": "Full Name",
+                  "placeholder": "Your Name",
+                  "required": true
+                }
+              },
+              {
+                "type": "Input",
+                "id": "email_input",
+                "props": {
+                  "label": "Email",
+                  "placeholder": "your@email.com",
+                  "type": "email",
+                  "required": true
+                }
+              },
+              {
+                "type": "Input",
+                "id": "password_input",
+                "props": {
+                  "label": "Password",
+                  "type": "password",
+                  "required": true,
+                  "secureTextEntry": true
+                }
+              },
+              {
+                "type": "Input",
+                "id": "confirm_password_input",
+                "props": {
+                  "label": "Confirm Password",
+                  "type": "password",
+                  "required": true,
+                  "secureTextEntry": true
+                }
+              },
+              {
+                "type": "Button",
+                "id": "signup_submit_button",
+                "props": {
+                  "label": "Create Account",
+                  "variant": "primary",
+                  "fullWidth": true,
+                  "marginTop": 20
+                }
+              },
+              {
+                "type": "Text",
+                "id": "login_prompt",
+                "props": {
+                  "content": "Already have an account?",
+                  "fontSize": 14,
+                  "textAlign": "center",
+                  "marginTop": 20
+                }
+              },
+              {
+                "type": "Button",
+                "id": "back_to_login_button",
+                "props": {
+                  "label": "Log In",
+                  "variant": "text",
+                  "textDecorationLine": "underline"
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "feed",
+                "action": "signup_submit_button.click"
+              },
+              {
+                "target": "login",
+                "action": "back_to_login_button.click"
+              }
+            ]
+          },
+          {
+            "id": "feed",
+            "name": "Feed",
+            "description": "Main recipe feed",
+            "components": [
+              {
+                "type": "Container",
+                "id": "header_container",
+                "props": {
+                  "direction": "row",
+                  "justifyContent": "spaceBetween",
+                  "alignItems": "center",
+                  "padding": 16
+                }
+              },
+              {
+                "type": "Text",
+                "id": "feed_title",
+                "props": {
+                  "content": "Discover Recipes",
+                  "fontSize": 22,
+                  "fontWeight": "bold"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "search_button",
+                "props": {
+                  "icon": "search",
+                  "variant": "icon"
+                }
+              },
+              {
+                "type": "List",
+                "id": "recipe_feed",
+                "props": {
+                  "data": "recipes",
+                  "renderItem": "recipe_card",
+                  "infinite": true,
+                  "refreshable": true
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "recipe_detail",
+                "action": "recipe_feed.itemClick"
+              },
+              {
+                "target": "search",
+                "action": "search_button.click"
+              },
+              {
+                "target": "profile",
+                "action": "nav_profile.click"
+              },
+              {
+                "target": "create_recipe",
+                "action": "nav_create.click"
+              },
+              {
+                "target": "saved_recipes",
+                "action": "nav_saved.click"
+              }
+            ]
+          },
+          {
+            "id": "recipe_detail",
+            "name": "Recipe Detail",
+            "description": "Detailed view of a recipe",
+            "components": [
+              {
+                "type": "Image",
+                "id": "recipe_image",
+                "props": {
+                  "source": "{recipe.imageUrl}",
+                  "width": "100%",
+                  "height": 250,
+                  "resizeMode": "cover"
+                }
+              },
+              {
+                "type": "Container",
+                "id": "recipe_header",
+                "props": {
+                  "padding": 16
+                }
+              },
+              {
+                "type": "Text",
+                "id": "recipe_title",
+                "props": {
+                  "content": "{recipe.title}",
+                  "fontSize": 24,
+                  "fontWeight": "bold"
+                }
+              },
+              {
+                "type": "Container",
+                "id": "author_row",
+                "props": {
+                  "direction": "row",
+                  "alignItems": "center",
+                  "marginTop": 8,
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Image",
+                "id": "author_avatar",
+                "props": {
+                  "source": "{recipe.author.avatarUrl}",
+                  "width": 40,
+                  "height": 40,
+                  "borderRadius": 20
+                }
+              },
+              {
+                "type": "Text",
+                "id": "author_name",
+                "props": {
+                  "content": "{recipe.author.name}",
+                  "fontSize": 16,
+                  "marginLeft": 8
+                }
+              },
+              {
+                "type": "Container",
+                "id": "action_buttons",
+                "props": {
+                  "direction": "row",
+                  "justifyContent": "spaceAround",
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Button",
+                "id": "like_button",
+                "props": {
+                  "icon": "heart",
+                  "label": "{recipe.likes} Likes",
+                  "variant": "outline"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "save_button",
+                "props": {
+                  "icon": "bookmark",
+                  "label": "Save",
+                  "variant": "outline"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "share_button",
+                "props": {
+                  "icon": "share",
+                  "label": "Share",
+                  "variant": "outline"
+                }
+              },
+              {
+                "type": "Container",
+                "id": "recipe_info",
+                "props": {
+                  "direction": "row",
+                  "justifyContent": "spaceAround",
+                  "padding": 16,
+                  "backgroundColor": "background.subtle",
+                  "borderRadius": 8,
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Text",
+                "id": "prep_time",
+                "props": {
+                  "content": "Prep: {recipe.prepTime}",
+                  "fontSize": 14
+                }
+              },
+              {
+                "type": "Text",
+                "id": "cook_time",
+                "props": {
+                  "content": "Cook: {recipe.cookTime}",
+                  "fontSize": 14
+                }
+              },
+              {
+                "type": "Text",
+                "id": "servings",
+                "props": {
+                  "content": "Servings: {recipe.servings}",
+                  "fontSize": 14
+                }
+              },
+              {
+                "type": "Text",
+                "id": "difficulty",
+                "props": {
+                  "content": "{recipe.difficulty}",
+                  "fontSize": 14
+                }
+              },
+              {
+                "type": "Text",
+                "id": "ingredients_header",
+                "props": {
+                  "content": "Ingredients",
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "marginTop": 16,
+                  "marginBottom": 8
+                }
+              },
+              {
+                "type": "List",
+                "id": "ingredients_list",
+                "props": {
+                  "data": "recipe.ingredients",
+                  "renderItem": "ingredient_item",
+                  "scrollable": false
+                }
+              },
+              {
+                "type": "Text",
+                "id": "instructions_header",
+                "props": {
+                  "content": "Instructions",
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "marginTop": 16,
+                  "marginBottom": 8
+                }
+              },
+              {
+                "type": "List",
+                "id": "instructions_list",
+                "props": {
+                  "data": "recipe.instructions",
+                  "renderItem": "instruction_item",
+                  "scrollable": false
+                }
+              },
+              {
+                "type": "Container",
+                "id": "comments_section",
+                "props": {
+                  "marginTop": 24
+                }
+              },
+              {
+                "type": "Text",
+                "id": "comments_header",
+                "props": {
+                  "content": "Comments",
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "marginBottom": 8
+                }
+              },
+              {
+                "type": "List",
+                "id": "comments_list",
+                "props": {
+                  "data": "recipe.comments",
+                  "renderItem": "comment_item",
+                  "scrollable": false
+                }
+              },
+              {
+                "type": "Input",
+                "id": "comment_input",
+                "props": {
+                  "placeholder": "Add a comment...",
+                  "multiline": true
+                }
+              },
+              {
+                "type": "Button",
+                "id": "post_comment_button",
+                "props": {
+                  "label": "Post",
+                  "variant": "primary",
+                  "marginTop": 8
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "profile",
+                "action": "author_name.click"
+              },
+              {
+                "target": "feed",
+                "action": "back_button.click"
+              }
+            ]
+          },
+          {
+            "id": "search",
+            "name": "Search",
+            "description": "Search for recipes",
+            "components": [
+              {
+                "type": "Input",
+                "id": "search_input",
+                "props": {
+                  "placeholder": "Search recipes or ingredients...",
+                  "icon": "search",
+                  "autoFocus": true
+                }
+              },
+              {
+                "type": "Container",
+                "id": "filter_row",
+                "props": {
+                  "direction": "row",
+                  "marginVertical": 12,
+                  "overflow": "scroll"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "filter_all",
+                "props": {
+                  "label": "All",
+                  "variant": "chip",
+                  "selected": true
+                }
+              },
+              {
+                "type": "Button",
+                "id": "filter_breakfast",
+                "props": {
+                  "label": "Breakfast",
+                  "variant": "chip"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "filter_lunch",
+                "props": {
+                  "label": "Lunch",
+                  "variant": "chip"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "filter_dinner",
+                "props": {
+                  "label": "Dinner",
+                  "variant": "chip"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "filter_dessert",
+                "props": {
+                  "label": "Dessert",
+                  "variant": "chip"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "filter_vegetarian",
+                "props": {
+                  "label": "Vegetarian",
+                  "variant": "chip"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "filter_vegan",
+                "props": {
+                  "label": "Vegan",
+                  "variant": "chip"
+                }
+              },
+              {
+                "type": "Container",
+                "id": "advanced_search",
+                "props": {
+                  "marginBottom": 12
+                }
+              },
+              {
+                "type": "Button",
+                "id": "advanced_search_button",
+                "props": {
+                  "label": "Advanced Search",
+                  "variant": "outline",
+                  "icon": "sliders"
+                }
+              },
+              {
+                "type": "List",
+                "id": "search_results",
+                "props": {
+                  "data": "searchResults",
+                  "renderItem": "recipe_card",
+                  "emptyText": "No recipes found. Try different search terms."
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "recipe_detail",
+                "action": "search_results.itemClick"
+              },
+              {
+                "target": "advanced_search",
+                "action": "advanced_search_button.click"
+              },
+              {
+                "target": "feed",
+                "action": "back_button.click"
+              }
+            ]
+          },
+          {
+            "id": "create_recipe",
+            "name": "Create Recipe",
+            "description": "Create a new recipe post",
+            "components": [
+              {
+                "type": "Text",
+                "id": "header",
+                "props": {
+                  "content": "Create Recipe",
+                  "fontSize": 24,
+                  "fontWeight": "bold",
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Input",
+                "id": "recipe_title_input",
+                "props": {
+                  "label": "Recipe Title",
+                  "placeholder": "Enter title",
+                  "required": true
+                }
+              },
+              {
+                "type": "Input",
+                "id": "recipe_description_input",
+                "props": {
+                  "label": "Description",
+                  "placeholder": "Brief description of your recipe",
+                  "multiline": true,
+                  "required": true
+                }
+              },
+              {
+                "type": "Button",
+                "id": "add_photo_button",
+                "props": {
+                  "label": "Add Photos",
+                  "icon": "camera",
+                  "variant": "outline",
+                  "marginVertical": 16
+                }
+              },
+              {
+                "type": "Container",
+                "id": "recipe_details",
+                "props": {
+                  "marginVertical": 16
+                }
+              },
+              {
+                "type": "Input",
+                "id": "prep_time_input",
+                "props": {
+                  "label": "Prep Time (mins)",
+                  "type": "number",
+                  "required": true
+                }
+              },
+              {
+                "type": "Input",
+                "id": "cook_time_input",
+                "props": {
+                  "label": "Cook Time (mins)",
+                  "type": "number",
+                  "required": true
+                }
+              },
+              {
+                "type": "Input",
+                "id": "servings_input",
+                "props": {
+                  "label": "Servings",
+                  "type": "number",
+                  "required": true
+                }
+              },
+              {
+                "type": "Container",
+                "id": "difficulty_selector",
+                "props": {
+                  "label": "Difficulty"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "ingredients_section_header",
+                "props": {
+                  "content": "Ingredients",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "marginTop": 24,
+                  "marginBottom": 8
+                }
+              },
+              {
+                "type": "List",
+                "id": "ingredients_input_list",
+                "props": {
+                  "data": "ingredientInputs",
+                  "renderItem": "ingredient_input_item"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "add_ingredient_button",
+                "props": {
+                  "label": "Add Ingredient",
+                  "icon": "plus",
+                  "variant": "outline"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "instructions_section_header",
+                "props": {
+                  "content": "Instructions",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "marginTop": 24,
+                  "marginBottom": 8
+                }
+              },
+              {
+                "type": "List",
+                "id": "instructions_input_list",
+                "props": {
+                  "data": "instructionInputs",
+                  "renderItem": "instruction_input_item"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "add_instruction_button",
+                "props": {
+                  "label": "Add Step",
+                  "icon": "plus",
+                  "variant": "outline"
+                }
+              },
+              {
+                "type": "Input",
+                "id": "tags_input",
+                "props": {
+                  "label": "Tags (separate with commas)",
+                  "placeholder": "breakfast, easy, healthy"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "publish_button",
+                "props": {
+                  "label": "Publish Recipe",
+                  "variant": "primary",
+                  "fullWidth": true,
+                  "marginTop": 24
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "feed",
+                "action": "publish_button.click"
+              },
+              {
+                "target": "feed",
+                "action": "back_button.click"
+              }
+            ]
+          },
+          {
+            "id": "profile",
+            "name": "Profile",
+            "description": "User profile and recipes",
+            "components": [
+              {
+                "type": "Container",
+                "id": "profile_header",
+                "props": {
+                  "alignItems": "center",
+                  "padding": 16
+                }
+              },
+              {
+                "type": "Image",
+                "id": "profile_image",
+                "props": {
+                  "source": "{user.avatarUrl}",
+                  "width": 100,
+                  "height": 100,
+                  "borderRadius": 50
+                }
+              },
+              {
+                "type": "Text",
+                "id": "user_name",
+                "props": {
+                  "content": "{user.name}",
+                  "fontSize": 24,
+                  "fontWeight": "bold",
+                  "marginTop": 8
+                }
+              },
+              {
+                "type": "Text",
+                "id": "user_bio",
+                "props": {
+                  "content": "{user.bio}",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                  "marginTop": 4,
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Container",
+                "id": "stats_row",
+                "props": {
+                  "direction": "row",
+                  "justifyContent": "spaceAround",
+                  "width": "100%",
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Container",
+                "id": "recipes_stat",
+                "props": {
+                  "alignItems": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "recipes_count",
+                "props": {
+                  "content": "{user.recipesCount}",
+                  "fontSize": 18,
+                  "fontWeight": "bold"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "recipes_label",
+                "props": {
+                  "content": "Recipes",
+                  "fontSize": 14
+                }
+              },
+              {
+                "type": "Container",
+                "id": "followers_stat",
+                "props": {
+                  "alignItems": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "followers_count",
+                "props": {
+                  "content": "{user.followersCount}",
+                  "fontSize": 18,
+                  "fontWeight": "bold"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "followers_label",
+                "props": {
+                  "content": "Followers",
+                  "fontSize": 14
+                }
+              },
+              {
+                "type": "Container",
+                "id": "following_stat",
+                "props": {
+                  "alignItems": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "following_count",
+                "props": {
+                  "content": "{user.followingCount}",
+                  "fontSize": 18,
+                  "fontWeight": "bold"
+                }
+              },
+              {
+                "type": "Text",
+                "id": "following_label",
+                "props": {
+                  "content": "Following",
+                  "fontSize": 14
+                }
+              },
+              {
+                "type": "Button",
+                "id": "follow_button",
+                "props": {
+                  "label": "{user.isFollowing ? 'Following' : 'Follow'}",
+                  "variant": "{user.isFollowing ? 'outline' : 'primary'}",
+                  "width": 120,
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Container",
+                "id": "profile_tabs",
+                "props": {
+                  "direction": "row",
+                  "justifyContent": "spaceAround",
+                  "borderBottomWidth": 1,
+                  "borderBottomColor": "border"
+                }
+              },
+              {
+                "type": "Button",
+                "id": "recipes_tab",
+                "props": {
+                  "label": "Recipes",
+                  "variant": "tab",
+                  "selected": true
+                }
+              },
+              {
+                "type": "Button",
+                "id": "saved_tab",
+                "props": {
+                  "label": "Saved",
+                  "variant": "tab"
+                }
+              },
+              {
+                "type": "List",
+                "id": "profile_recipes_list",
+                "props": {
+                  "data": "userRecipes",
+                  "renderItem": "recipe_card",
+                  "numColumns": 2,
+                  "emptyText": "No recipes yet"
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "recipe_detail",
+                "action": "profile_recipes_list.itemClick"
+              },
+              {
+                "target": "edit_profile",
+                "action": "edit_profile_button.click"
+              },
+              {
+                "target": "feed",
+                "action": "nav_home.click"
+              }
+            ]
+          },
+          {
+            "id": "saved_recipes",
+            "name": "Saved Recipes",
+            "description": "Collection of saved recipes",
+            "components": [
+              {
+                "type": "Text",
+                "id": "header",
+                "props": {
+                  "content": "Saved Recipes",
+                  "fontSize": 24,
+                  "fontWeight": "bold",
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Container",
+                "id": "collections_section",
+                "props": {
+                  "marginBottom": 16
+                }
+              },
+              {
+                "type": "Text",
+                "id": "collections_header",
+                "props": {
+                  "content": "Collections",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "marginBottom": 8
+                }
+              },
+              {
+                "type": "List",
+                "id": "collections_list",
+                "props": {
+                  "data": "collections",
+                  "renderItem": "collection_item",
+                  "horizontal": true
+                }
+              },
+              {
+                "type": "Button",
+                "id": "new_collection_button",
+                "props": {
+                  "label": "New Collection",
+                  "icon": "plus",
+                  "variant": "outline",
+                  "marginTop": 8
+                }
+              },
+              {
+                "type": "Text",
+                "id": "all_saved_header",
+                "props": {
+                  "content": "All Saved Recipes",
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "marginTop": 16,
+                  "marginBottom": 8
+                }
+              },
+              {
+                "type": "List",
+                "id": "saved_recipes_list",
+                "props": {
+                  "data": "savedRecipes",
+                  "renderItem": "recipe_card",
+                  "emptyText": "No saved recipes yet. Save recipes to access them later!"
+                }
+              }
+            ],
+            "navigation": [
+              {
+                "target": "recipe_detail",
+                "action": "saved_recipes_list.itemClick"
+              },
+              {
+                "target": "collection_detail",
+                "action": "collections_list.itemClick"
+              },
+              {
+                "target": "create_collection",
+                "action": "new_collection_button.click"
+              },
+              {
+                "target": "feed",
+                "action": "nav_home.click"
+              }
+            ]
+          }
+        ],
+        "theme": {
+          "primary_color": "#FF6B6B",
+          "secondary_color": "#4ECDC4",
+          "accent_color": "#FFD166",
+          "font_family": "Poppins",
+          "dark_mode": false
+        },
+        "data_model": [
+          {
+            "name": "User",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "email",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "password",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "avatarUrl",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "bio",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "followers",
+                "type": "array",
+                "required": false
+              },
+              {
+                "name": "following",
+                "type": "array",
+                "required": false
+              },
+              {
+                "name": "savedRecipes",
+                "type": "array",
+                "required": false
+              },
+              {
+                "name": "collections",
+                "type": "array",
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "Recipe",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "authorId",
+                "type": "reference",
+                "reference": "User",
+                "required": true
+              },
+              {
+                "name": "imageUrls",
+                "type": "array",
+                "required": false
+              },
+              {
+                "name": "prepTime",
+                "type": "number",
+                "required": true
+              },
+              {
+                "name": "cookTime",
+                "type": "number",
+                "required": true
+              },
+              {
+                "name": "servings",
+                "type": "number",
+                "required": true
+              },
+              {
+                "name": "difficulty",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "ingredients",
+                "type": "array",
+                "required": true
+              },
+              {
+                "name": "instructions",
+                "type": "array",
+                "required": true
+              },
+              {
+                "name": "tags",
+                "type": "array",
+                "required": false
+              },
+              {
+                "name": "likes",
+                "type": "array",
+                "required": false
+              },
+              {
+                "name": "comments",
+                "type": "array",
+                "required": false
+              },
+              {
+                "name": "createdAt",
+                "type": "date",
+                "required": true
+              },
+              {
+                "name": "updatedAt",
+                "type": "date",
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "Ingredient",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "recipeId",
+                "type": "reference",
+                "reference": "Recipe",
+                "required": true
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "quantity",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "unit",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "notes",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "Instruction",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "recipeId",
+                "type": "reference",
+                "reference": "Recipe",
+                "required": true
+              },
+              {
+                "name": "stepNumber",
+                "type": "number",
+                "required": true
+              },
+              {
+                "name": "text",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "imageUrl",
+                "type": "string",
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "Comment",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "recipeId",
+                "type": "reference",
+                "reference": "Recipe",
+                "required": true
+              },
+              {
+                "name": "userId",
+                "type": "reference",
+                "reference": "User",
+                "required": true
+              },
+              {
+                "name": "text",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "createdAt",
+                "type": "date",
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "Collection",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "userId",
+                "type": "reference",
+                "reference": "User",
+                "required": true
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "coverImageUrl",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "recipes",
+                "type": "array",
+                "required": false
+              },
+              {
+                "name": "isPrivate",
+                "type": "boolean",
+                "required": false
+              }
+            ]
+          }
+        ]
+      }
+
+# Lifecycle hooks
+on_start:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.nlp-parser.start', {
+        agent: 'nlp-parser',
+        input_length: input.user_prompt.length,
+        timestamp: new Date().toISOString()
+      });
+
+on_finish:
+  - action: run_code
+    code: |
+      const { trace } = await import('../packages/appgenie/strategies/devstral.js');
+      trace('agent.nlp-parser.finish', {
+        agent: 'nlp-parser',
+        app_name: output.app_name,
+        screen_count: output.screens.length,
+        feature_count: output.features.length,
+        entity_count: output.entities.length,
+        timestamp: new Date().toISOString()
+      });
+
+# Post-processing hooks
+post_process:
+  - action: save_output
+    path: "./data/app_schema.json"
+  
+  - action: log_generation
+    path: "./logs/nlp_parser_{{ timestamp }}.log"
+    
+  - action: call_module
+    path: memory/memory.js
+    fn: remember
+    
+  - action: next_step
+    agent: template-manager
+    with:
+      schema_path: "./data/app_schema.json"

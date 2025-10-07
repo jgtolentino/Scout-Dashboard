@@ -1,0 +1,25 @@
+flowchart LR
+    subgraph Frontend
+        StaticApp
+    end
+    subgraph API
+        APIGW --> FastAPI
+        FastAPI --> Redis[(Redis Cache)]
+    end
+    subgraph EdgeLayer
+        Edge -->|JSON logs| IoTHub --> AutoLoader
+        Edge --> CVInference[ONNX Vision Model]
+        Edge --> STTInference[Whisper / STT]
+    end
+    subgraph DataPlane
+        Lakehouse --> Bronze[Bronze]
+        Lakehouse --> Silver[Silver]
+        Lakehouse --> Gold[Gold]
+    end
+    subgraph Monitoring
+        AppInsights[Azure App Insights]
+        LogAnalytics[Log Analytics]
+    end
+    StaticApp --> AppInsights
+    FastAPI   --> LogAnalytics
+    AutoLoader --> LogAnalytics

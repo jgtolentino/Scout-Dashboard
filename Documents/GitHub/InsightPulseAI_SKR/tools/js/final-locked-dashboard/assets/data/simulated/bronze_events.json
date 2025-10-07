@@ -1,0 +1,235 @@
+{
+  "data": [
+    {
+      "eventId": "e-10001",
+      "deviceId": "d-5432",
+      "storeId": 112,
+      "timestamp": "2025-05-14T08:12:45.123Z",
+      "eventType": "page_view",
+      "sessionId": "s-9876",
+      "customerId": "c-1234",
+      "deviceType": "mobile",
+      "appVersion": "2.4.1",
+      "osType": "iOS",
+      "ipAddress": "203.0.113.45",
+      "pageUrl": "/products/electronics",
+      "referrer": "https://www.google.com",
+      "rawData": {
+        "screenWidth": 390,
+        "screenHeight": 844,
+        "browserName": "Safari",
+        "locationPermission": "granted"
+      }
+    },
+    {
+      "eventId": "e-10002",
+      "deviceId": "d-5432",
+      "storeId": 112,
+      "timestamp": "2025-05-14T08:13:22.456Z",
+      "eventType": "product_view",
+      "sessionId": "s-9876",
+      "customerId": "c-1234",
+      "deviceType": "mobile",
+      "appVersion": "2.4.1",
+      "osType": "iOS",
+      "ipAddress": "203.0.113.45",
+      "pageUrl": "/products/electronics/smartphone-x200",
+      "referrer": "/products/electronics",
+      "rawData": {
+        "productId": "p-7890",
+        "productName": "Smartphone X200",
+        "category": "Electronics",
+        "price": 799.99,
+        "inStock": true
+      }
+    },
+    {
+      "eventId": "e-10003",
+      "deviceId": "d-5432",
+      "storeId": 112,
+      "timestamp": "2025-05-14T08:14:05.789Z",
+      "eventType": "add_to_cart",
+      "sessionId": "s-9876",
+      "customerId": "c-1234",
+      "deviceType": "mobile",
+      "appVersion": "2.4.1",
+      "osType": "iOS",
+      "ipAddress": "203.0.113.45",
+      "pageUrl": "/products/electronics/smartphone-x200",
+      "referrer": "/products/electronics",
+      "rawData": {
+        "productId": "p-7890",
+        "productName": "Smartphone X200",
+        "category": "Electronics",
+        "price": 799.99,
+        "quantity": 1,
+        "totalPrice": 799.99
+      }
+    },
+    {
+      "eventId": "e-10004",
+      "deviceId": "d-5432",
+      "storeId": 112,
+      "timestamp": "2025-05-14T08:15:30.123Z",
+      "eventType": "checkout_start",
+      "sessionId": "s-9876",
+      "customerId": "c-1234",
+      "deviceType": "mobile",
+      "appVersion": "2.4.1",
+      "osType": "iOS",
+      "ipAddress": "203.0.113.45",
+      "pageUrl": "/checkout",
+      "referrer": "/cart",
+      "rawData": {
+        "cartItems": 1,
+        "cartValue": 799.99,
+        "shippingMethod": "standard",
+        "paymentMethod": "credit_card"
+      }
+    },
+    {
+      "eventId": "e-10005",
+      "deviceId": "d-5432",
+      "storeId": 112,
+      "timestamp": "2025-05-14T08:16:45.456Z",
+      "eventType": "purchase_complete",
+      "sessionId": "s-9876",
+      "customerId": "c-1234",
+      "deviceType": "mobile",
+      "appVersion": "2.4.1",
+      "osType": "iOS",
+      "ipAddress": "203.0.113.45",
+      "pageUrl": "/checkout/confirmation",
+      "referrer": "/checkout",
+      "rawData": {
+        "orderId": "o-5678",
+        "cartItems": 1,
+        "cartValue": 799.99,
+        "tax": 48.00,
+        "shipping": 10.00,
+        "totalValue": 857.99,
+        "paymentMethod": "credit_card",
+        "paymentStatus": "completed"
+      }
+    },
+    {
+      "eventId": "e-10006",
+      "deviceId": "d-6543",
+      "storeId": 143,
+      "timestamp": "2025-05-14T09:30:15.789Z",
+      "eventType": "page_view",
+      "sessionId": "s-8765",
+      "customerId": "c-2345",
+      "deviceType": "desktop",
+      "appVersion": "web",
+      "osType": "Windows",
+      "ipAddress": "198.51.100.23",
+      "pageUrl": "/products/apparel",
+      "referrer": "https://www.bing.com",
+      "rawData": {
+        "screenWidth": 1920,
+        "screenHeight": 1080,
+        "browserName": "Chrome",
+        "locationPermission": "denied"
+      }
+    },
+    {
+      "eventId": "e-10007",
+      "deviceId": "d-6543",
+      "storeId": 143,
+      "timestamp": "2025-05-14T09:31:22.123Z",
+      "eventType": "search",
+      "sessionId": "s-8765",
+      "customerId": "c-2345",
+      "deviceType": "desktop",
+      "appVersion": "web",
+      "osType": "Windows",
+      "ipAddress": "198.51.100.23",
+      "pageUrl": "/search?q=denim+jackets",
+      "referrer": "/products/apparel",
+      "rawData": {
+        "searchQuery": "denim jackets",
+        "resultsCount": 24,
+        "category": "Apparel",
+        "filters": {
+          "price": "100-200",
+          "size": "L",
+          "color": "blue"
+        }
+      }
+    },
+    {
+      "eventId": "e-10008",
+      "deviceId": "d-7654",
+      "storeId": 156,
+      "timestamp": "2025-05-14T10:45:12.456Z",
+      "eventType": "store_visit",
+      "sessionId": "s-7654",
+      "customerId": "c-3456",
+      "deviceType": "mobile",
+      "appVersion": "2.4.0",
+      "osType": "Android",
+      "ipAddress": "192.0.2.178",
+      "pageUrl": "/store/156",
+      "referrer": "https://maps.google.com",
+      "rawData": {
+        "storeId": 156,
+        "storeName": "West Express",
+        "entryTime": "2025-05-14T10:45:12.456Z",
+        "visitorCount": 1,
+        "entryPoint": "main"
+      }
+    },
+    {
+      "eventId": "e-10009",
+      "deviceId": "d-7654",
+      "storeId": 156,
+      "timestamp": "2025-05-14T10:48:33.789Z",
+      "eventType": "product_scan",
+      "sessionId": "s-7654",
+      "customerId": "c-3456",
+      "deviceType": "mobile",
+      "appVersion": "2.4.0",
+      "osType": "Android",
+      "ipAddress": "192.0.2.178",
+      "pageUrl": "/products/home-goods/coffee-maker-deluxe",
+      "referrer": "/store/156",
+      "rawData": {
+        "productId": "p-4567",
+        "productName": "Coffee Maker Deluxe",
+        "category": "Home Goods",
+        "price": 129.99,
+        "barcode": "7891234567890",
+        "scanMethod": "qr"
+      }
+    },
+    {
+      "eventId": "e-10010",
+      "deviceId": "d-8765",
+      "storeId": 119,
+      "timestamp": "2025-05-14T14:22:45.123Z",
+      "eventType": "loyalty_scan",
+      "sessionId": "s-6543",
+      "customerId": "c-4567",
+      "deviceType": "pos",
+      "appVersion": "1.2.5",
+      "osType": "Linux",
+      "ipAddress": "203.0.113.88",
+      "pageUrl": "/pos/119/checkout",
+      "referrer": "",
+      "rawData": {
+        "loyaltyId": "l-8901",
+        "pointsBalance": 2450,
+        "membershipLevel": "gold",
+        "enrollmentDate": "2023-06-15",
+        "employeeId": "e-1122"
+      }
+    }
+  ],
+  "metadata": {
+    "count": 10,
+    "timestamp": "2025-05-14T15:00:00.000Z",
+    "source": "simulated",
+    "endpoint": "events"
+  }
+}

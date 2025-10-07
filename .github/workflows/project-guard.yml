@@ -1,0 +1,155 @@
+name: Project Guard - Documentation Compliance
+
+on:
+  pull_request:
+    branches: [ main, master, develop ]
+  push:
+    branches: [ main, master, develop ]
+
+jobs:
+  documentation-compliance:
+    runs-on: ubuntu-latest
+    name: Check Documentation Compliance
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml
+    
+    - name: Run Project Guard scan
+      run: |
+        echo "🛡️ Project Guard: Scanning documentation compliance..."
+        python3 tools/project_guard/check_project_files.py --report
+    
+    - name: Validate commit messages (on PR)
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "🛡️ Project Guard: Validating commit messages in PR..."
+        
+        # Get all commit messages in the PR
+        git log --pretty=format:"%s" ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} | while read -r commit_msg; do
+          echo "Validating: $commit_msg"
+          python3 tools/project_guard/check_project_files.py --validate-commit "$commit_msg"
+        done
+    
+    - name: Auto-fix missing files (dry-run)
+      if: failure()
+      run: |
+        echo "🔍 Showing what files would be auto-created..."
+        python3 tools/project_guard/check_project_files.py --auto-fix --dry-run
+        
+        echo ""
+        echo "💡 To fix locally, run:"
+        echo "  python3 tools/project_guard/check_project_files.py --auto-fix"
+    
+    - name: Comment PR with compliance status
+      if: github.event_name == 'pull_request' && failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { execSync } = require('child_process');
+          
+          try {
+            const output = execSync('python3 tools/project_guard/check_project_files.py --report --json', { encoding: 'utf8' });
+            const report = JSON.parse(output);
+            
+            const summary = report.summary;
+            const nonCompliantProjects = Object.entries(report.projects)
+              .filter(([_, info]) => !info.compliant)
+              .map(([path, info]) => {
+                const missingFiles = info.missing_files.map(f => f.template).join(', ');
+                return `- **${info.name}** (${path}): Missing ${missingFiles}`;
+              });
+            
+            const comment = `## 🛡️ Project Guard - Documentation Compliance Report
+            
+            **Status**: ❌ **FAILED**
+            
+            **Summary**:
+            - Total Projects: ${summary.total_projects}
+            - Compliant: ${summary.compliant_projects} (${summary.compliance_rate})
+            - **Non-Compliant**: ${summary.non_compliant_projects}
+            - Missing Files: ${summary.total_missing_files}
+            
+            **Non-Compliant Projects**:
+            ${nonCompliantProjects.join('\n')}
+            
+            **To Fix**:
+            \`\`\`bash
+            # Auto-create missing documentation files
+            python3 tools/project_guard/check_project_files.py --auto-fix
+            
+            # Preview what would be created
+            python3 tools/project_guard/check_project_files.py --auto-fix --dry-run
+            \`\`\`
+            
+            **Required Files**:
+            - PRD.md (or prd.md)
+            - CLAUDE.md (or Claude.md, claude.md)
+            - PLANNING.md (or planning.md)
+            - TASKS.md (or tasks.md, tasks.mc)
+            - CHANGELOG.md (or changelog.md)
+            
+            **Commit Message Format**:
+            Must include Task ID: \`(TASK|SCOUT|CES|ADS|NB)-[number]\`
+            Example: \`TASK-123: Add user authentication\`
+            Use \`NO-TASK\` to bypass this requirement.`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          } catch (error) {
+            console.log('Failed to generate report:', error.message);
+          }
+
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Scan
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Check for secrets in documentation
+      run: |
+        echo "🔍 Scanning for potential secrets in documentation files..."
+        
+        # Check for common secret patterns in documentation
+        if grep -r -i -E "(password|secret|key|token)\s*[:=]\s*['\"][^'\"]*['\"]" . --include="*.md" --exclude-dir=.git; then
+          echo "❌ Potential secrets found in documentation files"
+          echo "Please remove or mask sensitive information"
+          exit 1
+        fi
+        
+        echo "✅ No secrets detected in documentation"
+    
+    - name: Validate file permissions
+      run: |
+        echo "🔍 Checking file permissions..."
+        
+        # Ensure git hooks are executable
+        if [ -f .githooks/pre-commit ] && [ ! -x .githooks/pre-commit ]; then
+          echo "❌ .githooks/pre-commit is not executable"
+          exit 1
+        fi
+        
+        if [ -f .githooks/commit-msg ] && [ ! -x .githooks/commit-msg ]; then
+          echo "❌ .githooks/commit-msg is not executable"
+          exit 1
+        fi
+        
+        echo "✅ File permissions are correct"

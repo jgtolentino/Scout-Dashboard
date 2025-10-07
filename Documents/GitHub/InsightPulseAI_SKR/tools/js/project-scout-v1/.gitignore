@@ -1,0 +1,43 @@
+# Scout Dashboard v1.0 - Clean .gitignore
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+venv/
+env/
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Environment files
+.env
+.env.local
+.env.production
+config/secrets.json
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Testing
+coverage/
+.nyc_output/
+.pytest_cache/
+
+# Deployment
+deploy_temp/
+backup/

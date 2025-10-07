@@ -1,0 +1,73 @@
+---
+# Test Automation Tasks for Pulser CLI
+version: "2.0"
+namespace: "scout-dashboard"
+description: "Test automation tasks for Scout dashboards"
+
+tasks:
+  - name: run-tests
+    description: "Run all dashboard tests"
+    prompt: "Run the full test suite (unit, smoke, E2E, visual) for Scout dashboards"
+    schedule:
+      dispatch:  # on-demand
+    commands:
+      - cd $PULSER_ROOT/tools/js && npm run test:basic
+      - echo "All tests completed. Use GitHub Actions for full test coverage."
+
+  - name: run-unit-tests
+    description: "Run unit tests for dashboard components"
+    prompt: "Run unit tests for Scout dashboard components"
+    schedule:
+      dispatch:  # on-demand
+    commands:
+      - cd $PULSER_ROOT/tools/js && npm run test:basic
+
+  - name: run-test-ci
+    description: "Trigger full test suite in CI"
+    prompt: "Trigger GitHub Actions workflow to run the complete test suite"
+    schedule:
+      dispatch:  # on-demand
+    commands:
+      - |
+        gh workflow run test-automation.yml -f test_suite=all -f environment=staging
+
+  - name: watch-tests
+    description: "Run tests in watch mode for development"
+    prompt: "Run dashboard tests in watch mode while developing"
+    schedule:
+      dispatch:  # on-demand
+    commands:
+      - cd $PULSER_ROOT/tools/js && npx jest --watch tests/unit/dashboard-basic.test.js
+
+  - name: prepare-test-env
+    description: "Set up environment for local testing"
+    prompt: "Prepare the local environment for running dashboard tests"
+    schedule:
+      dispatch:  # on-demand
+    commands:
+      - cd $PULSER_ROOT/tools/js
+      - npm install
+      - mkdir -p test-results/{unit,smoke,e2e,visual,coverage,summary-report}
+      - echo "Test environment prepared"
+
+  - name: update-test-snapshots
+    description: "Update visual test snapshots"
+    prompt: "Update baseline screenshots for visual regression tests"
+    schedule:
+      dispatch:  # on-demand
+    commands:
+      - |
+        gh workflow run test-automation.yml -f test_suite=visual -f environment=staging
+        echo "Snapshot update triggered in CI. Approve PR when ready to update baselines."
+
+  - name: nightly-tests
+    description: "Run the nightly test suite"
+    prompt: "Run scheduled nightly test suite"
+    schedule: |
+      BEGIN:VEVENT
+      RRULE:FREQ=DAILY;BYHOUR=2;BYMINUTE=0;BYSECOND=0
+      END:VEVENT
+    commands:
+      - |
+        gh workflow run test-automation.yml -f test_suite=all -f environment=staging
+        echo "Nightly test run initiated. See GitHub Actions for results."

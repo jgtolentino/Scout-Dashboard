@@ -1,0 +1,529 @@
+[
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:01:12.345Z",
+    "session_id": "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
+    "transcript": "Hello, I'm looking for the summer collection of Nike sneakers.",
+    "confidence": 0.92,
+    "language": "en",
+    "audio_duration_sec": 2.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "entrance",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 35.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:03:45.123Z",
+    "session_id": "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
+    "transcript": "Do you have these Adidas shoes in size 10?",
+    "confidence": 0.88,
+    "language": "en",
+    "audio_duration_sec": 1.8,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 32.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:05:22.876Z",
+    "session_id": "f8a7b6c5-d4e3-f2a1-b0c9-d8e7f6a5b4c3",
+    "transcript": "I prefer Puma for workout gear. What do you have in medium?",
+    "confidence": 0.91,
+    "language": "en",
+    "audio_duration_sec": 2.2,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "athletic",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:10:05.432Z",
+    "session_id": "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+    "transcript": "Do you carry the new Under Armour collection?",
+    "confidence": 0.87,
+    "language": "en",
+    "audio_duration_sec": 1.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "athletic",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:11:18.765Z",
+    "session_id": "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+    "transcript": "These New Balance sneakers are comfortable. Do you have them in blue?",
+    "confidence": 0.93,
+    "language": "en",
+    "audio_duration_sec": 2.7,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:15:42.198Z",
+    "session_id": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t0u1v2",
+    "transcript": "I'm looking for Reebok cross-trainers that I saw in your advertisement.",
+    "confidence": 0.89,
+    "language": "en",
+    "audio_duration_sec": 2.9,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "entrance",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 33.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:17:30.876Z",
+    "session_id": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t0u1v2",
+    "transcript": "These Asics are great for running, but do you have more cushioned options?",
+    "confidence": 0.90,
+    "language": "en",
+    "audio_duration_sec": 3.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 31.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:20:15.432Z",
+    "session_id": "w3x4y5z6-a7b8-c9d0-e1f2-g3h4i5j6k7l8",
+    "transcript": "Do you have any Nike basketball shoes on sale?",
+    "confidence": 0.91,
+    "language": "en",
+    "audio_duration_sec": 1.9,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:22:07.654Z",
+    "session_id": "w3x4y5z6-a7b8-c9d0-e1f2-g3h4i5j6k7l8",
+    "transcript": "I need some Adidas compression gear for my workout routine.",
+    "confidence": 0.88,
+    "language": "en",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "athletic",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:25:42.876Z",
+    "session_id": "m9n0o1p2-q3r4-s5t6-u7v8-w9x0y1z2a3b4",
+    "transcript": "These Puma shoes match my outfit perfectly.",
+    "confidence": 0.92,
+    "language": "en",
+    "audio_duration_sec": 1.7,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-114",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:27:30.123Z",
+    "session_id": "m9n0o1p2-q3r4-s5t6-u7v8-w9x0y1z2a3b4",
+    "transcript": "Do you have any Under Armour shorts that would go with this?",
+    "confidence": 0.89,
+    "language": "en",
+    "audio_duration_sec": 2.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-114",
+      "location_zone": "athletic",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:30:15.765Z",
+    "session_id": "c5d6e7f8-g9h0-i1j2-k3l4-m5n6o7p8q9r0",
+    "transcript": "I'm looking for New Balance walking shoes with good arch support.",
+    "confidence": 0.90,
+    "language": "en",
+    "audio_duration_sec": 2.8,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T08:32:22.432Z",
+    "session_id": "c5d6e7f8-g9h0-i1j2-k3l4-m5n6o7p8q9r0",
+    "transcript": "The Reebok section is over there? Thank you.",
+    "confidence": 0.87,
+    "language": "en",
+    "audio_duration_sec": 1.6,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "entrance",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 32.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:35:45.876Z",
+    "session_id": "s1t2u3v4-w5x6-y7z8-a9b0-c1d2e3f4g5h6",
+    "transcript": "Do you carry Asics trail running shoes?",
+    "confidence": 0.93,
+    "language": "en",
+    "audio_duration_sec": 1.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T08:37:18.123Z",
+    "session_id": "s1t2u3v4-w5x6-y7z8-a9b0-c1d2e3f4g5h6",
+    "transcript": "I need some Nike breathable tops for hot weather running.",
+    "confidence": 0.91,
+    "language": "en",
+    "audio_duration_sec": 2.4,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "athletic",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:40:30.654Z",
+    "session_id": "i7j8k9l0-m1n2-o3p4-q5r6-s7t8u9v0w1x2",
+    "transcript": "Are those the new Adidas Ultraboost?",
+    "confidence": 0.94,
+    "language": "en",
+    "audio_duration_sec": 1.4,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 27.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T08:42:15.321Z",
+    "session_id": "i7j8k9l0-m1n2-o3p4-q5r6-s7t8u9v0w1x2",
+    "transcript": "Puma's lifestyle collection is really improving lately.",
+    "confidence": 0.88,
+    "language": "en",
+    "audio_duration_sec": 2.0,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "casual",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:45:22.765Z",
+    "session_id": "y3z4a5b6-c7d8-e9f0-g1h2-i3j4k5l6m7n8",
+    "transcript": "Do you have Under Armour cold gear for winter training?",
+    "confidence": 0.90,
+    "language": "en",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "athletic",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T08:47:30.432Z",
+    "session_id": "y3z4a5b6-c7d8-e9f0-g1h2-i3j4k5l6m7n8",
+    "transcript": "I'll take these New Balance trainers. They're exactly what I needed.",
+    "confidence": 0.92,
+    "language": "en",
+    "audio_duration_sec": 2.6,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "checkout",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 31.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:50:15.876Z",
+    "session_id": "o9p0q1r2-s3t4-u5v6-w7x8-y9z0a1b2c3d4",
+    "transcript": "I'm looking for Reebok CrossFit gear.",
+    "confidence": 0.89,
+    "language": "en",
+    "audio_duration_sec": 1.7,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-114",
+      "location_zone": "athletic",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T08:52:07.123Z",
+    "session_id": "o9p0q1r2-s3t4-u5v6-w7x8-y9z0a1b2c3d4",
+    "transcript": "The Asics gel technology is amazing for joint protection.",
+    "confidence": 0.91,
+    "language": "en",
+    "audio_duration_sec": 2.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-114",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T09:01:12.345Z",
+    "session_id": "e5f6g7h8-i9j0-k1l2-m3n4-o5p6q7r8s9t0",
+    "transcript": "Do you have Nike Pegasus in a women's size 8?",
+    "confidence": 0.93,
+    "language": "en",
+    "audio_duration_sec": 2.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-001",
+    "timestamp": "2025-05-19T09:03:45.123Z",
+    "session_id": "e5f6g7h8-i9j0-k1l2-m3n4-o5p6q7r8s9t0",
+    "transcript": "I prefer Adidas for soccer equipment.",
+    "confidence": 0.90,
+    "language": "en",
+    "audio_duration_sec": 1.8,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "team_sports",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T09:05:22.876Z",
+    "session_id": "u1v2w3x4-y5z6-a7b8-c9d0-e1f2g3h4i5j6",
+    "transcript": "Where are the Puma running shorts located?",
+    "confidence": 0.91,
+    "language": "en",
+    "audio_duration_sec": 1.9,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "entrance",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-002",
+    "timestamp": "2025-05-19T09:07:30.432Z",
+    "session_id": "u1v2w3x4-y5z6-a7b8-c9d0-e1f2g3h4i5j6",
+    "transcript": "Under Armour makes the best compression gear for weight training.",
+    "confidence": 0.88,
+    "language": "en",
+    "audio_duration_sec": 2.7,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-112",
+      "location_zone": "athletic",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 31.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T09:10:15.765Z",
+    "session_id": "k7l8m9n0-o1p2-q3r4-s5t6-u7v8w9x0y1z2",
+    "transcript": "New Balance has the best support for flat feet.",
+    "confidence": 0.89,
+    "language": "en",
+    "audio_duration_sec": 2.3,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-003",
+    "timestamp": "2025-05-19T09:12:22.543Z",
+    "session_id": "k7l8m9n0-o1p2-q3r4-s5t6-u7v8w9x0y1z2",
+    "transcript": "I'm interested in the new Reebok training collection.",
+    "confidence": 0.92,
+    "language": "en",
+    "audio_duration_sec": 2.1,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "athletic",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T09:15:30.876Z",
+    "session_id": "a3b4c5d6-e7f8-g9h0-i1j2-k3l4m5n6o7p8",
+    "transcript": "Asics gel technology is perfect for my knee problems.",
+    "confidence": 0.91,
+    "language": "en",
+    "audio_duration_sec": 2.5,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 28.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-004",
+    "timestamp": "2025-05-19T09:17:45.123Z",
+    "session_id": "a3b4c5d6-e7f8-g9h0-i1j2-k3l4m5n6o7p8",
+    "transcript": "I need Nike soccer cleats for my son's team.",
+    "confidence": 0.90,
+    "language": "en",
+    "audio_duration_sec": 2.2,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-113",
+      "location_zone": "team_sports",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 30.5,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T09:20:12.654Z",
+    "session_id": "q9r0s1t2-u3v4-w5x6-y7z8-a9b0c1d2e3f4",
+    "transcript": "Adidas makes the best basketball shoes for wide feet.",
+    "confidence": 0.87,
+    "language": "en",
+    "audio_duration_sec": 2.4,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-114",
+      "location_zone": "footwear",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 29.0,
+      "simulated": true
+    }
+  },
+  {
+    "device_id": "pi-device-005",
+    "timestamp": "2025-05-19T09:22:30.321Z",
+    "session_id": "q9r0s1t2-u3v4-w5x6-y7z8-a9b0c1d2e3f4",
+    "transcript": "Puma's lifestyle shoes are so comfortable for everyday wear.",
+    "confidence": 0.93,
+    "language": "en",
+    "audio_duration_sec": 2.6,
+    "speaker_id": "unknown",
+    "metadata": {
+      "store_id": "store-114",
+      "location_zone": "casual",
+      "model_version": "whisper-tiny",
+      "noise_level_db": 27.5,
+      "simulated": true
+    }
+  }
+]

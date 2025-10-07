@@ -1,0 +1,6 @@
+
+Shorthands:
+- ext: Extract content (word-for-word) from image, PDF, Word, any format.
+- ext link: Get link from the extracted content.
+- skr: Add to SKR, zip for Claudia.
+- promptpulse: Bookmark task for structured prompting guide.

@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 33% 99%;
+    --foreground: 222.2 84% 4.9%;
+    --primary: 207 100% 42%;
+    --primary-foreground: 210 40% 98%;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-white/90 backdrop-blur-sm border border-white/50 shadow-sm;
+  }
+}
+
+@layer utilities {
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  /* Focus visible styles for accessibility */
+  .focus-visible-ring:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.35);
+    border-radius: 6px;
+  }
+}
+
+body {
+  background-color: #F8F9FA;
+  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+}

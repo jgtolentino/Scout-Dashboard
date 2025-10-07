@@ -1,0 +1,255 @@
+# Client360 Dashboard - Implementation Plan
+# For completing the end-to-end solution with data pipeline
+# Version: 1.0
+# Date: 2025-05-21
+
+project:
+  name: "Client360 Dashboard"
+  version: "2.3.1"
+  status: "Frontend ready / Backend pending"
+  owner: "TBWA Digital Strategy Team"
+
+# Phase 1: Frontend Deployment
+frontend_deployment:
+  steps:
+    - name: "Production Deployment"
+      script: "./scripts/deploy-only-production.sh"
+      status: "ready"
+      description: "Deploy the current build to production SWA"
+      
+    - name: "Production Verification"
+      script: "./scripts/verify-production.sh"
+      status: "ready"
+      description: "Verify HTTP 200, TBWA theme & rollback component"
+      success_criteria:
+        - "HTTP 200 from production URL"
+        - "TBWA theme correctly applied"
+        - "Rollback component functional"
+        - "Store map displays correctly"
+
+# Phase 2: Branch Mirroring
+branch_mirroring:
+  trigger: "Successful UAT validation"
+  condition: "needs: uat-validation.outputs.passed == 'true'"
+  source: "main"
+  target: "feature/client360-dashboard"
+  sanitization:
+    script: ".github/workflows/sanitized_mirror.sh"
+    description: "Removes sensitive info before pushing to public branch"
+  protection_rules:
+    - "Protect main branch (PRs only)"
+    - "Allow force-push on feature/client360-dashboard (mirror target)"
+
+# Phase 3: Data Integration
+data_integration:
+  event_hub_connector:
+    status: "completed"
+    technology: "JavaScript/TypeScript"
+    implementation:
+      file: "src/connectors/event_hub_connector.js"
+      description: "Module to subscribe to Azure Event Hubs"
+      sources:
+        - name: "eh-pi-stt-raw"
+          description: "Speech-to-text data"
+          destination: "Bronze layer"
+        - name: "eh-pi-visual-stream"
+          description: "Computer vision detections"
+          destination: "Bronze layer"  
+        - name: "eh-device-heartbeat"
+          description: "Device health metrics"
+          destination: "Bronze layer"
+    tasks:
+      - "✅ Created EventHubClient class with connection management"
+      - "✅ Implemented message handlers for each event type"
+      - "✅ Added error handling and reconnection logic"
+      - "✅ Configured consumer group settings"
+      - "✅ Added telemetry and logging"
+
+  medallion_dlt_pipelines:
+    status: "files_exist_need_deployment"
+    files:
+      - path: "scout_bronze_dlt.py"
+        description: "Bronze layer ingestion (raw data)"
+        status: "ready"
+      - path: "scout_silver_dlt.py"
+        description: "Silver layer transformations (cleaned data)"
+        status: "ready"
+      - path: "scout_gold_dlt.py"
+        description: "Gold layer aggregations (business metrics)"
+        status: "ready"
+    deployment:
+      platform: "Databricks"
+      schedule:
+        bronze: "hourly"
+        silver: "hourly"
+        gold: "daily"
+      configuration: "etl-deploy-kit.yaml"
+    tasks:
+      - "Deploy DLT pipeline files to Databricks workspace"
+      - "Configure pipeline scheduling and dependencies"
+      - "Set up monitoring and alerts"
+      - "Implement data quality checks"
+
+  sql_connector_update:
+    status: "completed"
+    file: "data/sql_connector.js"
+    changes:
+      - "✅ Updated connection logic to use Databricks SQL endpoint"
+      - "✅ Implemented secure credential retrieval from Key Vault"
+      - "✅ Updated query templates to match DLT output schemas"
+      - "✅ Improved error handling and fallback mechanisms"
+      - "✅ Added performance monitoring and telemetry"
+      - "✅ Added data freshness monitoring"
+      - "✅ Added test script for connectivity verification"
+      - "✅ Created documentation for the SQL connector"
+    implementation: "Complete"
+    documentation: "docs/DATABRICKS_SQL_CONNECTOR.md"
+
+# Phase 4: Secure Configuration
+secure_configuration:
+  key_vault:
+    name: "kv-client360"
+    status: "pending"
+    secrets:
+      - name: "EVENT-HUB-CONNECTION-STRING"
+        description: "Connection string for Event Hubs namespace"
+      - name: "DATABRICKS-TOKEN"
+        description: "Access token for Databricks workspace"
+      - name: "SQL-ENDPOINT-TOKEN"
+        description: "Token for Databricks SQL endpoint"
+      - name: "STORAGE-ACCOUNT-KEY"
+        description: "Key for Azure Storage account"
+      - name: "STATIC-WEBAPP-DEPLOY-TOKEN"
+        description: "Deployment token for Azure Static Web App"
+  github_secrets:
+    - name: "AZURE_CREDENTIALS"
+      description: "Service principal for Azure resources access"
+    - name: "KEY_VAULT_NAME"
+      value: "kv-client360"
+    - name: "RESOURCE_GROUP"
+      value: "scout-dashboard"
+
+# Phase 5: CI/CD Extension
+ci_cd_extension:
+  file: ".github/workflows/deploy-client360.yml"
+  changes:
+    - add_job: "deploy-data-pipeline"
+      depends_on: "deploy-production"
+      runs_on: "ubuntu-latest"
+      steps:
+        - name: "Checkout repository"
+          uses: "actions/checkout@v2"
+        
+        - name: "Login to Azure"
+          uses: "azure/login@v1"
+          with:
+            creds: "${{ secrets.AZURE_CREDENTIALS }}"
+        
+        - name: "Setup Databricks CLI"
+          run: "pip install databricks-cli"
+        
+        - name: "Configure Databricks CLI"
+          run: |
+            echo "[DEFAULT]" > ~/.databrickscfg
+            echo "host = ${{ secrets.DATABRICKS_HOST }}" >> ~/.databrickscfg
+            echo "token = ${{ secrets.DATABRICKS_TOKEN }}" >> ~/.databrickscfg
+        
+        - name: "Deploy DLT pipelines"
+          run: |
+            databricks workspace import_dir pipelines/ /Shared/client360/pipelines/ -o
+            databricks jobs create --json-file etl-deploy-kit.yaml
+  
+  workflow_variables:
+    - name: "MIRROR_BRANCH"
+      value: "feature/client360-dashboard"
+    - name: "PRODUCTION_APP_NAME"
+      value: "tbwa-client360-dashboard-production"
+
+# Phase 6: Testing and Verification
+testing_verification:
+  tests:
+    - name: "End-to-end connectivity test"
+      description: "Verify dashboard can retrieve data from Databricks SQL endpoint"
+      script: "./scripts/test_databricks_connectivity.sh"
+      
+    - name: "DLT pipeline validation"
+      description: "Verify data flows through the full medallion architecture"
+      script: "./scripts/validate_dlt_pipeline.sh"
+      
+    - name: "KPI data freshness check"
+      description: "Verify KPIs are being updated with recent data"
+      script: "./scripts/check_kpi_freshness.sh"
+  
+  smoke_tests:
+    - "Verify live data toggle works"
+    - "Check map loads with actual store data"
+    - "Verify API response times < 500ms"
+    - "Check all charts render correctly"
+
+# Implementation Timeline
+timeline:
+  - phase: "Frontend Deployment"
+    duration: "1 day"
+    dependencies: []
+    status: "completed"
+    
+  - phase: "Branch Mirroring Setup"
+    duration: "1 day"
+    dependencies: ["Frontend Deployment"]
+    status: "completed"
+    
+  - phase: "Event Hub Connector Implementation"
+    duration: "3 days"
+    dependencies: []
+    status: "completed"
+    
+  - phase: "Medallion DLT Pipeline Deployment"
+    duration: "2 days"
+    dependencies: []
+    status: "ready"
+    implementation: "scripts/deploy_dlt_pipelines.sh"
+    
+  - phase: "SQL Connector Update"
+    duration: "2 days"
+    dependencies: ["Medallion DLT Pipeline Deployment"]
+    status: "completed"
+    implementation: "data/sql_connector.js"
+    
+  - phase: "Key Vault Configuration"
+    duration: "1 day"
+    dependencies: []
+    status: "ready"
+    implementation: "scripts/setup_databricks_sql.sh, scripts/configure_event_hubs.sh"
+    
+  - phase: "End-to-End Testing"
+    duration: "2 days"
+    dependencies: [
+      "Event Hub Connector Implementation",
+      "SQL Connector Update",
+      "Key Vault Configuration"
+    ]
+    status: "ready"
+    implementation: "scripts/test_end_to_end_dataflow.sh"
+    
+  - phase: "Production Go-Live"
+    duration: "1 day"
+    dependencies: ["End-to-End Testing"]
+    status: "ready"
+    implementation: "scripts/go_live_production.sh"
+
+# Implementation Ownership
+owners:
+  frontend_deployment: "Web Team"
+  branch_mirroring: "DevOps Team"
+  data_integration: "Data Engineering Team"
+  secure_configuration: "Security Team"
+  ci_cd_extension: "DevOps Team"
+  testing_verification: "QA Team"
+
+# Final Notes
+notes:
+  - "This plan transforms the current frontend-only implementation into a fully integrated, production-grade dashboard with real-time data"
+  - "The existing codebase has robust frontend components but lacks backend data integration"
+  - "DLT pipeline Python files already exist but need proper deployment and scheduling"
+  - "Branch standardization on 'feature/client360-dashboard' will simplify CI/CD workflows"
+  - "All security credentials should be managed via Azure Key Vault, never stored in code"

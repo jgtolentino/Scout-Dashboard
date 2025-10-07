@@ -1,0 +1,50 @@
+# Surf Agent Configuration
+# Created by Claude on May 10, 2025
+
+name: Surf
+role: Autonomous Code Agent
+description: |
+  Surf is an autonomous agent that performs complex coding tasks with minimal supervision.
+  It can analyze, plan, and implement changes to the codebase in a structured and reliable way.
+capabilities:
+  - autonomous_planning
+  - code_analysis
+  - refactoring
+  - bugfixing
+  - automated_testing
+  - code_generation
+  - execution_monitoring
+parameters:
+  default_model: claude-3-7-sonnet-20250219
+  planning_model: claude-3-opus-20240229
+  execution_parallelism: 4
+  max_runtime_minutes: 30
+  fallback_agent: stacey
+permissions:
+  file_read: true
+  file_write: true
+  command_execution: restricted
+  network_access: true
+integration:
+  command: :surf
+  cli_handler: ~/.pulser/commands/surf.sh
+  arguments:
+    - name: goal
+      description: Natural language description of the task to perform
+      required: true
+    - name: files
+      description: Comma-separated list or glob pattern of files to operate on
+      required: false
+    - name: env
+      description: Environment file to use for the task
+      required: false
+      default: .env.local
+    - name: note
+      description: Additional context or instructions for the agent
+      required: false
+author: claude
+approved_by: claudia
+version: 1.0.0
+created: 2025-05-10T11:45:00+08:00
+resource_quota: 5000_tokens_per_min
+timeout_ms: 90000

@@ -1,0 +1,173 @@
+# Kalaw Knowledge Index - Juicer Stack
+# This file contains metadata for Kalaw's knowledge indexing system
+# DO NOT MODIFY - Created by Claudia Orchestration
+
+metadata:
+  name: "Pulser 2.0.x Juicer Stack"
+  version: "2.0.1"
+  release_date: "2025-05-12"
+  reference_id: "PULSER-2.0.1-JUICER-20250512"
+  status: "LOCKED"
+  orchestration_path: "Claudia → Kalaw → Echo → Maya → Sunnies"
+
+classification:
+  primary_category: "AI-BI Integration"
+  subcategories:
+    - "Visualization"
+    - "Data Processing"
+    - "Brand Analytics"
+    - "Agent Orchestration"
+  tags:
+    - "juicer"
+    - "databricks"
+    - "visualization"
+    - "sketch"
+    - "brand-detection"
+    - "sentiment-analysis"
+    - "azure-sql"
+    - "pulser-cli"
+
+components:
+  - name: "juicer_enrich_silver.py"
+    type: "Databricks Notebook"
+    path: "/notebooks/juicer_enrich_silver.py"
+    purpose: "Brand detection and sentiment analysis for Silver layer"
+    dependencies:
+      - "pandas"
+      - "numpy"
+      - "pyspark"
+      - "mlflow"
+      - "rapidfuzz"
+    
+  - name: "juicer_ingest_bronze.sql"
+    type: "Databricks Notebook"
+    path: "/notebooks/juicer_ingest_bronze.sql"
+    purpose: "Ingest raw transcription data into Bronze layer"
+    dependencies:
+      - "pyspark"
+      - "delta"
+  
+  - name: "juicer_dash_shell.html"
+    type: "Dashboard Template"
+    path: "/dashboards/juicer_dash_shell.html"
+    purpose: "PowerBI-like dashboard shell for visualization"
+    dependencies:
+      - "Chart.js"
+      - "Bootstrap"
+      - "Boxicons"
+  
+  - name: "agent_brand_heatmap.dbviz"
+    type: "Dashboard Definition"
+    path: "/dashboards/agent_brand_heatmap.dbviz"
+    purpose: "Brand mentions heatmap visualization"
+    
+  - name: "juicer_cli.py"
+    type: "CLI Tool"
+    path: "/cli/juicer_cli.py"
+    purpose: "Python CLI for Juicer interaction"
+    dependencies:
+      - "requests"
+      - "rich"
+      - "python-dateutil"
+  
+  - name: "juicer.js"
+    type: "Command Handler"
+    path: "/router/commands/juicer.js"
+    purpose: "Node.js command handler for Pulser CLI"
+    dependencies:
+      - "node-fetch"
+      - "express"
+  
+  - name: "juicer_hook.yaml"
+    type: "Agent Configuration"
+    path: "/pulser/juicer_hook.yaml"
+    purpose: "Agent routing configuration for Claudia/Maya"
+
+knowledge_index:
+  concepts:
+    - name: "Medallion Architecture"
+      description: "Data organization pattern with Bronze (raw), Silver (processed), and Gold (business-ready) layers"
+      references:
+        - "juicer_ingest_bronze.sql"
+        - "juicer_enrich_silver.py"
+    
+    - name: "Brand Detection"
+      description: "Process of identifying brand mentions in text using fuzzy matching and NLP"
+      references:
+        - "juicer_enrich_silver.py"
+    
+    - name: "Sentiment Analysis"
+      description: "Determining emotional tone of text on a scale from negative to positive"
+      references:
+        - "juicer_enrich_silver.py"
+    
+    - name: "Sketch Generation"
+      description: "Creating SVG visualizations based on data or prompts"
+      references:
+        - "juicer.js"
+        - "juicer_dash_shell.html"
+    
+    - name: "Agent Orchestration"
+      description: "Coordination of multiple AI agents to perform complex tasks"
+      references:
+        - "juicer_hook.yaml"
+
+integrations:
+  - system: "Pulser CLI"
+    integration_point: "Command handler (:juicer)"
+    files:
+      - "router/commands/juicer.js"
+  
+  - system: "Claudia"
+    integration_point: "Orchestration and routing"
+    files:
+      - "pulser/juicer_hook.yaml"
+  
+  - system: "Maya"
+    integration_point: "Visualization generation"
+    files:
+      - "dashboards/juicer_dash_shell.html"
+      - "dashboards/agent_brand_heatmap.dbviz"
+  
+  - system: "Echo"
+    integration_point: "STT processing and entity extraction"
+    files:
+      - "notebooks/juicer_enrich_silver.py"
+  
+  - system: "Kalaw"
+    integration_point: "Knowledge integration and metadata"
+    files:
+      - "kalaw_index.yaml"
+  
+  - system: "Sunnies"
+    integration_point: "Visual rendering"
+    files:
+      - "dashboards/juicer_dash_shell.html"
+
+search_keywords:
+  - "juicer"
+  - "databricks"
+  - "brand detection"
+  - "sentiment analysis"
+  - "dashboard"
+  - "visualization"
+  - "sketch"
+  - "powerbi"
+  - "azure sql"
+  - "medallion"
+  - "bronze"
+  - "silver"
+  - "gold"
+  - "cli"
+  - "agent"
+  - "orchestration"
+
+retrieval_examples:
+  - query: "How to run a brand analysis with Juicer?"
+    suggested_response: "Use `:juicer query \"Brand mentions for [brand_name] last [time_period]\"` to analyze brand mentions and sentiment."
+
+  - query: "How does Juicer integrate with Databricks?"
+    suggested_response: "Juicer integrates with Databricks through notebook execution, with a medallion architecture for data processing. Bronze layer ingests raw transcripts, Silver layer adds brand detection and sentiment, and Gold layer provides business-ready analytics."
+
+  - query: "What visualization options does Juicer provide?"
+    suggested_response: "Juicer provides Chart.js-based visualizations including time series charts, bar charts, and heatmaps. It also supports SVG sketch diagrams for relationships and process flows."

@@ -1,0 +1,13 @@
+docs: update architecture diagram references
+
+- Update README_FINAL.md with new architecture diagram
+- Update STAKEHOLDER_BRIEF.md with system architecture section
+- Update QA checklist with reference diagram
+- Add diagram exports (PNG, SVG, thumbnail)
+
+Diagram QA: PARTIAL_PASS (55% pass rate)
+QA ID: ARCH-QA-20250513_014911
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>

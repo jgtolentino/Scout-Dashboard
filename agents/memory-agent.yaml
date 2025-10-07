@@ -1,0 +1,88 @@
+name: ClaudeMemoryAgent
+codename: memory
+description: >
+  A persistent memory agent that reads and writes Claude Desktop memory to local SQLite DB.
+  Provides cross-session context retention and project-specific memory management.
+entry: scripts/claude_memory_bridge.ts
+functions:
+  - name: storeMemory
+    description: Store a memory item with session ID and tag
+    args:
+      - name: sessionId
+        type: string
+        description: Session identifier (e.g., date or UUID)
+      - name: tag
+        type: string
+        description: Memory tag for categorization (e.g., "scout-project", "ask-ces")
+      - name: content
+        type: string
+        description: Memory content to store
+    returns: void
+  
+  - name: recallMemory
+    description: Recall memories by tag with optional limit
+    args:
+      - name: tag
+        type: string
+        description: Memory tag to filter by
+      - name: limit
+        type: number
+        description: Maximum number of memories to return
+        default: 5
+    returns: string[]
+  
+  - name: storeProjectContext
+    description: Store project-specific context automatically
+    args:
+      - name: projectName
+        type: string
+        description: Name of the project (e.g., "scout", "ask-ces")
+      - name: context
+        type: any
+        description: Project context to store
+    returns: void
+  
+  - name: recallProjectContext
+    description: Recall project-specific context
+    args:
+      - name: projectName
+        type: string
+        description: Name of the project
+      - name: limit
+        type: number
+        description: Maximum number of context items to return
+        default: 3
+    returns: string[]
+  
+  - name: getMemoryTags
+    description: Get all available memory tags
+    returns: string[]
+  
+  - name: clearMemory
+    description: Clear memory by tag or all memory
+    args:
+      - name: tag
+        type: string
+        description: Optional tag to clear specific memories
+        optional: true
+    returns: void
+  
+  - name: getMemoryStats
+    description: Get memory statistics
+    returns: object
+
+tags:
+  - memory
+  - claude
+  - persistent
+  - mcp
+  - bridge
+
+config:
+  model: claude-3-5-sonnet
+  temperature: 0.1
+  max_tokens: 4096
+
+version: "1.0.0"
+created: "2025-07-10"
+updated: "2025-07-10"

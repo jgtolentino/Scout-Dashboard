@@ -1,0 +1,71 @@
+name: PromptVault
+codename: prompt_vault
+description: Curated prompt library service for enhanced task planning and UI automation
+entrypoint: hawk.agents.prompt_vault:main
+permissions:
+  - fs:read-only
+  - cache:read-write
+memory_tags:
+  - prompts
+  - knowledge-base
+  - hawk
+  - planning-enhancement
+
+metadata:
+  version: "1.0.0"
+  author: "InsightPulseAI Team"
+  created: "2025-07-06"
+  category: "knowledge"
+  data_sources:
+    - leaked_prompts
+    - system_prompts_leaks
+
+capabilities:
+  - prompt_retrieval: "Retrieve relevant prompts by category or similarity"
+  - prompt_synthesis: "Combine multiple prompts for complex tasks"
+  - safety_filtering: "Filter out unsafe or inappropriate prompts"
+  - prompt_evolution: "Learn from successful task completions"
+
+config:
+  storage:
+    backend: "embedded"  # embedded, redis, postgres
+    cache_size: 10000
+    ttl: 3600
+    
+  categories:
+    - task_planning
+    - ui_automation
+    - code_generation
+    - data_analysis
+    - safety
+    - general
+    
+  retrieval:
+    method: "semantic"  # keyword, semantic, hybrid
+    top_k: 5
+    min_similarity: 0.7
+    
+  filtering:
+    enable_safety: true
+    block_pii: true
+    block_credentials: true
+    
+  evolution:
+    enable_learning: true
+    success_weight: 1.0
+    failure_weight: -0.5
+    max_variants: 10
+
+integrations:
+  - hawk_task_planner:
+      mode: "enhancement"
+      inject_context: true
+      
+  - openmanus_rl:
+      mode: "feedback"
+      reward_signal: "task_success"
+      
+dependencies:
+  - pyyaml>=6.0.0
+  - numpy>=1.24.0
+  - sentence-transformers>=2.2.0  # For semantic search

@@ -1,0 +1,234 @@
+{
+  "kpi_type": "total-sales",
+  "kpi_label": "Total FMCG Portfolio Sales",
+  "current_value": "₱7.82M",
+  "change_percentage": "+14.2%",
+  "time_period": "Last 30 Days",
+  "last_updated": "2025-05-22T13:35:00Z",
+  
+  "drill_down_data": {
+    "time_series": {
+      "labels": ["Week 1", "Week 2", "Week 3", "Week 4", "Current"],
+      "datasets": [
+        {
+          "label": "Del Monte",
+          "data": [380000, 420000, 445000, 465000, 490000],
+          "backgroundColor": "#228b22",
+          "borderColor": "#228b22"
+        },
+        {
+          "label": "Oishi", 
+          "data": [320000, 350000, 375000, 390000, 410000],
+          "backgroundColor": "#ff6b35",
+          "borderColor": "#ff6b35"
+        },
+        {
+          "label": "Alaska Milk",
+          "data": [290000, 315000, 335000, 345000, 360000],
+          "backgroundColor": "#4a90e2", 
+          "borderColor": "#4a90e2"
+        },
+        {
+          "label": "Peerless",
+          "data": [180000, 195000, 210000, 225000, 240000],
+          "backgroundColor": "#7b68ee",
+          "borderColor": "#7b68ee"
+        }
+      ]
+    },
+    
+    "breakdown_by_brand": [
+      {
+        "brand": "Del Monte Philippines",
+        "sales": 1860000,
+        "percentage": 23.8,
+        "change": "+12.5%",
+        "trend": "up",
+        "top_products": ["Tomato Sauce", "Fruit Cocktail", "Corned Beef"]
+      },
+      {
+        "brand": "Oishi",
+        "sales": 1500000,
+        "percentage": 19.2,
+        "change": "+14.7%", 
+        "trend": "up",
+        "top_products": ["Prawn Crackers", "Smart C+", "Pillows"]
+      },
+      {
+        "brand": "Alaska Milk",
+        "sales": 1450000,
+        "percentage": 18.5,
+        "change": "+7.6%",
+        "trend": "steady",
+        "top_products": ["Condensada", "Crema", "Powdered Milk"]
+      },
+      {
+        "brand": "Peerless Products",
+        "sales": 1280000,
+        "percentage": 16.4,
+        "change": "+8.3%",
+        "trend": "up", 
+        "top_products": ["Margarine", "Shortening", "Cooking Oil"]
+      }
+    ],
+    
+    "breakdown_by_region": [
+      {
+        "region": "NCR",
+        "sales": 2890000,
+        "percentage": 37.0,
+        "stores": 24,
+        "avg_per_store": 120416
+      },
+      {
+        "region": "Central Luzon", 
+        "sales": 1640000,
+        "percentage": 21.0,
+        "stores": 18,
+        "avg_per_store": 91111
+      },
+      {
+        "region": "CALABARZON",
+        "sales": 1280000,
+        "percentage": 16.4,
+        "stores": 15,
+        "avg_per_store": 85333
+      },
+      {
+        "region": "Visayas",
+        "sales": 967000,
+        "percentage": 12.4,
+        "stores": 12,
+        "avg_per_store": 80583
+      },
+      {
+        "region": "Mindanao",
+        "sales": 735000,
+        "percentage": 9.4,
+        "stores": 9,
+        "avg_per_store": 81666
+      }
+    ],
+    
+    "breakdown_by_channel": [
+      {
+        "channel": "Mall Outlets",
+        "sales": 4200000,
+        "percentage": 53.7,
+        "stores": 45,
+        "growth": "+15.8%"
+      },
+      {
+        "channel": "Supermarkets",
+        "sales": 2100000,
+        "percentage": 26.9,
+        "stores": 18,
+        "growth": "+12.3%"
+      },
+      {
+        "channel": "Convenience Stores", 
+        "sales": 980000,
+        "percentage": 12.5,
+        "stores": 12,
+        "growth": "+8.9%"
+      },
+      {
+        "channel": "Sari-Sari Stores",
+        "sales": 540000,
+        "percentage": 6.9,
+        "stores": 3,
+        "growth": "+22.1%"
+      }
+    ],
+    
+    "top_performing_stores": [
+      {
+        "store_id": "STORE-006",
+        "store_name": "SM Megamall - FMCG Superstore",
+        "sales": 145000,
+        "growth": "+15.2%",
+        "region": "NCR"
+      },
+      {
+        "store_id": "STORE-001",
+        "store_name": "SM Mall of Asia - Del Monte Corner",
+        "sales": 125000,
+        "growth": "+12.5%",
+        "region": "NCR"
+      },
+      {
+        "store_id": "STORE-010",
+        "store_name": "Alabang Town Center - Premium FMCG",
+        "sales": 132000,
+        "growth": "+11.3%",
+        "region": "NCR"
+      },
+      {
+        "store_id": "STORE-002",
+        "store_name": "Robinsons Galleria - FMCG Hub",
+        "sales": 110000,
+        "growth": "+8.7%",
+        "region": "NCR"
+      },
+      {
+        "store_id": "STORE-013",
+        "store_name": "San Fernando Pampanga - Central Luzon Hub",
+        "sales": 108000,
+        "growth": "+10.5%",
+        "region": "Central Luzon"
+      }
+    ],
+    
+    "insights": [
+      "Del Monte leads the portfolio with ₱1.86M in sales, driven by strong performance in tomato sauce and canned goods",
+      "Oishi shows highest growth at +14.7%, particularly strong in snack categories and youth demographics",
+      "NCR dominates with 37% of total sales across 24 stores, indicating strong urban market penetration",
+      "Sari-Sari stores show exceptional growth at +22.1% despite smaller scale, suggesting untapped potential",
+      "Mall outlets generate 53.7% of revenue, confirming the effectiveness of premium retail partnerships"
+    ],
+    
+    "export_options": [
+      {
+        "format": "CSV",
+        "filename": "fmcg_sales_breakdown_detailed.csv",
+        "description": "Detailed sales data by brand, region, and channel"
+      },
+      {
+        "format": "Excel",
+        "filename": "fmcg_sales_analysis.xlsx", 
+        "description": "Multi-sheet analysis with charts and pivot tables"
+      },
+      {
+        "format": "PowerBI",
+        "filename": "fmcg_sales_dashboard.pbix",
+        "description": "Interactive PowerBI dashboard template"
+      },
+      {
+        "format": "PDF Report",
+        "filename": "fmcg_sales_executive_summary.pdf",
+        "description": "Executive summary with key insights and recommendations"
+      }
+    ]
+  },
+  
+  "recommended_actions": [
+    {
+      "priority": "high",
+      "action": "Expand Oishi distribution to match Del Monte coverage",
+      "impact": "Potential +₱180K monthly revenue",
+      "timeline": "30 days"
+    },
+    {
+      "priority": "medium",
+      "action": "Increase Sari-Sari store partnerships in NCR",
+      "impact": "Potential +₱120K monthly revenue",
+      "timeline": "60 days"
+    },
+    {
+      "priority": "medium",
+      "action": "Optimize Alaska Milk product mix in Visayas",
+      "impact": "Potential +₱85K monthly revenue", 
+      "timeline": "45 days"
+    }
+  ]
+}

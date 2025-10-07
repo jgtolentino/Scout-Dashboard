@@ -1,0 +1,50 @@
+app:
+  name: Creative Intelligence App
+  version: 1.0.0
+  environment: development
+
+server:
+  host: 0.0.0.0
+  port: 3000
+  cors_origins:
+    - http://localhost:3000
+    - https://creative-intel-app.vercel.app
+
+features:
+  drive_integration:
+    enabled: true
+    max_file_size_mb: 50
+    supported_types:
+      - application/pdf
+      - application/vnd.google-apps.presentation
+      - application/vnd.google-apps.document
+      - image/jpeg
+      - image/png
+
+  extraction:
+    ocr:
+      enabled: true
+      engine: tesseract
+    layout:
+      enabled: true
+      confidence_threshold: 0.7
+    audio:
+      enabled: true
+      max_duration_seconds: 300
+
+  rag:
+    provider: pinecone  # or pgvector
+    index_name: creative_features
+    dimension: 1536
+    metric: cosine
+    top_k: 5
+
+storage:
+  type: local  # or s3
+  path: ./data/uploads
+  max_size_gb: 10
+
+logging:
+  level: info
+  format: json
+  output: stdout 

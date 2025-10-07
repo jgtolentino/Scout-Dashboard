@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operations Dashboard</title>
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #0078d4;
+      --secondary: #2E2F33;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
+      --insight-general: #8a4fff;
+      --insight-brand: #00a3e0;
+      --insight-sentiment: #ff7e47;
+      --insight-trend: #00c389;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: var(--dark);
+    }
+    
+    .header {
+      background-color: var(--secondary);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      height: 40px;
+    }
+    
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+      margin-bottom: 20px;
+      border: none;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .card-header {
+      border-radius: 10px 10px 0 0 !important;
+      padding: 0.75rem 1.25rem;
+      font-weight: 600;
+    }
+    
+    .chart-container {
+      height: 350px;
+      margin-bottom: 20px;
+    }
+    
+    .filter-bar {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+    
+    .stats-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+    
+    .stats-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1;
+    }
+    
+    .stats-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin-top: 0.5rem;
+    }
+    
+    .trend-indicator {
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+    
+    .trend-up {
+      color: var(--success);
+    }
+    
+    .trend-down {
+      color: var(--danger);
+    }
+    
+    .metric-good {
+      color: var(--success);
+    }
+    
+    .metric-warning {
+      color: var(--warning);
+    }
+    
+    .metric-critical {
+      color: var(--danger);
+    }
+    
+    .footer {
+      background-color: var(--secondary);
+      color: white;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+    
+    /* Custom toggle switch for dark mode */
+    .dark-mode-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+    
+    .dark-mode-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .dark-mode-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 30px;
+    }
+    
+    .dark-mode-slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .dark-mode-slider {
+      background-color: var(--primary);
+    }
+    
+    input:checked + .dark-mode-slider:before {
+      transform: translateX(30px);
+    }
+    
+    .status-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    
+    .status-healthy {
+      background-color: var(--success);
+    }
+    
+    .status-warning {
+      background-color: var(--warning);
+    }
+    
+    .status-critical {
+      background-color: var(--danger);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .stats-number {
+        font-size: 2rem;
+      }
+      
+      .chart-container {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="m-0 d-flex align-items-center">
+            <img src="https://via.placeholder.com/40x40?text=OPS" alt="Dashboard Logo" class="logo me-2">
+            <span>Operations Dashboard</span>
+          </h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="d-flex justify-content-end align-items-center">
+            <span class="me-2">Dark Mode</span>
+            <label class="dark-mode-switch mb-0">
+              <input type="checkbox" id="darkModeToggle">
+              <span class="dark-mode-slider"></span>
+            </label>
+            <button class="btn btn-outline-light ms-3">
+              <i class="fas fa-sync-alt me-1"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <!-- Filters and Controls -->
+    <div class="filter-bar mb-4">
+      <div class="row">
+        <div class="col-md-3">
+          <label for="timeRange" class="form-label">Time Range</label>
+          <select class="form-select" id="timeRange">
+            <option value="1">Last hour</option>
+            <option value="24">Last 24 hours</option>
+            <option value="7" selected>Last 7 days</option>
+            <option value="30">Last 30 days</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="environmentFilter" class="form-label">Environment</label>
+          <select class="form-select" id="environmentFilter">
+            <option value="all" selected>All Environments</option>
+            <option value="prod">Production</option>
+            <option value="staging">Staging</option>
+            <option value="dev">Development</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="serviceFilter" class="form-label">Service</label>
+          <select class="form-select" id="serviceFilter">
+            <option value="all" selected>All Services</option>
+            <option value="api">API Gateway</option>
+            <option value="auth">Authentication</option>
+            <option value="db">Database</option>
+            <option value="analytics">Analytics</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="alertLevel" class="form-label">Alert Level</label>
+          <select class="form-select" id="alertLevel">
+            <option value="all" selected>All Levels</option>
+            <option value="critical">Critical</option>
+            <option value="warning">Warning</option>
+            <option value="info">Info</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- System Health Monitoring -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h4 class="mb-3"><i class="fas fa-heartbeat text-danger me-2"></i>System Health Monitoring</h4>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="systemUptime">99.98%</h5>
+            <p class="stats-label">System Uptime</p>
+            <p class="trend-indicator metric-good">
+              <i class="fas fa-check-circle"></i> SLA Met
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="responseTime">128ms</h5>
+            <p class="stats-label">Avg Response Time</p>
+            <p class="trend-indicator metric-good">
+              <i class="fas fa-check-circle"></i> Within target
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="errorRate">0.03%</h5>
+            <p class="stats-label">Error Rate</p>
+            <p class="trend-indicator metric-good">
+              <i class="fas fa-check-circle"></i> Below threshold
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="activeIncidents">0</h5>
+            <p class="stats-label">Active Incidents</p>
+            <p class="trend-indicator metric-good">
+              <i class="fas fa-check-circle"></i> No incidents
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Infrastructure Metrics -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h4 class="mb-3"><i class="fas fa-server text-primary me-2"></i>Infrastructure Metrics</h4>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="cpuUtilization">42%</h5>
+            <p class="stats-label">CPU Utilization</p>
+            <p class="trend-indicator metric-good">
+              <i class="fas fa-check-circle"></i> Normal
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="memoryUtilization">58%</h5>
+            <p class="stats-label">Memory Utilization</p>
+            <p class="trend-indicator metric-good">
+              <i class="fas fa-check-circle"></i> Normal
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="diskUtilization">73%</h5>
+            <p class="stats-label">Disk Utilization</p>
+            <p class="trend-indicator metric-warning">
+              <i class="fas fa-exclamation-circle"></i> Monitor
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h5 class="stats-number" id="networkUsage">22%</h5>
+            <p class="stats-label">Network Usage</p>
+            <p class="trend-indicator metric-good">
+              <i class="fas fa-check-circle"></i> Normal
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">System Performance</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" id="performanceChart">
+              <!-- Chart will be rendered here -->
+              <canvas id="systemPerformanceChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Request Volume</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" id="requestChart">
+              <!-- Chart will be rendered here -->
+              <canvas id="requestVolumeChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- GenAI Insights Section -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">
+              <i class="fas fa-lightbulb text-warning me-2"></i>
+              GenAI Insights
+            </h5>
+          </div>
+          <div class="card-body">
+            <div id="genai-insights-container">
+              <div class="row" id="insightsCardsContainer">
+                <!-- Insights cards will be dynamically inserted here -->
+                <div class="col-md-6 mb-3">
+                  <div class="card card-insight-general">
+                    <div class="card-header" style="background-color: var(--insight-general); color: white;">
+                      <span class="badge bg-light text-dark me-2">Operations</span>
+                      Database query optimization potential identified
+                      <span class="badge bg-success float-end">88% confidence</span>
+                    </div>
+                    <div class="card-body">
+                      <p>Analysis of database query patterns suggests potential for 15-20% performance improvement through query optimization and index refinement. Most significant gains would be in the inventory management module.</p>
+                      <div class="text-end">
+                        <small class="text-muted">Generated by AI • May 10, 2025</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="card card-insight-trend">
+                    <div class="card-header" style="background-color: var(--insight-trend); color: white;">
+                      <span class="badge bg-light text-dark me-2">Trend</span>
+                      Peak usage patterns shifting to earlier hours
+                      <span class="badge bg-success float-end">92% confidence</span>
+                    </div>
+                    <div class="card-body">
+                      <p>System usage data shows a consistent shift in peak usage periods, now starting 1-2 hours earlier than previous quarters. Consider adjusting maintenance windows and scaling policies accordingly.</p>
+                      <div class="text-end">
+                        <small class="text-muted">Generated by AI • May 11, 2025</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center mt-3">
+                <button class="btn btn-outline-primary" id="loadMoreInsightsBtn">
+                  <i class="fas fa-sync-alt me-1"></i> Load More Insights
+                </button>
+                <a href="../index.html" class="btn btn-link ms-2">
+                  <i class="fas fa-external-link-alt me-1"></i> Full Insights Dashboard
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Health Table -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Service Health</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Service</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Uptime</th>
+                    <th scope="col">Latency</th>
+                    <th scope="col">Error Rate</th>
+                    <th scope="col">Last Incident</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>API Gateway</td>
+                    <td><span class="status-indicator status-healthy"></span> Healthy</td>
+                    <td>99.99%</td>
+                    <td>78ms</td>
+                    <td>0.01%</td>
+                    <td>42 days ago</td>
+                  </tr>
+                  <tr>
+                    <td>Authentication Service</td>
+                    <td><span class="status-indicator status-healthy"></span> Healthy</td>
+                    <td>100.00%</td>
+                    <td>112ms</td>
+                    <td>0.00%</td>
+                    <td>63 days ago</td>
+                  </tr>
+                  <tr>
+                    <td>Database Cluster</td>
+                    <td><span class="status-indicator status-healthy"></span> Healthy</td>
+                    <td>99.97%</td>
+                    <td>45ms</td>
+                    <td>0.03%</td>
+                    <td>14 days ago</td>
+                  </tr>
+                  <tr>
+                    <td>Analytics Pipeline</td>
+                    <td><span class="status-indicator status-warning"></span> Degraded</td>
+                    <td>99.82%</td>
+                    <td>320ms</td>
+                    <td>0.12%</td>
+                    <td>2 days ago</td>
+                  </tr>
+                  <tr>
+                    <td>Notification Service</td>
+                    <td><span class="status-indicator status-healthy"></span> Healthy</td>
+                    <td>99.95%</td>
+                    <td>64ms</td>
+                    <td>0.04%</td>
+                    <td>28 days ago</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 Operations Dashboard</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="analytics-powered">
+            <span>Powered by Retail Advisor</span>
+            <span class="analytics-version">2.1.2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/insights_visualizer.js"></script>
+  
+  <script>
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+    });
+    
+    // Initialize insights visualizer
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof InsightsVisualizer !== 'undefined') {
+        new InsightsVisualizer({
+          apiEndpoint: '../assets/data/insights_data.json',
+          refreshInterval: 300000, // 5 minutes
+          container: '#insightsCardsContainer',
+          maxCards: 4, // Show only 4 cards in the widget
+          theme: document.body.classList.contains('dark-mode') ? 'dark' : 'light'
+        });
+      }
+      
+      // System Performance Chart
+      const performanceCtx = document.getElementById('systemPerformanceChart').getContext('2d');
+      const performanceChart = new Chart(performanceCtx, {
+        type: 'line',
+        data: {
+          labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+          datasets: [
+            {
+              label: 'CPU Utilization (%)',
+              data: [35, 40, 38, 45, 42, 50, 42],
+              borderColor: '#00a3e0',
+              backgroundColor: 'rgba(0, 163, 224, 0.1)',
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'Memory Utilization (%)',
+              data: [55, 52, 60, 58, 62, 65, 58],
+              borderColor: '#ff3300',
+              backgroundColor: 'rgba(255, 51, 0, 0.1)',
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'Disk Utilization (%)',
+              data: [68, 70, 69, 72, 71, 73, 75],
+              borderColor: '#ffc107',
+              backgroundColor: 'rgba(255, 193, 7, 0.1)',
+              tension: 0.4,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Utilization (%)'
+              }
+            }
+          }
+        }
+      });
+      
+      // Request Volume Chart
+      const requestCtx = document.getElementById('requestVolumeChart').getContext('2d');
+      const requestChart = new Chart(requestCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+          datasets: [
+            {
+              label: 'Requests (thousands)',
+              data: [125, 132, 128, 142, 156, 148, 138],
+              backgroundColor: '#00c389',
+              borderWidth: 0
+            },
+            {
+              label: 'Error Rate (%)',
+              data: [0.02, 0.03, 0.02, 0.04, 0.03, 0.04, 0.03],
+              backgroundColor: '#dc3545',
+              borderWidth: 0,
+              type: 'line',
+              yAxisID: 'y1'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Requests (thousands)'
+              }
+            },
+            y1: {
+              position: 'right',
+              beginAtZero: true,
+              max: 0.1,
+              title: {
+                display: true,
+                text: 'Error Rate (%)'
+              },
+              grid: {
+                drawOnChartArea: false
+              },
+              ticks: {
+                callback: function(value) {
+                  return value.toFixed(2) + '%';
+                }
+              }
+            }
+          }
+        }
+      });
+      
+      // Filter event handlers
+      document.getElementById('timeRange').addEventListener('change', updateDashboard);
+      document.getElementById('environmentFilter').addEventListener('change', updateDashboard);
+      document.getElementById('serviceFilter').addEventListener('change', updateDashboard);
+      document.getElementById('alertLevel').addEventListener('change', updateDashboard);
+      
+      function updateDashboard() {
+        // In a real application, this would fetch new data based on filters
+        console.log('Updating dashboard with new filters...');
+        // Simulate loading
+        const refreshBtn = document.querySelector('.btn-outline-light');
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Refreshing...';
+        setTimeout(() => {
+          refreshBtn.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Refresh';
+        }, 1000);
+      }
+      
+      // Load more insights button
+      document.getElementById('loadMoreInsightsBtn').addEventListener('click', function() {
+        window.location.href = '../index.html';
+      });
+    });
+  </script>
+</body>
+</html>

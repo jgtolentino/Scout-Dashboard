@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Client360 Dashboard</title>
+  
+  <!-- Theme loader script (dynamically loads the appropriate CSS) -->
+  <script src="/js/theme-selector.js"></script>
+  
+  <!-- Map libraries -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-logo"></div>
+    <div class="theme-selector">
+      <label for="theme-select">Theme:</label>
+      <select id="theme-select" onchange="switchTheme(this.value)">
+        <option value="tbwa">TBWA</option>
+        <option value="sarisari">Sari Sari</option>
+      </select>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="data-freshness">Data: Simulated | Last updated: May 19, 2025</div>
+    
+    <h1>Client360 Dashboard</h1>
+    
+    <div class="row">
+      <div class="col">
+        <div class="card kpi-card">
+          <h3>Total Sales</h3>
+          <div class="value">₱ 1.24M</div>
+          <div class="change positive">+8.5% vs prev month</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card kpi-card">
+          <h3>Active Stores</h3>
+          <div class="value">487</div>
+          <div class="change positive">+12 new stores</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card kpi-card">
+          <h3>Avg. Order Value</h3>
+          <div class="value">₱ 752</div>
+          <div class="change negative">-2.3% vs prev month</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card kpi-card">
+          <h3>Product Categories</h3>
+          <div class="value">32</div>
+          <div class="change positive">+3 new categories</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <h2>Store Map</h2>
+          <div id="store-map" class="map-container"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <h2>Sales by Region</h2>
+          <div class="chart-container" id="sales-by-region-chart"></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h2>Top Selling Products</h2>
+          <div class="chart-container" id="top-products-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Initialize the map once the theme is loaded
+    document.addEventListener('themeLoaded', function(e) {
+      initializeMap();
+    });
+    
+    function initializeMap() {
+      // Create the map if the container exists
+      var mapContainer = document.getElementById('store-map');
+      if (!mapContainer) return;
+      
+      // Initialize the map
+      var map = L.map('store-map').setView([12.8797, 121.7740], 6); // Philippines
+      
+      // Add the tile layer (OpenStreetMap)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      
+      // Add sample store markers (simulated data)
+      var stores = [
+        { name: "Manila Store", lat: 14.5995, lng: 120.9842, sales: 120000 },
+        { name: "Cebu Store", lat: 10.3157, lng: 123.8854, sales: 98000 },
+        { name: "Davao Store", lat: 7.1907, lng: 125.4553, sales: 87000 },
+        { name: "Quezon City Store", lat: 14.6760, lng: 121.0437, sales: 110000 },
+        { name: "Baguio Store", lat: 16.4023, lng: 120.5960, sales: 76000 }
+      ];
+      
+      // Add markers for each store
+      stores.forEach(function(store) {
+        var marker = L.marker([store.lat, store.lng]).addTo(map);
+        marker.bindPopup("<b>" + store.name + "</b><br>Monthly Sales: ₱" + 
+          (store.sales / 1000).toFixed(1) + "K");
+      });
+      
+      // Add a simple polygon outline of the Philippines (simplified)
+      fetch('/data/philippines_outline.geojson')
+        .then(response => {
+          if (!response.ok) {
+            // If the file doesn't exist, use a simplified polygon
+            var simplifiedPH = L.polygon([
+              [18.5, 118.0], [18.2, 122.0], [7.0, 126.0], 
+              [5.0, 125.0], [5.5, 120.0], [10.0, 117.5]
+            ], {
+              color: '#FF6B35',
+              weight: 1,
+              fillOpacity: 0.05
+            }).addTo(map);
+          } else {
+            return response.json().then(data => {
+              L.geoJSON(data, {
+                style: {
+                  color: '#FF6B35',
+                  weight: 1,
+                  fillOpacity: 0.05
+                }
+              }).addTo(map);
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error loading Philippines outline:', error);
+        });
+    }
+  </script>
+</body>
+</html>

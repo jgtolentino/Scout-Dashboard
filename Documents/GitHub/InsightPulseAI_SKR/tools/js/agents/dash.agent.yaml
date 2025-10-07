@@ -1,0 +1,60 @@
+id: dash
+name: Dashboard Builder (DASH)
+description: >
+  Automates dashboard generation from structured data sources using schema analysis,
+  user intent parsing, and web deployment logic. Supports toggle-driven interfaces,
+  mobile responsiveness, and data storytelling aligned with InsightPulseAI standards.
+
+version: 1.0.0
+
+agent_type: generator
+labels: [dashboard, automation, visualization, react, analytics, scout]
+
+model:
+  provider: claude
+  engine: claude-3-opus
+  temperature: 0.3
+  max_tokens: 4096
+
+entrypoint: build_dashboard
+input_format: schema_and_requirements
+output_format: html_js_bundle
+
+orchestration:
+  parent: VisualSynth
+  role: dashboard-deployer
+  subagents:
+    - reqparser
+    - schemainfer
+    - vizplanner
+    - reactgen
+    - deployer
+
+functions:
+  - id: parse_requirements
+    description: Extract user KPIs, layout preferences, and drill-down specs from prompt
+  - id: infer_schema
+    description: Analyze incoming data structure (SQL, CSV, JSON, API) for dashboard logic
+  - id: generate_components
+    description: Produce modular HTML/JS components for dashboard UI
+  - id: deploy_webapp
+    description: Push compiled dashboard to cloud (Azure, Vercel, or Netlify)
+
+outputs:
+  - path: /dashboards/generated_dashboard.html
+    format: HTML
+  - path: /dashboards/config.json
+    format: JSON (for component settings)
+  - path: /dashboards/assets/
+    format: JS/CSS assets
+
+integrations:
+  - azure_blob
+  - vercel_cli
+  - databricks_sql_connector
+  - pulser_internal_router
+
+permissions:
+  network: true
+  file_system: write
+  execution: safe_mode

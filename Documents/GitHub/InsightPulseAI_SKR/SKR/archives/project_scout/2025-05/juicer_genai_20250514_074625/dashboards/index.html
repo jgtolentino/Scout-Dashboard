@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retail Advisor Dashboards</title>
+
+  <!-- Bootstrap and Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #342b64;
+      --secondary-color: #5352ed;
+      --success-color: #2ed573;
+      --info-color: #00a3e0;
+      --warning-color: #ffa502;
+      --danger-color: #ff6b81;
+      --purple-color: #8a4fff;
+      --chat-color: #4E73DF;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7f9;
+      color: #333;
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1.5rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .card {
+      height: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      font-weight: 600;
+      padding: 1rem 1.25rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .dashboard-card-client .card-header {
+      background-color: var(--info-color);
+      color: white;
+    }
+
+    .dashboard-card-ops .card-header {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+
+    .dashboard-card-drill .card-header {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .dashboard-card-retail .card-header {
+      background-color: var(--danger-color);
+      color: white;
+    }
+
+    .dashboard-card-qa .card-header {
+      background-color: var(--warning-color);
+      color: white;
+    }
+
+    .dashboard-card-chat .card-header {
+      background-color: var(--chat-color);
+      color: white;
+    }
+
+    .dashboard-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      opacity: 0.3;
+      margin-bottom: 1rem;
+    }
+
+    .data-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50px;
+      margin-top: 1rem;
+      font-weight: 500;
+      background-color: #e9ecef;
+      color: #495057;
+    }
+
+    .footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 0;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .btn-launch {
+      border-radius: 50px;
+      padding: 0.5rem 1.5rem;
+      font-weight: 500;
+      margin-top: 1rem;
+    }
+
+    .btn-launch i {
+      margin-right: 0.5rem;
+    }
+
+    .analytics-badge {
+      display: inline-flex;
+      align-items: center;
+      background-color: rgba(255,255,255,0.2);
+      padding: 0.25rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      margin-left: 1rem;
+    }
+
+    .analytics-version {
+      margin-left: 0.5rem;
+      border-left: 1px solid rgba(255,255,255,0.3);
+      padding-left: 0.5rem;
+      opacity: 0.8;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #2ed573;
+      margin-right: 0.5rem;
+    }
+
+    /* Floating Juicy Chat button */
+    .floating-chat {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .btn-chat {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--chat-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+
+    .btn-chat:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+
+    .btn-chat i {
+      font-size: 1.5rem;
+    }
+
+    .dark-mode-toggle {
+      background-color: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .dark-mode-toggle:hover {
+      background-color: rgba(255,255,255,0.3);
+    }
+
+    /* Dark mode styling */
+    body.dark-mode {
+      background-color: #222;
+      color: #f5f5f5;
+    }
+
+    body.dark-mode .card {
+      background-color: #333;
+      border-color: #444;
+    }
+
+    body.dark-mode .card-body {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .alert-info {
+      background-color: rgba(83, 82, 237, 0.2);
+      border-color: rgba(83, 82, 237, 0.3);
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .bg-light {
+      background-color: #333 !important;
+    }
+
+    body.dark-mode .text-dark {
+      color: #e0e0e0 !important;
+    }
+
+    body.dark-mode .btn-outline-secondary {
+      color: #aaa;
+      border-color: #aaa;
+    }
+
+    body.dark-mode .form-check-label {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .form-select {
+      background-color: #444;
+      color: #e0e0e0;
+      border-color: #555;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        gap: 1rem !important;
+      }
+
+      .card-body {
+        padding: 1rem;
+      }
+
+      .footer {
+        text-align: center;
+      }
+
+      .footer .text-end {
+        text-align: center !important;
+        margin-top: 0.5rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .analytics-badge {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="m-0 d-flex align-items-center">
+            <img src="images/retail-advisor-icon.svg" alt="Retail Advisor" class="logo me-2" onerror="this.src='images/default-icon.svg'">
+            <span>Retail Advisor Dashboards</span>
+          </h1>
+        </div>
+        <div class="col-md-4 text-end">
+          <button class="dark-mode-toggle me-2" id="darkModeToggle" title="Toggle Dark Mode">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="/" class="btn btn-outline-light">
+            <i class="fas fa-home me-1"></i> Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-5">
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle me-2"></i>
+          Choose a dashboard below to view different aspects of the analytics platform. Each dashboard provides different insights and functionality.
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-5 g-4 dashboard-grid">
+      <!-- AI Insights Dashboard -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card dashboard-card-client">
+          <div class="card-header">
+            <h5 class="mb-0">AI Insights Dashboard</h5>
+          </div>
+          <div class="card-body text-center">
+            <div class="dashboard-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h5>AI-Generated Business Insights</h5>
+            <p>Explore AI-generated insights, trend analysis, and strategic recommendations based on customer interactions.</p>
+            <div class="data-badge mb-3">
+              <i class="fas fa-chart-line me-1"></i> Data-Driven Recommendations
+            </div>
+            <a href="insights_dashboard.html" class="btn btn-primary btn-launch" target="_blank">
+              <i class="fas fa-external-link-alt"></i> Launch Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- System Operations Dashboard -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card dashboard-card-ops">
+          <div class="card-header">
+            <h5 class="mb-0">System Operations</h5>
+          </div>
+          <div class="card-body text-center">
+            <div class="dashboard-icon">
+              <i class="fas fa-server"></i>
+            </div>
+            <h5>System Health & Performance</h5>
+            <p>Monitor system health, device status, data pipeline metrics, and machine learning model performance.</p>
+            <div class="data-badge mb-3">
+              <i class="fas fa-heartbeat me-1"></i> Internal Technical Metrics
+            </div>
+            <a href="juicer_dash_shell.html" class="btn btn-primary btn-launch" target="_blank">
+              <i class="fas fa-external-link-alt"></i> Launch Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drilldown Dashboard -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card dashboard-card-drill">
+          <div class="card-header">
+            <h5 class="mb-0">Brand to SKU Drilldown</h5>
+          </div>
+          <div class="card-body text-center">
+            <div class="dashboard-icon">
+              <i class="fas fa-sitemap"></i>
+            </div>
+            <h5>Hierarchical Data Analysis</h5>
+            <p>Drill down from brands to categories to products to individual SKUs with detailed customer insights.</p>
+            <div class="data-badge mb-3">
+              <i class="fas fa-search-plus me-1"></i> Interactive Exploration
+            </div>
+            <a href="drilldown-dashboard.html" class="btn btn-primary btn-launch" target="_blank">
+              <i class="fas fa-external-link-alt"></i> Launch Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Retail Performance Dashboard -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card dashboard-card-retail">
+          <div class="card-header">
+            <h5 class="mb-0">Retail Performance</h5>
+          </div>
+          <div class="card-body text-center">
+            <div class="dashboard-icon">
+              <i class="fas fa-store"></i>
+            </div>
+            <h5>Store Performance Analytics</h5>
+            <p>Track and analyze retail store performance metrics, customer traffic, and sales data across locations.</p>
+            <div class="data-badge mb-3">
+              <i class="fas fa-cash-register me-1"></i> Sales & Performance
+            </div>
+            <a href="retail_performance/retail_performance_dashboard.html" class="btn btn-primary btn-launch" target="_blank">
+              <i class="fas fa-external-link-alt"></i> Launch Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- QA Dashboard (only visible in dev mode) -->
+      <div class="col-md-6 col-lg-4" id="qaCardContainer">
+        <div class="card dashboard-card-qa">
+          <div class="card-header">
+            <h5 class="mb-0">QA Dashboard</h5>
+          </div>
+          <div class="card-body text-center">
+            <div class="dashboard-icon">
+              <i class="fas fa-clipboard-check"></i>
+            </div>
+            <h5>Quality Assurance Metrics</h5>
+            <p>Review data quality scores, validation metrics, and system test results across all platform components.</p>
+            <div class="data-badge mb-3">
+              <i class="fas fa-tasks me-1"></i> Testing & Validation
+            </div>
+            <a href="qa.html" class="btn btn-primary btn-launch" target="_blank">
+              <i class="fas fa-external-link-alt"></i> Launch Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Juicy Chat Tool -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card dashboard-card-chat">
+          <div class="card-header">
+            <h5 class="mb-0">Juicy Chat</h5>
+          </div>
+          <div class="card-body text-center">
+            <div class="dashboard-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h5>Text-to-SQL Assistant</h5>
+            <p>Ask questions in natural language and get instant answers from your data using our conversational SQL assistant.</p>
+            <div class="data-badge mb-3">
+              <i class="fas fa-robot me-1"></i> Natural Language Interface
+            </div>
+            <a href="juicy-chat-snippet.html" class="btn btn-primary btn-launch" target="_blank">
+              <i class="fas fa-external-link-alt"></i> Launch Assistant
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h5><i class="fas fa-info-circle me-2"></i> Data Source Transparency</h5>
+            <p>All dashboards feature data source badges that clearly indicate:</p>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <div class="card bg-success bg-opacity-10 border-success mb-3">
+                  <div class="card-body">
+                    <h6 class="text-success"><i class="fas fa-check-circle me-2"></i> Real Data</h6>
+                    <p class="small mb-0">Metrics directly from production systems or databases</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card bg-warning bg-opacity-10 border-warning mb-3">
+                  <div class="card-body">
+                    <h6 class="text-warning"><i class="fas fa-exclamation-circle me-2"></i> Mock Data</h6>
+                    <p class="small mb-0">Simulated data for demonstration or development purposes</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card bg-purple bg-opacity-10 border-primary mb-3">
+                  <div class="card-body">
+                    <h6 class="text-primary"><i class="fas fa-info-circle me-2"></i> Mixed Data</h6>
+                    <p class="small mb-0">A combination of real and simulated data sources</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Developer Tools Section -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card bg-light">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="fas fa-tools me-2"></i> Developer Tools</h5>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="devModeToggle">
+                <label class="form-check-label" for="devModeToggle">Enable Dev Mode</label>
+              </div>
+            </div>
+            <div class="mt-3" id="devTools" style="display: none;">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <h6><i class="fas fa-database me-2"></i> Data Source Controls</h6>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="dataSource" id="realData" checked>
+                        <label class="form-check-label" for="realData">
+                          Use Real Data (Production)
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="dataSource" id="mockData">
+                        <label class="form-check-label" for="mockData">
+                          Use Mock Data (Development)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <h6><i class="fas fa-code me-2"></i> Debug Tools</h6>
+                      <div class="d-grid gap-2">
+                        <a href="qa.html?debug=true" class="btn btn-sm btn-outline-secondary" target="_blank">
+                          <i class="fas fa-bug me-1"></i> Open Debug Console
+                        </a>
+                        <button class="btn btn-sm btn-outline-secondary" id="clearCacheBtn">
+                          <i class="fas fa-trash-alt me-1"></i> Clear Cache
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating Juicy Chat Button -->
+  <div class="floating-chat">
+    <a href="juicy-chat-snippet.html" class="btn-chat" target="_blank" title="Launch Juicy Chat">
+      <i class="fas fa-comment-alt"></i>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0 d-flex align-items-center">
+            &copy; 2025 Retail Advisor
+            <span class="analytics-badge">
+              <span class="status-dot"></span>
+              Powered by Analytics
+              <span class="analytics-version">v2.1.2</span>
+            </span>
+          </p>
+        </div>
+        <div class="col-md-6 text-end">
+          <p class="mb-0">
+            <a href="qa.html" class="text-white text-decoration-none">
+              <i class="fas fa-chart-line me-1"></i> System Status
+            </a>
+            <span class="ms-3">Last updated: May 13, 2025</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom Scripts -->
+  <script>
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('darkMode', 'disabled');
+      } else {
+        body.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('darkMode', 'enabled');
+      }
+    });
+
+    // Developer Mode Toggle
+    const devModeToggle = document.getElementById('devModeToggle');
+    const devTools = document.getElementById('devTools');
+
+    devModeToggle.addEventListener('change', () => {
+      const qaCardContainer = document.getElementById('qaCardContainer');
+
+      if (devModeToggle.checked) {
+        devTools.style.display = 'block';
+        localStorage.setItem('devMode', 'enabled');
+
+        // Show QA Dashboard in dev mode
+        if (qaCardContainer) {
+          qaCardContainer.style.display = 'block';
+        }
+      } else {
+        devTools.style.display = 'none';
+        localStorage.setItem('devMode', 'disabled');
+
+        // Hide QA Dashboard when dev mode is disabled
+        if (qaCardContainer) {
+          qaCardContainer.style.display = 'none';
+        }
+      }
+    });
+
+    // Check for saved dev mode preference
+    if (localStorage.getItem('devMode') === 'enabled') {
+      devModeToggle.checked = true;
+      devTools.style.display = 'block';
+
+      // Show QA Dashboard in dev mode
+      const qaCardContainer = document.getElementById('qaCardContainer');
+      if (qaCardContainer) {
+        qaCardContainer.style.display = 'block';
+      }
+    } else {
+      // Hide QA Dashboard when dev mode is disabled
+      const qaCardContainer = document.getElementById('qaCardContainer');
+      if (qaCardContainer) {
+        qaCardContainer.style.display = 'none';
+      }
+    }
+
+    // Clear Cache Button
+    const clearCacheBtn = document.getElementById('clearCacheBtn');
+    clearCacheBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear the dashboard cache?')) {
+        localStorage.clear();
+        alert('Cache cleared successfully. The page will now reload.');
+        location.reload();
+      }
+    });
+
+    // Ensure all dashboard links open in new tab
+    document.querySelectorAll('.btn-launch').forEach(link => {
+      link.setAttribute('target', '_blank');
+    });
+  </script>
+</body>
+</html>

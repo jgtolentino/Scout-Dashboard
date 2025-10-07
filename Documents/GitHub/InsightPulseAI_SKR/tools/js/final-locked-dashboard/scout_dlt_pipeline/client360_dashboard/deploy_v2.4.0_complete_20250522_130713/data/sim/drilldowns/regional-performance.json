@@ -1,0 +1,249 @@
+{
+  "kpi_type": "regional-performance",
+  "timestamp": "2025-05-22T11:30:00Z",
+  "summary": {
+    "total_regions": 4,
+    "best_performer": "Cebu",
+    "highest_growth": "Davao",
+    "largest_market": "Metro Manila",
+    "expansion_target": "Bohol"
+  },
+  "regions": [
+    {
+      "id": "metro-manila",
+      "name": "Metro Manila",
+      "revenue": 1850000,
+      "store_count": 45,
+      "growth": 18.7,
+      "market_share": 56.2,
+      "population": 13484462,
+      "gdp_per_capita": 168000,
+      "competition_level": "High",
+      "market_penetration": 67.8,
+      "avg_revenue_per_store": 41111,
+      "conversion_rate": 15.8,
+      "customer_satisfaction": 4.5,
+      "expansion_potential": "Medium",
+      "key_cities": ["Manila", "Quezon City", "Makati", "Pasig", "Taguig"],
+      "demographics": {
+        "age_18_35": 42.3,
+        "age_36_55": 35.7,
+        "age_55_plus": 22.0,
+        "income_high": 34.2,
+        "income_medium": 48.9,
+        "income_low": 16.9
+      },
+      "top_categories": [
+        {"category": "Electronics", "revenue": 648000, "growth": 22.4},
+        {"category": "Fashion", "revenue": 481000, "growth": 15.8},
+        {"category": "Food & Beverage", "revenue": 407000, "growth": 18.9}
+      ],
+      "challenges": ["High competition", "Rising real estate costs", "Traffic congestion"],
+      "opportunities": ["Digital integration", "Premium segments", "Delivery services"]
+    },
+    {
+      "id": "cebu",
+      "name": "Cebu",
+      "revenue": 450000,
+      "store_count": 12,
+      "growth": 23.1,
+      "market_share": 13.7,
+      "population": 3165799,
+      "gdp_per_capita": 89000,
+      "competition_level": "Medium",
+      "market_penetration": 45.2,
+      "avg_revenue_per_store": 37500,
+      "conversion_rate": 18.2,
+      "customer_satisfaction": 4.7,
+      "expansion_potential": "High",
+      "key_cities": ["Cebu City", "Lapu-Lapu", "Mandaue", "Talisay"],
+      "demographics": {
+        "age_18_35": 45.8,
+        "age_36_55": 33.2,
+        "age_55_plus": 21.0,
+        "income_high": 28.4,
+        "income_medium": 52.1,
+        "income_low": 19.5
+      },
+      "top_categories": [
+        {"category": "Fashion", "revenue": 148500, "growth": 28.7},
+        {"category": "Electronics", "revenue": 135000, "growth": 26.3},
+        {"category": "Home & Garden", "revenue": 94500, "growth": 19.4}
+      ],
+      "challenges": ["Limited infrastructure", "Seasonal tourism impact", "Logistics costs"],
+      "opportunities": ["Tourism market", "Regional hub potential", "Young demographics"]
+    },
+    {
+      "id": "davao",
+      "name": "Davao",
+      "revenue": 320000,
+      "store_count": 8,
+      "growth": 25.8,
+      "market_share": 9.7,
+      "population": 1776949,
+      "gdp_per_capita": 76000,
+      "competition_level": "Low",
+      "market_penetration": 38.9,
+      "avg_revenue_per_store": 40000,
+      "conversion_rate": 19.4,
+      "customer_satisfaction": 4.8,
+      "expansion_potential": "Very High",
+      "key_cities": ["Davao City", "Tagum", "Panabo", "Samal"],
+      "demographics": {
+        "age_18_35": 48.2,
+        "age_36_55": 31.8,
+        "age_55_plus": 20.0,
+        "income_high": 22.1,
+        "income_medium": 56.8,
+        "income_low": 21.1
+      },
+      "top_categories": [
+        {"category": "Food & Beverage", "revenue": 112000, "growth": 31.2},
+        {"category": "Electronics", "revenue": 96000, "growth": 24.8},
+        {"category": "Fashion", "revenue": 80000, "growth": 22.1}
+      ],
+      "challenges": ["Geographic isolation", "Limited premium market", "Infrastructure gaps"],
+      "opportunities": ["First-mover advantage", "Growing middle class", "Government support"]
+    },
+    {
+      "id": "baguio",
+      "name": "Baguio & Northern Luzon",
+      "revenue": 280000,
+      "store_count": 6,
+      "growth": 17.2,
+      "market_share": 8.5,
+      "population": 366358,
+      "gdp_per_capita": 94000,
+      "competition_level": "Medium",
+      "market_penetration": 52.4,
+      "avg_revenue_per_store": 46667,
+      "conversion_rate": 21.4,
+      "customer_satisfaction": 4.6,
+      "expansion_potential": "Medium",
+      "key_cities": ["Baguio City", "La Trinidad", "Tuba", "Sablan"],
+      "demographics": {
+        "age_18_35": 41.5,
+        "age_36_55": 36.8,
+        "age_55_plus": 21.7,
+        "income_high": 31.8,
+        "income_medium": 49.2,
+        "income_low": 19.0
+      },
+      "top_categories": [
+        {"category": "Fashion", "revenue": 95200, "growth": 19.8},
+        {"category": "Home & Garden", "revenue": 84000, "growth": 16.4},
+        {"category": "Food & Beverage", "revenue": 67200, "growth": 15.1}
+      ],
+      "challenges": ["Seasonal fluctuations", "Weather dependency", "Limited growth space"],
+      "opportunities": ["Tourism premium", "Educational market", "Eco-friendly products"]
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "region": "Bohol",
+      "priority": "High",
+      "estimated_revenue_potential": 180000,
+      "investment_required": 850000,
+      "roi_timeline": "18 months",
+      "market_size": 1394329,
+      "competition": "Low",
+      "key_factors": ["Tourism growth", "Limited competition", "Strategic location"]
+    },
+    {
+      "region": "Iloilo",
+      "priority": "Medium",
+      "estimated_revenue_potential": 245000,
+      "investment_required": 920000,
+      "roi_timeline": "24 months",
+      "market_size": 2051899,
+      "competition": "Medium",
+      "key_factors": ["Educational hub", "Growing economy", "Regional center"]
+    },
+    {
+      "region": "Cagayan de Oro",
+      "priority": "Medium",
+      "estimated_revenue_potential": 198000,
+      "investment_required": 780000,
+      "roi_timeline": "22 months",
+      "market_size": 728402,
+      "competition": "Low",
+      "key_factors": ["Northern Mindanao gateway", "Industrial growth", "Young population"]
+    }
+  ],
+  "competitive_analysis": [
+    {
+      "region": "Metro Manila",
+      "main_competitors": ["SM Retail", "Robinsons", "Ayala Malls"],
+      "our_market_position": 3,
+      "competitive_advantages": ["Prime locations", "Brand loyalty", "Product variety"],
+      "threats": ["New entrants", "E-commerce growth", "Rising costs"]
+    },
+    {
+      "region": "Cebu",
+      "main_competitors": ["Gaisano Group", "Metro Retail", "SM Cebu"],
+      "our_market_position": 2,
+      "competitive_advantages": ["Strong local presence", "Customer relationships", "Operational efficiency"],
+      "threats": ["Mall consolidation", "Tourism dependency", "Regional competitors"]
+    },
+    {
+      "region": "Davao",
+      "main_competitors": ["Gaisano Grand", "NCCC Mall", "SM Lanang"],
+      "our_market_position": 1,
+      "competitive_advantages": ["Market leadership", "First-mover advantage", "Local partnerships"],
+      "threats": ["Infrastructure limitations", "Economic volatility", "Natural disasters"]
+    },
+    {
+      "region": "Baguio",
+      "main_competitors": ["SM Baguio", "Porta Vaga Mall", "Centro Mall"],
+      "our_market_position": 2,
+      "competitive_advantages": ["Tourist appeal", "Premium positioning", "Local expertise"],
+      "threats": ["Weather disruptions", "Seasonal demand", "Limited expansion space"]
+    }
+  ],
+  "performance_trends": [
+    {
+      "period": "Q1 2024",
+      "metro_manila": {"revenue": 1850000, "growth": 18.7},
+      "cebu": {"revenue": 450000, "growth": 23.1},
+      "davao": {"revenue": 320000, "growth": 25.8},
+      "baguio": {"revenue": 280000, "growth": 17.2}
+    },
+    {
+      "period": "Q4 2023",
+      "metro_manila": {"revenue": 1560000, "growth": 12.4},
+      "cebu": {"revenue": 366000, "growth": 18.9},
+      "davao": {"revenue": 254000, "growth": 21.3},
+      "baguio": {"revenue": 239000, "growth": 14.8}
+    },
+    {
+      "period": "Q3 2023",
+      "metro_manila": {"revenue": 1389000, "growth": 8.9},
+      "cebu": {"revenue": 307000, "growth": 15.2},
+      "davao": {"revenue": 209000, "growth": 18.7},
+      "baguio": {"revenue": 208000, "growth": 11.4}
+    }
+  ],
+  "strategic_initiatives": [
+    {
+      "initiative": "Digital Hub Development",
+      "target_regions": ["Metro Manila", "Cebu"],
+      "investment": 1200000,
+      "expected_impact": "15% revenue increase",
+      "timeline": "Q2-Q4 2024"
+    },
+    {
+      "initiative": "Regional Distribution Centers",
+      "target_regions": ["Davao", "Baguio"],
+      "investment": 2800000,
+      "expected_impact": "Cost reduction + expansion enablement",
+      "timeline": "Q3 2024 - Q1 2025"
+    },
+    {
+      "initiative": "Local Partnership Program",
+      "target_regions": ["All regions"],
+      "investment": 450000,
+      "expected_impact": "Market penetration + brand loyalty",
+      "timeline": "Q2-Q3 2024"
+    }
+  ]
+}

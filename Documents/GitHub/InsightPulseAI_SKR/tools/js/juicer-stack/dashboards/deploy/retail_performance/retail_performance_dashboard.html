@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retail Performance Uplift Dashboard</title>
+  
+  <!-- Bootstrap and Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #ff3300;
+      --secondary: #002b49;
+      --tertiary: #8a4fff;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      --hover-shadow: 0 8px 15px rgba(0,0,0,0.15);
+      
+      --uplift-positive: #4caf50;
+      --uplift-negative: #f44336;
+      --uplift-neutral: #ff9800;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: var(--dark);
+    }
+    
+    .header {
+      background-color: var(--secondary);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      height: 40px;
+    }
+    
+    .card {
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.2s;
+      margin-bottom: 20px;
+      border: none;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--hover-shadow);
+    }
+    
+    .card-header {
+      border-radius: 10px 10px 0 0 !important;
+      padding: 0.75rem 1.25rem;
+      font-weight: 600;
+    }
+    
+    .metric-card {
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .metric-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1;
+    }
+    
+    .metric-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin-top: 0.5rem;
+    }
+    
+    .trend-indicator {
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+    
+    .trend-up {
+      color: var(--uplift-positive);
+    }
+    
+    .trend-down {
+      color: var(--uplift-negative);
+    }
+    
+    .chart-container {
+      height: 350px;
+      margin-bottom: 20px;
+    }
+    
+    .sku-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .sku-item:last-child {
+      border-bottom: none;
+    }
+    
+    .sku-name {
+      font-weight: 600;
+    }
+    
+    .sku-details {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    
+    .uplift-badge {
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+    }
+    
+    .uplift-positive {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: var(--uplift-positive);
+      border: 1px solid var(--uplift-positive);
+    }
+    
+    .uplift-negative {
+      background-color: rgba(244, 67, 54, 0.1);
+      color: var(--uplift-negative);
+      border: 1px solid var(--uplift-negative);
+    }
+    
+    .uplift-neutral {
+      background-color: rgba(255, 152, 0, 0.1);
+      color: var(--uplift-neutral);
+      border: 1px solid var(--uplift-neutral);
+    }
+    
+    .campaign-card {
+      border-left: 4px solid var(--primary);
+      background-color: #fff;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      padding: 0.75rem;
+      box-shadow: var(--card-shadow);
+    }
+    
+    .campaign-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .campaign-period {
+      font-size: 0.75rem;
+      color: #6c757d;
+    }
+    
+    .campaign-badges {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    
+    .campaign-badge {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 1rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.25rem;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    .voice-tag {
+      display: inline-block;
+      border-radius: 1rem;
+      padding: 0.15rem 0.5rem;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.75rem;
+    }
+    
+    .voice-positive {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: var(--uplift-positive);
+    }
+    
+    .voice-negative {
+      background-color: rgba(244, 67, 54, 0.1);
+      color: var(--uplift-negative);
+    }
+    
+    .voice-neutral {
+      background-color: rgba(255, 152, 0, 0.1);
+      color: var(--uplift-neutral);
+    }
+    
+    .progress-thin {
+      height: 0.5rem;
+      border-radius: 0.25rem;
+    }
+    
+    /* Custom toggle switch for dark mode */
+    .dark-mode-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+    
+    .dark-mode-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .dark-mode-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 30px;
+    }
+    
+    .dark-mode-slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .dark-mode-slider {
+      background-color: var(--primary);
+    }
+    
+    input:checked + .dark-mode-slider:before {
+      transform: translateX(30px);
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #212529;
+      color: #f8f9fa;
+    }
+    
+    body.dark-mode .card,
+    body.dark-mode .campaign-card {
+      background-color: #343a40;
+      color: #f8f9fa;
+    }
+    
+    body.dark-mode .card-header {
+      background-color: #495057;
+      color: #f8f9fa;
+    }
+    
+    body.dark-mode .metric-label,
+    body.dark-mode .sku-details,
+    body.dark-mode .campaign-period {
+      color: #adb5bd;
+    }
+    
+    body.dark-mode .sku-item {
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .metric-value {
+        font-size: 2rem;
+      }
+      
+      .chart-container {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="m-0 d-flex align-items-center">
+            <img src="../public/images/prompt-lab-icon.svg" alt="Retail Performance Logo" class="logo me-2">
+            <span>Retail Performance Uplift</span>
+          </h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="d-flex justify-content-end align-items-center">
+            <span class="me-2">Dark Mode</span>
+            <label class="dark-mode-switch mb-0">
+              <input type="checkbox" id="darkModeToggle">
+              <span class="dark-mode-slider"></span>
+            </label>
+            <button class="btn btn-outline-light ms-3 btn-refresh">
+              <i class="fas fa-sync-alt me-1"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+    <!-- Filters and Controls -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <label for="campaignSelect" class="form-label">Campaign</label>
+            <select class="form-select" id="campaignSelect">
+              <option value="all">All Campaigns</option>
+              <option value="campaign-301" selected>Summer Sale 2025</option>
+              <option value="campaign-302">Back to School 2025</option>
+              <option value="campaign-303">Spring Collection</option>
+              <option value="campaign-304">Holiday Special</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="storeSelect" class="form-label">Store Location</label>
+            <select class="form-select" id="storeSelect">
+              <option value="all">All Locations</option>
+              <option value="store-101">Store #101 - Downtown</option>
+              <option value="store-102">Store #102 - Westside Mall</option>
+              <option value="store-103">Store #103 - Eastside Plaza</option>
+              <option value="store-104">Store #104 - Northgate</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="categorySelect" class="form-label">Product Category</label>
+            <select class="form-select" id="categorySelect">
+              <option value="all">All Categories</option>
+              <option value="electronics">Electronics</option>
+              <option value="clothing">Clothing</option>
+              <option value="home">Home Goods</option>
+              <option value="grocery">Grocery</option>
+              <option value="beverages">Beverages</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="comparisonPeriod" class="form-label">Comparison Period</label>
+            <select class="form-select" id="comparisonPeriod">
+              <option value="prev-week">Previous Week</option>
+              <option value="prev-month" selected>Previous Month</option>
+              <option value="prev-quarter">Previous Quarter</option>
+              <option value="prev-year">Previous Year</option>
+              <option value="custom">Custom Period</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campaign Card -->
+    <div class="campaign-card mb-4">
+      <div class="row">
+        <div class="col-md-8">
+          <h4 class="campaign-title">Summer Sale 2025</h4>
+          <div class="campaign-period">May 15, 2025 - June 30, 2025 (Active: 29 days remaining)</div>
+          <div class="campaign-badges mt-2">
+            <span class="campaign-badge">AI Product Recommendations</span>
+            <span class="campaign-badge">Voice Commerce</span>
+            <span class="campaign-badge">Dynamic Pricing</span>
+            <span class="campaign-badge">In-store Navigation</span>
+          </div>
+        </div>
+        <div class="col-md-4 text-end">
+          <div class="d-flex justify-content-end align-items-center h-100">
+            <button class="btn btn-sm btn-outline-secondary me-2">
+              <i class="fas fa-chart-line me-1"></i> Details
+            </button>
+            <button class="btn btn-sm btn-outline-primary">
+              <i class="fas fa-cog me-1"></i> Configure
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <div class="card metric-card">
+          <div class="card-body">
+            <h5 class="metric-value">+18.7%</h5>
+            <p class="metric-label">Overall Sales Uplift</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up"></i> 4.3% better than forecast
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card metric-card">
+          <div class="card-body">
+            <h5 class="metric-value">+24.2%</h5>
+            <p class="metric-label">Foot Traffic Increase</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up"></i> 6.8% vs last campaign
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card metric-card">
+          <div class="card-body">
+            <h5 class="metric-value">+12.3%</h5>
+            <p class="metric-label">Basket Size Growth</p>
+            <p class="trend-indicator trend-down">
+              <i class="fas fa-arrow-down"></i> 2.1% below target
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card metric-card">
+          <div class="card-body">
+            <h5 class="metric-value">82.4%</h5>
+            <p class="metric-label">AI Recommendation CTR</p>
+            <p class="trend-indicator trend-up">
+              <i class="fas fa-arrow-up"></i> 8.5% vs control group
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Before/After Sales by Category</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="categoryUpliftChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Campaign Effectiveness</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="campaignEffectivenessChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voice Sentiment and SKU Performance -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Voice Sentiment to Action Correlation</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="voiceSentimentChart"></canvas>
+            </div>
+            <div class="voice-tags mt-3">
+              <span class="voice-tag voice-positive">Enthusiastic: 82% purchase</span>
+              <span class="voice-tag voice-neutral">Neutral: 45% purchase</span>
+              <span class="voice-tag voice-negative">Hesitant: 23% purchase</span>
+              <span class="voice-tag voice-positive">Curious: 64% purchase</span>
+              <span class="voice-tag voice-neutral">Analytical: 51% purchase</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">Top Performing SKUs</h5>
+            <div class="dropdown">
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="skuFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-filter me-1"></i> Filter
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="skuFilterDropdown">
+                <li><a class="dropdown-item" href="#">By Uplift %</a></li>
+                <li><a class="dropdown-item" href="#">By Revenue</a></li>
+                <li><a class="dropdown-item" href="#">By Units Sold</a></li>
+                <li><a class="dropdown-item" href="#">By AI Interactions</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="sku-item">
+              <div class="d-flex justify-content-between">
+                <div class="sku-name">Smart Speaker Elite X1</div>
+                <span class="uplift-badge uplift-positive">+42.8%</span>
+              </div>
+              <div class="sku-details">Electronics • SKU: EL-SPK-2025-X1 • $149.99</div>
+              <div class="mt-2">
+                <div class="progress progress-thin">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="sku-item">
+              <div class="d-flex justify-content-between">
+                <div class="sku-name">Premium Coffee Maker</div>
+                <span class="uplift-badge uplift-positive">+35.2%</span>
+              </div>
+              <div class="sku-details">Home Goods • SKU: HG-KIT-1022-CM • $89.99</div>
+              <div class="mt-2">
+                <div class="progress progress-thin">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="sku-item">
+              <div class="d-flex justify-content-between">
+                <div class="sku-name">Wireless Earbuds Pro</div>
+                <span class="uplift-badge uplift-positive">+28.7%</span>
+              </div>
+              <div class="sku-details">Electronics • SKU: EL-AUD-1842-WE • $129.99</div>
+              <div class="mt-2">
+                <div class="progress progress-thin">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 59%" aria-valuenow="59" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="sku-item">
+              <div class="d-flex justify-content-between">
+                <div class="sku-name">Summer Casual Shirt</div>
+                <span class="uplift-badge uplift-positive">+22.9%</span>
+              </div>
+              <div class="sku-details">Clothing • SKU: CL-MEN-3721-CS • $34.99</div>
+              <div class="mt-2">
+                <div class="progress progress-thin">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 51%" aria-valuenow="51" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="sku-item">
+              <div class="d-flex justify-content-between">
+                <div class="sku-name">Artisanal Sparkling Water</div>
+                <span class="uplift-badge uplift-negative">-5.3%</span>
+              </div>
+              <div class="sku-details">Beverages • SKU: BV-DRK-4452-SW • $2.99</div>
+              <div class="mt-2">
+                <div class="progress progress-thin">
+                  <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing Effect and Brand Lift -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Real-Time Pricing Effect</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="pricingEffectChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Brand Lift Metrics</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="brandLiftChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-secondary text-white py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2025 Retail Advisor - Retail Performance Analytics</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <p class="mb-0">Powered by Analytics Quality Framework</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="retail_performance_visualizer.js"></script>
+  
+  <script>
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+      window.RetailPerformanceVisualizer.updateChartsTheme(darkModeToggle.checked);
+    });
+    
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize the visualizer
+      window.RetailPerformanceVisualizer.init();
+      
+      // Set up filter change handlers
+      document.getElementById('campaignSelect').addEventListener('change', updateDashboard);
+      document.getElementById('storeSelect').addEventListener('change', updateDashboard);
+      document.getElementById('categorySelect').addEventListener('change', updateDashboard);
+      document.getElementById('comparisonPeriod').addEventListener('change', updateDashboard);
+      
+      // Refresh button handler
+      document.querySelector('.btn-refresh').addEventListener('click', () => {
+        window.RetailPerformanceVisualizer.refreshData();
+      });
+      
+      function updateDashboard() {
+        window.RetailPerformanceVisualizer.filterData({
+          campaign: document.getElementById('campaignSelect').value,
+          store: document.getElementById('storeSelect').value,
+          category: document.getElementById('categorySelect').value,
+          comparisonPeriod: document.getElementById('comparisonPeriod').value
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+/* IntentAnalyzer.css */
+
+.intent-analyzer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.intent-analyzer-modal {
+  width: 600px;
+  max-width: 90vw;
+  max-height: 90vh;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  position: relative;
+  overflow-y: auto;
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.intent-analyzer-modal h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 24px;
+  color: #333;
+}
+
+.prompt-input-container {
+  margin-bottom: 16px;
+}
+
+.prompt-input-container textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.prompt-input-container textarea:focus {
+  border-color: #684cb4;
+  outline: none;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.examples-container {
+  margin-bottom: 24px;
+}
+
+.examples-container h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.example-card {
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #eee;
+}
+
+.example-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.example-card.mobile {
+  border-left: 3px solid #2e7d32;
+}
+
+.example-card.deck {
+  border-left: 3px solid #684cb4;
+}
+
+.example-card.webapp {
+  border-left: 3px solid #1976d2;
+}
+
+.example-card p {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+}
+
+.example-mode {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.intent-analyzer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-button,
+.create-button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.cancel-button {
+  background: none;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+.cancel-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.create-button {
+  background-color: #684cb4;
+  color: white;
+  border: none;
+}
+
+.create-button:hover {
+  background-color: #5634a8;
+}
+
+.create-button:disabled,
+.cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.intent-analyzer-footer {
+  margin-top: 24px;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+}
+
+.intent-analyzer-footer p {
+  margin: 0;
+}

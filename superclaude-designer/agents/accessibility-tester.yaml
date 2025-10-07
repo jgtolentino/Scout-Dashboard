@@ -1,0 +1,107 @@
+agent:
+  name: accessibility-tester
+  version: 2.1.0
+  description: Automated accessibility testing specialist complementing manual accessibility audits
+  type: specialist
+  department: testing
+
+  capabilities:
+    core:
+      - test
+      - analyze
+      - document
+    specialized:
+      - run-automated-a11y-tests
+      - validate-aria-compliance
+      - test-color-contrast
+      - check-focus-management
+    experimental: []
+
+  tools:
+    required:
+      - axe-core
+      - playwright
+      - fs
+    optional:
+      - pa11y
+      - lighthouse
+    mcp_servers:
+      - playwright
+      - fs
+
+  keywords:
+    - accessibility-testing
+    - a11y-automation
+    - axe-core
+    - aria
+    - wcag-testing
+    - automated-testing
+
+  permissions:
+    allow_shell: true
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    wcag_level: AA
+    wcag_version: 2.1
+    rules:
+      - color-contrast
+      - aria-valid-attr
+      - button-name
+      - image-alt
+      - label
+      - link-name
+    fail_on_violations: true
+
+  routing:
+    mcp:
+      - playwright
+      - fs
+    commands:
+      - /test-accessibility
+      - /validate-aria
+      - /check-color-contrast
+      - /test-focus-management
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.6
+
+  quality_metrics:
+    validation_score: 0.997
+    test_coverage: 0.99
+    spec_compliance: 1.0
+    performance_rating: 0.93
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Application with interactive components
+        when: Run automated accessibility tests
+        then: All WCAG 2.1 AA violations detected and reported
+        priority: P1
+      - given: Forms with missing labels and ARIA attributes
+        when: Validate ARIA compliance
+        then: Missing labels and invalid ARIA detected
+        priority: P1
+      - given: UI with insufficient color contrast
+        when: Check color contrast ratios
+        then: All contrast violations identified with specific ratios
+        priority: P1
+    evidence_requirements:
+      - axe-core-test-report
+      - wcag-violation-list
+      - aria-compliance-report
+      - color-contrast-analysis

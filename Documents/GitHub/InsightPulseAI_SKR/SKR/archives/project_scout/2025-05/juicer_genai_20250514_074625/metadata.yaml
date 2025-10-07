@@ -1,0 +1,38 @@
+---
+name: "Juicer GenAI Insights Integration"
+version: "1.0.0"
+timestamp: "2025-05-14 07:46:29"
+author: "InsightPulseAI Team"
+branch: "release/pulser-2.1.2"
+commit: "02c36614a0deb0e9b4067dc7b7fd66b59b909c84"
+status: "development"
+production_ready: false
+components:
+  - "notebooks/juicer_gold_insights.py"
+  - "notebooks/juicer_setup_insights_tables.sql"
+  - "dashboards/insights_dashboard.html"
+  - "dashboards/insights_visualizer.js"
+  - "pulser/insights_hook.yaml"
+agents:
+  - "Claudia"
+  - "Kalaw"
+  - "Maya"
+  - "Echo"
+  - "Sunnies"
+  - "Caca"
+visual_artifacts:
+  - "docs/images/latest_dashboard.png"
+  - "dashboard_screenshots/*.png"
+dashboard_screenshots:
+  count:       23
+  capture_date: "2025-05-14"
+  formats:
+    - "png (full size)"
+    - "png (thumbnail)"
+    - "jpg (compressed)"
+  dashboard_url: "https://gentle-rock-04e54f40f.6.azurestaticapps.net"
+  preview: "dashboard_screenshots/dashboard_preview.html"
+description: >
+  GenAI insights generation component for Juicer. Transforms Gold layer data
+  into actionable business intelligence using LLM processing. Includes dashboard
+  visualization, SQL schema, and Pulser integration.

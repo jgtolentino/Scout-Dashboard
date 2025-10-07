@@ -1,0 +1,966 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client360 Dashboard</title>
+  <script src="/js/theme-selector.js"></script>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/tbwa-theme.css">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <style>
+    /* AI Insights Section */
+    .ai-insights-section {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .ai-insights-section .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #eaeaea;
+      background-color: #f5f5f5;
+    }
+
+    .ai-insights-section .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+
+    .ai-insights-section .section-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .insight-type-selector select {
+      padding: 6px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: #f9f9f9;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .data-badge {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .data-badge.synthetic {
+      background-color: #e9f5ff;
+      color: #0078d4;
+    }
+
+    .data-badge.live {
+      background-color: #dff6dd;
+      color: #107c10;
+    }
+
+    /* Insights Container */
+    .insights-container {
+      padding: 20px;
+    }
+
+    .loading-indicator {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+      font-style: italic;
+    }
+
+    .no-data-message {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      font-style: italic;
+    }
+
+    .error-message {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background-color: #fff4f4;
+      border: 1px solid #ffcccb;
+      border-radius: 6px;
+      padding: 16px;
+      margin: 10px 0;
+    }
+
+    .error-icon {
+      font-size: 24px;
+    }
+
+    .error-text h4 {
+      margin: 0 0 4px 0;
+      color: #d83b01;
+    }
+
+    .error-text p {
+      margin: 0;
+      color: #666;
+    }
+
+    /* Insight Groups */
+    .insight-group {
+      margin-bottom: 24px;
+    }
+
+    .insight-group-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #555;
+      margin: 0 0 12px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .insight-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    /* Insight Cards */
+    .insight-card {
+      background-color: #fff;
+      border: 1px solid #eaeaea;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .insight-card:hover {
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .insight-card.expanded {
+      grid-column: 1 / -1;
+    }
+
+    .insight-card.priority-high {
+      border-left: 4px solid #d83b01;
+    }
+
+    .insight-card.priority-medium {
+      border-left: 4px solid #ffaa44;
+    }
+
+    .insight-card.priority-low {
+      border-left: 4px solid #0078d4;
+    }
+
+    .insight-header {
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f9f9f9;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    .insight-title {
+      font-weight: 600;
+      font-size: 15px;
+      color: #333;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .insight-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 10px;
+      text-transform: uppercase;
+    }
+
+    .insight-badge.synthetic {
+      background-color: #e9f5ff;
+      color: #0078d4;
+    }
+
+    .insight-badge.real {
+      background-color: #dff6dd;
+      color: #107c10;
+    }
+
+    .insight-content {
+      padding: 16px;
+    }
+
+    .insight-summary {
+      margin: 0 0 12px 0;
+      color: #555;
+      font-size: 14px;
+      line-height: 1.5;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .insight-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background-color: #fafafa;
+      border-top: 1px solid #eaeaea;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .insight-priority {
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .priority-high .insight-priority {
+      color: #d83b01;
+    }
+
+    .priority-medium .insight-priority {
+      color: #ffaa44;
+    }
+
+    .priority-low .insight-priority {
+      color: #0078d4;
+    }
+
+    .insight-expand-btn {
+      background-color: #f3f3f3;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .insight-expand-btn:hover {
+      background-color: #e9e9e9;
+    }
+
+    /* Detail Sections */
+    .insight-details {
+      margin-top: 16px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .insight-details.hidden {
+      display: none;
+    }
+
+    .detail-section {
+      margin-bottom: 16px;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      padding: 12px;
+    }
+
+    .detail-section h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #444;
+      margin: 0 0 8px 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .detail-section h5 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+      margin: 12px 0 6px 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .detail-list, .assessment-strengths ul, .assessment-weaknesses ul {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+
+    .detail-list li, .assessment-strengths li, .assessment-weaknesses li {
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .sentiment-score, .assessment-score {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .score-value {
+      font-weight: 600;
+      font-size: 16px;
+      color: #0078d4;
+    }
+
+    .action-steps {
+      list-style-type: none;
+      padding: 0;
+      margin: 8px 0;
+    }
+
+    .action-step {
+      background-color: #fff;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .action-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #444;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .action-timeline {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .action-outcome {
+      font-size: 12px;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* TBWA Theme Integration */
+    .tbwa-theme .ai-insights-section .section-header {
+      background-color: #f5f5f5;
+    }
+
+    .tbwa-theme .insight-card.priority-high {
+      border-left-color: #ffc300; /* TBWA primary color */
+    }
+
+    .tbwa-theme .score-value,
+    .tbwa-theme .priority-low .insight-priority {
+      color: #005bbb; /* TBWA secondary color */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1200px) {
+      .insight-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .insight-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      
+      .section-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-selector">
+    <label for="theme-select">Theme:</label>
+    <select id="theme-select">
+      <option value="tbwa">TBWA</option>
+      <option value="sarisari">Sari Sari</option>
+    </select>
+  </div>
+
+  <header class="header">
+    <div class="header-container">
+      <div class="header-logo"></div>
+      <h1 class="header-title">Client360 Dashboard</h1>
+      <div class="header-controls">
+        <div class="data-source-toggle">
+          <span class="toggle-label">Data source:</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="data-source-toggle">
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="toggle-value" id="data-source-value">Live</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="data-freshness">Data refreshed: <span id="data-refresh-time">Today at 09:15 AM</span></div>
+    
+    <\!-- Dashboard content goes here -->
+    <section class="kpi-section">
+      <h2 class="section-title">Key Performance Indicators</h2>
+      <div class="kpi-grid">
+        <\!-- KPI cards will be populated dynamically -->
+      </div>
+    </section>
+
+    <\!-- AI Insights Panel -->
+    <section class="ai-insights-section">
+      <div class="section-header">
+        <h2 class="section-title">AI-Powered Insights</h2>
+        <div class="section-controls">
+          <div class="insight-type-selector">
+            <select id="insight-type-select">
+              <option value="all">All Insights</option>
+              <option value="sales">Sales Insights</option>
+              <option value="brand">Brand Analysis</option>
+              <option value="recommendations">Recommendations</option>
+            </select>
+          </div>
+          <div class="data-badge synthetic">
+            Synthetic Data
+          </div>
+        </div>
+      </div>
+      <div class="insights-container">
+        <\!-- Insights will be loaded here -->
+        <div class="loading-indicator">Loading insights...</div>
+      </div>
+    </section>
+
+    <\!-- Rollback dashboard component -->
+    <section class="rollback-dashboard">
+      <div class="rollback-dashboard-header">
+        <h3>System Rollback</h3>
+        <div class="status-indicator active">System Ready</div>
+      </div>
+      <div class="rollback-dashboard-content">
+        <p>You can safely rollback the system to a previous known stable version if needed.</p>
+        
+        <div class="version-info">
+          <div class="version-label">Current Version:</div>
+          <div class="version-value">v2.3.2-20250521-prod</div>
+        </div>
+        
+        <div class="version-info">
+          <div class="version-label">Rollback Target:</div>
+          <div class="version-value">v2.2.0-20250415-stable</div>
+        </div>
+      </div>
+      <div class="rollback-dashboard-actions">
+        <button class="btn-rollback">Rollback System</button>
+        <button class="btn-verify">Verify Current State</button>
+      </div>
+      <div class="rollback-dashboard-log">
+        <pre>[2025-05-19 14:22:15] System verification complete
+[2025-05-19 14:22:10] All services operational
+[2025-05-19 14:21:58] Checking system state...</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <p>&copy; 2025 TBWA Client360</p>
+        <p>Version 2.3.2</p>
+      </div>
+      <div class="data-disclaimer">
+        Data provided for demonstration purposes.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sample AI insights data
+    const sampleInsights = [
+      {
+        "category": "sales_insights",
+        "InsightID": "SIM-INSIGHT-12345678",
+        "entityID": "sari-001",
+        "entityName": "Dela Cruz Sari-Sari Store",
+        "region": "National Capital Region",
+        "cityMunicipality": "Manila",
+        "GeneratedAt": "2025-05-21T12:34:56.789Z",
+        "title": "Beverage Sales Growth Opportunity",
+        "summary": "Beverages show strong growth potential with 15% higher margins than category average.",
+        "content": {
+          "title": "Beverage Sales Growth Opportunity",
+          "summary": "Beverages show strong growth potential with 15% higher margins than category average.",
+          "details": [
+            "Beverage category has shown consistent growth over the past 30 days",
+            "Weekday sales are 23% higher than weekend sales",
+            "Top performers are soft drinks and instant coffee"
+          ],
+          "recommendations": [
+            "Increase beverage visibility at store entrance",
+            "Bundle beverages with popular snack items",
+            "Implement weekday promotions to capitalize on traffic patterns"
+          ],
+          "confidence": 0.85,
+          "priority": "high"
+        },
+        "isSynthetic": true,
+        "dataSource": "Synthetic"
+      },
+      {
+        "category": "sales_insights",
+        "InsightID": "SIM-INSIGHT-23456789",
+        "entityID": "sari-002",
+        "entityName": "Santos General Store",
+        "region": "Calabarzon",
+        "cityMunicipality": "Calamba",
+        "GeneratedAt": "2025-05-21T11:30:22.123Z",
+        "title": "Personal Care Product Decline",
+        "summary": "Personal care products showing 12% decline month-over-month with lower customer engagement.",
+        "content": {
+          "title": "Personal Care Product Decline",
+          "summary": "Personal care products showing 12% decline month-over-month with lower customer engagement.",
+          "details": [
+            "Personal care category sales dropped 12% compared to last month",
+            "Customer inquiries for these products decreased by 18%",
+            "Competitors are offering bulk discounts that impact our pricing"
+          ],
+          "recommendations": [
+            "Introduce sample sachets for new products",
+            "Create value bundles to compete with bulk discounts",
+            "Train store staff on personal care product benefits"
+          ],
+          "confidence": 0.78,
+          "priority": "medium"
+        },
+        "isSynthetic": true,
+        "dataSource": "Synthetic"
+      },
+      {
+        "category": "brand_analysis",
+        "InsightID": "SIM-INSIGHT-34567890",
+        "entityID": "coca_cola",
+        "entityName": "Coca-Cola",
+        "GeneratedAt": "2025-05-21T10:15:30.456Z",
+        "title": "Strong Brand Loyalty in Manila Region",
+        "summary": "Coca-Cola shows exceptional customer loyalty with 85% repeat purchases.",
+        "content": {
+          "title": "Strong Brand Loyalty in Manila Region",
+          "summary": "Coca-Cola shows exceptional customer loyalty with 85% repeat purchases.",
+          "sentiment_analysis": {
+            "overall_score": 0.78,
+            "interpretation": "Strongly positive sentiment across all regions, with particular strength in Metro Manila."
+          },
+          "recommendations": [
+            "Leverage loyal customer base for new product introductions",
+            "Develop in-store promotions highlighting customer loyalty",
+            "Consider limited edition packaging for Manila market"
+          ],
+          "confidence": 0.92,
+          "priority": "medium"
+        },
+        "isSynthetic": true,
+        "dataSource": "Synthetic"
+      },
+      {
+        "category": "brand_analysis",
+        "InsightID": "SIM-INSIGHT-45678901",
+        "entityID": "nestlé",
+        "entityName": "Nestlé",
+        "GeneratedAt": "2025-05-21T09:45:12.789Z",
+        "title": "Coffee Product Category Leadership",
+        "summary": "Nestlé dominates morning consumption occasions with 62% share of coffee purchases.",
+        "content": {
+          "title": "Coffee Product Category Leadership",
+          "summary": "Nestlé dominates morning consumption occasions with 62% share of coffee purchases.",
+          "sentiment_analysis": {
+            "overall_score": 0.67,
+            "interpretation": "Positive sentiment overall, with particular strength in value perception."
+          },
+          "recommendations": [
+            "Expand 3-in-1 coffee mix variants for different taste preferences",
+            "Create morning ritual promotional materials",
+            "Consider bundling with breakfast items to reinforce occasion"
+          ],
+          "confidence": 0.84,
+          "priority": "high"
+        },
+        "isSynthetic": true,
+        "dataSource": "Synthetic"
+      },
+      {
+        "category": "store_recommendations",
+        "InsightID": "SIM-INSIGHT-56789012",
+        "entityID": "sari-001",
+        "entityName": "Dela Cruz Sari-Sari Store",
+        "region": "National Capital Region",
+        "cityMunicipality": "Manila",
+        "GeneratedAt": "2025-05-21T08:30:45.123Z",
+        "title": "Product Mix Optimization Plan",
+        "summary": "Restructuring store layout and product mix could increase monthly sales by 22%.",
+        "content": {
+          "title": "Product Mix Optimization Plan",
+          "summary": "Restructuring store layout and product mix could increase monthly sales by 22%.",
+          "store_assessment": {
+            "overall_rating": 7.2,
+            "strengths": ["Good customer service", "Strong location", "Consistent operating hours"],
+            "weaknesses": ["Limited shelf space", "Inefficient product mix", "Irregular stock levels"]
+          },
+          "action_plan": [
+            {
+              "action": "Implement planogram for optimal shelf organization",
+              "timeline": "Immediate",
+              "expected_outcome": "15% improvement in sales per shelf space"
+            },
+            {
+              "action": "Increase stock of high-margin beverage products",
+              "timeline": "Within 2 weeks",
+              "expected_outcome": "10% increase in category sales"
+            },
+            {
+              "action": "Add point-of-purchase displays for impulse items",
+              "timeline": "Within 1 month",
+              "expected_outcome": "8% increase in average transaction value"
+            }
+          ],
+          "priority": "high"
+        },
+        "isSynthetic": true,
+        "dataSource": "Synthetic"
+      },
+      {
+        "category": "store_recommendations",
+        "InsightID": "SIM-INSIGHT-67890123",
+        "entityID": "sari-002",
+        "entityName": "Santos General Store",
+        "region": "Calabarzon",
+        "cityMunicipality": "Calamba",
+        "GeneratedAt": "2025-05-21T07:15:33.456Z",
+        "title": "Store Hours Optimization",
+        "summary": "Extending evening hours could capture 18% additional revenue from commuter traffic.",
+        "content": {
+          "title": "Store Hours Optimization",
+          "summary": "Extending evening hours could capture 18% additional revenue from commuter traffic.",
+          "store_assessment": {
+            "overall_rating": 6.8,
+            "strengths": ["Strategic location near transportation hub", "Strong brand variety", "Good pricing"],
+            "weaknesses": ["Limited operating hours", "Missed opportunity with commuter traffic"]
+          },
+          "action_plan": [
+            {
+              "action": "Extend store hours until 9:00 PM on weekdays",
+              "timeline": "Within 1 week",
+              "expected_outcome": "18% increase in daily revenue"
+            },
+            {
+              "action": "Create commuter-focused bundle offers",
+              "timeline": "Within 2 weeks",
+              "expected_outcome": "12% increase in average transaction value"
+            },
+            {
+              "action": "Implement evening-specific promotions (6-9 PM)",
+              "timeline": "Within 1 month",
+              "expected_outcome": "20% increase in evening foot traffic"
+            }
+          ],
+          "priority": "medium"
+        },
+        "isSynthetic": true,
+        "dataSource": "Synthetic"
+      }
+    ];
+
+    // AI Insights Panel Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const insightsContainer = document.querySelector('.insights-container');
+      const typeSelector = document.getElementById('insight-type-select');
+      
+      // Initialize insights display
+      renderInsights(sampleInsights, insightsContainer);
+      
+      // Set up event listeners
+      if (typeSelector) {
+        typeSelector.addEventListener('change', function() {
+          filterInsightsByType(this.value);
+        });
+      }
+    });
+
+    // Render insights
+    function renderInsights(insights, container) {
+      if (!insights || insights.length === 0 || !container) {
+        container.innerHTML = '<p class="no-data-message">No insights available.</p>';
+        return;
+      }
+      
+      // Group insights by category
+      const salesInsights = insights.filter(insight => insight.category === 'sales_insights');
+      const brandInsights = insights.filter(insight => insight.category === 'brand_analysis');
+      const recommendationInsights = insights.filter(insight => insight.category === 'store_recommendations');
+      
+      let html = '';
+      
+      // Add Sales Insights
+      if (salesInsights.length > 0) {
+        html += `
+          <div class="insight-group" data-type="sales">
+            <h3 class="insight-group-title">Sales Performance Insights</h3>
+            <div class="insight-cards">
+              ${renderInsightCards(salesInsights, 'sales')}
+            </div>
+          </div>
+        `;
+      }
+      
+      // Add Brand Analysis
+      if (brandInsights.length > 0) {
+        html += `
+          <div class="insight-group" data-type="brand">
+            <h3 class="insight-group-title">Brand Analysis</h3>
+            <div class="insight-cards">
+              ${renderInsightCards(brandInsights, 'brand')}
+            </div>
+          </div>
+        `;
+      }
+      
+      // Add Recommendations
+      if (recommendationInsights.length > 0) {
+        html += `
+          <div class="insight-group" data-type="recommendations">
+            <h3 class="insight-group-title">Strategic Recommendations</h3>
+            <div class="insight-cards">
+              ${renderInsightCards(recommendationInsights, 'recommendations')}
+            </div>
+          </div>
+        `;
+      }
+      
+      container.innerHTML = html;
+      
+      // Add event listeners to insight cards
+      const insightCards = container.querySelectorAll('.insight-card');
+      insightCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          // Only expand if the click was not on the button
+          if (e.target.classList.contains('insight-expand-btn')) {
+            const expanded = !e.target.closest('.insight-card').classList.contains('expanded');
+            expandInsightCard(e.target.closest('.insight-card'), expanded);
+            e.stopPropagation();
+          } else if (!e.target.closest('.insight-details')) {
+            expandInsightCard(this, !this.classList.contains('expanded'));
+          }
+        });
+        
+        // Add specific listener for expand button
+        const expandBtn = card.querySelector('.insight-expand-btn');
+        if (expandBtn) {
+          expandBtn.addEventListener('click', function(e) {
+            const card = this.closest('.insight-card');
+            expandInsightCard(card, !card.classList.contains('expanded'));
+            e.stopPropagation();
+          });
+        }
+      });
+    }
+
+    // Render individual insight cards
+    function renderInsightCards(insights, type) {
+      return insights.map(insight => {
+        // Determine priority class if available
+        const priorityClass = insight.content && insight.content.priority 
+          ? `priority-${insight.content.priority.toLowerCase()}` 
+          : '';
+        
+        // Format the date
+        const date = new Date(insight.GeneratedAt);
+        const formattedDate = date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+        
+        return `
+          <div class="insight-card ${priorityClass}" data-id="${insight.InsightID}">
+            <div class="insight-header">
+              <div class="insight-title">${insight.title}</div>
+              <div class="insight-badge ${insight.dataSource.toLowerCase()}">${insight.dataSource}</div>
+            </div>
+            <div class="insight-content">
+              <p class="insight-summary">${insight.summary}</p>
+              <div class="insight-details hidden">
+                ${renderInsightDetails(insight, type)}
+              </div>
+            </div>
+            <div class="insight-footer">
+              <div class="insight-date">${formattedDate}</div>
+              ${priorityClass ? `<div class="insight-priority">${insight.content.priority}</div>` : ''}
+              <button class="insight-expand-btn">Details</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render the detailed content for an insight
+    function renderInsightDetails(insight, type) {
+      if (!insight.content) return '';
+      
+      let detailsHTML = '';
+      
+      switch (type) {
+        case 'sales':
+          // Sales insights details
+          if (insight.content.details) {
+            detailsHTML += `
+              <div class="detail-section">
+                <h4>Key Findings</h4>
+                <ul class="detail-list">
+                  ${insight.content.details.map(detail => `<li>${detail}</li>`).join('')}
+                </ul>
+              </div>
+            `;
+          }
+          
+          if (insight.content.recommendations) {
+            detailsHTML += `
+              <div class="detail-section">
+                <h4>Recommendations</h4>
+                <ul class="detail-list">
+                  ${insight.content.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                </ul>
+              </div>
+            `;
+          }
+          break;
+          
+        case 'brand':
+          // Brand analysis details
+          if (insight.content.sentiment_analysis) {
+            detailsHTML += `
+              <div class="detail-section">
+                <h4>Sentiment Analysis</h4>
+                <div class="sentiment-score">
+                  <span>Overall Score: </span>
+                  <span class="score-value">${insight.content.sentiment_analysis.overall_score}</span>
+                </div>
+                <p>${insight.content.sentiment_analysis.interpretation || ''}</p>
+              </div>
+            `;
+          }
+          
+          if (insight.content.recommendations) {
+            detailsHTML += `
+              <div class="detail-section">
+                <h4>Brand Recommendations</h4>
+                <ul class="detail-list">
+                  ${insight.content.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                </ul>
+              </div>
+            `;
+          }
+          break;
+          
+        case 'recommendations':
+          // Store recommendations details
+          if (insight.content.store_assessment) {
+            detailsHTML += `
+              <div class="detail-section">
+                <h4>Store Assessment</h4>
+                <div class="assessment-score">
+                  <span>Rating: </span>
+                  <span class="score-value">${insight.content.store_assessment.overall_rating}/10</span>
+                </div>
+                
+                <div class="assessment-strengths">
+                  <h5>Strengths</h5>
+                  <ul>
+                    ${insight.content.store_assessment.strengths.map(str => `<li>${str}</li>`).join('')}
+                  </ul>
+                </div>
+                
+                ${insight.content.store_assessment.weaknesses ? `
+                  <div class="assessment-weaknesses">
+                    <h5>Areas for Improvement</h5>
+                    <ul>
+                      ${insight.content.store_assessment.weaknesses.map(weak => `<li>${weak}</li>`).join('')}
+                    </ul>
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          }
+          
+          if (insight.content.action_plan) {
+            detailsHTML += `
+              <div class="detail-section">
+                <h4>Action Plan</h4>
+                <ul class="action-steps">
+                  ${insight.content.action_plan.map(step => `
+                    <li class="action-step">
+                      <div class="action-title">${step.action}</div>
+                      <div class="action-timeline">Timeline: ${step.timeline}</div>
+                      ${step.expected_outcome ? `<div class="action-outcome">Expected Outcome: ${step.expected_outcome}</div>` : ''}
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            `;
+          }
+          break;
+      }
+      
+      return detailsHTML || '<p>No additional details available.</p>';
+    }
+
+    // Expand or collapse an insight card
+    function expandInsightCard(card, shouldExpand) {
+      if (!card) return;
+      
+      const detailsSection = card.querySelector('.insight-details');
+      const expandButton = card.querySelector('.insight-expand-btn');
+      
+      if (shouldExpand) {
+        detailsSection.classList.remove('hidden');
+        expandButton.textContent = 'Collapse';
+        card.classList.add('expanded');
+      } else {
+        detailsSection.classList.add('hidden');
+        expandButton.textContent = 'Details';
+        card.classList.remove('expanded');
+      }
+    }
+
+    // Filter insights by selected type
+    function filterInsightsByType(type) {
+      const insightGroups = document.querySelectorAll('.insight-group');
+      
+      if (type === 'all') {
+        insightGroups.forEach(group => group.style.display = 'block');
+      } else {
+        insightGroups.forEach(group => {
+          if (group.dataset.type === type) {
+            group.style.display = 'block';
+          } else {
+            group.style.display = 'none';
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

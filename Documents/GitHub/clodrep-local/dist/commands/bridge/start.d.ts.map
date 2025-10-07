@@ -1,0 +1,1 @@
+{"version":3,"file":"start.d.ts","sourceRoot":"","sources":["../../../src/commands/bridge/start.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAS,MAAM,aAAa,CAAC;AAQ7C,MAAM,CAAC,OAAO,OAAO,WAAY,SAAQ,OAAO;IAC9C,OAAgB,WAAW,SAA6B;IAExD,OAAgB,QAAQ,WAItB;IAEF,OAAgB,KAAK;;;MAUnB;IAEI,GAAG,IAAI,OAAO,CAAC,IAAI,CAAC;CAwD3B"}

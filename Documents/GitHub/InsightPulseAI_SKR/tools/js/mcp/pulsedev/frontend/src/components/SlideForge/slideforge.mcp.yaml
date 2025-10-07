@@ -1,0 +1,102 @@
+# SlideForge MCP Configuration
+name: SlideForge
+version: 1.0.0
+description: Server-side rendered slide deck presentation system
+
+# MCP Integration
+mcp:
+  type: component
+  category: presentation
+  capabilities:
+    - ssr
+    - interactive
+    - theming
+  
+# Component Configuration
+component:
+  main: SlideViewerSSR
+  demo: SlideForgeDemo
+  styles: SlideViewerSSR.css
+
+# SSR Configuration  
+ssr:
+  enabled: true
+  hydration: true
+  staticExport: true
+  prerender:
+    enabled: true
+    routes:
+      - /slides/:id
+
+# Data Schema  
+schema:
+  slideDeck:
+    source: slideDeckUtils.js
+    schema: slideDeckSchema
+    
+# API Integration
+api:
+  endpoints:
+    - path: /api/slides
+      method: GET
+      description: Get all slide decks
+    - path: /api/slides/:id
+      method: GET
+      description: Get a specific slide deck
+    - path: /api/slides
+      method: POST
+      description: Create a new slide deck
+    - path: /api/slides/:id
+      method: PUT
+      description: Update a slide deck
+    - path: /api/slides/:id
+      method: DELETE
+      description: Delete a slide deck
+
+# Dependencies
+dependencies:
+  - react
+  - react-dom
+
+# Documentation
+documentation:
+  usage: |
+    ```jsx
+    import { SlideViewerSSR } from 'slideforge';
+    import { generateSampleSlideDeck } from 'slideforge/utils';
+    
+    const SlideDeckPage = ({ slidedeckId }) => {
+      const slideDeck = fetchSlideDeck(slidedeckId);
+      
+      return (
+        <SlideViewerSSR 
+          slideDeck={slideDeck}
+          theme="default"
+          showControls={true}
+        />
+      );
+    };
+    ```
+  
+  examples:
+    - title: Basic Usage
+      code: |
+        ```jsx
+        <SlideViewerSSR slideDeck={myDeck} />
+        ```
+    - title: With Theme
+      code: |
+        ```jsx
+        <SlideViewerSSR 
+          slideDeck={myDeck} 
+          theme="dark" 
+        />
+        ```
+    - title: Without Controls
+      code: |
+        ```jsx
+        <SlideViewerSSR 
+          slideDeck={myDeck} 
+          showControls={false} 
+        />
+        ```

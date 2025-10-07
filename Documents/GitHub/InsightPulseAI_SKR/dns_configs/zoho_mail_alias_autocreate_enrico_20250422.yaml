@@ -1,0 +1,11 @@
+domain: insightpulseai.com
+generated_by: enrico
+updated: 2025-04-22
+aliases:
+  info@insightpulseai.com: jake.tolentino@insightpulseai.com
+  business@insightpulseai.com: jake.tolentino@insightpulseai.com
+  ceo@insightpulseai.com: jake.tolentino@insightpulseai.com
+  team@insightpulseai.com: jake.tolentino@insightpulseai.com
+catch_all:
+  enabled: true
+  forward_to: info@insightpulseai.com

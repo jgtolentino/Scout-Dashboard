@@ -1,0 +1,260 @@
+---
+# Juicer Hook Configuration for Pulser Agent Routing System
+# Version: 1.0.1
+# This file configures how Claudia, Maya, Kalaw, Echo, and Sunnies respond to Juicer-related queries
+# and how they route tasks between the appropriate agents and systems.
+name: juicer_hook
+version: "1.0.1"
+description: "Configuration for integrating Juicer (AI-BI Genie) with Pulser CLI and agent routing, including GenAI insights"
+
+# Define the trigger patterns that activate Juicer functionality
+triggers:
+  # Command patterns that directly invoke Juicer
+  commands:
+    - pattern: "^:juicer\\s+(.+)$"
+      description: "Direct Juicer CLI command"
+      action: "execute_juicer_command"
+      priority: 100
+    
+    # Natural language patterns that suggest BI queries
+    natural_language:
+      - pattern: "(show|get|find|display)\\s+(brand|mention).+data"
+        description: "Brand mention query"
+        action: "juicer_brand_query"
+        priority: 80
+      
+      - pattern: "(dashboard|visualization|chart|graph).+(brand|mention|sentiment)"
+        description: "Brand dashboard request"
+        action: "juicer_dashboard"
+        priority: 80
+      
+      - pattern: "(analyze|report|summarize).+(transcript|call|conversation)"
+        description: "Transcript analysis request"
+        action: "juicer_transcript_analysis"
+        priority: 75
+
+      - pattern: "(extract|generate|show).+(insights|trends|patterns)"
+        description: "Insights generation request"
+        action: "generate_insights"
+        priority: 85
+
+# Agent routing configuration
+routing:
+  # Define which agents handle which Juicer tasks
+  handlers:
+    - name: "Claudia"
+      capabilities:
+        - "juicer_command_routing"
+        - "juicer_nl_interpretation"
+      priority: 100
+    
+    - name: "Maya"
+      capabilities:
+        - "juicer_visualization"
+        - "juicer_dashboard"
+      priority: 90
+    
+    - name: "Kalaw"
+      capabilities:
+        - "juicer_data_catalog"
+        - "juicer_knowledge_integration"
+      priority: 85
+    
+    - name: "Echo"
+      capabilities:
+        - "juicer_transcript_analysis"
+        - "juicer_brand_detection"
+        - "juicer_insight_validation"
+      priority: 80
+
+    - name: "Sunnies"
+      capabilities:
+        - "juicer_visualization"
+        - "juicer_insight_charts"
+      priority: 75
+
+# Action handlers map trigger actions to specific implementations
+action_handlers:
+  execute_juicer_command:
+    description: "Execute a Juicer CLI command directly"
+    implementation: "pulser_cli_executor"
+    params:
+      command_prefix: "juicer"
+      timeout_seconds: 300
+      capture_output: true
+  
+  juicer_brand_query:
+    description: "Process a natural language brand query"
+    implementation: "nl_to_sql_converter"
+    params:
+      query_type: "brand_mentions"
+      visualization: true
+      default_time_range: "7d"
+  
+  juicer_dashboard:
+    description: "Generate or display a Juicer dashboard"
+    implementation: "dashboard_generator"
+    params:
+      default_dashboard: "agent_brand_heatmap"
+      refresh_interval: 3600
+  
+  juicer_transcript_analysis:
+    description: "Analyze transcripts for insights"
+    implementation: "transcript_analyzer"
+    params:
+      analysis_types: ["brand_mentions", "sentiment", "topics"]
+      output_format: "rich_text"
+
+  generate_insights:
+    description: "Generate AI insights from transcripts"
+    implementation: "insights_generator"
+    params:
+      model: "claude"
+      insight_types: ["general", "brand", "sentiment", "trend"]
+      notebook_path: "/juicer/juicer_gold_insights"
+      time_range_days: 7
+      generate_dashboard: true
+
+# Integration points with Databricks
+databricks_integration:
+  # Workspace configuration
+  workspace:
+    default_url: "https://adb-123456789.0.azuredatabricks.net"
+    notebooks_path: "/juicer"
+  
+  # Job configurations for scheduled operations
+  jobs:
+    - name: "juicer_bronze_ingest"
+      notebook_path: "/juicer/juicer_ingest_bronze"
+      schedule: "0 1 * * *"  # Daily at 1:00 AM
+      description: "Ingest Bronze Layer Transcripts"
+    
+    - name: "juicer_silver_enrich"
+      notebook_path: "/juicer/juicer_enrich_silver"
+      schedule: "0 3 * * *"  # Daily at 3:00 AM
+      description: "Enrich Silver Layer with Brand Detections"
+    
+    - name: "juicer_gold_dashboard_update"
+      notebook_path: "/juicer/juicer_gold_dashboard_update"
+      schedule: "0 5 * * *"  # Daily at 5:00 AM
+      description: "Update Gold Layer Dashboard Data"
+
+    - name: "juicer_insights_daily"
+      notebook_path: "/juicer/juicer_gold_insights"
+      schedule: "0 6 * * *"  # Daily at 6:00 AM
+      description: "Generate daily insights from transcripts"
+
+    - name: "juicer_insights_weekly"
+      notebook_path: "/juicer/juicer_gold_insights"
+      schedule: "0 7 * * 1"  # Weekly on Monday at 7:00 AM
+      description: "Generate weekly insights summary"
+
+# SQL templates for common queries
+sql_templates:
+  brand_mentions:
+    template: |
+      SELECT 
+        entity_normalized AS brand, 
+        COUNT(*) AS mention_count,
+        ROUND(AVG(sentiment_score) * 100, 1) AS avg_sentiment_pct
+      FROM 
+        insight_pulse_ai.silver.transcript_entity_mentions
+      WHERE 
+        entity_type = 'BRAND'
+        {% if brand %}AND entity_normalized LIKE '%{{ brand }}%'{% endif %}
+        {% if time_range %}AND detection_timestamp >= CURRENT_DATE - INTERVAL {{ time_range }}{% endif %}
+      GROUP BY 
+        brand
+      ORDER BY 
+        {% if order_by %}{{ order_by }}{% else %}mention_count DESC{% endif %}
+      {% if limit %}LIMIT {{ limit }}{% endif %}
+    
+  agent_performance:
+    template: |
+      WITH agent_brands AS (
+        SELECT 
+          a.agent_id,
+          b.entity_normalized AS brand, 
+          COUNT(*) AS mention_count,
+          AVG(b.sentiment_score) AS avg_sentiment
+        FROM 
+          insight_pulse_ai.silver.transcripts a
+          JOIN insight_pulse_ai.silver.transcript_entity_mentions b ON a.transcript_id = b.transcript_id
+        WHERE 
+          b.entity_type = 'BRAND'
+          {% if time_range %}AND b.detection_timestamp >= CURRENT_DATE - INTERVAL {{ time_range }}{% endif %}
+          {% if brand %}AND b.entity_normalized LIKE '%{{ brand }}%'{% endif %}
+        GROUP BY 
+          a.agent_id, b.entity_normalized
+      )
+      SELECT 
+        agent_id,
+        SUM(mention_count) AS total_brand_mentions,
+        ROUND(AVG(avg_sentiment) * 100, 1) AS avg_sentiment_pct,
+        COUNT(DISTINCT brand) AS unique_brands_mentioned
+      FROM 
+        agent_brands
+      GROUP BY 
+        agent_id
+      ORDER BY 
+        {% if order_by %}{{ order_by }}{% else %}total_brand_mentions DESC{% endif %}
+
+  genai_insights:
+    template: |
+      SELECT
+        insight_id,
+        insight_type,
+        insight_title,
+        insight_text,
+        confidence_score,
+        array_join(brands_mentioned, ', ') AS brands,
+        array_join(summary_tags, ', ') AS tags,
+        processing_timestamp
+      FROM
+        insight_pulse_ai.platinum.genai_insights
+      WHERE
+        processing_timestamp >= CURRENT_DATE - INTERVAL {{ time_range|default('7 days') }}
+        {% if insight_type %}AND insight_type = '{{ insight_type }}'{% endif %}
+        {% if brand %}AND array_contains(brands_mentioned, '{{ brand }}'){% endif %}
+      ORDER BY
+        {% if order_by %}{{ order_by }}{% else %}confidence_score DESC, processing_timestamp DESC{% endif %}
+      {% if limit %}LIMIT {{ limit }}{% endif %}
+
+# Help documentation
+help:
+  overview: |
+    Juicer is the AI-BI Genie component of InsightPulseAI, integrating Databricks for analytics.
+    It enables seamless SQL queries, brand mention tracking, and visualization of transcription data.
+
+    Agent Roles:
+    - Claudia: CLI task routing and orchestration
+    - Maya: Documentation and visualization templates
+    - Kalaw: Knowledge extraction and SKR integration
+    - Echo: Signal extraction and content analysis
+    - Sunnies: Visual rendering of charts and dashboards
+  
+  commands:
+    - name: ":juicer query"
+      syntax: ":juicer query [SQL or natural language]"
+      description: "Execute SQL or natural language queries against Databricks"
+      example: ":juicer query \"Show brand mentions for Jollibee last 7 days\""
+    
+    - name: ":juicer notebook"
+      syntax: ":juicer notebook [path] [--params key=value]"
+      description: "Run a Databricks notebook"
+      example: ":juicer notebook juicer_enrich_silver --params date=2023-05-10"
+    
+    - name: ":juicer dashboard"
+      syntax: ":juicer dashboard [dashboard_id]"
+      description: "View or generate a Databricks dashboard"
+      example: ":juicer dashboard agent_brand_heatmap"
+
+    - name: ":juicer insights"
+      syntax: ":juicer insights [generate|show] [--options]"
+      description: "Generate or display AI-powered insights from transcript data"
+      example: ":juicer insights generate --days 7 --model claude"
+
+    - name: ":juicer summarize"
+      syntax: ":juicer summarize [--days N] [--brand BRAND]"
+      description: "Generate an executive summary of recent interactions"
+      example: ":juicer summarize --days 30 --brand Jollibee"

@@ -1,0 +1,36 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "color-no-hex": true,
+    "color-named": "never",
+    "declaration-no-important": true,
+    "selector-class-pattern": "^[a-z][a-zA-Z0-9-_]*$",
+    "selector-id-pattern": "^[a-z][a-zA-Z0-9-_]*$",
+    "declaration-property-value-disallowed-list": {
+      "/^border/": ["none"],
+      "/^color/": ["#"]
+    },
+    "property-disallowed-list": [
+      "font",
+      "animation"
+    ],
+    "selector-max-id": 1,
+    "selector-max-specificity": "0,3,2",
+    "value-no-vendor-prefix": true,
+    "property-no-vendor-prefix": true,
+    "at-rule-no-vendor-prefix": true,
+    "selector-no-vendor-prefix": true,
+    "media-feature-name-no-vendor-prefix": true,
+    "declaration-property-unit-allowed-list": {
+      "font-size": ["rem", "em", "%"],
+      "line-height": ["", "rem", "em"],
+      "margin": ["rem", "%", "vw", "vh"],
+      "padding": ["rem", "%", "vw", "vh"],
+      "width": ["rem", "%", "vw"],
+      "height": ["rem", "%", "vh"],
+      "border-radius": ["rem"]
+    },
+    "custom-property-pattern": "^[a-z][a-zA-Z0-9-]*$",
+    "function-url-quotes": "always"
+  }
+}

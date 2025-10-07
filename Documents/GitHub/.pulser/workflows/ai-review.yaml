@@ -1,0 +1,32 @@
+name: ai-review
+description: AI-powered code review using local LLM
+steps:
+  - name: analyze-code
+    action: ai-explain
+    input: "${selected_code}"
+    
+  - name: suggest-improvements
+    action: ai-prompt
+    prompt: |
+      Based on the following code, suggest improvements for:
+      - Performance optimization
+      - Code readability
+      - Best practices
+      - Potential bugs
+      
+      Code:
+      ${selected_code}
+      
+  - name: generate-tests
+    action: ai-generate-tests
+    input: "${selected_code}"
+    
+  - name: security-check
+    action: ai-prompt
+    prompt: |
+      Review this code for security vulnerabilities:
+      ${selected_code}
+      
+triggers:
+  - pull_request
+  - manual

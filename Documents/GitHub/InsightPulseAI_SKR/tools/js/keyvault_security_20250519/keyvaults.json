@@ -1,0 +1,22 @@
+[
+  {
+    "Location": "eastus",
+    "Name": "kv-projectscout-prod",
+    "ResourceGroup": "RG-TBWA-ProjectScout-Data"
+  },
+  {
+    "Location": "eastus",
+    "Name": "mymlworkkeyvault3441b156",
+    "ResourceGroup": "RG-TBWA-ProjectScout-Data"
+  },
+  {
+    "Location": "eastus",
+    "Name": "mymlworkkeyvault47ce10d1",
+    "ResourceGroup": "RG-Scout-BrandDetect-Prod-AUE"
+  },
+  {
+    "Location": "eastus2",
+    "Name": "kv-tbwa-juicer-insights2",
+    "ResourceGroup": "RG-TBWA-ProjectScout-Juicer"
+  }
+]

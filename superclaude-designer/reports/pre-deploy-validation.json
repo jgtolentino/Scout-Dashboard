@@ -1,0 +1,309 @@
+{
+  "summary": {
+    "total_agents": 37,
+    "valid": 36,
+    "invalid": 1,
+    "validation_rate": 97.2972972972973,
+    "avg_quality_score": 0.93
+  },
+  "quality_metrics": {
+    "averages": {
+      "validation_score": 0.948,
+      "test_coverage": 0.925,
+      "spec_compliance": 0.965,
+      "performance_rating": 0.891
+    }
+  },
+  "constitutional_compliance": {
+    "article_i_spec_authority": {
+      "compliant": 36,
+      "non_compliant": 1,
+      "percentage": 97.2972972972973
+    },
+    "article_iii_test_first": {
+      "compliant": 36,
+      "non_compliant": 1,
+      "percentage": 97.2972972972973
+    },
+    "article_iv_incremental": {
+      "compliant": 36,
+      "non_compliant": 1,
+      "percentage": 97.2972972972973
+    },
+    "article_v_independent_test": {
+      "compliant": 36,
+      "non_compliant": 1,
+      "percentage": 97.2972972972973
+    },
+    "article_vi_evidence_based": {
+      "compliant": 36,
+      "non_compliant": 1,
+      "percentage": 97.2972972972973
+    }
+  },
+  "valid_agents": [
+    {
+      "name": "design-system-architect",
+      "file": "agents/design-system-architect.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "e2e-test-engineer",
+      "file": "agents/e2e-test-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.977,
+      "warnings": 0
+    },
+    {
+      "name": "performance-benchmarker",
+      "file": "agents/performance-benchmarker.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "ci-cd-pipeline-engineer",
+      "file": "agents/ci-cd-pipeline-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.965,
+      "warnings": 0
+    },
+    {
+      "name": "mobile-app-builder",
+      "file": "agents/mobile-app-builder.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "localization-engineer",
+      "file": "agents/localization-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.947,
+      "warnings": 0
+    },
+    {
+      "name": "database-architect",
+      "file": "agents/database-architect.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "technical-writer",
+      "file": "agents/technical-writer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.934,
+      "warnings": 0
+    },
+    {
+      "name": "bundle-size-analyzer",
+      "file": "agents/bundle-size-analyzer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.961,
+      "warnings": 0
+    },
+    {
+      "name": "design-token-manager",
+      "file": "agents/design-token-manager.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.964,
+      "warnings": 0
+    },
+    {
+      "name": "core-web-vitals-optimizer",
+      "file": "agents/core-web-vitals-optimizer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.98,
+      "warnings": 0
+    },
+    {
+      "name": "responsive-design-engineer",
+      "file": "agents/responsive-design-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.959,
+      "warnings": 0
+    },
+    {
+      "name": "fullstack-developer",
+      "file": "agents/fullstack-developer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "ml-engineer",
+      "file": "agents/ml-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "api-documentation-specialist",
+      "file": "agents/api-documentation-specialist.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.954,
+      "warnings": 0
+    },
+    {
+      "name": "technical-debt-tracker",
+      "file": "agents/technical-debt-tracker.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.947,
+      "warnings": 0
+    },
+    {
+      "name": "security-engineer",
+      "file": "agents/security-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "performance-profiler",
+      "file": "agents/performance-profiler.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.97,
+      "warnings": 0
+    },
+    {
+      "name": "api-tester",
+      "file": "agents/api-tester.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "accessibility-specialist",
+      "file": "agents/accessibility-specialist.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.972,
+      "warnings": 0
+    },
+    {
+      "name": "test-writer-fixer",
+      "file": "agents/test-writer-fixer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "performance-test-engineer",
+      "file": "agents/performance-test-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.973,
+      "warnings": 0
+    },
+    {
+      "name": "visual-regression-tester",
+      "file": "agents/visual-regression-tester.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.954,
+      "warnings": 0
+    },
+    {
+      "name": "accessibility-tester",
+      "file": "agents/accessibility-tester.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.979,
+      "warnings": 0
+    },
+    {
+      "name": "cloud-architect",
+      "file": "agents/cloud-architect.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "monitoring-observability-engineer",
+      "file": "agents/monitoring-observability-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.956,
+      "warnings": 0
+    },
+    {
+      "name": "container-orchestration-specialist",
+      "file": "agents/container-orchestration-specialist.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.955,
+      "warnings": 0
+    },
+    {
+      "name": "changelog-maintainer",
+      "file": "agents/changelog-maintainer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.926,
+      "warnings": 0
+    },
+    {
+      "name": "frontend-developer",
+      "file": "agents/frontend-developer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "ui-animation-engineer",
+      "file": "agents/ui-animation-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.96,
+      "warnings": 0
+    },
+    {
+      "name": "lighthouse-auditor",
+      "file": "agents/lighthouse-auditor.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.967,
+      "warnings": 0
+    },
+    {
+      "name": "ui-designer",
+      "file": "agents/ui-designer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "backend-architect",
+      "file": "agents/backend-architect.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "devops-automator",
+      "file": "agents/devops-automator.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "ai-engineer",
+      "file": "agents/ai-engineer.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    },
+    {
+      "name": "rapid-prototyper",
+      "file": "agents/rapid-prototyper.yaml",
+      "version": "2.1.0",
+      "quality_score": 0.951,
+      "warnings": 0
+    }
+  ],
+  "invalid_agents": [
+    {
+      "name": "unknown",
+      "file": "agents/master-registry.yaml",
+      "version": "unknown",
+      "errors": [
+        "Missing root 'agent' key"
+      ],
+      "warnings": []
+    }
+  ]
+}

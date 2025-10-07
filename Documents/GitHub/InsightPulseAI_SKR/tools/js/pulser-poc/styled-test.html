@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Styled Transaction Trends</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#4F46E5',
+                            700: '#4338CA',
+                            800: '#3730A3',
+                        },
+                        success: {
+                            DEFAULT: '#22C55E',
+                            700: '#15803D',
+                            800: '#166534',
+                        },
+                        warning: {
+                            DEFAULT: '#F59E0B',
+                            700: '#B45309',
+                            800: '#92400E',
+                        },
+                        danger: {
+                            DEFAULT: '#EF4444',
+                            700: '#B91C1C',
+                            800: '#991B1B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-3xl font-bold text-gray-900">Transaction Trends Dashboard</h1>
+            <p class="text-gray-600 mt-1">Real-time analytics with professional styling</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- KPI Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Success Card -->
+            <div class="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden">
+                <div class="h-1 bg-success"></div>
+                <div class="p-6">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-success-800 mb-2">
+                        Total Transactions
+                    </h3>
+                    <p class="text-3xl font-bold text-success-700" id="totalTransactions">
+                        -
+                    </p>
+                    <p class="text-sm text-gray-600 mt-1">Last 30 days</p>
+                </div>
+            </div>
+
+            <!-- Primary Card -->
+            <div class="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden">
+                <div class="h-1 bg-primary"></div>
+                <div class="p-6">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-primary-800 mb-2">
+                        Total Revenue
+                    </h3>
+                    <p class="text-3xl font-bold text-primary-700" id="totalRevenue">
+                        -
+                    </p>
+                    <p class="text-sm text-gray-600 mt-1">Last 30 days</p>
+                </div>
+            </div>
+
+            <!-- Warning Card -->
+            <div class="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden">
+                <div class="h-1 bg-warning"></div>
+                <div class="p-6">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-warning-800 mb-2">
+                        Average Transaction
+                    </h3>
+                    <p class="text-3xl font-bold text-warning-700" id="avgTransaction">
+                        -
+                    </p>
+                    <p class="text-sm text-gray-600 mt-1">Per transaction</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Card -->
+        <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden mb-8">
+            <div class="h-1 bg-gray-400"></div>
+            <div class="p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">
+                    Transaction Trends - Last 30 Days
+                </h2>
+                <div class="h-96 bg-gray-50 rounded flex items-center justify-center">
+                    <canvas id="chart" class="w-full h-full"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Card -->
+        <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+            <div class="h-1 bg-primary"></div>
+            <div class="p-6">
+                <div id="status" class="text-center py-8 text-gray-600">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    <p class="mt-2">Loading data...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:7071/api/transactions';
+        
+        async function loadData() {
+            const statusEl = document.getElementById('status');
+            
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                // Calculate stats
+                const totalTransactions = data.reduce((sum, d) => sum + d.count, 0);
+                const totalAmount = data.reduce((sum, d) => sum + d.amount, 0);
+                const avgTransaction = Math.round(totalAmount / totalTransactions);
+                
+                // Update KPI cards with animation
+                animateValue('totalTransactions', 0, totalTransactions, 1000);
+                animateValue('totalRevenue', 0, totalAmount, 1000, '₱');
+                animateValue('avgTransaction', 0, avgTransaction, 1000, '₱');
+                
+                // Draw chart
+                drawChart(data);
+                
+                // Update status
+                statusEl.innerHTML = `
+                    <div class="bg-success/10 text-success-800 p-4 rounded-lg inline-block">
+                        <svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Live data loaded successfully
+                    </div>
+                `;
+                
+            } catch (error) {
+                statusEl.innerHTML = `
+                    <div class="bg-danger/10 text-danger-800 p-4 rounded-lg">
+                        <svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        function animateValue(id, start, end, duration, prefix = '') {
+            const obj = document.getElementById(id);
+            const range = end - start;
+            const startTime = performance.now();
+            
+            function update() {
+                const currentTime = performance.now();
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const current = Math.floor(progress * range + start);
+                obj.textContent = prefix + current.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+        
+        function drawChart(data) {
+            const canvas = document.getElementById('chart');
+            const ctx = canvas.getContext('2d');
+            const rect = canvas.getBoundingClientRect();
+            
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            
+            const padding = 40;
+            const width = canvas.width - padding * 2;
+            const height = canvas.height - padding * 2;
+            
+            // Clear
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw grid lines
+            ctx.strokeStyle = '#E5E7EB';
+            ctx.lineWidth = 1;
+            
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (height / 5) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(canvas.width - padding, y);
+                ctx.stroke();
+            }
+            
+            // Draw data line
+            const maxAmount = Math.max(...data.map(d => d.amount));
+            const xStep = width / (data.length - 1);
+            
+            // Gradient fill
+            const gradient = ctx.createLinearGradient(0, padding, 0, canvas.height - padding);
+            gradient.addColorStop(0, 'rgba(79, 70, 229, 0.1)');
+            gradient.addColorStop(1, 'rgba(79, 70, 229, 0)');
+            
+            ctx.beginPath();
+            data.forEach((d, i) => {
+                const x = padding + i * xStep;
+                const y = padding + height - (d.amount / maxAmount) * height;
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            
+            // Fill area
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // Draw line
+            ctx.beginPath();
+            data.forEach((d, i) => {
+                const x = padding + i * xStep;
+                const y = padding + height - (d.amount / maxAmount) * height;
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.strokeStyle = '#4F46E5';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Draw points
+            data.forEach((d, i) => {
+                const x = padding + i * xStep;
+                const y = padding + height - (d.amount / maxAmount) * height;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#4F46E5';
+                ctx.fill();
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+        }
+        
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>

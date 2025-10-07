@@ -1,0 +1,35 @@
+name: KeyKey → Render env sync
+on:
+  push: [main, chatgpt-integration]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assert required secrets
+        run: |
+          for v in RENDER_TOKEN RENDER_SERVICE_ID S_MCP_URL S_MCP_ANON S_MCP_DB_URL; do
+            [[ -z "${{ secrets[$v] }}" ]] && { echo "❌ $v missing"; exit 1; }
+          done
+      - name: Update Render env vars
+        env:
+          RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }}
+          SERVICE_ID:   ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          cat >payload.json <<EOF
+          [
+            {"key":"SUPABASE_URL","value":"${{ secrets.S_MCP_URL }}","secret":false},
+            {"key":"SUPABASE_ANON_KEY","value":"${{ secrets.S_MCP_ANON }}","secret":false},
+            {"key":"DATABASE_URL","value":"${{ secrets.S_MCP_DB_URL }}","secret":false},
+            {"key":"DB_BACKEND","value":"supabase","secret":false}
+          ]
+          EOF
+          curl -sS -X PATCH \
+            -H "authorization: Bearer $RENDER_TOKEN" \
+            -H "content-type: application/json" \
+            "https://api.render.com/v1/services/$SERVICE_ID/env-vars" \
+            -d @payload.json | jq '.'

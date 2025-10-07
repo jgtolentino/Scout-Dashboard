@@ -1,0 +1,54 @@
+{
+  "timestamp": "20250521_220000",
+  "generated_by": "Client360-Simulator-1.0",
+  "synthetic": true,
+  "counts": {
+    "interactions": 200,
+    "brand_interactions": 726,
+    "transcript_chunks": 453,
+    "vision_detections": 374
+  },
+  "brand_distribution": {
+    "tbwa_client_brands": 403,
+    "non_client_brands": 323
+  },
+  "store_distribution": {
+    "SariSari Express - Tondo": 12,
+    "Mini Mart - Malate": 14,
+    "Family Store - Ermita": 9,
+    "Quick Stop - Intramuros": 11,
+    "Daily Needs - Sampaloc": 10,
+    "Corner Shop - Diliman": 12,
+    "Neighborhood Store - Cubao": 8,
+    "Community Mart - Fairview": 9,
+    "All Day Store - Poblacion": 12,
+    "Happy Shop - Bel-Air": 10,
+    "Village Store - San Lorenzo": 8,
+    "Pinoy Mart - Lahug": 12,
+    "Island Shop - Mabolo": 9,
+    "Central Store - Guadalupe": 11,
+    "Cebuano Shop - Apas": 8,
+    "Mindanao Mart - Poblacion": 11,
+    "Davao Store - Talomo": 9,
+    "Southern Shop - Buhangin": 10,
+    "Batangas Shop - Centro": 7,
+    "Tagaytay Store - Centro": 8
+  },
+  "region_distribution": {
+    "National Capital Region (NCR)": 115,
+    "Central Visayas (Region VII)": 40,
+    "Davao Region (Region XI)": 30,
+    "CALABARZON (Region IV-A)": 15
+  },
+  "category_distribution": {
+    "Food": 182,
+    "Beverage": 176,
+    "Household": 135,
+    "Personal Care": 89,
+    "Dairy": 72,
+    "Tobacco": 38,
+    "Alcohol": 34
+  },
+  "execution_time_sec": 3.45,
+  "created_date": "2025-05-21T22:00:00"
+}

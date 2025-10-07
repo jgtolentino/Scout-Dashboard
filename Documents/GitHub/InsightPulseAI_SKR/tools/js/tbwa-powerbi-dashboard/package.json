@@ -1,0 +1,42 @@
+{
+  "name": "tbwa-powerbi-dashboard",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "deploy": "vite build && bash deploy-powerbi-dashboard.sh",
+    "deploy:powerbi": "bash deploy-powerbi-dashboard.sh",
+    "create-package": "node create-package.cjs",
+    "upload": "npm run build && npm run create-package"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "chart.js": "^4.4.0",
+    "classnames": "^2.3.2",
+    "file-saver": "^2.0.5",
+    "json2csv": "^5.0.7",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.8.0",
+    "zustand": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.18",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.4",
+    "autoprefixer": "^10.4.15",
+    "eslint": "^8.46.0",
+    "eslint-plugin-react": "^7.33.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.29",
+    "tailwindcss": "^3.3.3",
+    "terser": "^5.39.2",
+    "vite": "^4.4.9"
+  }
+}

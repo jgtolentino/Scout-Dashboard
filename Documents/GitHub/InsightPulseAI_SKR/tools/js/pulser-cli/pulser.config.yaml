@@ -1,0 +1,23 @@
+tools:
+  bash: "./task_executor.sh"
+  python: "python3"
+  docker: "basher docker"
+  superset: "basher superset"
+  git: "pulser_git_proxy.sh"
+  diagram: "./tools/diagram_handler.sh"
+  svg: "./tools/svg_renderer.py"
+agents:
+  default: "claude"
+  privileged: "basher"
+  dashboard: "dash"
+memory:
+  persist_context: "claude_session.log"
+  max_tokens: 20000
+artifacts:
+  output_dir: "./artifacts"
+  allowed_types:
+    - "svg"
+    - "png"
+    - "json"
+    - "csv"
+    - "html"

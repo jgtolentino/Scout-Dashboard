@@ -1,0 +1,232 @@
+{
+  "timestamp": "2025-06-14T20:57:32.743Z",
+  "baseUrl": "http://localhost:3000",
+  "status": "NEEDS WORK",
+  "overallScore": 17,
+  "errors": [
+    {
+      "type": "network_error",
+      "url": "http://localhost:3000/",
+      "failure": "net::ERR_CONNECTION_REFUSED",
+      "timestamp": "2025-06-14T20:57:33.292Z"
+    },
+    {
+      "type": "network_error",
+      "url": "http://localhost:3000/",
+      "failure": "net::ERR_CONNECTION_REFUSED",
+      "timestamp": "2025-06-14T20:57:34.218Z"
+    },
+    {
+      "type": "network_error",
+      "url": "http://localhost:3000/",
+      "failure": "net::ERR_CONNECTION_REFUSED",
+      "timestamp": "2025-06-14T20:57:34.222Z"
+    },
+    {
+      "type": "network_error",
+      "url": "http://localhost:3000/",
+      "failure": "net::ERR_CONNECTION_REFUSED",
+      "timestamp": "2025-06-14T20:57:34.838Z"
+    }
+  ],
+  "performance": {
+    "score": 0,
+    "status": "failed",
+    "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/\", waiting until \"networkidle\"\u001b[22m\n"
+  },
+  "accessibility": {
+    "score": 0,
+    "status": "failed",
+    "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/\", waiting until \"load\"\u001b[22m\n"
+  },
+  "functionality": {
+    "score": 0,
+    "tests": [
+      {
+        "name": "General Functionality",
+        "passed": false,
+        "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/\", waiting until \"load\"\u001b[22m\n"
+      }
+    ],
+    "status": "needs_improvement"
+  },
+  "dataIntegration": {
+    "score": 0,
+    "tests": [
+      {
+        "name": "Data Integration General",
+        "passed": false,
+        "error": "apiRequestContext.get: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → GET http://localhost:3000/api/health\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/138.0.7204.15 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n"
+      }
+    ],
+    "status": "needs_improvement"
+  },
+  "businessValue": {
+    "score": 100,
+    "metrics": {
+      "creativeFeaturesCount": 30,
+      "businessOutcomesCount": 25,
+      "supportedFileTypes": 4,
+      "aiIntegration": true,
+      "realtimeProcessing": true
+    },
+    "status": "high",
+    "capabilities": [
+      "Creative feature extraction (30+ features)",
+      "Business outcome prediction (25+ outcomes)",
+      "Multi-format file processing",
+      "AI-powered insights generation",
+      "Real-time campaign analysis"
+    ]
+  },
+  "pageIndexHealth": {
+    "score": 0,
+    "tests": [
+      {
+        "name": "PageIndex System General",
+        "passed": false,
+        "error": "apiRequestContext.get: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → GET http://localhost:3000/api/health\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/138.0.7204.15 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n"
+      }
+    ],
+    "status": "not_ready",
+    "features": {
+      "semanticChunking": false,
+      "vectorEmbedding": false,
+      "qualityScoring": false,
+      "moodClassification": false,
+      "searchInterface": false
+    }
+  },
+  "recommendations": [
+    {
+      "category": "Performance",
+      "priority": "high",
+      "message": "Optimize page load times and reduce bundle size",
+      "details": {
+        "score": 0,
+        "status": "failed",
+        "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/\", waiting until \"networkidle\"\u001b[22m\n"
+      }
+    },
+    {
+      "category": "Functionality",
+      "priority": "high",
+      "message": "Fix failing functionality tests before deployment",
+      "details": [
+        {
+          "name": "General Functionality",
+          "passed": false,
+          "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/\", waiting until \"load\"\u001b[22m\n"
+        }
+      ]
+    },
+    {
+      "category": "Data Integration",
+      "priority": "critical",
+      "message": "Ensure all Azure services are properly connected",
+      "details": {
+        "score": 0,
+        "tests": [
+          {
+            "name": "Data Integration General",
+            "passed": false,
+            "error": "apiRequestContext.get: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → GET http://localhost:3000/api/health\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/138.0.7204.15 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n"
+          }
+        ],
+        "status": "needs_improvement"
+      }
+    },
+    {
+      "category": "PageIndex System",
+      "priority": "medium",
+      "message": "Complete PageIndex system setup and testing",
+      "details": {
+        "score": 0,
+        "tests": [
+          {
+            "name": "PageIndex System General",
+            "passed": false,
+            "error": "apiRequestContext.get: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → GET http://localhost:3000/api/health\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/138.0.7204.15 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n"
+          }
+        ],
+        "status": "not_ready",
+        "features": {
+          "semanticChunking": false,
+          "vectorEmbedding": false,
+          "qualityScoring": false,
+          "moodClassification": false,
+          "searchInterface": false
+        }
+      }
+    },
+    {
+      "category": "Error Resolution",
+      "priority": "critical",
+      "message": "Resolve 4 errors found during audit",
+      "details": [
+        {
+          "type": "network_error",
+          "url": "http://localhost:3000/",
+          "failure": "net::ERR_CONNECTION_REFUSED",
+          "timestamp": "2025-06-14T20:57:33.292Z"
+        },
+        {
+          "type": "network_error",
+          "url": "http://localhost:3000/",
+          "failure": "net::ERR_CONNECTION_REFUSED",
+          "timestamp": "2025-06-14T20:57:34.218Z"
+        },
+        {
+          "type": "network_error",
+          "url": "http://localhost:3000/",
+          "failure": "net::ERR_CONNECTION_REFUSED",
+          "timestamp": "2025-06-14T20:57:34.222Z"
+        },
+        {
+          "type": "network_error",
+          "url": "http://localhost:3000/",
+          "failure": "net::ERR_CONNECTION_REFUSED",
+          "timestamp": "2025-06-14T20:57:34.838Z"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "name": "Dashboard Home",
+      "status": 0,
+      "loadTime": 30000,
+      "success": false,
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/\", waiting until \"networkidle\"\u001b[22m\n",
+      "priority": "critical"
+    },
+    {
+      "path": "/api/health",
+      "name": "Health Check API",
+      "status": 0,
+      "loadTime": 30000,
+      "success": false,
+      "error": "apiRequestContext.get: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → GET http://localhost:3000/api/health\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/138.0.7204.15 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+      "priority": "critical"
+    },
+    {
+      "path": "/api/creative-insights",
+      "name": "Creative Insights API",
+      "status": 0,
+      "loadTime": 30000,
+      "success": false,
+      "error": "apiRequestContext.get: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → GET http://localhost:3000/api/creative-insights\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/138.0.7204.15 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+      "priority": "high"
+    },
+    {
+      "path": "/api/process-campaigns",
+      "name": "Campaign Processing API",
+      "status": 0,
+      "loadTime": 30000,
+      "success": false,
+      "error": "apiRequestContext.get: connect ECONNREFUSED ::1:3000\nCall log:\n\u001b[2m  - → GET http://localhost:3000/api/process-campaigns\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/138.0.7204.15 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+      "priority": "high"
+    }
+  ]
+}

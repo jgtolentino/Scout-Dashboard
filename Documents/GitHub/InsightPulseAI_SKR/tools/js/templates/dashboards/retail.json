@@ -1,0 +1,188 @@
+{
+  "name": "Retail Dashboard Template",
+  "description": "Standard template for retail analytics dashboards with store performance metrics",
+  "version": "1.0.0",
+  "layout": {
+    "type": "grid",
+    "rows": [
+      {
+        "height": "80px",
+        "columns": [
+          {
+            "width": "100%",
+            "component": "header",
+            "settings": {
+              "title": true,
+              "subtitle": true,
+              "filters": ["date_range", "region", "store"]
+            }
+          }
+        ]
+      },
+      {
+        "height": "120px",
+        "columns": [
+          {
+            "width": "33.33%",
+            "component": "kpi_card",
+            "settings": {
+              "title": "Key Metric 1",
+              "comparison": true,
+              "icon": true
+            }
+          },
+          {
+            "width": "33.33%",
+            "component": "kpi_card",
+            "settings": {
+              "title": "Key Metric 2",
+              "comparison": true,
+              "icon": true
+            }
+          },
+          {
+            "width": "33.33%",
+            "component": "kpi_card",
+            "settings": {
+              "title": "Key Metric 3",
+              "comparison": true,
+              "icon": true
+            }
+          }
+        ]
+      },
+      {
+        "height": "350px",
+        "columns": [
+          {
+            "width": "50%",
+            "component": "chart",
+            "settings": {
+              "type": "bar",
+              "title": true,
+              "legend": true,
+              "axis_labels": true
+            }
+          },
+          {
+            "width": "50%",
+            "component": "table",
+            "settings": {
+              "title": true,
+              "pagination": true,
+              "search": true,
+              "sorting": true
+            }
+          }
+        ]
+      },
+      {
+        "height": "350px",
+        "columns": [
+          {
+            "width": "100%",
+            "component": "chart",
+            "settings": {
+              "type": "line",
+              "title": true,
+              "legend": true,
+              "axis_labels": true,
+              "reference_lines": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "components": {
+    "header": {
+      "settings": {
+        "align": "left",
+        "logo": true,
+        "background_color": "#ffffff",
+        "text_color": "#333333",
+        "padding": "16px",
+        "border_bottom": "1px solid #eeeeee"
+      }
+    },
+    "kpi_card": {
+      "settings": {
+        "background_color": "#ffffff",
+        "text_color": "#333333",
+        "value_size": "24px",
+        "title_size": "14px",
+        "padding": "16px",
+        "border_radius": "8px",
+        "box_shadow": "0 2px 5px rgba(0,0,0,0.1)",
+        "comparison_type": "vs_previous_period"
+      }
+    },
+    "chart": {
+      "settings": {
+        "background_color": "#ffffff",
+        "text_color": "#333333",
+        "padding": "16px",
+        "border_radius": "8px",
+        "box_shadow": "0 2px 5px rgba(0,0,0,0.1)",
+        "animation_duration": 500,
+        "color_palette": ["#4e79a7", "#f28e2c", "#e15759", "#76b7b2", "#59a14f", "#edc949", "#af7aa1", "#ff9da7", "#9c755f", "#bab0ab"]
+      }
+    },
+    "table": {
+      "settings": {
+        "background_color": "#ffffff",
+        "text_color": "#333333",
+        "padding": "16px",
+        "border_radius": "8px",
+        "box_shadow": "0 2px 5px rgba(0,0,0,0.1)",
+        "header_background": "#f5f5f5",
+        "row_height": "48px",
+        "border_color": "#eeeeee",
+        "page_size_options": [5, 10, 25, 50]
+      }
+    }
+  },
+  "responsive_breakpoints": {
+    "xs": {
+      "max_width": 576,
+      "stack_columns": true,
+      "hide_components": []
+    },
+    "sm": {
+      "max_width": 768,
+      "stack_columns": true,
+      "hide_components": []
+    },
+    "md": {
+      "max_width": 992,
+      "stack_columns": false,
+      "hide_components": []
+    },
+    "lg": {
+      "max_width": 1200,
+      "stack_columns": false,
+      "hide_components": []
+    },
+    "xl": {
+      "max_width": null,
+      "stack_columns": false,
+      "hide_components": []
+    }
+  },
+  "themes": {
+    "light": {
+      "background_color": "#f5f5f5",
+      "card_background": "#ffffff",
+      "text_color": "#333333",
+      "border_color": "#eeeeee",
+      "accent_color": "#4e79a7"
+    },
+    "dark": {
+      "background_color": "#1e1e1e",
+      "card_background": "#2d2d2d",
+      "text_color": "#ffffff",
+      "border_color": "#3d3d3d",
+      "accent_color": "#5b9bd5"
+    }
+  }
+}

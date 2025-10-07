@@ -1,0 +1,162 @@
+[
+  {
+    "brand": "Jack 'n Jill Chippy",
+    "category": "snacks",
+    "value": 125000,
+    "pct_change": 8.5,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Oishi Pillows",
+    "category": "snacks",
+    "value": 118000,
+    "pct_change": -2.1,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": true
+  },
+  {
+    "brand": "Coca-Cola",
+    "category": "beverages",
+    "value": 285000,
+    "pct_change": 3.2,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": true
+  },
+  {
+    "brand": "San Miguel Pale Pilsen",
+    "category": "beverages",
+    "value": 195000,
+    "pct_change": 5.7,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Lucky Me Pancit Canton",
+    "category": "noodles",
+    "value": 315000,
+    "pct_change": 12.3,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Nissin Cup Noodles",
+    "category": "noodles",
+    "value": 165000,
+    "pct_change": -5.8,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": true
+  },
+  {
+    "brand": "Safeguard",
+    "category": "household",
+    "value": 145000,
+    "pct_change": 2.1,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Palmolive",
+    "category": "household",
+    "value": 138000,
+    "pct_change": 4.5,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": true
+  },
+  {
+    "brand": "C2 Green Tea",
+    "category": "beverages",
+    "value": 98000,
+    "pct_change": 15.8,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Pepsi",
+    "category": "beverages",
+    "value": 175000,
+    "pct_change": -1.2,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": true
+  },
+  {
+    "brand": "Piattos",
+    "category": "snacks",
+    "value": 105000,
+    "pct_change": 6.9,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Nova",
+    "category": "snacks",
+    "value": 88000,
+    "pct_change": 3.5,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Payless Pancit Canton",
+    "category": "noodles",
+    "value": 125000,
+    "pct_change": 9.2,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": true
+  },
+  {
+    "brand": "Downy",
+    "category": "household",
+    "value": 165000,
+    "pct_change": 7.3,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Ariel",
+    "category": "household",
+    "value": 195000,
+    "pct_change": -3.4,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": true
+  },
+  {
+    "brand": "Kopiko",
+    "category": "beverages",
+    "value": 112000,
+    "pct_change": 18.9,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Nescafe",
+    "category": "beverages",
+    "value": 225000,
+    "pct_change": 4.2,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": true
+  },
+  {
+    "brand": "Rebisco Crackers",
+    "category": "snacks",
+    "value": 92000,
+    "pct_change": -0.8,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  },
+  {
+    "brand": "Tide",
+    "category": "household",
+    "value": 178000,
+    "pct_change": 5.5,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": true
+  },
+  {
+    "brand": "Milo",
+    "category": "beverages",
+    "value": 142000,
+    "pct_change": 11.2,
+    "timestamp": "2025-05-24T10:00:00Z",
+    "competitor": false
+  }
+]

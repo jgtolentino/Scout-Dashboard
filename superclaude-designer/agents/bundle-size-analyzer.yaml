@@ -1,0 +1,100 @@
+agent:
+  name: bundle-size-analyzer
+  version: 2.1.0
+  description: JavaScript bundle optimization specialist for code splitting, tree shaking, and dependency analysis
+  type: specialist
+  department: performance
+
+  capabilities:
+    core:
+      - analyze
+      - refactor
+      - profile
+    specialized:
+      - analyze-bundle-size
+      - identify-large-dependencies
+      - optimize-code-splitting
+      - eliminate-unused-code
+    experimental: []
+
+  tools:
+    required:
+      - fs
+      - webpack-bundle-analyzer
+    optional:
+      - esbuild
+      - rollup-plugin-visualizer
+      - source-map-explorer
+    mcp_servers:
+      - fs
+
+  keywords:
+    - bundle-size
+    - code-splitting
+    - tree-shaking
+    - dependencies
+    - optimization
+    - webpack
+    - javascript
+
+  permissions:
+    allow_shell: true
+    allow_network: false
+    allow_credentials: false
+
+  config:
+    target_initial_bundle_kb: 500
+    target_total_bundle_kb: 2000
+    analysis_format: json
+    treemap_enabled: true
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /analyze-bundle
+      - /optimize-bundle
+      - /identify-large-deps
+      - /visualize-bundle
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.6
+
+  quality_metrics:
+    validation_score: 0.992
+    test_coverage: 0.95
+    spec_compliance: 0.99
+    performance_rating: 0.94
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Application with 2MB initial bundle
+        when: Analyze and optimize bundle size
+        then: Initial bundle reduced to <500KB with maintained functionality
+        priority: P1
+      - given: Large dependencies imported but partially used
+        when: Identify and tree-shake unused code
+        then: Bundle size reduced by 30%+ with unused code eliminated
+        priority: P1
+      - given: Monolithic bundle without code splitting
+        when: Implement code splitting strategy
+        then: Routes load independently with lazy loading
+        priority: P2
+    evidence_requirements:
+      - bundle-analysis-report
+      - dependency-size-breakdown
+      - before-after-size-comparison
+      - tree-shaking-effectiveness-report

@@ -1,0 +1,196 @@
+/* Unified GenAI styling for Scout Advanced Analytics dashboard */
+
+/* GenAI Badge */
+.genai-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(0, 120, 212, 0.1);
+  color: #0078D4;
+  border: 1px solid rgba(0, 120, 212, 0.3);
+  border-radius: 16px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.genai-badge::before {
+  content: "🤖";
+  margin-right: 6px;
+}
+
+/* Insights Grid */
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Insight Card */
+.insight-card {
+  background-color: white;
+  border-radius: var(--card-radius, 8px);
+  box-shadow: var(--shadow-elevation-1, 0 2px 8px rgba(0, 0, 0, 0.1));
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.insight-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevation-2, 0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+/* Insight Card Header */
+.insight-header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Insight Type Badge */
+.insight-type-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.insight-type-badge.general {
+  background-color: rgba(0, 120, 212, 0.1);
+  color: #0078D4;
+}
+
+.insight-type-badge.brand {
+  background-color: rgba(16, 124, 16, 0.1);
+  color: #107C10;
+}
+
+.insight-type-badge.sentiment {
+  background-color: rgba(232, 17, 35, 0.1);
+  color: #E81123;
+}
+
+.insight-type-badge.trend {
+  background-color: rgba(255, 140, 0, 0.1);
+  color: #FF8C00;
+}
+
+/* Confidence Badge */
+.confidence-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.confidence-badge::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.confidence-high {
+  background-color: rgba(16, 124, 16, 0.1);
+  color: #107C10;
+}
+
+.confidence-high::before {
+  background-color: #107C10;
+}
+
+.confidence-medium {
+  background-color: rgba(255, 140, 0, 0.1);
+  color: #FF8C00;
+}
+
+.confidence-medium::before {
+  background-color: #FF8C00;
+}
+
+.confidence-low {
+  background-color: rgba(232, 17, 35, 0.1);
+  color: #E81123;
+}
+
+.confidence-low::before {
+  background-color: #E81123;
+}
+
+/* Insight Card Body */
+.insight-body {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.insight-body h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.insight-body p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0;
+}
+
+/* Insight Tags */
+.insight-tag {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #555;
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.brand-tag {
+  display: inline-block;
+  background-color: rgba(0, 120, 212, 0.1);
+  color: #0078D4;
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.brand-tag::before {
+  content: "®";
+  margin-right: 3px;
+  font-size: 0.7rem;
+  vertical-align: top;
+}
+
+/* Insight Card Footer */
+.insight-footer {
+  padding: 0.75rem 1rem;
+  background-color: rgba(0, 0, 0, 0.02);
+  color: #777;
+  font-size: 0.8rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.insight-footer i {
+  margin-right: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+}

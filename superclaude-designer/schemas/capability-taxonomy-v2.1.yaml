@@ -1,0 +1,564 @@
+# Capability and Tool Taxonomy v2.1
+# SuperClaude Designer Enhanced Capabilities
+# Comprehensive taxonomy for agent capabilities and tool integrations
+
+---
+version: "2.1.0"
+updated: "2025-10-07T21:10:00Z"
+title: "Agent Capability & Tool Taxonomy"
+description: |
+  Three-tier capability system: Core, Specialized, Experimental.
+  Enables rich agent diversity while maintaining quality standards.
+
+# ============================================================================
+# CAPABILITY TAXONOMY
+# ============================================================================
+
+capabilities:
+
+  # --------------------------------------------------------------------------
+  # TIER 1: CORE CAPABILITIES (Standard set for all agents)
+  # --------------------------------------------------------------------------
+
+  core:
+    description: "Fundamental capabilities every production agent should have"
+    minimum_required: 1
+    recommended: 4-6
+    capabilities:
+
+      scaffold:
+        id: "core.scaffold"
+        name: "Scaffolding & Project Setup"
+        description: "Create project structures, boilerplate code, configuration files"
+        domains: ["engineering", "design", "documentation"]
+        examples:
+          - "Generate React component boilerplate"
+          - "Create design system file structure"
+          - "Initialize test suite configuration"
+        validation:
+          - "Generated files follow project conventions"
+          - "Configuration is syntactically valid"
+          - "Structure matches domain best practices"
+
+      analyze:
+        id: "core.analyze"
+        name: "Analysis & Investigation"
+        description: "Examine code, systems, designs for insights and improvements"
+        domains: ["all"]
+        examples:
+          - "Analyze bundle size and dependencies"
+          - "Review accessibility compliance"
+          - "Investigate performance bottlenecks"
+        validation:
+          - "Analysis produces actionable insights"
+          - "Findings are evidence-based with metrics"
+          - "Recommendations are prioritized (P1/P2/P3)"
+
+      refactor:
+        id: "core.refactor"
+        name: "Refactoring & Optimization"
+        description: "Improve code quality, structure, and maintainability"
+        domains: ["engineering", "quality"]
+        examples:
+          - "Extract repeated patterns into utilities"
+          - "Optimize component rendering logic"
+          - "Simplify complex conditional logic"
+        validation:
+          - "Behavior remains unchanged (tests pass)"
+          - "Code quality metrics improve"
+          - "Performance maintains or improves"
+
+      test:
+        id: "core.test"
+        name: "Testing & Validation"
+        description: "Create, run, and maintain test suites"
+        domains: ["quality", "engineering"]
+        examples:
+          - "Generate unit tests for components"
+          - "Create E2E test scenarios"
+          - "Validate accessibility with automated tests"
+        validation:
+          - "Tests follow Given-When-Then format"
+          - "Coverage meets 95% threshold"
+          - "Tests are independent and repeatable"
+
+      profile:
+        id: "core.profile"
+        name: "Profiling & Measurement"
+        description: "Measure performance, resource usage, and system behavior"
+        domains: ["performance", "quality"]
+        examples:
+          - "Profile runtime performance with DevTools"
+          - "Measure memory usage and leaks"
+          - "Benchmark API response times"
+        validation:
+          - "Metrics are quantitative and verifiable"
+          - "Baselines established for comparison"
+          - "Regression detection automated"
+
+      document:
+        id: "core.document"
+        name: "Documentation & Communication"
+        description: "Create and maintain documentation, guides, and specifications"
+        domains: ["documentation", "all"]
+        examples:
+          - "Generate API documentation from code"
+          - "Create user guides and tutorials"
+          - "Write feature specifications"
+        validation:
+          - "Documentation is clear and accurate"
+          - "Examples are runnable and tested"
+          - "Audience appropriate (technical vs user)"
+
+      deploy:
+        id: "core.deploy"
+        name: "Deployment & Release"
+        description: "Deploy applications, manage releases, handle versioning"
+        domains: ["infrastructure", "engineering"]
+        examples:
+          - "Deploy to staging environment"
+          - "Create production release"
+          - "Rollback failed deployment"
+        validation:
+          - "Deployment is repeatable and automated"
+          - "Rollback capability verified"
+          - "Health checks pass post-deployment"
+
+      monitor:
+        id: "core.monitor"
+        name: "Monitoring & Observability"
+        description: "Track system health, errors, performance in production"
+        domains: ["infrastructure", "operations"]
+        examples:
+          - "Set up error tracking and alerting"
+          - "Monitor performance metrics"
+          - "Track user behavior analytics"
+        validation:
+          - "Alerts trigger on critical issues"
+          - "Metrics dashboards accessible"
+          - "Logs are queryable and retained"
+
+  # --------------------------------------------------------------------------
+  # TIER 2: SPECIALIZED CAPABILITIES (Domain-specific expertise)
+  # --------------------------------------------------------------------------
+
+  specialized:
+    description: "Domain-specific capabilities unique to agent specialization"
+    minimum_required: 0
+    recommended: 2-5
+    categorized_by_domain:
+
+      performance:
+        - id: "specialized.optimize-web-vitals"
+          name: "Core Web Vitals Optimization"
+          description: "Optimize LCP, FID, CLS metrics"
+          target_metrics: ["LCP <2.5s", "FID <100ms", "CLS <0.1"]
+          tools: ["lighthouse", "playwright", "chrome-devtools"]
+
+        - id: "specialized.optimize-bundle"
+          name: "Bundle Size Optimization"
+          description: "Reduce JavaScript bundle size and improve loading"
+          target_metrics: ["Initial bundle <500KB", "Total <2MB"]
+          tools: ["webpack-bundle-analyzer", "esbuild"]
+
+        - id: "specialized.optimize-rendering"
+          name: "Rendering Performance Optimization"
+          description: "Improve React rendering and reduce unnecessary re-renders"
+          target_metrics: ["60fps sustained", "Time to Interactive <3s"]
+          tools: ["react-devtools-profiler", "performance-observer"]
+
+        - id: "specialized.optimize-images"
+          name: "Image Optimization"
+          description: "Compress, resize, lazy-load images"
+          target_metrics: ["Image size <200KB per image", "Proper format (WebP/AVIF)"]
+          tools: ["sharp", "imagemin", "next-image"]
+
+      design:
+        - id: "specialized.generate-tokens"
+          name: "Design Token Generation"
+          description: "Extract and generate design tokens from Figma"
+          tools: ["figma-api", "style-dictionary"]
+
+        - id: "specialized.sync-figma"
+          name: "Figma Synchronization"
+          description: "Sync designs from Figma to codebase"
+          tools: ["figma-api", "figma-transformer"]
+
+        - id: "specialized.validate-components"
+          name: "Component Validation"
+          description: "Validate design system component compliance"
+          tools: ["chromatic", "storybook"]
+
+        - id: "specialized.audit-design-consistency"
+          name: "Design Consistency Auditing"
+          description: "Ensure consistent design patterns across application"
+          tools: ["design-lint", "figma-api"]
+
+      accessibility:
+        - id: "specialized.audit-wcag"
+          name: "WCAG Compliance Auditing"
+          description: "Validate accessibility against WCAG 2.1 AA/AAA"
+          target_metrics: ["WCAG 2.1 AA compliance", "Zero critical violations"]
+          tools: ["axe-core", "pa11y", "lighthouse"]
+
+        - id: "specialized.test-screen-readers"
+          name: "Screen Reader Testing"
+          description: "Test application with screen readers"
+          tools: ["nvda", "voiceover", "jaws"]
+
+        - id: "specialized.audit-keyboard-nav"
+          name: "Keyboard Navigation Auditing"
+          description: "Ensure full keyboard accessibility"
+          target_metrics: ["100% keyboard navigable", "Logical tab order"]
+          tools: ["accessibility-insights", "axe-core"]
+
+      security:
+        - id: "specialized.scan-vulnerabilities"
+          name: "Vulnerability Scanning"
+          description: "Scan dependencies and code for security issues"
+          tools: ["snyk", "npm-audit", "dependabot"]
+
+        - id: "specialized.audit-authentication"
+          name: "Authentication Auditing"
+          description: "Review authentication and authorization logic"
+          tools: ["owasp-zap", "burp-suite"]
+
+        - id: "specialized.encrypt-data"
+          name: "Data Encryption"
+          description: "Implement encryption for sensitive data"
+          tools: ["crypto", "bcrypt", "argon2"]
+
+      testing:
+        - id: "specialized.generate-e2e-tests"
+          name: "E2E Test Generation"
+          description: "Create end-to-end test scenarios with Playwright"
+          tools: ["playwright", "cypress"]
+
+        - id: "specialized.visual-regression-test"
+          name: "Visual Regression Testing"
+          description: "Detect visual changes with screenshot comparison"
+          tools: ["percy", "chromatic", "playwright"]
+
+        - id: "specialized.load-test"
+          name: "Load Testing"
+          description: "Simulate high traffic and measure system behavior"
+          target_metrics: ["1000 req/s sustained", "<500ms p95 latency"]
+          tools: ["k6", "artillery", "locust"]
+
+      documentation:
+        - id: "specialized.generate-api-docs"
+          name: "API Documentation Generation"
+          description: "Generate API documentation from code"
+          tools: ["typedoc", "jsdoc", "openapi-generator"]
+
+        - id: "specialized.localize-content"
+          name: "Content Localization"
+          description: "Translate and adapt content for multiple locales"
+          tools: ["i18next", "formatjs", "crowdin"]
+
+        - id: "specialized.maintain-changelog"
+          name: "Changelog Maintenance"
+          description: "Generate and maintain release notes"
+          tools: ["conventional-changelog", "release-please"]
+
+      infrastructure:
+        - id: "specialized.setup-ci-cd"
+          name: "CI/CD Pipeline Setup"
+          description: "Configure continuous integration and deployment"
+          tools: ["github-actions", "gitlab-ci", "jenkins"]
+
+        - id: "specialized.orchestrate-containers"
+          name: "Container Orchestration"
+          description: "Manage Docker containers and Kubernetes deployments"
+          tools: ["docker", "kubernetes", "helm"]
+
+        - id: "specialized.monitor-logs"
+          name: "Log Aggregation & Monitoring"
+          description: "Centralize and analyze application logs"
+          tools: ["datadog", "new-relic", "sentry"]
+
+  # --------------------------------------------------------------------------
+  # TIER 3: EXPERIMENTAL CAPABILITIES (Beta/cutting-edge features)
+  # --------------------------------------------------------------------------
+
+  experimental:
+    description: "Experimental or beta capabilities under active development"
+    minimum_required: 0
+    recommended: 0-2
+    capabilities:
+
+      - id: "experimental.predict-performance-regression"
+        name: "Performance Regression Prediction"
+        description: "Use ML to predict performance regressions before deployment"
+        status: "alpha"
+        stability: "unstable"
+
+      - id: "experimental.auto-optimize-images"
+        name: "Automatic Image Optimization"
+        description: "AI-powered image compression and format selection"
+        status: "beta"
+        stability: "unstable"
+
+      - id: "experimental.generate-tests-ai"
+        name: "AI Test Generation"
+        description: "LLM-powered test case generation from specifications"
+        status: "alpha"
+        stability: "unstable"
+
+# ============================================================================
+# TOOL TAXONOMY
+# ============================================================================
+
+tools:
+
+  # --------------------------------------------------------------------------
+  # REQUIRED TOOLS (Must-have for agent operation)
+  # --------------------------------------------------------------------------
+
+  required:
+    description: "Essential tools without which agent cannot function"
+    minimum_required: 1
+    recommended: 2-4
+    categories:
+
+      filesystem:
+        - id: "tool.fs"
+          name: "Filesystem Operations"
+          description: "Read, write, modify files and directories"
+          mcp_server: "fs"
+          scope: "repo-root-only"
+
+      database:
+        - id: "tool.bruno-supabase"
+          name: "Supabase Database (Bruno-gated)"
+          description: "Database operations via secure Bruno proxy"
+          mcp_server: "bruno-supabase"
+          security: "credential-gated"
+
+      package_management:
+        - id: "tool.pnpm"
+          name: "pnpm Package Manager"
+          description: "Install, update, manage npm packages"
+          requires_shell: false
+
+        - id: "tool.npm"
+          name: "npm Package Manager"
+          description: "Install, update, manage npm packages"
+          requires_shell: false
+
+      browser_automation:
+        - id: "tool.playwright"
+          name: "Playwright Browser Automation"
+          description: "Cross-browser automation and testing"
+          mcp_server: "playwright"
+
+      api_clients:
+        - id: "tool.figma-api"
+          name: "Figma REST API"
+          description: "Access Figma files, components, styles"
+          requires_network: true
+
+  # --------------------------------------------------------------------------
+  # OPTIONAL TOOLS (Enhancement tools, not critical)
+  # --------------------------------------------------------------------------
+
+  optional:
+    description: "Enhancement tools that improve functionality but aren't critical"
+    recommended: 1-3
+    categories:
+
+      performance_analysis:
+        - id: "tool.lighthouse"
+          name: "Google Lighthouse"
+          description: "Performance, accessibility, SEO auditing"
+
+        - id: "tool.webpack-bundle-analyzer"
+          name: "Webpack Bundle Analyzer"
+          description: "Visualize bundle size and dependencies"
+
+        - id: "tool.chrome-devtools"
+          name: "Chrome DevTools Protocol"
+          description: "Runtime performance profiling"
+
+      accessibility_testing:
+        - id: "tool.axe-core"
+          name: "Axe Accessibility Engine"
+          description: "Automated accessibility testing"
+
+        - id: "tool.pa11y"
+          name: "Pa11y Accessibility Tester"
+          description: "Command-line accessibility testing"
+
+      design_tools:
+        - id: "tool.style-dictionary"
+          name: "Style Dictionary"
+          description: "Transform design tokens to multiple formats"
+
+        - id: "tool.chromatic"
+          name: "Chromatic Visual Testing"
+          description: "Visual regression testing for Storybook"
+
+      security_tools:
+        - id: "tool.snyk"
+          name: "Snyk Security Scanner"
+          description: "Dependency vulnerability scanning"
+
+        - id: "tool.owasp-zap"
+          name: "OWASP ZAP"
+          description: "Security vulnerability scanner"
+
+  # --------------------------------------------------------------------------
+  # MCP SERVER INTEGRATIONS
+  # --------------------------------------------------------------------------
+
+  mcp_servers:
+    description: "Model Context Protocol server integrations"
+    available:
+
+      - id: "mcp.bruno-supabase"
+        name: "Bruno Supabase Proxy"
+        description: "Secure Supabase access via Bruno gateway"
+        capabilities: ["database-read", "database-write", "edge-functions"]
+        security: "credential-gated"
+
+      - id: "mcp.fs"
+        name: "Filesystem MCP"
+        description: "File operations with scope restriction"
+        capabilities: ["read", "write", "list", "delete"]
+        scope: "repo-root"
+
+      - id: "mcp.playwright"
+        name: "Playwright MCP"
+        description: "Browser automation for testing"
+        capabilities: ["navigate", "interact", "screenshot", "measure"]
+        browsers: ["chromium", "firefox", "webkit"]
+
+      - id: "mcp.figma"
+        name: "Figma MCP"
+        description: "Design file access and manipulation"
+        capabilities: ["read-files", "extract-tokens", "export-assets"]
+        authentication: "oauth"
+
+# ============================================================================
+# CAPABILITY ASSIGNMENT GUIDELINES
+# ============================================================================
+
+guidelines:
+
+  core_capabilities:
+    rule: "All production agents should have 4-6 core capabilities"
+    rationale: "Ensures consistent baseline functionality across all agents"
+    examples:
+      - agent: "frontend-developer"
+        core: ["scaffold", "analyze", "refactor", "test", "profile"]
+      - agent: "security-engineer"
+        core: ["analyze", "test", "monitor"]
+
+  specialized_capabilities:
+    rule: "Specialist agents should have 2-5 specialized capabilities"
+    rationale: "Defines agent's unique value proposition and domain expertise"
+    examples:
+      - agent: "core-web-vitals-optimizer"
+        specialized: ["optimize-web-vitals", "optimize-bundle", "optimize-rendering"]
+      - agent: "design-system-architect"
+        specialized: ["generate-tokens", "sync-figma", "validate-components"]
+
+  experimental_capabilities:
+    rule: "Limit to 0-2 experimental capabilities per agent"
+    rationale: "Experimental features are unstable and should be used sparingly"
+    stability_warning: "Experimental capabilities may change or be removed in future versions"
+
+  tool_selection:
+    required_tools:
+      rule: "All agents must have 1-4 required tools"
+      rationale: "Defines minimum tooling for agent operation"
+      examples:
+        - agent: "performance-specialist"
+          required: ["playwright", "lighthouse", "chrome-devtools"]
+
+    optional_tools:
+      rule: "Agents may have 1-3 optional enhancement tools"
+      rationale: "Provides flexibility for advanced features without hard dependencies"
+      examples:
+        - agent: "bundle-optimizer"
+          optional: ["webpack-bundle-analyzer", "esbuild-analyzer"]
+
+# ============================================================================
+# CAPABILITY MATRIX (Agent Type → Recommended Capabilities)
+# ============================================================================
+
+capability_matrix:
+
+  engineering_agents:
+    core: ["scaffold", "analyze", "refactor", "test", "profile"]
+    specialized: "domain-specific (2-4 capabilities)"
+    tools:
+      required: ["fs", "pnpm"]
+      optional: ["typescript-compiler", "eslint"]
+
+  design_agents:
+    core: ["scaffold", "analyze", "document"]
+    specialized: ["generate-tokens", "sync-figma", "validate-components"]
+    tools:
+      required: ["fs", "figma-api"]
+      optional: ["style-dictionary", "chromatic"]
+
+  performance_agents:
+    core: ["analyze", "profile", "refactor", "test"]
+    specialized: ["optimize-web-vitals", "optimize-bundle", "optimize-rendering"]
+    tools:
+      required: ["playwright", "lighthouse"]
+      optional: ["chrome-devtools", "webpack-bundle-analyzer"]
+
+  testing_agents:
+    core: ["test", "analyze", "profile"]
+    specialized: ["generate-e2e-tests", "visual-regression-test", "load-test"]
+    tools:
+      required: ["playwright"]
+      optional: ["percy", "k6"]
+
+  security_agents:
+    core: ["analyze", "test", "monitor"]
+    specialized: ["scan-vulnerabilities", "audit-authentication", "encrypt-data"]
+    tools:
+      required: ["fs"]
+      optional: ["snyk", "owasp-zap"]
+
+  documentation_agents:
+    core: ["document", "analyze"]
+    specialized: ["generate-api-docs", "localize-content", "maintain-changelog"]
+    tools:
+      required: ["fs"]
+      optional: ["typedoc", "i18next"]
+
+  infrastructure_agents:
+    core: ["deploy", "monitor", "test"]
+    specialized: ["setup-ci-cd", "orchestrate-containers", "monitor-logs"]
+    tools:
+      required: ["fs"]
+      optional: ["docker", "kubernetes", "github-actions"]
+
+# ============================================================================
+# VALIDATION RULES
+# ============================================================================
+
+validation:
+
+  - rule: "All agents must have at least 1 core capability"
+    severity: "error"
+
+  - rule: "Specialist agents should have 2+ specialized capabilities"
+    severity: "warning"
+
+  - rule: "Agents should not have >2 experimental capabilities"
+    severity: "warning"
+
+  - rule: "All required tools must exist in tool taxonomy"
+    severity: "error"
+
+  - rule: "MCP servers must be available and configured"
+    severity: "error"
+
+# ============================================================================
+# END OF CAPABILITY TAXONOMY
+# ============================================================================

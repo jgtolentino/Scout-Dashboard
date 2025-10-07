@@ -1,0 +1,75 @@
+/**
+ * Retail Advisor GenAI Insights Shared CSS
+ * Consistent styling for insights across all dashboards
+ */
+:root {
+  /* Main Brand Colors */
+  --primary-color: #F89E1B;       /* Orange */
+  --secondary-color: #2E2F33;     /* Deep Gray */
+  
+  /* Functional Colors */
+  --success-color: #28a745;       /* Green */
+  --info-color: #00a3e0;          /* Blue */
+  --warning-color: #ffc107;       /* Amber */
+  --danger-color: #dc3545;        /* Red */
+  
+  /* GenAI Insight Type Colors */
+  --insight-general: #8a4fff;     /* Purple */
+  --insight-brand: #00a3e0;       /* Blue */
+  --insight-sentiment: #ff7e47;   /* Coral */
+  --insight-trend: #00c389;       /* Teal */
+}
+
+.card-insight-general .card-header {
+  background-color: var(--insight-general);
+  color: white;
+}
+
+.card-insight-brand .card-header {
+  background-color: var(--insight-brand);
+  color: white;
+}
+
+.card-insight-sentiment .card-header {
+  background-color: var(--insight-sentiment);
+  color: white;
+}
+
+.card-insight-trend .card-header {
+  background-color: var(--insight-trend);
+  color: white;
+}
+
+.confidence-badge {
+  float: right;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.confidence-high {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.confidence-medium {
+  background-color: var(--warning-color);
+  color: var(--secondary-color);
+}
+
+.confidence-low {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.insight-card {
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.insight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}

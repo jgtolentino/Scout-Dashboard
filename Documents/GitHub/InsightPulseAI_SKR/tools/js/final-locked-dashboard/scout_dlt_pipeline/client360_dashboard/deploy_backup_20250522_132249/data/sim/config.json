@@ -1,0 +1,28 @@
+{
+  "simulation_mode": true,
+  "demo_timestamp": "2025-05-22T11:32:00Z",
+  "version": "2.4.0-demo",
+  "features": {
+    "drill_down_enabled": true,
+    "tags_dropdown_enabled": true,
+    "device_health_enabled": true,
+    "pptx_export_enabled": true,
+    "qa_overlay_enabled": true,
+    "live_data_disabled": true
+  },
+  "data_sources": {
+    "primary": "simulation",
+    "fallback": "cache",
+    "refresh_interval": null
+  },
+  "ui_config": {
+    "show_simulation_badge": true,
+    "disable_live_controls": true,
+    "enable_demo_tooltips": true
+  },
+  "performance": {
+    "mock_api_delay": 500,
+    "animation_speed": "normal",
+    "prefetch_enabled": true
+  }
+}

@@ -1,0 +1,239 @@
+name: Scout Dashboard QA
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'tools/js/juicer-stack/dashboards/**'
+      - 'tools/js/juicer-stack/qa/**'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'tools/js/juicer-stack/dashboards/**'
+      - 'tools/js/juicer-stack/qa/**'
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    name: Prepare QA Environment
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: tools/js/juicer-stack/qa/package.json
+          
+      - name: Install dependencies
+        working-directory: tools/js/juicer-stack/qa
+        run: npm install
+        
+      - name: Prepare CI environment
+        working-directory: tools/js/juicer-stack/qa
+        run: node utils/prepare_ci_environment.js
+        
+      - name: Cache QA environment
+        uses: actions/cache@v3
+        with:
+          path: |
+            tools/js/juicer-stack/qa/node_modules
+            tools/js/juicer-stack/qa/baselines
+          key: ${{ runner.os }}-qa-env-${{ hashFiles('tools/js/juicer-stack/qa/package.json') }}
+  
+  test-visual-parity:
+    name: Visual Parity Tests
+    needs: prepare
+    runs-on: ubuntu-latest
+    
+    env:
+      DASHBOARD_URL: ${{ secrets.DASHBOARD_URL || 'http://localhost:8080' }}
+      CI: 'true'
+      MOCK_BROWSER: 'true'
+      NODE_ENV: 'ci'
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Restore QA environment
+        uses: actions/cache@v3
+        with:
+          path: |
+            tools/js/juicer-stack/qa/node_modules
+            tools/js/juicer-stack/qa/baselines
+          key: ${{ runner.os }}-qa-env-${{ hashFiles('tools/js/juicer-stack/qa/package.json') }}
+          
+      - name: Run visual parity tests
+        working-directory: tools/js/juicer-stack/qa
+        run: npx jest tests/visual-parity.test.js --ci
+        
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: visual-parity-results
+          path: tools/js/juicer-stack/qa/temp
+          
+  test-behavior:
+    name: Behavior Parity Tests
+    needs: prepare
+    runs-on: ubuntu-latest
+    
+    env:
+      DASHBOARD_URL: ${{ secrets.DASHBOARD_URL || 'http://localhost:8080' }}
+      CI: 'true'
+      MOCK_BROWSER: 'true'
+      NODE_ENV: 'ci'
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Restore QA environment
+        uses: actions/cache@v3
+        with:
+          path: |
+            tools/js/juicer-stack/qa/node_modules
+            tools/js/juicer-stack/qa/baselines
+          key: ${{ runner.os }}-qa-env-${{ hashFiles('tools/js/juicer-stack/qa/package.json') }}
+          
+      - name: Run behavior parity tests
+        working-directory: tools/js/juicer-stack/qa
+        run: npx jest tests/behavior-parity.test.js --ci
+  
+  test-accessibility:
+    name: Accessibility Tests
+    needs: prepare
+    runs-on: ubuntu-latest
+    
+    env:
+      DASHBOARD_URL: ${{ secrets.DASHBOARD_URL || 'http://localhost:8080' }}
+      CI: 'true'
+      MOCK_BROWSER: 'true'
+      NODE_ENV: 'ci'
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Restore QA environment
+        uses: actions/cache@v3
+        with:
+          path: |
+            tools/js/juicer-stack/qa/node_modules
+            tools/js/juicer-stack/qa/baselines
+          key: ${{ runner.os }}-qa-env-${{ hashFiles('tools/js/juicer-stack/qa/package.json') }}
+          
+      - name: Run accessibility tests
+        working-directory: tools/js/juicer-stack/qa
+        run: npx jest tests/accessibility.test.js --ci
+        
+      - name: Upload accessibility reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: accessibility-results
+          path: tools/js/juicer-stack/qa/reports
+  
+  test-performance:
+    name: Performance Tests
+    needs: prepare
+    runs-on: ubuntu-latest
+    
+    env:
+      DASHBOARD_URL: ${{ secrets.DASHBOARD_URL || 'http://localhost:8080' }}
+      CI: 'true'
+      MOCK_BROWSER: 'true'
+      NODE_ENV: 'ci'
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Restore QA environment
+        uses: actions/cache@v3
+        with:
+          path: |
+            tools/js/juicer-stack/qa/node_modules
+            tools/js/juicer-stack/qa/baselines
+          key: ${{ runner.os }}-qa-env-${{ hashFiles('tools/js/juicer-stack/qa/package.json') }}
+          
+      - name: Run performance tests
+        working-directory: tools/js/juicer-stack/qa
+        run: npx jest tests/performance.test.js --ci
+        
+      - name: Upload performance reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-results
+          path: tools/js/juicer-stack/qa/reports
+
+  generate-report:
+    name: Generate QA Report
+    needs: [test-visual-parity, test-behavior, test-accessibility, test-performance]
+    if: always()
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Create report directory
+        run: mkdir -p tools/js/juicer-stack/qa/reports
+        
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: tools/js/juicer-stack/qa/reports
+          
+      - name: Generate summary report
+        run: |
+          echo "# Scout Dashboard QA Results" > tools/js/juicer-stack/qa/reports/summary.md
+          echo "" >> tools/js/juicer-stack/qa/reports/summary.md
+          echo "Run date: $(date)" >> tools/js/juicer-stack/qa/reports/summary.md
+          echo "" >> tools/js/juicer-stack/qa/reports/summary.md
+          echo "## Test Results" >> tools/js/juicer-stack/qa/reports/summary.md
+          echo "" >> tools/js/juicer-stack/qa/reports/summary.md
+          echo "- Visual Parity: ${{ needs.test-visual-parity.result }}" >> tools/js/juicer-stack/qa/reports/summary.md
+          echo "- Behavior Parity: ${{ needs.test-behavior.result }}" >> tools/js/juicer-stack/qa/reports/summary.md
+          echo "- Accessibility: ${{ needs.test-accessibility.result }}" >> tools/js/juicer-stack/qa/reports/summary.md
+          echo "- Performance: ${{ needs.test-performance.result }}" >> tools/js/juicer-stack/qa/reports/summary.md
+          
+      - name: Upload summary report
+        uses: actions/upload-artifact@v3
+        with:
+          name: qa-summary-report
+          path: tools/js/juicer-stack/qa/reports/summary.md
+EOF < /dev/null

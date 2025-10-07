@@ -1,0 +1,2839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client360 Dashboard | v2.4.0</title>
+  <meta name="description" content="Client360 Dashboard provides comprehensive retail analytics with AI-powered insights">
+  <meta name="version" content="2.4.0">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  
+  <!-- Open Graph tags -->
+  <meta property="og:title" content="Client360 Dashboard">
+  <meta property="og:description" content="Comprehensive retail analytics with AI-powered insights">
+  <meta property="og:image" content="og-image.png">
+  <meta property="og:url" content="https://client360.tbwa.com">
+  
+  <!-- TBWA Styling -->
+  <link rel="stylesheet" href="css/theme-tbwa.css">
+  <link rel="stylesheet" href="css/analytics-dashboard.css">
+  <link rel="stylesheet" href="css/demo-styles.css">
+  
+  <!-- Mapbox CSS for map components -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+  
+  <!-- Dashboard-specific styles -->
+  <style>
+    :root {
+      --primary-color: #0067b1;
+      --secondary-color: #e31937;
+      --accent-color: #ffd100;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --background-light: #f8f9fa;
+      --background-card: #ffffff;
+      --border-color: #e1e4e8;
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+      --info-color: #17a2b8;
+    }
+    
+    /* Dark mode variables */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-primary: #f0f0f0;
+        --text-secondary: #b0b0b0;
+        --background-light: #1e1e1e;
+        --background-card: #2a2a2a;
+        --border-color: #444444;
+      }
+    }
+    
+    body {
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--background-light);
+      color: var(--text-primary);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    /* Dashboard Layout */
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+    
+    /* Header styles */
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      height: 40px;
+      margin-right: 1rem;
+    }
+    
+    .header-title {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    /* Search Container */
+    .search-container {
+      display: flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 0.25rem;
+      padding: 0.25rem;
+    }
+    
+    .search-input {
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 0.5rem;
+      width: 200px;
+      outline: none;
+    }
+    
+    .search-input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .search-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+    
+    /* Data Source Toggle */
+    .data-source-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      font-size: 0.875rem;
+    }
+    
+    .toggle-label {
+      font-weight: 500;
+    }
+    
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+    }
+    
+    input:checked + .slider {
+      background-color: var(--accent-color);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    
+    .slider.round {
+      border-radius: 24px;
+    }
+    
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    
+    .toggle-text {
+      font-weight: 500;
+      min-width: 40px;
+    }
+    
+    /* Filter Groups */
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .filter-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    
+    .dashboard-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    /* KPI Tile Hover Effects */
+    .kpi-tile.clickable:hover {
+      -webkit-transform: translateY(-2px);
+      -moz-transform: translateY(-2px);
+      -ms-transform: translateY(-2px);
+      transform: translateY(-2px);
+      -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+      -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .kpi-tile.clickable:active {
+      -webkit-transform: translateY(0);
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      transform: translateY(0);
+    }
+    
+    /* Drill-Down Drawer Styles */
+    .drill-down-drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+      -moz-transition: opacity 0.3s ease, visibility 0.3s ease;
+      -ms-transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    .drill-down-drawer.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .drawer-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+    }
+    
+    .drawer-content {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 600px;
+      max-width: 90vw;
+      background-color: var(--background-card);
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .drill-down-drawer.open .drawer-content {
+      transform: translateX(0);
+    }
+    
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .drawer-header h3 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    
+    .drawer-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      transition: background-color 0.2s;
+    }
+    
+    .drawer-close:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .drawer-body {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    
+    .drawer-footer {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--background-light);
+    }
+    
+    .loading-spinner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 2rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Main content area */
+    main {
+      padding: 1rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* Sidebar and Content Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .sidebar {
+      background-color: var(--background-card);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .sidebar-nav li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: 0.25rem;
+      transition: background-color 0.2s;
+    }
+    
+    .sidebar-nav a:hover {
+      background-color: rgba(0, 103, 177, 0.1);
+    }
+    
+    .sidebar-nav a.active {
+      background-color: rgba(0, 103, 177, 0.2);
+      font-weight: 500;
+    }
+    
+    .sidebar-nav i {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* Content area */
+    .content {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 1rem;
+    }
+    
+    /* Dashboard title and controls */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .dashboard-title {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    
+    .dashboard-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    /* Grid layout for dashboard widgets */
+    .widget-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: minmax(100px, auto);
+      gap: 1rem;
+    }
+    
+    /* Widget styling */
+    .widget {
+      background-color: var(--background-card);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .widget-title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    .widget-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .widget-content {
+      flex: 1;
+      overflow: auto;
+    }
+    
+    /* Widget sizes */
+    .widget-full {
+      grid-column: span 12;
+    }
+    
+    .widget-half {
+      grid-column: span 6;
+    }
+    
+    .widget-third {
+      grid-column: span 4;
+    }
+    
+    .widget-quarter {
+      grid-column: span 3;
+    }
+    
+    @media (max-width: 1200px) {
+      .widget-quarter {
+        grid-column: span 6;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .widget-half, .widget-third {
+        grid-column: span 12;
+      }
+    }
+    
+    /* Footer styles */
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+    
+    /* Map container */
+    .map-container {
+      height: 400px;
+      width: 100%;
+      border-radius: 0.25rem;
+      overflow: hidden;
+    }
+    
+    /* AI Insights panel */
+    .ai-insights-panel {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .insight-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    .insight-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .insight-item:last-child {
+      border-bottom: none;
+    }
+    
+    .insight-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .insight-title {
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    .insight-category {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
+      background-color: rgba(0, 103, 177, 0.1);
+      font-weight: 500;
+    }
+    
+    .insight-category.priority-high {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+    }
+    
+    .insight-category.priority-medium {
+      background-color: rgba(255, 193, 7, 0.1);
+      color: #ffc107;
+    }
+    
+    .insight-category.priority-low {
+      background-color: rgba(40, 167, 69, 0.1);
+      color: #28a745;
+    }
+    
+    .insight-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .btn-sm {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.875rem;
+    }
+    
+    .insight-body {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    
+    /* User personalization panel */
+    .personalization-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 300px;
+      background-color: var(--background-card);
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .personalization-panel.open {
+      transform: translateX(0);
+    }
+    
+    .personalization-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .personalization-content {
+      padding: 1rem;
+      overflow-y: auto;
+      height: calc(100% - 60px);
+    }
+    
+    /* Buttons and controls */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      border: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border-radius: 50%;
+    }
+    
+    .btn i {
+      margin-right: 0.5rem;
+    }
+    
+    .btn-icon i {
+      margin-right: 0;
+    }
+    
+    /* Version tag */
+    .version-tag {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      z-index: 1000;
+    }
+    
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      visibility: visible;
+      transition: all 0.3s ease;
+    }
+    
+    .modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+    }
+    
+    .modal-content {
+      position: relative;
+      background: white;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+    
+    .modal.hidden .modal-content {
+      transform: scale(0.9);
+    }
+    
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--background-light);
+    }
+    
+    .modal-header h3 {
+      margin: 0;
+      color: var(--text-primary);
+      font-size: 1.25rem;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    
+    .modal-close:hover {
+      background: rgba(0, 0, 0, 0.1);
+      color: var(--text-primary);
+    }
+    
+    .modal-body {
+      padding: 1.5rem;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      background: var(--background-light);
+    }
+    
+    /* Form Styles */
+    .feedback-form {
+      display: grid;
+      gap: 1rem;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .form-group label {
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.875rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(0, 103, 177, 0.1);
+    }
+    
+    .form-group input[readonly] {
+      background-color: var(--background-light);
+      color: var(--text-secondary);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .checkbox-group {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-weight: normal;
+    }
+    
+    .checkbox-label input[type="checkbox"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border-color);
+      border-radius: 3px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 0;
+    }
+    
+    .checkbox-label input[type="checkbox"]:checked {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    
+    .checkbox-label input[type="checkbox"]:checked::after {
+      content: '✓';
+      position: absolute;
+      top: -2px;
+      left: 2px;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    /* Chart Container Styles */
+    .chart-container {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .chart-container h5 {
+      margin: 0 0 1rem 0;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    
+    .chart-container canvas {
+      max-width: 100%;
+      height: 200px !important;
+    }
+    
+    /* Accessibility Improvements */
+    .btn:focus,
+    .search-input:focus,
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus,
+    .kpi-tile:focus {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+    
+    .btn[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      :root {
+        --border-color: #000000;
+        --text-secondary: #000000;
+      }
+      
+      .btn {
+        border: 2px solid;
+      }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      .drill-down-drawer,
+      .modal,
+      .notification,
+      .kpi-tile {
+        transition: none;
+        animation: none;
+      }
+    }
+    
+    /* Focus-visible for better keyboard navigation */
+    .btn:focus-visible,
+    .kpi-tile:focus-visible {
+      outline: 3px solid var(--accent-color);
+      outline-offset: 2px;
+    }
+    
+    /* Device Health Grid Styles */
+    .device-health-grid {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .health-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .health-metric {
+      text-align: center;
+      padding: 0.75rem;
+      background: var(--background-light);
+      border-radius: 8px;
+      transition: background-color 0.2s;
+    }
+    
+    .health-metric:hover {
+      background: rgba(0, 103, 177, 0.05);
+    }
+    
+    .device-grid {
+      overflow-y: auto;
+      max-height: 300px;
+    }
+    
+    .grid-row:hover {
+      background-color: var(--background-light);
+    }
+    
+    .device-status.online {
+      color: var(--success-color);
+    }
+    
+    .device-status.warning {
+      color: var(--warning-color);
+    }
+    
+    .device-status.offline {
+      color: var(--danger-color);
+    }
+    
+    .device-latency.good {
+      color: var(--success-color);
+    }
+    
+    .device-latency.warning {
+      color: var(--warning-color);
+    }
+    
+    .device-latency.error {
+      color: var(--danger-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <header>
+      <div class="header-content">
+        <div class="logo-container">
+          <img src="assets/tbwa-logo.png" alt="TBWA Logo" class="logo">
+          <h1 class="header-title">Client360 Dashboard</h1>
+        </div>
+        <div class="header-actions">
+          <!-- Global Search -->
+          <div class="search-container">
+            <input type="text" id="global-search" placeholder="Search..." class="search-input">
+            <button class="btn btn-secondary btn-icon search-btn">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          
+          <!-- Data Source Toggle -->
+          <div class="data-source-toggle">
+            <label class="toggle-label">Data:</label>
+            <label class="switch">
+              <input type="checkbox" id="data-source-toggle" checked>
+              <span class="slider round"></span>
+            </label>
+            <span class="toggle-text">Live</span>
+          </div>
+          
+          <button class="btn btn-secondary btn-icon" id="feedback-btn" title="Feedback & UAT">
+            <i class="fas fa-comment-dots"></i>
+          </button>
+          <button class="btn btn-secondary btn-icon" id="personalize-btn" title="Personalize Dashboard">
+            <i class="fas fa-sliders"></i>
+          </button>
+          <button class="btn btn-secondary btn-icon" id="theme-toggle" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="btn btn-primary">
+            <i class="fas fa-download"></i>
+            Export
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    <main>
+      <div class="dashboard-grid">
+        <aside class="sidebar">
+          <nav>
+            <ul class="sidebar-nav">
+              <li><a href="#overview" class="nav-link active" data-section="overview"><i class="fas fa-chart-line"></i> Overview</a></li>
+              <li><a href="#regional" class="nav-link" data-section="regional"><i class="fas fa-map-marker-alt"></i> Regional Analysis</a></li>
+              <li><a href="#stores" class="nav-link" data-section="stores"><i class="fas fa-store"></i> Store Performance</a></li>
+              <li><a href="#products" class="nav-link" data-section="products"><i class="fas fa-tags"></i> Product Analytics</a></li>
+              <li><a href="#ai-insights" class="nav-link" data-section="ai-insights"><i class="fas fa-robot"></i> AI Insights</a></li>
+              <li><a href="#reports" class="nav-link" data-section="reports"><i class="fas fa-chart-pie"></i> Sales Reports</a></li>
+              <li><a href="#settings" class="nav-link" data-section="settings"><i class="fas fa-cogs"></i> Settings</a></li>
+            </ul>
+          </nav>
+        </aside>
+        
+        <div class="content">
+          <div class="dashboard-header">
+            <h2 class="dashboard-title">Retail Performance Overview</h2>
+            <div class="dashboard-controls">
+              <div class="filter-group">
+                <label class="filter-label">Date Range:</label>
+                <button class="btn btn-secondary">
+                  <i class="fas fa-calendar"></i>
+                  Last 30 Days
+                </button>
+              </div>
+              
+              <div class="filter-group">
+                <label class="filter-label">Tags:</label>
+                <div id="tags-filter-dropdown"></div>
+              </div>
+              
+              <div class="filter-group">
+                <button class="btn btn-secondary">
+                  <i class="fas fa-filter"></i>
+                  More Filters
+                </button>
+              </div>
+              
+              <button class="btn btn-secondary" onclick="refreshDashboard()">
+                <i class="fas fa-redo"></i>
+                Refresh
+              </button>
+            </div>
+          </div>
+          
+          <div class="widget-grid" id="dashboard-grid">
+            <!-- KPI Summary Widget -->
+            <div class="widget widget-full" id="sales-overview">
+              <div class="widget-header">
+                <h3 class="widget-title">Sales Performance Summary</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div style="display: flex; justify-content: space-between; gap: 1rem;">
+                  <div class="kpi-tile clickable" data-kpi="total-sales" role="button" tabindex="0" aria-label="View detailed sales analysis" style="flex: 1; padding: 1rem; background-color: rgba(0, 103, 177, 0.1); border-radius: 0.5rem; text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                    <h4>Total Sales 💰</h4>
+                    <div style="font-size: 1.5rem; font-weight: bold;">₱8.2M</div>
+                    <div style="color: var(--success-color);"><i class="fas fa-arrow-up"></i> 12.5%</div>
+                  </div>
+                  <div class="kpi-tile clickable" data-kpi="transactions" role="button" tabindex="0" aria-label="View detailed transaction analysis" style="flex: 1; padding: 1rem; background-color: rgba(227, 25, 55, 0.1); border-radius: 0.5rem; text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                    <h4>Transactions 🎯</h4>
+                    <div style="font-size: 1.5rem; font-weight: bold;">24,631</div>
+                    <div style="color: var(--success-color);"><i class="fas fa-arrow-up"></i> 8.2%</div>
+                  </div>
+                  <div class="kpi-tile clickable" data-kpi="avg-order-value" role="button" tabindex="0" aria-label="View detailed order value analysis" style="flex: 1; padding: 1rem; background-color: rgba(255, 209, 0, 0.1); border-radius: 0.5rem; text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                    <h4>Avg. Order Value 📦</h4>
+                    <div style="font-size: 1.5rem; font-weight: bold;">₱332.91</div>
+                    <div style="color: var(--success-color);"><i class="fas fa-arrow-up"></i> 4.1%</div>
+                  </div>
+                  <div class="kpi-tile clickable" data-kpi="active-stores" role="button" tabindex="0" aria-label="View detailed store analysis" style="flex: 1; padding: 1rem; background-color: rgba(23, 162, 184, 0.1); border-radius: 0.5rem; text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                    <h4>Active Stores ⚙️</h4>
+                    <div style="font-size: 1.5rem; font-weight: bold;">342</div>
+                    <div style="color: var(--success-color);"><i class="fas fa-arrow-up"></i> 2.1%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Map Widget -->
+            <div class="widget widget-half" id="store-map" style="grid-row: span 2;">
+              <div class="widget-header">
+                <h3 class="widget-title">Store Performance Map</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon map-view-toggle" title="Change Map View">
+                    <i class="fas fa-layer-group"></i>
+                  </button>
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div class="map-container" id="performance-map">
+                  <!-- Map will be rendered here by MapEngine -->
+                </div>
+              </div>
+            </div>
+            
+            <!-- Device Health Grid -->
+            <div class="widget widget-half" id="device-health">
+              <div class="widget-header">
+                <h3 class="widget-title">Device Health & Edge Latency</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon" title="Refresh Health Data">
+                    <i class="fas fa-sync"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div class="device-health-grid">
+                  <div class="health-summary">
+                    <div class="health-metric">
+                      <div class="metric-value" style="color: var(--success-color); font-size: 1.5rem; font-weight: bold;">342</div>
+                      <div class="metric-label" style="font-size: 0.875rem; color: var(--text-secondary);">Active Devices</div>
+                      <div class="metric-status online" style="color: var(--success-color); font-size: 0.75rem;"><i class="fas fa-circle"></i> Online</div>
+                    </div>
+                    <div class="health-metric">
+                      <div class="metric-value" style="color: var(--info-color); font-size: 1.5rem; font-weight: bold;">23ms</div>
+                      <div class="metric-label" style="font-size: 0.875rem; color: var(--text-secondary);">Avg Latency</div>
+                      <div class="metric-status good" style="color: var(--success-color); font-size: 0.75rem;"><i class="fas fa-check"></i> Good</div>
+                    </div>
+                    <div class="health-metric">
+                      <div class="metric-value" style="color: var(--success-color); font-size: 1.5rem; font-weight: bold;">99.2%</div>
+                      <div class="metric-label" style="font-size: 0.875rem; color: var(--text-secondary);">Uptime</div>
+                      <div class="metric-status excellent" style="color: var(--success-color); font-size: 0.75rem;"><i class="fas fa-star"></i> Excellent</div>
+                    </div>
+                  </div>
+                  
+                  <div class="device-grid" style="margin-top: 1rem;">
+                    <div class="grid-header" style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1.5fr; gap: 0.5rem; padding: 0.5rem; background: var(--background-light); font-weight: 600; font-size: 0.75rem; border-radius: 4px;">
+                      <span>Device</span>
+                      <span>Location</span>
+                      <span>Status</span>
+                      <span>Latency</span>
+                      <span>Last Seen</span>
+                    </div>
+                    <div class="grid-row" style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1.5fr; gap: 0.5rem; padding: 0.75rem 0.5rem; border-bottom: 1px solid var(--border-color); font-size: 0.875rem;">
+                      <span class="device-name"><i class="fas fa-mobile-alt" style="color: var(--primary-color); margin-right: 0.5rem;"></i>POS-MM-001</span>
+                      <span class="device-location">Manila - SM Mall</span>
+                      <span class="device-status online" style="color: var(--success-color);"><i class="fas fa-circle"></i> Online</span>
+                      <span class="device-latency good" style="color: var(--success-color);">18ms</span>
+                      <span class="device-time" style="color: var(--text-secondary);">2 min ago</span>
+                    </div>
+                    <div class="grid-row" style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1.5fr; gap: 0.5rem; padding: 0.75rem 0.5rem; border-bottom: 1px solid var(--border-color); font-size: 0.875rem;">
+                      <span class="device-name"><i class="fas fa-tablet-alt" style="color: var(--primary-color); margin-right: 0.5rem;"></i>POS-CEB-012</span>
+                      <span class="device-location">Cebu - Ayala Center</span>
+                      <span class="device-status online" style="color: var(--success-color);"><i class="fas fa-circle"></i> Online</span>
+                      <span class="device-latency good" style="color: var(--success-color);">31ms</span>
+                      <span class="device-time" style="color: var(--text-secondary);">1 min ago</span>
+                    </div>
+                    <div class="grid-row" style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1.5fr; gap: 0.5rem; padding: 0.75rem 0.5rem; border-bottom: 1px solid var(--border-color); font-size: 0.875rem;">
+                      <span class="device-name"><i class="fas fa-laptop" style="color: var(--warning-color); margin-right: 0.5rem;"></i>KSK-DVU-003</span>
+                      <span class="device-location">Davao - Gaisano Mall</span>
+                      <span class="device-status warning" style="color: var(--warning-color);"><i class="fas fa-exclamation-triangle"></i> Warning</span>
+                      <span class="device-latency warning" style="color: var(--warning-color);">156ms</span>
+                      <span class="device-time" style="color: var(--text-secondary);">5 min ago</span>
+                    </div>
+                    <div class="grid-row" style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1.5fr; gap: 0.5rem; padding: 0.75rem 0.5rem; border-bottom: 1px solid var(--border-color); font-size: 0.875rem;">
+                      <span class="device-name"><i class="fas fa-mobile-alt" style="color: var(--primary-color); margin-right: 0.5rem;"></i>POS-ILO-007</span>
+                      <span class="device-location">Iloilo - Robinson's</span>
+                      <span class="device-status online" style="color: var(--success-color);"><i class="fas fa-circle"></i> Online</span>
+                      <span class="device-latency good" style="color: var(--success-color);">42ms</span>
+                      <span class="device-time" style="color: var(--text-secondary);">3 min ago</span>
+                    </div>
+                    <div class="grid-row" style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1.5fr; gap: 0.5rem; padding: 0.75rem 0.5rem; font-size: 0.875rem;">
+                      <span class="device-name"><i class="fas fa-tablet-alt" style="color: var(--danger-color); margin-right: 0.5rem;"></i>TAB-BGO-015</span>
+                      <span class="device-location">Baguio - Session Road</span>
+                      <span class="device-status offline" style="color: var(--danger-color);"><i class="fas fa-times-circle"></i> Offline</span>
+                      <span class="device-latency error" style="color: var(--danger-color);">--</span>
+                      <span class="device-time" style="color: var(--text-secondary);">2 hrs ago</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- AI Insights Widget -->
+            <div class="widget widget-half" id="ai-insights">
+              <div class="widget-header">
+                <h3 class="widget-title">AI-Powered Insights</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon" title="Refresh Insights">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div class="ai-insights-panel">
+                  <div class="insights-header" style="padding: 1rem; border-bottom: 1px solid var(--border-color);">
+                    <h4 style="margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                      <i class="fas fa-brain" style="color: var(--primary-color);"></i>
+                      Top 3 Actionable Recommendations
+                    </h4>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                      AI-powered insights based on your current data
+                    </p>
+                  </div>
+                  <div class="insight-list">
+                    <div class="insight-item" data-priority="high">
+                      <div class="insight-header">
+                        <h4 class="insight-title">Brand Dictionary Optimization</h4>
+                        <span class="insight-category priority-high">High Priority</span>
+                      </div>
+                      <div class="insight-body">
+                        <p><strong>Recommendation:</strong> Expand brand dictionary coverage for local Filipino brands. Current coverage at 78% - increasing to 90% could boost sales attribution by 12%.</p>
+                        <div class="insight-actions" style="margin-top: 0.5rem;">
+                          <button class="btn btn-sm btn-primary">Implement</button>
+                          <button class="btn btn-sm btn-secondary">Learn More</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="insight-item" data-priority="medium">
+                      <div class="insight-header">
+                        <h4 class="insight-title">Emotional & Contextual Analysis</h4>
+                        <span class="insight-category priority-medium">Medium Priority</span>
+                      </div>
+                      <div class="insight-body">
+                        <p><strong>Recommendation:</strong> Deploy sentiment analysis on customer interactions. Positive sentiment correlates with 23% higher purchase conversion in similar stores.</p>
+                        <div class="insight-actions" style="margin-top: 0.5rem;">
+                          <button class="btn btn-sm btn-primary">Implement</button>
+                          <button class="btn btn-sm btn-secondary">Learn More</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="insight-item" data-priority="medium">
+                      <div class="insight-header">
+                        <h4 class="insight-title">Bundling Opportunities</h4>
+                        <span class="insight-category priority-medium">Medium Priority</span>
+                      </div>
+                      <div class="insight-body">
+                        <p><strong>Recommendation:</strong> Create bundles for "Beverages + Snacks" combination. Analysis shows 67% of customers buy both within same visit - bundle could increase AOV by ₱48.</p>
+                        <div class="insight-actions" style="margin-top: 0.5rem;">
+                          <button class="btn btn-sm btn-primary">Implement</button>
+                          <button class="btn btn-sm btn-secondary">Learn More</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="padding: 0.75rem; border-top: 1px solid var(--border-color); display: flex; gap: 0.5rem;">
+                    <button class="btn btn-primary" style="flex: 1;" id="generate-insights-btn">
+                      <i class="fas fa-sync-alt"></i>
+                      Generate New Insights
+                    </button>
+                    <button class="btn btn-secondary" id="view-all-insights-btn">
+                      <i class="fas fa-eye"></i>
+                      View All Insights
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Regional Performance Widget -->
+            <div class="widget widget-third" id="region-performance">
+              <div class="widget-header">
+                <h3 class="widget-title">Regional Performance</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div style="height: 100%; display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>NCR</div>
+                    <div>₱2.1M</div>
+                    <div style="color: var(--success-color);">+16.4%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Calabarzon</div>
+                    <div>₱1.8M</div>
+                    <div style="color: var(--success-color);">+12.1%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Central Luzon</div>
+                    <div>₱1.5M</div>
+                    <div style="color: var(--success-color);">+9.8%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Western Visayas</div>
+                    <div>₱1.2M</div>
+                    <div style="color: var(--success-color);">+7.5%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Central Visayas</div>
+                    <div>₱0.9M</div>
+                    <div style="color: var(--warning-color);">+2.3%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem;">
+                    <div>Davao Region</div>
+                    <div>₱0.7M</div>
+                    <div style="color: var(--danger-color);">-3.2%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Brand Performance Widget - PRD Compliant with Real Data -->
+            <div class="widget widget-full" id="brand-performance-container">
+              <!-- Brand Performance Grid will be rendered here by BrandPerformanceGrid.js -->
+            </div>
+            
+            <!-- Top Products Widget -->
+            <div class="widget widget-third" id="top-products">
+              <div class="widget-header">
+                <h3 class="widget-title">Top Products</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div style="height: 100%; display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product X</div>
+                    <div>₱520K</div>
+                    <div style="color: var(--success-color);">+22.1%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product Y</div>
+                    <div>₱480K</div>
+                    <div style="color: var(--success-color);">+19.4%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product Z</div>
+                    <div>₱410K</div>
+                    <div style="color: var(--success-color);">+16.8%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product W</div>
+                    <div>₱380K</div>
+                    <div style="color: var(--success-color);">+11.2%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div>Product V</div>
+                    <div>₱350K</div>
+                    <div style="color: var(--warning-color);">+4.7%</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem;">
+                    <div>Product U</div>
+                    <div>₱320K</div>
+                    <div style="color: var(--warning-color);">+2.1%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Recent Activity Widget -->
+            <div class="widget widget-quarter" id="recent-activity">
+              <div class="widget-header">
+                <h3 class="widget-title">Recent Activity</h3>
+                <div class="widget-controls">
+                  <button class="btn btn-secondary btn-icon">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-content">
+                <div style="height: 100%; display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="font-size: 0.875rem; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div style="font-weight: 500;">Data refresh completed</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75rem;">5 minutes ago</div>
+                  </div>
+                  <div style="font-size: 0.875rem; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div style="font-weight: 500;">Sales forecast updated</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75rem;">1 hour ago</div>
+                  </div>
+                  <div style="font-size: 0.875rem; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <div style="font-weight: 500;">New AI insight generated</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75rem;">2 hours ago</div>
+                  </div>
+                  <div style="font-size: 0.875rem; padding: 0.5rem;">
+                    <div style="font-weight: 500;">Region filter updated</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75rem;">3 hours ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <footer>
+      <div>© 2025 TBWA Technology Group. All Rights Reserved.</div>
+    </footer>
+    
+    <!-- Personalization Panel -->
+    <div class="personalization-panel" id="personalization-panel">
+      <div class="personalization-header">
+        <h3>Personalize Dashboard</h3>
+        <button class="btn btn-secondary btn-icon" id="close-personalize">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="personalization-content">
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Layout Templates</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+            <button class="btn btn-secondary" style="flex: 1;">Default</button>
+            <button class="btn btn-secondary" style="flex: 1;">Compact</button>
+            <button class="btn btn-secondary" style="flex: 1;">Analytics</button>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Edit Mode</h4>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+            <i class="fas fa-edit"></i>
+            Enable Edit Mode
+          </button>
+          <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Edit mode allows you to drag, resize, and customize widgets.
+          </p>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Saved Views</h4>
+          <select style="width: 100%; padding: 0.5rem; border-radius: 0.25rem; border: 1px solid var(--border-color); background-color: var(--background-light); color: var(--text-primary); margin-top: 0.5rem;">
+            <option>Default View</option>
+            <option>Sales Focus</option>
+            <option>Regional Analysis</option>
+            <option>Executive Summary</option>
+          </select>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <button class="btn btn-secondary" style="flex: 1;">Save Current</button>
+            <button class="btn btn-secondary" style="flex: 1;">Delete</button>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Color Theme</h4>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <button class="btn btn-secondary" style="flex: 1;">Light</button>
+            <button class="btn btn-secondary" style="flex: 1;">Dark</button>
+            <button class="btn btn-secondary" style="flex: 1;">System</button>
+          </div>
+        </div>
+        
+        <div>
+          <h4>Reset Dashboard</h4>
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">
+            <i class="fas fa-undo"></i>
+            Reset to Default
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Version tag -->
+    <div class="version-tag">v2.4.0</div>
+  </div>
+  
+  <!-- Demo Data Loader - FIRST to eliminate all placeholders -->
+  <script src="js/demo-data-loader.js"></script>
+  
+  <!-- Core dashboard scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/dashboard.js"></script>
+  
+  <!-- Load AI components -->
+  <script src="js/components/ai/model_registry.js"></script>
+  <script src="js/components/ai/embeddings_service.js"></script>
+  <script src="js/components/ai/streaming_client.js"></script>
+  <script src="js/components/ai/ai_engine.js"></script>
+  
+  <!-- Load Map components -->
+  <script src="js/components/map/map_engine.js"></script>
+  
+  <!-- Load User Personalization components -->
+  <script src="js/components/user/preferences.js"></script>
+  <script src="js/components/user/dashboard_layouts.js"></script>
+  
+  <!-- Load Filter components -->
+  <script src="js/components/filters/TagsDropdown.js"></script>
+  
+  <!-- Load Brand Performance Grid -->
+  <script src="js/components/BrandPerformanceGrid.js"></script>
+  
+  <!-- Load QA components -->
+  <script src="js/components/qa/QaOverlay.js"></script>
+  <script src="js/enhanced-smoke-test.js"></script>
+  
+  <!-- Initialization script -->
+  <script>
+    // Initialize components when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize personalization panel
+      const personalizationPanel = document.getElementById('personalization-panel');
+      const personalizeBtn = document.getElementById('personalize-btn');
+      const closePersonalizeBtn = document.getElementById('close-personalize');
+      
+      personalizeBtn.addEventListener('click', function() {
+        personalizationPanel.classList.add('open');
+      });
+      
+      closePersonalizeBtn.addEventListener('click', function() {
+        personalizationPanel.classList.remove('open');
+      });
+      
+      // Initialize theme toggle
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      const themeIcon = themeToggleBtn.querySelector('i');
+      
+      themeToggleBtn.addEventListener('click', function() {
+        document.body.classList.toggle('dark-theme');
+        themeIcon.classList.toggle('fa-moon');
+        themeIcon.classList.toggle('fa-sun');
+      });
+      
+      // Initialize global search
+      const globalSearch = document.getElementById('global-search');
+      const searchBtn = document.querySelector('.search-btn');
+      
+      function performSearch(query) {
+        if (query.trim()) {
+          console.log('Searching for:', query);
+          // Add search functionality here
+          // This could filter widgets, highlight data, etc.
+          const searchResults = document.querySelectorAll('[data-searchable]');
+          searchResults.forEach(element => {
+            const text = element.textContent.toLowerCase();
+            if (text.includes(query.toLowerCase())) {
+              element.style.outline = '2px solid var(--accent-color)';
+            } else {
+              element.style.outline = 'none';
+            }
+          });
+        }
+      }
+      
+      globalSearch.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          performSearch(this.value);
+        }
+      });
+      
+      searchBtn.addEventListener('click', function() {
+        performSearch(globalSearch.value);
+      });
+      
+      // Initialize data source toggle
+      const dataSourceToggle = document.getElementById('data-source-toggle');
+      const toggleText = document.querySelector('.toggle-text');
+      
+      dataSourceToggle.addEventListener('change', function() {
+        const isLive = this.checked;
+        toggleText.textContent = isLive ? 'Live' : 'Simulated';
+        
+        // Update global data source state
+        window.isSimulatedData = !isLive;
+        
+        console.log('Data source changed to:', isLive ? 'Live' : 'Simulated');
+        
+        // Trigger data refresh for all components
+        if (window.dashboard && window.dashboard.refreshData) {
+          window.dashboard.refreshData();
+        }
+        
+        // Update AI insights if available
+        if (window.aiInsights && window.aiInsights.refresh) {
+          window.aiInsights.refresh();
+        }
+      });
+      
+      // Initialize KPI Drill-Down Drawer
+      const drillDownDrawer = document.getElementById('drill-down-drawer');
+      const drawerTitle = document.getElementById('drawer-title');
+      const drawerBody = document.getElementById('drawer-body');
+      const drawerClose = document.getElementById('drawer-close');
+      const drawerOverlay = document.querySelector('.drawer-overlay');
+      const drawerExport = document.getElementById('drawer-export');
+      const drawerApply = document.getElementById('drawer-apply');
+      
+      // KPI Data for drill-down
+      const kpiData = {
+        'total-sales': {
+          title: 'Total Sales 💰',
+          value: '₱8.2M',
+          change: '+12.5%',
+          content: `
+            <div class="kpi-detail">
+              <div class="detail-summary">
+                <h4>Sales Performance Overview</h4>
+                <p>Total sales have increased by 12.5% compared to last month, reaching ₱8.2M across all active stores.</p>
+              </div>
+              <div class="detail-charts">
+                <div class="chart-container">
+                  <h5>Daily Sales Trend</h5>
+                  <canvas id="sales-trend-chart" width="400" height="200"></canvas>
+                </div>
+                <div class="breakdown-grid" style="margin-top: 1rem;">
+                  <h5>Top Performing Categories</h5>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="padding: 1rem; background: #f5f5f5; border-radius: 8px;">
+                      <strong>Beverages</strong><br>₱2.1M (25.6%)
+                    </div>
+                    <div style="padding: 1rem; background: #f5f5f5; border-radius: 8px;">
+                      <strong>Snacks</strong><br>₱1.8M (22.0%)
+                    </div>
+                    <div style="padding: 1rem; background: #f5f5f5; border-radius: 8px;">
+                      <strong>Personal Care</strong><br>₱1.4M (17.1%)
+                    </div>
+                    <div style="padding: 1rem; background: #f5f5f5; border-radius: 8px;">
+                      <strong>Household</strong><br>₱1.2M (14.6%)
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        'transactions': {
+          title: 'Transactions 🎯',
+          value: '24,631',
+          change: '+8.2%',
+          content: `
+            <div class="kpi-detail">
+              <div class="detail-summary">
+                <h4>Transaction Volume Analysis</h4>
+                <p>Transaction count increased by 8.2% with 24,631 transactions processed this month.</p>
+              </div>
+              <div class="detail-charts">
+                <div class="chart-container">
+                  <h5>Hourly Transaction Distribution</h5>
+                  <canvas id="transactions-chart" width="400" height="200"></canvas>
+                </div>
+                <div class="detail-metrics">
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1rem 0;">
+                    <div style="padding: 1rem; background: #e8f5e8; border-radius: 8px;">
+                      <strong>Peak Hour</strong><br>2:00 PM - 4:00 PM<br><small>3,247 transactions</small>
+                    </div>
+                    <div style="padding: 1rem; background: #fff3e0; border-radius: 8px;">
+                      <strong>Avg/Day</strong><br>821 transactions<br><small>↑ 12% vs last month</small>
+                    </div>
+                    <div style="padding: 1rem; background: #e3f2fd; border-radius: 8px;">
+                      <strong>Weekend</strong><br>35% of total<br><small>8,621 transactions</small>
+                    </div>
+                    <div style="padding: 1rem; background: #fce4ec; border-radius: 8px;">
+                      <strong>Mobile Pay</strong><br>67% adoption<br><small>16,503 transactions</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        'avg-order-value': {
+          title: 'Average Order Value 📦',
+          value: '₱332.91',
+          change: '+4.1%',
+          content: `
+            <div class="kpi-detail">
+              <div class="detail-summary">
+                <h4>Order Value Insights</h4>
+                <p>Average order value improved by 4.1% to ₱332.91, indicating effective upselling strategies.</p>
+              </div>
+              <div class="value-analysis">
+                <div class="chart-container">
+                  <h5>Order Value Distribution</h5>
+                  <canvas id="order-value-chart" width="400" height="200"></canvas>
+                </div>
+                <div style="margin: 1rem 0;">
+                  <h5>Value Distribution</h5>
+                  <div style="display: flex; gap: 1rem; margin: 1rem 0;">
+                    <div style="flex: 1; padding: 1rem; background: #f3e5f5; border-radius: 8px;">
+                      <strong>Small Orders</strong><br>₱50-₱150<br><small>32% of transactions</small>
+                    </div>
+                    <div style="flex: 1; padding: 1rem; background: #e8f5e8; border-radius: 8px;">
+                      <strong>Medium Orders</strong><br>₱150-₱500<br><small>51% of transactions</small>
+                    </div>
+                    <div style="flex: 1; padding: 1rem; background: #fff8e1; border-radius: 8px;">
+                      <strong>Large Orders</strong><br>₱500+<br><small>17% of transactions</small>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 1rem; background: #e1f5fe; border-radius: 8px; margin-top: 1rem;">
+                  <h5>💡 Optimization Opportunities</h5>
+                  <ul style="margin: 0.5rem 0;">
+                    <li>Bundle promotions increased AOV by ₱45</li>
+                    <li>Cross-selling at checkout boosted 23% of orders</li>
+                    <li>Loyalty program members spend 18% more</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        'active-stores': {
+          title: 'Active Stores ⚙️',
+          value: '342',
+          change: '+2.1%',
+          content: `
+            <div class="kpi-detail">
+              <div class="detail-summary">
+                <h4>Store Network Status</h4>
+                <p>342 stores are currently active, representing a 2.1% growth in our network expansion.</p>
+              </div>
+              <div class="store-metrics">
+                <div class="chart-container">
+                  <h5>Store Performance Distribution</h5>
+                  <canvas id="stores-chart" width="400" height="200"></canvas>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0;">
+                  <div style="padding: 1rem; background: #e8f5e8; border-radius: 8px; text-align: center;">
+                    <strong>Metro Manila</strong><br>126 stores<br><small>37% of network</small>
+                  </div>
+                  <div style="padding: 1rem; background: #fff3e0; border-radius: 8px; text-align: center;">
+                    <strong>Cebu</strong><br>84 stores<br><small>25% of network</small>
+                  </div>
+                  <div style="padding: 1rem; background: #e3f2fd; border-radius: 8px; text-align: center;">
+                    <strong>Other Regions</strong><br>132 stores<br><small>38% of network</small>
+                  </div>
+                </div>
+                <div style="margin-top: 1rem;">
+                  <h5>Store Performance Tiers</h5>
+                  <div style="display: flex; gap: 1rem;">
+                    <div style="flex: 1; padding: 1rem; background: #c8e6c9; border-radius: 8px;">
+                      <strong>High Performers</strong><br>89 stores (26%)<br><small>Above ₱35K/month</small>
+                    </div>
+                    <div style="flex: 1; padding: 1rem; background: #fff9c4; border-radius: 8px;">
+                      <strong>Standard</strong><br>201 stores (59%)<br><small>₱15K-₱35K/month</small>
+                    </div>
+                    <div style="flex: 1; padding: 1rem; background: #ffcdd2; border-radius: 8px;">
+                      <strong>Developing</strong><br>52 stores (15%)<br><small>Below ₱15K/month</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        }
+      };
+      
+      // Add click and keyboard handlers to KPI tiles
+      document.querySelectorAll('.kpi-tile.clickable').forEach(tile => {
+        // Click handler
+        tile.addEventListener('click', function() {
+          const kpiType = this.dataset.kpi;
+          if (kpiType) {
+            openDrawer(kpiType);
+          }
+        });
+        
+        // Keyboard handler for accessibility
+        tile.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click(); // Trigger the click handler
+          }
+        });
+      });
+      
+      // Close drawer handlers
+      function closeDrawer() {
+        drillDownDrawer.classList.remove('open');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+      }
+      
+      drawerClose.addEventListener('click', closeDrawer);
+      drawerOverlay.addEventListener('click', closeDrawer);
+      
+      // Escape key to close drawer
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && drillDownDrawer.classList.contains('open')) {
+          closeDrawer();
+        }
+      });
+      
+      // Export functionality
+      drawerExport.addEventListener('click', function() {
+        const currentKpi = drawerTitle.textContent;
+        alert(`Exporting ${currentKpi} data...\n\nThis would typically generate a CSV or PDF report.`);
+      });
+      
+      // Apply to all functionality
+      drawerApply.addEventListener('click', function() {
+        const currentKpi = drawerTitle.textContent;
+        alert(`Applying ${currentKpi} filters to all dashboard views...\n\nThis would sync the current analysis across all widgets.`);
+        closeDrawer();
+      });
+      
+      // Chart.js initialization functions for drill-down drawer
+      function initializeDrawerCharts(kpiType) {
+        // Destroy existing charts to prevent memory leaks
+        Chart.helpers.each(Chart.instances, function(instance) {
+          if (instance.chart.canvas.id.includes('-chart')) {
+            instance.destroy();
+          }
+        });
+        
+        setTimeout(() => {
+          switch(kpiType) {
+            case 'total-sales':
+              createSalesTrendChart();
+              break;
+            case 'transactions':
+              createTransactionsChart();
+              break;
+            case 'avg-order-value':
+              createOrderValueChart();
+              break;
+            case 'active-stores':
+              createStoresChart();
+              break;
+          }
+        }, 100); // Small delay to ensure DOM is ready
+      }
+      
+      function createSalesTrendChart() {
+        const ctx = document.getElementById('sales-trend-chart');
+        if (!ctx) return;
+        
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+              label: 'Sales (₱M)',
+              data: [1.8, 2.1, 2.3, 2.0],
+              borderColor: '#0067b1',
+              backgroundColor: 'rgba(0, 103, 177, 0.1)',
+              tension: 0.4,
+              fill: true
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Sales (₱M)'
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      function createTransactionsChart() {
+        const ctx = document.getElementById('transactions-chart');
+        if (!ctx) return;
+        
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['6AM', '9AM', '12PM', '3PM', '6PM', '9PM'],
+            datasets: [{
+              label: 'Transactions',
+              data: [120, 450, 890, 1240, 980, 340],
+              backgroundColor: [
+                'rgba(0, 103, 177, 0.8)',
+                'rgba(227, 25, 55, 0.8)',
+                'rgba(255, 209, 0, 0.8)',
+                'rgba(23, 162, 184, 0.8)',
+                'rgba(40, 167, 69, 0.8)',
+                'rgba(108, 117, 125, 0.8)'
+              ]
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Number of Transactions'
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      function createOrderValueChart() {
+        const ctx = document.getElementById('order-value-chart');
+        if (!ctx) return;
+        
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Small Orders (₱50-₱150)', 'Medium Orders (₱150-₱500)', 'Large Orders (₱500+)'],
+            datasets: [{
+              data: [32, 51, 17],
+              backgroundColor: [
+                '#ff6b6b',
+                '#4ecdc4',
+                '#45b7d1'
+              ],
+              borderWidth: 2,
+              borderColor: '#fff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  padding: 10,
+                  usePointStyle: true
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      function createStoresChart() {
+        const ctx = document.getElementById('stores-chart');
+        if (!ctx) return;
+        
+        new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ['High Performers', 'Standard', 'Developing'],
+            datasets: [{
+              data: [89, 201, 52],
+              backgroundColor: [
+                '#28a745',
+                '#ffc107',
+                '#dc3545'
+              ],
+              borderWidth: 2,
+              borderColor: '#fff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  padding: 10,
+                  usePointStyle: true
+                }
+              }
+            }
+          }
+        });
+      }
+      
+      // Open drawer function
+      function openDrawer(kpiType) {
+        const kpiInfo = kpiData[kpiType];
+        if (!kpiInfo) return;
+        
+        // Update drawer content
+        drawerTitle.textContent = kpiInfo.title;
+        drawerBody.innerHTML = kpiInfo.content;
+        
+        // Show drawer
+        drillDownDrawer.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        
+        // Initialize charts for this KPI after a short delay
+        setTimeout(() => {
+          initializeDrawerCharts(kpiType);
+        }, 100);
+        
+        console.log('Drawer opened for:', kpiType);
+      }
+      
+      // Initialize AI Insights functionality
+      const generateInsightsBtn = document.getElementById('generate-insights-btn');
+      const viewAllInsightsBtn = document.getElementById('view-all-insights-btn');
+      
+      if (generateInsightsBtn) {
+        generateInsightsBtn.addEventListener('click', function() {
+          const button = this;
+          const originalText = button.innerHTML;
+          
+          // Show loading state
+          button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+          button.disabled = true;
+          
+          // Simulate AI generation
+          setTimeout(() => {
+            // Reset button
+            button.innerHTML = originalText;
+            button.disabled = false;
+            
+            // Show success message
+            alert('✨ New AI insights generated!\n\nFresh recommendations have been created based on your latest data. The insights panel has been updated with new actionable recommendations.');
+            
+            // In a real implementation, this would fetch new insights from the API
+            console.log('AI insights regenerated at:', new Date().toLocaleString());
+          }, 2000);
+        });
+      }
+      
+      if (viewAllInsightsBtn) {
+        viewAllInsightsBtn.addEventListener('click', function() {
+          // Open insights in a modal or new view
+          const allInsightsContent = `
+            <div style="max-width: 800px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+              <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-brain" style="color: var(--primary-color);"></i>
+                All AI Insights & Recommendations
+              </h3>
+              <div style="display: grid; gap: 1rem;">
+                <div style="padding: 1rem; border: 1px solid #e1e1e1; border-radius: 8px;">
+                  <h4 style="color: #dc3545;">🔥 High Priority Actions</h4>
+                  <ul style="margin: 0.5rem 0;">
+                    <li>Brand Dictionary Optimization (12% potential sales boost)</li>
+                    <li>Peak Hour Staffing Adjustment (reduce wait times by 34%)</li>
+                    <li>Mobile Payment Integration (67% customer preference)</li>
+                  </ul>
+                </div>
+                <div style="padding: 1rem; border: 1px solid #e1e1e1; border-radius: 8px;">
+                  <h4 style="color: #ffc107;">⚡ Medium Priority Opportunities</h4>
+                  <ul style="margin: 0.5rem 0;">
+                    <li>Emotional & Contextual Analysis (23% conversion improvement)</li>
+                    <li>Cross-Category Bundling (₱48 AOV increase)</li>
+                    <li>Regional Expansion Planning (15% growth potential)</li>
+                    <li>Loyalty Program Enhancement (18% member spending increase)</li>
+                  </ul>
+                </div>
+                <div style="padding: 1rem; border: 1px solid #e1e1e1; border-radius: 8px;">
+                  <h4 style="color: #28a745;">📊 Performance Insights</h4>
+                  <ul style="margin: 0.5rem 0;">
+                    <li>Tuesday-Wednesday sales peaks (+18% vs other weekdays)</li>
+                    <li>Beverages category outperforming by 32% in NCR</li>
+                    <li>Mobile payment adoption at 67% and growing</li>
+                    <li>Weekend transactions represent 35% of total volume</li>
+                  </ul>
+                </div>
+              </div>
+              <div style="text-align: center; margin-top: 2rem;">
+                <button onclick="this.parentElement.parentElement.remove()" style="padding: 0.5rem 2rem; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">
+                  Close
+                </button>
+              </div>
+            </div>
+          `;
+          
+          // Create overlay
+          const overlay = document.createElement('div');
+          overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            overflow-y: auto;
+            padding: 2rem;
+            box-sizing: border-box;
+          `;
+          
+          overlay.innerHTML = allInsightsContent;
+          document.body.appendChild(overlay);
+          
+          // Close on overlay click
+          overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+              this.remove();
+            }
+          });
+        });
+      }
+      
+      // Add click handlers to insight action buttons
+      document.querySelectorAll('.insight-actions .btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const action = this.textContent.trim();
+          const insightTitle = this.closest('.insight-item').querySelector('.insight-title').textContent;
+          
+          if (action === 'Implement') {
+            alert(`🚀 Implementing: ${insightTitle}\n\nThis would typically:\n• Create implementation plan\n• Assign responsible teams\n• Set timeline and milestones\n• Track progress`);
+          } else if (action === 'Learn More') {
+            alert(`📚 Learn More: ${insightTitle}\n\nThis would typically:\n• Show detailed analysis\n• Display supporting data\n• Provide implementation guides\n• Link to relevant resources`);
+          }
+        });
+      });
+      
+      // Initialize User Preferences
+      if (window.UserPreferences) {
+        window.userPreferences = new UserPreferences();
+      }
+      
+      // Initialize Dashboard Layouts
+      if (window.DashboardLayouts) {
+        window.dashboardLayouts = new DashboardLayouts({
+          containerSelector: '#dashboard-grid'
+        });
+      }
+      
+      // Initialize Map Engine
+      if (window.MapEngine) {
+        window.mapEngine = new MapEngine({
+          containerId: 'performance-map',
+          mapboxToken: window.config?.mapbox?.accessToken || 'pk.placeholder.token'
+        });
+      }
+      
+      // Initialize AI Engine
+      if (window.AIEngine) {
+        window.aiEngine = new AIEngine({
+          defaultModel: 'azure-openai',
+          enableStreaming: true,
+          enableCaching: true
+        });
+      }
+      
+      // Initialize Tags Filter Dropdown
+      const tagsDropdown = new TagsDropdown('tags-filter-dropdown', {
+        placeholder: 'Select tags...',
+        maxVisible: 2,
+        searchable: true
+      });
+      
+      tagsDropdown.onChange((selectedTags) => {
+        console.log('Tags filter applied:', selectedTags);
+        // Apply tag filters to dashboard data
+        applyTagFilters(selectedTags);
+      });
+      
+      // Initialize Feedback Modal
+      initializeFeedbackModal();
+      
+      // Initialize Navigation Router
+      initializeNavigation();
+      
+      // Remove any lingering loading states
+      removeLoadingStates();
+      
+      console.log('Client360 Dashboard v2.4.0 initialized');
+    });
+    
+    // Tag filtering functionality
+    function applyTagFilters(selectedTags) {
+      // This function would integrate with the dashboard's data filtering system
+      // For now, we'll simulate the filtering effect
+      
+      const widgets = document.querySelectorAll('.widget');
+      widgets.forEach(widget => {
+        if (selectedTags.length === 0) {
+          // Show all widgets when no tags selected
+          widget.style.opacity = '1';
+          widget.style.filter = 'none';
+        } else {
+          // Apply visual filtering effect
+          widget.style.opacity = '0.7';
+          widget.style.filter = 'brightness(0.9)';
+          
+          // Add filtering animation
+          widget.style.transition = 'opacity 0.3s, filter 0.3s';
+        }
+      });
+      
+      // Update dashboard title to show active filters
+      const dashboardTitle = document.querySelector('.dashboard-title');
+      if (selectedTags.length > 0) {
+        const tagNames = selectedTags.join(', ');
+        dashboardTitle.textContent = `Retail Performance Overview (Filtered by: ${tagNames})`;
+      } else {
+        dashboardTitle.textContent = 'Retail Performance Overview';
+      }
+      
+      // Simulate data refresh with filtered results
+      setTimeout(() => {
+        widgets.forEach(widget => {
+          widget.style.opacity = '1';
+          widget.style.filter = 'none';
+        });
+      }, 500);
+    }
+    
+    // Refresh dashboard function
+    function refreshDashboard() {
+      // Show loading state
+      const refreshBtn = document.querySelector('.dashboard-controls .btn-secondary:last-child');
+      const originalText = refreshBtn.innerHTML;
+      refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+      refreshBtn.disabled = true;
+      
+      // Simulate refresh
+      setTimeout(() => {
+        refreshBtn.innerHTML = originalText;
+        refreshBtn.disabled = false;
+        
+        // Show success notification
+        const notification = document.createElement('div');
+        notification.className = 'refresh-notification';
+        notification.style.cssText = `
+          position: fixed;
+          top: 80px;
+          right: 20px;
+          background: var(--success-color);
+          color: white;
+          padding: 0.75rem 1rem;
+          border-radius: 0.25rem;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          z-index: 1001;
+          font-size: 0.875rem;
+        `;
+        notification.textContent = 'Dashboard refreshed successfully';
+        document.body.appendChild(notification);
+        
+        setTimeout(() => notification.remove(), 3000);
+      }, 2000);
+    }
+    
+    // Initialize Feedback Modal
+    function initializeFeedbackModal() {
+      const feedbackBtn = document.getElementById('feedback-btn');
+      const feedbackModal = document.getElementById('feedbackModal');
+      const modalOverlay = feedbackModal.querySelector('.modal-overlay');
+      const modalClose = feedbackModal.querySelector('.modal-close');
+      const cancelBtn = document.getElementById('cancelFeedback');
+      const feedbackForm = document.getElementById('feedbackForm');
+      
+      // Pre-fill system information
+      const browserField = document.getElementById('feedback-browser');
+      const pageField = document.getElementById('feedback-page');
+      
+      browserField.value = `${navigator.userAgent.substring(0, 50)}...`;
+      pageField.value = `${window.location.pathname} (v2.4.0)`;
+      
+      // Open modal
+      function openModal() {
+        feedbackModal.classList.remove('hidden');
+        feedbackModal.setAttribute('aria-hidden', 'false');
+        
+        // Focus first input
+        setTimeout(() => {
+          const firstInput = feedbackModal.querySelector('select, input, textarea');
+          if (firstInput) firstInput.focus();
+        }, 100);
+      }
+      
+      // Close modal
+      function closeModal() {
+        feedbackModal.classList.add('hidden');
+        feedbackModal.setAttribute('aria-hidden', 'true');
+        
+        // Reset form
+        feedbackForm.reset();
+        browserField.value = `${navigator.userAgent.substring(0, 50)}...`;
+        pageField.value = `${window.location.pathname} (v2.4.0)`;
+      }
+      
+      // Event listeners
+      feedbackBtn.addEventListener('click', openModal);
+      modalClose.addEventListener('click', closeModal);
+      cancelBtn.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', closeModal);
+      
+      // ESC key to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !feedbackModal.classList.contains('hidden')) {
+          closeModal();
+        }
+      });
+      
+      // Form submission
+      feedbackForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitFeedback');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        submitBtn.disabled = true;
+        
+        // Collect form data
+        const formData = new FormData(feedbackForm);
+        const feedbackData = {
+          type: formData.get('type'),
+          priority: formData.get('priority'),
+          title: formData.get('title'),
+          description: formData.get('description'),
+          browser: formData.get('browser'),
+          page: formData.get('page'),
+          contact: formData.get('contact'),
+          urgent: formData.get('urgent') === 'on',
+          screenshot: formData.get('screenshot') === 'on',
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          url: window.location.href,
+          viewport: `${window.innerWidth}x${window.innerHeight}`,
+          version: '2.4.0'
+        };
+        
+        try {
+          // Simulate API call (in real implementation, this would POST to /api/feedback)
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          
+          // Success
+          showNotification('Feedback submitted successfully! Thank you for your input.', 'success');
+          closeModal();
+          
+          // Log to console for development
+          console.log('Feedback submitted:', feedbackData);
+          
+        } catch (error) {
+          // Error handling
+          showNotification('Failed to submit feedback. Please try again.', 'error');
+          console.error('Feedback submission error:', error);
+        } finally {
+          // Reset button
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
+    
+    // Show notification function
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = 'feedback-notification';
+      
+      const bgColor = type === 'success' ? 'var(--success-color)' : 
+                     type === 'error' ? 'var(--danger-color)' : 
+                     'var(--primary-color)';
+      
+      notification.style.cssText = `
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background: ${bgColor};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 10001;
+        font-size: 0.875rem;
+        max-width: 400px;
+        animation: slideInRight 0.3s ease-out;
+      `;
+      
+      notification.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+          ${message}
+        </div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+      }, 5000);
+    }
+    
+    // Initialize Navigation Router
+    function initializeNavigation() {
+      const navLinks = document.querySelectorAll('.nav-link');
+      const contentArea = document.querySelector('.content');
+      
+      // Navigation sections data
+      const sections = {
+        overview: {
+          title: 'Dashboard Overview',
+          description: 'Current overview showing all KPI tiles and widgets'
+        },
+        regional: {
+          title: 'Regional Analysis',
+          description: 'Geographic performance analysis across regions'
+        },
+        stores: {
+          title: 'Store Performance',
+          description: 'Individual store metrics and comparisons'
+        },
+        products: {
+          title: 'Product Analytics',
+          description: 'Product category and SKU-level insights'
+        },
+        'ai-insights': {
+          title: 'AI Insights',
+          description: 'Machine learning powered recommendations'
+        },
+        reports: {
+          title: 'Sales Reports',
+          description: 'Comprehensive sales reporting and exports'
+        },
+        settings: {
+          title: 'Dashboard Settings',
+          description: 'Configuration and personalization options'
+        }
+      };
+      
+      // Add click handlers to navigation links
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const section = this.dataset.section;
+          const sectionData = sections[section];
+          
+          if (!sectionData) return;
+          
+          // Update active nav state
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Update dashboard title
+          const dashboardTitle = document.querySelector('.dashboard-title');
+          if (dashboardTitle) {
+            dashboardTitle.textContent = sectionData.title;
+          }
+          
+          // Show section-specific content or maintain current view
+          if (section === 'overview') {
+            // Show all widgets - this is the default view
+            showAllWidgets();
+          } else {
+            // For other sections, show a coming soon message or filter widgets
+            showSectionView(section, sectionData);
+          }
+          
+          // Update URL hash
+          window.location.hash = section;
+          
+          // Show notification
+          showNotification(`Switched to ${sectionData.title}`, 'info');
+          
+          console.log('Navigation:', section);
+        });
+      });
+      
+      // Handle browser back/forward
+      window.addEventListener('hashchange', function() {
+        const hash = window.location.hash.slice(1);
+        if (hash && sections[hash]) {
+          const activeLink = document.querySelector(`[data-section="${hash}"]`);
+          if (activeLink) {
+            activeLink.click();
+          }
+        }
+      });
+      
+      // Initialize with current hash or default to overview
+      const currentHash = window.location.hash.slice(1);
+      if (currentHash && sections[currentHash]) {
+        const activeLink = document.querySelector(`[data-section="${currentHash}"]`);
+        if (activeLink) {
+          // Remove active from all first
+          navLinks.forEach(l => l.classList.remove('active'));
+          activeLink.classList.add('active');
+        }
+      }
+    }
+    
+    // Show all widgets (overview mode)
+    function showAllWidgets() {
+      const widgets = document.querySelectorAll('.widget');
+      widgets.forEach(widget => {
+        widget.style.display = 'block';
+        widget.style.opacity = '1';
+      });
+    }
+    
+    // Show section-specific view
+    function showSectionView(section, sectionData) {
+      const widgets = document.querySelectorAll('.widget');
+      
+      // Reset all widgets to hidden
+      widgets.forEach(widget => {
+        widget.style.opacity = '0.3';
+      });
+      
+      // Show relevant widgets based on section
+      switch(section) {
+        case 'regional':
+          // Highlight map and regional widgets
+          const mapWidget = document.querySelector('#performance-map').closest('.widget');
+          if (mapWidget) {
+            mapWidget.style.opacity = '1';
+            mapWidget.style.border = '2px solid var(--primary-color)';
+            setTimeout(() => {
+              mapWidget.style.border = 'none';
+            }, 2000);
+          }
+          break;
+          
+        case 'ai-insights':
+          // Highlight AI insights widget
+          const aiWidget = document.querySelector('#ai-insights');
+          if (aiWidget) {
+            aiWidget.style.opacity = '1';
+            aiWidget.style.border = '2px solid var(--secondary-color)';
+            setTimeout(() => {
+              aiWidget.style.border = 'none';
+            }, 2000);
+          }
+          break;
+          
+        case 'stores':
+          // Highlight device health and store-related widgets
+          const deviceWidget = document.querySelector('#device-health');
+          if (deviceWidget) {
+            deviceWidget.style.opacity = '1';
+            deviceWidget.style.border = '2px solid var(--success-color)';
+            setTimeout(() => {
+              deviceWidget.style.border = 'none';
+            }, 2000);
+          }
+          break;
+          
+        default:
+          // For other sections, show a temporary message
+          setTimeout(() => {
+            showAllWidgets();
+          }, 1000);
+          break;
+      }
+    }
+    
+    // Automated sanity check for unclickable elements
+    function runSanityCheck() {
+      setTimeout(() => {
+        console.log('🔍 Running UI Sanity Check...');
+        
+        const elementsToCheck = document.querySelectorAll('.nav-link, .btn, [role="tab"], [role="button"], a, button');
+        const unclickableElements = [];
+        
+        elementsToCheck.forEach(el => {
+          const computedStyle = window.getComputedStyle(el);
+          
+          // Check for pointer-events: none
+          if (computedStyle.pointerEvents === 'none') {
+            unclickableElements.push({
+              element: el,
+              issue: 'pointer-events: none',
+              fix: 'Remove loading class or enable pointer events'
+            });
+          }
+          
+          // Check for missing href on links
+          if (el.tagName === 'A' && (!el.href || el.href === 'javascript:void(0)' || el.href.endsWith('#'))) {
+            // Skip if it has a click handler
+            const hasClickHandler = el.onclick || el.getAttribute('data-section') || el.classList.contains('nav-link');
+            if (!hasClickHandler) {
+              unclickableElements.push({
+                element: el,
+                issue: 'Missing href or click handler',
+                fix: 'Add proper href or addEventListener'
+              });
+            }
+          }
+          
+          // Check for placeholder elements
+          if (el.classList.contains('placeholder') || el.classList.contains('icon-placeholder')) {
+            unclickableElements.push({
+              element: el,
+              issue: 'Placeholder element',
+              fix: 'Replace with actual content or hide when loaded'
+            });
+          }
+        });
+        
+        if (unclickableElements.length > 0) {
+          console.warn(`⚠️ Found ${unclickableElements.length} potentially unclickable elements:`);
+          unclickableElements.forEach((item, index) => {
+            console.warn(`${index + 1}. ${item.issue}:`, item.element);
+            console.warn(`   Fix: ${item.fix}`);
+          });
+        } else {
+          console.log('✅ All interactive elements appear to be properly clickable!');
+        }
+        
+        // Check for loading states that might be stuck
+        const loadingElements = document.querySelectorAll('.loading, [class*="loading"]');
+        if (loadingElements.length > 0) {
+          console.warn(`⚠️ Found ${loadingElements.length} elements still in loading state:`, loadingElements);
+        }
+        
+        console.log('🔍 Sanity check completed');
+      }, 3000); // Run after 3 seconds to allow full initialization
+    }
+    
+    // Remove loading states that might block interactions
+    function removeLoadingStates() {
+      // Remove loading classes that might block pointer events
+      const loadingElements = document.querySelectorAll('.loading, [class*="loading"]');
+      loadingElements.forEach(el => {
+        // Don't remove loading from actual loading spinners that should be hidden
+        if (!el.classList.contains('loading-spinner')) {
+          el.classList.remove('loading');
+          // Remove any loading-related classes
+          const classes = Array.from(el.classList);
+          classes.forEach(className => {
+            if (className.includes('loading') && className !== 'loading-spinner') {
+              el.classList.remove(className);
+            }
+          });
+        }
+      });
+      
+      // Ensure header and navigation are fully enabled
+      const header = document.querySelector('header');
+      const nav = document.querySelector('nav');
+      const sidebar = document.querySelector('.sidebar');
+      
+      [header, nav, sidebar].forEach(element => {
+        if (element) {
+          element.style.pointerEvents = 'auto';
+          element.classList.remove('loading', 'disabled');
+        }
+      });
+      
+      // Hide any loading spinners that might be visible
+      const spinners = document.querySelectorAll('.loading-spinner');
+      spinners.forEach(spinner => {
+        spinner.style.display = 'none';
+      });
+      
+      console.log('✅ Removed loading states from interactive elements');
+    }
+    
+    // Run sanity check automatically
+    runSanityCheck();
+  </script>
+
+  <!-- Drill-Down Drawer -->
+  <div id="drill-down-drawer" class="drill-down-drawer">
+    <div class="drawer-overlay"></div>
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h3 id="drawer-title">KPI Details</h3>
+        <button class="drawer-close" id="drawer-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="drawer-body" id="drawer-body">
+        <!-- Dynamic content will be loaded here -->
+        <div class="loading-spinner" style="display: none;">
+          <i class="fas fa-spinner fa-spin"></i>
+          Loading detailed data...
+        </div>
+      </div>
+      <div class="drawer-footer">
+        <button class="btn btn-secondary" id="drawer-export">
+          <i class="fas fa-download"></i>
+          Export View
+        </button>
+        <button class="btn btn-primary" id="drawer-apply">
+          Apply to All
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div id="feedbackModal" class="modal hidden" role="dialog" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+    <div class="modal-overlay" aria-hidden="true"></div>
+    <div class="modal-content" role="document">
+      <div class="modal-header">
+        <h3 id="feedbackModalTitle">Feedback & UAT Report</h3>
+        <button class="modal-close" aria-label="Close feedback modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <form id="feedbackForm" class="feedback-form">
+          <div class="form-group">
+            <label for="feedback-type">Type of Feedback:</label>
+            <select id="feedback-type" name="type" required>
+              <option value="">Select feedback type</option>
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="uat">UAT Issue</option>
+              <option value="general">General Feedback</option>
+              <option value="performance">Performance Issue</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="feedback-priority">Priority Level:</label>
+            <select id="feedback-priority" name="priority" required>
+              <option value="">Select priority</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="critical">Critical</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="feedback-title">Title:</label>
+            <input type="text" id="feedback-title" name="title" required placeholder="Brief description of the issue/feedback">
+          </div>
+          
+          <div class="form-group">
+            <label for="feedback-description">Detailed Description:</label>
+            <textarea id="feedback-description" name="description" required 
+                     placeholder="Please provide detailed information about the issue or feedback. Include steps to reproduce if it's a bug."
+                     rows="5"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="feedback-browser">Browser/Environment:</label>
+            <input type="text" id="feedback-browser" name="browser" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="feedback-page">Current Page/Section:</label>
+            <input type="text" id="feedback-page" name="page" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="feedback-contact">Contact Email (Optional):</label>
+            <input type="email" id="feedback-contact" name="contact" placeholder="your.email@company.com">
+          </div>
+          
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="feedback-urgent" name="urgent">
+              <span class="checkmark"></span>
+              This is urgent and requires immediate attention
+            </label>
+          </div>
+          
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="feedback-screenshot" name="screenshot">
+              <span class="checkmark"></span>
+              Include automatic screenshot of current view
+            </label>
+          </div>
+        </form>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancelFeedback">Cancel</button>
+        <button type="submit" form="feedbackForm" class="btn btn-primary" id="submitFeedback">
+          <i class="fas fa-paper-plane"></i>
+          Submit Feedback
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>  
+  <\!-- PRD Components -->
+  <script src="js/components/TagsDropdown.js"></script>
+  <script src="js/components/DeviceHealthGrid.js"></script>
+  <script src="js/components/MapWithMarkers.js"></script>
+  <script src="js/components/DrillDownDrawer.js"></script>
+  <script src="js/components/QAOverlay.js"></script>
+  <script src="js/components/FeedbackSystem.js"></script>

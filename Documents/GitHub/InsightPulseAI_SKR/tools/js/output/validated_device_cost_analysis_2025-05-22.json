@@ -1,0 +1,184 @@
+{
+  "comparison": {
+    "20": {
+      "azure": {
+        "streaming": {
+          "eventHubs": 21.600268800000002,
+          "storage": 0.1104,
+          "databricks": 237.6,
+          "azureSQL": 610,
+          "postgresql": 480,
+          "totalWithSQL": 869.3106688,
+          "totalWithPostgres": 739.3106688,
+          "perDeviceSQL": 43.46553344,
+          "perDevicePostgres": 36.96553344
+        },
+        "batch": {
+          "eventHubs": 21.600268800000002,
+          "storage": 0.1104,
+          "databricks": 9.9,
+          "azureSQL": 610,
+          "postgresql": 480,
+          "totalWithSQL": 641.6106688,
+          "totalWithPostgres": 511.6106688,
+          "perDeviceSQL": 32.080533439999996,
+          "perDevicePostgres": 25.58053344
+        }
+      },
+      "openSource": {
+        "streaming": {
+          "kafka": 200,
+          "storage": 30.3,
+          "spark": 400,
+          "database": 280,
+          "operations": 2475,
+          "total": 3385.3,
+          "perDevice": 169.26500000000001
+        },
+        "batch": {
+          "kafka": 200,
+          "storage": 30.3,
+          "spark": 150,
+          "database": 280,
+          "operations": 2475,
+          "total": 3135.3,
+          "perDevice": 156.76500000000001
+        }
+      },
+      "savings": {
+        "streaming": {
+          "sqlToPostgres": 130,
+          "azureToOS": -2645.9893312000004,
+          "totalSavings": -2515.9893312000004,
+          "percentSavings": -289.4234962827595
+        },
+        "batch": {
+          "sqlToPostgres": 130,
+          "azureToOS": -2623.6893312,
+          "totalSavings": -2493.6893312,
+          "percentSavings": -388.6608269566231
+        }
+      }
+    },
+    "200": {
+      "azure": {
+        "streaming": {
+          "eventHubs": 21.602688,
+          "storage": 1.104,
+          "databricks": 950.4,
+          "azureSQL": 610,
+          "postgresql": 480,
+          "totalWithSQL": 1583.1066879999998,
+          "totalWithPostgres": 1453.1066879999998,
+          "perDeviceSQL": 7.915533439999999,
+          "perDevicePostgres": 7.26553344
+        },
+        "batch": {
+          "eventHubs": 21.602688,
+          "storage": 1.104,
+          "databricks": 19.8,
+          "azureSQL": 610,
+          "postgresql": 480,
+          "totalWithSQL": 652.5066879999999,
+          "totalWithPostgres": 522.5066879999999,
+          "perDeviceSQL": 3.26253344,
+          "perDevicePostgres": 2.6125334399999995
+        }
+      },
+      "openSource": {
+        "streaming": {
+          "kafka": 200,
+          "storage": 33,
+          "spark": 400,
+          "database": 280,
+          "operations": 4500,
+          "total": 5413,
+          "perDevice": 27.065
+        },
+        "batch": {
+          "kafka": 200,
+          "storage": 33,
+          "spark": 150,
+          "database": 280,
+          "operations": 4500,
+          "total": 5163,
+          "perDevice": 25.815
+        }
+      },
+      "savings": {
+        "streaming": {
+          "sqlToPostgres": 130,
+          "azureToOS": -3959.893312,
+          "totalSavings": -3829.893312,
+          "percentSavings": -241.92262852723167
+        },
+        "batch": {
+          "sqlToPostgres": 130,
+          "azureToOS": -4640.4933120000005,
+          "totalSavings": -4510.4933120000005,
+          "percentSavings": -691.2562575910334
+        }
+      }
+    }
+  },
+  "validation": {
+    "20": {
+      "streaming": {
+        "actual": {
+          "sqlPerDevice": 77,
+          "postgresPerDevice": 71
+        },
+        "calculated": {
+          "sqlPerDevice": "43",
+          "postgresPerDevice": "37",
+          "openSourcePerDevice": "169"
+        },
+        "variance": {
+          "sqlVariance": "-43.6",
+          "postgresVariance": "-47.9"
+        }
+      },
+      "batch": {
+        "actual": {
+          "postgresPerDevice": 3
+        },
+        "calculated": {
+          "postgresPerDevice": "26",
+          "openSourcePerDevice": "157"
+        },
+        "variance": {
+          "postgresVariance": "752.7"
+        }
+      }
+    },
+    "200": {
+      "streaming": {
+        "actual": {
+          "sqlPerDevice": 23,
+          "postgresPerDevice": 22
+        },
+        "calculated": {
+          "sqlPerDevice": "8",
+          "postgresPerDevice": "7",
+          "openSourcePerDevice": "27"
+        },
+        "variance": {
+          "sqlVariance": "-65.6",
+          "postgresVariance": "-67.0"
+        }
+      },
+      "batch": {
+        "actual": {
+          "postgresPerDevice": 7
+        },
+        "calculated": {
+          "postgresPerDevice": "3",
+          "openSourcePerDevice": "26"
+        },
+        "variance": {
+          "postgresVariance": "-62.7"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+---
+name: "Juicer GenAI Insights Integration"
+timestamp: "2025-05-12 16:51:50"
+path: "archives/project_scout/2025-05/juicer_genai_20250512_165150"
+status: "development"
+production_ready: false
+agents: ["Claudia", "Kalaw", "Maya", "Echo", "Sunnies", "Caca"]
+tags: ["genai", "insights", "juicer", "databricks", "project_scout"]

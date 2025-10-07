@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json.schemastore.org/staticwebapp.config.json",
+  "version": "2.4.0",
+  "routes": [
+    {
+      "route": "/api/*",
+      "methods": ["GET", "POST", "PUT", "DELETE"],
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/api/insights/*",
+      "methods": ["GET"],
+      "allowedRoles": ["anonymous", "authenticated"]
+    },
+    {
+      "route": "/api/data/public/*",
+      "methods": ["GET"],
+      "allowedRoles": ["anonymous", "authenticated"]
+    },
+    {
+      "route": "/admin/*",
+      "methods": ["GET", "POST", "PUT", "DELETE"],
+      "allowedRoles": ["administrator"]
+    },
+    {
+      "route": "/dashboard/*",
+      "methods": ["GET"],
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/insights/*",
+      "methods": ["GET"],
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/user/*",
+      "methods": ["GET"],
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/settings/*",
+      "methods": ["GET"],
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/export/*",
+      "methods": ["GET"],
+      "rewrite": "/index.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif,ico}", "/css/*", "/js/*", "/*.{css,js}", "/favicon.ico"]
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/404.html"
+    },
+    "401": {
+      "rewrite": "/login.html"
+    },
+    "403": {
+      "rewrite": "/unauthorized.html",
+      "statusCode": 403
+    }
+  },
+  "globalHeaders": {
+    "Cache-Control": "no-store",
+    "X-Frame-Options": "DENY",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.mapbox.com; connect-src 'self' https://*.mapbox.com https://*.azure-api.net;",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".geojson": "application/geo+json"
+  },
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/{TENANT_ID}/v2.0",
+          "clientIdSettingName": "AZURE_CLIENT_ID",
+          "clientSecretSettingName": "AZURE_CLIENT_SECRET"
+        }
+      }
+    }
+  },
+  "networking": {
+    "allowedIpRanges": ["all"]
+  },
+  "platform": {
+    "apiRuntime": "node:16"
+  }
+}

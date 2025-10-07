@@ -1,0 +1,70 @@
+{
+  "title": "Total Transactions",
+  "summary": {
+    "value": "15,847",
+    "label": "Total Transactions (30 days)",
+    "trend": "+12.3%",
+    "trendDirection": "positive"
+  },
+  "breakdown": [
+    {
+      "category": "Cash Payments",
+      "value": "8,932",
+      "percentage": "56.4",
+      "change": "+15.7%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "GCash/Process Manager",
+      "value": "4,201",
+      "percentage": "26.5",
+      "change": "+18.9%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Credit Card",
+      "value": "2,108",
+      "percentage": "13.3",
+      "change": "+3.2%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Other Methods",
+      "value": "606",
+      "percentage": "3.8",
+      "change": "-8.4%",
+      "changeDirection": "negative"
+    }
+  ],
+  "trends": {
+    "data": [
+      {"date": "2024-04-01", "value": 14100},
+      {"date": "2024-04-08", "value": 14800},
+      {"date": "2024-04-15", "value": 15200},
+      {"date": "2024-04-22", "value": 15600},
+      {"date": "2024-04-29", "value": 15847}
+    ],
+    "insights": [
+      "Digital payment adoption increasing by 18.9% month-over-month",
+      "Peak transaction hours are 11 AM - 2 PM and 6 PM - 8 PM",
+      "Average transaction value increased by ₱23 compared to last month",
+      "Mobile payment methods now account for 30% of all transactions"
+    ]
+  },
+  "details": {
+    "topPerformers": [
+      {"name": "Quezon City Circle", "value": "892 txns"},
+      {"name": "Makati CBD", "value": "745 txns"},
+      {"name": "Cebu IT Park", "value": "623 txns"},
+      {"name": "BGC Central", "value": "587 txns"},
+      {"name": "Ortigas Center", "value": "534 txns"}
+    ],
+    "recentActivity": [
+      {"time": "1 minute ago", "description": "Transaction completed: ₱1,250 via GCash"},
+      {"time": "3 minutes ago", "description": "Bulk order processed: 15 items, ₱3,400"},
+      {"time": "7 minutes ago", "description": "Card payment declined - customer switched to cash"},
+      {"time": "12 minutes ago", "description": "Corporate account purchase: ₱8,900"},
+      {"time": "18 minutes ago", "description": "Loyalty points redeemed: 500 points discount"}
+    ]
+  }
+}

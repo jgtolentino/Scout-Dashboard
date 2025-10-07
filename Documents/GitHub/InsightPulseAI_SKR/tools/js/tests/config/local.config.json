@@ -1,0 +1,39 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "apiBaseUrl": "http://localhost:3001/api/v1",
+  "testCredentials": {
+    "username": "test-user",
+    "password": "test-password"
+  },
+  "timeouts": {
+    "default": 2000,
+    "navigation": 5000,
+    "apiCall": 8000
+  },
+  "testDataFiles": {
+    "sampleData": "./test-data/local/sample_data.json",
+    "mockResponses": "./test-data/local/mock_responses.json"
+  },
+  "features": {
+    "genaiEnabled": true,
+    "dataToggleEnabled": true,
+    "visualSynthEnabled": true
+  },
+  "screenSizes": [
+    {
+      "name": "desktop",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "name": "tablet",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "mobile",
+      "width": 375,
+      "height": 667
+    }
+  ]
+}

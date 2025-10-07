@@ -1,0 +1,82 @@
+name: MicroVMHost
+codename: microvm_host
+description: >
+  Spawns isolated Firecracker microVMs via E2B for complete sandboxing.
+  Provides 150ms cold-start with full OS capabilities including browser automation.
+entrypoint: agents.plugins.e2b_sandbox
+permissions:
+  - net:outbound
+  - secrets:e2b
+  - monitoring:write
+memory_tags: 
+  - sandbox
+  - microvm
+  - e2b
+  - firecracker
+
+metadata:
+  version: "1.0.0"
+  author: "InsightPulseAI Team"
+  created: "2025-07-06"
+  category: "infrastructure"
+
+capabilities:
+  - vm_spawning: "Create Firecracker microVMs in 150ms"
+  - command_execution: "Run arbitrary commands in isolated VMs"
+  - file_transfer: "Upload/download files to/from VMs"
+  - persistent_sessions: "VMs can run for hours/days"
+  - gpu_support: "Optional GPU acceleration for ML workloads"
+
+config:
+  defaults:
+    image: "ubuntu-22-04-python"
+    ttl_hours: 4
+    gpu: false
+    
+  images:
+    - name: "ubuntu-22-04-python"
+      description: "Ubuntu 22.04 with Python 3.10+"
+      use_cases: ["general", "automation", "testing"]
+      
+    - name: "ubuntu-22-04-browser"
+      description: "Ubuntu with Chrome/Firefox pre-installed"
+      use_cases: ["web_scraping", "ui_testing", "hawk"]
+      
+    - name: "ubuntu-22-04-ml"
+      description: "Ubuntu with PyTorch, TensorFlow, CUDA"
+      use_cases: ["ml_training", "inference"]
+      gpu_recommended: true
+      
+  cost_controls:
+    max_hourly_cost: 10.0
+    warning_threshold: 7.5
+    auto_kill_idle_minutes: 30
+    
+  security:
+    enforce_network_isolation: true
+    block_metadata_service: true
+    scan_uploads: true
+    
+  fallback:
+    enabled: true
+    backend: "qemu-kvm"
+    trigger_after_failures: 3
+    
+monitoring:
+  metrics:
+    - vm_spawn_latency_ms
+    - vm_runtime_minutes
+    - vm_cost_dollars
+    - commands_executed
+    - files_transferred
+    
+  alerts:
+    - condition: "cost_per_hour > 5.0"
+      severity: "warning"
+      
+    - condition: "spawn_failures > 3"
+      severity: "critical"
+      
+dependencies:
+  - e2b>=0.1.0
+  - pyyaml>=6.0.0

@@ -1,0 +1,107 @@
+{
+  "status": "success",
+  "timestamp": "2025-05-14T10:12:00Z",
+  "environment": "production",
+  "deployment_details": {
+    "target": "azure",
+    "service": "Static Web Apps",
+    "region": "East US",
+    "url": "https://retailadvisor.insightpulseai.com",
+    "version": "1.0.0",
+    "build_id": "VisualSynth-20250514-101200",
+    "commit_hash": "02c3661f4b9a8e7c2d5d8e9f8b7c6a5d4e3f2a1b"
+  },
+  "deployment_steps": [
+    {
+      "step": "validation",
+      "status": "success",
+      "duration_ms": 856,
+      "message": "All deployment prerequisites validated"
+    },
+    {
+      "step": "build",
+      "status": "success",
+      "duration_ms": 3542,
+      "message": "Static assets successfully built"
+    },
+    {
+      "step": "test",
+      "status": "success",
+      "duration_ms": 1876,
+      "message": "All validation tests passed"
+    },
+    {
+      "step": "deploy",
+      "status": "success",
+      "duration_ms": 4231,
+      "message": "Deployment to Azure Static Web Apps successful"
+    },
+    {
+      "step": "cdn_purge",
+      "status": "success",
+      "duration_ms": 1245,
+      "message": "CDN cache successfully purged"
+    },
+    {
+      "step": "monitoring_update",
+      "status": "success",
+      "duration_ms": 789,
+      "message": "Monitoring alerts configured"
+    }
+  ],
+  "files_deployed": {
+    "total": 14,
+    "html": 1,
+    "js": 3,
+    "css": 2,
+    "assets": 8
+  },
+  "integration_tests": {
+    "status": "success",
+    "tests_run": 12,
+    "tests_passed": 12,
+    "tests_failed": 0
+  },
+  "configuration": {
+    "static_web_app": {
+      "sku": "Standard",
+      "allowed_origins": ["https://*.insightpulseai.com"],
+      "authentication": {
+        "provider": "AAD",
+        "client_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+      },
+      "custom_domains": ["retailadvisor.insightpulseai.com"]
+    },
+    "cdn": {
+      "enabled": true,
+      "profile": "InsightPulseAI-CDN",
+      "caching_rules": [
+        {
+          "pattern": "*/assets/*",
+          "duration": "7d"
+        },
+        {
+          "pattern": "*.html",
+          "duration": "1h"
+        }
+      ]
+    }
+  },
+  "post_deployment_actions": [
+    {
+      "action": "notification",
+      "target": "slack",
+      "channel": "#retail-advisor-deployments",
+      "status": "sent"
+    },
+    {
+      "action": "documentation",
+      "target": "deployment_registry",
+      "status": "updated"
+    }
+  ],
+  "rollback_info": {
+    "previous_version": "0.9.5",
+    "rollback_url": "https://portal.azure.com/#@tbwa.com/resource/subscriptions/12345678-90ab-cdef-1234-567890abcdef/resourceGroups/retail-advisor/providers/Microsoft.Web/staticSites/retail-advisor-dashboard/deploymentHistory"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "kpis": [
+    { "name": "Brand Loyalty", "dimension": "Store", "type": "bar" },
+    { "name": "Top-Selling SKUs", "dimension": "SKU", "type": "ranked_table" },
+    { "name": "Customer Sentiment", "dimension": "Time", "type": "line" }
+  ],
+  "general": {
+    "title": "Retail Advisor Dashboard",
+    "description": "Key performance indicators for retail store performance",
+    "refresh_rate": "daily",
+    "target_users": ["store_managers", "retail_advisors", "regional_directors"]
+  },
+  "filters": [
+    { "name": "Date Range", "type": "daterange", "default": "last_30_days" },
+    { "name": "Region", "type": "multiselect", "default": "all" },
+    { "name": "Store", "type": "multiselect", "default": "all" }
+  ],
+  "layout_preferences": {
+    "orientation": "horizontal",
+    "color_scheme": "tbwa_retail",
+    "responsive": true,
+    "mobile_first": true
+  }
+}

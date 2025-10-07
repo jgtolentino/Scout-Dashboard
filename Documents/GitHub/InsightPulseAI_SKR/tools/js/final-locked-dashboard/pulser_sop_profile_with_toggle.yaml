@@ -1,0 +1,635 @@
+# pulser_sop_profile_with_toggle.yaml
+# InsightPulseAI Unified Developer Deployment SOP Profile with Data Toggle Integration
+# Version: 1.1
+# This profile can be used to replicate the SOP structure across all InsightPulseAI applications
+# with support for data source toggle functionality between real and simulated data
+
+sop_profile:
+  name: "Unified Developer Deployment SOP with Data Toggle"
+  version: "1.1"
+  maintainer: "InsightPulseAI Dev Team"
+  last_updated: "2025-05-14"
+  description: >
+    Standard Operating Procedure for consistent deployment of applications, dashboards,
+    code, and AI agent updates across environments (local, Azure, Vercel),
+    with a focus on visual integrity, deployment safety, and seamless toggling between
+    real and simulated data across all Medallion architecture layers.
+  
+  # Directory structure template to replicate
+  directory_structure:
+    - path: "scripts"
+      description: "All deployment, packaging, and utility scripts"
+      required: true
+    - path: "public"
+      description: "Static assets (HTML, CSS, JS, images)"
+      required: false
+    - path: "css"
+      description: "Design system, Tailwind patches, style harmonization"
+      required: false
+    - path: "js" 
+      description: "Visualization logic, GenAI integrations, data toggle components"
+      required: true
+    - path: "docs"
+      description: "All documentation, SOPs, style guides, and mappings"
+      required: true
+    - path: "tools"
+      description: "Monitoring and validation tools"
+      required: true
+    - path: "Makefile"
+      description: "Unified automation entrypoint"
+      required: true
+    - path: "README_DESKTOP.md"
+      description: "Human-readable deployment overview"
+      required: true
+    - path: "SKR/archives/{project}/{date}"
+      description: "SKR archive entries for deployment protocols"
+      required: true
+    - path: "assets/data/simulated"
+      description: "Simulated data for all Medallion layers"
+      required: true
+
+  # Standard core scripts to replicate
+  core_scripts:
+    - name: "package_app.sh"
+      template: "scripts/package_dashboard.sh"
+      description: "Packages application assets for deployment"
+      customize:
+        - "Application name"
+        - "Source directories"
+        - "Output path"
+      required: true
+    
+    - name: "deploy_app.sh"
+      template: "scripts/deploy_dashboard.sh"
+      description: "Deploys packaged application to target environment"
+      customize:
+        - "Azure resource names"
+        - "Environment-specific settings"
+        - "Validation steps"
+      required: true
+    
+    - name: "verify_style_compliance.js"
+      template: "tools/verify_style_compliance.js"
+      description: "Verifies application styling matches guidelines"
+      customize:
+        - "Style checks"
+        - "Critical vs warning items"
+        - "Style guide references"
+      required: false
+    
+    - name: "monitor_app_uptime.js"
+      template: "tools/monitor_dashboard_uptime.js"
+      description: "Monitors application availability and performance"
+      customize:
+        - "URLs to monitor"
+        - "Alert thresholds"
+        - "Log paths"
+      required: false
+      
+    - name: "verify_medallion_data.js"
+      template: "tools/verify_medallion_data.js"
+      description: "Verifies data availability in all Medallion layers"
+      customize:
+        - "API endpoints to verify"
+        - "Required data fields"
+        - "Layer completeness thresholds"
+      required: true
+      
+    - name: "generate_test_data.js" 
+      template: "tools/generate_test_data.js"
+      description: "Generates simulated test data for all Medallion layers"
+      customize:
+        - "Data volume"
+        - "Schema mappings"
+        - "Field distributions"
+      required: true
+
+  # Data toggle components to replicate
+  data_toggle_components:
+    - name: "data_source_toggle.js"
+      template: "js/data_source_toggle.js"
+      description: "UI component for toggling between real and simulated data"
+      customize:
+        - "Data source endpoints"
+        - "Toggle UI appearance"
+        - "Persistent user preferences"
+      required: true
+    
+    - name: "medallion_data_connector.js"
+      template: "js/medallion_data_connector.js"
+      description: "Connector for all Medallion architecture layers"
+      customize:
+        - "API base URLs"
+        - "Authentication method"
+        - "Cache duration"
+      required: true
+    
+    - name: "dashboard_integrator.js"
+      template: "js/dashboard_integrator.js"
+      description: "Integration between dashboard UI and data connectors"
+      customize:
+        - "Dashboard element selectors"
+        - "Visualization update methods"
+        - "Error handling"
+      required: true
+
+  # Medallion architecture layer mapping
+  medallion_layers:
+    - name: "bronze"
+      description: "Raw event and transaction data"
+      endpoints:
+        real: "/api/bronze/{endpoint}"
+        simulated: "/assets/data/simulated/bronze_{endpoint}.json"
+      required_data:
+        - "events"
+        - "transactions"
+        - "customer-sessions"
+        - "hourly-traffic"
+        - "inventory-turnover"
+      required: true
+      
+    - name: "silver"
+      description: "Cleaned and validated data"
+      endpoints:
+        real: "/api/silver/{endpoint}"
+        simulated: "/assets/data/simulated/silver_{endpoint}.json"
+      required_data:
+        - "brand-mentions"
+        - "customer-sessions"
+        - "transactions"
+        - "inventory-turnover"
+        - "hourly-traffic"
+      required: true
+      
+    - name: "gold"
+      description: "Enriched and aggregated data"
+      endpoints:
+        real: "/api/gold/{endpoint}"
+        simulated: "/assets/data/simulated/gold_{endpoint}.json"
+      required_data:
+        - "daily-sales"
+        - "product-performance"
+        - "shopping-behavior"
+        - "employee-performance"
+        - "discount-effectiveness"
+        - "customer-segmentation"
+        - "topic-analysis"
+        - "store-performance"
+      required: true
+      
+    - name: "platinum"
+      description: "GenAI insights and analysis"
+      endpoints:
+        real: "/api/platinum/{endpoint}"
+        simulated: "/assets/data/simulated/platinum_{endpoint}.json"
+      required_data:
+        - "insights"
+        - "dashboard-summary"
+        - "executive-recommendations"
+        - "trend-analysis"
+      required: true
+
+  # Documentation templates
+  documentation:
+    - name: "SOP_DEPLOYMENT.md"
+      template: "docs/SOP_DEPLOYMENT.md"
+      description: "Primary SOP reference document"
+      required: true
+    
+    - name: "QA_GUIDELINES.md"
+      template: "docs/QA_GUIDELINES_POWERBI_PARITY.md"
+      description: "QA guidelines for the application"
+      customize:
+        - "Application-specific checklists"
+        - "Visual elements to verify"
+        - "Functional requirements"
+      required: true
+    
+    - name: "STYLE_GUIDE.md"
+      template: "docs/POWER_BI_STYLE_GUIDE.md"
+      description: "Style specifications for the application"
+      customize:
+        - "Color schemes"
+        - "Typography"
+        - "Component styling"
+      required: false
+    
+    - name: "README_DESKTOP.md"
+      template: "docs/README_DESKTOP.md"
+      description: "Simplified deployment instructions"
+      required: true
+      
+    - name: "DATA_TOGGLE_INTEGRATION.md"
+      template: "docs/PULSER_DATA_TOGGLE_INTEGRATION.md"
+      description: "Data toggle integration documentation"
+      customize:
+        - "Environment-specific endpoints"
+        - "Authentication methods"
+        - "Toggle UI customization"
+      required: true
+      
+    - name: "MEDALLION_DATA_MAPPING.md"
+      template: "docs/MEDALLION_DATA_MAPPING.md"
+      description: "Medallion data mapping documentation"
+      customize:
+        - "Layer schema definitions"
+        - "API endpoint documentation"
+        - "Sample data snippets"
+      required: true
+
+  # Makefile targets
+  makefile_targets:
+    - name: "package"
+      command: "./scripts/package_app.sh"
+      description: "Create deployment package"
+      required: true
+    
+    - name: "deploy"
+      command: "./scripts/deploy_app.sh"
+      description: "Deploy to target environment"
+      required: true
+    
+    - name: "deploy-dry-run"
+      command: "DRY_RUN=true ./scripts/deploy_app.sh"
+      description: "Test deployment without executing"
+      required: true
+    
+    - name: "verify-style"
+      command: "./tools/verify_style_compliance.js"
+      description: "Verify style compliance"
+      required: false
+    
+    - name: "monitor"
+      command: "./tools/monitor_app_uptime.js"
+      description: "Monitor application uptime"
+      required: false
+      
+    - name: "verify-data"
+      command: "./tools/verify_medallion_data.js"
+      description: "Verify Medallion data availability"
+      required: true
+      
+    - name: "generate-test-data"
+      command: "./tools/generate_test_data.js"
+      description: "Generate simulated test data"
+      required: true
+    
+    - name: "clean"
+      command: "rm -rf output/*"
+      description: "Clean up temporary files"
+      required: true
+
+  # Pulser agent integration template
+  pulser_tasks:
+    tasks:
+      - id: "deploy_app"
+        name: "Deploy Application"
+        agent: "Basher"
+        script: "scripts/deploy_app.sh"
+        description: "Deploys application to target environment"
+        env_vars:
+          - "APP_NAME"
+          - "RESOURCE_GROUP"
+        triggers:
+          - "make deploy"
+          - "/deploy {app}"
+          - ":deploy {app}"
+      
+      - id: "package_app"
+        name: "Package Application"
+        agent: "Basher"
+        script: "scripts/package_app.sh"
+        description: "Packages application for deployment"
+        env_vars:
+          - "ROOT_DIR"
+        triggers:
+          - "make package"
+          - "/package {app}"
+          - ":package {app}"
+      
+      - id: "validate_app"
+        name: "Validate Application"
+        agent: "Basher"
+        script: "scripts/deploy_app.sh --dry-run"
+        description: "Performs a dry run of deployment"
+        env_vars:
+          - "APP_NAME"
+          - "RESOURCE_GROUP"
+          - "DRY_RUN"
+        triggers:
+          - "make deploy-dry-run"
+          - "/validate {app}"
+          - ":validate {app}"
+      
+      - id: "verify_style"
+        name: "Verify Style Compliance"
+        agent: "Caca"
+        script: "tools/verify_style_compliance.js"
+        description: "Verifies application style compliance"
+        env_vars:
+          - "STYLE_GUIDE_PATH"
+          - "APP_PATH"
+        triggers:
+          - "make verify-style"
+          - "/verify style"
+          - ":verify {app}"
+      
+      - id: "monitor_app"
+        name: "Monitor Application"
+        agent: "Echo"
+        script: "tools/monitor_app_uptime.js"
+        description: "Monitors application uptime and performance"
+        env_vars:
+          - "APP_URL"
+          - "ALERT_THRESHOLD_MS"
+        schedule: 
+          - "0 */6 * * *"
+        triggers:
+          - "make monitor"
+          - "/monitor {app}"
+          - ":monitor {app}"
+          
+      - id: "verify_data"
+        name: "Verify Medallion Data"
+        agent: "Echo"
+        script: "tools/verify_medallion_data.js"
+        description: "Verifies data availability across Medallion layers"
+        env_vars:
+          - "API_BASE_URL"
+          - "REQUIRED_ENDPOINTS"
+        schedule:
+          - "0 */4 * * *"
+        triggers:
+          - "make verify-data"
+          - "/verify data"
+          - ":verify data"
+      
+      - id: "generate_test_data"
+        name: "Generate Test Data"
+        agent: "Surf"
+        script: "tools/generate_test_data.js"
+        description: "Generates simulated test data for all Medallion layers"
+        env_vars:
+          - "OUTPUT_DIR"
+          - "DATA_VOLUME"
+        triggers:
+          - "make generate-test-data"
+          - "/generate test-data"
+          - ":generate test"
+    
+    workflows:
+      - id: "deploy_and_monitor"
+        name: "Deploy and Monitor Application"
+        description: "Full workflow to deploy and monitor an application"
+        steps:
+          - task: "package_app"
+          - task: "validate_app"
+          - task: "verify_style"
+          - task: "verify_data"
+          - task: "deploy_app"
+          - task: "monitor_app"
+        triggers:
+          - "/deploy full"
+          - ":deploy full"
+      
+      - id: "qa_validate"
+        name: "QA Validation"
+        description: "Run all verification steps without deployment"
+        steps:
+          - task: "validate_app"
+          - task: "verify_style"
+          - task: "verify_data"
+        triggers:
+          - "/qa validate"
+          - ":qa {app}"
+          
+      - id: "data_refresh"
+        name: "Data Refresh Workflow"
+        description: "Regenerate test data and verify data availability"
+        steps:
+          - task: "generate_test_data"
+          - task: "verify_data"
+        triggers:
+          - "/refresh data"
+          - ":refresh data"
+
+  # SKR integration template
+  skr_integration:
+    archive_path: "SKR/archives/{project}/{date}/DEPLOYMENT_PROTOCOLS.md"
+    metadata_path: "SKR/archives/{project}/{date}/metadata.yaml"
+    document_id_format: "sop_deployment_v1_{date}"
+    metadata_template:
+      title: "InsightPulseAI: Unified Developer Deployment SOP v1.1 for {app}"
+      category: "standard_operating_procedure"
+      tags:
+        - "deployment"
+        - "sop"
+        - "{app}"
+        - "pulser"
+        - "data-toggle"
+        - "medallion"
+      summary: "Standard Operating Procedure for consistent deployment of {app} with data toggle support"
+      agents:
+        - agent_id: "Basher"
+          role: "Deployment executor"
+        - agent_id: "Caca"
+          role: "QA verification"
+        - agent_id: "Echo"
+          role: "Monitoring"
+        - agent_id: "Claudia"
+          role: "Task orchestration"
+        - agent_id: "Surf"
+          role: "Test data generation"
+
+  # Application templates
+  app_templates:
+    - name: "PRISMA"
+      type: "analysis_platform"
+      deploy_target: "azure"
+      description: "Predictive Retail Intelligence and Sales Modeling Application"
+      custom_requirements:
+        - "ML model versioning"
+        - "Data pipeline verification"
+        - "Performance benchmarking"
+        - "Toggle between real-time and cached ML predictions"
+      data_toggle_config:
+        default_mode: "simulated"
+        toggle_position: "header-right"
+        toggle_labels:
+          real: "PRODUCTION DATA"
+          simulated: "SIMULATION MODE"
+    
+    - name: "GEZ"
+      type: "ai_engine"
+      deploy_target: "kubernetes"
+      description: "Global Enterprise Zone AI Engine"
+      custom_requirements:
+        - "Load balancer configuration"
+        - "Scaling policy verification"
+        - "Health probe setup"
+        - "Toggle between production and sandbox LLM environments"
+      data_toggle_config:
+        default_mode: "simulated"
+        toggle_position: "sidebar-top"
+        toggle_labels:
+          real: "PRODUCTION LLM"
+          simulated: "SANDBOX LLM"
+    
+    - name: "PulseUP"
+      type: "dashboard"
+      deploy_target: "vercel"
+      description: "Unified Performance Dashboard"
+      custom_requirements:
+        - "Vercel project linking"
+        - "Environment variable synchronization"
+        - "Preview deployment support"
+        - "Toggle between real-time and demo data"
+      data_toggle_config:
+        default_mode: "simulated"
+        toggle_position: "header-right"
+        toggle_labels:
+          real: "LIVE DATA"
+          simulated: "DEMO DATA"
+          
+    - name: "RetailEdge"
+      type: "retail_dashboard"
+      deploy_target: "azure"
+      description: "Retail Advisor Intelligence Dashboard"
+      custom_requirements:
+        - "Retail API integration"
+        - "Store performance metrics"
+        - "Customer behavior tracking"
+        - "Toggle between real and simulated retail data"
+      data_toggle_config:
+        default_mode: "simulated"
+        toggle_position: "header-right"
+        toggle_labels:
+          real: "LIVE RETAIL DATA"
+          simulated: "SIMULATED RETAIL DATA"
+        medallion_mapping:
+          bronze:
+            real: "/api/retail/bronze/{endpoint}"
+            simulated: "/assets/data/simulated/retail/bronze_{endpoint}.json"
+            endpoints: ["transactions", "events", "inventory", "customer-visits"]
+          silver:
+            real: "/api/retail/silver/{endpoint}"
+            simulated: "/assets/data/simulated/retail/silver_{endpoint}.json"
+            endpoints: ["sales", "customer-profiles", "inventory-status", "staff-schedules"]
+          gold:
+            real: "/api/retail/gold/{endpoint}"
+            simulated: "/assets/data/simulated/retail/gold_{endpoint}.json"
+            endpoints: ["performance-metrics", "sales-forecasts", "category-analysis", "staff-performance"]
+          platinum:
+            real: "/api/retail/platinum/{endpoint}"
+            simulated: "/assets/data/simulated/retail/platinum_{endpoint}.json"
+            endpoints: ["executive-insights", "strategic-recommendations", "competitive-analysis", "market-trends"]
+
+# Deployment checklist template
+deployment_checklist:
+  - category: "Package Preparation"
+    items:
+      - "Application code is linted and passes all tests"
+      - "Dependencies are up-to-date and properly documented"
+      - "API keys and secrets are properly handled"
+      - "Environment-specific configurations are externalized"
+      - "Static assets are optimized"
+      - "Simulated data files are present and valid for all Medallion layers"
+  
+  - category: "Deployment Verification"
+    items:
+      - "Application loads correctly in all target environments"
+      - "Authentication and authorization work as expected"
+      - "API endpoints are accessible and respond correctly"
+      - "Static assets are served properly"
+      - "Error handling and logging are functioning"
+      - "Data toggle switches correctly between real and simulated data"
+      - "All Medallion layers are accessible in both real and simulated modes"
+  
+  - category: "Style and UX Compliance"
+    items:
+      - "UI matches the approved design specifications"
+      - "Responsive layout functions on all target devices"
+      - "Color scheme matches the style guide"
+      - "Typography and spacing follow design standards"
+      - "Interactive elements provide proper feedback"
+      - "Data toggle is clearly visible and intuitive to use"
+      - "Data source indicators are present on all data visualizations"
+  
+  - category: "Post-Deployment"
+    items:
+      - "Monitoring is activated and alerts are configured"
+      - "Documentation is updated with latest changes"
+      - "SKR archive is created with deployment protocols"
+      - "Pulser tasks are registered for ongoing maintenance"
+      - "Stakeholders are notified of successful deployment"
+      - "Data verification tasks are scheduled to run periodically"
+
+# Data toggle integration checklist
+data_toggle_checklist:
+  - category: "Toggle Component Setup"
+    items:
+      - "Data source toggle component is properly initialized"
+      - "Toggle appears in the approved location in the UI"
+      - "Toggle retains user preference across page reloads"
+      - "Toggle state is clearly indicated in the UI"
+      - "Toggle transition is smooth with proper visual feedback"
+  
+  - category: "Medallion Layer Integration"
+    items:
+      - "Bronze layer data is available in both real and simulated modes"
+      - "Silver layer data is available in both real and simulated modes"
+      - "Gold layer data is available in both real and simulated modes"
+      - "Platinum layer data is available in both real and simulated modes"
+      - "Fallback to simulated data works when real data is unavailable"
+  
+  - category: "Visualization Updates"
+    items:
+      - "All charts update correctly when data source is toggled"
+      - "All tables update correctly when data source is toggled"
+      - "All KPIs update correctly when data source is toggled"
+      - "Data source indicators are visible for all data visualizations"
+      - "Loading states are shown during data source transitions"
+  
+  - category: "Error Handling"
+    items:
+      - "Error messages are displayed when data loading fails"
+      - "Fallback data is shown when primary data source is unavailable"
+      - "Console logging provides helpful debug information"
+      - "Error boundaries prevent entire UI from crashing"
+      - "Users are guided on how to resolve common issues"
+
+# Instructions for cloning to new applications
+clone_instructions: |
+  To clone this SOP system with data toggle integration to a new InsightPulseAI application:
+  
+  1. Copy the pulser_sop_profile_with_toggle.yaml to the target application root.
+  2. Run the SOP initialization script:
+     ```bash
+     pulser init sop --profile pulser_sop_profile_with_toggle.yaml --app APP_NAME
+     ```
+  3. Customize the generated templates for your application.
+  4. Configure the Medallion data layers for your application:
+     ```bash
+     pulser configure medallion --app APP_NAME --layers bronze,silver,gold,platinum
+     ```
+  5. Generate simulated test data for all Medallion layers:
+     ```bash
+     pulser generate test-data --app APP_NAME
+     ```
+  6. Run validation to ensure all SOP requirements are met:
+     ```bash
+     pulser validate sop
+     ```
+  7. Test the data toggle functionality:
+     ```bash
+     pulser test toggle --app APP_NAME
+     ```
+  8. Register the SOP with the Pulser system:
+     ```bash
+     pulser register sop --app APP_NAME
+     ```
+  9. Create an SKR archive entry documenting the SOP implementation.
+  
+  This will create all required directory structures, scripts, documentation,
+  data toggle components, and Pulser integrations following the Unified Developer 
+  Deployment SOP with Data Toggle support.

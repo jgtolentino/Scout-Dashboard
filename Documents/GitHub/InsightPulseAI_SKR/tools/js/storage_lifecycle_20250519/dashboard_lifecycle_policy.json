@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "name": "ArchiveOldData",
+      "enabled": true,
+      "type": "Lifecycle",
+      "definition": {
+        "filters": {
+          "blobTypes": ["blockBlob"],
+          "prefixMatch": ["archived/"]
+        },
+        "actions": {
+          "baseBlob": {
+            "tierToCool": {"daysAfterModificationGreaterThan": 60},
+            "tierToArchive": {"daysAfterModificationGreaterThan": 180}
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteSnapshots",
+      "enabled": true,
+      "type": "Lifecycle",
+      "definition": {
+        "filters": {
+          "blobTypes": ["blockBlob"]
+        },
+        "actions": {
+          "snapshot": {
+            "delete": {"daysAfterCreationGreaterThan": 60}
+          }
+        }
+      }
+    }
+  ]
+}

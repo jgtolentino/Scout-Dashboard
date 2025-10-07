@@ -1,0 +1,447 @@
+#!/usr/bin/env bash
+
+# PulserBuilder CLI
+# Version: 0.1.0
+
+# Set colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Global variables
+CONFIG_PATH="$HOME/.pulserrc"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+VERSION="0.1.0"
+
+# Parse command-line arguments
+command=""
+subcommand=""
+project_name=""
+config_file=""
+environment="development"
+bump_type="patch"
+agent_file=""
+agent_id=""
+
+# Function to display help information
+show_help() {
+  echo "Usage: pulser [options] [command]"
+  echo ""
+  echo "Global Options:"
+  echo "  -V, --version        output the current Pulser version"
+  echo "  -c, --config <file>  specify path to .pulserrc (default: ~/.pulserrc)"
+  echo "  -h, --help           display help for command"
+  echo ""
+  echo "Commands:"
+  echo "  init [project-name]       Scaffold a new PulserBuilder project"
+  echo "  build                     Run full build (UI + backend) into dist/"
+  echo "  deploy [environment]      Deploy to specified target (e.g., vercel, firebase)"
+  echo "  agents:list               List available agent configurations"
+  echo "  agents:add <agent.yaml>   Add or update an agent config"
+  echo "  agents:remove <agent-id>  Remove an agent from .pulserrc"
+  echo "  version:bump [patch|minor|major]"
+  echo "                            Bump project version across package.json & YAML"
+  echo "  status                    Show current project status and deployment info"
+  echo "  help [command]            display help for command"
+}
+
+# Function to show version
+show_version() {
+  echo "pulser version $VERSION"
+}
+
+# Function to initialize a new project
+init_project() {
+  if [ -z "$project_name" ]; then
+    project_name="pulserbuilder-project"
+  fi
+  
+  echo -e "${BLUE}Creating new PulserBuilder project: ${YELLOW}$project_name${NC}"
+  
+  # Create project directory
+  mkdir -p "$project_name"
+  
+  # Copy template files
+  cp -r "$SCRIPT_DIR/agents" "$project_name/"
+  cp -r "$SCRIPT_DIR/src" "$project_name/"
+  cp -r "$SCRIPT_DIR/backend" "$project_name/"
+  cp -r "$SCRIPT_DIR/public" "$project_name/"
+  cp "$SCRIPT_DIR/.pulserrc" "$project_name/"
+  cp "$SCRIPT_DIR/package.json" "$project_name/"
+  cp "$SCRIPT_DIR/deploy.sh" "$project_name/"
+  cp "$SCRIPT_DIR/vercel.json" "$project_name/"
+  cp "$SCRIPT_DIR/README.md" "$project_name/"
+  
+  # Update package.json with project name
+  sed -i.bak "s/\"name\": \"pulserbuilder\"/\"name\": \"$project_name\"/" "$project_name/package.json" && rm "$project_name/package.json.bak"
+  
+  # Initialize git repository
+  cd "$project_name"
+  git init
+  git add .
+  git commit -m "Initial commit"
+  
+  echo -e "${GREEN}Project created successfully at: ${YELLOW}$(pwd)${NC}"
+  echo -e "${BLUE}Next steps:${NC}"
+  echo -e "  cd $project_name"
+  echo -e "  npm install"
+  echo -e "  npm run dev"
+}
+
+# Function to build the project
+build_project() {
+  echo -e "${BLUE}Building PulserBuilder project...${NC}"
+  
+  # Run npm build script
+  npm run build
+  
+  if [ $? -eq 0 ]; then
+    echo -e "${GREEN}Build completed successfully!${NC}"
+    echo -e "Build output is located in: ${YELLOW}$(pwd)/dist${NC}"
+  else
+    echo -e "${RED}Build failed. See errors above.${NC}"
+    exit 1
+  fi
+}
+
+# Function to deploy the project
+deploy_project() {
+  echo -e "${BLUE}Deploying PulserBuilder project to ${YELLOW}$environment${NC}..."
+  
+  # Run deploy script
+  ./deploy.sh "$environment"
+  
+  if [ $? -eq 0 ]; then
+    echo -e "${GREEN}Deployment completed successfully!${NC}"
+  else
+    echo -e "${RED}Deployment failed. See errors above.${NC}"
+    exit 1
+  fi
+}
+
+# Function to list agents
+list_agents() {
+  echo -e "${BLUE}Available agents:${NC}"
+  
+  # Find all agent YAML files
+  agent_files=$(find ./agents -name "*.yaml" -type f)
+  
+  if [ -z "$agent_files" ]; then
+    echo -e "${YELLOW}No agents found in ./agents directory.${NC}"
+    return
+  fi
+  
+  # Display agent information
+  for file in $agent_files; do
+    agent_name=$(grep -m 1 "name:" "$file" | cut -d ':' -f 2 | tr -d ' ')
+    agent_version=$(grep -m 1 "version:" "$file" | cut -d ':' -f 2 | tr -d ' ')
+    agent_desc=$(grep -m 1 "description:" "$file" | cut -d ':' -f 2- | sed 's/^[ \t]*//')
+    
+    echo -e "${YELLOW}$agent_name${NC} (v$agent_version)"
+    echo -e "  ${agent_desc}"
+    echo -e "  Path: $file"
+    echo ""
+  done
+}
+
+# Function to add or update an agent
+add_agent() {
+  if [ ! -f "$agent_file" ]; then
+    echo -e "${RED}Error: Agent file not found: $agent_file${NC}"
+    exit 1
+  fi
+  
+  agent_name=$(grep -m 1 "name:" "$agent_file" | cut -d ':' -f 2 | tr -d ' ')
+  
+  if [ -z "$agent_name" ]; then
+    echo -e "${RED}Error: Invalid agent file format. Missing 'name' field.${NC}"
+    exit 1
+  fi
+  
+  # Copy agent file to agents directory
+  mkdir -p ./agents
+  cp "$agent_file" "./agents/$agent_name.yaml"
+  
+  echo -e "${GREEN}Agent ${YELLOW}$agent_name${GREEN} has been added/updated.${NC}"
+}
+
+# Function to remove an agent
+remove_agent() {
+  agent_file="./agents/$agent_id.yaml"
+  
+  if [ ! -f "$agent_file" ]; then
+    echo -e "${RED}Error: Agent not found: $agent_id${NC}"
+    exit 1
+  fi
+  
+  # Remove agent file
+  rm "$agent_file"
+  
+  echo -e "${GREEN}Agent ${YELLOW}$agent_id${GREEN} has been removed.${NC}"
+}
+
+# Function to bump version
+bump_version() {
+  echo -e "${BLUE}Bumping version ($bump_type)...${NC}"
+  
+  # Parse current version from package.json
+  current_version=$(grep -m 1 "\"version\":" package.json | cut -d '"' -f 4)
+  
+  # Split version into components
+  IFS='.' read -r major minor patch <<< "$current_version"
+  
+  # Increment version based on bump_type
+  if [ "$bump_type" == "major" ]; then
+    major=$((major + 1))
+    minor=0
+    patch=0
+  elif [ "$bump_type" == "minor" ]; then
+    minor=$((minor + 1))
+    patch=0
+  else
+    patch=$((patch + 1))
+  fi
+  
+  # Construct new version
+  new_version="$major.$minor.$patch"
+  
+  # Update package.json
+  sed -i.bak "s/\"version\": \"$current_version\"/\"version\": \"$new_version\"/" package.json && rm package.json.bak
+  
+  # Update .pulserrc if it exists
+  if [ -f ".pulserrc" ]; then
+    sed -i.bak "s/version: $current_version/version: $new_version/" .pulserrc && rm .pulserrc.bak
+  fi
+  
+  echo -e "${GREEN}Version bumped from ${YELLOW}$current_version${GREEN} to ${YELLOW}$new_version${NC}"
+}
+
+# Function to show project status
+show_status() {
+  echo -e "${BLUE}PulserBuilder Project Status${NC}"
+  echo -e "${YELLOW}======================${NC}"
+  
+  # Project details
+  if [ -f "package.json" ]; then
+    project_name=$(grep -m 1 "\"name\":" package.json | cut -d '"' -f 4)
+    project_version=$(grep -m 1 "\"version\":" package.json | cut -d '"' -f 4)
+    
+    echo -e "${BLUE}Project:${NC} $project_name (v$project_version)"
+  else
+    echo -e "${RED}Error: package.json not found. Are you in a PulserBuilder project directory?${NC}"
+    exit 1
+  fi
+  
+  # Agent status
+  echo -e "\n${BLUE}Agents:${NC}"
+  agent_count=$(find ./agents -name "*.yaml" -type f | wc -l)
+  echo -e "  $agent_count agents configured"
+  
+  # Deployment info
+  echo -e "\n${BLUE}Deployment:${NC}"
+  
+  if [ -f ".pulserrc" ]; then
+    env_config=$(grep -A 10 "environment:" .pulserrc | grep -v "environment:")
+    echo "$env_config" | grep -v "^$" | while read -r line; do
+      echo -e "  $line"
+    done
+  else
+    echo -e "  ${YELLOW}No deployment configuration found.${NC}"
+  fi
+}
+
+# Function to handle help command
+show_command_help() {
+  case "$command" in
+    init)
+      echo "Usage: pulser init [project-name]"
+      echo ""
+      echo "Scaffold a new PulserBuilder project with all necessary files and configurations."
+      echo ""
+      echo "Arguments:"
+      echo "  project-name  Name of the new project (default: pulserbuilder-project)"
+      ;;
+    build)
+      echo "Usage: pulser build"
+      echo ""
+      echo "Build the project for production. This creates a dist/ directory with all the"
+      echo "compiled assets ready for deployment."
+      ;;
+    deploy)
+      echo "Usage: pulser deploy [environment]"
+      echo ""
+      echo "Deploy the project to the specified environment."
+      echo ""
+      echo "Arguments:"
+      echo "  environment  The deployment environment (default: development)"
+      echo "               Valid values: development, staging, production"
+      ;;
+    agents:list)
+      echo "Usage: pulser agents:list"
+      echo ""
+      echo "List all available agent configurations in the project."
+      ;;
+    agents:add)
+      echo "Usage: pulser agents:add <agent.yaml>"
+      echo ""
+      echo "Add or update an agent configuration in the project."
+      echo ""
+      echo "Arguments:"
+      echo "  agent.yaml  Path to the agent configuration file (required)"
+      ;;
+    agents:remove)
+      echo "Usage: pulser agents:remove <agent-id>"
+      echo ""
+      echo "Remove an agent configuration from the project."
+      echo ""
+      echo "Arguments:"
+      echo "  agent-id  ID of the agent to remove (required)"
+      ;;
+    version:bump)
+      echo "Usage: pulser version:bump [patch|minor|major]"
+      echo ""
+      echo "Bump the project version across package.json and .pulserrc files."
+      echo ""
+      echo "Arguments:"
+      echo "  patch|minor|major  Type of version bump (default: patch)"
+      ;;
+    status)
+      echo "Usage: pulser status"
+      echo ""
+      echo "Show current project status and deployment information."
+      ;;
+    *)
+      show_help
+      ;;
+  esac
+}
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -V|--version)
+      show_version
+      exit 0
+      ;;
+    -c|--config)
+      config_file="$2"
+      shift 2
+      ;;
+    -h|--help)
+      show_help
+      exit 0
+      ;;
+    help)
+      command="help"
+      subcommand="$2"
+      shift
+      if [ -z "$subcommand" ]; then
+        show_help
+        exit 0
+      fi
+      shift
+      ;;
+    init)
+      command="init"
+      project_name="$2"
+      shift
+      if [[ "$project_name" == -* ]]; then
+        project_name=""
+      else
+        shift
+      fi
+      ;;
+    build)
+      command="build"
+      shift
+      ;;
+    deploy)
+      command="deploy"
+      environment="$2"
+      shift
+      if [[ "$environment" == -* || -z "$environment" ]]; then
+        environment="development"
+      else
+        shift
+      fi
+      ;;
+    agents:list)
+      command="agents:list"
+      shift
+      ;;
+    agents:add)
+      command="agents:add"
+      agent_file="$2"
+      shift 2
+      ;;
+    agents:remove)
+      command="agents:remove"
+      agent_id="$2"
+      shift 2
+      ;;
+    version:bump)
+      command="version:bump"
+      bump_type="$2"
+      shift
+      if [[ "$bump_type" == -* || -z "$bump_type" ]]; then
+        bump_type="patch"
+      else
+        shift
+      fi
+      ;;
+    status)
+      command="status"
+      shift
+      ;;
+    *)
+      echo -e "${RED}Unknown command: $1${NC}"
+      show_help
+      exit 1
+      ;;
+  esac
+done
+
+# Use specified config file if provided
+if [ -n "$config_file" ]; then
+  CONFIG_PATH="$config_file"
+fi
+
+# Execute command
+case "$command" in
+  init)
+    init_project
+    ;;
+  build)
+    build_project
+    ;;
+  deploy)
+    deploy_project
+    ;;
+  agents:list)
+    list_agents
+    ;;
+  agents:add)
+    add_agent
+    ;;
+  agents:remove)
+    remove_agent
+    ;;
+  version:bump)
+    bump_version
+    ;;
+  status)
+    show_status
+    ;;
+  help)
+    show_command_help
+    ;;
+  *)
+    echo -e "${RED}No command specified.${NC}"
+    show_help
+    exit 1
+    ;;
+esac
+
+exit 0

@@ -1,0 +1,123 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-05-13T11:30:22Z",
+  "indicators": {
+    "charts": {
+      "brandMentionsChart": { 
+        "confidence": 0.92, 
+        "source": "transcript_silver", 
+        "lastUpdated": "2025-05-13T10:45:12Z",
+        "metadata": {
+          "recordCount": 2437,
+          "timespan": "30d",
+          "model": "Entity-PII-v3.2"
+        }
+      },
+      "topBrandsChart": { 
+        "confidence": 0.88, 
+        "source": "transcript_silver", 
+        "lastUpdated": "2025-05-13T10:45:12Z",
+        "metadata": {
+          "recordCount": 1254,
+          "timespan": "30d",
+          "model": "Entity-PII-v3.2"
+        }
+      },
+      "sentimentChart": { 
+        "confidence": 0.64, 
+        "source": "sentiment_analyzer", 
+        "lastUpdated": "2025-05-13T08:30:05Z",
+        "metadata": {
+          "recordCount": 987,
+          "timespan": "30d",
+          "model": "SentiBERT-v1.4",
+          "notes": "Prone to bias with limited context"
+        }
+      },
+      "brandSentimentChart": { 
+        "confidence": 0.71, 
+        "source": "sentiment_analyzer", 
+        "lastUpdated": "2025-05-13T08:30:05Z",
+        "metadata": {
+          "recordCount": 745,
+          "timespan": "30d",
+          "model": "SentiBERT-v1.4"
+        }
+      },
+      "brandInsightsChart": { 
+        "confidence": 0.89, 
+        "source": "aggregated_metrics", 
+        "lastUpdated": "2025-05-13T10:45:12Z",
+        "metadata": {
+          "recordCount": 1421,
+          "timespan": "30d",
+          "model": "Agg-v2.1"
+        }
+      },
+      "sentimentTrendsChart": { 
+        "confidence": 0.77, 
+        "source": "sentiment_analyzer", 
+        "lastUpdated": "2025-05-13T08:30:05Z",
+        "metadata": {
+          "recordCount": 987,
+          "timespan": "30d",
+          "model": "SentiBERT-v1.4"
+        }
+      }
+    },
+    "tables": {
+      "brandTableBody": { 
+        "confidence": 0.89, 
+        "source": "aggregated_metrics", 
+        "lastUpdated": "2025-05-13T10:45:12Z",
+        "metadata": {
+          "recordCount": 1254,
+          "timespan": "30d"
+        }
+      }
+    },
+    "visuals": {
+      "brandRelationshipSketch": { 
+        "confidence": 0.75, 
+        "source": "mention_cooccurrence", 
+        "lastUpdated": "2025-05-13T09:15:33Z",
+        "metadata": {
+          "recordCount": 745,
+          "timespan": "30d",
+          "model": "Graph-Gen-v2.3"
+        }
+      },
+      "transcriptHighlights": { 
+        "confidence": 0.95, 
+        "source": "transcript_gold", 
+        "lastUpdated": "2025-05-13T10:45:12Z",
+        "metadata": {
+          "recordCount": 327,
+          "timespan": "30d",
+          "model": "Extract-v1.9"
+        }
+      },
+      "tagCloud": { 
+        "confidence": 0.81, 
+        "source": "topic_clustering", 
+        "lastUpdated": "2025-05-13T10:15:22Z",
+        "metadata": {
+          "recordCount": 1254,
+          "timespan": "30d",
+          "model": "Tag-Cluster-v1.2"
+        }
+      }
+    }
+  },
+  "qualityThresholds": {
+    "high": 0.85,
+    "medium": 0.7,
+    "low": 0
+  },
+  "metadata": {
+    "version": "2.1.2",
+    "buildId": "20250513-143725",
+    "environment": "production",
+    "qaProvider": "Quality-v1.3.5"
+  }
+}

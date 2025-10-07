@@ -1,0 +1,34 @@
+{
+  "routes": [
+    {
+      "route": "/api/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/data/live/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/data/simulated/*",
+      "allowedRoles": ["anonymous", "authenticated"]
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*", "/js/*", "/*.ico", "/data/*"]
+  },
+  "globalHeaders": {
+    "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://*.googleapis.com https://*.gstatic.com; connect-src 'self' https://*.azure-api.net https://*.cognitiveservices.azure.com https://*.openai.azure.com",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY"
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
+    }
+  },
+  "platform": {
+    "apiRuntime": "node:16"
+  }
+}

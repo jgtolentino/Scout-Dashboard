@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Feature Flags Configuration",
+  "description": "Schema for feature flags configuration in InsightPulseAI",
+  "type": "object",
+  "required": ["canaryFeatures", "productionFeatures", "featureFlags", "metadata"],
+  "properties": {
+    "canaryFeatures": {
+      "type": "object",
+      "description": "Features that are being tested in canary deployment",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "productionFeatures": {
+      "type": "object",
+      "description": "Features that are available in production",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "featureFlags": {
+      "type": "object",
+      "description": "General feature flags controlling functionality",
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "required": ["ENABLE_CUSTOM_EXPORTS", "ENABLE_DARK_MODE"],
+      "properties": {
+        "ENABLE_DASHBOARD_CHAT": {
+          "type": "boolean",
+          "description": "Enable chat interface in dashboards"
+        },
+        "ENABLE_ADVANCED_ANALYTICS": {
+          "type": "boolean",
+          "description": "Enable advanced analytics features"
+        },
+        "ENABLE_CUSTOM_EXPORTS": {
+          "type": "boolean",
+          "description": "Enable custom data export formats"
+        },
+        "ENABLE_DARK_MODE": {
+          "type": "boolean",
+          "description": "Enable dark mode theme"
+        },
+        "ENABLE_EXPERIMENTAL_FORECASTING": {
+          "type": "boolean",
+          "description": "Enable experimental forecasting features (canary only)"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["lastUpdated", "updatedBy", "version"],
+      "properties": {
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of last update"
+        },
+        "updatedBy": {
+          "type": "string",
+          "description": "Identifier of who made the update"
+        },
+        "version": {
+          "type": "string",
+          "description": "Semantic version number"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

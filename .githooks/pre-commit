@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Project Guard - Pre-commit hook
+# Ensures all projects have required documentation files
+#
+
+echo "🛡️  Project Guard: Checking documentation compliance..."
+
+# Run the project guard validator
+python3 tools/project_guard/check_project_files.py --scan
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "❌ COMMIT BLOCKED: Documentation compliance issues found"
+    echo ""
+    echo "To fix automatically, run:"
+    echo "  python3 tools/project_guard/check_project_files.py --auto-fix"
+    echo ""
+    echo "To see what would be created, run:"
+    echo "  python3 tools/project_guard/check_project_files.py --auto-fix --dry-run"
+    echo ""
+    echo "To bypass this check, use: NO-TASK in your commit message"
+    exit 1
+fi
+
+echo "✅ Documentation compliance check passed"

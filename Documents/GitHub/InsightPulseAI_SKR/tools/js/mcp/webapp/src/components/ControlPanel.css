@@ -1,0 +1,177 @@
+.control-panel-container {
+  padding: 1rem;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabs button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tabs button.active {
+  color: var(--primary);
+}
+
+.tabs button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary);
+}
+
+.tabs button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tab-content {
+  padding: 1rem 0;
+}
+
+.create-tab, .modify-tab, .animate-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.create-button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: center;
+}
+
+.create-button:hover:not(:disabled) {
+  background-color: #0069c0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.create-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.warning {
+  background-color: rgba(255, 152, 0, 0.2);
+  color: #FF9800;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.control-group {
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.color-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.color-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+  width: 120px;
+}
+
+.color-option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.color-option.selected {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.color-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.color-option.selected .color-preview {
+  border-color: white;
+}
+
+.color-option span {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.apply-button {
+  background-color: var(--secondary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.apply-button:hover:not(:disabled) {
+  background-color: #119c92;
+}
+
+.apply-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.animation-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+select, input[type="range"] {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--background);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.25rem;
+}
+
+select:disabled, input[type="range"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

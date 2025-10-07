@@ -1,0 +1,98 @@
+{
+  "generated_at": "2025-05-14T23:56:17.269813",
+  "freshness_threshold_hours": 24,
+  "datasets": {
+    "geo_brand_mentions": {
+      "stats": {
+        "size_bytes": 23614,
+        "last_modified": "2025-05-14T23:55:58.443613",
+        "hash": "2d699a6f4775673e291daed66cf0f123",
+        "row_count": 100
+      },
+      "freshness": {
+        "is_fresh": true,
+        "age_hours": 0.01,
+        "last_update": "2025-05-14T23:55:58.443613"
+      }
+    },
+    "top_brands": {
+      "stats": {
+        "size_bytes": 20168,
+        "last_modified": "2025-05-14T23:55:58.416826",
+        "hash": "f915b988f8cc465956b06ba6d73eaeb6",
+        "row_count": 50
+      },
+      "freshness": {
+        "is_fresh": true,
+        "age_hours": 0.01,
+        "last_update": "2025-05-14T23:55:58.416826"
+      }
+    },
+    "store_metrics": {
+      "stats": {
+        "size_bytes": 14641,
+        "last_modified": "2025-05-14T23:55:58.419900",
+        "hash": "b8ae1762b70d91cebadcb27e46d1496c",
+        "row_count": 1
+      },
+      "freshness": {
+        "is_fresh": true,
+        "age_hours": 0.01,
+        "last_update": "2025-05-14T23:55:58.419900"
+      }
+    },
+    "geo_brand_distribution": {
+      "stats": {
+        "size_bytes": 13679,
+        "last_modified": "2025-05-14T23:55:58.420983",
+        "hash": "aa690b0e2c4faeeca70e4c270c16767a",
+        "row_count": 100
+      },
+      "freshness": {
+        "is_fresh": true,
+        "age_hours": 0.01,
+        "last_update": "2025-05-14T23:55:58.420983"
+      }
+    },
+    "top_combos": {
+      "stats": {
+        "size_bytes": 8899,
+        "last_modified": "2025-05-14T23:55:58.417730",
+        "hash": "da225087481622d3573dfd3536f9b582",
+        "row_count": 30
+      },
+      "freshness": {
+        "is_fresh": true,
+        "age_hours": 0.01,
+        "last_update": "2025-05-14T23:55:58.417730"
+      }
+    },
+    "insights_data": {
+      "stats": {
+        "size_bytes": 4165,
+        "last_modified": "2025-05-14T08:54:11.013331",
+        "hash": "8484646b26724c3cfab74ec177d69c3e",
+        "row_count": 1
+      },
+      "freshness": {
+        "is_fresh": true,
+        "age_hours": 15.04,
+        "last_update": "2025-05-14T08:54:11.013331"
+      }
+    },
+    "geo_sales_volume": {
+      "stats": {
+        "size_bytes": 234,
+        "last_modified": "2025-05-14T23:55:58.442033",
+        "hash": "a7b50f0c4c415a10ec889a8dc8eb81a2",
+        "row_count": 5
+      },
+      "freshness": {
+        "is_fresh": true,
+        "age_hours": 0.01,
+        "last_update": "2025-05-14T23:55:58.442033"
+      }
+    }
+  },
+  "dbt": {}
+}

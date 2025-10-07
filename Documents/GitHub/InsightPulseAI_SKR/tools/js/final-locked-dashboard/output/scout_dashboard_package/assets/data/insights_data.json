@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "generated_at": "2025-05-14T07:58:42Z",
+    "time_period": "2025-04-15 to 2025-05-14",
+    "model": "retail-advisor-gpt-20240229",
+    "insights_count": 124
+  },
+  "insights": [
+    {
+      "id": "ins001",
+      "type": "general",
+      "title": "Increasing focus on value meals across all demographics",
+      "text": "Analysis of 327 transcripts reveals that 64% of customers mention value when discussing meal options. This represents an increasing trend compared to previous periods. Supporting evidence includes consistent mentions across different demographic segments and geographical locations. Customer quotes like 'I really appreciate their value meals during these tough economic times' highlight this pattern.",
+      "confidence": 0.85,
+      "brands": ["Brand A", "Brand B", "Brand C"],
+      "tags": ["pricing", "value", "economy", "family"],
+      "date": "2025-05-02"
+    },
+    {
+      "id": "ins002",
+      "type": "brand",
+      "title": "Brand loyalty stronger for customers using rewards programs",
+      "text": "Data from recent interactions shows frequent association with loyalty programs, with 78% of mentions having positive sentiment. This has increased by 12% over the last 30 days. Competitive analysis shows this is above the industry average. Customers consistently mention rewards points accumulation and special member-only deals as key drivers of repeat visits.",
+      "confidence": 0.92,
+      "brands": ["Brand A"],
+      "tags": ["loyalty", "rewards", "app", "repeat"],
+      "date": "2025-05-03"
+    },
+    {
+      "id": "ins003",
+      "type": "sentiment",
+      "title": "Positive sentiment toward expanded vegetarian options",
+      "text": "A recurring theme in 32% of analyzed conversations is the connection between vegetarian menu options and positive sentiment. This insight has a correlation coefficient of 0.83 with purchase intent, suggesting it's a significant factor in customer decision-making. Customers express appreciation for healthier alternatives while maintaining the signature flavor profiles.",
+      "confidence": 0.76,
+      "brands": ["Brand C", "Brand D"],
+      "tags": ["vegetarian", "health", "menu", "alternatives"],
+      "date": "2025-05-05"
+    },
+    {
+      "id": "ins004",
+      "type": "trend",
+      "title": "Rising preference for breakfast items throughout the day",
+      "text": "Analysis of 215 transcripts reveals a growing customer demand for breakfast items to be available throughout the day, with 47% of customers expressing this preference. This represents a 23% increase from previous analysis periods. The trend is particularly strong among younger demographics and app users who place orders outside traditional breakfast hours.",
+      "confidence": 0.88,
+      "brands": ["Brand B", "Brand A", "Brand E"],
+      "tags": ["breakfast", "all-day", "menu", "convenience"],
+      "date": "2025-05-04"
+    },
+    {
+      "id": "ins005",
+      "type": "operations",
+      "title": "Database query optimization potential identified",
+      "text": "Analysis of database query patterns suggests potential for 15-20% performance improvement through query optimization and index refinement. Most significant gains would be in the inventory management module. The pattern is consistent across all regional servers and presents an opportunity for significant backend efficiency improvements.",
+      "confidence": 0.88,
+      "brands": [],
+      "tags": ["database", "performance", "optimization", "operations"],
+      "date": "2025-05-10"
+    },
+    {
+      "id": "ins006",
+      "type": "trend",
+      "title": "Peak usage patterns shifting to earlier hours",
+      "text": "System usage data shows a consistent shift in peak usage periods, now starting 1-2 hours earlier than previous quarters. Consider adjusting maintenance windows and scaling policies accordingly. This trend correlates with changes in customer ordering patterns and may require operational adjustments to maintain optimal service levels.",
+      "confidence": 0.92,
+      "brands": [],
+      "tags": ["operations", "usage", "patterns", "scaling"],
+      "date": "2025-05-11"
+    }
+  ]
+}

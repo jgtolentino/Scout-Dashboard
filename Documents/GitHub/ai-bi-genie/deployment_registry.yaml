@@ -1,0 +1,77 @@
+pulser_taskboard:
+  - task: "Integrate CESAI into Scout Dashboard"
+    status: "✅ complete"
+    components:
+      - dashboard_end_state.yaml
+      - ask_ces_steps.md
+      - AskCES.tsx
+      - layout.tsx
+    verified: true
+    verified_by: "jgtolentino"
+    timestamp: "2025-06-15T00:00:00Z"
+    agent_responsible: "Claudebot / Pulser"
+    note: "CESAI now accessible globally for campaign insights"
+
+deployments:
+  - id: ask-ces
+    name: "Ask CES"
+    status: live-prod-ready
+    completed_at: 2025-06-15T00:00:00Z
+    production_url: https://ces-mvp.vercel.app/api/ask-ces
+    notes: |
+      Ask CES agent is now in full production lifecycle status:
+      - API endpoint live at /api/ask-ces
+      - UI rendered globally via AskCES component
+      - Context-aware Claude interface enabled
+      - QA validator active
+      - Ready for stakeholder demo and user testing 
+
+ces_platform:
+  version: 1.4.2
+  environment: development
+  deployment_status: production-ready
+
+  agents:
+    - id: ask-ces
+      type: api
+      path: pages/api/ask-ces.ts
+      status: live
+      linked_components:
+        - components/AskCES.tsx
+        - qa/ping_caca.ts
+      context_handler: utils/context.ts
+      llm_handler: utils/llm.ts
+      output_docs: public/ai/ask_ces_steps.md
+
+    - id: yummy-agent
+      type: api
+      path: pages/api/yummy-agent.ts
+      status: planned
+      linked_components:
+        - components/YummyAgent.tsx
+        - qa/ping_yummy.ts
+      context_handler: utils/context.ts
+      llm_handler: utils/llm.ts
+      output_docs: public/ai/yummy_steps.md
+
+  config:
+    context: utils/context.ts
+    llm: utils/llm.ts
+    layout: layout.tsx
+    dashboard_config: dashboard_end_state.yaml
+
+  orchestration:
+    task_registry: pulser_tasks.yaml
+    deployment_registry: deployment_registry.yaml
+    skr_archive: skr/ces.yaml
+
+  observability:
+    qa_scripts:
+      - qa/ping_caca.ts
+      - qa/ping_yummy.ts
+    health_monitor: modules/pulser-monitor.js
+
+  metadata:
+    created_by: jgtolentino
+    last_updated: 2025-06-15T03:45:00+08:00
+    deployment_url: https://scout-mvp.vercel.app 

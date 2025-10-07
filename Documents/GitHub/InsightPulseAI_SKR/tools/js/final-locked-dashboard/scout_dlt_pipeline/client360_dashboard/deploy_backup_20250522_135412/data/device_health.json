@@ -1,0 +1,284 @@
+{
+  "metadata": {
+    "last_updated": "2025-05-22T13:25:00Z",
+    "total_devices": 78,
+    "active_devices": 74,
+    "update_frequency": "real-time"
+  },
+  "health_summary": {
+    "overall_health": 94.2,
+    "uptime_percentage": 98.7,
+    "avg_response_time": 245,
+    "devices_online": 74,
+    "devices_offline": 4,
+    "devices_warning": 6,
+    "devices_critical": 2
+  },
+  "device_grid": [
+    {
+      "device_id": "DEVICE-1006",
+      "device_name": "SM Mall of Asia Scanner",
+      "location": "SM Mall of Asia - Pasay",
+      "store_id": "STORE-001",
+      "status": "excellent",
+      "health_score": 98.5,
+      "uptime": "99.8%",
+      "last_ping": "2025-05-22T13:24:58Z",
+      "battery_level": 89,
+      "signal_strength": 95,
+      "temperature": 32.1,
+      "memory_usage": 67,
+      "cpu_usage": 23,
+      "network_latency": 45,
+      "coordinates": [14.537842, 120.982239],
+      "device_type": "barcode_scanner",
+      "firmware_version": "v3.2.1",
+      "alerts": []
+    },
+    {
+      "device_id": "DEVICE-1009", 
+      "device_name": "Robinsons Galleria Kiosk",
+      "location": "Robinsons Galleria - Quezon City",
+      "store_id": "STORE-002",
+      "status": "good",
+      "health_score": 94.2,
+      "uptime": "98.9%",
+      "last_ping": "2025-05-22T13:19:32Z",
+      "battery_level": 72,
+      "signal_strength": 87,
+      "temperature": 34.5,
+      "memory_usage": 78,
+      "cpu_usage": 45,
+      "network_latency": 67,
+      "coordinates": [14.623080, 121.055842],
+      "device_type": "interactive_kiosk",
+      "firmware_version": "v3.1.8",
+      "alerts": [
+        {
+          "type": "warning",
+          "message": "Battery level below 75%",
+          "timestamp": "2025-05-22T12:45:00Z"
+        }
+      ]
+    },
+    {
+      "device_id": "DEVICE-1007",
+      "device_name": "Ayala Cloverleaf Monitor",
+      "location": "Ayala Malls Cloverleaf - Balintawak",
+      "store_id": "STORE-003", 
+      "status": "good",
+      "health_score": 91.8,
+      "uptime": "97.5%",
+      "last_ping": "2025-05-22T13:16:45Z",
+      "battery_level": 58,
+      "signal_strength": 82,
+      "temperature": 36.2,
+      "memory_usage": 82,
+      "cpu_usage": 56,
+      "network_latency": 89,
+      "coordinates": [14.654021, 120.968147],
+      "device_type": "shelf_monitor",
+      "firmware_version": "v3.0.5",
+      "alerts": [
+        {
+          "type": "info",
+          "message": "Scheduled maintenance in 3 days",
+          "timestamp": "2025-05-22T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "device_id": "DEVICE-1002",
+      "device_name": "Gateway Mall Counter",
+      "location": "Gateway Mall - Cubao",
+      "store_id": "STORE-004",
+      "status": "warning",
+      "health_score": 87.3,
+      "uptime": "95.2%",
+      "last_ping": "2025-05-22T13:09:12Z",
+      "battery_level": 34,
+      "signal_strength": 65,
+      "temperature": 39.8,
+      "memory_usage": 89,
+      "cpu_usage": 78,
+      "network_latency": 156,
+      "coordinates": [14.625386, 121.056042],
+      "device_type": "pos_terminal",
+      "firmware_version": "v2.9.3",
+      "alerts": [
+        {
+          "type": "warning",
+          "message": "Low battery - charge recommended",
+          "timestamp": "2025-05-22T11:30:00Z"
+        },
+        {
+          "type": "warning", 
+          "message": "High temperature detected",
+          "timestamp": "2025-05-22T12:15:00Z"
+        }
+      ]
+    },
+    {
+      "device_id": "DEVICE-1004",
+      "device_name": "Trinoma Scanner Hub",
+      "location": "Trinoma Mall - Quezon City",
+      "store_id": "STORE-005",
+      "status": "good",
+      "health_score": 93.7,
+      "uptime": "98.1%",
+      "last_ping": "2025-05-22T13:21:08Z",
+      "battery_level": 81,
+      "signal_strength": 92,
+      "temperature": 31.4,
+      "memory_usage": 71,
+      "cpu_usage": 34,
+      "network_latency": 52,
+      "coordinates": [14.652936, 121.010661],
+      "device_type": "multi_scanner",
+      "firmware_version": "v3.2.0",
+      "alerts": []
+    },
+    {
+      "device_id": "DEVICE-1012",
+      "device_name": "Megamall Display Unit",
+      "location": "SM Megamall - Mandaluyong",
+      "store_id": "STORE-006",
+      "status": "excellent",
+      "health_score": 97.1,
+      "uptime": "99.5%",
+      "last_ping": "2025-05-22T13:24:45Z",
+      "battery_level": 94,
+      "signal_strength": 98,
+      "temperature": 30.8,
+      "memory_usage": 59,
+      "cpu_usage": 18,
+      "network_latency": 38,
+      "coordinates": [14.585239, 121.056755],
+      "device_type": "digital_display",
+      "firmware_version": "v3.2.2",
+      "alerts": []
+    },
+    {
+      "device_id": "DEVICE-1015",
+      "device_name": "Greenhills Tracker",
+      "location": "Greenhills Shopping Center - San Juan",
+      "store_id": "STORE-007",
+      "status": "warning",
+      "health_score": 85.6,
+      "uptime": "94.3%",
+      "last_ping": "2025-05-22T13:05:22Z",
+      "battery_level": 28,
+      "signal_strength": 58,
+      "temperature": 42.1,
+      "memory_usage": 94,
+      "cpu_usage": 89,
+      "network_latency": 234,
+      "coordinates": [14.602036, 121.050339],
+      "device_type": "inventory_tracker",
+      "firmware_version": "v2.8.7",
+      "alerts": [
+        {
+          "type": "critical",
+          "message": "Critical battery level - immediate attention required",
+          "timestamp": "2025-05-22T12:00:00Z"
+        },
+        {
+          "type": "warning",
+          "message": "High memory usage affecting performance",
+          "timestamp": "2025-05-22T11:45:00Z"
+        }
+      ]
+    },
+    {
+      "device_id": "DEVICE-1018",
+      "device_name": "Eastwood Sensor Array",
+      "location": "Eastwood Mall - Quezon City",
+      "store_id": "STORE-008",
+      "status": "critical",
+      "health_score": 76.4,
+      "uptime": "89.7%",
+      "last_ping": "2025-05-22T12:47:18Z",
+      "battery_level": 15,
+      "signal_strength": 34,
+      "temperature": 48.6,
+      "memory_usage": 97,
+      "cpu_usage": 95,
+      "network_latency": 456,
+      "coordinates": [14.609542, 121.077283],
+      "device_type": "sensor_array",
+      "firmware_version": "v2.7.1",
+      "alerts": [
+        {
+          "type": "critical",
+          "message": "Device overheating - shutdown imminent",
+          "timestamp": "2025-05-22T12:30:00Z"
+        },
+        {
+          "type": "critical",
+          "message": "Network connectivity issues",
+          "timestamp": "2025-05-22T12:15:00Z"
+        },
+        {
+          "type": "critical",
+          "message": "Battery critical - 15% remaining",
+          "timestamp": "2025-05-22T11:00:00Z"
+        }
+      ]
+    }
+  ],
+  "performance_metrics": {
+    "response_time_distribution": {
+      "excellent": 5,
+      "good": 2,
+      "fair": 1,
+      "poor": 0
+    },
+    "uptime_distribution": {
+      "99_plus": 3,
+      "95_to_99": 4,
+      "90_to_95": 1,
+      "below_90": 0
+    },
+    "battery_distribution": {
+      "80_plus": 3,
+      "60_to_80": 2,
+      "40_to_60": 1,
+      "20_to_40": 2,
+      "below_20": 0
+    },
+    "trending": {
+      "health_score_trend": "+2.3%",
+      "uptime_trend": "+1.1%",
+      "response_time_trend": "-8.7%"
+    }
+  },
+  "box_whisker_data": {
+    "health_scores": {
+      "min": 76.4,
+      "q1": 85.6,
+      "median": 91.8,
+      "q3": 94.2,
+      "max": 98.5,
+      "mean": 90.5,
+      "outliers": []
+    },
+    "uptime_percentages": {
+      "min": 89.7,
+      "q1": 94.3,
+      "median": 97.5,
+      "q3": 98.9,
+      "max": 99.8,
+      "mean": 96.6,
+      "outliers": [89.7]
+    },
+    "response_times": {
+      "min": 38,
+      "q1": 45,
+      "median": 67,
+      "q3": 156,
+      "max": 456,
+      "mean": 132,
+      "outliers": [456]
+    }
+  }
+}

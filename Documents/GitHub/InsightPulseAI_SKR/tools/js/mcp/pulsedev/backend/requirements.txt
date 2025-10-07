@@ -1,0 +1,7 @@
+fastapi>=0.95.1
+uvicorn>=0.22.0
+websockets>=11.0.2
+aiofiles>=23.1.0
+python-multipart>=0.0.6
+docker>=6.0.1
+pydantic>=1.10.7

@@ -1,0 +1,42 @@
+trigger:
+  branches:
+    include: [ main ]
+
+variables:
+  imageName: client360audit
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildAndPush
+        pool: 
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: DockerInstaller@0
+            inputs: { dockerVersion: '19.03.12' }
+          - script: |
+              docker login $(ACR_LOGIN_SERVER) -u $(ACR_USERNAME) -p $(ACR_PASSWORD)
+              docker build -t $(ACR_LOGIN_SERVER)/$(imageName):$(Build.BuildId) .
+              docker push $(ACR_LOGIN_SERVER)/$(imageName):$(Build.BuildId)
+            displayName: Build and push Docker image
+  - stage: Deploy
+    dependsOn: Build
+    jobs:
+      - job: DeployWebApp
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'Your-Service-Connection'
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                az webapp config container set \
+                  --name app-client360-audit \
+                  --resource-group rg-client360-audit \
+                  --docker-custom-image-name $(ACR_LOGIN_SERVER)/$(imageName):$(Build.BuildId) \
+                  --docker-registry-server-url https://$(ACR_LOGIN_SERVER) \
+                  --docker-registry-server-user $(ACR_USERNAME) \
+                  --docker-registry-server-password $(ACR_PASSWORD)
+            displayName: Deploy to Web App

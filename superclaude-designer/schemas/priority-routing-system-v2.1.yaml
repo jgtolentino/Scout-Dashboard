@@ -1,0 +1,544 @@
+# Priority Routing System v2.1
+# SuperClaude Designer Task Prioritization
+# Implements spec-kit Article IV: Incremental Delivery (P1 before P2/P3)
+
+---
+version: "2.1.0"
+updated: "2025-10-07T21:20:00Z"
+title: "Priority-Based Task Routing System"
+description: |
+  Three-tier priority routing system: P1 (MVP critical), P2 (enhancements), P3 (nice-to-have).
+  Enables incremental delivery and optimal resource allocation.
+
+  Constitutional Compliance:
+  - Article IV: Incremental Delivery (P1 features before P2/P3)
+  - Article V: Independent Testability (each priority level standalone testable)
+
+# ============================================================================
+# PRIORITY LEVEL DEFINITIONS
+# ============================================================================
+
+priority_levels:
+
+  P1_critical:
+    name: "Priority 1 - MVP Critical"
+    abbreviation: "P1"
+    description: |
+      Must-have features essential for minimum viable product.
+      Blocks product launch if not delivered.
+      Should be independently testable and deliverable.
+
+    characteristics:
+      - "Core functionality required for primary use case"
+      - "Blocks user from achieving main goal if missing"
+      - "Critical path in user journey"
+      - "High impact, high urgency"
+
+    sla:
+      execution_order: 1
+      resource_priority: "highest"
+      escalation_threshold: 0.5  # Escalate to orchestrator if complexity >0.5
+      parallel_execution: false  # Execute P1 serially to ensure quality
+      validation_strictness: "maximum"  # 100% test coverage, full validation
+
+    examples:
+      frontend:
+        - "User authentication (login/signup)"
+        - "Core navigation (header, footer, routing)"
+        - "Primary content display (data fetching, rendering)"
+        - "Critical form submission (checkout, registration)"
+
+      performance:
+        - "LCP optimization for landing page"
+        - "Initial bundle size reduction to <500KB"
+        - "Eliminate render-blocking resources"
+
+      design:
+        - "Core color tokens (primary, secondary, neutrals)"
+        - "Typography system (headings, body, labels)"
+        - "Spacing scale (consistent margins, paddings)"
+
+      testing:
+        - "Core user journey E2E tests (signup → login → main action)"
+        - "Critical API endpoint tests"
+        - "Authentication flow tests"
+
+  P2_enhancement:
+    name: "Priority 2 - Enhancements"
+    abbreviation: "P2"
+    description: |
+      Important features that enhance UX but aren't blocking.
+      Can be delivered after P1 MVP is complete.
+      Improves product value significantly.
+
+    characteristics:
+      - "Enhances primary use case but not critical"
+      - "Adds convenience or efficiency"
+      - "Secondary features in user journey"
+      - "Medium impact, medium urgency"
+
+    sla:
+      execution_order: 2
+      resource_priority: "normal"
+      escalation_threshold: 0.7  # Less aggressive escalation
+      parallel_execution: true  # Can execute P2 in parallel after P1
+      validation_strictness: "standard"  # 95% test coverage, standard validation
+
+    examples:
+      frontend:
+        - "Advanced search and filtering"
+        - "User profile customization"
+        - "Notifications and alerts"
+        - "Keyboard shortcuts"
+
+      performance:
+        - "Image lazy loading for below-fold content"
+        - "Code splitting for non-critical routes"
+        - "Prefetching for likely next pages"
+
+      design:
+        - "Extended color palette (accents, semantic colors)"
+        - "Icon library integration"
+        - "Animation and transition tokens"
+
+      testing:
+        - "Edge case testing for core flows"
+        - "Accessibility testing for key components"
+        - "Visual regression tests"
+
+  P3_nice_to_have:
+    name: "Priority 3 - Nice to Have"
+    abbreviation: "P3"
+    description: |
+      Optional features that add polish but can be deferred.
+      Lowest priority, delivered only after P1 and P2 complete.
+      Often experimental or cutting-edge features.
+
+    characteristics:
+      - "Optional features, not expected in MVP"
+      - "Adds delight but not functionality"
+      - "Tertiary features, rarely used"
+      - "Low impact, low urgency"
+
+    sla:
+      execution_order: 3
+      resource_priority: "low"
+      escalation_threshold: 0.9  # Rarely escalate P3 tasks
+      parallel_execution: true  # Can execute P3 in parallel, lowest priority
+      validation_strictness: "minimal"  # 80% test coverage, basic validation
+
+    examples:
+      frontend:
+        - "Dark mode support"
+        - "Advanced themes and customization"
+        - "Easter eggs and hidden features"
+        - "Experimental UI patterns"
+
+      performance:
+        - "HTTP/3 support"
+        - "Service worker caching for offline support"
+        - "Predictive prefetching with ML"
+
+      design:
+        - "Custom font loading strategies"
+        - "Advanced animation libraries"
+        - "Experimental design patterns"
+
+      testing:
+        - "Cross-browser compatibility (older browsers)"
+        - "Load testing for extreme scenarios"
+        - "Chaos engineering experiments"
+
+# ============================================================================
+# PRIORITY ROUTING ALGORITHM
+# ============================================================================
+
+routing_algorithm:
+
+  input:
+    - task_description: "Natural language task description"
+    - user_context: "User role, urgency signals, explicit priority"
+    - system_state: "Current agent load, available resources"
+
+  classification_logic:
+
+    step_1_keyword_matching:
+      description: "Scan task description for priority indicators"
+      p1_keywords:
+        - "must have"
+        - "critical"
+        - "blocking"
+        - "core"
+        - "essential"
+        - "required"
+        - "urgent"
+        - "mvp"
+      p2_keywords:
+        - "should have"
+        - "important"
+        - "enhance"
+        - "improve"
+        - "convenient"
+        - "valuable"
+      p3_keywords:
+        - "could have"
+        - "nice to have"
+        - "optional"
+        - "polish"
+        - "experimental"
+        - "future"
+        - "maybe"
+      scoring:
+        - "Count keyword matches per priority level"
+        - "Assign preliminary priority based on highest match count"
+
+    step_2_impact_assessment:
+      description: "Evaluate task impact on user value and product"
+      criteria:
+        blocks_primary_use_case:
+          weight: 0.40
+          p1_score: 1.0
+          p2_score: 0.3
+          p3_score: 0.0
+        affects_critical_path:
+          weight: 0.30
+          p1_score: 1.0
+          p2_score: 0.5
+          p3_score: 0.0
+        user_value_delta:
+          weight: 0.20
+          p1_score: 1.0
+          p2_score: 0.7
+          p3_score: 0.3
+        business_priority:
+          weight: 0.10
+          p1_score: 1.0
+          p2_score: 0.6
+          p3_score: 0.2
+      composite_score: |
+        impact_score = Σ (criterion_score × weight)
+      thresholds:
+        p1: impact_score >= 0.80
+        p2: 0.50 <= impact_score < 0.80
+        p3: impact_score < 0.50
+
+    step_3_user_override:
+      description: "Allow explicit user priority specification"
+      flags:
+        - "--p1 or --critical: Force P1 priority"
+        - "--p2 or --enhancement: Force P2 priority"
+        - "--p3 or --optional: Force P3 priority"
+      precedence: "User-specified priority overrides algorithmic classification"
+
+    step_4_final_assignment:
+      description: "Assign final priority based on weighted inputs"
+      formula: |
+        priority = user_override ?? (keyword_match_priority || impact_assessment_priority)
+      default: "P1 if ambiguous (conservative approach)"
+
+  output:
+    - priority_level: "P1, P2, or P3"
+    - confidence_score: "0.0-1.0 confidence in assignment"
+    - routing_recommendation: "Which agent(s) and when to execute"
+    - execution_strategy: "Serial vs parallel, resource allocation"
+
+# ============================================================================
+# EXECUTION STRATEGIES BY PRIORITY
+# ============================================================================
+
+execution_strategies:
+
+  P1_serial_execution:
+    description: "Execute P1 tasks sequentially with maximum resources"
+    workflow:
+      - "Queue all P1 tasks in priority order"
+      - "Execute one P1 task at a time (no parallelization)"
+      - "Allocate 80% of available resources to current P1 task"
+      - "Complete validation before proceeding to next P1 task"
+      - "Only start P2 tasks after ALL P1 tasks complete"
+
+    rationale: |
+      Serial execution for P1 ensures:
+      - Maximum focus and quality on MVP-critical features
+      - No resource contention between P1 tasks
+      - Clear validation checkpoints before proceeding
+      - Reduced risk of cascading failures
+
+    resource_allocation:
+      cpu: "80%"
+      memory: "80%"
+      agent_workers: "Primary agents only"
+      validation: "Full validation suite"
+
+  P2_parallel_execution:
+    description: "Execute P2 tasks in parallel after P1 complete"
+    workflow:
+      - "Queue all P2 tasks (no strict order)"
+      - "Execute up to 3 P2 tasks in parallel"
+      - "Allocate 60% of available resources across P2 tasks"
+      - "Complete validation for each P2 task independently"
+      - "Start P3 tasks only after P1+P2 both complete"
+
+    rationale: |
+      Parallel execution for P2 because:
+      - P2 tasks are often independent enhancements
+      - Faster overall delivery through parallelization
+      - Resource utilization optimization
+      - Lower risk tolerance acceptable for enhancements
+
+    resource_allocation:
+      cpu: "60%"
+      memory: "60%"
+      agent_workers: "Primary + secondary agents"
+      validation: "Standard validation suite"
+
+  P3_opportunistic_execution:
+    description: "Execute P3 tasks opportunistically with spare resources"
+    workflow:
+      - "Queue all P3 tasks (lowest priority)"
+      - "Execute P3 tasks only when idle resources available"
+      - "Can interrupt P3 tasks if P1/P2 tasks arrive"
+      - "Minimal validation, best-effort delivery"
+
+    rationale: |
+      Opportunistic execution for P3 because:
+      - P3 tasks are optional, not time-critical
+      - Should not consume resources needed for P1/P2
+      - Experimental features acceptable to interrupt
+      - Best-effort quality acceptable
+
+    resource_allocation:
+      cpu: "20%"
+      memory: "20%"
+      agent_workers: "Background agents only"
+      validation: "Minimal validation suite"
+
+# ============================================================================
+# ESCALATION THRESHOLDS
+# ============================================================================
+
+escalation:
+
+  description: |
+    When task complexity exceeds threshold, escalate to orchestrator agent
+    for multi-agent coordination or wave-based execution.
+
+  thresholds_by_priority:
+    P1: 0.5  # P1 tasks escalate quickly (complexity >0.5)
+    P2: 0.7  # P2 tasks escalate moderately (complexity >0.7)
+    P3: 0.9  # P3 tasks rarely escalate (complexity >0.9)
+
+  complexity_calculation:
+    factors:
+      file_count:
+        weight: 0.25
+        formula: "min(file_count / 50, 1.0)"
+      line_count:
+        weight: 0.20
+        formula: "min(line_count / 5000, 1.0)"
+      dependencies:
+        weight: 0.20
+        formula: "min(dependencies / 20, 1.0)"
+      operation_types:
+        weight: 0.20
+        formula: "min(operation_types / 5, 1.0)"
+      domain_count:
+        weight: 0.15
+        formula: "min(domain_count / 4, 1.0)"
+    composite: |
+      complexity = Σ (factor_score × weight)
+
+  escalation_actions:
+    - condition: "complexity > threshold AND priority == P1"
+      action: "Escalate to orchestrator immediately"
+      strategy: "Wave-based execution with validation gates"
+
+    - condition: "complexity > threshold AND priority == P2"
+      action: "Escalate to orchestrator if resources available"
+      strategy: "Parallel multi-agent execution"
+
+    - condition: "complexity > threshold AND priority == P3"
+      action: "Queue for future orchestrator execution"
+      strategy: "Best-effort batched execution"
+
+# ============================================================================
+# VALIDATION STRICTNESS BY PRIORITY
+# ============================================================================
+
+validation_strictness:
+
+  P1_maximum_validation:
+    test_coverage_required: 1.00  # 100% coverage for P1
+    validation_score_required: 0.995  # 99.5% minimum
+    manual_review: true  # Require manual code review
+    acceptance_criteria: "All Given-When-Then scenarios pass"
+    evidence_requirements:
+      - "100% unit test coverage"
+      - "100% integration test coverage for critical paths"
+      - "E2E tests for primary user journey"
+      - "Performance benchmarks meet targets"
+      - "Security audit passed"
+      - "Accessibility audit passed (WCAG 2.1 AA)"
+
+  P2_standard_validation:
+    test_coverage_required: 0.95  # 95% coverage for P2
+    validation_score_required: 0.950  # 95% minimum
+    manual_review: false  # Automated review acceptable
+    acceptance_criteria: "Primary scenarios pass, edge cases documented"
+    evidence_requirements:
+      - "95% unit test coverage"
+      - "90% integration test coverage"
+      - "Key E2E scenarios tested"
+      - "Performance regression check passed"
+
+  P3_minimal_validation:
+    test_coverage_required: 0.80  # 80% coverage for P3
+    validation_score_required: 0.850  # 85% minimum
+    manual_review: false  # No manual review
+    acceptance_criteria: "Basic functionality works, known issues documented"
+    evidence_requirements:
+      - "80% unit test coverage"
+      - "Basic smoke tests pass"
+      - "No critical bugs detected"
+
+# ============================================================================
+# PRIORITY ROUTING EXAMPLES
+# ============================================================================
+
+examples:
+
+  example_1_p1_authentication:
+    task: "Implement user login and signup flow"
+    analysis:
+      keywords: ["core", "essential", "authentication"]
+      impact_score: 0.95  # Blocks primary use case
+      user_override: null
+    result:
+      priority: "P1"
+      confidence: 0.98
+      execution_strategy: "Serial execution, maximum resources"
+      escalation: false  # Simple enough, no escalation needed
+      validation: "100% coverage, full validation suite"
+
+  example_2_p2_search:
+    task: "Add advanced search with filters and sorting"
+    analysis:
+      keywords: ["enhance", "improve", "advanced"]
+      impact_score: 0.65  # Valuable but not blocking
+      user_override: null
+    result:
+      priority: "P2"
+      confidence: 0.85
+      execution_strategy: "Parallel execution after P1"
+      escalation: true  # Complex, escalate to orchestrator (complexity 0.75)
+      validation: "95% coverage, standard validation"
+
+  example_3_p3_dark_mode:
+    task: "Implement dark mode theme support"
+    analysis:
+      keywords: ["nice to have", "polish", "optional"]
+      impact_score: 0.25  # Low impact, optional
+      user_override: null
+    result:
+      priority: "P3"
+      confidence: 0.92
+      execution_strategy: "Opportunistic execution"
+      escalation: false  # Not worth escalating P3 task
+      validation: "80% coverage, minimal validation"
+
+  example_4_user_override:
+    task: "Add keyboard shortcuts for power users"
+    analysis:
+      keywords: ["enhance", "improve"]
+      impact_score: 0.45  # Would be P3
+      user_override: "P2"  # User explicitly specified --p2
+    result:
+      priority: "P2"  # User override wins
+      confidence: 1.00  # Explicit user input = 100% confidence
+      execution_strategy: "Parallel execution after P1"
+      escalation: false
+      validation: "95% coverage, standard validation"
+
+# ============================================================================
+# INTEGRATION WITH SCHEMA v2.1
+# ============================================================================
+
+schema_integration:
+
+  agent_configuration:
+    yaml_structure: |
+      task_routing:
+        priority_levels: [P1, P2, P3]
+        default_priority: P1
+        escalation_threshold: 0.8
+
+    behavior:
+      - "Agent automatically classifies tasks using routing algorithm"
+      - "Defaults to P1 if classification uncertain (conservative)"
+      - "Escalates to orchestrator when complexity > threshold"
+      - "Applies appropriate validation strictness per priority"
+
+  orchestrator_coordination:
+    workflow:
+      - "Orchestrator receives all tasks from agents"
+      - "Re-classifies priorities at system level"
+      - "Coordinates P1 serial execution across all agents"
+      - "Enables P2 parallel execution after P1 complete"
+      - "Schedules P3 opportunistically with spare resources"
+
+# ============================================================================
+# CLI FLAGS AND API
+# ============================================================================
+
+cli_flags:
+
+  priority_specification:
+    - "--p1, --critical: Force P1 priority"
+    - "--p2, --enhancement: Force P2 priority"
+    - "--p3, --optional: Force P3 priority"
+    - "--priority=<P1|P2|P3>: Explicit priority assignment"
+
+  execution_control:
+    - "--serial: Force serial execution (no parallelization)"
+    - "--parallel: Allow parallel execution for all priorities"
+    - "--escalate: Force escalation to orchestrator"
+    - "--no-escalate: Prevent escalation even if complex"
+
+  validation_control:
+    - "--strict: Apply P1 validation to all tasks"
+    - "--fast: Apply P3 validation to all tasks (use cautiously)"
+    - "--coverage=<percentage>: Override test coverage requirement"
+
+  examples:
+    - "claude-code /implement user-authentication --p1"
+    - "claude-code /enhance search-filters --p2 --parallel"
+    - "claude-code /add dark-mode --p3 --fast"
+
+# ============================================================================
+# MONITORING AND METRICS
+# ============================================================================
+
+monitoring:
+
+  metrics_to_track:
+    - "P1 completion rate (target: 100%)"
+    - "P1 average execution time (baseline for comparison)"
+    - "P2 completion rate after P1 (target: 95%)"
+    - "P3 completion rate (best-effort, no target)"
+    - "Priority misclassification rate (target: <5%)"
+    - "Escalation rate by priority (P1: 30%, P2: 15%, P3: 5%)"
+
+  dashboards:
+    - "Task queue visualization (P1/P2/P3 breakdown)"
+    - "Execution timeline (Gantt chart showing P1 serial → P2 parallel → P3 opportunistic)"
+    - "Resource utilization by priority (CPU/memory allocation)"
+    - "Validation score distribution per priority"
+
+  alerts:
+    - "P1 task failing validation (immediate alert)"
+    - "P2 task delayed >24h after P1 complete (warning)"
+    - "Priority misclassification detected (info)"
+
+# ============================================================================
+# END OF PRIORITY ROUTING SYSTEM
+# ============================================================================

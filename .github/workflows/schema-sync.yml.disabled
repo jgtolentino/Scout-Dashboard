@@ -1,0 +1,5 @@
+# DISABLED: This workflow is disabled because it's designed for Next.js App Router
+# but this project uses a different structure.
+# 
+# To re-enable, rename this file back to schema-sync.yml and update the paths
+# to match your project structure.

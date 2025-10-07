@@ -1,0 +1,27 @@
+{
+  "navigationFallback": {
+    "rewrite": "index.html",
+    "exclude": [
+      "*.{js,css,json,png,jpg,svg}",
+      "assets/*"
+    ]
+  },
+  "routes": [
+    {
+      "route": "/insights_dashboard.html",
+      "serve": "/insights_dashboard.html"
+    },
+    {
+      "route": "/",
+      "serve": "/insights_dashboard.html"
+    }
+  ],
+  "globalHeaders": {
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".html": "text/html",
+    ".js": "text/javascript"
+  }
+}

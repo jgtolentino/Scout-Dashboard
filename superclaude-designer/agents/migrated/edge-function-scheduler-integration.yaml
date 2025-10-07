@@ -1,0 +1,42 @@
+agent:
+  name: edge-function-scheduler-integration
+  version: 1.0.0
+  description: Edge function
+  type: edge_function
+  department: infrastructure
+  capabilities:
+  - database_operations
+  - api_endpoint
+  - webhook_handler
+  - external_api_integration
+  tools:
+  - mcp__supabase__execute_sql
+  - WebFetch
+  keywords:
+  - edge-function
+  - serverless
+  - api
+  - scheduler-integration
+  - database-operations
+  - api-endpoint
+  - webhook-handler
+  - external-api-integration
+  permissions:
+    allow_shell: false
+    allow_network: true
+    allow_credentials: true
+  config:
+    model: edge-runtime
+    temperature: 0
+    max_tokens: 0
+    timeout: 30000
+    memory: 512
+  deployment:
+    type: supabase_edge_function
+    function_name: scheduler-integration
+    endpoint: /functions/v1/scheduler-integration
+  runtime: deno
+  triggers:
+    http: true
+    cron: false
+    webhook: false

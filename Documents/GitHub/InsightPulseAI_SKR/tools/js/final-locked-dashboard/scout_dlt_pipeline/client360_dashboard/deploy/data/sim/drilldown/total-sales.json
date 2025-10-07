@@ -1,0 +1,70 @@
+{
+  "title": "Total Sales",
+  "summary": {
+    "value": "₱12.4M",
+    "label": "Total Sales (30 days)",
+    "trend": "+8.5%",
+    "trendDirection": "positive"
+  },
+  "breakdown": [
+    {
+      "category": "NCR",
+      "value": "₱5.2M",
+      "percentage": "41.9",
+      "change": "+12.3%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Visayas",
+      "value": "₱3.8M",
+      "percentage": "30.6",
+      "change": "+6.1%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Mindanao",
+      "value": "₱2.1M",
+      "percentage": "16.9",
+      "change": "+4.2%",
+      "changeDirection": "positive"
+    },
+    {
+      "category": "Other Regions",
+      "value": "₱1.3M",
+      "percentage": "10.5",
+      "change": "-2.1%",
+      "changeDirection": "negative"
+    }
+  ],
+  "trends": {
+    "data": [
+      {"date": "2024-04-01", "value": 11200000},
+      {"date": "2024-04-08", "value": 11800000},
+      {"date": "2024-04-15", "value": 12100000},
+      {"date": "2024-04-22", "value": 12400000},
+      {"date": "2024-04-29", "value": 12400000}
+    ],
+    "insights": [
+      "Sales growth accelerated in the second week of April (+5.4%)",
+      "NCR region showing strongest performance with consistent double-digit growth",
+      "Weekend sales account for 35% of total weekly revenue",
+      "Promotional campaigns in Visayas yielding positive ROI"
+    ]
+  },
+  "details": {
+    "topPerformers": [
+      {"name": "SM Mall of Asia", "value": "₱485K"},
+      {"name": "Ayala Center Cebu", "value": "₱392K"},
+      {"name": "Gateway Mall", "value": "₱365K"},
+      {"name": "Robinsons Galleria", "value": "₱341K"},
+      {"name": "UP Town Center", "value": "₱298K"}
+    ],
+    "recentActivity": [
+      {"time": "2 hours ago", "description": "Large order processed at SM North EDSA (₱45K)"},
+      {"time": "4 hours ago", "description": "Promotional campaign launched in Cebu region"},
+      {"time": "6 hours ago", "description": "New store opened in Davao City"},
+      {"time": "1 day ago", "description": "Weekly inventory replenishment completed"},
+      {"time": "2 days ago", "description": "Monthly sales target achieved (102%)"}
+    ]
+  }
+}

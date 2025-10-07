@@ -1,0 +1,180 @@
+name: AppGenie CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test AppGenie
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+        
+      - name: Run unit tests
+        run: npm run test:unit
+      
+      - name: Run agent validation tests
+        run: bash ./test_agents.sh integration "Build a todo list app"
+      
+      - name: Run API tests
+        run: bash ./test_api.sh flow "Build a task manager" default web iphone pwa
+
+  build:
+    name: Build AppGenie
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: dist
+
+  deploy-dev:
+    name: Deploy to Development
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: dist
+      
+      - name: Set up Firebase CLI
+        run: npm install -g firebase-tools
+      
+      - name: Deploy to Firebase (Dev)
+        run: firebase deploy --only hosting:dev
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+  deploy-prod:
+    name: Deploy to Production
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: dist
+      
+      - name: Set up Firebase CLI
+        run: npm install -g firebase-tools
+      
+      - name: Deploy to Firebase (Production)
+        run: firebase deploy --only hosting:prod
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      
+      - name: Generate deployment summary
+        run: |
+          echo "## AppGenie Deployment Summary" > deployment_summary.md
+          echo "Deployed version: $(cat package.json | jq -r .version)" >> deployment_summary.md
+          echo "Deployment timestamp: $(date -u)" >> deployment_summary.md
+          echo "Deployment URL: https://appgenie.example.com" >> deployment_summary.md
+      
+      - name: Comment on PR with deployment summary
+        uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = fs.readFileSync('deployment_summary.md', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });
+
+  generate-qr-codes:
+    name: Generate QR Codes for Testing
+    needs: [deploy-dev, deploy-prod]
+    runs-on: ubuntu-latest
+    if: success() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install qrcode
+        run: pip install qrcode[pil]
+      
+      - name: Generate QR codes
+        run: |
+          python -c "
+          import qrcode
+          import os
+          
+          # Determine URL based on branch
+          base_url = 'https://appgenie-prod.example.com' if '${{ github.ref }}' == 'refs/heads/main' else 'https://appgenie-dev.example.com'
+          
+          # Create QR code for main URL
+          img = qrcode.make(base_url)
+          os.makedirs('qrcodes', exist_ok=True)
+          img.save('qrcodes/appgenie_install.png')
+          
+          # Create QR code for demo app
+          img = qrcode.make(f'{base_url}/apps/demo')
+          img.save('qrcodes/demo_app.png')
+          "
+      
+      - name: Upload QR codes
+        uses: actions/upload-artifact@v3
+        with:
+          name: qr-codes
+          path: qrcodes
+      
+      - name: Notify team
+        run: |
+          echo "QR codes generated for testing"
+          # In a real implementation, this would send a notification to the team
+          # e.g., via Slack, email, etc.

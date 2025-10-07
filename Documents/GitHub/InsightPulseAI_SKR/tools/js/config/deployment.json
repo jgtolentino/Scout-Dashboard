@@ -1,0 +1,90 @@
+{
+  "deployment": {
+    "azure": {
+      "resourceGroup": "retail-advisor",
+      "staticWebApp": {
+        "name": "retail-advisor-dashboard",
+        "sku": "Standard",
+        "location": "East US",
+        "customDomains": ["retailadvisor.insightpulseai.com"]
+      },
+      "cdn": {
+        "enabled": true,
+        "profile": "InsightPulseAI-CDN",
+        "endpoint": "retail-advisor-dashboard"
+      }
+    },
+    "github": {
+      "repository": "InsightPulseAI_SKR",
+      "workflow": "deploy-retail-dashboards.yml",
+      "branch": "main",
+      "outputDirectory": "tools/js/output/visualsynth"
+    },
+    "local": {
+      "outputDirectory": "deploy",
+      "serverCommand": "npm run serve"
+    }
+  },
+  "themes": {
+    "tbwa": {
+      "primaryColor": "#4e79a7",
+      "secondaryColor": "#59a14f",
+      "accentColor": "#f28e2c",
+      "backgroundColor": "#f5f5f5",
+      "fontFamily": "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      "fontSizes": {
+        "small": "12px",
+        "medium": "14px",
+        "large": "16px",
+        "heading": "18px",
+        "title": "24px"
+      }
+    },
+    "retail": {
+      "primaryColor": "#3366cc",
+      "secondaryColor": "#dc3912",
+      "accentColor": "#ff9900",
+      "backgroundColor": "#ffffff",
+      "fontFamily": "'Helvetica Neue', Arial, sans-serif",
+      "fontSizes": {
+        "small": "12px",
+        "medium": "14px",
+        "large": "16px",
+        "heading": "18px",
+        "title": "24px"
+      }
+    }
+  },
+  "templates": {
+    "retail": {
+      "layout": "grid",
+      "components": ["kpi-cards", "bar-chart", "table", "line-chart"],
+      "defaultFilters": ["date-range", "region", "store"]
+    },
+    "executive": {
+      "layout": "dashboard",
+      "components": ["summary-cards", "trend-charts", "geo-map"],
+      "defaultFilters": ["date-range", "business-unit"]
+    },
+    "operations": {
+      "layout": "tabbed",
+      "components": ["status-indicators", "performance-charts", "alerts-table"],
+      "defaultFilters": ["date-range", "system", "severity"]
+    }
+  },
+  "qa": {
+    "thresholds": {
+      "visual_diff": 0.05,
+      "performance_score": 90,
+      "accessibility_level": "AA",
+      "load_time_ms": 1000
+    },
+    "baseline_path": "./qa/baselines/",
+    "test_devices": [
+      {"name": "Mobile", "width": 360, "height": 640},
+      {"name": "Tablet", "width": 768, "height": 1024},
+      {"name": "Desktop", "width": 1366, "height": 768},
+      {"name": "Large Desktop", "width": 1920, "height": 1080}
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+name: Nightly Pivots Build
+
+on:
+  schedule:
+    - cron: "33 18 * * *"   # 18:33 UTC nightly
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install xlsxwriter pandas
+
+      - name: Install bc
+        run: sudo apt-get update && sudo apt-get install -y bc
+
+      - name: DB ENV
+        run: |
+          echo "DB=${{ secrets.SCOUT_PROD_DB_NAME }}" >> $GITHUB_ENV
+        # Expect your sql.sh to source creds from your vault/mechanism
+
+      - name: Build Nielsen Pivots
+        env:
+          DB: ${{ env.DB }}
+          MIN_PROD: 90
+          MIN_LINE: 85
+        run: |
+          make pivots-ci DB="$DB" MIN_PROD="$MIN_PROD" MIN_LINE="$MIN_LINE"
+          ls -lh out/pivots || true
+          ls -lh out/Scout_Pivots_Nielsen.xlsx || true
+
+      - name: Upload CSVs
+        uses: actions/upload-artifact@v4
+        with:
+          name: pivots-csv
+          path: out/pivots/*.csv
+          if-no-files-found: warn
+
+      - name: Upload Workbook
+        uses: actions/upload-artifact@v4
+        with:
+          name: Scout_Pivots_Nielsen.xlsx
+          path: out/Scout_Pivots_Nielsen.xlsx
+          if-no-files-found: error

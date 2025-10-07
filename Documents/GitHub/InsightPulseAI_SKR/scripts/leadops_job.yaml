@@ -1,0 +1,102 @@
+# LeadOps Job Configuration
+name: LeadOps v1
+version: 1.0.0
+description: Multi-phase system routine for lead generation and operations management
+author: Pulser Shell
+created_at: "2025-04-30"
+
+# Task Configuration
+task:
+  id: leadops_v1
+  type: multi_phase_workflow
+  status: active
+  
+# Phase Configuration
+phases:
+  - name: "Initialization"
+    id: phase_init
+    description: "Set up the lead generation environment and define target parameters"
+    required: true
+    outputs:
+      - target_industries
+      - customer_profiles
+      - success_metrics
+  
+  - name: "Discovery"
+    id: phase_discovery
+    description: "Research and identify potential leads based on parameters"
+    depends_on: [phase_init]
+    required: true
+    outputs:
+      - lead_candidates
+      - market_analysis
+      - competitor_data
+  
+  - name: "Qualification"
+    id: phase_qualification
+    description: "Evaluate lead quality and prioritize based on criteria"
+    depends_on: [phase_discovery]
+    required: true
+    outputs:
+      - qualified_leads
+      - lead_scores
+      - opportunity_assessment
+  
+  - name: "Engagement"
+    id: phase_engagement
+    description: "Develop personalized outreach strategies for qualified leads"
+    depends_on: [phase_qualification]
+    required: true
+    outputs:
+      - engagement_plans
+      - communication_templates
+      - tracking_metrics
+  
+  - name: "Analysis"
+    id: phase_analysis
+    description: "Measure results and optimize strategies"
+    depends_on: [phase_engagement]
+    required: true
+    outputs:
+      - performance_metrics
+      - improvement_recommendations
+      - final_report
+
+# Runtime Configuration
+runtime:
+  model: mistral
+  context_window: 8192
+  max_tokens_per_phase: 4096
+  temperature: 0.7
+  
+# Integration Configuration
+integrations:
+  - type: skr
+    path: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/SKR
+    operations:
+      - read_context
+      - write_results
+  - type: shell
+    path: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/scripts/pulser_shell_enhanced.sh
+    operations:
+      - execute_commands
+      - stream_results
+
+# Output Configuration
+output:
+  format: markdown
+  destination: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/output/leadops_results.md
+  include_metadata: true
+  autosave: true
+  
+# Metadata for Claudia SKR Integration
+metadata:
+  type: workflow
+  category: lead_operations
+  tags:
+    - leadops
+    - multi_phase
+    - workflow
+    - pulser
+    - mistral
+  visibility: internal

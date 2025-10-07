@@ -1,0 +1,74 @@
+[1m[0;34m╔════════════════════════════════════════════════════════════╗[0m
+[1m[0;34m║  Architecture Diagram QA Validator                          ║[0m
+[1m[0;34m╚════════════════════════════════════════════════════════════╝[0m
+
+[0;34mDiagram path: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/diagrams/project_scout_with_genai.drawio[0m
+[0;34mOutput directory: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images[0m
+[0;34mQA results will be saved to: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images/qa_results.txt[0m
+
+[0;33m⚠️ draw.io CLI not found - install for full validation[0m
+[0;32m✅ Diagram file exists[0m
+[0;34mℹ️ Diagram file size:  56K[0m
+[0;34mCopying diagram to architecture_src directory...[0m
+[0;32m✅ Diagram copied to: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/architecture_src/project_scout_with_genai.drawio[0m
+[0;34mPerforming XML validation and analysis...[0m
+[0;34mℹ️ Text elements count: 0[0m
+[0;34mℹ️ Shape elements count: 33[0m
+[0;34mℹ️ Connection elements count: 25[0m
+[0;33m⚠️ Possible unlabeled shapes detected (more shapes than text elements)[0m
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/tools/diagram_qa_validate.sh: line 160: [: 0
+0: integer expression expected
+/Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/tools/diagram_qa_validate.sh: line 160: [: 0
+0: integer expression expected
+[0;33m⚠️ Fewer connections than expected - diagram may be disconnected[0m
+[0;34mRunning visual QA with headless screenshot...[0m
+[1m[0;34m╔════════════════════════════════════════════════════════════╗[0m
+[1m[0;34m║  Shogun Dashboard Screenshot Capture Tool                  ║[0m
+[1m[0;34m╚════════════════════════════════════════════════════════════╝[0m
+
+[0;34mDashboard URL: file:///Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images/diagram_preview.html[0m
+[0;34mOutput file: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/assets/screenshots/retail_dashboard_20250513_020645.png[0m
+[0;32mNode.js is installed, using Puppeteer for screenshot capture[0m
+[0;34mRunning Puppeteer to capture screenshot...[0m
+Launching browser...
+Opening new page...
+Setting viewport size...
+Navigating to dashboard...
+Waiting for dashboard to render fully...
+Taking screenshot...
+Closing browser...
+Screenshot captured successfully!
+[0;32mScreenshot captured successfully: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/assets/screenshots/retail_dashboard_20250513_020645.png[0m
+
+[0;34mScreenshot Details:[0m
+Filename: retail_dashboard_20250513_020645.png
+Path: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/assets/screenshots/retail_dashboard_20250513_020645.png
+Size:  24K
+Dimensions: Unknown (ImageMagick not installed)
+Dashboard URL: file:///Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images/diagram_preview.html
+Timestamp: 2025-05-13 02:06:52
+
+[0;32mDashboard capture process complete![0m
+[0;32m✅ Visual render check successful[0m
+[0;34mVisual QA check completed[0m
+[0;34m----------------------------------------[0m
+[0;32mQA check complete. Results saved to: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images/qa_results.txt[0m
+[0;32mExports saved to: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/tools/js/juicer-stack/docs/images[0m
+
+[0;34mTo update your README with the new diagram, use:[0m
+[0;33m
+![Azure Architecture](docs/images/AZURE_ARCHITECTURE_PRO.png)
+
+*Click for [full-size diagram](docs/images/AZURE_ARCHITECTURE_PRO.png)*
+[0m
+
+[0;34mFor SVG embedding in markdown, use:[0m
+[0;33m
+<img src="docs/images/AZURE_ARCHITECTURE_PRO.svg" alt="Azure Architecture Diagram" width="800">
+[0m
+
+[0;34mDon't forget to manually check:[0m
+1. Typography consistency (Segoe UI or Roboto font)
+2. Proper color-coding for Medallion layers
+3. Logical flow of components
+4. All components are properly labeled

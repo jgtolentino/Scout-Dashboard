@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json.schemastore.org/staticwebapp.config.json",
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*", "/js/*", "/data/*"]
+  },
+  "routes": [
+    {
+      "route": "/api/insights",
+      "methods": ["GET"],
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/api/map",
+      "methods": ["GET"],
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/api/kpi",
+      "methods": ["GET"],
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/api/*",
+      "methods": ["PUT", "POST", "DELETE", "PATCH"],
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/region/*",
+      "rewrite": "/index.html",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/municipality/*",
+      "rewrite": "/index.html",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/barangay/*",
+      "rewrite": "/index.html",
+      "allowedRoles": ["anonymous"]
+    }
+  ],
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
+    }
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".geojson": "application/geo+json",
+    ".parquet": "application/vnd.apache.parquet"
+  },
+  "globalHeaders": {
+    "Cache-Control": "no-cache",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1; mode=block",
+    "X-Content-Type-Options": "nosniff"
+  },
+  "platform": {
+    "apiRuntime": "node:16"
+  },
+  "networking": {
+    "allowedIpRanges": ["any"]
+  }
+}

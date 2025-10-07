@@ -1,0 +1,292 @@
+# Kalaw Knowledge Index - PulseDev MCP Prompts Collection
+# This file contains metadata for Kalaw's knowledge indexing system
+# Generated with Claude Code for SKR integration
+
+metadata:
+  name: "PulseDev MCP Prompts Collection"
+  version: "1.0.0"
+  release_date: "2025-05-14"
+  reference_id: "PULSEDEV-MCP-PROMPTS-20250514"
+  status: "ACTIVE"
+  orchestration_path: "Claudia → Kalaw → MCP → Claude"
+
+classification:
+  primary_category: "AI-Prompt-Engineering"
+  subcategories:
+    - "System Prompts"
+    - "Tool Emulation"
+    - "MCP Integration"
+    - "Agent Behavior"
+    - "Specialized AI"
+  tags:
+    - "mcp"
+    - "claude"
+    - "prompt"
+    - "system-prompt"
+    - "pulsedev"
+    - "cursor"
+    - "replit"
+    - "vscode"
+    - "devin"
+    - "gamma"
+    - "lovable"
+    - "rork"
+    - "same"
+    - "manus"
+    - "windsurf"
+
+components:
+  - name: "cursor/chat_prompt.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/cursor/chat_prompt.mcp.yaml"
+    purpose: "General code assistance in Cursor style"
+    behavior: "Focuses on code writing, debugging, and explanation"
+    aliases:
+      - "code"
+      - "coding"
+      - "programming"
+      - "development"
+    access_level: "public"
+    
+  - name: "replit/command_runner.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/replit/command_runner.mcp.yaml"
+    purpose: "Terminal operations assistant in Replit style"
+    behavior: "Specializes in command suggestions and execution"
+    aliases:
+      - "terminal"
+      - "shell"
+      - "command"
+      - "commands"
+    access_level: "public"
+    
+  - name: "vscode/code_assistant.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/vscode/code_assistant.mcp.yaml"
+    purpose: "Context-aware code assistance in VSCode style"
+    behavior: "Provides IDE-integrated coding help and best practices"
+    aliases:
+      - "editor"
+      - "ide"
+      - "assistant"
+      - "vscode"
+    access_level: "public"
+    
+  - name: "devin/autonomous_developer.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/devin/autonomous_developer.mcp.yaml"
+    purpose: "Autonomous development in Devin style"
+    behavior: "Plans and implements complex projects end-to-end"
+    aliases:
+      - "project"
+      - "autonomous"
+      - "feature"
+      - "implementation"
+    access_level: "beta"
+    
+  - name: "gamma/presentation_creator.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/gamma/presentation_creator.mcp.yaml"
+    purpose: "Slide deck creation in Gamma style"
+    behavior: "Creates presentations with structured content"
+    aliases:
+      - "slides"
+      - "presentation"
+      - "deck"
+      - "pitch"
+    access_level: "public"
+    
+  - name: "rork/component_logic.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/rork/component_logic.mcp.yaml"
+    purpose: "Component-based app design in Rork style"
+    behavior: "Designs UI components and application architecture"
+    aliases:
+      - "component"
+      - "ui"
+      - "components"
+      - "architecture"
+    access_level: "public"
+    
+  - name: "windsurf/tools.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/windsurf/tools.mcp.yaml"
+    purpose: "API and tool orchestration in Windsurf style"
+    behavior: "Integrates external services and automates workflows"
+    aliases:
+      - "api"
+      - "tools"
+      - "integration"
+      - "automation"
+    access_level: "public"
+    
+  - name: "same/collaboration_agent.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/same/collaboration_agent.mcp.yaml"
+    purpose: "Team collaboration in Same.dev style"
+    behavior: "Facilitates technical writing and documentation"
+    aliases:
+      - "docs"
+      - "documentation"
+      - "writing"
+      - "collaboration"
+    access_level: "public"
+    
+  - name: "lovable/ux_designer.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/lovable/ux_designer.mcp.yaml"
+    purpose: "UX and product design in Lovable style"
+    behavior: "Creates user experiences and interface designs"
+    aliases:
+      - "ux"
+      - "design"
+      - "interface"
+      - "product"
+    access_level: "public"
+    
+  - name: "manus/agent_programmer.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/manus/agent_programmer.mcp.yaml"
+    purpose: "Agent behavior programming in Manus style"
+    behavior: "Designs and implements AI agent behaviors"
+    aliases:
+      - "agent"
+      - "behavior"
+      - "ai"
+      - "llm"
+    access_level: "beta"
+    
+  - name: "combined/pulsedev_unified.mcp.yaml"
+    type: "MCP System Prompt"
+    path: "/mcp_prompts/combined/pulsedev_unified.mcp.yaml"
+    purpose: "Unified capabilities from all specialized prompts"
+    behavior: "Combines all specialized capabilities in one prompt"
+    aliases:
+      - "unified"
+      - "combined"
+      - "all"
+      - "general"
+    access_level: "public"
+    
+  - name: "mcp_direct_bridge.py"
+    type: "Service Component"
+    path: "/backend/services/mcp_direct_bridge.py"
+    purpose: "Direct bridge to MCP server for prompt management"
+    behavior: "Handles loading and switching between prompts"
+    
+  - name: "ai_assistant.py"
+    type: "Service Component"
+    path: "/backend/services/ai_assistant.py"
+    purpose: "AI assistant service with prompt specialization"
+    behavior: "Provides prompt-aware AI assistance capabilities"
+    
+  - name: "prompt_switch.sh"
+    type: "CLI Tool"
+    path: "/prompt_switch.sh"
+    purpose: "CLI tool for prompt management"
+    behavior: "Allows switching and managing prompts from command line"
+
+knowledge_index:
+  concepts:
+    - name: "System Prompt"
+      description: "Instructions that guide an AI model's behavior, tone, and capabilities"
+      references:
+        - "mcp_prompts/cursor/chat_prompt.mcp.yaml"
+        - "mcp_prompts/combined/pulsedev_unified.mcp.yaml"
+      
+    - name: "Tool Emulation"
+      description: "Technique for mimicking the behavior of specialized AI tools using prompt engineering"
+      references:
+        - "mcp_prompts/cursor/chat_prompt.mcp.yaml"
+        - "mcp_prompts/replit/command_runner.mcp.yaml"
+        - "mcp_prompts/vscode/code_assistant.mcp.yaml"
+        - "mcp_prompts/devin/autonomous_developer.mcp.yaml"
+      
+    - name: "MCP Architecture"
+      description: "Model Context Protocol architecture for AI agent orchestration"
+      references:
+        - "backend/services/mcp_direct_bridge.py"
+        - "README_CLAUDE_INTEGRATION.md"
+      
+    - name: "Prompt Switching"
+      description: "Dynamic selection of system prompts based on task requirements"
+      references:
+        - "backend/services/ai_assistant.py"
+        - "prompt_switch.sh"
+      
+    - name: "Prompt Dependencies"
+      description: "Required modules or capabilities for a prompt to function properly"
+      references:
+        - "mcp_prompts/cursor/chat_prompt.mcp.yaml"
+        - "mcp_prompts/devin/autonomous_developer.mcp.yaml"
+
+integrations:
+  - system: "Claudia"
+    integration_point: "Orchestration and routing"
+    files:
+      - "claudia_mcp_bridge.py"
+      - "prompt_aliases.sh"
+    
+  - system: "Kalaw"
+    integration_point: "Knowledge indexing and retrieval"
+    files:
+      - "kalaw_mcp_prompts.yaml"
+      - "backend/routes/ai_assistant.py"
+    
+  - system: "MCP"
+    integration_point: "Model Context Protocol bridge"
+    files:
+      - "backend/services/mcp_direct_bridge.py"
+      - "backend/services/ai_assistant.py"
+    
+  - system: "PulseDev"
+    integration_point: "Cloud IDE integration"
+    files:
+      - "README_CLAUDE_INTEGRATION.md"
+      - "backend/routes/ai_assistant.py"
+
+usage_metrics:
+  enable_tracking: true
+  track_fields:
+    - prompt_name
+    - access_level
+    - prompt_source
+    - usage_context
+    - task_type
+    - success_rate
+  analytics_endpoint: "/api/metrics/prompt_usage"
+  storage_location: "SKR/metrics/prompt_usage/"
+
+search_keywords:
+  - "prompt"
+  - "mcp"
+  - "claude"
+  - "system prompt"
+  - "cursor"
+  - "replit"
+  - "vscode"
+  - "devin"
+  - "gamma"
+  - "same.dev"
+  - "rork"
+  - "windsurf"
+  - "lovable"
+  - "manus"
+  - "ai"
+  - "llm"
+  - "coding"
+  - "assistant"
+  - "development"
+  - "programming"
+  - "ai tools"
+  - "emulation"
+
+retrieval_examples:
+  - query: "What specialized AI coding behaviors are available in PulseDev?"
+    suggested_response: "PulseDev offers multiple specialized AI behaviors including Cursor-style code writing, Replit-style terminal operations, VSCode-style IDE assistance, Devin-style autonomous development, and more. Use `plist` command to see all available options, or specify the behavior in your query like 'Use Cursor-style to help me debug this code'."
+  
+  - query: "How do I switch to presentation creation mode?"
+    suggested_response: "You can switch to presentation creation mode (Gamma-style) using the command `:pslides` or by running `./prompt_switch.sh switch gamma/presentation_creator`. You can also request it in natural language by saying 'Use Gamma-style to create a presentation on [topic]'."
+  
+  - query: "What MCP prompts would be best for creating UI components?"
+    suggested_response: "For UI component creation, PulseDev offers two specialized MCP prompts: 'rork/component_logic.mcp.yaml' for component architecture and logic, and 'lovable/ux_designer.mcp.yaml' for user experience and interface design. Use `pcomp` for component architecture or `pux` for UX design focus."

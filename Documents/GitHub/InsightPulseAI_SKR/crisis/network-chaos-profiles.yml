@@ -1,0 +1,236 @@
+# Extreme Chaos Network Profiles
+# RED2025 Emergency Protocol - Phase 2.5
+#
+# Configuration file for network degradation testing using chaos engineering.
+# These profiles intentionally create extremely challenging network conditions
+# to ensure the application remains usable even in worst-case scenarios.
+
+version: "2025.3"
+
+# Global settings
+global:
+  enable_recovery_tracking: true
+  metrics_export_path: "./logs/network_chaos_metrics.jsonl"
+  alert_threshold:
+    task_failure_rate: 0.2   # Alert if more than 20% of tasks fail
+    response_time: 10000     # Alert if response time exceeds 10 seconds
+  emergency_abort:
+    task_failure_rate: 0.5   # Abort if more than 50% of tasks fail
+    consecutive_timeouts: 5  # Abort after 5 consecutive timeouts
+
+# Network profiles for testing
+network_profiles:
+  # 3G with extreme packet loss
+  - name: "3G_Apocalypse"
+    description: "Extremely degraded 3G connection with high packet loss and variable latency"
+    conditions:
+      latency:
+        mean: 3000         # 3000ms average latency
+        variance: 500      # ±500ms variance
+        distribution: "normal"
+      packet_loss:
+        rate: 0.35         # 35% packet loss
+        distribution: "burst" # Loss comes in bursts
+      bandwidth:
+        download: 400      # 400kbps download
+        upload: 100        # 100kbps upload
+        unit: "kbps"
+      disconnection:
+        probability: 0.05  # 5% chance of brief disconnection per minute
+        duration:
+          min: 2000        # 2s minimum disconnection
+          max: 5000        # 5s maximum disconnection
+    duration: "60m"        # Run this profile for 60 minutes
+    recovery_time: "5m"    # Allow 5 minutes for system recovery after test
+    tags:
+      - "extreme"
+      - "mobile"
+      - "critical_path_test"
+    
+  # Satellite connection with extreme jitter
+  - name: "Satellite_Lag"
+    description: "High-latency satellite connection with extreme jitter"
+    conditions:
+      latency:
+        mean: 5000         # 5000ms average latency
+        variance: 2000     # ±2000ms variance
+        distribution: "normal"
+      packet_loss:
+        rate: 0.15         # 15% packet loss
+        distribution: "random"
+      bandwidth:
+        download: 800      # 800kbps download
+        upload: 200        # 200kbps upload
+        unit: "kbps"
+      jitter:
+        rate: 1.5          # 150% jitter (very unstable)
+      corruption:
+        probability: 0.02  # 2% chance of packet corruption
+    duration: "45m"        # Run this profile for 45 minutes
+    recovery_time: "5m"    # Allow 5 minutes for system recovery after test
+    tags:
+      - "extreme"
+      - "satellite"
+      - "high_latency"
+  
+  # Corporate VPN with irregular throttling
+  - name: "Corporate_VPN_Hell"
+    description: "Unreliable corporate VPN with unpredictable throttling"
+    conditions:
+      latency:
+        mean: 800          # 800ms average latency
+        variance: 400      # ±400ms variance
+        distribution: "bimodal"  # Two common latency points
+      packet_loss:
+        rate: 0.08         # 8% packet loss
+        distribution: "random"
+      bandwidth:
+        download:
+          min: 100         # Minimum 100kbps
+          max: 5000        # Maximum 5000kbps
+          distribution: "step" # Abrupt changes in bandwidth
+        upload: 500        # 500kbps upload
+        unit: "kbps"
+      throttling:
+        probability: 0.3   # 30% chance of throttling per minute
+        duration:
+          min: 20000       # 20s minimum throttling
+          max: 60000       # 60s maximum throttling
+        reduction: 0.9     # 90% bandwidth reduction during throttling
+      mtu: 1200            # Smaller MTU size
+    duration: "30m"        # Run this profile for 30 minutes
+    recovery_time: "3m"    # Allow 3 minutes for system recovery after test
+    tags:
+      - "severe"
+      - "corporate"
+      - "vpn"
+  
+  # Public WiFi nightmare
+  - name: "Public_WiFi_Nightmare"
+    description: "Extremely unstable public WiFi with constant reconnections"
+    conditions:
+      latency:
+        mean: 300          # 300ms average latency
+        variance: 300      # ±300ms variance (can spike to 600ms)
+        distribution: "exponential"  # Favors lower values with occasional spikes
+      packet_loss:
+        rate: 0.12         # 12% packet loss
+        distribution: "random"
+      bandwidth:
+        download:
+          min: 50          # Minimum 50kbps
+          max: 8000        # Maximum 8000kbps
+          distribution: "random" # Random fluctuations in bandwidth
+        upload:
+          min: 20          # Minimum 20kbps
+          max: 1000        # Maximum 1000kbps
+          distribution: "random"
+        unit: "kbps"
+      disconnection:
+        probability: 0.15  # 15% chance of disconnection per minute
+        duration:
+          min: 1000        # 1s minimum disconnection
+          max: 15000       # 15s maximum disconnection
+      interference:
+        probability: 0.3   # 30% chance of interference per minute
+        duration:
+          min: 5000        # 5s minimum interference
+          max: 20000       # 20s maximum interference
+        severity: 0.7      # 70% quality reduction during interference
+    duration: "40m"        # Run this profile for 40 minutes
+    recovery_time: "5m"    # Allow 5 minutes for system recovery after test
+    tags:
+      - "extreme"
+      - "wifi"
+      - "disconnection"
+
+  # Mobile network in an elevator
+  - name: "Elevator_Mobile"
+    description: "Mobile network in an elevator with rapidly changing signal strength"
+    conditions:
+      latency:
+        pattern: "sine"    # Sinusoidal pattern of latency changes
+        period: 30         # 30 second cycle
+        min: 100           # 100ms minimum latency
+        max: 10000         # 10000ms maximum latency
+      packet_loss:
+        pattern: "sine"    # Sinusoidal pattern matching latency
+        period: 30         # 30 second cycle
+        min: 0.01          # 1% minimum packet loss
+        max: 0.90          # 90% maximum packet loss at worst point
+      bandwidth:
+        pattern: "sine"    # Sinusoidal pattern matching latency (inverse)
+        period: 30         # 30 second cycle
+        min: 10            # 10kbps minimum
+        max: 5000          # 5000kbps maximum
+        unit: "kbps"
+      disconnection:
+        probability: 0.1   # 10% chance of complete disconnection per cycle
+        duration:
+          min: 2000        # 2s minimum disconnection
+          max: 8000        # 8s maximum disconnection
+    duration: "20m"        # Run this profile for 20 minutes
+    recovery_time: "3m"    # Allow 3 minutes for system recovery after test
+    tags:
+      - "extreme"
+      - "mobile"
+      - "pattern"
+
+# Test scenarios that combine multiple profiles
+scenarios:
+  - name: "Network_Resilience_Gauntlet"
+    description: "Complete test suite running all extreme network profiles in sequence"
+    profiles:
+      - "3G_Apocalypse"
+      - "Satellite_Lag"
+      - "Corporate_VPN_Hell"
+      - "Public_WiFi_Nightmare"
+      - "Elevator_Mobile"
+    recovery_between_profiles: true  # Allow recovery time between profiles
+    success_criteria:
+      task_completion_rate: 0.95     # Require 95% task completion across all profiles
+      error_recovery_rate: 0.98      # Require 98% of errors to be recovered from
+      offline_operation: true        # Require offline operation capability
+    critical_user_journeys:
+      - "code_generation"
+      - "data_export"
+      - "configuration_update"
+      - "error_recovery"
+
+  - name: "Rapid_Network_Transition"
+    description: "Rapid transitions between different network profiles to test adaptation"
+    profiles:
+      - name: "3G_Apocalypse"
+        duration: "5m"
+      - name: "Satellite_Lag"
+        duration: "5m"
+      - name: "Public_WiFi_Nightmare"
+        duration: "5m"
+      - name: "Elevator_Mobile"
+        duration: "5m"
+    recovery_between_profiles: false  # No recovery time between profiles
+    transition_time: "10s"           # 10 second transition between profiles
+    repetitions: 3                   # Repeat the sequence 3 times
+    success_criteria:
+      transition_recovery_time: 20000 # 20s maximum time to recover after transition
+      task_continuity: 0.9           # 90% of tasks should continue across transitions
+
+# Execution configuration
+execution:
+  parallel_profiles: false            # Run profiles sequentially, not in parallel
+  test_environment: "staging"         # Run in staging environment
+  user_notification:
+    notify_on_start: true             # Notify when tests start
+    notify_on_completion: true        # Notify when tests complete
+    notify_on_abort: true             # Notify if tests abort
+  metrics_collection:
+    interval: 1000                    # Collect metrics every 1000ms
+    extended_telemetry: true          # Collect extended telemetry data
+  war_room_integration:
+    enabled: true                     # Integrate with war room dashboard
+    event_streaming: true             # Stream events to war room in real-time
+    alert_channel: "network-chaos"    # Slack channel for alerts
+  schedule:
+    start_immediately: false          # Don't start immediately
+    scheduled_start: "2025-05-04T02:00:00Z" # Start at specific time
+    force_execution: "RED2025"        # Force execution with override

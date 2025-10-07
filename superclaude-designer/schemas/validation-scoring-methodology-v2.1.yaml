@@ -1,0 +1,494 @@
+# Validation Scoring Methodology v2.1
+# SuperClaude Designer Quality Metrics
+# Evidence-based validation scoring system (0.0-1.0 scale)
+
+---
+version: "2.1.0"
+updated: "2025-10-07T21:15:00Z"
+title: "Agent Validation Scoring Methodology"
+description: |
+  Comprehensive quality scoring framework integrating:
+  - Article VI: Evidence-Based Validation (spec-kit constitutional principle)
+  - Quantitative metrics (test coverage, performance, spec compliance)
+  - Automated validation gates
+  - Continuous quality improvement
+
+  Target: 99.5%+ (0.995) validation score for all production agents
+
+# ============================================================================
+# VALIDATION SCORE CALCULATION
+# ============================================================================
+
+validation_score:
+  formula: |
+    validation_score = (test_coverage × 0.4) + (spec_compliance × 0.35) + (performance_rating × 0.25)
+
+  description: |
+    Weighted average of three quality dimensions:
+    - Test Coverage (40%): Percentage of code covered by tests
+    - Spec Compliance (35%): Adherence to agent specification
+    - Performance Rating (25%): Execution speed and resource efficiency
+
+  target:
+    production: 0.995  # 99.5% minimum for production agents
+    staging: 0.950     # 95.0% minimum for staging agents
+    development: 0.850  # 85.0% minimum for development agents
+
+  thresholds:
+    excellent: [0.990, 1.000]  # 99.0%+ = Excellent
+    good: [0.950, 0.990]       # 95.0-99.0% = Good
+    acceptable: [0.900, 0.950] # 90.0-95.0% = Acceptable
+    needs_improvement: [0.850, 0.900]  # 85.0-90.0% = Needs Improvement
+    failing: [0.000, 0.850]    # <85.0% = Failing (blocks production)
+
+# ============================================================================
+# DIMENSION 1: TEST COVERAGE (40% weight)
+# ============================================================================
+
+test_coverage:
+  weight: 0.40
+  description: "Percentage of code covered by automated tests"
+
+  calculation:
+    formula: |
+      test_coverage = (lines_covered / total_lines) × 1.0
+
+    components:
+      unit_tests:
+        weight: 0.50
+        target: 0.95  # 95% unit test coverage
+        description: "Line coverage for unit tests"
+
+      integration_tests:
+        weight: 0.30
+        target: 0.85  # 85% integration test coverage
+        description: "Coverage for integration scenarios"
+
+      e2e_tests:
+        weight: 0.20
+        target: 0.70  # 70% E2E test coverage
+        description: "End-to-end user journey coverage"
+
+    composite_formula: |
+      test_coverage = (unit × 0.50) + (integration × 0.30) + (e2e × 0.20)
+
+  targets:
+    production: 0.950  # 95% minimum total coverage
+    critical_paths: 1.000  # 100% coverage for critical functionality
+    new_features: 0.980  # 98% coverage for new features
+    refactored_code: 0.950  # 95% coverage post-refactoring
+
+  measurement_tools:
+    - "jest --coverage"
+    - "istanbul/nyc"
+    - "codecov"
+    - "coveralls"
+
+  validation_gates:
+    - condition: "test_coverage >= 0.95"
+      action: "pass"
+      message: "Test coverage meets production threshold"
+
+    - condition: "test_coverage >= 0.90 AND test_coverage < 0.95"
+      action: "warn"
+      message: "Test coverage acceptable but below optimal (95%)"
+
+    - condition: "test_coverage < 0.90"
+      action: "fail"
+      message: "Test coverage below minimum threshold (90%) - blocks production"
+
+  evidence_requirements:
+    - "Coverage report from Jest/Istanbul"
+    - "Line-by-line coverage visualization"
+    - "Uncovered lines report with justification"
+    - "Critical path coverage verification (100%)"
+
+  examples:
+    excellent:
+      unit: 0.98
+      integration: 0.92
+      e2e: 0.85
+      composite: 0.936  # (0.98×0.5) + (0.92×0.3) + (0.85×0.2)
+      rating: "Excellent test coverage"
+
+    acceptable:
+      unit: 0.95
+      integration: 0.85
+      e2e: 0.70
+      composite: 0.890  # (0.95×0.5) + (0.85×0.3) + (0.70×0.2)
+      rating: "Acceptable test coverage"
+
+    needs_improvement:
+      unit: 0.88
+      integration: 0.75
+      e2e: 0.60
+      composite: 0.785  # (0.88×0.5) + (0.75×0.3) + (0.60×0.2)
+      rating: "Needs improvement - below production threshold"
+
+# ============================================================================
+# DIMENSION 2: SPEC COMPLIANCE (35% weight)
+# ============================================================================
+
+spec_compliance:
+  weight: 0.35
+  description: "Adherence to agent specification and constitutional principles"
+
+  calculation:
+    formula: |
+      spec_compliance = (Σ compliance_checks_passed / total_compliance_checks) × 1.0
+
+    components:
+      constitutional_compliance:
+        weight: 0.40
+        description: "Adherence to spec-kit 9 constitutional articles"
+        checks:
+          - article_i_spec_authority: "Specs as source of truth"
+          - article_iii_test_first: "TDD enforced (tests before code)"
+          - article_iv_incremental: "P1 features before P2/P3"
+          - article_v_independent_test: "Features independently testable"
+          - article_vi_evidence_based: "Claims backed by verifiable evidence"
+
+      behavioral_compliance:
+        weight: 0.30
+        description: "Agent behaves according to specification"
+        checks:
+          - "All specified capabilities functional"
+          - "Routing to correct MCP servers"
+          - "Permissions respected (no unauthorized operations)"
+          - "Error handling per specification"
+
+      api_compliance:
+        weight: 0.20
+        description: "Schema v2.1 structure compliance"
+        checks:
+          - "All required fields present"
+          - "Field types and formats valid"
+          - "Naming conventions followed"
+          - "Version numbering correct (semver)"
+
+      documentation_compliance:
+        weight: 0.10
+        description: "Documentation matches implementation"
+        checks:
+          - "All capabilities documented"
+          - "Examples are runnable and tested"
+          - "Acceptance criteria defined (Given-When-Then)"
+          - "Evidence requirements specified"
+
+  targets:
+    production: 1.000  # 100% spec compliance required
+    constitutional_articles: 1.000  # 100% constitutional compliance
+    behavioral_checks: 0.950  # 95% behavioral compliance
+    api_schema: 1.000  # 100% schema compliance
+
+  measurement_tools:
+    - "YAML schema validator (jsonschema)"
+    - "Constitutional compliance checker (custom script)"
+    - "Behavioral test suite"
+    - "Documentation linter"
+
+  validation_gates:
+    - condition: "spec_compliance >= 0.99"
+      action: "pass"
+      message: "Spec compliance meets production threshold"
+
+    - condition: "spec_compliance >= 0.95 AND spec_compliance < 0.99"
+      action: "warn"
+      message: "Spec compliance acceptable but not perfect"
+
+    - condition: "spec_compliance < 0.95"
+      action: "fail"
+      message: "Spec compliance below minimum threshold - blocks production"
+
+  evidence_requirements:
+    - "Schema validation report (no errors)"
+    - "Constitutional compliance checklist (all articles verified)"
+    - "Behavioral test results (all scenarios passing)"
+    - "Documentation accuracy verification"
+
+  examples:
+    perfect:
+      constitutional: 1.00  # 5/5 articles compliant
+      behavioral: 0.98     # 49/50 behavioral checks pass
+      api: 1.00            # 100% schema valid
+      documentation: 0.95  # 19/20 docs checks pass
+      composite: 0.986     # (1.0×0.4) + (0.98×0.3) + (1.0×0.2) + (0.95×0.1)
+      rating: "Near-perfect spec compliance"
+
+    good:
+      constitutional: 1.00
+      behavioral: 0.90
+      api: 1.00
+      documentation: 0.90
+      composite: 0.960     # (1.0×0.4) + (0.90×0.3) + (1.0×0.2) + (0.90×0.1)
+      rating: "Good spec compliance"
+
+# ============================================================================
+# DIMENSION 3: PERFORMANCE RATING (25% weight)
+# ============================================================================
+
+performance_rating:
+  weight: 0.25
+  description: "Execution speed and resource efficiency"
+
+  calculation:
+    formula: |
+      performance_rating = (Σ benchmark_percentiles / total_benchmarks) × 1.0
+
+    components:
+      execution_speed:
+        weight: 0.40
+        description: "Time to complete standard operations"
+        benchmarks:
+          - "scaffold operation <5s"
+          - "analyze operation <10s"
+          - "test suite execution <30s"
+        measurement: "p95 latency (95th percentile)"
+        target_percentile: 0.90  # 90th percentile or better
+
+      resource_efficiency:
+        weight: 0.30
+        description: "Memory and CPU usage"
+        benchmarks:
+          - "memory usage <500MB"
+          - "CPU usage <80% sustained"
+          - "No memory leaks detected"
+        measurement: "Resource utilization percentage"
+        target: 0.85  # 85% efficiency or better
+
+      throughput:
+        weight: 0.30
+        description: "Operations per second / scalability"
+        benchmarks:
+          - "Handle 100 concurrent operations"
+          - "Process 1000 files without degradation"
+          - "Maintain <100ms response time under load"
+        measurement: "Sustained throughput at target load"
+        target: 0.90  # 90% target throughput maintained
+
+  targets:
+    production: 0.900  # 90th percentile or better
+    critical_operations: 0.950  # 95th percentile for critical paths
+    background_tasks: 0.800  # 80th percentile for non-critical tasks
+
+  measurement_tools:
+    - "performance.now() / Date.now()"
+    - "Node.js process.memoryUsage()"
+    - "Chrome DevTools Performance Profiler"
+    - "Lighthouse Performance Audit"
+    - "k6 load testing"
+
+  validation_gates:
+    - condition: "performance_rating >= 0.90"
+      action: "pass"
+      message: "Performance meets production threshold (90th percentile)"
+
+    - condition: "performance_rating >= 0.80 AND performance_rating < 0.90"
+      action: "warn"
+      message: "Performance acceptable but below optimal"
+
+    - condition: "performance_rating < 0.80"
+      action: "fail"
+      message: "Performance below minimum threshold - optimization required"
+
+  evidence_requirements:
+    - "Benchmark results with p50, p95, p99 latencies"
+    - "Memory profiling report (no leaks)"
+    - "Load testing results under realistic conditions"
+    - "Comparison to baseline/previous versions"
+
+  examples:
+    excellent:
+      execution_speed: 0.95  # p95 latency 95th percentile
+      resource_efficiency: 0.92  # 92% efficiency
+      throughput: 0.94  # 94% target throughput
+      composite: 0.936  # (0.95×0.4) + (0.92×0.3) + (0.94×0.3)
+      rating: "Excellent performance"
+
+    acceptable:
+      execution_speed: 0.88
+      resource_efficiency: 0.85
+      throughput: 0.87
+      composite: 0.868  # (0.88×0.4) + (0.85×0.3) + (0.87×0.3)
+      rating: "Acceptable performance"
+
+# ============================================================================
+# COMPOSITE VALIDATION SCORE EXAMPLES
+# ============================================================================
+
+composite_examples:
+
+  example_1_excellent:
+    agent: "core-web-vitals-optimizer"
+    test_coverage: 0.980  # 98% coverage
+    spec_compliance: 1.000  # Perfect compliance
+    performance_rating: 0.950  # 95th percentile
+    validation_score: 0.9815  # (0.98×0.4) + (1.0×0.35) + (0.95×0.25)
+    rating: "Excellent (98.15%)"
+    status: "✅ Production ready"
+
+  example_2_good:
+    agent: "design-system-architect"
+    test_coverage: 0.950  # 95% coverage
+    spec_compliance: 0.990  # Near-perfect compliance
+    performance_rating: 0.900  # 90th percentile
+    validation_score: 0.9515  # (0.95×0.4) + (0.99×0.35) + (0.90×0.25)
+    rating: "Good (95.15%)"
+    status: "✅ Production ready"
+
+  example_3_acceptable:
+    agent: "accessibility-specialist"
+    test_coverage: 0.920  # 92% coverage
+    spec_compliance: 0.950  # Good compliance
+    performance_rating: 0.850  # 85th percentile
+    validation_score: 0.9130  # (0.92×0.4) + (0.95×0.35) + (0.85×0.25)
+    rating: "Acceptable (91.30%)"
+    status: "⚠️ Acceptable but below optimal - consider improvements"
+
+  example_4_needs_improvement:
+    agent: "legacy-migrated-agent"
+    test_coverage: 0.850  # 85% coverage
+    spec_compliance: 0.900  # Minimal compliance
+    performance_rating: 0.800  # 80th percentile
+    validation_score: 0.8550  # (0.85×0.4) + (0.90×0.35) + (0.80×0.25)
+    rating: "Needs Improvement (85.50%)"
+    status: "❌ Below production threshold - requires improvement"
+
+# ============================================================================
+# VALIDATION WORKFLOW
+# ============================================================================
+
+validation_workflow:
+
+  step_1_test_execution:
+    description: "Run all test suites and collect coverage"
+    commands:
+      - "pnpm test --coverage"
+      - "playwright test"
+    outputs:
+      - "coverage/lcov.info"
+      - "coverage/coverage-summary.json"
+    gates:
+      - condition: "coverage >= 0.95"
+        pass: "Proceed to spec compliance validation"
+        fail: "Block and report missing tests"
+
+  step_2_spec_validation:
+    description: "Validate agent schema and constitutional compliance"
+    commands:
+      - "validate-agent-schema agent.yaml"
+      - "check-constitutional-compliance agent.yaml"
+    outputs:
+      - "schema-validation-report.json"
+      - "constitutional-compliance-report.json"
+    gates:
+      - condition: "schema_valid AND constitutional_compliance >= 0.99"
+        pass: "Proceed to performance benchmarking"
+        fail: "Block and report spec violations"
+
+  step_3_performance_benchmark:
+    description: "Run performance benchmarks and collect metrics"
+    commands:
+      - "benchmark-agent agent.yaml"
+      - "profile-memory-usage agent.yaml"
+    outputs:
+      - "performance-benchmark-report.json"
+      - "memory-profiling-report.json"
+    gates:
+      - condition: "performance_rating >= 0.90"
+        pass: "Proceed to composite score calculation"
+        fail: "Warn and proceed (performance optimization recommended)"
+
+  step_4_score_calculation:
+    description: "Calculate composite validation score"
+    formula: |
+      validation_score = (test_coverage × 0.4) + (spec_compliance × 0.35) + (performance_rating × 0.25)
+    outputs:
+      - "validation-score-report.json"
+    gates:
+      - condition: "validation_score >= 0.995"
+        status: "✅ Excellent - Production ready"
+      - condition: "validation_score >= 0.950"
+        status: "✅ Good - Production ready"
+      - condition: "validation_score >= 0.900"
+        status: "⚠️ Acceptable - Production ready with monitoring"
+      - condition: "validation_score < 0.900"
+        status: "❌ Failing - Blocks production deployment"
+
+  step_5_evidence_collection:
+    description: "Aggregate all evidence artifacts"
+    artifacts:
+      - "coverage-report.html"
+      - "schema-validation.json"
+      - "constitutional-compliance.json"
+      - "performance-benchmark.json"
+      - "validation-score-summary.json"
+    outputs:
+      - "evidence-package.zip"
+
+# ============================================================================
+# CONTINUOUS QUALITY IMPROVEMENT
+# ============================================================================
+
+continuous_improvement:
+
+  monitoring:
+    frequency: "Every commit to main branch"
+    automated_checks:
+      - "Test coverage delta (warn if decreases)"
+      - "Performance regression (warn if p95 latency increases >10%)"
+      - "Spec compliance check (error if violations introduced)"
+    dashboards:
+      - "Quality metrics over time (line chart)"
+      - "Validation score trend (per agent)"
+      - "Coverage heatmap (per file/module)"
+
+  remediation:
+    triggers:
+      - validation_score_drop: "Score decreases by >5%"
+      - coverage_regression: "Coverage drops below 95%"
+      - performance_degradation: "p95 latency increases >15%"
+    actions:
+      - "Create GitHub issue with diagnostics"
+      - "Block PR merge until remediated"
+      - "Notify agent maintainer"
+
+  targets_over_time:
+    quarter_1: 0.950  # 95% average validation score
+    quarter_2: 0.970  # 97% average validation score
+    quarter_3: 0.985  # 98.5% average validation score
+    quarter_4: 0.995  # 99.5% average validation score (target achieved)
+
+# ============================================================================
+# AUTOMATED VALIDATION SCRIPT
+# ============================================================================
+
+automation:
+
+  cli_command:
+    name: "validate-agent"
+    usage: "validate-agent <agent-file.yaml> [options]"
+    options:
+      - "--verbose: Show detailed validation output"
+      - "--ci: CI-friendly output (exit codes, no colors)"
+      - "--report: Generate HTML validation report"
+      - "--evidence: Collect and package all evidence artifacts"
+    examples:
+      - "validate-agent agents/frontend-developer.yaml"
+      - "validate-agent agents/*.yaml --report --evidence"
+
+  ci_integration:
+    github_actions:
+      - name: "Validate Agent Schema"
+        run: "validate-agent agents/${{ matrix.agent }}.yaml --ci"
+      - name: "Check Validation Score"
+        run: "test $(jq '.validation_score' validation-score.json) >= 0.95"
+
+  exit_codes:
+    0: "Validation passed (score >= 0.950)"
+    1: "Validation failed (score < 0.900)"
+    2: "Validation warning (score 0.900-0.950)"
+
+# ============================================================================
+# END OF VALIDATION SCORING METHODOLOGY
+# ============================================================================

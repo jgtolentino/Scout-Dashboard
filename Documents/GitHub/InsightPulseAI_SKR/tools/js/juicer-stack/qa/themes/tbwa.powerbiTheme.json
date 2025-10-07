@@ -1,0 +1,117 @@
+{
+  "name": "TBWA Scout",
+  "dataColors": [
+    "#FF671F", "#3B1A86", "#00A3E0", "#82BC00", "#FF9900", "#E0004D",
+    "#FFCD00", "#38761D", "#4C368C", "#17559E", "#C5000B", "#8C4600"
+  ],
+  "foreground": "#252423",
+  "foregroundNeutralSecondary": "#605E5C",
+  "foregroundNeutralTertiary": "#B3B0AD",
+  "background": "#FFFFFF",
+  "backgroundLight": "#F3F2F1",
+  "backgroundNeutral": "#C8C6C4",
+  "tableAccent": "#FF671F",
+  "good": "#82BC00",
+  "neutral": "#FF9900",
+  "bad": "#E0004D",
+  "maximum": "#FF671F",
+  "center": "#00A3E0",
+  "minimum": "#3B1A86",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI",
+      "fontSize": 14,
+      "color": "#252423"
+    },
+    "callout": {
+      "fontFace": "Segoe UI",
+      "fontSize": 32,
+      "color": "#252423"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 14,
+      "color": "#252423"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 10,
+      "color": "#252423"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "general": [{ 
+          "responsive": true,
+          "padding": 12 
+        }],
+        "title": [{
+          "show": true,
+          "fontColor": { "solid": { "color": "#252423" } },
+          "background": { "solid": { "color": "#FFFFFF" } },
+          "alignment": "left",
+          "fontSize": 14,
+          "fontFamily": "Segoe UI Semibold"
+        }],
+        "background": [{
+          "show": true,
+          "color": { "solid": { "color": "#FFFFFF" } },
+          "transparency": 0
+        }],
+        "border": [{
+          "show": true,
+          "color": { "solid": { "color": "#E1DFDD" } },
+          "radius": 4
+        }],
+        "lockAspect": [{ "show": false }],
+        "shadow": [{
+          "show": true,
+          "color": { "solid": { "color": "rgba(0, 0, 0, 0.1)" } },
+          "blur": 4,
+          "transparency": 90
+        }]
+      }
+    },
+    "card": {
+      "*": {
+        "general": [{ "outlineColor": { "solid": { "color": "#E1DFDD" } } }],
+        "title": [{ "fontSize": 14 }],
+        "cardTitle": [{ "fontSize": 14 }],
+        "cardSubtitle": [{ "fontSize": 12 }],
+        "value": [{ "fontSize": 24, "fontFamily": "Segoe UI Semibold" }]
+      }
+    },
+    "slicer": {
+      "*": {
+        "general": [{ "outlineColor": { "solid": { "color": "#E1DFDD" } } }],
+        "selection": [{ "selectAllCheckboxEnabled": true }],
+        "header": [{ "show": true, "fontSize": 12 }],
+        "items": [{ "fontSize": 12 }]
+      }
+    },
+    "lineChart": {
+      "*": {
+        "general": [{ "responsive": true }],
+        "legend": [{ "position": "bottom", "show": true }],
+        "xAxis": [{ "show": true }],
+        "yAxis": [{ "show": true }]
+      }
+    },
+    "barChart": {
+      "*": {
+        "general": [{ "responsive": true }],
+        "legend": [{ "position": "bottom", "show": true }],
+        "xAxis": [{ "show": true }],
+        "yAxis": [{ "show": true }]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "general": [{ "responsive": true }],
+        "grid": [{ "gridVertical": true, "gridHorizontal": true }],
+        "columnHeaders": [{ "fontColor": {"solid": {"color": "#FFFFFF"}}, "backColor": {"solid": {"color": "#3B1A86"}} }]
+      }
+    }
+  }
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analysis Overview Demo - Project Scout</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      padding: 20px;
+      background-color: #f7fafc;
+      color: #1a202c;
+    }
+    
+    .demo-controls {
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+      padding: 1.5rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    button:hover {
+      background-color: #2c5282;
+    }
+    
+    .implementation-code {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #2d3748;
+      color: #e2e8f0;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.875rem;
+      line-height: 1.7;
+    }
+  </style>
+  <link rel="stylesheet" href="analysis-overview.css">
+</head>
+<body>
+  <div class="demo-controls">
+    <h1>Analysis Overview Demo</h1>
+    <p>This demonstrates the Analysis Overview component for Project Scout dashboards.</p>
+    
+    <div class="form-group">
+      <label for="title-input">Dashboard Title:</label>
+      <input type="text" id="title-input" value="Project Scout: Analysis Overview" style="width: 100%; padding: 0.5rem; font-size: 0.875rem; border: 1px solid #cbd5e0; border-radius: 4px;">
+    </div>
+    
+    <div class="form-group">
+      <label for="base-url-input">Base URL:</label>
+      <input type="text" id="base-url-input" value="/dashboards" style="width: 100%; padding: 0.5rem; font-size: 0.875rem; border: 1px solid #cbd5e0; border-radius: 4px;">
+    </div>
+    
+    <button id="update-btn">Update Component</button>
+    
+    <div class="implementation-code">
+      <pre><code>&lt;!-- 1. Add CSS link in your head tag -->
+&lt;link rel="stylesheet" href="components/analysis-overview/analysis-overview.css">
+
+&lt;!-- 2. Add container div where you want the component -->
+&lt;div id="analysis-overview-container">&lt;/div>
+
+&lt;!-- 3. Add script tag for the component -->
+&lt;script src="components/analysis-overview/AnalysisOverview.js">&lt;/script>
+
+&lt;!-- 4. Initialize the component -->
+&lt;script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new AnalysisOverview('#analysis-overview-container', {
+      title: 'Project Scout: Analysis Overview',
+      baseUrl: '/dashboards'
+    });
+  });
+&lt;/script></code></pre>
+    </div>
+  </div>
+  
+  <div id="analysis-overview-container"></div>
+
+  <script src="AnalysisOverview.js"></script>
+  <script>
+    let analysisOverview;
+    
+    function initComponent() {
+      const title = document.getElementById('title-input').value;
+      const baseUrl = document.getElementById('base-url-input').value;
+      
+      // Initialize or update component
+      if (analysisOverview) {
+        // In a real implementation, we would update the instance
+        // For simplicity, we'll just reinitialize
+        analysisOverview = new AnalysisOverview('#analysis-overview-container', {
+          title,
+          baseUrl
+        });
+      } else {
+        analysisOverview = new AnalysisOverview('#analysis-overview-container', {
+          title,
+          baseUrl
+        });
+      }
+    }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      initComponent();
+      
+      // Set up update button
+      document.getElementById('update-btn').addEventListener('click', initComponent);
+    });
+  </script>
+</body>
+</html>

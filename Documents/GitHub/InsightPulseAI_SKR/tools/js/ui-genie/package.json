@@ -1,0 +1,15 @@
+{
+  "name": "ui-genie",
+  "version": "0.1.0",
+  "description": "AI-Driven UI/UX Generator",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && python3 -m uvicorn main:app --reload --port 8080",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && pip3 install -r requirements.txt",
+    "build": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

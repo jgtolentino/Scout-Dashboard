@@ -1,0 +1,55 @@
+{
+  "rules": [
+    {
+      "name": "MoveToCoolTier",
+      "enabled": true,
+      "type": "Lifecycle",
+      "definition": {
+        "filters": {
+          "blobTypes": ["blockBlob"],
+          "prefixMatch": ["etl/processed/"]
+        },
+        "actions": {
+          "baseBlob": {
+            "tierToCool": {"daysAfterModificationGreaterThan": 30},
+            "tierToArchive": {"daysAfterModificationGreaterThan": 90},
+            "delete": {"daysAfterModificationGreaterThan": 365}
+          }
+        }
+      }
+    },
+    {
+      "name": "CleanupLogFiles",
+      "enabled": true,
+      "type": "Lifecycle",
+      "definition": {
+        "filters": {
+          "blobTypes": ["blockBlob"],
+          "prefixMatch": ["logs/"]
+        },
+        "actions": {
+          "baseBlob": {
+            "tierToCool": {"daysAfterModificationGreaterThan": 7},
+            "tierToArchive": {"daysAfterModificationGreaterThan": 30},
+            "delete": {"daysAfterModificationGreaterThan": 90}
+          }
+        }
+      }
+    },
+    {
+      "name": "DeleteSnapshots",
+      "enabled": true,
+      "type": "Lifecycle",
+      "definition": {
+        "filters": {
+          "blobTypes": ["blockBlob"]
+        },
+        "actions": {
+          "snapshot": {
+            "delete": {"daysAfterCreationGreaterThan": 30}
+          }
+        }
+      }
+    }
+  ]
+}

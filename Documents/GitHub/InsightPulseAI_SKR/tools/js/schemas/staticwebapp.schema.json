@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Azure Static Web App Configuration",
+  "description": "Schema for Azure Static Web App configuration file",
+  "type": "object",
+  "properties": {
+    "routes": {
+      "type": "array",
+      "description": "Defines custom routing rules for the application",
+      "items": {
+        "type": "object",
+        "properties": {
+          "route": {
+            "type": "string",
+            "description": "The URL pattern to match"
+          },
+          "rewrite": {
+            "type": "string",
+            "description": "The destination path to rewrite the request to"
+          },
+          "redirect": {
+            "type": "string",
+            "description": "The destination URL to redirect the request to"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "The HTTP status code for redirects",
+            "enum": [301, 302, 307, 308]
+          },
+          "methods": {
+            "type": "array",
+            "description": "HTTP methods this route applies to",
+            "items": {
+              "type": "string",
+              "enum": ["GET", "HEAD", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+            }
+          },
+          "headers": {
+            "type": "object",
+            "description": "Custom headers to add to the response",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["route"],
+        "oneOf": [
+          { "required": ["rewrite"] },
+          { "required": ["redirect"] }
+        ]
+      }
+    },
+    "navigationFallback": {
+      "type": "object",
+      "description": "Fallback behavior for routes that don't match static files",
+      "properties": {
+        "rewrite": {
+          "type": "string",
+          "description": "The path to serve when a file is not found"
+        },
+        "exclude": {
+          "type": "array",
+          "description": "Patterns to exclude from the fallback rule",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["rewrite"]
+    },
+    "globalHeaders": {
+      "type": "object",
+      "description": "Headers to add to all responses",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "responseOverrides": {
+      "type": "object",
+      "description": "Custom responses for specific HTTP status codes",
+      "properties": {
+        "400": { "type": "object" },
+        "401": { "type": "object" },
+        "403": { "type": "object" },
+        "404": { "type": "object" },
+        "500": { "type": "object" },
+        "502": { "type": "object" },
+        "503": { "type": "object" },
+        "504": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "mimeTypes": {
+      "type": "object",
+      "description": "Custom MIME type mappings",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "auth": {
+      "type": "object",
+      "description": "Authentication configuration",
+      "properties": {
+        "identityProviders": {
+          "type": "object",
+          "properties": {
+            "azureActiveDirectory": { "type": "object" },
+            "facebook": { "type": "object" },
+            "github": { "type": "object" },
+            "google": { "type": "object" },
+            "twitter": { "type": "object" },
+            "apple": { "type": "object" },
+            "customOpenIdConnectProviders": { "type": "object" }
+          }
+        }
+      }
+    },
+    "platform": {
+      "type": "object",
+      "description": "Platform-specific configuration",
+      "properties": {
+        "apiRuntime": {
+          "type": "string",
+          "description": "API runtime configuration",
+          "enum": ["node:14", "node:16", "node:18", "python:3.8", "python:3.9", "dotnet:6", "dotnet:7"]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

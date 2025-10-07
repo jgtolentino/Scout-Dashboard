@@ -1,0 +1,589 @@
+{
+  "type": "StoreLocationCollection",
+  "version": "1.0.0",
+  "simulated": true,
+  "created": "2025-05-21T00:00:00Z",
+  "source": "fmcg_store_locations",
+  "locations": [
+    {
+      "store_id": "sari-001",
+      "name": "Mang Juan's Sari-Sari Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Juan Dela Cruz",
+      "contact_number": "+63-917-123-4567",
+      "address": {
+        "street": "123 Sampaguita St.",
+        "barangay": "Poblacion",
+        "city_municipality": "Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1210"
+      },
+      "geolocation": {
+        "latitude": 14.5547,
+        "longitude": 121.0244,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 42500,
+        "sales_7d": 8900,
+        "customer_count_30d": 312,
+        "average_basket_size": 137,
+        "growth_rate": 8.7
+      },
+      "top_brands": ["Del Monte", "Oishi", "Alaska"],
+      "top_categories": ["Beverage", "Snack", "Dairy"]
+    },
+    {
+      "store_id": "sari-002",
+      "name": "Maria's Mini Mart",
+      "store_type": "Mini Mart",
+      "owner": "Maria Santos",
+      "contact_number": "+63-918-765-4321",
+      "address": {
+        "street": "45 Rizal Ave.",
+        "barangay": "Lahug",
+        "city_municipality": "Cebu City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "postal_code": "6000"
+      },
+      "geolocation": {
+        "latitude": 10.3157,
+        "longitude": 123.8854,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 38750,
+        "sales_7d": 7650,
+        "customer_count_30d": 287,
+        "average_basket_size": 135,
+        "growth_rate": 7.2
+      },
+      "top_brands": ["Oishi", "Del Monte", "Peerless"],
+      "top_categories": ["Snack", "Beverage", "Personal Care"]
+    },
+    {
+      "store_id": "sari-003",
+      "name": "Aling Rosa's Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Rosa Reyes",
+      "contact_number": "+63-919-555-1234",
+      "address": {
+        "street": "78 Mabini St.",
+        "barangay": "Poblacion",
+        "city_municipality": "Davao City",
+        "province": "Davao del Sur",
+        "region": "Davao",
+        "postal_code": "8000"
+      },
+      "geolocation": {
+        "latitude": 7.0707,
+        "longitude": 125.6127,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 51200,
+        "sales_7d": 10500,
+        "customer_count_30d": 378,
+        "average_basket_size": 135,
+        "growth_rate": 12.8
+      },
+      "top_brands": ["Peerless", "Alaska", "Oishi"],
+      "top_categories": ["Household", "Dairy", "Snack"]
+    },
+    {
+      "store_id": "sari-004",
+      "name": "Pedro's General Merchandise",
+      "store_type": "Grocery",
+      "owner": "Pedro Gonzales",
+      "contact_number": "+63-920-888-7777",
+      "address": {
+        "street": "15 Luna St.",
+        "barangay": "Burnham",
+        "city_municipality": "Baguio City",
+        "province": "Benguet",
+        "region": "CAR",
+        "postal_code": "2600"
+      },
+      "geolocation": {
+        "latitude": 16.4023,
+        "longitude": 120.5960,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 47300,
+        "sales_7d": 9100,
+        "customer_count_30d": 341,
+        "average_basket_size": 139,
+        "growth_rate": 5.4
+      },
+      "top_brands": ["Alaska", "Del Monte", "Champion"],
+      "top_categories": ["Dairy", "Beverage", "Household"]
+    },
+    {
+      "store_id": "sari-005",
+      "name": "Luz Mini Grocery",
+      "store_type": "Grocery",
+      "owner": "Luz Mendoza",
+      "contact_number": "+63-921-222-3333",
+      "address": {
+        "street": "32 Bonifacio St.",
+        "barangay": "City Proper",
+        "city_municipality": "Iloilo City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "postal_code": "5000"
+      },
+      "geolocation": {
+        "latitude": 10.7202,
+        "longitude": 122.5726,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 35900,
+        "sales_7d": 7200,
+        "customer_count_30d": 265,
+        "average_basket_size": 135,
+        "growth_rate": 6.8
+      },
+      "top_brands": ["Oishi", "Alaska", "Champion"],
+      "top_categories": ["Snack", "Dairy", "Household"]
+    },
+    {
+      "store_id": "sari-006",
+      "name": "Tindahan ni Mila",
+      "store_type": "Sari-Sari Store",
+      "owner": "Mila Garcia",
+      "contact_number": "+63-922-444-5555",
+      "address": {
+        "street": "56 Aguinaldo St.",
+        "barangay": "San Nicolas",
+        "city_municipality": "Laoag City",
+        "province": "Ilocos Norte",
+        "region": "Ilocos",
+        "postal_code": "2900"
+      },
+      "geolocation": {
+        "latitude": 18.1982,
+        "longitude": 120.5960,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 31200,
+        "sales_7d": 6400,
+        "customer_count_30d": 229,
+        "average_basket_size": 136,
+        "growth_rate": 7.5
+      },
+      "top_brands": ["Del Monte", "Oishi", "Fit 'n Right"],
+      "top_categories": ["Beverage", "Snack", "Dairy"]
+    },
+    {
+      "store_id": "sari-007",
+      "name": "Kuya Ben's Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Benjamin Tan",
+      "contact_number": "+63-923-777-8888",
+      "address": {
+        "street": "89 Magsaysay Blvd.",
+        "barangay": "Abucay",
+        "city_municipality": "Tacloban City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "postal_code": "6500"
+      },
+      "geolocation": {
+        "latitude": 11.2543,
+        "longitude": 125.0008,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 41500,
+        "sales_7d": 8300,
+        "customer_count_30d": 305,
+        "average_basket_size": 136,
+        "growth_rate": 9.3
+      },
+      "top_brands": ["Del Monte", "Alaska", "Peerless"],
+      "top_categories": ["Beverage", "Dairy", "Household"]
+    },
+    {
+      "store_id": "sari-008",
+      "name": "Ate Joy's Sari-Sari",
+      "store_type": "Sari-Sari Store",
+      "owner": "Joy Aquino",
+      "contact_number": "+63-924-111-9999",
+      "address": {
+        "street": "12 Quezon St.",
+        "barangay": "Concepcion Pequeña",
+        "city_municipality": "Naga City",
+        "province": "Camarines Sur",
+        "region": "Bicol",
+        "postal_code": "4400"
+      },
+      "geolocation": {
+        "latitude": 13.6192,
+        "longitude": 123.7509,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 37800,
+        "sales_7d": 7600,
+        "customer_count_30d": 278,
+        "average_basket_size": 136,
+        "growth_rate": 8.5
+      },
+      "top_brands": ["Oishi", "Smart C+", "Fit 'n Right"],
+      "top_categories": ["Snack", "Beverage", "Personal Care"]
+    },
+    {
+      "store_id": "sari-009",
+      "name": "Carinderia ni Lola",
+      "store_type": "Sari-Sari Store",
+      "owner": "Lola Carmela",
+      "contact_number": "+63-925-333-2222",
+      "address": {
+        "street": "67 Burgos St.",
+        "barangay": "Kumintang Ilaya",
+        "city_municipality": "Batangas City",
+        "province": "Batangas",
+        "region": "CALABARZON",
+        "postal_code": "4200"
+      },
+      "geolocation": {
+        "latitude": 13.7565,
+        "longitude": 121.0582,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 49700,
+        "sales_7d": 9800,
+        "customer_count_30d": 366,
+        "average_basket_size": 136,
+        "growth_rate": 11.2
+      },
+      "top_brands": ["Del Monte", "Alaska", "Peerless"],
+      "top_categories": ["Beverage", "Dairy", "Household"]
+    },
+    {
+      "store_id": "sari-010",
+      "name": "Tatay Romy's Corner Store",
+      "store_type": "Sari-Sari Store",
+      "owner": "Romeo Villanueva",
+      "contact_number": "+63-926-666-7777",
+      "address": {
+        "street": "23 Rizal St.",
+        "barangay": "Barangka",
+        "city_municipality": "Marikina City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1803"
+      },
+      "geolocation": {
+        "latitude": 14.6292,
+        "longitude": 121.0965,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 33500,
+        "sales_7d": 6700,
+        "customer_count_30d": 246,
+        "average_basket_size": 136,
+        "growth_rate": 6.2
+      },
+      "top_brands": ["Oishi", "Champion", "Fit 'n Right"],
+      "top_categories": ["Snack", "Household", "Beverage"]
+    },
+    {
+      "store_id": "mm-001",
+      "name": "Mercury Minimart",
+      "store_type": "Mini Mart",
+      "owner": "Mercury Retail Inc.",
+      "contact_number": "+63-927-888-9999",
+      "address": {
+        "street": "45 Taft Avenue",
+        "barangay": "Malate",
+        "city_municipality": "Manila City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1004"
+      },
+      "geolocation": {
+        "latitude": 14.5763,
+        "longitude": 120.9889,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 87600,
+        "sales_7d": 18700,
+        "customer_count_30d": 745,
+        "average_basket_size": 118,
+        "growth_rate": 13.5
+      },
+      "top_brands": ["Del Monte", "Oishi", "Peerless"],
+      "top_categories": ["Beverage", "Snack", "Household"]
+    },
+    {
+      "store_id": "mm-002",
+      "name": "Green Basket Mini Mart",
+      "store_type": "Mini Mart",
+      "owner": "Green Retail Group",
+      "contact_number": "+63-928-111-2222",
+      "address": {
+        "street": "78 Shaw Boulevard",
+        "barangay": "Kapitolyo",
+        "city_municipality": "Pasig City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1603"
+      },
+      "geolocation": {
+        "latitude": 14.5736,
+        "longitude": 121.0574,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 92300,
+        "sales_7d": 19800,
+        "customer_count_30d": 785,
+        "average_basket_size": 118,
+        "growth_rate": 15.2
+      },
+      "top_brands": ["Del Monte", "Alaska", "Oishi"],
+      "top_categories": ["Beverage", "Dairy", "Snack"]
+    },
+    {
+      "store_id": "sm-001",
+      "name": "SM Supermarket - Megamall",
+      "store_type": "Supermarket",
+      "owner": "SM Retail Inc.",
+      "contact_number": "+63-929-333-4444",
+      "address": {
+        "street": "EDSA corner Julia Vargas Ave.",
+        "barangay": "Wack Wack",
+        "city_municipality": "Mandaluyong City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1550"
+      },
+      "geolocation": {
+        "latitude": 14.5832,
+        "longitude": 121.0572,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 4326500,
+        "sales_7d": 954300,
+        "customer_count_30d": 37560,
+        "average_basket_size": 115,
+        "growth_rate": 7.8
+      },
+      "top_brands": ["Del Monte", "Alaska", "Peerless"],
+      "top_categories": ["Beverage", "Dairy", "Household"]
+    },
+    {
+      "store_id": "sm-002",
+      "name": "SM Supermarket - Cebu",
+      "store_type": "Supermarket",
+      "owner": "SM Retail Inc.",
+      "contact_number": "+63-930-555-6666",
+      "address": {
+        "street": "Cebu Business Park",
+        "barangay": "Cebu Port Center",
+        "city_municipality": "Cebu City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "postal_code": "6000"
+      },
+      "geolocation": {
+        "latitude": 10.3124,
+        "longitude": 123.9069,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 3876500,
+        "sales_7d": 854300,
+        "customer_count_30d": 33560,
+        "average_basket_size": 116,
+        "growth_rate": 6.9
+      },
+      "top_brands": ["Del Monte", "Alaska", "Oishi"],
+      "top_categories": ["Beverage", "Dairy", "Snack"]
+    },
+    {
+      "store_id": "cv-001",
+      "name": "7-Eleven - Makati Avenue",
+      "store_type": "Convenience Store",
+      "owner": "Philippine Seven Corp.",
+      "contact_number": "+63-931-777-8888",
+      "address": {
+        "street": "123 Makati Avenue",
+        "barangay": "Poblacion",
+        "city_municipality": "Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1210"
+      },
+      "geolocation": {
+        "latitude": 14.5624,
+        "longitude": 121.0297,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 156700,
+        "sales_7d": 32400,
+        "customer_count_30d": 4675,
+        "average_basket_size": 33,
+        "growth_rate": 12.5
+      },
+      "top_brands": ["Del Monte", "Oishi", "Smart C+"],
+      "top_categories": ["Beverage", "Snack", "Personal Care"]
+    },
+    {
+      "store_id": "cv-002",
+      "name": "7-Eleven - Taft Avenue",
+      "store_type": "Convenience Store",
+      "owner": "Philippine Seven Corp.",
+      "contact_number": "+63-932-999-0000",
+      "address": {
+        "street": "2401 Taft Avenue",
+        "barangay": "Malate",
+        "city_municipality": "Manila City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1004"
+      },
+      "geolocation": {
+        "latitude": 14.5655,
+        "longitude": 120.9919,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 148900,
+        "sales_7d": 30600,
+        "customer_count_30d": 4450,
+        "average_basket_size": 33,
+        "growth_rate": 13.1
+      },
+      "top_brands": ["Oishi", "Del Monte", "Smart C+"],
+      "top_categories": ["Snack", "Beverage", "Personal Care"]
+    },
+    {
+      "store_id": "dr-001",
+      "name": "Mercury Drug - Quezon Avenue",
+      "store_type": "Specialty Store",
+      "owner": "Mercury Drug Corp.",
+      "contact_number": "+63-933-123-4567",
+      "address": {
+        "street": "56 Quezon Avenue",
+        "barangay": "South Triangle",
+        "city_municipality": "Quezon City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1103"
+      },
+      "geolocation": {
+        "latitude": 14.6394,
+        "longitude": 121.0187,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 123450,
+        "sales_7d": 25600,
+        "customer_count_30d": 3250,
+        "average_basket_size": 38,
+        "growth_rate": 9.7
+      },
+      "top_brands": ["Peerless", "Alaska", "Del Monte"],
+      "top_categories": ["Personal Care", "Dairy", "Beverage"]
+    },
+    {
+      "store_id": "dr-002",
+      "name": "Mercury Drug - Ayala Avenue",
+      "store_type": "Specialty Store",
+      "owner": "Mercury Drug Corp.",
+      "contact_number": "+63-934-567-8901",
+      "address": {
+        "street": "89 Ayala Avenue",
+        "barangay": "Bel-Air",
+        "city_municipality": "Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1209"
+      },
+      "geolocation": {
+        "latitude": 14.5558,
+        "longitude": 121.0247,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 134560,
+        "sales_7d": 27800,
+        "customer_count_30d": 3520,
+        "average_basket_size": 38,
+        "growth_rate": 10.2
+      },
+      "top_brands": ["Peerless", "Alaska", "Del Monte"],
+      "top_categories": ["Personal Care", "Dairy", "Beverage"]
+    },
+    {
+      "store_id": "wh-001",
+      "name": "S&R Membership Shopping - Alabang",
+      "store_type": "Warehouse Club",
+      "owner": "S&R Membership Shopping",
+      "contact_number": "+63-935-890-1234",
+      "address": {
+        "street": "Alabang-Zapote Road",
+        "barangay": "Almanza Uno",
+        "city_municipality": "Las Piñas City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1750"
+      },
+      "geolocation": {
+        "latitude": 14.4299,
+        "longitude": 121.0261,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 5678900,
+        "sales_7d": 1234560,
+        "customer_count_30d": 12540,
+        "average_basket_size": 453,
+        "growth_rate": 8.7
+      },
+      "top_brands": ["Del Monte", "Alaska", "Peerless"],
+      "top_categories": ["Beverage", "Dairy", "Household"]
+    },
+    {
+      "store_id": "wh-002",
+      "name": "S&R Membership Shopping - BGC",
+      "store_type": "Warehouse Club",
+      "owner": "S&R Membership Shopping",
+      "contact_number": "+63-936-234-5678",
+      "address": {
+        "street": "32nd Street",
+        "barangay": "Fort Bonifacio",
+        "city_municipality": "Taguig City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "postal_code": "1634"
+      },
+      "geolocation": {
+        "latitude": 14.5496,
+        "longitude": 121.0523,
+        "accuracy": "high"
+      },
+      "metrics": {
+        "sales_30d": 6123450,
+        "sales_7d": 1345670,
+        "customer_count_30d": 13580,
+        "average_basket_size": 451,
+        "growth_rate": 9.1
+      },
+      "top_brands": ["Del Monte", "Alaska", "Peerless"],
+      "top_categories": ["Beverage", "Dairy", "Household"]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "brand_name": "Brand A",
+    "performance_score": 87.5
+  },
+  {
+    "brand_name": "Brand B",
+    "performance_score": 82.3
+  },
+  {
+    "brand_name": "Brand C",
+    "performance_score": 76.8
+  },
+  {
+    "brand_name": "Brand D",
+    "performance_score": 75.1
+  },
+  {
+    "brand_name": "Brand E",
+    "performance_score": 72.4
+  }
+]

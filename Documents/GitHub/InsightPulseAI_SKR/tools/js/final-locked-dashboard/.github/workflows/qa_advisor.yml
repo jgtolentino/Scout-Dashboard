@@ -1,0 +1,105 @@
+name: Advisor QA Check
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to check (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+      url:
+        description: 'Dashboard URL to check'
+        required: true
+        default: 'https://white-island-0c3f00f00.6.azurestaticapps.net/advisor'
+  push:
+    paths:
+      - 'deploy-ready/advisor/**'
+      - 'docs/README_PRD_ADVISOR.md'
+      - 'staticwebapp.config.json'
+
+jobs:
+  qa_check:
+    runs-on: ubuntu-latest
+    name: QA Verification by Caca
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: |
+          npm install puppeteer
+          npm install js-yaml
+          npm install diff
+          npm install playwright
+          npx playwright install chromium
+
+      - name: Run UI Screenshot Audit
+        run: |
+          mkdir -p qa/snapshots/advisor-${{ github.event.inputs.version || 'v1.0.0' }}
+          node qa/scripts/validate_ui.js --url ${{ github.event.inputs.url || 'https://white-island-0c3f00f00.6.azurestaticapps.net/advisor' }} --version ${{ github.event.inputs.version || 'v1.0.0' }}
+
+      - name: Compare with PRD
+        run: |
+          mkdir -p qa/tmp
+          node qa/scripts/compare_prd.js --url ${{ github.event.inputs.url || 'https://white-island-0c3f00f00.6.azurestaticapps.net/advisor' }} --version ${{ github.event.inputs.version || 'v1.0.0' }}
+
+      - name: Verify Routing
+        run: |
+          node qa/scripts/verify_routing.js --base-url ${{ github.event.inputs.url || 'https://white-island-0c3f00f00.6.azurestaticapps.net' }} --version ${{ github.event.inputs.version || 'v1.0.0' }}
+
+      - name: Test Data Toggle Functionality
+        run: |
+          node qa/scripts/test_data_toggle.js --url ${{ github.event.inputs.url || 'https://white-island-0c3f00f00.6.azurestaticapps.net/advisor' }} --version ${{ github.event.inputs.version || 'v1.0.0' }}
+
+      - name: Generate Final QA Report
+        run: |
+          node qa/scripts/generate_qa_report.js --version ${{ github.event.inputs.version || 'v1.0.0' }} --results-dir qa/tmp
+
+      - name: Save QA Report
+        run: |
+          mkdir -p qa_reports
+          cp qa/tmp/advisor_qa_report.yaml qa_reports/advisor-${{ github.event.inputs.version || 'v1.0.0' }}.yaml
+          cp qa/tmp/advisor_qa_report.md qa_reports/advisor-${{ github.event.inputs.version || 'v1.0.0' }}.md
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: advisor-screenshots
+          path: qa/snapshots/advisor-${{ github.event.inputs.version || 'v1.0.0' }}/
+
+      - name: Upload QA Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: advisor-qa-reports
+          path: qa_reports/
+
+      - name: Comment on PR if applicable
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs');
+            const reportPath = 'qa_reports/advisor-${{ github.event.inputs.version || "v1.0.0" }}.md';
+            if (fs.existsSync(reportPath)) {
+              const reportContent = fs.readFileSync(reportPath, 'utf8');
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '## 🧪 Advisor QA Report\n\n' + reportContent
+              });
+            }
+
+      - name: Post Processing - Notify Teams
+        if: always()
+        run: |
+          echo "Notification would be sent to Teams with QA status."
+          # In a real environment, this would use curl to post to Teams webhook
+          # curl -H "Content-Type: application/json" -d "{\"text\":\"QA completed\"}" "https://company.webhook.office.com/webhookb2/..."

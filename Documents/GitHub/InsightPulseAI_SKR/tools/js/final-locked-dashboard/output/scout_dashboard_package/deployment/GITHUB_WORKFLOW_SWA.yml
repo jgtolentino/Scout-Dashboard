@@ -1,0 +1,72 @@
+# GitHub Action for Azure Static Web App Deployment
+name: Deploy Scout Analytics Dashboard
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'tools/js/final-locked-dashboard/**'
+  workflow_dispatch:  # Allow manual triggers
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Prepare deployment package
+        run: |
+          # Navigate to the directory
+          cd tools/js/final-locked-dashboard
+          
+          # Create a clean deployment directory
+          mkdir -p deployment-package
+          
+          # Copy necessary files
+          cp -r deployment-v2/public deployment-package/
+          
+          # Optional: Build or prepare any assets
+          # npm install
+          # npm run build
+          
+          echo "Deployment package ready"
+          ls -la deployment-package/public
+
+      - name: Deploy to Azure Static Web Apps
+        id: deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "tools/js/final-locked-dashboard/deployment-package/public"  # Location of app code
+          output_location: ""  # No build output location for static files
+          skip_app_build: true  # Skip build as files are pre-built
+          
+      - name: Display deployment URL
+        if: success()
+        run: |
+          echo "Deployment successful!"
+          echo "Dashboard is now available at: https://tbwa-juicer-insights-dashboard.azurestaticapps.net/insights_dashboard.html"
+          echo "Power BI version available at: https://tbwa-juicer-insights-dashboard.azurestaticapps.net/insights_dashboard_v2.html"
+
+  # Optional: Add a notification job to notify of successful deployment
+  notify:
+    needs: build_and_deploy
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - name: Send deployment notification
+        run: |
+          echo "Sending notification of successful deployment..."
+          # Add notification logic here (e.g., API call, email, etc.)
+          echo "Notification sent."

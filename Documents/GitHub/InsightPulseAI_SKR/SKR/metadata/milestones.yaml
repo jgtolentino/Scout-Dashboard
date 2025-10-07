@@ -1,0 +1,71 @@
+# Pulser Architecture Milestones
+# Maintained by Maya (Workflow architect)
+# Last updated: May 10, 2025
+
+milestones:
+  - id: m001
+    date: "2025-01-15"
+    title: "Pulser 1.0 Initial Launch"
+    description: "First production-ready version of Pulser CLI with basic agent capabilities"
+    agents_involved: ["Claudia", "Echo", "Kalaw"]
+    status: "completed"
+
+  - id: m002
+    date: "2025-02-28"
+    title: "Superset Dashboard Integration"
+    description: "Integration of Apache Superset for data visualization and analytics"
+    agents_involved: ["Stacey", "Basher"]
+    status: "completed"
+
+  - id: m003
+    date: "2025-03-20"
+    title: "SKR Knowledge Repository"
+    description: "Structured Knowledge Repository implementation with metadata indexing"
+    agents_involved: ["Kalaw", "Maya", "Claudia"]
+    status: "completed"
+
+  - id: m004
+    date: "2025-04-15"
+    title: "Multi-Model Execution Engine"
+    description: "Support for multiple LLM backends (Claude, DeepSeekr1, OpenAI)"
+    agents_involved: ["Surf", "Edge", "Claudia"]
+    status: "completed"
+
+  - id: m005
+    date: "2025-05-10"
+    title: "Claude as Primary Prompt Executor"
+    description: "Migration from clodrep to Claude as the primary execution agent for prompt engineering"
+    agents_involved: ["Claudia", "Maya"]
+    status: "completed"
+    commits:
+      - hash: "c8b0aa2"
+        message: "Add Juicer frontend implementation plan and deployment SOP"
+      - hash: "64bd1cc"
+        message: "Implement Claude Behavioral Parity with Claude Code CLI"
+    artifacts:
+      - path: "/agents/claude/prompt_executor.yaml"
+        type: "configuration"
+      - path: "/docs/CLODREP_DEPRECATION.md"
+        type: "documentation"
+      - path: "/scripts/claude_prompt_test.sh"
+        type: "script"
+    impact:
+      - "Streamlined prompt engineering workflow"
+      - "Reduced system complexity by removing middleware"
+      - "Improved prompt testing performance and logging"
+      - "Standardized CLI interface across Pulser 2.0"
+
+  # Future milestones (planned)
+  - id: m006
+    date: "2025-06-15"
+    title: "Zoho Mail Integration"
+    description: "Full email integration with Zoho Mail for agent communications"
+    agents_involved: ["Tala", "Stacey", "Edge"]
+    status: "planned"
+
+  - id: m007
+    date: "2025-07-30"
+    title: "LinkedIn Campaign Automation"
+    description: "Automated LinkedIn campaign management and reporting"
+    agents_involved: ["Edge", "Tala", "Maya"]
+    status: "planned"

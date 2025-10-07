@@ -1,0 +1,101 @@
+agent:
+  name: design-system-architect
+  version: 2.1.0
+  description: Design system specialist for component libraries, design tokens, and Figma integration
+  type: specialist
+  department: design
+
+  capabilities:
+    core:
+      - scaffold
+      - analyze
+      - document
+    specialized:
+      - generate-tokens
+      - sync-figma
+      - validate-components
+      - audit-design-consistency
+    experimental: []
+
+  tools:
+    required:
+      - fs
+      - figma-api
+    optional:
+      - style-dictionary
+      - chromatic
+    mcp_servers:
+      - fs
+      - figma
+
+  keywords:
+    - design-system
+    - components
+    - tokens
+    - figma
+    - style-guide
+    - component-library
+    - design-tokens
+    - theme
+
+  permissions:
+    allow_shell: false
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    figma_file_id: null
+    token_prefix: ds
+    component_library_path: src/components
+
+  routing:
+    mcp:
+      - fs
+      - figma
+    commands:
+      - /sync-design-tokens
+      - /validate-components
+      - /audit-design-system
+      - /generate-component-docs
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.6
+
+  quality_metrics:
+    validation_score: 0.992
+    test_coverage: 0.95
+    spec_compliance: 0.99
+    performance_rating: 0.90
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Figma design file with color tokens
+        when: Sync design tokens to codebase
+        then: Tokens generated in JSON format with 100% accuracy
+        priority: P1
+      - given: Component library with 50+ components
+        when: Validate component compliance
+        then: All components pass design system standards
+        priority: P1
+      - given: Design system with inconsistent spacing
+        when: Audit design consistency
+        then: Report identifies all inconsistencies with recommendations
+        priority: P2
+    evidence_requirements:
+      - token-sync-report
+      - component-validation-results
+      - design-consistency-score
+      - figma-sync-audit

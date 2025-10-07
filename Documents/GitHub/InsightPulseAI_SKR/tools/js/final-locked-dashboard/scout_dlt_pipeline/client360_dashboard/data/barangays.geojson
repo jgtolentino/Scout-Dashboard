@@ -1,0 +1,479 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2025-05-22T00:00:00Z",
+    "source": "simulated",
+    "description": "Simplified Philippines barangay boundaries (simulated data for key areas)"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-MKT-POB",
+        "name": "Poblacion",
+        "city_municipality": "Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 65430,
+        "households": 15670,
+        "area_km2": 2.31,
+        "store_count": 134
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0250, 14.5500],
+            [121.0350, 14.5500],
+            [121.0350, 14.5600],
+            [121.0250, 14.5600],
+            [121.0250, 14.5500]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-MKT-BEL",
+        "name": "Bel-Air",
+        "city_municipality": "Makati City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 34870,
+        "households": 8120,
+        "area_km2": 1.87,
+        "store_count": 98
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0200, 14.5500],
+            [121.0300, 14.5500],
+            [121.0300, 14.5650],
+            [121.0200, 14.5650],
+            [121.0200, 14.5500]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "CVIS-CEB-LHG",
+        "name": "Lahug",
+        "city_municipality": "Cebu City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "population": 87650,
+        "households": 21440,
+        "area_km2": 4.76,
+        "store_count": 156
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.8800, 10.3100],
+            [123.8900, 10.3100],
+            [123.8900, 10.3200],
+            [123.8800, 10.3200],
+            [123.8800, 10.3100]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "CVIS-CEB-CPC",
+        "name": "Cebu Port Center",
+        "city_municipality": "Cebu City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "population": 43210,
+        "households": 10250,
+        "area_km2": 2.38,
+        "store_count": 87
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.9000, 10.3000],
+            [123.9100, 10.3000],
+            [123.9100, 10.3200],
+            [123.9000, 10.3200],
+            [123.9000, 10.3000]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "DAV-DVO-POB",
+        "name": "Poblacion",
+        "city_municipality": "Davao City",
+        "province": "Davao del Sur",
+        "region": "Davao",
+        "population": 96540,
+        "households": 23870,
+        "area_km2": 5.43,
+        "store_count": 178
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [125.6050, 7.0650],
+            [125.6150, 7.0650],
+            [125.6150, 7.0750],
+            [125.6050, 7.0750],
+            [125.6050, 7.0650]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "CAR-BGU-BRN",
+        "name": "Burnham",
+        "city_municipality": "Baguio City",
+        "province": "Benguet",
+        "region": "CAR",
+        "population": 34560,
+        "households": 8760,
+        "area_km2": 1.87,
+        "store_count": 87
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.5900, 16.4000],
+            [120.6000, 16.4000],
+            [120.6000, 16.4100],
+            [120.5900, 16.4100],
+            [120.5900, 16.4000]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "WVIS-ILO-CTP",
+        "name": "City Proper",
+        "city_municipality": "Iloilo City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "population": 76540,
+        "households": 18970,
+        "area_km2": 3.64,
+        "store_count": 143
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [122.5650, 10.7150],
+            [122.5750, 10.7150],
+            [122.5750, 10.7250],
+            [122.5650, 10.7250],
+            [122.5650, 10.7150]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "ILO-LAO-SNL",
+        "name": "San Nicolas",
+        "city_municipality": "Laoag City",
+        "province": "Ilocos Norte",
+        "region": "Ilocos",
+        "population": 45670,
+        "households": 11450,
+        "area_km2": 2.87,
+        "store_count": 98
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.5900, 18.1900],
+            [120.6000, 18.1900],
+            [120.6000, 18.2000],
+            [120.5900, 18.2000],
+            [120.5900, 18.1900]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "EVIS-LEY-ABU",
+        "name": "Abucay",
+        "city_municipality": "Tacloban City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "population": 67890,
+        "households": 16780,
+        "area_km2": 3.54,
+        "store_count": 123
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [124.9950, 11.2500],
+            [125.0050, 11.2500],
+            [125.0050, 11.2600],
+            [124.9950, 11.2600],
+            [124.9950, 11.2500]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "BIC-CMS-CNP",
+        "name": "Concepcion Pequeña",
+        "city_municipality": "Naga City",
+        "province": "Camarines Sur",
+        "region": "Bicol",
+        "population": 54320,
+        "households": 13580,
+        "area_km2": 2.87,
+        "store_count": 103
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.7450, 13.6150],
+            [123.7550, 13.6150],
+            [123.7550, 13.6250],
+            [123.7450, 13.6250],
+            [123.7450, 13.6150]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "CALB-BTG-KMI",
+        "name": "Kumintang Ilaya",
+        "city_municipality": "Batangas City",
+        "province": "Batangas",
+        "region": "CALABARZON",
+        "population": 76540,
+        "households": 18970,
+        "area_km2": 3.75,
+        "store_count": 134
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0550, 13.7550],
+            [121.0650, 13.7550],
+            [121.0650, 13.7650],
+            [121.0550, 13.7650],
+            [121.0550, 13.7550]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-MRK-BRK",
+        "name": "Barangka",
+        "city_municipality": "Marikina City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 67890,
+        "households": 16970,
+        "area_km2": 2.85,
+        "store_count": 112
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0900, 14.6250],
+            [121.1000, 14.6250],
+            [121.1000, 14.6350],
+            [121.0900, 14.6350],
+            [121.0900, 14.6250]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-MNL-MLT",
+        "name": "Malate",
+        "city_municipality": "Manila City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 98760,
+        "households": 24690,
+        "area_km2": 2.87,
+        "store_count": 145
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.9850, 14.5650],
+            [120.9950, 14.5650],
+            [120.9950, 14.5750],
+            [120.9850, 14.5750],
+            [120.9850, 14.5650]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-PSG-KPT",
+        "name": "Kapitolyo",
+        "city_municipality": "Pasig City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 54320,
+        "households": 13580,
+        "area_km2": 1.87,
+        "store_count": 98
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0550, 14.5750],
+            [121.0650, 14.5750],
+            [121.0650, 14.5850],
+            [121.0550, 14.5850],
+            [121.0550, 14.5750]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-MND-WWK",
+        "name": "Wack Wack",
+        "city_municipality": "Mandaluyong City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 42360,
+        "households": 10590,
+        "area_km2": 1.62,
+        "store_count": 68
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0450, 14.5800],
+            [121.0550, 14.5800],
+            [121.0550, 14.5900],
+            [121.0450, 14.5900],
+            [121.0450, 14.5800]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-QZN-STR",
+        "name": "South Triangle",
+        "city_municipality": "Quezon City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 75980,
+        "households": 18530,
+        "area_km2": 2.46,
+        "store_count": 98
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0150, 14.6350],
+            [121.0250, 14.6350],
+            [121.0250, 14.6450],
+            [121.0150, 14.6450],
+            [121.0150, 14.6350]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-TGG-FTB",
+        "name": "Fort Bonifacio",
+        "city_municipality": "Taguig City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 32650,
+        "households": 8950,
+        "area_km2": 2.76,
+        "store_count": 65
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0490, 14.5450],
+            [121.0590, 14.5450],
+            [121.0590, 14.5550],
+            [121.0490, 14.5550],
+            [121.0490, 14.5450]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-LPC-ALU",
+        "name": "Almanza Uno",
+        "city_municipality": "Las Piñas City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 45760,
+        "households": 11670,
+        "area_km2": 1.89,
+        "store_count": 76
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0210, 14.4270],
+            [121.0310, 14.4270],
+            [121.0310, 14.4370],
+            [121.0210, 14.4370],
+            [121.0210, 14.4270]
+          ]
+        ]
+      }
+    }
+  ]
+}

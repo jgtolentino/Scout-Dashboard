@@ -1,0 +1,252 @@
+{
+  "kpi_type": "conversion-rate",
+  "kpi_label": "FMCG Portfolio Conversion Rate",
+  "current_value": "5.3%",
+  "change_percentage": "+0.9%",
+  "time_period": "Last 30 Days",
+  "last_updated": "2025-05-22T13:35:00Z",
+  
+  "drill_down_data": {
+    "time_series": {
+      "labels": ["Week 1", "Week 2", "Week 3", "Week 4", "Current"],
+      "datasets": [
+        {
+          "label": "Overall Conversion Rate",
+          "data": [4.8, 5.0, 5.1, 5.2, 5.3],
+          "backgroundColor": "#0067b1",
+          "borderColor": "#0067b1",
+          "type": "line"
+        },
+        {
+          "label": "Traffic Volume",
+          "data": [125000, 135000, 142000, 148000, 152000],
+          "backgroundColor": "rgba(0, 103, 177, 0.3)",
+          "borderColor": "#0067b1",
+          "yAxisID": "y1"
+        }
+      ]
+    },
+    
+    "breakdown_by_brand": [
+      {
+        "brand": "Alaska Milk",
+        "conversion_rate": 6.8,
+        "traffic": 21000,
+        "conversions": 1428,
+        "change": "+1.2%",
+        "trend": "up",
+        "reason": "High customer loyalty and premium positioning"
+      },
+      {
+        "brand": "Del Monte",
+        "conversion_rate": 5.8,
+        "traffic": 32000,
+        "conversions": 1856,
+        "change": "+0.7%",
+        "trend": "up",
+        "reason": "Strong brand recognition and product quality"
+      },
+      {
+        "brand": "Oishi",
+        "conversion_rate": 5.1,
+        "traffic": 29000,
+        "conversions": 1479,
+        "change": "+1.4%",
+        "trend": "up",
+        "reason": "Effective social media campaigns targeting youth"
+      },
+      {
+        "brand": "Peerless",
+        "conversion_rate": 4.2,
+        "traffic": 18000,
+        "conversions": 756,
+        "change": "+0.3%",
+        "trend": "steady",
+        "reason": "Traditional cooking ingredient market"
+      }
+    ],
+    
+    "breakdown_by_store_type": [
+      {
+        "store_type": "Sari-Sari Store",
+        "conversion_rate": 7.2,
+        "avg_traffic": 1920,
+        "total_conversions": 138,
+        "insight": "Highest conversion due to convenience and necessity purchases"
+      },
+      {
+        "store_type": "Convenience Store",
+        "conversion_rate": 6.1,
+        "avg_traffic": 3450,
+        "total_conversions": 210,
+        "insight": "Strong impulse purchases and grab-and-go behavior"
+      },
+      {
+        "store_type": "Supermarket",
+        "conversion_rate": 5.9,
+        "avg_traffic": 8900,
+        "total_conversions": 525,
+        "insight": "Planned purchases with higher basket size"
+      },
+      {
+        "store_type": "Mall Outlet",
+        "conversion_rate": 4.8, 
+        "avg_traffic": 6540,
+        "total_conversions": 314,
+        "insight": "Lower rate but higher volume due to foot traffic"
+      }
+    ],
+    
+    "breakdown_by_region": [
+      {
+        "region": "NCR",
+        "conversion_rate": 5.6,
+        "total_traffic": 78000,
+        "total_conversions": 4368,
+        "top_converting_store": "SM Megamall - FMCG Superstore (6.8%)"
+      },
+      {
+        "region": "Central Luzon",
+        "conversion_rate": 5.4,
+        "total_traffic": 24000,
+        "total_conversions": 1296,
+        "top_converting_store": "San Fernando Pampanga Hub (5.4%)"
+      },
+      {
+        "region": "CALABARZON",
+        "conversion_rate": 5.0,
+        "total_traffic": 18000,
+        "total_conversions": 900,
+        "top_converting_store": "Antipolo Supermart (4.7%)"
+      },
+      {
+        "region": "Visayas",
+        "conversion_rate": 4.6, 
+        "total_traffic": 15000,
+        "total_conversions": 690,
+        "top_converting_store": "Cebu IT Park Store (6.1%)"
+      },
+      {
+        "region": "Mindanao",
+        "conversion_rate": 4.8,
+        "total_traffic": 12000,
+        "total_conversions": 576,
+        "top_converting_store": "Davao Abreeza Hub (4.8%)"
+      }
+    ],
+    
+    "funnel_analysis": {
+      "stages": [
+        {
+          "stage": "Store Visit",
+          "count": 152000,
+          "percentage": 100.0,
+          "drop_off": 0
+        },
+        {
+          "stage": "Product Browsing",
+          "count": 91200,
+          "percentage": 60.0,
+          "drop_off": 40.0
+        },
+        {
+          "stage": "Product Selection",
+          "count": 30400,
+          "percentage": 20.0,
+          "drop_off": 40.0
+        },
+        {
+          "stage": "Purchase Decision",
+          "count": 12160,
+          "percentage": 8.0,
+          "drop_off": 12.0
+        },
+        {
+          "stage": "Completed Purchase",
+          "count": 8056,
+          "percentage": 5.3,
+          "drop_off": 2.7
+        }
+      ]
+    },
+    
+    "conversion_drivers": [
+      {
+        "factor": "Product Availability",
+        "impact": "+1.2%",
+        "description": "Full stock reduces conversion loss"
+      },
+      {
+        "factor": "Promotional Pricing",
+        "impact": "+0.8%",
+        "description": "Price promotions increase purchase intent"
+      },
+      {
+        "factor": "Brand Visibility",
+        "impact": "+0.6%",
+        "description": "Premium shelf placement boosts conversions"
+      },
+      {
+        "factor": "Staff Recommendations",
+        "impact": "+0.4%",
+        "description": "Trained staff influence purchase decisions"
+      }
+    ],
+    
+    "top_converting_products": [
+      {
+        "product": "Alaska Condensada 14oz",
+        "conversion_rate": 8.9,
+        "category": "Dairy",
+        "brand": "Alaska"
+      },
+      {
+        "product": "Del Monte Tomato Sauce 250g",
+        "conversion_rate": 7.2,
+        "category": "Canned Goods",
+        "brand": "Del Monte"
+      },
+      {
+        "product": "Oishi Prawn Crackers Original",
+        "conversion_rate": 6.8,
+        "category": "Snacks",
+        "brand": "Oishi"
+      },
+      {
+        "product": "Peerless Margarine 250g",
+        "conversion_rate": 5.4,
+        "category": "Cooking Ingredients",
+        "brand": "Peerless"
+      }
+    ]
+  },
+  
+  "insights": [
+    "Alaska Milk achieves highest conversion rate (6.8%) due to strong brand loyalty and premium positioning",
+    "Sari-Sari stores show exceptional 7.2% conversion rate, indicating high purchase intent in convenience settings",
+    "NCR leads regional conversion at 5.6%, benefiting from higher disposable income and brand awareness", 
+    "Product availability is the strongest conversion driver, adding +1.2% when fully stocked",
+    "Conversion funnel shows 40% drop-off from browsing to selection, indicating opportunity for better merchandising"
+  ],
+  
+  "recommended_actions": [
+    {
+      "priority": "high",
+      "action": "Implement dynamic inventory management to ensure 95%+ product availability",
+      "impact": "Potential +1.2% conversion improvement",
+      "timeline": "30 days"
+    },
+    {
+      "priority": "high", 
+      "action": "Expand promotional pricing programs across all channels",
+      "impact": "Potential +0.8% conversion improvement",
+      "timeline": "15 days"
+    },
+    {
+      "priority": "medium",
+      "action": "Improve product placement and visibility in mall outlets",
+      "impact": "Potential +0.6% conversion improvement",
+      "timeline": "45 days"
+    }
+  ]
+}

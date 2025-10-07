@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="azure-well-architected" content="https://learn.microsoft.com/azure/well-architected/">
+  <title>TBWA Full Azure ETL Architecture</title>
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #f9fafb; color: #1f2937; padding: 40px; }
+    h1 { text-align: center; margin-bottom: 1rem; font-size: 2rem; }
+    .section { margin: 2rem 0; padding: 1.5rem; border: 2px dashed #e5e7eb; border-radius: 8px; }
+    h2 { text-align: center; margin-top: 0; }
+    .row { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin: 2rem 0; }
+    .node { display: flex; flex-direction: column; align-items: center; width: 120px; text-align: center; }
+    .node img { width: 48px; height: 48px; margin-bottom: 8px; }
+    .node span { margin-top: 0.5rem; font-weight: 500; font-size: 0.9rem; }
+    .connector { width: 40px; height: 2px; background: #6b7280; position: relative; }
+    .connector.dashed { background: none; border-top: 2px dashed #6b7280; }
+    .connector::after { content: ''; position: absolute; right: -6px; top: -4px; border: 6px solid transparent; border-left-color: #6b7280; }
+    .tbwa-yellow { background-color: rgba(255, 207, 0, 0.1); border-color: rgba(255, 207, 0, 0.8); }
+    .tbwa-slate { background-color: rgba(75, 85, 99, 0.1); border-color: rgba(75, 85, 99, 0.8); }
+    .tbwa-red { background-color: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.8); }
+    .tbwa-blue { background-color: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.8); }
+    footer { text-align: center; margin-top: 3rem; font-size: .75rem; color: #6b7280; }
+    footer a { color: #0078D4; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>TBWA Full Azure ETL Architecture</h1>
+
+  <!-- Security (Well-Architected Pillar) -->
+  <div class="section tbwa-slate">
+    <h2>Security (Well-Architected Pillar)</h2>
+    <div class="row">
+      <div class="node">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Identity/AzureActiveDirectory.svg" alt="Azure Active Directory icon"/>
+        <span>Azure AD</span>
+      </div>
+      <div class="connector"></div>
+      <div class="node">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Networking/AzureFrontDoor.svg" alt="Azure Front Door icon"/>
+        <span>Front Door</span>
+      </div>
+      <div class="connector"></div>
+      <!-- WAF removed per updated design -->
+      <div class="node">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Networking/AzureDNS.svg" alt="Azure DNS icon"/>
+        <span>Azure DNS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reliability & Ingestion (Well-Architected Pillars) -->
+  <div class="section tbwa-yellow">
+    <h2>Reliability & Ingestion (Well-Architected Pillars)</h2>
+    <div class="row">
+      <div class="node">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Integration/AzureDataFactory.svg" alt="Azure Data Factory icon"/>
+        <span>Data Factory</span>
+      </div>
+      <div class="connector"></div>
+      <div class="node">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Integration/AzureEventHubs.svg" alt="Azure Event Hubs icon"/>
+        <span>Event Hubs</span>
+      </div>
+      <div class="connector dashed"></div>
+      <div class="node">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Storage/AzureBlobStorage.svg" alt="Azure Blob Storage icon"/>
+        <span>Blob Storage</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance & Data Transformation (Well-Architected Pillars) -->
+  <div class="section tbwa-red">
+    <h2>Performance & Data Transformation (Well-Architected Pillars)</h2>
+    <div class="row">
+      <div class="node">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/AzureDatabricks.svg" alt="Azure Databricks icon"/>
+        <span>DLT Pipeline</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="node bronze">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/AzureDatabricks.svg" alt="Azure Databricks Bronze icon"/>
+        <span>Raw Ingestion<br>(Bronze Δ)</span>
+      </div>
+      <div class="connector"></div>
+      <div class="node silver">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/AzureDatabricks.svg" alt="Azure Databricks Silver icon"/>
+        <span>Staging & Cleansing<br>(Silver Δ)</span>
+      </div>
+      <div class="connector"></div>
+      <div class="node gold">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/AzureDatabricks.svg" alt="Azure Databricks Gold icon"/>
+        <span>Curated Tables<br>(Gold Δ)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Operational Excellence & BI (Well-Architected Pillars) -->
+  <div class="section tbwa-blue">
+    <h2>Operational Excellence & BI (Well-Architected Pillars)</h2>
+    <div class="row">
+      <div class="node">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/AzureMachineLearning.svg" alt="Azure Machine Learning icon"/>
+        <span>Feature Store<br>& RAG</span>
+      </div>
+      <div class="connector"></div>
+      <div class="node">
+        <img src="https://raw.githubusercontent.com/microsoft/azure-architecture-icons/main/icons/Analytics/AzurePowerBI.svg" alt="Azure Power BI icon"/>
+        <span>Dashboard & BI</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Icons from <a href="https://learn.microsoft.com/azure/architecture/icons/" target="_blank">Microsoft Azure Architecture Icons</a></p>
+    <p>Used under Microsoft's icon terms &mdash; see official docs for guidelines.</p>
+  </footer>
+</body>
+</html>

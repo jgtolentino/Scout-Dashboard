@@ -1,0 +1,102 @@
+[
+  {
+    "transcript_id": "tr-001",
+    "conversation_id": "conv-789",
+    "timestamp": "2025-05-15T09:30:12Z",
+    "transcript_text": "Customer: I'm having trouble with my recent order. The tracking information hasn't updated in 3 days.\n\nAgent: I'm sorry to hear that. Let me check the status of your order. Could you provide your order number?\n\nCustomer: Yes, it's ORDER-123456.\n\nAgent: Thank you. I can see that your order was shipped on May 12th with EcoPack packaging. According to our system, there was a delay at the distribution center in Chicago, but the package is now in transit again. It should arrive within 2 business days.\n\nCustomer: That's a relief. I was worried it was lost.\n\nAgent: I understand your concern. Is there anything else I can help you with today?\n\nCustomer: No, that's all. Thank you for checking.",
+    "agent_id": "agent-123",
+    "customer_id": "cust-456",
+    "channel": "chat",
+    "processed_at": "2025-05-15T09:35:22Z"
+  },
+  {
+    "transcript_id": "tr-002",
+    "conversation_id": "conv-790",
+    "timestamp": "2025-05-15T10:12:45Z",
+    "transcript_text": "Customer: Hi, I'm looking for information about your sustainable packaging options. Do you use CompetitorX's packaging or your own?\n\nAgent: Hello! We actually use our own proprietary EcoPack sustainable packaging, which is 100% recyclable and made from 80% post-consumer materials. We don't use CompetitorX's packaging solutions.\n\nCustomer: That's interesting. How does yours compare to GreenWrap?\n\nAgent: Great question! Our EcoPack solution actually offers 20% better protection than GreenWrap while using less material overall. We've found that customers prefer our packaging because it's easier to recycle and provides better product protection.\n\nCustomer: That's good to know. I'll keep that in mind for our next order. Thanks!",
+    "agent_id": "agent-456",
+    "customer_id": "cust-789",
+    "channel": "chat",
+    "processed_at": "2025-05-15T10:18:12Z"
+  },
+  {
+    "transcript_id": "tr-003",
+    "conversation_id": "conv-791",
+    "timestamp": "2025-05-15T11:05:33Z",
+    "transcript_text": "Agent: Thank you for calling customer support. How may I help you today?\n\nCustomer: I'm calling about the new product lineup. When will the summer collection be available?\n\nAgent: Our summer collection is scheduled to launch on June 15th. It will include our new sustainable packaging options that are fully recyclable.\n\nCustomer: Great! Will it feature the new GreenWrap packaging I've heard about?\n\nAgent: Actually, we've developed our own EcoPack solution that outperforms GreenWrap in both protection and sustainability metrics. Would you like me to send you our comparison sheet?\n\nCustomer: Yes, please. That would be helpful.\n\nAgent: Perfect. I'll email that right over to you. Is there anything else I can assist with today?\n\nCustomer: No, that's all. Thank you for your help.",
+    "agent_id": "agent-789",
+    "customer_id": "cust-101",
+    "channel": "phone",
+    "processed_at": "2025-05-15T11:15:40Z"
+  },
+  {
+    "transcript_id": "tr-004",
+    "conversation_id": "conv-792",
+    "timestamp": "2025-05-15T12:30:10Z",
+    "transcript_text": "Customer: I need to make a return. The product I received doesn't match what was advertised on your website.\n\nAgent: I'm sorry to hear that. I'd be happy to help with your return. Could you please provide your order number?\n\nCustomer: It's ORDER-789012.\n\nAgent: Thank you. I see you ordered our premium desk organizer. What specifically doesn't match the description?\n\nCustomer: The description said it was made of recycled materials, but the packaging says it contains only 30% recycled content.\n\nAgent: I apologize for this discrepancy. You're absolutely right - our premium organizers should contain at least 80% recycled materials according to our sustainable product guidelines. I'll process this return immediately and have a replacement with the correct specifications sent to you. There will be no additional charge, and you can keep the incorrect item if you wish.\n\nCustomer: That's great customer service. Thank you!\n\nAgent: We appreciate your attention to detail. Our commitment to sustainability is important to us, and we value customers who hold us accountable.",
+    "agent_id": "agent-123",
+    "customer_id": "cust-202",
+    "channel": "chat",
+    "processed_at": "2025-05-15T12:38:15Z"
+  },
+  {
+    "transcript_id": "tr-005",
+    "conversation_id": "conv-793",
+    "timestamp": "2025-05-15T13:45:22Z",
+    "transcript_text": null,
+    "agent_id": "agent-456",
+    "customer_id": "cust-303",
+    "channel": "chat",
+    "processed_at": "2025-05-15T13:50:10Z"
+  },
+  {
+    "transcript_id": "tr-006",
+    "conversation_id": "conv-794",
+    "timestamp": "2025-05-15T14:20:15Z",
+    "transcript_text": "Customer: Is there a bulk discount for orders over $1000?\n\nAgent: Yes, we offer a 15% discount for orders over $1000. Would you like me to apply that to your cart?\n\nCustomer: Yes, please.\n\nAgent: Great! I've applied the discount. Your total is now $1275, down from $1500.\n\nCustomer: Perfect, thank you!",
+    "agent_id": "agent-789",
+    "customer_id": "cust-404",
+    "channel": "chat",
+    "processed_at": "2025-05-15T14:25:30Z"
+  },
+  {
+    "transcript_id": "tr-007",
+    "conversation_id": "conv-795",
+    "timestamp": "2025-05-15T15:10:45Z",
+    "transcript_text": "Agent: Hello, this is customer support. How can I help you today?\n\nCustomer: I'm trying to place an order but getting an error at checkout. It says something about a supply chain disruption?\n\nAgent: I apologize for the inconvenience. We're currently experiencing some supply chain issues due to semiconductor shortages. Some products may have delayed shipping times. Which product are you trying to order?\n\nCustomer: I'm ordering the smart desk organizer with the built-in charger.\n\nAgent: Thank you for that information. Yes, that product contains semiconductor components that are currently in limited supply. The estimated shipping time is 3-4 weeks. Would you like to proceed with the order or look at alternative products?\n\nCustomer: That's too long for me. Do you have any similar products without the smart features that can ship sooner?\n\nAgent: Yes, we have our standard desk organizer that ships within 2 business days. It doesn't have the wireless charging feature, but it includes all the organizational components and is actually made with 100% recycled materials.\n\nCustomer: That sounds good. I'll go with that instead.\n\nAgent: Excellent choice. I'll send you the link to that product right away.",
+    "agent_id": "agent-123",
+    "customer_id": "cust-505",
+    "channel": "phone",
+    "processed_at": "2025-05-15T15:20:12Z"
+  },
+  {
+    "transcript_id": "tr-008",
+    "conversation_id": "conv-796",
+    "timestamp": "2025-05-15T16:05:33Z",
+    "transcript_text": "Customer: Do you offer any financial products for small businesses?\n\nAgent: Currently, we don't offer specialized financial products for small businesses, but we're looking into developing those services. Is there a specific type of financial product you're interested in?\n\nCustomer: We're looking for inventory financing options for our retail store.\n\nAgent: Thank you for sharing that. While we don't currently offer inventory financing, I can note your interest. We've actually received similar requests from other small business customers recently. This helps us prioritize new service development.\n\nCustomer: I see. Do you have any partnerships with financial institutions that might offer these services?\n\nAgent: Not at this time, but we're actively exploring partnership opportunities. Would you like me to add you to our notification list for when we launch small business financial services?\n\nCustomer: Yes, please do. My email is smallbiz@example.com.\n\nAgent: Thank you. I've added you to our notification list. We appreciate your interest and feedback.",
+    "agent_id": "agent-456",
+    "customer_id": "cust-606",
+    "channel": "chat",
+    "processed_at": "2025-05-15T16:12:20Z"
+  },
+  {
+    "transcript_id": "tr-009",
+    "conversation_id": "conv-797",
+    "timestamp": "2025-05-15T17:30:42Z",
+    "transcript_text": "Hello",
+    "agent_id": "agent-789",
+    "customer_id": "cust-707",
+    "channel": "chat",
+    "processed_at": "2025-05-15T17:35:10Z"
+  },
+  {
+    "transcript_id": "tr-010",
+    "conversation_id": "conv-798",
+    "timestamp": "2025-05-15T18:15:27Z",
+    "transcript_text": "Agent: Good evening, how can I assist you today?\n\nCustomer: I'm looking for information on your business account options. We're a small consulting firm with about 15 employees.\n\nAgent: I'd be happy to help with that. We offer several business account tiers designed for small to medium businesses. For a 15-person consulting firm, our Professional tier would likely be the best fit. It includes multi-user access, advanced analytics, and dedicated support.\n\nCustomer: Sounds promising. What's the pricing structure?\n\nAgent: The Professional tier is $199 per month, which includes up to 20 user accounts. We're currently running a promotion where you get the first three months at 50% off when you sign up for an annual plan.\n\nCustomer: That's competitive with what we're currently using. Is there a trial period available?\n\nAgent: Yes, we offer a 30-day full-feature trial with no credit card required. Would you like me to set that up for you?\n\nCustomer: Yes, that would be great. My email is business@example.com.\n\nAgent: Perfect. I'll set up the trial account and send the details to that email. You should receive everything within the next hour. Is there anything else I can help with today?",
+    "agent_id": "agent-123",
+    "customer_id": "cust-808",
+    "channel": "chat",
+    "processed_at": "2025-05-15T18:22:40Z"
+  }
+]

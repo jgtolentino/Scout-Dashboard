@@ -1,0 +1,96 @@
+1. Dashboard Section Titles & Subtitles
+Old:
+“Top Brands”, “Value Distribution”, “Regional Performance”
+
+Improved:
+
+Top Brands: “Leaders in Sales: This Month’s Best-Performing Brands”
+Tooltip: “View brand share by value. Hover for last period’s growth.”
+
+Value Distribution: “How Value Flows Over Time”
+Tooltip: “Track total peso value per day. Look for spikes or dips—what caused them?”
+
+Regional Performance: “Strongest Markets by City”
+Tooltip: “See how each city stacks up in sales and volume. Green = up, red = down.”
+
+2. Insight & AI Recommendation Panel Copy
+Old:
+“Increase staffing during peak transaction hours.”
+
+Improved (using your JSON data):
+
+“Oishi Ridges saw a ₱2.9M sales volume this month, but growth dipped by 7.9%. Consider running a limited-time promo to recover momentum.”
+
+“Del Monte Pineapple spiked by 24.4%. Double down on this SKU with in-store displays while demand is hot.”
+
+“Champion Detergent is up 23.6%—excellent. Can you cross-sell with Hana Shampoo for even bigger baskets?”
+
+“Cebu and Bacolod both posted strong numbers. Replicate what’s working in those cities across similar regions.”
+
+“Track declining brands like Winston (down 6.9%). Quick win: bundle with rising categories.”
+
+3. Filters & Toggles (Actionable/Descriptive)
+Old:
+“All Locations”, “All Brands”, “All Categories”
+
+Improved:
+
+“Filter by City: Zoom in on regional trends”
+
+“Brand Spotlight: Focus your dashboard on one or more brands”
+
+“Category Lens: Drill down into snacks, beverages, or household essentials”
+
+4. Chart Axis, Legends, & Helper Text
+Old:
+
+“Value”
+
+“% Change”
+
+Improved:
+
+“₱ Sales Value (per day)”
+
+“Growth vs Last Period (%)”
+
+“Brand Share (%)”
+
+“Peak: [auto-fill top day/time]”
+
+“Trailing 7-day trend”
+
+5. Snackable Insight Banners (for AI/Action Panel)
+Instead of just listing stats, turn top changes into mini-stories or alerts.
+
+“🔥 Del Monte Spaghetti Sauce jumped by ₱600K this week. Check if the new promo is working—or if it’s just a one-off spike.”
+
+“⚠️ Oishi Marty's is down 8%. Investigate—are you losing share to a competitor, or did a key account pause orders?”
+
+“💡 Krem-Top is gaining ground—up 10%. Try pairing with afternoon snack bundles.”
+
+6. Example: Dynamic Card Copy for a Brand Panel
+jsx
+Copy
+Edit
+{
+  brand: "Del Monte Pineapple",
+  value: 1271439.87,
+  pct_change: 0.2444
+}
+// Copy:
+<>
+  <div className="font-semibold">Del Monte Pineapple</div>
+  <div>₱1.27M sales (+24.4%). Trending up—capitalize on momentum with fresh POS displays.</div>
+</>
+Negative Growth Example:
+“Winston: ₱2.4M sales (–6.9%). Monitor for further drops. Suggest targeted discounts or new channel activity.”
+
+7. Summary of Principles
+Be Specific: Use real numbers and % changes for every key insight.
+
+Give Clear Calls to Action: “Double down,” “Monitor for drops,” “Bundle with X.”
+
+Add Context: “Spiked after campaign launch,” “Dipped post-holiday,” “Uptrend for 3 weeks.”
+
+Be Human: Use casual, clear language as if you’re briefing a marketing team.

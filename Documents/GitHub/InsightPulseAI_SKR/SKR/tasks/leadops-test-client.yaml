@@ -1,0 +1,195 @@
+config:
+  author: Pulser Shell
+  created_at: '2025-04-30'
+  description: Multi-phase system routine for lead generation and operations management
+  integrations:
+  - operations:
+    - read_context
+    - write_results
+    path: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/SKR
+    type: skr
+  - operations:
+    - execute_commands
+    - stream_results
+    path: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/scripts/pulser_shell_enhanced.sh
+    type: shell
+  metadata:
+    category: lead_operations
+    tags:
+    - leadops
+    - multi_phase
+    - workflow
+    - pulser
+    - mistral
+    type: workflow
+    visibility: internal
+  name: LeadOps v1
+  output:
+    autosave: true
+    destination: /Users/tbwa/Documents/GitHub/InsightPulseAI_SKR/output/leadops_results.md
+    format: markdown
+    include_metadata: true
+  phases: &id001
+  - description: Set up the lead generation environment and define target parameters
+    id: phase_init
+    name: Initialization
+    outputs:
+    - target_industries
+    - customer_profiles
+    - success_metrics
+    required: true
+  - depends_on:
+    - phase_init
+    description: Research and identify potential leads based on parameters
+    id: phase_discovery
+    name: Discovery
+    outputs:
+    - lead_candidates
+    - market_analysis
+    - competitor_data
+    required: true
+  - depends_on:
+    - phase_discovery
+    description: Evaluate lead quality and prioritize based on criteria
+    id: phase_qualification
+    name: Qualification
+    outputs:
+    - qualified_leads
+    - lead_scores
+    - opportunity_assessment
+    required: true
+  - depends_on:
+    - phase_qualification
+    description: Develop personalized outreach strategies for qualified leads
+    id: phase_engagement
+    name: Engagement
+    outputs:
+    - engagement_plans
+    - communication_templates
+    - tracking_metrics
+    required: true
+  - depends_on:
+    - phase_engagement
+    description: Measure results and optimize strategies
+    id: phase_analysis
+    name: Analysis
+    outputs:
+    - performance_metrics
+    - improvement_recommendations
+    - final_report
+    required: true
+  runtime:
+    context_window: 8192
+    max_tokens_per_phase: 4096
+    model: mistral
+    temperature: 0.7
+  task:
+    id: leadops_v1
+    status: active
+    type: multi_phase_workflow
+  version: 1.0.0
+created_at: '2025-05-01 02:53:58'
+current_phase: 2
+last_updated: '2025-04-30T19:11:45.891724+00:00'
+phases: *id001
+phases_completed:
+- completed_at: '2025-04-30T19:02:34.871764+00:00'
+  outputs:
+    customer_profiles: '[Extracted from response] Phase 1: Initialization'
+    success_metrics: '[Extracted from response] Phase 1: Initialization'
+    target_industries: '[Extracted from response] Phase 1: Initialization'
+  phase_id: phase_init
+  phase_index: 0
+  phase_name: Initialization
+  response: "Reloading model 'mistral'...\nSuccessfully pulled 'mistral'\nModel: mistral\n\
+    Prompt: # LeadOps Task: leadops-test-client\n## Phase 1: Initialization\nDescription:\
+    \ Set up the lead generation environment and define target parameters\n\nYou are\
+    \ executing a multi-phase lead operations workflow.\n\n## Required Outputs:\n\
+    - target_industries\n- customer_profiles\n- success_metrics\n\nPlease complete\
+    \ this phase by providing the required outputs.\nFormat your response as detailed\
+    \ information for each required output.\n\nLet's work through this systematically\
+    \ and thoroughly.\n\nResponse:\n In this phase, we will set up the lead generation\
+    \ environment, define target parameters, and provide the required outputs as follows:\n\
+    \n### 1. Target Industries\nThe target industries are crucial to focus our lead\
+    \ generation efforts. By understanding these industries, we can tailor our approach\
+    \ to create more relevant leads that are likely to convert. For this example,\
+    \ let's consider the following three industries:\n\n- Technology (IT and Software)\n\
+    - Healthcare & Pharmaceuticals\n- Financial Services\n\n### 2. Customer Profiles\n\
+    Defining customer profiles helps us understand our ideal client. This information\
+    \ will guide our lead generation efforts to target leads that meet these criteria,\
+    \ increasing the chances of successful conversions. Here's a simple breakdown\
+    \ of the customer profiles we will focus on:\n\n- Job Titles: Marketing Managers,\
+    \ Sales Directors, Business Development Managers, and CEOs/Founders\n- Company\
+    \ Size: Companies with 50 or more employees\n- Location: United States (for this\
+    \ example)\n- Annual Revenue: Companies generating $1M - $50M in annual revenue\n\
+    \n### 3. Success Metrics\nEstablishing success metrics enables us to measure the\
+    \ effectiveness of our lead generation process and make data-driven decisions\
+    \ for continuous improvement. Here are the three key success metrics we will track:\n\
+    \n- Lead Quality Score (LQS): This metric measures the relevancy, potential interest\
+    \ level, and the overall quality of leads generated. A higher LQS indicates more\
+    \ promising leads.\n- Conversion Rate (CR): The percentage of leads that convert\
+    \ into paying customers. We can improve our marketing strategy by focusing on\
+    \ tactics that increase this rate.\n- Cost per Acquisition (CPA): This metric\
+    \ measures the cost associated with acquiring a single customer, including all\
+    \ related costs such as advertising and lead generation expenses. Lower CPA indicates\
+    \ more efficient lead generation efforts."
+- completed_at: '2025-04-30T19:11:45.891329+00:00'
+  outputs:
+    competitor_data: '[Extracted from response] Phase 2: Discovery'
+    lead_candidates: '[Extracted from response] Phase 2: Discovery'
+    market_analysis: '[Extracted from response] Phase 2: Discovery'
+  phase_id: phase_discovery
+  phase_index: 1
+  phase_name: Discovery
+  response: "Reloading model 'mistral'...\nSuccessfully pulled 'mistral'\nModel: mistral\n\
+    Prompt: # LeadOps Task: leadops-test-client\n## Phase 2: Discovery\nDescription:\
+    \ Research and identify potential leads based on parameters\n\nYou are executing\
+    \ a multi-phase lead operations workflow.\n\n## Previous Phases Results:\n\n###\
+    \ Phase 1: Initialization\n- customer_profiles: [Extracted from response] Phase\
+    \ 1: Initialization\n- success_metrics: [Extracted from response] Phase 1: Initialization\n\
+    - target_industries: [Extracted from response] Phase 1: Initialization\n\n## Required\
+    \ Outputs:\n- lead_candidates\n- market_analysis\n- competitor_data\n\nPlease\
+    \ complete this phase by providing the required outputs.\nFormat your response\
+    \ as detailed information for each required output.\n\nLet's work through this\
+    \ systematically and thoroughly.\n\nResponse:\n In this phase, I will conduct\
+    \ a comprehensive research to identify potential leads, perform market analysis,\
+    \ and gather competitor data based on the provided parameters. Here are the results:\n\
+    \n### 1. lead_candidates\nFor the purpose of this example, let's assume that we\
+    \ have identified 10 potential leads that match our target industries and customer\
+    \ profiles. These leads are as follows:\n\n- Company A: [Industry 1] - Headquartered\
+    \ in [Location 1], they offer [Product/Service 1]. They have annual revenue of\
+    \ $50 million and employ around 500 people. Contact information: [Email, Phone\
+    \ Number].\n- Company B: [Industry 2] - Based in [Location 2], they provide [Product/Service\
+    \ 2]. Their annual revenue is approximately $100 million, with a workforce of\
+    \ about 1000 employees. Contact details: [Email, Phone Number].\n- ...\n- Company\
+    \ J: [Industry X] - Located in [Location X], they offer [Product/Service X]. They\
+    \ have an annual revenue of $20 million and employ around 300 people. Contact\
+    \ information: [Email, Phone Number].\n\n### 2. market_analysis\nIn this section,\
+    \ I will provide a brief analysis of the target markets based on the identified\
+    \ leads.\n\n- Market Overview: The combined annual revenue of the 10 potential\
+    \ leads is approximately $180 million, indicating a significant market opportunity\
+    \ for our services.\n- Key Trends: The majority of leads are in [Location 1] and\
+    \ [Location 2], suggesting that these regions could be prioritized for targeted\
+    \ outreach.\n- Opportunities: Identified opportunities include partnering with\
+    \ Company A to offer complementary products, targeting smaller companies like\
+    \ Company J to scale up services, and exploring potential collaborations between\
+    \ leads in the same industry (e.g., Companies C and D).\n- Challenges: Potential\
+    \ challenges might include competition from established players in the market,\
+    \ limited resources for outreach, and varying levels of interest in our services\
+    \ among the identified leads.\n\n### 3. competitor_data\nIn this section, I will\
+    \ provide a summary of key competitors and their offerings to help inform strategy\
+    \ and messaging.\n\n- Competitor A: Offers similar services as our company but\
+    \ focuses on smaller businesses. They have a strong presence in [Location 1] and\
+    \ [Location 2].\n- Competitor B: Specializes in providing customized solutions\
+    \ for large enterprises, with a focus on industries like Industry 2 and Industry\
+    \ 3.\n- ...\n- Competitor X: Offers a mix of products and services, targeting\
+    \ a broad range of industries including our targets (Industry 1, Industry 2, etc.).\
+    \ They have a strong brand recognition and are considered a market leader in the\
+    \ industry.\n\nBy analyzing these competitors, we can tailor our messaging to\
+    \ highlight our unique value proposition, such as specialized services for mid-sized\
+    \ businesses or competitive pricing compared to established players. Additionally,\
+    \ understanding their strengths and weaknesses will help inform our sales strategy\
+    \ and positioning within the market."
+status: in_progress
+task_id: leadops-test-client
+type: leadops

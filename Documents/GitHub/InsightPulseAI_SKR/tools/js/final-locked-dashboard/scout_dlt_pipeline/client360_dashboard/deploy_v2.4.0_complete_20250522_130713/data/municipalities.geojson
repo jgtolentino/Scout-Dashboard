@@ -1,0 +1,371 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2025-05-22T00:00:00Z",
+    "source": "simulated",
+    "description": "Simplified Philippines municipality boundaries (simulated data)"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-MKT",
+        "name": "Makati City",
+        "type": "City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 629616,
+        "area_km2": 21.57
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0095, 14.5289],
+            [121.0437, 14.5289],
+            [121.0437, 14.5789],
+            [121.0095, 14.5789],
+            [121.0095, 14.5289]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-MNL",
+        "name": "Manila City",
+        "type": "City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 1846513,
+        "area_km2": 42.88
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.9543, 14.5289],
+            [121.0095, 14.5289],
+            [121.0095, 14.5789],
+            [120.9543, 14.5789],
+            [120.9543, 14.5289]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-QZN",
+        "name": "Quezon City",
+        "type": "City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 2960048,
+        "area_km2": 165.33
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.9800, 14.5900],
+            [121.1000, 14.5900],
+            [121.1000, 14.7200],
+            [120.9800, 14.7200],
+            [120.9800, 14.5900]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-MRK",
+        "name": "Marikina City",
+        "type": "City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 456059,
+        "area_km2": 33.97
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0800, 14.6000],
+            [121.1200, 14.6000],
+            [121.1200, 14.6600],
+            [121.0800, 14.6600],
+            [121.0800, 14.6000]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-PSG",
+        "name": "Pasig City",
+        "type": "City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 755300,
+        "area_km2": 48.46
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0400, 14.5400],
+            [121.1100, 14.5400],
+            [121.1100, 14.6000],
+            [121.0400, 14.6000],
+            [121.0400, 14.5400]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-MND",
+        "name": "Mandaluyong City",
+        "type": "City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 386276,
+        "area_km2": 11.26
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0200, 14.5600],
+            [121.0600, 14.5600],
+            [121.0600, 14.6000],
+            [121.0200, 14.6000],
+            [121.0200, 14.5600]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NCR-TGG",
+        "name": "Taguig City",
+        "type": "City",
+        "province": "Metro Manila",
+        "region": "NCR",
+        "population": 886722,
+        "area_km2": 53.67
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0300, 14.4800],
+            [121.0900, 14.4800],
+            [121.0900, 14.5400],
+            [121.0300, 14.5400],
+            [121.0300, 14.4800]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "CVIS-CEB",
+        "name": "Cebu City",
+        "type": "City",
+        "province": "Cebu",
+        "region": "Central Visayas",
+        "population": 964169,
+        "area_km2": 315.00
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.8000, 10.2500],
+            [123.9500, 10.2500],
+            [123.9500, 10.3800],
+            [123.8000, 10.3800],
+            [123.8000, 10.2500]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "DAV-DVO",
+        "name": "Davao City",
+        "type": "City",
+        "province": "Davao del Sur",
+        "region": "Davao",
+        "population": 1776949,
+        "area_km2": 2443.61
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [125.5000, 6.9500],
+            [125.7000, 6.9500],
+            [125.7000, 7.1500],
+            [125.5000, 7.1500],
+            [125.5000, 6.9500]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "CAR-BGU",
+        "name": "Baguio City",
+        "type": "City",
+        "province": "Benguet",
+        "region": "CAR",
+        "population": 366358,
+        "area_km2": 57.51
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.5500, 16.3700],
+            [120.6500, 16.3700],
+            [120.6500, 16.4500],
+            [120.5500, 16.4500],
+            [120.5500, 16.3700]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "WVIS-ILO",
+        "name": "Iloilo City",
+        "type": "City",
+        "province": "Iloilo",
+        "region": "Western Visayas",
+        "population": 481831,
+        "area_km2": 78.34
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [122.5000, 10.6800],
+            [122.6200, 10.6800],
+            [122.6200, 10.7600],
+            [122.5000, 10.7600],
+            [122.5000, 10.6800]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "ILO-LAO",
+        "name": "Laoag City",
+        "type": "City",
+        "province": "Ilocos Norte",
+        "region": "Ilocos",
+        "population": 111651,
+        "area_km2": 116.08
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.5500, 18.1700],
+            [120.6500, 18.1700],
+            [120.6500, 18.2300],
+            [120.5500, 18.2300],
+            [120.5500, 18.1700]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "EVIS-LEY",
+        "name": "Tacloban City",
+        "type": "City",
+        "province": "Leyte",
+        "region": "Eastern Visayas",
+        "population": 242089,
+        "area_km2": 201.72
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [124.9500, 11.2000],
+            [125.0500, 11.2000],
+            [125.0500, 11.3000],
+            [124.9500, 11.3000],
+            [124.9500, 11.2000]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "BIC-CMS",
+        "name": "Naga City",
+        "type": "City",
+        "province": "Camarines Sur",
+        "region": "Bicol",
+        "population": 196003,
+        "area_km2": 84.48
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [123.7000, 13.5800],
+            [123.8000, 13.5800],
+            [123.8000, 13.6600],
+            [123.7000, 13.6600],
+            [123.7000, 13.5800]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "CALB-BTG",
+        "name": "Batangas City",
+        "type": "City",
+        "province": "Batangas",
+        "region": "CALABARZON",
+        "population": 329874,
+        "area_km2": 282.96
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0000, 13.7000],
+            [121.1200, 13.7000],
+            [121.1200, 13.8000],
+            [121.0000, 13.8000],
+            [121.0000, 13.7000]
+          ]
+        ]
+      }
+    }
+  ]
+}

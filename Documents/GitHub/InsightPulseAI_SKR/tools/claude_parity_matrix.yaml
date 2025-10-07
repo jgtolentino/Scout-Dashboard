@@ -1,0 +1,83 @@
+# Claude CLI Parity Matrix
+# Shows parity status between Pulser CLI and Claude Code CLI
+
+features:
+  command_registry:
+    name: Command Registry Structure
+    description: Modular command registry that routes commands to specific handlers
+    required: true
+    implemented: true
+    priority: high
+
+  context_flag:
+    name: Context Flag Support
+    description: Support for --context flag to specify working directory
+    required: true
+    implemented: true
+    priority: high
+
+  error_boundary:
+    name: Error Boundary System
+    description: Comprehensive error handling and reporting
+    required: true
+    implemented: true
+    priority: medium
+
+  terminal_ui:
+    name: Terminal UI
+    description: Spinner and UI components for terminal feedback
+    required: true
+    implemented: true
+    priority: medium
+
+  version_command:
+    name: Version Display
+    description: Command to show version information
+    required: true
+    implemented: true
+    priority: low
+
+  test_suite:
+    name: Test Suite
+    description: Jest-style test infrastructure
+    required: true
+    implemented: true
+    priority: medium
+
+  async_support:
+    name: Async Command Support
+    description: Support for asynchronous command execution
+    required: true
+    implemented: true
+    priority: high
+
+  api_key_validation:
+    name: API Key Validation
+    description: Secure validation of Claude API keys
+    required: true
+    implemented: true
+    priority: high
+
+  logging:
+    name: Logging System
+    description: Comprehensive logging for debugging
+    required: true
+    implemented: true
+    priority: medium
+
+  help_system:
+    name: Help System
+    description: Detailed help information for commands
+    required: true
+    implemented: true
+    priority: medium
+
+# Summary
+summary:
+  total_features: 10
+  implemented: 10
+  partially_implemented: 0
+  not_implemented: 0
+  parity_percentage: 100
+  status: COMPLETE
+EOL < /dev/null

@@ -1,0 +1,308 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "brand": {
+      "type": "object",
+      "required": ["brand_id", "name"],
+      "properties": {
+        "brand_id": {
+          "type": "string",
+          "description": "Unique identifier for the brand"
+        },
+        "name": {
+          "type": "string",
+          "description": "Brand name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brand description"
+        },
+        "logo_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the brand logo image"
+        },
+        "website_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Brand website URL"
+        },
+        "parent_company": {
+          "type": "string",
+          "description": "Parent company name if brand is a subsidiary"
+        },
+        "country_of_origin": {
+          "type": "string",
+          "description": "Country where the brand originated"
+        },
+        "founded_year": {
+          "type": "integer",
+          "description": "Year the brand was founded"
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "source_system": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "category": {
+      "type": "object",
+      "required": ["category_id", "name"],
+      "properties": {
+        "category_id": {
+          "type": "string",
+          "description": "Unique identifier for the category"
+        },
+        "name": {
+          "type": "string",
+          "description": "Category name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Category description"
+        },
+        "parent_category_id": {
+          "type": "string",
+          "description": "Parent category ID for hierarchical classification"
+        },
+        "level": {
+          "type": "integer",
+          "description": "Depth level in category hierarchy (0 for top level)"
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of ancestor category IDs forming a path"
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "product": {
+      "type": "object",
+      "required": ["product_id", "name", "brand_id", "category_id"],
+      "properties": {
+        "product_id": {
+          "type": "string",
+          "description": "Unique identifier for the product"
+        },
+        "name": {
+          "type": "string",
+          "description": "Product name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Product description"
+        },
+        "brand_id": {
+          "type": "string",
+          "description": "Reference to the brand"
+        },
+        "category_id": {
+          "type": "string",
+          "description": "Primary category ID"
+        },
+        "subcategory_id": {
+          "type": "string",
+          "description": "Subcategory ID"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "alt_text": {
+                "type": "string"
+              },
+              "is_primary": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["active", "discontinued", "pending"]
+            },
+            "source_system": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "sku": {
+      "type": "object",
+      "required": ["sku_id", "product_id"],
+      "properties": {
+        "sku_id": {
+          "type": "string",
+          "description": "Unique identifier for the SKU"
+        },
+        "product_id": {
+          "type": "string",
+          "description": "Reference to the parent product"
+        },
+        "barcode": {
+          "type": "string",
+          "description": "Barcode number (EAN, etc.)"
+        },
+        "upc": {
+          "type": "string",
+          "description": "Universal Product Code"
+        },
+        "name": {
+          "type": "string",
+          "description": "SKU display name (if different from product name)"
+        },
+        "variant": {
+          "type": "string",
+          "description": "Variant description (e.g., 'Regular', '2pc w/ Rice')"
+        },
+        "size": {
+          "type": "string",
+          "description": "Size or volume (e.g., '250ml', 'Medium')"
+        },
+        "weight": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "default": "g"
+            }
+          }
+        },
+        "dimensions": {
+          "type": "object",
+          "properties": {
+            "length": {
+              "type": "number"
+            },
+            "width": {
+              "type": "number"
+            },
+            "height": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "default": "cm"
+            }
+          }
+        },
+        "price": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "number"
+            },
+            "currency": {
+              "type": "string",
+              "default": "PHP"
+            }
+          }
+        },
+        "inventory": {
+          "type": "object",
+          "properties": {
+            "stock_level": {
+              "type": "string",
+              "enum": ["High", "Medium", "Low", "Out of Stock"]
+            },
+            "quantity": {
+              "type": "integer"
+            },
+            "reorder_point": {
+              "type": "integer"
+            }
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "alt_text": {
+                "type": "string"
+              },
+              "is_primary": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["active", "discontinued", "pending"]
+            },
+            "source_system": {
+              "type": "string"
+            },
+            "last_sync_date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  }
+}

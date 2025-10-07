@@ -1,0 +1,85 @@
+{
+  "data": [
+    {
+      "insightId": "ins-001",
+      "title": "Rising preference for value meals across all demographics",
+      "insightType": "trend_detection",
+      "urgency": "medium",
+      "summary": "Analysis of customer interactions shows a 14.5% increase in value meal mentions across all demographics. This trend is particularly strong in urban stores.",
+      "confidence": 0.85,
+      "category": "Menu Items",
+      "brandName": "All Brands",
+      "actionableInsights": [
+        "Increase marketing focus on value meals",
+        "Develop new value menu options targeting different dayparts",
+        "Test bundled meal deals to increase average order value"
+      ]
+    },
+    {
+      "insightId": "ins-002",
+      "title": "Premium coffee driving positive brand sentiment",
+      "insightType": "opportunity_identification",
+      "urgency": "high",
+      "summary": "Premium coffee offerings are generating strong positive sentiment (0.85) and mentions have increased 22.3% in the last month. Customers are specifically mentioning 'Coffee Supreme' products.",
+      "confidence": 0.92,
+      "category": "Beverages",
+      "brandName": "Coffee Supreme",
+      "actionableInsights": [
+        "Expand premium coffee line with seasonal offerings",
+        "Create coffee+food pairings to increase attachment rate",
+        "Leverage high sentiment in marketing materials"
+      ]
+    },
+    {
+      "insightId": "ins-003",
+      "title": "Customer service satisfaction declining in Quick Bites locations",
+      "insightType": "risk_alert",
+      "urgency": "high",
+      "summary": "Customer service sentiment has dropped 3.2% over the past month, with most negative mentions coming from Quick Bites locations. Wait time complaints are a contributing factor.",
+      "confidence": 0.78,
+      "category": "Operations",
+      "brandName": "Quick Bites",
+      "actionableInsights": [
+        "Review staffing levels during peak hours",
+        "Implement targeted service training at underperforming locations",
+        "Consider express ordering options to reduce wait times"
+      ]
+    },
+    {
+      "insightId": "ins-004",
+      "title": "Mobile app usage growing but satisfaction stagnant",
+      "insightType": "competitive_intelligence",
+      "urgency": "medium",
+      "summary": "Mobile app mentions have increased 18.9%, but sentiment remains moderate at 0.63. Competitor apps are receiving higher satisfaction ratings for ease of use and functionality.",
+      "confidence": 0.81,
+      "category": "Digital Experience",
+      "brandName": "All Brands",
+      "actionableInsights": [
+        "Prioritize app UX improvements based on customer feedback",
+        "Add popular features from competitor apps",
+        "Increase app-exclusive promotions to drive adoption"
+      ]
+    },
+    {
+      "insightId": "ins-005",
+      "title": "Rewards program driving strong customer loyalty",
+      "insightType": "opportunity_identification",
+      "urgency": "medium",
+      "summary": "Rewards program mentions have increased 12.7% with very positive sentiment (0.81). Customers specifically mention point accrual and redemption flexibility as key benefits.",
+      "confidence": 0.88,
+      "category": "Marketing",
+      "brandName": "Coffee Supreme",
+      "actionableInsights": [
+        "Expand rewards program to include more redemption options",
+        "Create tiered status levels to encourage increased spending",
+        "Leverage program data for personalized marketing"
+      ]
+    }
+  ],
+  "metadata": {
+    "totalCount": 5,
+    "source": "simulated",
+    "timestamp": "2025-05-14T10:00:00Z",
+    "modelVersion": "GenAI-v2.5"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "instrumentationKey": "00000000-0000-0000-0000-000000000000",
+  "enabled": true,
+  "logLevel": "info",
+  "performanceSampleRate": 100,
+  "thresholds": {
+    "pageLoadTime": 2000,
+    "apiResponseTime": 500,
+    "renderTime": 100,
+    "interactionTime": 200
+  },
+  "maya": {
+    "enabled": true,
+    "endpoint": "https://maya-telemetry.pulserai.com/api/collect",
+    "apiKey": "maya_ai_telemetry_key",
+    "sessionSampling": 100,
+    "batchSize": 10,
+    "flushInterval": 30000
+  }
+}

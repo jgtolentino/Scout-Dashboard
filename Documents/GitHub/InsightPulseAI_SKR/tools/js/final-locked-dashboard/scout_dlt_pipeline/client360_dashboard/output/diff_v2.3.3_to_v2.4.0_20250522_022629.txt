@@ -1,0 +1,20 @@
+# Differences between v2.3.3 and v2.4.0
+# Generated: Thu 22 May 2025 02:26:29 PST
+
+## New files in v2.4.0
+
+- js/config.js
+- js/components/user/preferences.js
+- js/components/user/dashboard_layouts.js
+- js/components/map/map_engine.js
+- js/components/ai/ai_engine.js
+- js/components/ai/embeddings_service.js
+- js/components/ai/streaming_client.js
+- js/components/ai/model_registry.js
+- docs/CLIENT360_V2.4.0_FEATURES.md
+- docs/RELEASE_2.4.0.md
+- docs/DEPLOYMENT_CHECKLIST_2.4.0.md
+
+## Modified files
+
+- index.html

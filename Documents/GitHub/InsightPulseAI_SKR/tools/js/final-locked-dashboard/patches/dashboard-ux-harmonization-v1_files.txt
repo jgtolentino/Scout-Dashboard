@@ -1,0 +1,29 @@
+Modified files in patch dashboard-ux-harmonization-v1:
+
+1. qa.html
+   - Updated title and header to "System Architecture & QA"
+   - Updated navigation links to use correct dashboard names
+   - Changed footer branding to "Powered by DLab"
+
+2. insights_dashboard.html
+   - Updated title and header to "Scout Advanced Analytics"
+   - Updated navigation links to use correct dashboard names
+   - Changed footer branding to "Powered by DLab"
+
+3. retail_edge/retail_edge_dashboard.html
+   - Updated title and header to "Retail Advisor"
+   - Updated navigation links to use correct dashboard names
+   - Changed footer branding to "Powered by DLab"
+
+4. README.md
+   - Updated all references to use correct dashboard names
+   - Clarified which dashboard is client-facing
+
+5. DEPLOY_NOTES.md
+   - Updated all references to use correct dashboard names
+   - Clarified which dashboard is client-facing
+
+6. deploy_locked_dashboard.sh
+   - Updated script output to use correct dashboard names
+
+Generated on: 2025-05-14 10:31:40

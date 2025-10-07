@@ -1,0 +1,19 @@
+{
+  "format": "Csv",
+  "schedule": "Daily",
+  "schemaFields": [
+    "Name",
+    "Creation-Time",
+    "Last-Modified",
+    "Content-Length",
+    "AccessTier",
+    "AccessTierChangeTime",
+    "BlobType"
+  ],
+  "destination": {
+    "container": "inventories"
+  },
+  "enabled": true,
+  "includeBlobVersions": false,
+  "includeSnapshots": false
+}

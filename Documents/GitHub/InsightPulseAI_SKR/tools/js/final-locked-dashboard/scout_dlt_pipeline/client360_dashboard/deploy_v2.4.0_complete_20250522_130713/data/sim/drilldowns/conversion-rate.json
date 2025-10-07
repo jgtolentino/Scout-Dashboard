@@ -1,0 +1,205 @@
+{
+  "kpi_type": "conversion-rate",
+  "timestamp": "2025-05-22T11:30:00Z",
+  "summary": {
+    "overall_conversion_rate": 12.3,
+    "total_visitors": 125000,
+    "total_conversions": 15375,
+    "best_performing_step": "Product View to Cart",
+    "biggest_drop": "Checkout to Purchase"
+  },
+  "funnel": [
+    {
+      "stage": "Website Visitors",
+      "count": 125000,
+      "rate": 100.0,
+      "conversion_rate": 100.0,
+      "drop_off": 0,
+      "avg_time_spent": "2:34"
+    },
+    {
+      "stage": "Product Page Views",
+      "count": 87500,
+      "rate": 70.0,
+      "conversion_rate": 70.0,
+      "drop_off": 37500,
+      "avg_time_spent": "1:45"
+    },
+    {
+      "stage": "Add to Cart",
+      "count": 35000,
+      "rate": 40.0,
+      "conversion_rate": 28.0,
+      "drop_off": 52500,
+      "avg_time_spent": "0:45"
+    },
+    {
+      "stage": "Begin Checkout",
+      "count": 21000,
+      "rate": 60.0,
+      "conversion_rate": 16.8,
+      "drop_off": 14000,
+      "avg_time_spent": "3:12"
+    },
+    {
+      "stage": "Complete Payment",
+      "count": 17500,
+      "rate": 83.3,
+      "conversion_rate": 14.0,
+      "drop_off": 3500,
+      "avg_time_spent": "1:28"
+    },
+    {
+      "stage": "Purchase Confirmation",
+      "count": 15375,
+      "rate": 87.9,
+      "conversion_rate": 12.3,
+      "drop_off": 2125,
+      "avg_time_spent": "0:15"
+    }
+  ],
+  "conversion_by_source": [
+    {
+      "source": "Organic Search",
+      "visitors": 43750,
+      "conversions": 7000,
+      "conversion_rate": 16.0,
+      "revenue": 11200000
+    },
+    {
+      "source": "Social Media",
+      "visitors": 31250,
+      "conversions": 3750,
+      "conversion_rate": 12.0,
+      "revenue": 6000000
+    },
+    {
+      "source": "Direct Traffic",
+      "visitors": 25000,
+      "conversions": 2750,
+      "conversion_rate": 11.0,
+      "revenue": 4400000
+    },
+    {
+      "source": "Email Marketing",
+      "visitors": 15000,
+      "conversions": 1200,
+      "conversion_rate": 8.0,
+      "revenue": 1920000
+    },
+    {
+      "source": "Paid Advertising",
+      "visitors": 10000,
+      "conversions": 675,
+      "conversion_rate": 6.75,
+      "revenue": 1080000
+    }
+  ],
+  "device_breakdown": [
+    {
+      "device": "Mobile",
+      "visitors": 75000,
+      "conversions": 8437,
+      "conversion_rate": 11.25,
+      "percentage_of_traffic": 60.0
+    },
+    {
+      "device": "Desktop",
+      "visitors": 37500,
+      "conversions": 5250,
+      "conversion_rate": 14.0,
+      "percentage_of_traffic": 30.0
+    },
+    {
+      "device": "Tablet",
+      "visitors": 12500,
+      "conversions": 1688,
+      "conversion_rate": 13.5,
+      "percentage_of_traffic": 10.0
+    }
+  ],
+  "regional_performance": [
+    {
+      "region": "Metro Manila",
+      "visitors": 62500,
+      "conversions": 8750,
+      "conversion_rate": 14.0,
+      "avg_order_value": 1680
+    },
+    {
+      "region": "Cebu",
+      "visitors": 25000,
+      "conversions": 3000,
+      "conversion_rate": 12.0,
+      "avg_order_value": 1520
+    },
+    {
+      "region": "Davao",
+      "visitors": 22500,
+      "conversions": 2362,
+      "conversion_rate": 10.5,
+      "avg_order_value": 1450
+    },
+    {
+      "region": "Other Regions",
+      "visitors": 15000,
+      "conversions": 1263,
+      "conversion_rate": 8.4,
+      "avg_order_value": 1380
+    }
+  ],
+  "time_analysis": [
+    {
+      "hour": "09:00",
+      "visitors": 8750,
+      "conversion_rate": 10.2
+    },
+    {
+      "hour": "12:00",
+      "visitors": 15625,
+      "conversion_rate": 14.8
+    },
+    {
+      "hour": "15:00",
+      "visitors": 18750,
+      "conversion_rate": 15.6
+    },
+    {
+      "hour": "18:00",
+      "visitors": 16250,
+      "conversion_rate": 13.2
+    },
+    {
+      "hour": "21:00",
+      "visitors": 12500,
+      "conversion_rate": 11.8
+    }
+  ],
+  "abandonment_reasons": [
+    {
+      "reason": "High shipping costs",
+      "percentage": 34.2,
+      "stage": "Checkout"
+    },
+    {
+      "reason": "Required account creation",
+      "percentage": 28.7,
+      "stage": "Begin Checkout"
+    },
+    {
+      "reason": "Long checkout process",
+      "percentage": 18.9,
+      "stage": "Complete Payment"
+    },
+    {
+      "reason": "Website loading issues",
+      "percentage": 12.4,
+      "stage": "Product Page Views"
+    },
+    {
+      "reason": "Security concerns",
+      "percentage": 5.8,
+      "stage": "Complete Payment"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "data": [
+    {
+      "eventId": "ev-10001",
+      "eventType": "transaction",
+      "storeId": "store-123",
+      "transactionId": "txn-987654",
+      "timestamp": "2025-05-13T14:23:15Z",
+      "amount": 78.45,
+      "items": 5,
+      "customerId": "cust-45678",
+      "paymentMethod": "credit_card"
+    },
+    {
+      "eventId": "ev-10002",
+      "eventType": "transaction",
+      "storeId": "store-456",
+      "transactionId": "txn-987655",
+      "timestamp": "2025-05-13T14:25:22Z",
+      "amount": 42.99,
+      "items": 3,
+      "customerId": "cust-45679",
+      "paymentMethod": "cash"
+    },
+    {
+      "eventId": "ev-10003",
+      "eventType": "checkout_abandoned",
+      "storeId": "store-123",
+      "timestamp": "2025-05-13T14:30:15Z",
+      "items": 4,
+      "customerId": "cust-45680"
+    },
+    {
+      "eventId": "ev-10004",
+      "eventType": "product_view",
+      "storeId": "store-789",
+      "timestamp": "2025-05-13T14:32:45Z",
+      "productId": "prod-12345",
+      "customerId": "cust-45681",
+      "viewDuration": 24.5
+    },
+    {
+      "eventId": "ev-10005",
+      "eventType": "transaction",
+      "storeId": "store-456",
+      "transactionId": "txn-987656",
+      "timestamp": "2025-05-13T14:35:10Z",
+      "amount": 128.75,
+      "items": 8,
+      "customerId": "cust-45682",
+      "paymentMethod": "mobile_payment"
+    }
+  ],
+  "metadata": {
+    "totalCount": 5,
+    "source": "simulated",
+    "timestamp": "2025-05-14T10:00:00Z"
+  }
+}

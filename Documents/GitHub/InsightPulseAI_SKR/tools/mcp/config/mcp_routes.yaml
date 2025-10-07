@@ -1,0 +1,16 @@
+routes:
+  run_code_review:
+    agent: clodrep
+    command: "clodrep :review {{project_path}}"
+  generate_prd:
+    agent: pulser
+    command: "pulser :generate-prd --input {{doc_path}}"
+  schedule_sync:
+    agent: pulser
+    command: "pulser :assistant --calendar_sync"
+  dashboard_deploy:
+    agent: pulser
+    command: "pulser :deploy-dashboard --config {{config_path}}"
+  lint_check:
+    agent: clodrep
+    command: "clodrep :lint {{source_path}}"
