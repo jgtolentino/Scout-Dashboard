@@ -1,0 +1,49 @@
+# dbt profiles for Scout Analytics Supabase connection
+
+scout_analytics:
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('SUPABASE_DB_HOST') }}"
+      user: "{{ env_var('SUPABASE_DB_USER', 'postgres') }}"
+      password: "{{ env_var('SUPABASE_DB_PASSWORD') }}"
+      port: "{{ env_var('SUPABASE_DB_PORT', 5432) | int }}"
+      dbname: "{{ env_var('SUPABASE_DB_NAME', 'postgres') }}"
+      schema: public
+      threads: 4
+      keepalives_idle: 0
+      connect_timeout: 10
+      retries: 3
+      search_path: "public,bronze,silver,gold,platinum"
+      sslmode: require
+      
+    prod:
+      type: postgres
+      host: "{{ env_var('SUPABASE_DB_HOST') }}"
+      user: "{{ env_var('SUPABASE_DB_USER', 'postgres') }}"
+      password: "{{ env_var('SUPABASE_DB_PASSWORD') }}"
+      port: "{{ env_var('SUPABASE_DB_PORT', 5432) | int }}"
+      dbname: "{{ env_var('SUPABASE_DB_NAME', 'postgres') }}"
+      schema: public
+      threads: 8
+      keepalives_idle: 0
+      connect_timeout: 10
+      retries: 3
+      search_path: "public,bronze,silver,gold,platinum"
+      sslmode: require
+      
+    # Local development with connection pooling
+    local:
+      type: postgres
+      host: localhost
+      user: postgres
+      password: postgres
+      port: 54322
+      dbname: postgres
+      schema: public
+      threads: 2
+      keepalives_idle: 0
+      connect_timeout: 10
+      search_path: "public,bronze,silver,gold,platinum"
+
+  target: dev

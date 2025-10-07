@@ -1,45 +1,35 @@
-# dependencies
+# Dependencies
 node_modules/
 .pnp
 .pnp.js
 
-# testing
+# Testing
 coverage/
+*.lcov
+.nyc_output
 
-# next.js
-.next/
-out/
+# Production
 build/
 dist/
+out/
 
-# misc
-.DS_Store
-*.pem
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# debug
+# Bruno secrets
+bruno/**/.env
+bruno/**/.env.*
+
+# Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
 .pnpm-debug.log*
-
-# local env files
-.env
-.env.local
-.env.development
-.env.development.local
-.env.test
-.env.test.local
-.env.production
-.env.production.local
-*.env
-!.env.example
-!.env.*.example
-
-# turbo
-.turbo
-
-# vercel
-.vercel
 
 # IDE
 .vscode/
@@ -47,46 +37,22 @@ yarn-error.log*
 *.swp
 *.swo
 *~
-
-# OS
 .DS_Store
-Thumbs.db
 
-# Logs
-logs/
-*.log
-
-# Security
-.gitleaks.toml
-.secrets/
-*.key
-*.pem
-*.p12
-*.pfx
-
-# Cache
-.cache/
-.parcel-cache/
-.eslintcache
-
-# Build artifacts
+# TypeScript
 *.tsbuildinfo
 
-# Temporary files
-.tmp/
-tmp/
-temp/
+# Docker
+*.log
 
-# Sentry
-.sentryclirc
-.sentryrc
-sentry.properties
-.sentry-env
-next.config.original.js# Large Files
-*.dmg
-*.app/
-Electron Framework
+# Database
+mysql-data/
 
-# Build outputs
-out/
-*.csv
+# Redis
+dump.rdb
+
+# Vercel
+.vercel
+
+# Render
+render.yaml

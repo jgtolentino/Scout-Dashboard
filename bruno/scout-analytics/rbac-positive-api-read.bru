@@ -1,0 +1,40 @@
+meta {
+  name: RBAC - API views read access with anon key (should succeed) 
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{SUPABASE_URL}}/rest/v1/api.recommendations?limit=3&select=id,company,score
+}
+
+headers {
+  apikey: {{SUPABASE_ANON_KEY}}
+  Authorization: Bearer {{SUPABASE_ANON_KEY}}
+  Content-Type: application/json
+  Accept: application/json
+}
+
+tests {
+  test("Should allow API view access with anon key", function() {
+    expect(res.status).to.eq(200);
+  });
+  
+  test("Should return array of recommendations", function() {
+    const body = JSON.parse(res.body);
+    expect(body).to.be.an('array');
+  });
+  
+  test("Should respect column selection", function() {
+    const body = JSON.parse(res.body);
+    if (body.length > 0) {
+      const first = body[0];
+      expect(first).to.have.property('id');
+      expect(first).to.have.property('company'); 
+      expect(first).to.have.property('score');
+      // Should not have other columns
+      expect(first).to.not.have.property('reasoning');
+      expect(first).to.not.have.property('org_id');
+    }
+  });
+}

@@ -1,0 +1,94 @@
+name: S3 Scan & Enqueue
+on:
+  schedule: 
+    - cron: "*/5 * * * *"  # Every 5 minutes
+  workflow_dispatch:
+
+permissions: 
+  contents: read
+
+concurrency: 
+  group: s3-scan-enqueue
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      S3_BRONZE_BUCKET: ${{ secrets.S3_BRONZE_BUCKET }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl postgresql-client
+      
+      - name: Scan S3 and enqueue new objects
+        shell: bash
+        run: |
+          scan_prefix() {
+            local prefix="$1"
+            echo "Scanning s3://${S3_BRONZE_BUCKET}/${prefix}..."
+            
+            aws s3api list-objects-v2 \
+              --bucket "$S3_BRONZE_BUCKET" \
+              --prefix "$prefix" \
+              --output json \
+              --page-size 1000 \
+            | jq -r '.Contents[]? | [.Key, .ETag, .Size] | @tsv' \
+            | while IFS=$'\t' read -r KEY ETAG SIZE; do
+                # Clean ETag (remove quotes)
+                ETAG="${ETAG%\"}"
+                ETAG="${ETAG#\"}"
+                
+                # Determine MIME type
+                case "$KEY" in
+                  *.csv)   MIME="text/csv" ;;
+                  *.json)  MIME="application/json" ;;
+                  *.jsonl) MIME="application/x-ndjson" ;;
+                  *.pdf)   MIME="application/pdf" ;;
+                  *.txt)   MIME="text/plain" ;;
+                  *)       MIME="application/octet-stream" ;;
+                esac
+                
+                # Enqueue if new
+                curl -s -f -X POST "$SUPABASE_URL/rest/v1/rpc/exec_readonly_sql" \
+                  -H "apikey: $SUPABASE_SERVICE_KEY" \
+                  -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+                  -H "Content-Type: application/json" \
+                  -H "Prefer: params=single-object" \
+                  -d "{\"q\":\"select ops.enqueue_if_new('s3','s3://${S3_BRONZE_BUCKET}/$KEY','$ETAG','$MIME')\"}" \
+                  >/dev/null || {
+                    echo "Failed to enqueue: s3://${S3_BRONZE_BUCKET}/$KEY"
+                  }
+              done
+            
+            # Count objects in this prefix
+            local count=$(aws s3api list-objects-v2 --bucket "$S3_BRONZE_BUCKET" --prefix "$prefix" --query 'length(Contents)' || echo 0)
+            echo "Found $count objects in prefix: $prefix"
+          }
+          
+          # Scan both prefixes
+          scan_prefix "drive/"
+          scan_prefix "azure/"
+      
+      - name: Show queue status
+        run: |
+          echo "Current queue status:"
+          psql "$SUPABASE_PG_URL_REMOTE" -c \
+            "select count(*) as queued, min(enqueued_at) as oldest, max(enqueued_at) as newest from ops.ingest_queue;" \
+            || echo "Could not connect to database"
+          
+          echo "Recent ingest log entries:"
+          psql "$SUPABASE_PG_URL_REMOTE" -c \
+            "select source, status, count(*) as count from ops.ingest_log group by source, status order by source, status;" \
+            || echo "Could not query ingest log"
+        env:
+          SUPABASE_PG_URL_REMOTE: ${{ secrets.SUPABASE_PG_URL_REMOTE }}

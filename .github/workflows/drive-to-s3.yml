@@ -1,0 +1,66 @@
+name: Drive to S3 Bronze
+on:
+  schedule: 
+    - cron: "*/10 * * * *"  # Every 10 minutes
+  workflow_dispatch:
+
+permissions: 
+  contents: read
+
+concurrency: 
+  group: drive-to-s3
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      S3_BRONZE_BUCKET: ${{ secrets.S3_BRONZE_BUCKET }}
+      GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+      GDRIVE_SA_JSON_B64: ${{ secrets.GDRIVE_SA_JSON_B64 }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install rclone and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rclone jq curl
+      
+      - name: Prepare rclone configuration
+        run: |
+          mkdir -p $HOME/.config/rclone
+          echo "${GDRIVE_SA_JSON_B64}" | base64 -d > $HOME/sa.json
+          cat > $HOME/.config/rclone/rclone.conf <<RC
+          [drive]
+          type = drive
+          scope = drive.readonly
+          service_account_file = $HOME/sa.json
+          
+          [s3bronze]
+          type = s3
+          provider = AWS
+          env_auth = true
+          region = ${AWS_REGION}
+          RC
+      
+      - name: Sync Google Drive to S3 Bronze
+        run: |
+          echo "Syncing Drive folder ${GDRIVE_FOLDER_ID} to s3://${S3_BRONZE_BUCKET}/drive/"
+          rclone copy drive: s3bronze:${S3_BRONZE_BUCKET}/drive \
+            --drive-root-folder-id "$GDRIVE_FOLDER_ID" \
+            --fast-list --checkers 8 --transfers 8 --update \
+            --stats 1m --stats-one-line
+      
+      - name: Verify sync and show summary
+        run: |
+          echo "S3 Bronze drive prefix contents (last 20 files):"
+          aws s3 ls "s3://${S3_BRONZE_BUCKET}/drive/" --recursive --human-readable \
+            | tail -n 20 || echo "No files found or AWS CLI error"
+          
+          echo "Total objects in drive prefix:"
+          aws s3api list-objects-v2 --bucket "${S3_BRONZE_BUCKET}" --prefix "drive/" \
+            --query 'length(Contents)' || echo "0"

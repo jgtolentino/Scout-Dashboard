@@ -1,0 +1,45 @@
+name: ETL Smoke Test
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+  push:
+    branches: [main]
+    paths: 
+      - 'supabase/migrations/07*_*.sql'
+      - 'ops/link_extract_smoke.sh'
+
+jobs:
+  etl-health-check:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_PG_URL_REMOTE: ${{ secrets.SUPABASE_PG_URL_REMOTE }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      
+      - name: Check ETL runs within 15 minutes
+        run: |
+          echo "Checking if ETL has run within the last 15 minutes..."
+          psql "$SUPABASE_PG_URL_REMOTE" -Atc \
+            "select (now()-max(ran_at) < interval '15 minutes') and bool_and(ok) from analytics_snap.etl_runs" | grep t
+      
+      - name: Verify recent ETL activity
+        run: |
+          echo "Checking recent ETL activity..."
+          psql "$SUPABASE_PG_URL_REMOTE" -c \
+            "select run_id, ran_at, linked, extracted, ok, err from analytics_snap.etl_runs order by run_id desc limit 5;"
+      
+      - name: Check pipeline health
+        run: |
+          echo "Checking pipeline health indicators..."
+          psql "$SUPABASE_PG_URL_REMOTE" -c \
+            "select h, linked, extracted, runs, all_ok from analytics.v_etl_last_24h order by h desc limit 3;"
+      
+      - name: Validate scheduled job exists
+        run: |
+          echo "Verifying scheduled job is active..."
+          psql "$SUPABASE_PG_URL_REMOTE" -Atc \
+            "select count(*) from cron.job where jobname = 'link-extract-5m' and active = true;" | grep 1

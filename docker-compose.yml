@@ -1,0 +1,71 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: scout_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: R@nd0mPA$$2025!
+      MYSQL_DATABASE: scout_analytics
+      MYSQL_USER: scout_user
+      MYSQL_PASSWORD: R@nd0mPA$$2025!
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./server/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - scout_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: scout_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - scout_network
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: scout_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: production
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: scout_user
+      DB_PASSWORD: R@nd0mPA$$2025!
+      DB_NAME: scout_analytics
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - scout_network
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: scout_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - scout_network
+
+volumes:
+  mysql_data:
+
+networks:
+  scout_network:
+    driver: bridge

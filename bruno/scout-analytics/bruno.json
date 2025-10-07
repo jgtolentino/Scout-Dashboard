@@ -1,0 +1,11 @@
+{
+  "version": "1",
+  "name": "Scout Analytics - Platinum Layer",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".env"
+  ],
+  "preRequestScript": "",
+  "postRequestScript": ""
+}

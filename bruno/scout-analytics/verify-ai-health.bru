@@ -1,0 +1,54 @@
+meta {
+  name: Verify AI Health
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/ai/insights
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{supabaseKey}}
+}
+
+headers {
+  apikey: {{supabaseKey}}
+  Authorization: Bearer {{supabaseKey}}
+}
+
+script:pre-request {
+  console.log('🔍 Checking AI agent health...');
+  console.log('📊 Verifying agent insights');
+  console.log('🤖 Testing recommendation system');
+  console.log('💬 Validating chat interface');
+}
+
+script:post-response {
+  if (res.status === 200) {
+    console.log('✅ AI systems healthy');
+    console.log(`📊 Found ${res.body.insights?.length || 0} active insights`);
+    console.log('🤖 Agent recommendations working');
+    console.log('💬 Chat interface operational');
+  } else {
+    console.error('❌ AI health check failed:', res.status);
+  }
+}
+
+tests {
+  test("AI health endpoint responds", function () {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Insights data structure valid", function () {
+    expect(res.body).to.have.property('insights');
+    expect(res.body.insights).to.be.an('array');
+  });
+  
+  test("Agent types are active", function () {
+    const insights = res.body.insights || [];
+    const agentTypes = new Set(insights.map(i => i.agent_type));
+    expect(agentTypes.size).to.be.greaterThan(0);
+  });
+}

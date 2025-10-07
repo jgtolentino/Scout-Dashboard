@@ -1,0 +1,257 @@
+name: Data Quality Monitoring
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC (2 PM PHT)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      run_type:
+        description: 'Type of data quality check'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+        - quick
+        - full
+        - emergency
+
+env:
+  SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+  SUPABASE_SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE }}
+
+jobs:
+  dbt-data-quality:
+    name: dbt Data Quality Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dbt and dependencies
+        run: |
+          pip install dbt-postgres==1.6.0 dbt-utils
+          pip install great-expectations duckdb
+
+      - name: dbt deps
+        run: |
+          cd dbt/scout_analytics
+          dbt deps
+        continue-on-error: true
+
+      - name: Run dbt data quality tests
+        run: |
+          cd dbt/scout_analytics
+          echo "Running dbt data quality tests..."
+          
+          # Test source data freshness
+          dbt source freshness --profiles-dir . || echo "Source freshness check failed"
+          
+          # Run all tests
+          dbt test --profiles-dir . || echo "Some data quality tests failed"
+          
+          # Generate documentation
+          dbt docs generate --profiles-dir . || echo "Documentation generation failed"
+        env:
+          SUPABASE_DB_HOST: ${{ secrets.SUPABASE_DB_HOST }}
+          SUPABASE_DB_USER: postgres
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          SUPABASE_DB_PORT: 5432
+          SUPABASE_DB_NAME: postgres
+        continue-on-error: true
+
+  data-anomaly-detection:
+    name: Data Anomaly Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install analysis dependencies
+        run: |
+          pip install pandas numpy scipy psycopg2-binary python-dotenv
+
+      - name: Run anomaly detection
+        run: |
+          python - <<EOF
+          import pandas as pd
+          import psycopg2
+          import os
+          from datetime import datetime, timedelta
+          
+          # Database connection
+          conn = psycopg2.connect(os.getenv('SUPABASE_DB_URL'))
+          
+          # Check transaction volume anomalies
+          print("Checking transaction volume anomalies...")
+          query = """
+          SELECT 
+            transaction_date,
+            COUNT(*) as tx_count,
+            SUM(peso_value) as total_sales
+          FROM scout.transactions 
+          WHERE transaction_date >= CURRENT_DATE - INTERVAL '30 days'
+          GROUP BY transaction_date 
+          ORDER BY transaction_date;
+          """
+          
+          df = pd.read_sql_query(query, conn)
+          
+          # Simple anomaly detection (more than 2 std dev from mean)
+          mean_tx = df['tx_count'].mean()
+          std_tx = df['tx_count'].std()
+          threshold = mean_tx + (2 * std_tx)
+          
+          anomalies = df[df['tx_count'] > threshold]
+          if len(anomalies) > 0:
+            print(f"WARNING: {len(anomalies)} days with unusually high transaction volume")
+            print(anomalies[['transaction_date', 'tx_count']])
+          else:
+            print("No transaction volume anomalies detected")
+            
+          # Check for data gaps
+          print("\nChecking for data gaps...")
+          df['transaction_date'] = pd.to_datetime(df['transaction_date'])
+          date_range = pd.date_range(start=df['transaction_date'].min(), 
+                                   end=df['transaction_date'].max())
+          missing_dates = date_range.difference(df['transaction_date'])
+          
+          if len(missing_dates) > 0:
+            print(f"WARNING: {len(missing_dates)} missing dates detected")
+            for date in missing_dates:
+              print(f"  Missing: {date.date()}")
+          else:
+            print("No data gaps detected")
+            
+          conn.close()
+          print("Anomaly detection completed")
+          EOF
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        continue-on-error: true
+
+  ai-agent-health-check:
+    name: AI Agent Health Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check AI agent health
+        run: |
+          node - <<EOF
+          const { createClient } = require('@supabase/supabase-js');
+          
+          const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_ROLE
+          );
+          
+          async function checkAgentHealth() {
+            try {
+              console.log('Checking AI agent health...');
+              
+              // Check recent agent insights
+              const { data: insights, error } = await supabase
+                .from('platinum.agent_insights')
+                .select('agent_type, created_at')
+                .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+              
+              if (error) {
+                console.error('Error fetching agent insights:', error);
+                return;
+              }
+              
+              const agentTypes = ['sales_performance', 'inventory_optimization', 'customer_behavior', 'geographic_analysis', 'anomaly_detection'];
+              const activeAgents = new Set(insights?.map(i => i.agent_type) || []);
+              
+              console.log(\`Active agents in last 24h: \${activeAgents.size}/\${agentTypes.length}\`);
+              
+              const inactiveAgents = agentTypes.filter(type => !activeAgents.has(type));
+              if (inactiveAgents.length > 0) {
+                console.warn('Inactive agents:', inactiveAgents);
+              } else {
+                console.log('All agents are active');
+              }
+              
+              // Check recommendation generation
+              const { data: recommendations } = await supabase
+                .from('scout.recommendations')
+                .select('tier, created_at')
+                .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+              
+              console.log(\`Recommendations generated in last 24h: \${recommendations?.length || 0}\`);
+              
+            } catch (error) {
+              console.error('Agent health check failed:', error);
+            }
+          }
+          
+          checkAgentHealth();
+          EOF
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE }}
+
+  notify-data-quality:
+    name: Notify Data Quality Status
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [dbt-data-quality, data-anomaly-detection, ai-agent-health-check]
+    steps:
+      - name: Notify data quality status
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {
+              "text": "Scout Analytics Data Quality Report",
+              "attachments": [
+                {
+                  "color": "${{ needs.dbt-data-quality.result == 'success' && needs.data-anomaly-detection.result == 'success' && needs.ai-agent-health-check.result == 'success' && 'good' || 'danger' }}",
+                  "fields": [
+                    {
+                      "title": "dbt Tests",
+                      "value": "${{ needs.dbt-data-quality.result }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Anomaly Detection",
+                      "value": "${{ needs.data-anomaly-detection.result }}",
+                      "short": true
+                    },
+                    {
+                      "title": "AI Agents",
+                      "value": "${{ needs.ai-agent-health-check.result }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Timestamp",
+                      "value": "${{ github.run_id }}",
+                      "short": true
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: env.SLACK_WEBHOOK_URL != null

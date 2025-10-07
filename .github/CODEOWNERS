@@ -1,0 +1,5 @@
+# Require owner review on critical paths
+/supabase/**     @jgtolentino
+/app/**          @jgtolentino
+/lib/**          @jgtolentino
+/app/api/**      @jgtolentino

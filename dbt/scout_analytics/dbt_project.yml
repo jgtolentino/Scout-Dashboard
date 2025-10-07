@@ -1,0 +1,104 @@
+# Scout Analytics - Supabase Lakehouse
+# Bronze → Silver → Gold → Platinum data transformations
+
+name: 'scout_analytics'
+version: '1.0.0'
+config-version: 2
+
+# Project profile for Supabase PostgreSQL
+profile: 'scout_analytics'
+
+# Directories
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+docs-paths: ["docs"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Model configurations
+models:
+  scout_analytics:
+    # Bronze layer - raw data with minimal transformations
+    bronze:
+      +materialized: view
+      +schema: bronze
+      +tags: ["bronze", "raw"]
+    
+    # Silver layer - conformed, clean data
+    silver:
+      +materialized: table
+      +schema: silver
+      +tags: ["silver", "conformed"]
+      +post-hook: "ANALYZE {{ this }}"
+    
+    # Gold layer - business-ready marts
+    gold:
+      +materialized: table
+      +schema: gold
+      +tags: ["gold", "business"]
+      +post-hook: "ANALYZE {{ this }}"
+      marts:
+        +materialized: table
+        +tags: ["mart", "business-critical"]
+      
+    # Staging models (bronze → silver)
+    staging:
+      +materialized: view
+      +schema: staging
+      +tags: ["staging", "intermediate"]
+
+# Test configurations
+tests:
+  +store_failures: true
+  +severity: warn
+
+# Snapshot configurations
+snapshots:
+  scout_analytics:
+    +target_schema: snapshots
+    +strategy: timestamp
+    +updated_at: updated_at
+
+# Seeds configuration
+seeds:
+  scout_analytics:
+    +schema: seeds
+    master_data:
+      +column_types:
+        id: varchar(50)
+        name: varchar(255)
+        created_at: timestamp
+
+# Variables for environment-specific configs
+vars:
+  # Date range for incremental models
+  start_date: '2024-01-01'
+  
+  # Business logic constants
+  transaction_threshold: 0.01  # Minimum valid transaction amount
+  
+  # Data quality thresholds
+  min_records_per_day: 10
+  max_null_percentage: 0.05
+  
+  # Lakehouse layer schemas
+  bronze_schema: 'bronze'
+  silver_schema: 'silver'  
+  gold_schema: 'gold'
+  platinum_schema: 'platinum'
+
+# Dispatch configurations for cross-database compatibility
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['scout_analytics', 'dbt_utils']
+
+# Documentation
+docs:
+  generate: true

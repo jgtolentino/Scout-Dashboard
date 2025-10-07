@@ -1,0 +1,163 @@
+name: S3 Ingest Worker
+on:
+  schedule: 
+    - cron: "*/5 * * * *"  # Every 5 minutes
+  workflow_dispatch:
+
+permissions: 
+  contents: read
+
+concurrency: 
+  group: s3-ingest-worker
+  cancel-in-progress: true
+
+jobs:
+  drain:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      SUPABASE_PG_URL_REMOTE: ${{ secrets.SUPABASE_PG_URL_REMOTE }}
+      MAX_BATCH: "200"
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client jq awscli
+      
+      - name: Drain ingest queue (stream S3 to Postgres)
+        shell: bash
+        run: |
+          pop_one() {
+            psql "$SUPABASE_PG_URL_REMOTE" -Atc \
+"with cte as (
+  select id from ops.ingest_queue order by id for update skip locked limit 1
+)
+delete from ops.ingest_queue q using cte
+where q.id=cte.id
+returning q.source, q.path, q.sha256, q.mime" 2>/dev/null \
+            | awk -F '|' '{printf "%s\t%s\t%s\t%s\n",$1,$2,$3,$4}'
+          }
+
+          load_s3_to_pg() {
+            local URI="$1"
+            local PG="$SUPABASE_PG_URL_REMOTE"
+            
+            echo "Loading: $URI"
+            
+            if [[ "$URI" == *.csv ]]; then
+              # Get header to derive column structure
+              HDR="$(aws s3 cp "$URI" - | head -n1 | tr -d '\r')"
+              IFS=, read -r -a COLS <<< "$HDR"
+              
+              # Generate safe column names
+              SCOL=()
+              for c in "${COLS[@]}"; do
+                s="$(echo "$c" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/_/g;s/^_|_$//g')"
+                [ -z "$s" ] && s="col_$(date +%s)"
+                SCOL+=("$s")
+              done
+              
+              # Generate table name from URI
+              RAW="$(basename "$URI")"
+              RAW="${RAW%.*}"
+              TBL="stage.$(echo "$RAW" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/_/g;s/^_|_$//g')"
+              
+              # Build column definitions
+              COL_LIST="$(printf '%s text, ' "${SCOL[@]}")"
+              COL_LIST="${COL_LIST%, }"
+              COL_CSV="$(IFS=, ; echo "${SCOL[*]}")"
+              
+              # Create table and load data
+              psql "$PG" -v ON_ERROR_STOP=1 -c \
+                "create schema if not exists stage; 
+                 create table if not exists $TBL ($COL_LIST); 
+                 truncate table $TBL;"
+              
+              aws s3 cp "$URI" - | psql "$PG" -v ON_ERROR_STOP=1 -c \
+                "\copy $TBL ($COL_CSV) from STDIN with (format csv, header true)"
+              
+              echo "Loaded CSV: $URI -> $TBL"
+              
+            elif [[ "$URI" == *.json || "$URI" == *.jsonl ]]; then
+              # Generate table name
+              RAW="$(basename "$URI")"
+              RAW="${RAW%.*}"
+              TBL="stage.$(echo "$RAW" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/_/g;s/^_|_$//g')"
+              
+              # Create JSONB table
+              psql "$PG" -v ON_ERROR_STOP=1 -c \
+                "create schema if not exists stage; 
+                 create table if not exists $TBL (doc jsonb); 
+                 truncate table $TBL;"
+              
+              if [[ "$URI" == *.jsonl ]]; then
+                # JSONL: stream line by line
+                aws s3 cp "$URI" - | psql "$PG" -v ON_ERROR_STOP=1 -c \
+                  "\copy $TBL (doc) from STDIN with (format text)"
+                psql "$PG" -v ON_ERROR_STOP=1 -c "update $TBL set doc = doc::jsonb"
+              else
+                # JSON: convert to JSONL first, then load
+                aws s3 cp "$URI" - | jq -c '. as $x | (if type=="array" then .[] else . end)' \
+                  | psql "$PG" -v ON_ERROR_STOP=1 -c \
+                    "\copy $TBL (doc) from STDIN with (format text)"
+                psql "$PG" -v ON_ERROR_STOP=1 -c "update $TBL set doc = doc::jsonb"
+              fi
+              
+              echo "Loaded JSON: $URI -> $TBL"
+              
+            else
+              echo "Unsupported file type: $URI"
+              return 2
+            fi
+          }
+
+          # Process queue items
+          processed=0
+          failed=0
+          
+          for _ in $(seq 1 "$MAX_BATCH"); do
+            row="$(pop_one || true)"
+            [ -z "$row" ] && break
+            
+            IFS=$'\t' read -r SRC PATH SHA MIME <<<"$row"
+            
+            if [[ "$SRC" = "s3" && "$PATH" =~ ^s3:// ]]; then
+              if load_s3_to_pg "$PATH"; then
+                psql "$SUPABASE_PG_URL_REMOTE" -Atc \
+                  "select ops.mark_ingested('s3','$SHA',true,'ok')" >/dev/null
+                processed=$((processed+1))
+              else
+                psql "$SUPABASE_PG_URL_REMOTE" -Atc \
+                  "select ops.mark_ingested('s3','$SHA',false,'load_failed')" >/dev/null
+                failed=$((failed+1))
+              fi
+            else
+              psql "$SUPABASE_PG_URL_REMOTE" -Atc \
+                "select ops.mark_ingested('$SRC','$SHA',false,'bad_source')" >/dev/null
+              failed=$((failed+1))
+            fi
+          done
+          
+          echo "Batch complete: $processed processed, $failed failed"
+      
+      - name: Show processing summary
+        run: |
+          echo "Processing summary:"
+          psql "$SUPABASE_PG_URL_REMOTE" -c \
+            "select 
+               status, 
+               count(*) as count,
+               max(finished_at) as last_processed
+             from ops.ingest_log 
+             where finished_at > now() - interval '1 hour'
+             group by status 
+             order by status;" || echo "Could not query processing summary"
+          
+          echo "Remaining queue depth:"
+          psql "$SUPABASE_PG_URL_REMOTE" -Atc \
+            "select count(*) from ops.ingest_queue;" || echo "Could not query queue"

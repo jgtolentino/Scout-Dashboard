@@ -1,0 +1,36 @@
+meta {
+  name: link-extract
+  type: http
+}
+
+post {
+  url: {{SUPABASE_URL}}/rest/v1/rpc/link_and_extract_rpc
+  body: json({
+    "p_window_seconds": {{WINDOW_SECS}}
+  })
+}
+
+headers {
+  apikey: {{SUPABASE_SERVICE_KEY}}
+  Authorization: Bearer {{SUPABASE_SERVICE_KEY}}
+  Content-Type: application/json
+  Prefer: params=single-object
+}
+
+tests {
+  test("Should return 200 status", function() {
+    expect(res.status).to.eq(200);
+  });
+  
+  test("Should return valid JSON response", function() {
+    const body = JSON.parse(res.body);
+    expect(body.linked).to.be.a('number');
+    expect(body.extracted).to.be.a('number');
+  });
+  
+  test("Should have non-negative counts", function() {
+    const body = JSON.parse(res.body);
+    expect(body.linked).to.be.at.least(0);
+    expect(body.extracted).to.be.at.least(0);
+  });
+}

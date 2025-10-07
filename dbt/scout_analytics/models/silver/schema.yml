@@ -1,0 +1,150 @@
+version: 2
+
+models:
+  - name: silver_transactions
+    description: "Conformed transactions with normalized dimensions"
+    columns:
+      - name: transaction_id
+        description: "Unique transaction identifier"
+        tests:
+          - unique
+          - not_null
+      - name: transaction_date
+        description: "Transaction date"
+        tests:
+          - not_null
+      - name: peso_value
+        description: "Transaction amount in PHP"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: "{{ var('transaction_threshold') }}"
+      - name: province_key
+        description: "Foreign key to province dimension"
+        tests:
+          - relationships:
+              to: ref('dim_provinces')
+              field: province_key
+      - name: brand_key
+        description: "Foreign key to brand dimension"
+        tests:
+          - relationships:
+              to: ref('dim_brands')
+              field: brand_key
+      - name: category_key
+        description: "Foreign key to category dimension"
+        tests:
+          - relationships:
+              to: ref('dim_categories') 
+              field: category_key
+      - name: basket_size
+        description: "Number of items in transaction"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 100
+
+  - name: dim_provinces
+    description: "Province dimension with geographic hierarchy"
+    columns:
+      - name: province_key
+        description: "Surrogate key for province"
+        tests:
+          - unique
+          - not_null
+      - name: province_name
+        description: "Standardized province name"
+        tests:
+          - not_null
+      - name: province_code
+        description: "Official province code"
+        tests:
+          - unique
+          - not_null
+      - name: region_name
+        description: "Region name"
+        tests:
+          - not_null
+      - name: is_ncr
+        description: "Flag for National Capital Region"
+        tests:
+          - accepted_values:
+              values: [true, false]
+
+  - name: dim_brands
+    description: "Brand dimension with hierarchy"
+    columns:
+      - name: brand_key
+        description: "Surrogate key for brand"
+        tests:
+          - unique
+          - not_null
+      - name: brand_name
+        description: "Standardized brand name"
+        tests:
+          - not_null
+      - name: brand_category
+        description: "Brand category grouping"
+      - name: is_local_brand
+        description: "Flag for Filipino brands"
+        tests:
+          - accepted_values:
+              values: [true, false]
+
+  - name: dim_categories
+    description: "Product category dimension with hierarchy"
+    columns:
+      - name: category_key
+        description: "Surrogate key for category"
+        tests:
+          - unique
+          - not_null
+      - name: category_name
+        description: "Standardized category name"
+        tests:
+          - not_null
+      - name: category_group
+        description: "High-level category grouping"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['food', 'beverage', 'personal_care', 'household', 'other']
+
+  - name: dim_date
+    description: "Date dimension with business calendar"
+    columns:
+      - name: date_key
+        description: "Date in YYYYMMDD format"
+        tests:
+          - unique
+          - not_null
+      - name: full_date
+        description: "Full date"
+        tests:
+          - not_null
+      - name: year
+        description: "Year"
+        tests:
+          - not_null
+      - name: month
+        description: "Month number"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 12
+      - name: day_name
+        description: "Day of week name"
+        tests:
+          - not_null
+      - name: is_weekend
+        description: "Weekend flag"
+        tests:
+          - accepted_values:
+              values: [true, false]
+      - name: is_holiday
+        description: "Philippine holiday flag"
+        tests:
+          - accepted_values:
+              values: [true, false]
