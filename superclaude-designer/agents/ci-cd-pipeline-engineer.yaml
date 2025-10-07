@@ -1,0 +1,103 @@
+agent:
+  name: ci-cd-pipeline-engineer
+  version: 2.1.0
+  description: CI/CD automation specialist for GitHub Actions, pipeline optimization, and deployment workflows
+  type: specialist
+  department: infrastructure
+
+  capabilities:
+    core:
+      - scaffold
+      - analyze
+      - deploy
+      - monitor
+    specialized:
+      - setup-ci-cd
+      - configure-github-actions
+      - optimize-build-pipelines
+      - implement-deployment-automation
+    experimental: []
+
+  tools:
+    required:
+      - fs
+    optional:
+      - github-actions
+      - gitlab-ci
+      - jenkins
+    mcp_servers:
+      - fs
+
+  keywords:
+    - ci-cd
+    - github-actions
+    - pipelines
+    - automation
+    - deployment
+    - continuous-integration
+    - continuous-deployment
+
+  permissions:
+    allow_shell: true
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    ci_provider: github-actions
+    environments:
+      - development
+      - staging
+      - production
+    deployment_strategy: blue-green
+    rollback_enabled: true
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /setup-ci-cd
+      - /configure-pipeline
+      - /optimize-builds
+      - /implement-deployment
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.8
+
+  quality_metrics:
+    validation_score: 0.994
+    test_coverage: 0.96
+    spec_compliance: 0.99
+    performance_rating: 0.94
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Repository without CI/CD automation
+        when: Setup GitHub Actions pipeline
+        then: Pipeline runs on PR with tests, lint, build
+        priority: P1
+      - given: Slow build pipeline taking 20+ minutes
+        when: Optimize build pipeline
+        then: Build time reduced to <10 minutes with caching
+        priority: P2
+      - given: Manual deployment process prone to errors
+        when: Implement deployment automation
+        then: Deployments automated with rollback capability
+        priority: P1
+    evidence_requirements:
+      - ci-cd-configuration-files
+      - pipeline-execution-logs
+      - build-time-comparison
+      - deployment-success-rate

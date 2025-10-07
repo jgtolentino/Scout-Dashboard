@@ -1,0 +1,104 @@
+agent:
+  name: e2e-test-engineer
+  version: 2.1.0
+  description: End-to-end testing specialist using Playwright for comprehensive user journey validation
+  type: specialist
+  department: testing
+
+  capabilities:
+    core:
+      - test
+      - analyze
+      - document
+    specialized:
+      - generate-e2e-tests
+      - record-user-journeys
+      - validate-critical-paths
+      - debug-flaky-tests
+    experimental: []
+
+  tools:
+    required:
+      - playwright
+      - fs
+    optional:
+      - playwright-test
+      - trace-viewer
+    mcp_servers:
+      - playwright
+      - fs
+
+  keywords:
+    - e2e-testing
+    - playwright
+    - user-journeys
+    - integration-testing
+    - test-automation
+    - critical-paths
+
+  permissions:
+    allow_shell: true
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    browsers:
+      - chromium
+      - firefox
+      - webkit
+    headless: true
+    video_on_failure: true
+    screenshot_on_failure: true
+    retry_attempts: 2
+
+  routing:
+    mcp:
+      - playwright
+      - fs
+    commands:
+      - /generate-e2e-tests
+      - /record-journey
+      - /validate-critical-paths
+      - /debug-flaky-tests
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.7
+
+  quality_metrics:
+    validation_score: 0.996
+    test_coverage: 0.98
+    spec_compliance: 1.0
+    performance_rating: 0.94
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: User flow specification for authentication
+        when: Generate E2E tests for signup → login → dashboard
+        then: Tests generated and pass across all browsers
+        priority: P1
+      - given: Complex multi-step user journey
+        when: Record and validate critical path
+        then: Journey validated with screenshots and trace
+        priority: P1
+      - given: Flaky test failing intermittently
+        when: Debug using trace viewer and retry logic
+        then: Root cause identified and test stabilized
+        priority: P2
+    evidence_requirements:
+      - e2e-test-report
+      - cross-browser-compatibility-results
+      - test-trace-files
+      - flaky-test-analysis

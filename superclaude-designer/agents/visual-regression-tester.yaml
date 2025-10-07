@@ -1,0 +1,103 @@
+agent:
+  name: visual-regression-tester
+  version: 2.1.0
+  description: Screenshot-based testing specialist for detecting visual changes and UI regressions
+  type: specialist
+  department: testing
+
+  capabilities:
+    core:
+      - test
+      - analyze
+    specialized:
+      - capture-screenshots
+      - compare-visual-diffs
+      - detect-layout-shifts
+      - validate-responsive-views
+    experimental: []
+
+  tools:
+    required:
+      - playwright
+      - fs
+    optional:
+      - percy
+      - chromatic
+      - pixelmatch
+    mcp_servers:
+      - playwright
+      - fs
+
+  keywords:
+    - visual-regression
+    - screenshot-testing
+    - ui-testing
+    - visual-diff
+    - layout-shifts
+    - responsive-testing
+
+  permissions:
+    allow_shell: true
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    threshold: 0.1
+    devices:
+      - desktop
+      - tablet
+      - mobile
+    capture_full_page: true
+    mask_dynamic_content: true
+
+  routing:
+    mcp:
+      - playwright
+      - fs
+    commands:
+      - /capture-screenshots
+      - /compare-visual-diffs
+      - /detect-regressions
+      - /validate-responsive-views
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.6
+
+  quality_metrics:
+    validation_score: 0.992
+    test_coverage: 0.95
+    spec_compliance: 0.99
+    performance_rating: 0.91
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: UI component with established baseline screenshots
+        when: Code changes deployed and new screenshots captured
+        then: Visual diffs detected and reported with pixel accuracy
+        priority: P2
+      - given: Responsive component across multiple devices
+        when: Validate visual appearance on all device sizes
+        then: Screenshots captured for desktop, tablet, mobile with comparisons
+        priority: P2
+      - given: Dynamic content causing false positives
+        when: Mask dynamic content and re-test
+        then: Stable visual regression tests with no false positives
+        priority: P3
+    evidence_requirements:
+      - screenshot-comparison-report
+      - visual-diff-images
+      - device-size-coverage-matrix
+      - regression-detection-summary

@@ -1,0 +1,108 @@
+agent:
+  name: responsive-design-engineer
+  version: 2.1.0
+  description: Multi-device layout specialist for responsive design and mobile-first development
+  type: specialist
+  department: design
+
+  capabilities:
+    core:
+      - scaffold
+      - analyze
+      - refactor
+      - test
+    specialized:
+      - optimize-layouts
+      - test-breakpoints
+      - implement-mobile-first
+      - validate-responsive-images
+    experimental: []
+
+  tools:
+    required:
+      - fs
+      - playwright
+    optional:
+      - chrome-devtools
+      - responsive-viewer
+    mcp_servers:
+      - fs
+      - playwright
+
+  keywords:
+    - responsive-design
+    - mobile-first
+    - breakpoints
+    - media-queries
+    - fluid-typography
+    - container-queries
+    - multi-device
+
+  permissions:
+    allow_shell: false
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    breakpoints:
+      mobile: 320
+      tablet: 768
+      desktop: 1024
+      wide: 1440
+    approach: mobile-first
+    test_devices:
+      - iPhone 13
+      - iPad Pro
+      - Desktop 1920x1080
+
+  routing:
+    mcp:
+      - fs
+      - playwright
+    commands:
+      - /implement-responsive-layout
+      - /test-breakpoints
+      - /optimize-mobile-performance
+      - /validate-responsive-images
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.7
+
+  quality_metrics:
+    validation_score: 0.990
+    test_coverage: 0.95
+    spec_compliance: 0.99
+    performance_rating: 0.93
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Desktop-only layout design
+        when: Implement mobile-first responsive version
+        then: Layout works flawlessly on mobile, tablet, desktop
+        priority: P1
+      - given: Component with fixed-width layout
+        when: Convert to fluid responsive layout
+        then: Component scales smoothly across all breakpoints
+        priority: P1
+      - given: Images with fixed sizes
+        when: Implement responsive images
+        then: Images load optimally for each device size
+        priority: P2
+    evidence_requirements:
+      - responsive-layout-screenshots
+      - breakpoint-testing-report
+      - device-compatibility-matrix
+      - performance-by-device-size

@@ -1,0 +1,103 @@
+agent:
+  name: changelog-maintainer
+  version: 2.1.0
+  description: Release notes and changelog specialist for version tracking and change documentation
+  type: specialist
+  department: documentation
+
+  capabilities:
+    core:
+      - document
+      - analyze
+    specialized:
+      - generate-changelog
+      - categorize-changes
+      - write-release-notes
+      - track-versions
+    experimental: []
+
+  tools:
+    required:
+      - fs
+    optional:
+      - conventional-changelog
+      - release-please
+      - semantic-release
+    mcp_servers:
+      - fs
+
+  keywords:
+    - changelog
+    - release-notes
+    - versioning
+    - change-tracking
+    - semantic-versioning
+    - conventional-commits
+
+  permissions:
+    allow_shell: true
+    allow_network: false
+    allow_credentials: false
+
+  config:
+    changelog_format: keepachangelog
+    version_scheme: semver
+    categories:
+      - added
+      - changed
+      - deprecated
+      - removed
+      - fixed
+      - security
+    auto_generate: true
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /generate-changelog
+      - /write-release-notes
+      - /categorize-changes
+      - /track-versions
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P3
+    escalation_threshold: 0.8
+
+  quality_metrics:
+    validation_score: 0.988
+    test_coverage: 0.90
+    spec_compliance: 0.98
+    performance_rating: 0.89
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Git commit history with 100+ commits since last release
+        when: Generate changelog from commits
+        then: Changelog generated with changes categorized correctly
+        priority: P3
+      - given: Release version 2.0.0 with breaking changes
+        when: Write release notes
+        then: Release notes document all breaking changes and migration steps
+        priority: P2
+      - given: Mixed commit messages with various formats
+        when: Categorize changes by type
+        then: All changes categorized as Added, Changed, Fixed, etc.
+        priority: P3
+    evidence_requirements:
+      - changelog-document
+      - release-notes
+      - version-tracking-log
+      - change-categorization-report

@@ -1,0 +1,103 @@
+agent:
+  name: ui-animation-engineer
+  version: 2.1.0
+  description: Motion design specialist for UI animations, micro-interactions, and performance-optimized transitions
+  type: specialist
+  department: design
+
+  capabilities:
+    core:
+      - scaffold
+      - analyze
+      - profile
+      - refactor
+    specialized:
+      - design-animations
+      - optimize-animation-performance
+      - create-micro-interactions
+      - implement-transitions
+    experimental:
+      - generate-animations-ai
+
+  tools:
+    required:
+      - fs
+    optional:
+      - framer-motion
+      - gsap
+      - chrome-devtools
+      - performance-observer
+    mcp_servers:
+      - fs
+
+  keywords:
+    - animation
+    - motion-design
+    - micro-interactions
+    - transitions
+    - performance
+    - 60fps
+    - framer-motion
+    - gsap
+
+  permissions:
+    allow_shell: false
+    allow_network: false
+    allow_credentials: false
+
+  config:
+    target_fps: 60
+    max_animation_duration_ms: 500
+    easing_default: ease-in-out
+    reduce_motion_support: true
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /create-animation
+      - /optimize-animation-performance
+      - /add-micro-interactions
+      - /implement-page-transitions
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.8
+
+  quality_metrics:
+    validation_score: 0.988
+    test_coverage: 0.92
+    spec_compliance: 0.99
+    performance_rating: 0.98
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Button component without interaction feedback
+        when: Add micro-interaction animation
+        then: Button animates on hover/click maintaining 60fps
+        priority: P2
+      - given: Page transition causing layout shift
+        when: Optimize transition performance
+        then: Transition runs at 60fps with zero layout shift
+        priority: P1
+      - given: Complex animation with performance issues
+        when: Profile and optimize animation
+        then: Animation performance improved to 60fps sustained
+        priority: P1
+    evidence_requirements:
+      - performance-profiling-report
+      - fps-measurement-results
+      - layout-shift-metrics
+      - animation-demo-video

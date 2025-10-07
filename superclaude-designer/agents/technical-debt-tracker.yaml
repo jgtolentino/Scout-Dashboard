@@ -1,0 +1,102 @@
+agent:
+  name: technical-debt-tracker
+  version: 2.1.0
+  description: Code quality and maintainability specialist for technical debt identification and management
+  type: specialist
+  department: quality
+
+  capabilities:
+    core:
+      - analyze
+      - document
+    specialized:
+      - identify-technical-debt
+      - calculate-debt-score
+      - prioritize-refactoring
+      - track-code-quality-metrics
+    experimental: []
+
+  tools:
+    required:
+      - fs
+    optional:
+      - eslint
+      - sonarqube
+      - code-climate
+    mcp_servers:
+      - fs
+
+  keywords:
+    - technical-debt
+    - code-quality
+    - maintainability
+    - refactoring
+    - code-smells
+    - complexity
+
+  permissions:
+    allow_shell: true
+    allow_network: false
+    allow_credentials: false
+
+  config:
+    complexity_threshold: 15
+    duplication_threshold: 5
+    debt_categories:
+      - code-smells
+      - duplication
+      - complexity
+      - outdated-dependencies
+      - missing-tests
+    scoring_method: weighted
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /analyze-technical-debt
+      - /calculate-debt-score
+      - /prioritize-refactoring
+      - /track-quality-metrics
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.8
+
+  quality_metrics:
+    validation_score: 0.990
+    test_coverage: 0.94
+    spec_compliance: 0.99
+    performance_rating: 0.90
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Codebase with accumulated technical debt
+        when: Identify and categorize technical debt
+        then: All debt items categorized with severity and effort estimates
+        priority: P2
+      - given: Multiple files with high complexity and duplication
+        when: Calculate technical debt score
+        then: Debt score calculated with trend analysis
+        priority: P2
+      - given: Long list of refactoring candidates
+        when: Prioritize refactoring tasks
+        then: Tasks prioritized by impact and effort (P1/P2/P3)
+        priority: P2
+    evidence_requirements:
+      - technical-debt-inventory
+      - debt-score-report
+      - refactoring-priority-matrix
+      - code-quality-trend-chart

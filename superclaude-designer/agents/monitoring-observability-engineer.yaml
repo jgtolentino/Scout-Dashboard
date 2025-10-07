@@ -1,0 +1,103 @@
+agent:
+  name: monitoring-observability-engineer
+  version: 2.1.0
+  description: Application monitoring and observability specialist for metrics, logging, and alerting
+  type: specialist
+  department: infrastructure
+
+  capabilities:
+    core:
+      - monitor
+      - analyze
+      - document
+    specialized:
+      - setup-metrics
+      - configure-logging
+      - create-dashboards
+      - implement-alerting
+    experimental: []
+
+  tools:
+    required:
+      - fs
+    optional:
+      - datadog
+      - new-relic
+      - grafana
+      - prometheus
+    mcp_servers:
+      - fs
+
+  keywords:
+    - monitoring
+    - observability
+    - metrics
+    - logging
+    - alerting
+    - dashboards
+    - sre
+
+  permissions:
+    allow_shell: true
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    metrics_provider: datadog
+    log_level: info
+    retention_days: 30
+    alert_channels:
+      - slack
+      - email
+      - pagerduty
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /setup-monitoring
+      - /configure-logging
+      - /create-dashboards
+      - /implement-alerting
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.7
+
+  quality_metrics:
+    validation_score: 0.993
+    test_coverage: 0.95
+    spec_compliance: 0.99
+    performance_rating: 0.92
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Application without monitoring infrastructure
+        when: Setup metrics collection
+        then: Key metrics captured with proper instrumentation
+        priority: P2
+      - given: Unstructured logs without centralization
+        when: Configure structured logging
+        then: Logs centralized with proper formatting and search capability
+        priority: P2
+      - given: Critical errors without alerting
+        when: Implement alerting rules
+        then: Alerts trigger on critical conditions with proper routing
+        priority: P1
+    evidence_requirements:
+      - metrics-configuration
+      - logging-infrastructure-setup
+      - dashboard-screenshots
+      - alert-rule-definitions

@@ -1,0 +1,108 @@
+agent:
+  name: lighthouse-auditor
+  version: 2.1.0
+  description: Automated quality auditing specialist using Google Lighthouse for performance, accessibility, SEO, and best practices
+  type: specialist
+  department: quality
+
+  capabilities:
+    core:
+      - analyze
+      - test
+      - document
+    specialized:
+      - run-lighthouse-audit
+      - generate-quality-reports
+      - track-score-trends
+      - validate-best-practices
+    experimental: []
+
+  tools:
+    required:
+      - lighthouse
+      - playwright
+    optional:
+      - lighthouse-ci
+    mcp_servers:
+      - playwright
+      - fs
+
+  keywords:
+    - lighthouse
+    - quality-audit
+    - performance
+    - accessibility
+    - seo
+    - best-practices
+    - pwa
+
+  permissions:
+    allow_shell: true
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    categories:
+      - performance
+      - accessibility
+      - best-practices
+      - seo
+      - pwa
+    target_scores:
+      performance: 90
+      accessibility: 100
+      best-practices: 95
+      seo: 95
+    output_format: json
+
+  routing:
+    mcp:
+      - playwright
+      - fs
+    commands:
+      - /audit-lighthouse
+      - /generate-quality-report
+      - /track-scores
+      - /validate-best-practices
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.6
+
+  quality_metrics:
+    validation_score: 0.994
+    test_coverage: 0.96
+    spec_compliance: 1.0
+    performance_rating: 0.93
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Web application deployed to staging
+        when: Run comprehensive Lighthouse audit
+        then: All categories audited with scores and recommendations
+        priority: P1
+      - given: Multiple Lighthouse audits over time
+        when: Track score trends
+        then: Score trends visualized with regression alerts
+        priority: P2
+      - given: Application failing accessibility checks
+        when: Run accessibility-focused audit
+        then: All accessibility violations identified with remediation steps
+        priority: P1
+    evidence_requirements:
+      - lighthouse-audit-report
+      - score-breakdown-by-category
+      - trend-analysis-chart
+      - actionable-recommendations-list

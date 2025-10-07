@@ -1,26 +1,34 @@
 agent:
   name: ml-engineer
-  version: 1.0.0
+  version: 2.1.0
   description: Machine learning model development, training, and deployment specialist
   type: traditional
   department: engineering
   capabilities:
+    core:
     - scaffold
     - analyze
     - refactor
     - test
     - profile
+    specialized: []
+    experimental: []
   tools:
+    required:
     - fs
     - bruno-supabase
     - pnpm
+    optional: []
+    mcp_servers:
+    - bruno-supabase
+    - fs
   keywords:
-    - machine-learning
-    - ai
-    - model-training
-    - data-science
-    - neural-networks
-    - mlops
+  - machine-learning
+  - ai
+  - model-training
+  - data-science
+  - neural-networks
+  - mlops
   permissions:
     allow_shell: false
     allow_network: false
@@ -28,10 +36,39 @@ agent:
   config: {}
   routing:
     mcp:
-      - bruno-supabase
-      - fs
+    - bruno-supabase
+    - fs
     commands:
-      - spec:run
-      - lint
-      - test
-      - build
+    - spec:run
+    - lint
+    - test
+    - build
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+  task_routing:
+    priority_levels:
+    - P1
+    - P2
+    - P3
+    default_priority: P1
+    escalation_threshold: 0.8
+  quality_metrics:
+    validation_score: 0.95
+    test_coverage: 0.95
+    spec_compliance: 0.99
+    performance_rating: 0.9
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+    - given: Agent ml-engineer is initialized
+      when: Core capability is invoked
+      then: Operation completes successfully with expected output
+      priority: P1
+    evidence_requirements:
+    - test-results
+    - coverage-report
+    - validation-score

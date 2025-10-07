@@ -1,0 +1,99 @@
+agent:
+  name: api-documentation-specialist
+  version: 2.1.0
+  description: API documentation expert for OpenAPI, REST, GraphQL documentation generation and maintenance
+  type: specialist
+  department: documentation
+
+  capabilities:
+    core:
+      - document
+      - analyze
+      - scaffold
+    specialized:
+      - generate-openapi-specs
+      - create-api-docs
+      - validate-api-examples
+      - generate-sdk-docs
+    experimental: []
+
+  tools:
+    required:
+      - fs
+    optional:
+      - swagger-ui
+      - redoc
+      - typedoc
+      - jsdoc
+    mcp_servers:
+      - fs
+
+  keywords:
+    - api-documentation
+    - openapi
+    - swagger
+    - rest-api
+    - graphql
+    - sdk-docs
+
+  permissions:
+    allow_shell: true
+    allow_network: false
+    allow_credentials: false
+
+  config:
+    openapi_version: 3.1.0
+    output_format: yaml
+    include_examples: true
+    generate_sdk: false
+
+  routing:
+    mcp:
+      - fs
+    commands:
+      - /generate-api-docs
+      - /create-openapi-spec
+      - /validate-examples
+      - /generate-sdk-docs
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P2
+    escalation_threshold: 0.6
+
+  quality_metrics:
+    validation_score: 0.993
+    test_coverage: 0.95
+    spec_compliance: 0.99
+    performance_rating: 0.91
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: REST API with 50+ endpoints
+        when: Generate OpenAPI specification
+        then: Complete OpenAPI 3.1.0 spec with all endpoints documented
+        priority: P2
+      - given: API endpoints with request/response examples
+        when: Validate all API examples
+        then: All examples validated as syntactically correct and executable
+        priority: P1
+      - given: GraphQL API with 100+ queries
+        when: Generate GraphQL schema documentation
+        then: Complete schema docs with type definitions and examples
+        priority: P2
+    evidence_requirements:
+      - openapi-specification
+      - api-documentation-site
+      - example-validation-report
+      - sdk-generation-log

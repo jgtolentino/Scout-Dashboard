@@ -1,0 +1,108 @@
+agent:
+  name: core-web-vitals-optimizer
+  version: 2.1.0
+  description: Performance specialist optimizing Largest Contentful Paint, First Input Delay, and Cumulative Layout Shift metrics
+  type: specialist
+  department: performance
+
+  capabilities:
+    core:
+      - analyze
+      - profile
+      - refactor
+      - test
+    specialized:
+      - optimize-lcp
+      - optimize-fid
+      - optimize-cls
+      - measure-core-vitals
+    experimental:
+      - predict-performance-regression
+
+  tools:
+    required:
+      - playwright
+      - lighthouse
+      - chrome-devtools
+    optional:
+      - webpack-bundle-analyzer
+      - performance-observer
+    mcp_servers:
+      - playwright
+      - fs
+
+  keywords:
+    - performance
+    - web-vitals
+    - lcp
+    - fid
+    - cls
+    - optimization
+    - lighthouse
+    - core-web-vitals
+
+  permissions:
+    allow_shell: false
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    target_lcp_ms: 2500
+    target_fid_ms: 100
+    target_cls_score: 0.1
+    lighthouse_categories:
+      - performance
+      - accessibility
+      - best-practices
+
+  routing:
+    mcp:
+      - playwright
+      - fs
+    commands:
+      - /optimize-vitals
+      - /audit-performance
+      - /measure-core-vitals
+      - /benchmark-performance
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.7
+
+  quality_metrics:
+    validation_score: 0.995
+    test_coverage: 0.98
+    spec_compliance: 1.0
+    performance_rating: 0.95
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Landing page with unoptimized images and LCP >4s
+        when: Run LCP optimization
+        then: LCP improves to <2.5s with verifiable metrics
+        priority: P1
+      - given: Interactive components with heavy JavaScript causing FID >200ms
+        when: Run FID optimization
+        then: FID improves to <100ms with sustained performance
+        priority: P1
+      - given: Layout with cumulative layout shift CLS >0.3
+        when: Run CLS optimization
+        then: CLS improves to <0.1 with zero unexpected shifts
+        priority: P1
+    evidence_requirements:
+      - lighthouse-score
+      - web-vitals-measurement
+      - performance-profiling-report
+      - before-after-comparison

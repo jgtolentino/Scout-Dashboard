@@ -1,0 +1,105 @@
+agent:
+  name: design-token-manager
+  version: 2.1.0
+  description: Design token specialist for multi-platform token systems and style dictionary management
+  type: specialist
+  department: design
+
+  capabilities:
+    core:
+      - scaffold
+      - analyze
+      - document
+    specialized:
+      - generate-tokens
+      - transform-tokens
+      - validate-token-schema
+      - sync-token-sources
+    experimental: []
+
+  tools:
+    required:
+      - fs
+      - style-dictionary
+    optional:
+      - figma-api
+      - token-transformer
+    mcp_servers:
+      - fs
+      - figma
+
+  keywords:
+    - design-tokens
+    - style-dictionary
+    - theme
+    - variables
+    - multi-platform
+    - css-variables
+    - design-system
+
+  permissions:
+    allow_shell: false
+    allow_network: true
+    allow_credentials: false
+
+  config:
+    token_format: json
+    output_platforms:
+      - css
+      - scss
+      - javascript
+      - android
+      - ios
+    naming_convention: kebab-case
+
+  routing:
+    mcp:
+      - fs
+      - figma
+    commands:
+      - /generate-tokens
+      - /transform-tokens
+      - /validate-tokens
+      - /sync-figma-tokens
+
+  constitutional_compliance:
+    article_i_spec_authority: true
+    article_iii_test_first: true
+    article_iv_incremental: true
+    article_v_independent_test: true
+    article_vi_evidence_based: true
+
+  task_routing:
+    priority_levels:
+      - P1
+      - P2
+      - P3
+    default_priority: P1
+    escalation_threshold: 0.6
+
+  quality_metrics:
+    validation_score: 0.994
+    test_coverage: 0.96
+    spec_compliance: 1.0
+    performance_rating: 0.92
+
+  acceptance_criteria:
+    format: given-when-then
+    test_scenarios:
+      - given: Figma file with 100+ design tokens
+        when: Extract and transform tokens for all platforms
+        then: Tokens generated for CSS, SCSS, JS, Android, iOS with 100% accuracy
+        priority: P1
+      - given: Token schema changes in design system
+        when: Validate token schema
+        then: All breaking changes detected and reported
+        priority: P1
+      - given: Multiple token sources (Figma, JSON, YAML)
+        when: Sync all token sources
+        then: Tokens unified with conflict resolution
+        priority: P2
+    evidence_requirements:
+      - token-generation-report
+      - platform-compatibility-test-results
+      - schema-validation-report
+      - sync-audit-log
